@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sikkim Current Affairs Monthly by Devashish</title>
+    
+    <script>
+        if (typeof window.tailwind === 'undefined') { window.tailwind = {}; }
+        window.tailwind.config = { darkMode: 'class' };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        /* --- DARK MODE BASE --- */
+        html.dark { background-color: #000000 !important; }
+        html.dark body { color: #FFFFFF !important; }
+        html.dark h1 { color: #BAE6FD !important; } 
+        html.dark h1 span { color: #38BDF8 !important; } 
+        html.dark p { color: #E0F2FE !important; } 
+        html.dark .dark\:text-sky-300 { color: #7DD3FC !important; }
+        html.dark .dark\:text-sky-400 { color: #38BDF8 !important; }
+        html.dark .dark\:text-gray-300 { color: #D1D5DB !important; }
+        html.dark .dark\:text-gray-400 { color: #9CA3AF !important; }
+        html.dark .dark\:text-gray-500 { color: #6B7280 !important; }
+        html.dark .navbar-brand-title { color: #A5F3FC !important; }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #a0a0a0; border-radius: 4px; }
+        .dark ::-webkit-scrollbar-thumb { background: #374151; }
+
+        .glassmorphic-header, .quiz-card {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        html { scroll-behavior: smooth; }
+
+        .quiz-card {
+            background-color: #eef0f2; color: #374151; border-radius: 24px;
+            box-shadow: 8px 8px 16px #d1d5db, -8px -8px 16px #ffffff;
+        }
+        .quiz-card:hover { box-shadow: inset 4px 4px 8px #d1d5db, inset -4px -4px 8px #ffffff; }
+        .quiz-card h2 { color: #111827; font-weight: 600; }
+        .quiz-card p { color: #4B5563; }
+        .quiz-card .icon-bg { background-color: #E0F2FE; }
+        .quiz-card .icon-svg { color: #0284C7; }
+
+        html.dark .quiz-card {
+            background-color: #16181C; color: #D1D5DB; border-radius: 20px;
+            box-shadow: inset 5px 5px 10px #0A0B0D, inset -5px -5px 10px #252930;
+        }
+        html.dark .quiz-card:hover { box-shadow: inset 6px 6px 12px #08090A, inset -6px -6px 12px #292E35; }
+        html.dark .quiz-card h2 { color: #F3F4F6; font-weight: 600; }
+        html.dark .quiz-card p { color: #9CA3AF; }
+        html.dark .quiz-card .icon-bg { background-color: #1F2937; }
+        html.dark .quiz-card .icon-svg { color: #7DD3FC; }
+        html.dark .quiz-card h2.group-hover\:text-sky-300:hover { color: #7DD3FC !important; }
+
+        .glassmorphic-header {
+            background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px) saturate(160%);
+            -webkit-backdrop-filter: blur(10px) saturate(160%);
+            border-bottom: 1px solid rgba(209, 213, 219, 0.4);
+        }
+        html.dark .glassmorphic-header {
+            background: rgba(12, 12, 12, 0.75); backdrop-filter: blur(10px) saturate(160%);
+            -webkit-backdrop-filter: blur(10px) saturate(160%);
+            border-bottom: 1px solid rgba(55, 65, 81, 0.5);
+        }
+
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+        .cta-button-pulse:hover { animation: pulse 1.5s infinite ease-in-out; }
+
+        .fade-in-up { opacity: 0; transform: translateY(25px); animation: fadeInUpAnimation 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; }
+        @keyframes fadeInUpAnimation { to { opacity: 1; transform: translateY(0); } }
+        .delay-100 { animation-delay: 0.1s; } .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; } .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; } .delay-600 { animation-delay: 0.6s; }
+        
+        .sun-icon-animator, .moon-icon-animator { transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; }
+        .sun-icon-animator { opacity: 1; transform: scale(1) rotate(0deg); }
+        html.dark .sun-icon-animator { opacity: 0; transform: scale(0.5) rotate(-90deg); }
+        .moon-icon-animator { opacity: 0; transform: scale(0.5) rotate(90deg); }
+        html.dark .moon-icon-animator { opacity: 1; transform: scale(1) rotate(0deg); }
+
+        .knob-at-start { transform: translateX(0px); }
+        .knob-at-end { transform: translateX(1.25rem); }
+    </style>
+</head>
+<body class="font-sans text-gray-900 dark:text-white antialiased">
+
+    <div class="min-h-screen flex flex-col">
+        <nav class="sticky top-0 z-50 glassmorphic-header">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <div class="flex items-center">
+                        <a href="#" class="text-xl sm:text-2xl font-bold text-sky-600 navbar-brand-title">
+                            Sikkim Current Affairs Monthly
+                        </a>
+                    </div>
+                    <div class="flex items-center space-x-2 sm:space-x-3">
+                        <span id="userStatusContainer" class="text-xs sm:text-sm text-sky-600 dark:text-sky-400 hidden md:block"></span>
+                        <a href="#subscribe" id="loginLink" class="text-sm font-medium text-gray-700 hover:text-sky-600 dark:text-gray-300 dark:hover:text-sky-400 px-2 py-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">Subscribe</a>
+                        <span class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 hidden md:block">By Devashish</span>
+                        
+                        <button id="darkModeToggle" type="button" aria-label="Toggle Dark Mode" class="relative inline-flex items-center h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 dark:focus:ring-offset-black bg-gray-300 dark:bg-sky-600" role="switch" aria-checked="false">
+                            <span class="sr-only">Toggle Dark Mode</span>
+                            <span class="toggle-knob pointer-events-none relative inline-block h-5 w-5 rounded-full bg-white shadow ring-0 transition-transform duration-300 ease-in-out">
+                                <span class="sun-icon-animator absolute inset-0 flex h-full w-full items-center justify-center">
+                                    <svg class="h-3 w-3 text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-6.364-.386l1.591-1.591M3 12h2.25m.386-6.364l1.591 1.591" /></svg>
+                                </span>
+                                <span class="moon-icon-animator absolute inset-0 flex h-full w-full items-center justify-center">
+                                    <svg class="h-3 w-3 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21c1.33 0 2.597-.266 3.752-.748A9.753 9.753 0 0021.752 15.002z" /></svg>  
+                                </span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                 <div class="md:hidden text-center pb-2 border-t border-gray-200 dark:border-gray-700/50 mt-1 pt-1">
+                    <span class="text-xs text-gray-500 dark:text-gray-400">By Devashish</span>
+                </div>
+            </div>
+        </nav>
+
+        <main class="flex-grow max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 md:py-32 flex flex-col items-center justify-center text-center">
+            <div class="fade-in-up">
+                <!-- SVG Logo (wrench/screwdriver/triangle) has been removed from here -->
+                <h1 class="mt-6 sm:mt-8 text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-sky-300">
+                    We're <span class="text-sky-600 dark:text-sky-400">Building Something Awesome!</span>
+                </h1>
+                <p class="mt-6 max-w-3xl mx-auto text-lg sm:text-xl text-gray-700 dark:text-gray-300 delay-100">
+                    Our digital space is currently under construction as we craft an even more comprehensive and seamless learning experience for your SPSC exam preparations.
+                </p>
+                <p class="mt-4 max-w-3xl mx-auto text-lg sm:text-xl text-gray-700 dark:text-gray-300 delay-200">
+                    Imagine a single, dedicated platform for all your needs: from <strong class="font-semibold text-sky-600 dark:text-sky-400">Sikkim Current Affairs</strong> and crucial <strong class="font-semibold text-sky-600 dark:text-sky-400">World Events</strong>, to comprehensive <strong class="font-semibold text-sky-600 dark:text-sky-400">Static GK</strong>. That's the vision we're bringing to life!
+                </p>
+                <p class="mt-4 max-w-3xl mx-auto text-lg sm:text-xl text-gray-700 dark:text-gray-300 delay-300">
+                    And we're building it to be the best, which is going to take a while.
+                </p>
+                <p class="mt-8 text-xl sm:text-2xl font-semibold text-gray-800 dark:text-sky-200 delay-400">
+                    Big things are on the horizon. Stay tuned
+                </p>
+                <p class="mt-4 text-sm text-gray-500 dark:text-gray-400 delay-500">
+                    Thank you for your patience. We're excited to unveil these cool new additions soon!
+                </p>
+            </div>
+        </main>
+
+        <footer class="py-8 text-center mt-16 sm:mt-24 border-t border-gray-200 dark:border-gray-700/50">
+            <p class="text-sm text-gray-500 dark:text-gray-300">
+                © <span id="currentYear"></span> Sikkim Monthly Current Affairs.
+                Designed by <a href="#" class="font-semibold text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-500">Devashish</a>.
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const htmlElement = document.documentElement;
+        const knob = darkModeToggle.querySelector('.toggle-knob');
+
+        const applyTheme = (theme) => {
+            if (theme === 'dark') {
+                htmlElement.classList.add('dark');
+                darkModeToggle.setAttribute('aria-checked', 'true');
+                knob.classList.remove('knob-at-start'); knob.classList.add('knob-at-end');
+            } else {
+                htmlElement.classList.remove('dark');
+                darkModeToggle.setAttribute('aria-checked', 'false');
+                knob.classList.remove('knob-at-end'); knob.classList.add('knob-at-start');
+            }
+        };
+        let initialTheme = localStorage.getItem('theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        if (initialTheme === 'dark') { knob.classList.remove('knob-at-start'); knob.classList.add('knob-at-end'); } 
+        else { knob.classList.remove('knob-at-end'); knob.classList.add('knob-at-start'); }
+        applyTheme(initialTheme); 
+
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (!localStorage.getItem('theme')) { applyTheme(event.matches ? "dark" : "light"); }
+        });
+        darkModeToggle.addEventListener('click', () => {
+            const newTheme = htmlElement.classList.contains('dark') ? 'light' : 'dark';
+            applyTheme(newTheme); localStorage.setItem('theme', newTheme);
+        });
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // --- SUBSCRIPTION SCRIPT (Month-Specific) ---
+        const MONTHLY_ACCESS_CODES = {
+            "FEB 2025.html": "4$dL#8pM$eJ", 
+            "MAR 2025.html": "pR3$hG#8dK", 
+            "APRIL 2025.html": "9LpM4$eK#8a"
+        };
+        const MONTH_FRIENDLY_NAMES = { 
+            "FEB 2025.html": "February 2025",
+            "MAR 2025.html": "March 2025",
+            "APRIL 2025.html": "April 2025"
+        };
+
+        function getLocalStorageKey(pageUrl) {
+            return `spscCaSubscribed_${pageUrl}_v1`;
+        }
+
+        function isMonthSubscribed(pageUrl) {
+            return localStorage.getItem(getLocalStorageKey(pageUrl)) === 'true';
+        }
+
+        function attemptAccessQuiz(pageUrl) {
+            // This function will not be triggered from this maintenance page as quiz cards are absent.
+            const monthFriendlyName = MONTH_FRIENDLY_NAMES[pageUrl] || "this month";
+
+            if (isMonthSubscribed(pageUrl)) {
+                window.location.href = pageUrl;
+            } else {
+                const enteredCode = prompt(`This quiz for ${monthFriendlyName} requires an access code.\nPlease enter the access code provided for ${monthFriendlyName}:`);
+                
+                if (enteredCode === null) { 
+                    return; 
+                }
+
+                if (MONTHLY_ACCESS_CODES[pageUrl] && enteredCode.trim().toUpperCase() === MONTHLY_ACCESS_CODES[pageUrl].toUpperCase()) {
+                    localStorage.setItem(getLocalStorageKey(pageUrl), 'true');
+                    alert(`Access granted for ${monthFriendlyName}! You can now access the quiz (once the site is back up).`);
+                    updateLoginStatus(); 
+                } else {
+                    alert(`Invalid access code for ${monthFriendlyName}. Please check the code you received.`);
+                }
+            }
+        }
+
+        function updateLoginStatus() {
+            const loginLink = document.getElementById('loginLink');
+            const userStatusContainer = document.getElementById('userStatusContainer');
+            let anyMonthSubscribed = false;
+
+            for (const pageUrl in MONTHLY_ACCESS_CODES) {
+                if (isMonthSubscribed(pageUrl)) {
+                    anyMonthSubscribed = true;
+                    break;
+                }
+            }
+
+            if (anyMonthSubscribed) {
+                if (loginLink) {
+                    loginLink.innerHTML = `Logout`;
+                    loginLink.href = "javascript:logoutUser();"; 
+                }
+                if (userStatusContainer) userStatusContainer.textContent = `Subscribed`;
+            } else {
+                if (loginLink) {
+                    loginLink.innerHTML = `Subscribe`;
+                    loginLink.href = "#"; // Changed as #subscribe section is removed
+                }
+                if (userStatusContainer) userStatusContainer.textContent = '';
+            }
+        }
+        
+        function logoutUser() {
+            if(confirm("Are you sure you want to logout? This will remove your access to all subscribed months, and you'll need to re-enter the respective access codes once the site is back.")) {
+                for (const pageUrl in MONTHLY_ACCESS_CODES) {
+                    localStorage.removeItem(getLocalStorageKey(pageUrl));
+                }
+                localStorage.removeItem('spscDevashishSubscribed_v1'); 
+                
+                alert('You have been logged out from all subscribed months.');
+                updateLoginStatus();
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            updateLoginStatus();
+        });
+
+    </script>
+</body>
+</html>
