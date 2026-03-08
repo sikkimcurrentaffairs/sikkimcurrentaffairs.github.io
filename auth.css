@@ -3,6 +3,12 @@
    Neomorphic design, light/dark mode compatible
    ===================================================== */
 
+html, body {
+    overflow-x: hidden;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
 /* --- Auth Button Container --- */
 .auth-btn-container {
     display: flex;
