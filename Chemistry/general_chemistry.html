@@ -1,0 +1,3098 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>General Chemistry | Sikkim PSC Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        .quiz-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        html.dark .quiz-container {
+            background: #24272c;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #0284c7;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        html.dark .question-block {
+            border-bottom: 1px solid #334155;
+        }
+        .question-text {
+            font-size: 1.15em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+        html.dark .question-text {
+            color: #f1f5f9;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option {
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            padding: 16px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            color: #475569;
+        }
+        html.dark .option {
+            background-color: #1e293b;
+            border: 2px solid #334155;
+            color: #cbd5e1;
+        }
+        .option:hover {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
+            transform: translateX(4px);
+        }
+        html.dark .option:hover {
+            background-color: #334155;
+            border-color: #475569;
+        }
+        .option.correct {
+            background-color: #dcfce7 !important;
+            border-color: #4ade80 !important;
+            color: #166534 !important;
+        }
+        html.dark .option.correct {
+            background-color: #064e3b !important;
+            border-color: #10b981 !important;
+            color: #ecfdf5 !important;
+        }
+        .option.incorrect {
+            background-color: #fee2e2 !important;
+            border-color: #f87171 !important;
+            color: #991b1b !important;
+        }
+        html.dark .option.incorrect {
+            background-color: #7f1d1d !important;
+            border-color: #ef4444 !important;
+            color: #fef2f2 !important;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none;
+        }
+        .quiz-stats-badge {
+            background: #f1f5f9;
+            color: #64748b;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        html.dark .quiz-stats-badge {
+            background: #334155;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 min-h-screen p-4 sm:p-8">
+
+    <div class="quiz-container">
+        <a href="chemistry.html" class="back-link">&larr; Back to Chemistry Topics</a>
+        <h1 class="text-3xl font-bold text-sky-800 dark:text-sky-400 mb-2">General Chemistry</h1>
+        <div class="quiz-stats-badge">579 MCQ Questions</div>
+        
+        <div id="questions-wrapper"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "The number of moles of solute present in 1 kg of a solvent is called its",
+                options: ["molality", "molarity", "normality", "formality"],
+                answer: 0
+            },
+            {
+                question: "The oldest rocks in the earth's crust were once molten, and came from deep inside the earth. The molten rock, called magma, spewed out in volcanic eruptions during the earth's early life and solidified into hard rock's called",
+                options: ["granite", "basalt", "igneous rocks", "sedimentary rocks"],
+                answer: 2
+            },
+            {
+                question: "The main buffer system of the human blood is",
+                options: ["H2CO3- HCO3", "H2CO3- CO32-", "CH3COOH - CH3COO-", "NH2CONH2- NH2CONH+"],
+                answer: 0
+            },
+            {
+                question: "The most commonly used bleaching agent is",
+                options: ["alcohol", "carbon dioxide", "chlorine", "sodium chlorine"],
+                answer: 2
+            },
+            {
+                question: "The heat required to raise the temperature of body by 1 K is called",
+                options: ["specific heat", "thermal capacity", "water equivalent", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "The mass of P4O10that will be obtained from the reaction of 1.33 gram of P4and 5.07 of oxygen is",
+                options: ["2.05 gram", "3.05 gram", "4.05 gram", "5.05 gram"],
+                answer: 1
+            },
+            {
+                question: "The octane number of zero is assigned to",
+                options: ["2-methyl octane", "n-heptane", "iso-octane", "3-methyl octane"],
+                answer: 1
+            },
+            {
+                question: "The Latin wordformicameans ant. The name formic acid is derived from this Latin word because",
+                options: ["this acid, in ancient times, was used to eliminate ant-hills", "this corrosive acid is secreted by ants to drive away their enemies", "this acid was first obtained by the distillation of ants", "ants are attracted by the odour of this acid"],
+                answer: 2
+            },
+            {
+                question: "The inherited traits of an organism are controlled by",
+                options: ["RNA molecules", "nucleotides", "DNA molecules", "enzymes"],
+                answer: 2
+            },
+            {
+                question: "The heat energy produced when the human body metabolises 1 gram of fat is",
+                options: ["30 KJ", "1 KJ", "39 KJ", "29 KJ"],
+                answer: 2
+            },
+            {
+                question: "What are the number of moles of CO2which contains 16 g of oxygen?",
+                options: ["0.5 mole", "0.2 mole", "0.4 mole", "0.25 mole"],
+                answer: 0
+            },
+            {
+                question: "The main use of salt in the diet is to",
+                options: ["make the taste of food better", "produce in small amounts the hydrochloric acid required for the digestion of food", "ease the process of cooking", "increase the solubility of food particles in water"],
+                answer: 1
+            },
+            {
+                question: "The monomer of polythene is",
+                options: ["vinyl chloride", "ethylene", "ethyl alcohol", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "The oil used in the froth floatation process is",
+                options: ["coconut oil", "olive oil", "kerosene oil", "pine oil"],
+                answer: 3
+            },
+            {
+                question: "The items amenable to detection by soft x-rays are",
+                options: ["contrabands", "lead in bullets", "narcotics", "genuine coins from counterfeit coins"],
+                answer: 3
+            },
+            {
+                question: "The graphite rods in the nuclear reactor",
+                options: ["react with U to release energy", "produce neutrons", "undergo combustion which triggers the nuclear fission", "convert fast moving neutrons into thermal neutrons"],
+                answer: 3
+            },
+            {
+                question: "The hydronium ion is",
+                options: ["H+", "HO -", "H2+", "H3O+"],
+                answer: 3
+            },
+            {
+                question: "The most electropositive elements among the following is",
+                options: ["Na", "Ca", "K", "Cs"],
+                answer: 3
+            },
+            {
+                question: "The method that cannot be used for removing permanent hardness of water is",
+                options: ["adding sodium carbonate", "distillation", "adding caustic soda", "boiling"],
+                answer: 3
+            },
+            {
+                question: "Zone refining is used for the purification of",
+                options: ["Au", "Ge", "Ag", "Cu"],
+                answer: 1
+            },
+            {
+                question: "The main chemical constituent of the oil of cardamom which is responsible for flavour of this oil is",
+                options: ["cineole", "engenol", "geraniol", "limonene"],
+                answer: 0
+            },
+            {
+                question: "The high reactivity of fluorine is due to",
+                options: ["its high electro negativity", "small size of fluorine atom", "availability of d-orbitals", "strong F - F bond"],
+                answer: 0
+            },
+            {
+                question: "The major constituent of air is",
+                options: ["carbon dioxide", "nitrogen", "oxygen", "hydrogen"],
+                answer: 1
+            },
+            {
+                question: "The main chemical constituent of clay is",
+                options: ["silicon oxide", "aluminium borosilicate", "zeolites", "aluminium silicate"],
+                answer: 3
+            },
+            {
+                question: "The most extensive, commercially useful source of thorium as monazite sand occurs in India at",
+                options: ["Orissa coast", "Travancore coast", "West Bengal coast", "Gujarat coast"],
+                answer: 1
+            },
+            {
+                question: "The main active constituent of tea and coffee is",
+                options: ["nicotine", "chlorophyll", "caffeine", "aspirin"],
+                answer: 2
+            },
+            {
+                question: "The human body is made up of several chemical elements; the element present in the highest proportion (65%) in the body is",
+                options: ["carbon", "hydrogen", "oxygen", "nitrogen"],
+                answer: 2
+            },
+            {
+                question: "The National Chemical Laboratory is situated in",
+                options: ["New Delhi", "Bangalore", "Pune", "Patna"],
+                answer: 2
+            },
+            {
+                question: "The formula C6H5-CO-CH3represents",
+                options: ["Acetone", "Acetic acid", "Acetophenone", "Phenyl acetate"],
+                answer: 2
+            },
+            {
+                question: "The molecular formula of phosphorous is",
+                options: ["P1", "P2", "P3", "P4"],
+                answer: 3
+            },
+            {
+                question: "The names of the scientists, Newlands, Mendeleev, and Meyer are associated with the development of",
+                options: ["atomic structure", "metallurgy", "periodic table of contents", "discovery of elements"],
+                answer: 2
+            },
+            {
+                question: "Air shows the property of",
+                options: ["N2", "O2", "Both A and B", "None of these"],
+                answer: 2
+            },
+            {
+                question: "The most abundant constituent of atmospheric air is :",
+                options: ["Carbon", "Hydrogen", "Oxygen", "Nitrogen"],
+                answer: 3
+            },
+            {
+                question: "The percentage of oxygen in air is approximately",
+                options: ["100%", "1%", "78%", "21%"],
+                answer: 3
+            },
+            {
+                question: "The percentage of Nitrogen in Air is",
+                options: ["0.94", "0.03", "78.03", "85.02"],
+                answer: 2
+            },
+            {
+                question: "For extinguishing fire, we use",
+                options: ["Hydrogen", "Carbon Monoxide", "Carbon Dioxide", "Marsh gas"],
+                answer: 2
+            },
+            {
+                question: "Dry powder fire extinguishers contain",
+                options: ["Sand", "Sand and sodium carbonate", "Sand and potassium carbonate", "Sand and sodium bicarbonate"],
+                answer: 3
+            },
+            {
+                question: "Dry ice is the solid form of :",
+                options: ["Air", "Carbon dioxide", "Nitrogen", "Water"],
+                answer: 1
+            },
+            {
+                question: "Diamonds are glittering and attractive because light incident on them undergoes",
+                options: ["Highest refraction", "Multiple internal reflections", "Multiple surface reflections", "Hundred percent transmission"],
+                answer: 1
+            },
+            {
+                question: "If lime water is kept in the air, it turns milky due to presence of :",
+                options: ["Carbon dioxide", "Nitrogen", "Oxygen", "Sulphurdioxide"],
+                answer: 0
+            },
+            {
+                question: "Diamond is harder than graphite because of :",
+                options: ["Difference in layers of atoms", "Tetrahedral structure of diamond", "Difference of crystalline structures", "None of these"],
+                answer: 0
+            },
+            {
+                question: "One carat of diamond is equal to",
+                options: ["100 mg", "150 mg", "200 mg", "250 mg"],
+                answer: 2
+            },
+            {
+                question: "Diamond is lustrous because",
+                options: ["It is colourless", "It is hard", "It is pure", "Its refractive index is high"],
+                answer: 3
+            },
+            {
+                question: "Dry ice is",
+                options: ["Solid ammonia", "Solid sulphur dioxide", "Dry carbon dioxide gas", "Solid carbon dioxide"],
+                answer: 3
+            },
+            {
+                question: "If we burn graphite,",
+                options: ["Residue will be left", "No residue will be left", "It will not burn", "It will change into diamond"],
+                answer: 1
+            },
+            {
+                question: "Lead pencil contains",
+                options: ["Lead", "Ferrous sulphide", "Lead sulphide", "Graphite"],
+                answer: 3
+            },
+            {
+                question: "Which type of fire extinguisher is used for petroleum fire ?",
+                options: ["Foam type", "Soda acid type", "Powder type", "None of these"],
+                answer: 2
+            },
+            {
+                question: "The process which does not evolve CO2in air is",
+                options: ["Burning", "Breathing", "Organic delay", "Photosynthesis"],
+                answer: 3
+            },
+            {
+                question: "Iron is prevented from rusting by coating with zinc. This process is called as",
+                options: ["Galvanisation", "Corrosion", "Sublimation", "Reduction"],
+                answer: 0
+            },
+            {
+                question: "An electric iron has a heating element made of :",
+                options: ["Copper", "Tungsten", "Nichrome", "Zinc"],
+                answer: 2
+            },
+            {
+                question: "The anode in a dry cell consists of",
+                options: ["Copper", "Zinc", "Cadmium", "Graphite"],
+                answer: 1
+            },
+            {
+                question: "When a spoon is to be electroplated with nickel the spoon is",
+                options: ["Dipped in a nickel sulphate solution", "Made anode and a pure nickel rod, the cathode", "Made cathode and a pure nickel red, the anode", "Coated with nickel sulphate and dried"],
+                answer: 2
+            },
+            {
+                question: "Conversion of chemical energy into electrical energy occurs in",
+                options: ["Atomic bombs", "Dynamo", "A battery", "Electric heaters"],
+                answer: 2
+            },
+            {
+                question: "The process of covering water pipes made of Iron with Zinc layer to prevent corrosion is called :",
+                options: ["Zinc plating", "Alloy formation", "Vulcanization", "Galvanization"],
+                answer: 3
+            },
+            {
+                question: "Galvanization of iron is carried out using",
+                options: ["Zinc", "Tin", "Copper", "Chromium"],
+                answer: 0
+            },
+            {
+                question: "The working of a dry cell is based on",
+                options: ["Decomposition reaction", "Spontaneous oxidation-reduction reaction", "Combination reaction", "Electrolysis"],
+                answer: 3
+            },
+            {
+                question: "Galvanization is the :",
+                options: ["Deposition of zinc on iron", "Deposition of tin on iron", "Deposition of copper on iron", "Deposition of aluminium on iron"],
+                answer: 0
+            },
+            {
+                question: "The anode of a dry cell is made up of",
+                options: ["Iron", "Cadmium", "Zinc", "Lead"],
+                answer: 2
+            },
+            {
+                question: "The coating of a thin layer of zinc on steel or iron objects is known as",
+                options: ["Hot dipping", "Tinning", "Galvanising", "Electroplating"],
+                answer: 2
+            },
+            {
+                question: "An electrochemical cell which is used as a source of direct electrical current at constant voltage under standard conditions is called a :",
+                options: ["Power transmittor", "Battery", "Uninterrupted power supply (UPS)", "Generator"],
+                answer: 1
+            },
+            {
+                question: "In galvanization, iron is coated with",
+                options: ["Copper", "Zinc", "Tin", "Nickel"],
+                answer: 1
+            },
+            {
+                question: "The process of improving the quality of rubber by heating it with sulphur is called",
+                options: ["Vulcanization", "Acceleration", "Sulphonation", "Galvanization"],
+                answer: 0
+            },
+            {
+                question: "Rusting of iron takes place due to",
+                options: ["Oxidation", "Carbonation", "Exfoliation", "Corrosion"],
+                answer: 0
+            },
+            {
+                question: "Combustion of a candle is a/an",
+                options: ["Photochemical reaction", "Physical change", "Endothermic reaction", "Exothermic reaction"],
+                answer: 3
+            },
+            {
+                question: "Candle is a mixture of",
+                options: ["Paraffin was and stearic acid", "Bees wax and stearic acid", "Higher fatty acids and stearic acid", "Bees wax and paraffin wax"],
+                answer: 0
+            },
+            {
+                question: "Coal is formed from",
+                options: ["Crude oil", "Deposit of animal waste", "Coke", "Compressed and hardened biomass"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is the major constituent of LPG?",
+                options: ["Methane", "Ethane", "Propane", "Butane"],
+                answer: 3
+            },
+            {
+                question: "Which variety of coal contains recognisable traces of the original plant material ?",
+                options: ["Anthracite", "Lignite", "Peat", "Bitumen"],
+                answer: 2
+            },
+            {
+                question: "Which of the following processes is used for the production of Biodiesel ?",
+                options: ["Transamination", "Transcription", "Transesterification", "Translation"],
+                answer: 2
+            },
+            {
+                question: "The chief source of naphthalene is",
+                options: ["Coal-tar", "Diesel", "Charcoal", "Camphor"],
+                answer: 0
+            },
+            {
+                question: "Submarines move under water. They have engines that run on",
+                options: ["Petrol and oxygen", "Diesel", "Batteries", "Steam"],
+                answer: 1
+            },
+            {
+                question: "Which is the highest quality of hard coal?",
+                options: ["Anthracite", "Bituminous", "Lignite", "Peat"],
+                answer: 0
+            },
+            {
+                question: "The main source of Naphthalene is",
+                options: ["Charcoal", "Camphor", "Coal-tar", "Diesel"],
+                answer: 2
+            },
+            {
+                question: "The major component in the LPG is",
+                options: ["Methane", "Butane", "Ethane", "Propane"],
+                answer: 1
+            },
+            {
+                question: "Which one of the following is known as the 'brown coal'?",
+                options: ["Anthracite", "Bituminous", "Coke", "Lignite"],
+                answer: 3
+            },
+            {
+                question: "L.P.G. is mostly liquefied",
+                options: ["Hydrogen", "Oxygen", "Butane", "Methane"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following is not coal variety?",
+                options: ["Lignite", "Bituminous", "Dolomite", "Peat"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is used to increase the anti-knocking property of petrol ?",
+                options: ["Tetramethyl lead", "Tetraethyl lead", "Trimethyl lead", "Triethyl lead"],
+                answer: 1
+            },
+            {
+                question: "The quality of petrol is expressed in terms of",
+                options: ["Cetane number", "Gold number", "Octane number", "Added unlead compounds"],
+                answer: 2
+            },
+            {
+                question: "Which of the following type of coal has the lowest proportion of volatile matter ?",
+                options: ["Lignite", "Peat", "Bituminous", "Anthracite"],
+                answer: 3
+            },
+            {
+                question: "Petroleum is a mixture of",
+                options: ["Elements", "Hydrocarbons", "Polymers", "Salts"],
+                answer: 1
+            },
+            {
+                question: "Which of the following contains high content of lead?",
+                options: ["Coal", "Cooking gas", "High octane fuel", "Low octane fuel"],
+                answer: 2
+            },
+            {
+                question: "Petroleum consists of a mixture of",
+                options: ["Carbohydrates", "Carbonates", "Hydrocarbons", "Carbides"],
+                answer: 2
+            },
+            {
+                question: "White coal is",
+                options: ["Uranium", "Hydro-electricity", "Diamond", "None of these"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is the petroleum wax ?",
+                options: ["Bees wax", "Carnauba wax", "Paraffin wax", "Jojoba wax"],
+                answer: 2
+            },
+            {
+                question: "Water is not effective in extinguishing a fire caused by petrol because",
+                options: ["The flame is too hot for water to cool it down", "Water and petrol react chemically", "Water and petrol are miscible with each other", "Water and petrol are immiscible with each other and petrol which forms the upper layer continues to burn"],
+                answer: 3
+            },
+            {
+                question: "The temperature of oxy-acetylene flame is around",
+                options: ["2800\u00b0C", "3200\u00b0C", "3600\u00b0C", "4000\u00b0C"],
+                answer: 2
+            },
+            {
+                question: "Sea water can be purified by the process of",
+                options: ["Distillation", "Evaporation", "Filtration", "Fractional distillation"],
+                answer: 0
+            },
+            {
+                question: "Total number of naturally occurring elements",
+                options: ["62", "92", "98", "110"],
+                answer: 1
+            },
+            {
+                question: "The coloured discharge tubes for advertisement mainly contain",
+                options: ["Xenon", "Argon", "Helium", "Neon"],
+                answer: 3
+            },
+            {
+                question: "Element 106 was discovered by",
+                options: ["Rutherford", "Seaborg", "Lawrence", "Kurchatove"],
+                answer: 1
+            },
+            {
+                question: "The most abundant element is",
+                options: ["Calcium", "Silicon", "Oxygen", "Nitrogen"],
+                answer: 2
+            },
+            {
+                question: "A balloon filled with helium rises in air because",
+                options: ["Air exerts an upward force on the balloon", "The balloon is weightless", "Helium is less dense than air", "Helium pushes down on the air below the balloon"],
+                answer: 2
+            },
+            {
+                question: "Milk is a",
+                options: ["Mixture", "Element", "Metal", "None of these"],
+                answer: 0
+            },
+            {
+                question: "Mixture can be",
+                options: ["Homogeneous", "Heterogeneous", "Both A and B", "Pure substance"],
+                answer: 2
+            },
+            {
+                question: "Which one out of the following helps in burning ?",
+                options: ["Oxygen", "Carbon monoxide", "Nitrogen", "Carbon dioxide"],
+                answer: 0
+            },
+            {
+                question: "Impure camphor is purified by",
+                options: ["Sublimation", "Fractional crystallisation", "Fractional distillation", "Steam distillation"],
+                answer: 0
+            },
+            {
+                question: "Electric bulbs are filled with :",
+                options: ["Nitrogen", "Carbon dioxide", "Argon", "Oxygen"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is very reactive and kept in kerosene?",
+                options: ["Sodium", "Potassium", "Iodine", "Bromine"],
+                answer: 0
+            },
+            {
+                question: "The wire of flash bulb is made of:",
+                options: ["Copper", "Barium", "Magnesium", "Silver"],
+                answer: 2
+            },
+            {
+                question: "Iron rusts quickly in",
+                options: ["Rain water", "Sea water", "Distilled water", "River water"],
+                answer: 1
+            },
+            {
+                question: "Mercury is a :",
+                options: ["Solid metal", "Liquid metal", "Solid non-metal", "Liquid non-metal"],
+                answer: 1
+            },
+            {
+                question: "White phosphorus is generally kept under",
+                options: ["Alcohol", "Water", "Glycerine", "Kerosene oil"],
+                answer: 1
+            },
+            {
+                question: "The rusting of iron is a/an",
+                options: ["Physical change", "Electrochemical change", "Electrical change", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "When iron rusts, its weight",
+                options: ["Decreases", "Increases", "Remains the same", "First increases and then decreases"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is used as non-stick coating for cooking utensils?",
+                options: ["Perspex", "Styrofoam", "Polystyrene", "Teflon"],
+                answer: 3
+            },
+            {
+                question: "The fibre least prone to catch fire is",
+                options: ["Nylon", "Polyester", "Cotton", "Terylene"],
+                answer: 2
+            },
+            {
+                question: "Which of the following fibres catches fire least ?",
+                options: ["Nylon", "Cotton", "Rayon", "Terricot"],
+                answer: 1
+            },
+            {
+                question: "Non-stick kitchenwares are coated with",
+                options: ["PVC", "Graphite", "Teflon", "Silicon"],
+                answer: 2
+            },
+            {
+                question: "The material known in commerce as Terylene is a",
+                options: ["Synthetic fibre", "Natural fibre", "Modified natural fibre", "Blend of cotton and silk"],
+                answer: 0
+            },
+            {
+                question: "Nylon is a type of",
+                options: ["Polyamide", "Polyolefin", "Polyester", "Acrylic"],
+                answer: 0
+            },
+            {
+                question: "Nylon is made up of :",
+                options: ["Polyamide", "Polyester", "Polyethylene", "Polypropylene"],
+                answer: 0
+            },
+            {
+                question: "Nylon threads are made of",
+                options: ["Polyester polymer", "Polyamide polymer", "Polyvinyl polymer", "Polysaccharide"],
+                answer: 1
+            },
+            {
+                question: "Glycol is used to manufacture which of the following ?",
+                options: ["Nylon", "Artificial silk", "Terylene", "Rubber"],
+                answer: 2
+            },
+            {
+                question: "Silk fibre chemically is :",
+                options: ["Carbohydrate", "Fat", "Protein", "Cellulose"],
+                answer: 2
+            },
+            {
+                question: "What is the chemical symbol of mercury?",
+                options: ["Mr", "Mg", "Hg", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "The purest form of water in nature is",
+                options: ["Rain water", "Lake water", "River water", "Sea water"],
+                answer: 0
+            },
+            {
+                question: "In drinking water supply, which of the following treatments is not involved",
+                options: ["Coagulation", "Sedimentation", "Softening", "Disinfection"],
+                answer: 2
+            },
+            {
+                question: "Bleaching powder is used in drinking water as a/an",
+                options: ["Disinfectant", "Antibiotic", "Antiseptic", "Coagulant"],
+                answer: 0
+            },
+            {
+                question: "The process of removing calcium and magnesium from hard water is known as",
+                options: ["Sedimentation", "Filtration", "Flocculation", "Water softening"],
+                answer: 3
+            },
+            {
+                question: "Hard water and soft water can be distinguished by using",
+                options: ["Dilute acid", "Ordinary soap", "Detergent", "Liquid soap"],
+                answer: 2
+            },
+            {
+                question: "Which method will be employed to test the hardness of water?",
+                options: ["Boiling", "Distillation", "Formation of lather with soap", "None of these"],
+                answer: 2
+            },
+            {
+                question: "The purest form of water is",
+                options: ["Tap water", "Rain water", "Ground water", "Distilled water"],
+                answer: 1
+            },
+            {
+                question: "Water cycle refers to",
+                options: ["An integrated attempt to recycle water in relatively arid regions", "Constant movement of water from ocean to land and back to ocean once again", "Scientific management of water in areas excessively plagued with water-logging", "Water distribution in relatively dry areas"],
+                answer: 1
+            },
+            {
+                question: "Permanent hardness of water may be removed by addition of",
+                options: ["Alum", "Sodium carbonate", "Lime", "Potassium Permangante"],
+                answer: 1
+            },
+            {
+                question: "Which of the following appeared to be with a significant potential for accumulation through food chains ?",
+                options: ["DDT", "Parathion", "Lindane", "Carbaryl"],
+                answer: 0
+            },
+            {
+                question: "Which of the following in automobile exhaust can cause cancer?",
+                options: ["Oxides of nitrogen", "Carbon monoxide", "Lead", "Polyclinic hydrocarbons"],
+                answer: 3
+            },
+            {
+                question: "White lung cancer is caused by",
+                options: ["Asbestos", "Silica", "Textiles", "Paper"],
+                answer: 2
+            },
+            {
+                question: "What are the major pollutants of cigarette smoke?",
+                options: ["Carbon monoxide and dioxin", "Carbon monoxide and nicotine", "Carbon monoxide and benzene", "Dioxin and benzene"],
+                answer: 1
+            },
+            {
+                question: "Main pollutant present in automobile exhaust is",
+                options: ["CO", "CO2", "NO", "Hydrocarbons"],
+                answer: 0
+            },
+            {
+                question: "Most poisonous pollutant in water is",
+                options: ["Zinc", "Phosphate", "Arsenic", "Detergent"],
+                answer: 2
+            },
+            {
+                question: "The constituents of automobile exhaust that can cause cancer is/are :",
+                options: ["Oxides of nitrogen", "Carbon monoxide", "Polycyclic hydrocarbons", "Lead"],
+                answer: 2
+            },
+            {
+                question: "Of the following, which one pollutes the air of a big city ?",
+                options: ["Copper", "Chromium", "Lead", "Cadmium"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is usually not an air-pollutant?",
+                options: ["Hydrocarbons", "Sulphur dioxide", "Carbon dioxide", "Nitrous oxide"],
+                answer: 3
+            },
+            {
+                question: "Which of the following pollutants is main product of automobile exhaust ?",
+                options: ["CO", "CO2", "NO", "Hydrocarbons"],
+                answer: 0
+            },
+            {
+                question: "Rutherford\u2019s scattering experiment proved the presence of",
+                options: ["Atoms in all matter", "Electrons in atoms", "Neutrons in atoms", "Nucleus in atoms"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is not a nucleon?",
+                options: ["Proton", "Neutron", "Electron", "Positron"],
+                answer: 3
+            },
+            {
+                question: "Which one of the following has a maximum tendency to form M3ion ?",
+                options: ["N", "Bi", "P", "As"],
+                answer: 0
+            },
+            {
+                question: "Colour imparted to the Bunsen flame by strontium salt is",
+                options: ["Bluish green", "Apple-green", "Brick red", "Crimson red"],
+                answer: 3
+            },
+            {
+                question: "An oxidising agent is a",
+                options: ["An electron acceptor", "An electron donor", "In a chemical reaction its oxidation number increases", "It releases H2in a chemical reaction"],
+                answer: 0
+            },
+            {
+                question: "Silver gets corroded due to ________ in air.",
+                options: ["Oxygen", "Hydrogen Sulphide", "Carbon dioxide", "Nitrogen"],
+                answer: 1
+            },
+            {
+                question: "Which of the following causes the rusting of iron?a. Oxidationb. Reductionc. Chemical reaction with oxygend. Chemical reaction with CO2",
+                options: ["A and B", "B and C", "C and D", "A and C"],
+                answer: 3
+            },
+            {
+                question: "Photo-oxidation process is initiated by",
+                options: ["Light", "Heat", "Oxygen", "Catalyst"],
+                answer: 0
+            },
+            {
+                question: "Copper substances when exposed to air gains a green coating due to the formation of:",
+                options: ["CuO", "CuCO3Cu(OH)2", "CuSO4", "Cu(NO3)2"],
+                answer: 1
+            },
+            {
+                question: "Browning of paper in old books is caused by",
+                options: ["Frequent use", "Lack of aeration", "Collection of dust", "Oxidation of cellulose"],
+                answer: 3
+            },
+            {
+                question: "When quick lime is added to water",
+                options: ["Heat is liberated", "Heat is absorbed", "Temperature decreases", "No heat change takes place"],
+                answer: 0
+            },
+            {
+                question: "What is the element that is in the highest percentage in the composition of the earth ?",
+                options: ["Silicon", "Oxygen", "Magnesium", "Iron"],
+                answer: 1
+            },
+            {
+                question: "Which among the following elements is found in maximum percentage in the human body ?",
+                options: ["Carbon", "Hydrogen", "Nitrozen", "Oxygen"],
+                answer: 3
+            },
+            {
+                question: "Which one among the following is not a mixture?",
+                options: ["Graphite", "Glass", "Brass", "Steel"],
+                answer: 0
+            },
+            {
+                question: "The most abundant element in the human body is",
+                options: ["Carbon", "Iron", "Nitrogen", "Oxygen"],
+                answer: 3
+            },
+            {
+                question: "Select the one which is not a mixture :",
+                options: ["Air", "Gasoline", "LPG", "Distilled water"],
+                answer: 3
+            },
+            {
+                question: "The material used in the manufacture of lead pencil is",
+                options: ["Graphite", "Lead", "Carbon", "Mica"],
+                answer: 0
+            },
+            {
+                question: "In addition to hydrogen, the other abundant element present on Sun\u2019s surface is",
+                options: ["Helium", "Neon", "Argon", "Oxygen"],
+                answer: 0
+            },
+            {
+                question: "The most abundant element by number in the living system is :",
+                options: ["Nitrogen", "Hydrogen", "Oxygen", "Carbon"],
+                answer: 1
+            },
+            {
+                question: "What is the element required for solar energy conversion ?",
+                options: ["Beryllium", "Tantalum", "Silicon", "Ultra pure carbon"],
+                answer: 2
+            },
+            {
+                question: "Major portion of the earth\u2019s crust is mainly constituted by",
+                options: ["Oxygen and Iron", "Oxygen and Silicon", "Silicon and Iron", "Silicon and Aluminium"],
+                answer: 1
+            },
+            {
+                question: "Name two elements that find wide application in transistor industry.",
+                options: ["Silicon and Germanium", "Carbon and Platinum", "Iridium and Germanium", "Tungsten and Platinum"],
+                answer: 0
+            },
+            {
+                question: "Which one is the naturally occuring heaviest element?",
+                options: ["Mercury", "Thorium", "Uranium", "Protactinium"],
+                answer: 2
+            },
+            {
+                question: "Which of the following will replace hydrogen from acids to form salts ?",
+                options: ["S", "Na", "Ag", "P"],
+                answer: 1
+            },
+            {
+                question: "Which of the following could be used as fuel in propellant or rockets ?",
+                options: ["Liquid Hydrogen + Liquid Nitrogen", "Liquid Oxygen + Liquid Argon", "Liquid Nitrogen + Liquid Oxygen", "Liquid Hydrogen + Liquid Oxygen"],
+                answer: 3
+            },
+            {
+                question: "When Hydrogen starts burning in air, it produces ?",
+                options: ["Ammonia", "Water", "Methane", "Carbonic Acid"],
+                answer: 1
+            },
+            {
+                question: "Preparation of \u2018Dalda or Vanaspati\u2019 ghee from vegetable oil utilizes the following process :",
+                options: ["Hydrolysis", "Oxidation", "Hydrogenation", "Ozonolysis"],
+                answer: 2
+            },
+            {
+                question: "Which among the following is pure matter ?",
+                options: ["Carbon dioxide", "Brass", "Air", "Iron"],
+                answer: 0
+            },
+            {
+                question: "The National Chemical Laboratory (India) is located in",
+                options: ["Mumbai", "Bangaluru", "Hyderabad", "Pune"],
+                answer: 3
+            },
+            {
+                question: "Who is known as the 'father of modern chemistry'?",
+                options: ["John Dalton", "Robert Boyle", "Antoine Lavoisier", "Democritus"],
+                answer: 2
+            },
+            {
+                question: "Spirit in contact with body gives cool sensation because it is :",
+                options: ["Liquid", "Transparent", "Highly volatile", "A good conductor"],
+                answer: 2
+            },
+            {
+                question: "Which one is a sublime substance?",
+                options: ["Table salt", "Sugar", "Iodine", "Potassium Iodide"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is a renewable source of energy ?",
+                options: ["Coal", "Geothermal power", "Natural gas", "Uranium"],
+                answer: 1
+            },
+            {
+                question: "An example of replenishable energy source is\u2013",
+                options: ["Coal", "Petroleum", "Lignite", "Biomass"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is biodegradable ?",
+                options: ["Paper", "D.D.T.", "Aluminium", "Plastic"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is a commercial source of energy?",
+                options: ["Agricultural waste", "Dried dung", "Sun", "Natural gas"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is not a commercial source of energy?",
+                options: ["Coal", "Petroleum", "Natural Gas", "Firewood"],
+                answer: 3
+            },
+            {
+                question: "The natural resource, known as black gold is",
+                options: ["Coal", "Lead", "Tin", "Platinum"],
+                answer: 0
+            },
+            {
+                question: "The resources which can be used continuously, year-after-year are called",
+                options: ["Biotic", "Abiotic", "Non-renewable", "Renewable"],
+                answer: 3
+            },
+            {
+                question: "Which of the process is known as nitrification?",
+                options: ["Reaction of Nitrogen Monoxide with oxygen to form nitric acid", "Reaction of nitrogen dioxide with water to form nitric acid", "Conversion of ammonia to nitrites", "Conversion of nitrite to nitric oxide"],
+                answer: 2
+            },
+            {
+                question: "Nitrogen fixation is a process of",
+                options: ["Assimilation of nitrate", "Utilisation of nitrogen gas", "Conversion of organic nitrogen to proteins", "Conversion of molecular nitrogen to ammonia"],
+                answer: 3
+            },
+            {
+                question: "Nitrification is the biological process of converting",
+                options: ["N2into nitrate", "N2into nitrite", "Ammonia into nitrite", "Ammonia into N2"],
+                answer: 2
+            },
+            {
+                question: "Oxygen which is vital for life is a product of photosynthesis and comes from",
+                options: ["Carbonates from soil", "Carbon dioxide", "Water", "Oxides of mineral elements"],
+                answer: 2
+            },
+            {
+                question: "The \u2018Green House effect\u2019 is produced due to the presence of excess amount of",
+                options: ["Sulphur dioxide", "Nitrogen dioxide", "Carbon monoxide", "Methane"],
+                answer: 3
+            },
+            {
+                question: "Smoke is formed due to",
+                options: ["Solid dispersed in gas", "Solid dispresed in liquid", "Gas dispresed in solid", "Gas dispersed in gas"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is not a chemical reaction?",
+                options: ["Burning of paper", "Digestion of food", "Conversion of water into steam", "Burning of coal"],
+                answer: 2
+            },
+            {
+                question: "Chemical formula of washing soda is",
+                options: ["Na2SO4.10H2O", "NaHCO3", "Na2CO3.10H2O", "Ca(OH)2"],
+                answer: 2
+            },
+            {
+                question: "What is the chemical name for \u2018Baking Soda\u2019 ?",
+                options: ["Sodium carbonate", "Sodium bicarbonate", "Sodium nitrite", "Sodium nitrate"],
+                answer: 1
+            },
+            {
+                question: "The chemical name of \u2018Common salt\u2019 is",
+                options: ["Sodium chloride", "Sodium nitrate", "Ammonium chloride", "Calcium chloride"],
+                answer: 0
+            },
+            {
+                question: "Baking soda is :",
+                options: ["Potassium carbonate", "Sodium hydroxide", "Sodium carbonate", "Sodium bicarbonate"],
+                answer: 3
+            },
+            {
+                question: "Brine refers to :",
+                options: ["Salt water", "Sweet water", "Pure water", "Starch water"],
+                answer: 0
+            },
+            {
+                question: "The chemical name of baking soda is",
+                options: ["Sodium carbonate", "Sodium bicarbonate", "Sodium chloride", "Sodium nitrate"],
+                answer: 1
+            },
+            {
+                question: "Chemical name of common salt is",
+                options: ["Sodium Chloride", "Sodium Bicarbonate", "Sodium", "Sodium Oxide"],
+                answer: 0
+            },
+            {
+                question: "Nitrogen forms a variety of compounds in all oxidation states ranging from",
+                options: ["\u20133 to +5", "\u20133 to +3", "\u20133 to +4", "\u20133 to +6"],
+                answer: 0
+            },
+            {
+                question: "What is 'milk of magnesia' chemically?",
+                options: ["Magnesium carbonate", "Sodium bicarbonate", "Calcium hydroxide", "Magnesium hydroxide"],
+                answer: 3
+            },
+            {
+                question: "Which one of the following is a micro-element ?",
+                options: ["Chlorine", "Hydrogen", "Nitrogen", "Oxygen"],
+                answer: 0
+            },
+            {
+                question: "Chemical name of bleaching powder is :",
+                options: ["Calcium chlorate", "Calcium hypochlorite", "Calcium chloro hypochlorite", "Calcium bi chloride"],
+                answer: 1
+            },
+            {
+                question: "The common name for the compound having formal NaOH is",
+                options: ["Caustic soda", "Caustic potash", "Soda ash", "Sodium hydroxide"],
+                answer: 0
+            },
+            {
+                question: "Philosopher\u2019s wool is chemically",
+                options: ["Aluminium oxide", "Magnesium oxide", "Zinc oxide", "Calcium oxide"],
+                answer: 2
+            },
+            {
+                question: "Ultraviolet rays can be used in water treatment as",
+                options: ["Flocculator", "Precipitator", "Hydrolyser", "Disinfectant"],
+                answer: 3
+            },
+            {
+                question: "Tar roads get damaged if there is",
+                options: ["Stagnation of water on road", "Heavy traffic", "No maintenance", "No sloping"],
+                answer: 0
+            },
+            {
+                question: "The BOD values of water indicate the",
+                options: ["Amount of organic debris", "Amount of oxygen used for biochemical oxidation", "Amount of oxygen used for biochemical reduction", "Amount of ozone used for biochemical oxidation"],
+                answer: 1
+            },
+            {
+                question: "Iron and manganese present as pollutants in water cannot be removed by________",
+                options: ["Oxidation followed by settling and filtration", "Chlorination", "Ion exchange process", "Lime soda process or manganese zeolite process"],
+                answer: 1
+            },
+            {
+                question: "Table salt gets moist during rainy season because",
+                options: ["Sodium chloride is hygroscopic", "Sodium chloride is deliquescent", "Sodium chloride contains some quantity of sodium iodide", "Sodium chloride contains hygroscopic impurities like magnesium chloride"],
+                answer: 3
+            },
+            {
+                question: "The unit to measure the flow of water is",
+                options: ["Micro Mho", "Ohm meter", "Milli curie", "Cusecs"],
+                answer: 3
+            },
+            {
+                question: "Sea water is saltier than rain water because",
+                options: ["Sea animals are salt producing", "The air around the sea is saltish", "Rivers wash away salts from earth and pour them into the sea", "Sea beds have salt producing mines"],
+                answer: 2
+            },
+            {
+                question: "Potassium Permanganate is used for purifying drinking water, because________",
+                options: ["It is a reducing agent", "It is an oxidising agent", "It is a sterilising agent", "It dissolves the impurities of water"],
+                answer: 1
+            },
+            {
+                question: "Lead in water can cause",
+                options: ["Eye disease", "Arthritis", "Kidney damage", "Hair falling"],
+                answer: 2
+            },
+            {
+                question: "Hardness of the water is commonly measured in terms of",
+                options: ["Calcium carbonate equivalents", "Calcium sulphate equivalents", "Magnesium carbonate equivalents", "Magnesium sulphate equivalents"],
+                answer: 0
+            },
+            {
+                question: "Maximum permissible concentration of copper in drinking water in mg/L is",
+                options: ["0.01", "0.05", "1.0", "2.0"],
+                answer: 2
+            },
+            {
+                question: "The amount of chlorine available in water after disinfection is called as",
+                options: ["Free chlorine", "Residual chlorine", "Free available chlorine", "Combined available chlorine"],
+                answer: 1
+            },
+            {
+                question: "Maximum permissible concentration of total hardness in drinking water is",
+                options: ["50", "100", "200", "500"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following is extensively used for sterilizing water ?",
+                options: ["Bleaching powder", "Alum", "Borax powder", "Soda powder"],
+                answer: 0
+            },
+            {
+                question: "Where does the oxygen that keeps us alive come from?",
+                options: ["Carbon dioxide", "Carbonates absorbed from soil", "Oxides of minerals", "Water"],
+                answer: 3
+            },
+            {
+                question: "In chemical terms, what are alums used for purifying water for drinking purposes ?",
+                options: ["Hydrated chlorides", "Double nitrate", "Double sulphates", "Nitrates of aluminium"],
+                answer: 2
+            },
+            {
+                question: "Brown stains in vessels and clothes indicate the presence of high quantities of ________ in water.",
+                options: ["Magnesium", "Calcium", "Manganese", "None of these"],
+                answer: 3
+            },
+            {
+                question: "If water smells bad, then that odour can be removed by adding",
+                options: ["Alum", "Bleach", "Activated carbon", "Deactivated nitrogen"],
+                answer: 2
+            },
+            {
+                question: "Surface water is a better source of drinking water because it is poor in",
+                options: ["Dust", "Bacteria", "Arsenic", "Algae"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following acids is used in battery ?",
+                options: ["Hydrochloric acid", "Hydrofluoric acid", "Sulphuric acid", "Sulphurous acid"],
+                answer: 2
+            },
+            {
+                question: "Which of the following acids serves as an electrolyte in a lead storage battery?",
+                options: ["Sulphuric acid", "Lactic acid", "Hydrochloric acid", "Nitric acid"],
+                answer: 0
+            },
+            {
+                question: "Which is known as carbolic acid?",
+                options: ["Phenol", "Ethanol", "Acetic acid", "Oxalic acid"],
+                answer: 0
+            },
+            {
+                question: "Citric acid is present in free form in",
+                options: ["Tamarind", "Milk", "Apple", "Lemon"],
+                answer: 3
+            },
+            {
+                question: "Sour taste of \u2018Coca Cola\u2019 is due to the presence of",
+                options: ["Acetic acid", "Phosphoric acid", "Hydrochloric acid", "Formic acid"],
+                answer: 1
+            },
+            {
+                question: "An acid having basicity one is",
+                options: ["Sodium dihydrogen phosphate", "Disodium hydrogen phosphate", "Sodium phosphate", "Phosphoric acid"],
+                answer: 1
+            },
+            {
+                question: "The acid present in red ants is",
+                options: ["Acetic acid", "Butyric acid", "Caproic acid", "Formic acid"],
+                answer: 3
+            },
+            {
+                question: "Bee sting contains",
+                options: ["An acidic liquid", "A salt solution", "An alkaline liquid", "A corrosive liquid"],
+                answer: 0
+            },
+            {
+                question: "Sweat contains water and ________",
+                options: ["Citric acid", "Lactic acid", "Salt", "Vinegar"],
+                answer: 2
+            },
+            {
+                question: "The substance most commonly used as a food preservative is",
+                options: ["Sodium carbonate", "Tartaric acid", "Acetic acid", "Sodium salt of benzoic acid"],
+                answer: 3
+            },
+            {
+                question: "Curd is sour due to presence of",
+                options: ["Tartaric acid", "Lactic acid", "Acetic acid", "Oxalic acid"],
+                answer: 1
+            },
+            {
+                question: "Drinking soda is",
+                options: ["Alkaline", "Acidic", "Neutral", "Oxidant"],
+                answer: 1
+            },
+            {
+                question: "Which of the following has pH value 7?",
+                options: ["Pure Water", "H2SO4", "Sodium Carbonate", "HCl"],
+                answer: 0
+            },
+            {
+                question: "Muscle fatigue is caused by the accumulation of :",
+                options: ["Pyruvic acid", "Lactic acid", "Oxalacetic acid", "Uric acid"],
+                answer: 1
+            },
+            {
+                question: "Which acid is used in Lead storage battery?",
+                options: ["Sulphuric acid", "Nitric acid", "Hydrochloric acid", "Acetic acid"],
+                answer: 0
+            },
+            {
+                question: "The acid used in lead storage cells is",
+                options: ["Phosphoric acid", "Hydrochloric acid", "Nitric acid", "Sulphuric acid"],
+                answer: 3
+            },
+            {
+                question: "Milk tastes sour when it is left in open for some time. This happens due to the formation of",
+                options: ["Lactic acid", "Citric acid", "Acetic acid", "Carbonic acid"],
+                answer: 0
+            },
+            {
+                question: "The compound used in prickly heat powder to prevent excessive sweating is",
+                options: ["Boric acid", "Phosphoric acid", "Carbonic acid", "Sulphuric acid"],
+                answer: 0
+            },
+            {
+                question: "The alkaloid naturally found in coffee, cocoa and cola nut is",
+                options: ["Cocaine", "Morphine", "Tannin", "Caffeine"],
+                answer: 3
+            },
+            {
+                question: "Formic acid is produced by",
+                options: ["White ants", "Cockroaches", "Red ants", "Mosquitoes"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following is most acidic?",
+                options: ["Al2O3", "Na2O", "MgO", "CaO"],
+                answer: 0
+            },
+            {
+                question: "Milk tastes sour when kept in the open for sometime due to the formation of",
+                options: ["Lactic acid", "Citric acid", "Acetic acid", "Carbonic acid"],
+                answer: 0
+            },
+            {
+                question: "________ is used for making vinegar.",
+                options: ["Tartaric acid", "Malic acid", "Oxalic acid", "Acetic acid"],
+                answer: 3
+            },
+            {
+                question: "A fertile soil is likely to have a pH of",
+                options: ["3", "9", "6-7", "14"],
+                answer: 2
+            },
+            {
+                question: "Litmus is obtained from",
+                options: ["A bacterium", "A fungus", "An alga", "Lichen"],
+                answer: 3
+            },
+            {
+                question: "The pH of lemon juice is expected to be",
+                options: ["Equal to 7", "More than 7", "Less than 7", "Nothing can be predicted"],
+                answer: 2
+            },
+            {
+                question: "The pH of human blood is between",
+                options: ["6.5-7", "7.5-8", "8-9", "4.5-5"],
+                answer: 1
+            },
+            {
+                question: "Sour taste of lemon is due to the presence of which of the following ?",
+                options: ["Citric acid", "Acetic acid", "Oxalic acid", "Formic acid"],
+                answer: 0
+            },
+            {
+                question: "pH scale ranges from",
+                options: ["0 \u2013 7", "8 \u2013 14", "0 \u2013 14", "None"],
+                answer: 2
+            },
+            {
+                question: "Normal rainwater has a pH level of",
+                options: ["3.2", "5.6", "6.3", "8.3"],
+                answer: 1
+            },
+            {
+                question: "Which one of the following is used as preservative for foodstuff ?",
+                options: ["Sodium Benzoate", "Picric acid", "Glycerine", "Sodium Chloride"],
+                answer: 0
+            },
+            {
+                question: "Match the sourc in Column B with the product ofColumn A. (Product)Column B (Source)A. Formic acid1. LemonB. Citric acid2. TamarindC. Tartaric acid3. Ants",
+                options: ["A B C3 2 1", "A B C3 1 2", "A B C2 3 1", "A B C2 1 3"],
+                answer: 1
+            },
+            {
+                question: "Saline soil contains",
+                options: ["High concentration of salt", "Lot of moisture", "Hard rocks", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "Sour milk contains",
+                options: ["Acetic acid", "Tartaric acid", "Citric acid", "Lactic acid"],
+                answer: 3
+            },
+            {
+                question: "Basicity of boric acid, H3BO3is",
+                options: ["2", "3", "4", "5"],
+                answer: 1
+            },
+            {
+                question: "Which one is a soluble salt in H2O?",
+                options: ["CuS", "Zn(OH)2", "CaCl2", "PbCl2"],
+                answer: 2
+            },
+            {
+                question: "Vinegar is ________ .",
+                options: ["Diluted acetic acid", "Glacial acetic acid", "Glacial formic acid", "Diluted formic acid"],
+                answer: 0
+            },
+            {
+                question: "pH value between 6.5-7.5 makes the soil",
+                options: ["Basic", "Neutral", "Acidic", "None of these"],
+                answer: 1
+            },
+            {
+                question: "A pungent smell often present near the urinals is due to",
+                options: ["Sulphur dioxide", "Chlorine", "Ammonia", "Urea"],
+                answer: 2
+            },
+            {
+                question: "Ammonial is a mixture of",
+                options: ["Aluminium powder and ammonium nitrate", "Aluminium powder and ammonium chloride", "Aluminium powder and ammonium sulphate", "Aluminium powder and potassium nitrate"],
+                answer: 0
+            },
+            {
+                question: "Which of the following acts as promoter for iron in Haber's process?",
+                options: ["Mn", "Mo", "Mg", "W"],
+                answer: 1
+            },
+            {
+                question: "One property of ammonia is",
+                options: ["It is insoluble in water", "It is a odourless gas", "It is a yellowish gas", "Its aqueous solution turns red litmus blue"],
+                answer: 3
+            },
+            {
+                question: "Which one of the following is used for dating very old objects of archaeological importance?",
+                options: ["Phosphorus-31", "Tritium", "Radium", "Carbon-14"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is used as filler in tyre of rubber ?",
+                options: ["Carbon black", "Coal", "Coke", "Graphite"],
+                answer: 0
+            },
+            {
+                question: "The open \"Sigrees\" or coal stoves often require fanning to sustain burning because of",
+                options: ["Tendency of carbon dioxide to form a layer along with dust smoke", "Lack of oxygen in the surroundings of sigrees", "Accumulation of smoke and dust over the sigrees", "Interrupted release of moisture from the material"],
+                answer: 0
+            },
+            {
+                question: "24 carat of diamond is equal to",
+                options: ["480 mg", "200 g", "95% mg", "91% gold"],
+                answer: 0
+            },
+            {
+                question: "1 carat of diamond is equal to",
+                options: ["200 mg", "200 g", "100 mg", "100 g"],
+                answer: 0
+            },
+            {
+                question: "Why is water not suitable for putting out a petrol fire ?",
+                options: ["The oxygen content of water is isolated by petrol and thus it helps in burning", "Petrol is too inflammable to be extinguished by water", "The heat required for combustion of petrol is very low", "Water, being heavy, slips below petrol which thus remains in contact with air and burns"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is used as a lubricant in heavy machines?",
+                options: ["Bauxite", "Sulphur", "Phosphorus", "Graphite"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is used in making smoke bombs?",
+                options: ["Sulphur", "Phosphorus", "Hydrogen", "Carbon"],
+                answer: 3
+            },
+            {
+                question: "The laws of electrolysis are given by",
+                options: ["Ostwald", "Faraday", "Arrhenius", "Lewis"],
+                answer: 1
+            },
+            {
+                question: "Aluminium can be purified by",
+                options: ["Oxidation", "Distillation", "Electrolysis", "Ozonolysis"],
+                answer: 2
+            },
+            {
+                question: "Sodium is produced by the electrolysis of",
+                options: ["Molten sodium carbonate", "Molten sodium chloride", "Aqueous brine solution", "Its cyanide complex"],
+                answer: 1
+            },
+            {
+                question: "Bleaching powder is prepared by passing :",
+                options: ["Chlorine over slaked lime", "Oxygen over slaked lime", "Carbon dioxide over slaked lime", "Chlorine over quick lirne"],
+                answer: 0
+            },
+            {
+                question: "Most commonly used bleaching agent is",
+                options: ["Sodium chloride", "Alcohol", "Carbon dioxide", "Chlorine"],
+                answer: 3
+            },
+            {
+                question: "The acid which is secreted by the glands in the stomach wall is",
+                options: ["Sulphuric acid", "Hydrochloric acid", "Nitric acid", "Phosphoric acid"],
+                answer: 1
+            },
+            {
+                question: "Hydrochloric acid is also known as",
+                options: ["Galic acid", "Picric acid", "Muriatic acid", "Chloric acid"],
+                answer: 2
+            },
+            {
+                question: "Stainless steel is usually made by alloying the steel with",
+                options: ["Copper and nickel", "Copper and chromium", "Chromium and nickel", "Manganese and copper"],
+                answer: 2
+            },
+            {
+                question: "An alloy used in making heating elements for electric heating device is",
+                options: ["Solder", "Alloy Steel", "Nichrome", "German Silver"],
+                answer: 2
+            },
+            {
+                question: "________ gives hardness to stainless steel.",
+                options: ["Zinc", "Lead", "Carbon", "Tin"],
+                answer: 2
+            },
+            {
+                question: "Bauxite is used as raw material by which industry ?",
+                options: ["Aluminium", "Iron", "Steel", "Gold"],
+                answer: 0
+            },
+            {
+                question: "Brass contains",
+                options: ["Copper and Zinc", "Copper and Tin", "Copper and Silver", "Copper and Nickel"],
+                answer: 0
+            },
+            {
+                question: "Brass is a",
+                options: ["Compound", "Element", "Homogeneous mixture", "Heterogeneous mixture"],
+                answer: 2
+            },
+            {
+                question: "Brass is an alloy of",
+                options: ["Lead and tin", "Zinc and copper", "Antimony, tin and lead", "Zinc, tin and copper"],
+                answer: 1
+            },
+            {
+                question: "Brass is made of",
+                options: ["Copper and tin", "Tin and lead", "Copper and zinc", "Copper, tin and zinc"],
+                answer: 2
+            },
+            {
+                question: "Bridgmanite is",
+                options: ["A bridge on the river Thames", "Name of a game", "Earth\u2019s most abundant mineral", "Name of a music"],
+                answer: 2
+            },
+            {
+                question: "Bronze is an alloy of",
+                options: ["Copper and Zinc", "Tin and Zinc", "Copper and Tin", "Iron and Zinc"],
+                answer: 2
+            },
+            {
+                question: "Copper is refined by",
+                options: ["Roasting", "Oxidation", "Electrolysis", "Zone refining"],
+                answer: 0
+            },
+            {
+                question: "Chemical name of Gammaxane is",
+                options: ["Toluene", "Chloro benzene", "Aniline", "Benzene hexachloride"],
+                answer: 3
+            },
+            {
+                question: "Epsom salt is used",
+                options: ["As purgative", "In softening water", "In paper industry", "In making tooth paste"],
+                answer: 0
+            },
+            {
+                question: "Which one of the following is not a characteristic feature of alloys?",
+                options: ["Compounds", "Mixtures", "Solutions", "Homogeneous systems"],
+                answer: 3
+            },
+            {
+                question: "Hard steel contains",
+                options: ["2 to 5 per cent carbon", "0.5 to 1.5 per cent carbon", "0.1 to 0.4 per cent carbon", "0.01 to 0.04 per cent carbon"],
+                answer: 1
+            },
+            {
+                question: "The purest form of Iron is :",
+                options: ["Cast iron", "Steel", "Pig iron", "Wrought iron"],
+                answer: 3
+            },
+            {
+                question: "Stainless steel is an alloy of",
+                options: ["Chromium and carbon", "Chromium, carbon and iron", "Chromium and iron", "Carbon and iron"],
+                answer: 1
+            },
+            {
+                question: "Iron is extracted from",
+                options: ["Cinnabar", "Haematite", "Bauxite", "Dolomite"],
+                answer: 1
+            },
+            {
+                question: "Which is the purest form of iron?",
+                options: ["Steel", "Cast iron", "Pig iron", "Wrought iron"],
+                answer: 3
+            },
+            {
+                question: "Magnalium is an alloy of",
+                options: ["Aluminium and Magnesium", "Magnesium and Tin", "Aluminium and Zinc", "Manganese and Magnesium"],
+                answer: 0
+            },
+            {
+                question: "Magnetite is",
+                options: ["Fe2O3", "Fe3O4", "FeCO3", "2Fe2O3. 3H2O"],
+                answer: 1
+            },
+            {
+                question: "Food cans are coated with tin and not with zinc because",
+                options: ["Zinc is costlier than tin", "Zinc has a higher melting point than tin", "Zinc is more reactive than tin", "Zinc is less reactive than tin"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is used in welding broken pieces of iron rails and machine parts?",
+                options: ["Aluminium sulphate", "Solder", "Aluminium powder", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "Of the following commonly used materials, the one that is not an alloy is",
+                options: ["Steel", "Brass", "Bronze", "Copper"],
+                answer: 3
+            },
+            {
+                question: "Which of the following elements is not present in stainless steel?",
+                options: ["Iron", "Tungsten", "Chromium", "Nickel"],
+                answer: 1
+            },
+            {
+                question: "Which one of the following pairs is not correctly matched?",
+                options: ["Haematite : Copper", "Bauxite : Aluminium", "Monazite : Thorium", "Pitchblende : Uranium"],
+                answer: 0
+            },
+            {
+                question: "Galvanised iron is made by coating iron with",
+                options: ["Zinc", "Nickel", "Chromium", "Sulphur"],
+                answer: 0
+            },
+            {
+                question: "Slag is a name given for",
+                options: ["Molten iron", "Molten sand", "Molten alumina", "Molten calcium silicate"],
+                answer: 2
+            },
+            {
+                question: "Solder is an alloy of",
+                options: ["Lead, zinc", "Copper, lead", "Tin, lead", "Sodium, lead"],
+                answer: 2
+            },
+            {
+                question: "Steel contains",
+                options: ["0.1 \u2013 5% carbon", "5 \u2013 10% carbon", "More than 10% carbon", "No carbon"],
+                answer: 0
+            },
+            {
+                question: "Which is the purest commercial form of iron ?",
+                options: ["Pig iron", "Steel", "Stainless steel", "Wrought iron"],
+                answer: 3
+            },
+            {
+                question: "The wire of flash bulbs is made up of",
+                options: ["Mg", "Ba", "Cu", "Ag"],
+                answer: 0
+            },
+            {
+                question: "Which among the following is found in chlorophyll ?",
+                options: ["Ca2+", "Mg2+", "Fe2+", "Al3+"],
+                answer: 1
+            },
+            {
+                question: "What material is used to make electric heater coil ?",
+                options: ["Copper", "Iron", "Silver", "Nichrome"],
+                answer: 3
+            },
+            {
+                question: "Among the following, which is always found in free-state in nature?",
+                options: ["Gold", "Silver", "Sodium", "Copper"],
+                answer: 0
+            },
+            {
+                question: "Philosopher\u2019s Wool is",
+                options: ["Zinc carbonate", "Zinc sulphate", "Zinc oxide", "Zinc blende"],
+                answer: 2
+            },
+            {
+                question: "Phosphorus is kept in water because",
+                options: ["Its ignition temperature is very high", "Its ignition temperature is very low", "Its critical temperature is high", "Its critical temperature is low"],
+                answer: 1
+            },
+            {
+                question: "The element which is used for vulcanizing rubber",
+                options: ["Sulphur", "Bromine", "Silicon", "Phosphorus"],
+                answer: 0
+            },
+            {
+                question: "Chemically \u2018Quick Silver' is known as",
+                options: ["Mercury", "Silver", "Aluminium", "Copper"],
+                answer: 0
+            },
+            {
+                question: "If there is one million Mg2+ions in MgCl2, how many chloride ions are there?",
+                options: ["Two million", "One million", "Half a million", "Ten million"],
+                answer: 0
+            },
+            {
+                question: "The percentage of nitrogen present in ammonium sulphate is :",
+                options: ["27%", "25%", "30.5%", "18%"],
+                answer: 0
+            },
+            {
+                question: "The value of Avogadro Number is",
+                options: ["6.023 \u00d7 1022", "6.023 \u00d7 1023", "6.023 \u00d7 1024", "6.023 \u00d7 1025"],
+                answer: 1
+            },
+            {
+                question: "Aqua regia is a 1 : 3 mixture, by volume, of",
+                options: ["Conc. nitric acid and conc. hydrochloric acid", "Conc. hydrochloric acid and conc. nitric acid", "Conc. nitric acid and conc. sulphuric acid", "Conc. sulphuric acid and conc. nitric acid"],
+                answer: 0
+            },
+            {
+                question: "Gold dissolves in",
+                options: ["Hydrochloric acid", "Nitric acid", "Aqua regia", "Acetic acid"],
+                answer: 2
+            },
+            {
+                question: "Nitric acid does not react with",
+                options: ["Gold", "Copper", "Zinc", "Iron"],
+                answer: 0
+            },
+            {
+                question: "Nitrogen in water is commonly found in the form of",
+                options: ["Nitrous oxide", "Nitrate", "Nitric oxide", "Nitrite"],
+                answer: 3
+            },
+            {
+                question: "Aquaregia is a mixture of the following in the ratio 1 : 3 by volume",
+                options: ["Conc. HNO3and conc. HCl", "Conc. HNO3and conc. H2SO4", "Dil. HCl and dil. HNO3", "Conc. HCl and conc. HNO3"],
+                answer: 0
+            },
+            {
+                question: "Commercial nitric acid is coloured because it contains dissolved :",
+                options: ["Oxygen", "Nitrous oxide", "Nitrogen dioxide", "Coloured impurities"],
+                answer: 2
+            },
+            {
+                question: "The next higher homologue of C6H14is",
+                options: ["C7H14", "C7H12", "C6H12", "C7H16"],
+                answer: 3
+            },
+            {
+                question: "Ethanol containing 5% water is known as :",
+                options: ["Dilute alcohol", "Power alcohol", "Rectified spirit", "Absolute alcohol"],
+                answer: 2
+            },
+            {
+                question: "Two elements which can form a large number of compounds are",
+                options: ["Carbon and Hydrogen", "Carbon and Nitrogen", "Carbon and Oxygen", "Carbon and Sulphur"],
+                answer: 0
+            },
+            {
+                question: "The element with highest first ionisation energy is",
+                options: ["Hydrogen", "Helium", "Lithium", "Sodium"],
+                answer: 1
+            },
+            {
+                question: "In a period from Li to F, ionisation potential",
+                options: ["Cannot be predicted", "Increases", "Decreases", "Remains same"],
+                answer: 0
+            },
+            {
+                question: "The element with highest ionization potential is",
+                options: ["Oxygen", "Carbon", "Helium", "Boron"],
+                answer: 2
+            },
+            {
+                question: "Which of the following has no unit?",
+                options: ["Electronegativity", "Electron affinity", "Ionization energy", "Excitation potential"],
+                answer: 0
+            },
+            {
+                question: "Ionisation energy of nitrogen is greater than that of oxygen because nitrogen has",
+                options: ["High bond dissociation energy", "Smaller atomic radius", "Stable half filled 2p sub level", "High nuclear charge"],
+                answer: 2
+            },
+            {
+                question: "Sulphuric acid is",
+                options: ["Monobasic", "Dibasic", "Tribasic", "Tetrabasic"],
+                answer: 1
+            },
+            {
+                question: "When conc. H2SO4is added to dry KNO3, brown fumes are evolved. These fumes are due to",
+                options: ["SO3", "SO2", "NO2", "N2O"],
+                answer: 2
+            },
+            {
+                question: "Wax used for making candle is chemically a mixture of",
+                options: ["Aliphatic hydrocarbons", "Aromatic hydrocarbons", "Cyclic hydrocarbons", "Aliphatic and aromatic hydrocarbons"],
+                answer: 0
+            },
+            {
+                question: "Adding Cl2to benzene in the presence of AlCl3is an example of :",
+                options: ["Elimination reaction", "Substitution reaction", "None of the options", "Addition reaction"],
+                answer: 1
+            },
+            {
+                question: "Benzene cannot undergo :",
+                options: ["Substitution", "Addition", "Elimination", "Oxidation"],
+                answer: 2
+            },
+            {
+                question: "Saccharin is made up of",
+                options: ["Toluene", "Phenol", "Propane", "Butane"],
+                answer: 0
+            },
+            {
+                question: "The compound to which H2does not add is",
+                options: ["Biphenyl ethylene", "Tetraphenyl ethylene", "Tetra \u2013 a \u2013naphthylethylene", "Tetra \u20139 \u2013 phenanthrylethylene"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is used for refrigeration?",
+                options: ["Sulphur dioxide", "Chlorine", "Freon", "Phosphine"],
+                answer: 2
+            },
+            {
+                question: "Freon used as refrigerant is chemically",
+                options: ["Chlorinated hydrocarbon", "Fluorinated hydrocarbon", "Chlorofluoro hydrocarbon", "Fluorinated aromatic compound"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following vegetable oils is used in the manufacture of paints?",
+                options: ["Palm oil", "Sunflower oil", "Linseed oil", "Cottonseed oil"],
+                answer: 2
+            },
+            {
+                question: "KMnO4can be used as",
+                options: ["Insecticide", "Fertilizer", "Pesticide", "Disinfectant"],
+                answer: 3
+            },
+            {
+                question: "The element used in the manufacture of safety matches is",
+                options: ["Phosphorous", "Magnesium", "Silicon", "Sulphur"],
+                answer: 0
+            },
+            {
+                question: "Commercial Vaseline is derived from",
+                options: ["Plant gums", "Coal tar", "Wool wax", "Petroleum"],
+                answer: 3
+            },
+            {
+                question: "Alum is used as",
+                options: ["An analgesic", "A fertilizer", "A disinfectant", "A purifier for water"],
+                answer: 3
+            },
+            {
+                question: "Antacid tablets consist of",
+                options: ["Hydroxides of sodium, magnesium and aluminium", "Hydroxides of magnesium and aluminium", "Hydroxides of sodium and aluminium", "Hydroxides of magnesium and sodium"],
+                answer: 1
+            },
+            {
+                question: "Aspirin is",
+                options: ["Methoxy benzoic acid", "Methyl Salicilate", "Acetyl Salicilic acid", "Phenyl Salicilate"],
+                answer: 2
+            },
+            {
+                question: "Aspirin is common name of",
+                options: ["Salicylic Acid", "Salicylate", "Methyl Salicylate", "Acetyl Salicylic Acid"],
+                answer: 3
+            },
+            {
+                question: "Chloroform can be used as",
+                options: ["Analgesic", "Anaesthetic", "Antimalarial", "Antibiotic"],
+                answer: 1
+            },
+            {
+                question: "Stains of rust on clothes can be removed by :",
+                options: ["Oxalic acid", "Petrol", "Alcohol", "H2O2"],
+                answer: 0
+            },
+            {
+                question: "The element used for making solar cells is",
+                options: ["Magnesium", "Sodium", "Calcium", "Silicon"],
+                answer: 3
+            },
+            {
+                question: "DDT and BHC may act as",
+                options: ["Allergens", "Carcinogens", "Asthematic agents", "None of these"],
+                answer: 1
+            },
+            {
+                question: "Gunpowder consists of a mixture of",
+                options: ["Sand and TNT", "TNT and charcoal", "Nitre, sulphur and charcoal", "Sulphur, sand and charcoal"],
+                answer: 2
+            },
+            {
+                question: "Substance used as an anti freeze in radiators of automobiles is :",
+                options: ["Methyl alcohol and H2O", "Methyl alcohol", "Ethyl alcohol", "Ethyl alcohol and H2O"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is used to remove rust stains on cloth?",
+                options: ["Kerosene", "Lime", "Oxalic acid solution", "Petrol"],
+                answer: 2
+            },
+            {
+                question: "Which is not an anasthetic agent in surgical operations?",
+                options: ["Chloroform", "Ether", "Nitrous oxide", "Acetone"],
+                answer: 3
+            },
+            {
+                question: "Iodex, a pain relief balm, has the smell of ________ .",
+                options: ["Methyl salicylate", "Ethyl salicylate", "Propyl salicylate", "Butyl salicylate"],
+                answer: 0
+            },
+            {
+                question: "Silver halides are used in photographic plates because they are",
+                options: ["Oxidised in air", "Soluble in hyposolution", "Reduced by light", "Totally colourless"],
+                answer: 2
+            },
+            {
+                question: "Who developed Hydrogen Bomb?",
+                options: ["Wernher Von Braun", "J. Robert Oppen Heimer", "Edward Teller", "Samuel Cohen"],
+                answer: 2
+            },
+            {
+                question: "Commonly used antiseptic 'Dettol' is a mixture of",
+                options: ["O-chlorophenoxylenol + terepineol", "O-cresol + terepineol", "Phenol + terepineol", "Chloroxylenol + terepineol"],
+                answer: 3
+            },
+            {
+                question: "The common refrigerant in domestic refrigerator is",
+                options: ["Neon", "Oxygen", "Nitrogen", "Freon"],
+                answer: 3
+            },
+            {
+                question: "The chemical used in embalming biological materials is",
+                options: ["Formaldehyde in water", "Formaldehyde in methanol", "Ethylene glycol", "Gaseous formaldehyde"],
+                answer: 0
+            },
+            {
+                question: "The chemical used for cloud seeding for artificial rains is",
+                options: ["Silver Nitrate", "Potassium Bromide", "Silver Iodide", "Potassium Nitrate"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is used as anesthetic ?",
+                options: ["NH3", "N2O", "NO2", "N2O"],
+                answer: 1
+            },
+            {
+                question: "Aspirin is chemically known as",
+                options: ["Methyl salicylate", "Hydroxysalicylate", "Acetylsalicylic acid", "Alkylsalicylic acid"],
+                answer: 2
+            },
+            {
+                question: "Gypsum is used for improvement of:",
+                options: ["Alkaline soils", "Saline soils", "Podsols", "Acidic soils"],
+                answer: 1
+            },
+            {
+                question: "Which of the following laser types is used in a laser printer?",
+                options: ["Dye laser", "Semiconductor laser", "Excimer laser", "Gas laser"],
+                answer: 1
+            },
+            {
+                question: "The chemical that is used to ripen mangoes is",
+                options: ["Calcium sulphide", "Calcium carbide", "Calcium carbonate", "Calcium chloride"],
+                answer: 1
+            },
+            {
+                question: "Exposure to mixtures of chemicals are greater than expected on the basis of effects of exposure to each chemical individually. This is known as",
+                options: ["Additives", "Antagonism", "Synergism", "Independent"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is used to remove ink and rust stains on cloth?",
+                options: ["Oxalic acid", "Alcohol", "Ether", "Kerosene oil"],
+                answer: 0
+            },
+            {
+                question: "KMnO4can be used as a/an",
+                options: ["Insecticide", "Fertiliser", "Pesticide", "Disinfectant"],
+                answer: 3
+            },
+            {
+                question: "Electric fuse is an alloy of",
+                options: ["Tin and lead", "Zinc and lead", "Copper and iron", "Carbon and tin"],
+                answer: 0
+            },
+            {
+                question: "Which one of the following chemicals helps in fruit ripening?",
+                options: ["Ethephon", "Atrazine", "Isoproturan", "Malathion"],
+                answer: 0
+            },
+            {
+                question: "Which of the following chemicals is used in photography ?",
+                options: ["Aluminium hydroxide", "Silver bromide", "Potassium nitrate", "Sodium chloride"],
+                answer: 1
+            },
+            {
+                question: "The most commonly used chemicals in the artificial rainmaking or cloud seeding are",
+                options: ["Silver Iodide (AgI)", "Sodium Chloride (NaCl)", "Dry Ice (Frozen CO2)", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "Malathion is a/an",
+                options: ["Insecticide", "Fumigant", "Preservative", "Pesticide"],
+                answer: 0
+            },
+            {
+                question: "The chemical name of rat poison is",
+                options: ["Zinc oxide", "Potassium cyanide", "Lead nitrate", "Zinc phosphide"],
+                answer: 3
+            },
+            {
+                question: "The antiseptic compound present in dettol is",
+                options: ["Iodine", "chloroxylenol", "Biothional", "Cresol"],
+                answer: 1
+            },
+            {
+                question: "The tip of the match-stick contains",
+                options: ["Phosphorus pentoxide", "White phosphorus", "Red phosphorus", "Phosphorus trichloride"],
+                answer: 2
+            },
+            {
+                question: "Poison used for killing rats is",
+                options: ["Calcium phosphide (Ca3P2)", "Zinc phosphide (Zn3P2)", "Magnesium nitride (Mg3N2)", "Magnesium phosphide (Mg3P2)"],
+                answer: 1
+            },
+            {
+                question: "The chemical used in developing photographic films is",
+                options: ["Silver bromide", "Hypo", "Sodium sulphate", "Hydroquinone"],
+                answer: 0
+            },
+            {
+                question: "Which one of the following is used as an anti-freeze for the automobile engines ?",
+                options: ["Propyl alcohol", "Ethanol", "Methanol", "Ethylene glycol"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is not a nitrogenous fetiliser?",
+                options: ["Ammonium sulphate", "Urea", "Ammonium nitrate", "Superphosphate"],
+                answer: 3
+            },
+            {
+                question: "Which one of the following is used as a sowing agent in the preparation of soft drinks?",
+                options: ["Phosphoric acid", "Phosphorus acid", "Salicylic acid", "Boric acid"],
+                answer: 0
+            },
+            {
+                question: "Pyrethrin used in mosquito coil is obtained from",
+                options: ["A seed plant", "An insect", "A bacterium", "A fungus"],
+                answer: 0
+            },
+            {
+                question: "What is a common name for the substance which irritates lachrymal glands ?",
+                options: ["Tear Gas", "Laughing Gas", "Anaesthetic Gas", "Noble Gas"],
+                answer: 0
+            },
+            {
+                question: "The material used in solar cells contains",
+                options: ["Tin", "Silicon", "Caesium", "Thallium"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is used to iodise common salt ?",
+                options: ["Potassium iodide", "Iodine", "Potassium iodate", "Sodium iodide"],
+                answer: 2
+            },
+            {
+                question: "Tetra ethyle lead (TEL) is",
+                options: ["A catalyst in burning fossil fuel", "An antioxidant", "A reductant", "An antiknock compound"],
+                answer: 3
+            },
+            {
+                question: "The Refrigerant 'FREON' is",
+                options: ["Calcium Tetra Fluoride", "Difluoro Dichloro Methane", "Fluorspar and Felspar", "Hydrofluosilicic Acid"],
+                answer: 1
+            },
+            {
+                question: "The chemical(s) most commonly used for cloud seeding or \u2018artificial rainmaking\u2019 is/are",
+                options: ["Silver Iodide", "Sodium Chloride", "Dry ice or frozen carbon dioxide", "All the above"],
+                answer: 0
+            },
+            {
+                question: "'Fire-fighting clothes' are made from",
+                options: ["Mica", "Asbestos", "Talc", "Steatite"],
+                answer: 1
+            },
+            {
+                question: "Trinitrotoluene is",
+                options: ["Used to melt metals", "Used to fuse two metals", "Used as an abrasive", "Used as an explosive"],
+                answer: 3
+            },
+            {
+                question: "Which one of the following elements is used in the manufacture of safety matches?",
+                options: ["Graphite", "Phosphorus", "Silicon", "Sodium"],
+                answer: 1
+            },
+            {
+                question: "Zinc sulphide is commonly used as",
+                options: ["Fungicide", "Herbicide", "Rodenticide", "Deodorant"],
+                answer: 2
+            },
+            {
+                question: "Which halide is used in making sensitive emulsion on photograhic film?",
+                options: ["Sodium chloride", "Silver bromide", "Silver iodide", "Silver chloride"],
+                answer: 1
+            },
+            {
+                question: "Which of the following compounds is commonly used as an antiseptic in mouthwashes and toothpastes ?",
+                options: ["Borax", "Saltpetre", "Hydrogen peroxide", "Sodium chloride"],
+                answer: 3
+            },
+            {
+                question: "The structure of (HPO3)3is",
+                options: ["Linear", "Tetrahedral", "Cyclic", "Octahedral"],
+                answer: 2
+            },
+            {
+                question: "Spontaneous change is one in which there is:",
+                options: ["A lowering of entropy", "A lowering of free energy", "Increase in free energy", "An increase in Internal energy"],
+                answer: 1
+            },
+            {
+                question: "Warming ammonium chloride with sodium hydrochloride in a test tube is an example of",
+                options: ["Open system", "Closed system", "Isobaric system", "Isothermal system"],
+                answer: 0
+            },
+            {
+                question: "For a spontaneous chemical process, the free energy change is",
+                options: ["Positive", "Negative", "Zero", "Depends on whether the reaction is exothermic or endothermic"],
+                answer: 1
+            },
+            {
+                question: "The minimum energy required for an effective collision is",
+                options: ["Threshold energy", "Activation energy", "Free energy", "Internal energy"],
+                answer: 1
+            },
+            {
+                question: "Which of the following produces highest amount of energy upon oxidation?",
+                options: ["Protein", "Fat", "Glucose", "An alkane"],
+                answer: 1
+            },
+            {
+                question: "In a reaction of the type A+B -> C+D one could ensure it to be a first order reaction by :",
+                options: ["Increasing the temperature", "Increasing the concentration of a product", "Increasing the concentration of a reactant", "Adding a catalyst"],
+                answer: 2
+            },
+            {
+                question: "The function of sedimentation tank in sewage treatment is to:",
+                options: ["Disinfect the sewage", "Remove water content", "Aerate the sewage", "Remove suspended solids"],
+                answer: 3
+            },
+            {
+                question: "Ferrous sulphate is used in water treatment as a/an",
+                options: ["Oxidizing agent", "Reducing agent", "Coagulant aid", "Adsorbent"],
+                answer: 2
+            },
+            {
+                question: "Charcoal is used in water treatment as a/an",
+                options: ["Absorbent", "Coagulant", "Solvent", "Adsorbent"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is a secondary pollutant ?",
+                options: ["NO", "CO", "SO2", "PAN"],
+                answer: 1
+            },
+            {
+                question: "Which one of the following contributes largely to the \u2018green house effect\u2019 ?",
+                options: ["Ozone", "Carbon monoxide", "Carbon dioxide", "Water vapour"],
+                answer: 3
+            },
+            {
+                question: "\u2018Aerosol\u2019 is known as",
+                options: ["Suspended solid particles in air", "Pollutant gas, present in air", "Microbes, present in air", "Green house gas present in air"],
+                answer: 0
+            },
+            {
+                question: "Pollutant from motor car exhaust that causes mental disease is",
+                options: ["Lead", "NO2", "SO2", "Hg"],
+                answer: 0
+            },
+            {
+                question: "Particulates (< 1 \u00b5m size) remaining suspended in air indefinitely and transported by wind currents are called",
+                options: ["Mists", "Fumes", "Aerosols", "Smoke"],
+                answer: 2
+            },
+            {
+                question: "Mercury is emitted into air by",
+                options: ["Burning coal", "Burning garbage", "Coal fire", "Steam engine"],
+                answer: 1
+            },
+            {
+                question: "The filter over which sewage is sprinkled is called as",
+                options: ["Trickling filter", "Percolating filter", "Contact bed", "Intermittent sand filter"],
+                answer: 0
+            },
+            {
+                question: "An example of major air pollutant is",
+                options: ["Oxygen", "Carbon monoxide", "Helium", "Carbon dioxide"],
+                answer: 1
+            },
+            {
+                question: "The term 'brown air' is used for",
+                options: ["Acid fumes", "Photochemical smog", "Sulphurous smog", "Industrial smog"],
+                answer: 1
+            },
+            {
+                question: "The sewage obtained from water closets and urinals is known as",
+                options: ["Sanitary waste", "Industrial waste", "Garbage", "Sullage"],
+                answer: 0
+            },
+            {
+                question: "Concentration of a material which is lethal to 50% animal is called",
+                options: ["LD50", "LC50", "NOAEL", "ADI"],
+                answer: 0
+            },
+            {
+                question: "Normal rainwater is slightly acidic due to the presence of",
+                options: ["Carbon dioxide", "Sulphur dioxide", "Methane", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "Main pollutants released from iron and steel industry are",
+                options: ["CO, CO2and SO2", "NO, SO3and H2S", "CO2, H2S and NO2", "CO2, NO2and SO3"],
+                answer: 0
+            },
+            {
+                question: "Black lung disease occurs in people working in",
+                options: ["Electroplating industry", "Organic solvents industry", "Paint manufacturing industry", "Coal mines"],
+                answer: 3
+            },
+            {
+                question: "Which one of the following was used as a chemical weapon in the first world war ?",
+                options: ["Carbon monoxide", "Hydrogen cyanide", "Mustard gas", "Water gas"],
+                answer: 2
+            },
+            {
+                question: "Threshold limit value of copper in the atmospheric air is",
+                options: ["0.001 mg/m3", "0.01 mg/m3", "1.0 mg/m3", "5.0 mg/m3"],
+                answer: 2
+            },
+            {
+                question: "Physico-chemical characteristics of water in water sources undergo changes due to",
+                options: ["Aquatic macrophytes", "Auatic fungi", "Effluents", "Evapotranspiration"],
+                answer: 2
+            },
+            {
+                question: "Sulphur dioxide present in the industrial chimney exhaust causes",
+                options: ["Respiratory and lung disease", "Reduction in plant's productivity owing to acid rain", "Corrosion building materials", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "Taj Mahal is greatly affected due to :",
+                options: ["Tourists", "Acid rain", "Deforestation", "Sound pollution"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is secondary air pollutant ?",
+                options: ["Photochemical smog", "NO2", "Dust particles", "SO2"],
+                answer: 3
+            },
+            {
+                question: "Sullage water is \u2013",
+                options: ["Waste water released from kitchen", "Waste water released from toilets", "Waste water released from factories", "Waste water released from hospitals"],
+                answer: 0
+            },
+            {
+                question: "The function of skimming tank in sewage treatment is to remove",
+                options: ["Oil and fatty substances", "Suspended solids", "Gritty substances", "Inorganic substances"],
+                answer: 0
+            },
+            {
+                question: "Chemical name of vinegar is",
+                options: ["Acetone", "Acetic acid", "Formaldehyde", "Ethanol"],
+                answer: 1
+            },
+            {
+                question: "The compound that has the least value for octane number is :",
+                options: ["2-methyl heptane", "Iso-octane", "2,2-dimethyl hexane", "N-heptane"],
+                answer: 3
+            },
+            {
+                question: "An example of heterocyclic compound is",
+                options: ["Naphthalene", "Furan", "Benzene", "Anthracene"],
+                answer: 1
+            },
+            {
+                question: "Which one is heaviest naturally occurring element of the periodic element?",
+                options: ["Iron", "Thorium", "Rhodium", "Uranium"],
+                answer: 3
+            },
+            {
+                question: "Ruby and sapphire are oxides of",
+                options: ["Copper", "Tin", "Iron", "Aluminium"],
+                answer: 3
+            },
+            {
+                question: "The chemical name of quartz is",
+                options: ["Calcium oxide", "Calcium phosphate", "Sodium phosphate", "Sodium silicate"],
+                answer: 3
+            },
+            {
+                question: "What is the most common salt in sea water ?",
+                options: ["Calcium carbonate", "Potassium chloride", "Sodium chloride", "Magnesium sulphate"],
+                answer: 2
+            },
+            {
+                question: "Fertiliser having high nitrogen content is :",
+                options: ["Urea", "Ammonium sulphate", "Ammonium nitrate", "Calcium citrate"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following is found in kidney stones?",
+                options: ["Sodium oxalate", "Calcium oxalate", "Sodium chloride", "Calcium acetate"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is used as a preservative to protect processed food?",
+                options: ["Sodium sulphate", "Saccharin", "BHT", "Sodium metabisulphite"],
+                answer: 3
+            },
+            {
+                question: "Asbestos is formed of :",
+                options: ["Calcium and Magnesium", "Copper, Zinc and Manganese", "Lead and Iron", "Calcium and Zinc"],
+                answer: 0
+            },
+            {
+                question: "Bayer's reagent is",
+                options: ["Alkaline potassium permanganate", "Acidified potassium permanganate", "Hydrogen peroxide", "Bromine water"],
+                answer: 0
+            },
+            {
+                question: "Bone ash contains",
+                options: ["Calcium sulphate", "Phosphoric sulphate", "Calcium phosphate", "Calcium hypophosphate"],
+                answer: 2
+            },
+            {
+                question: "'Plaster of Paris' is made by partial dehydration of",
+                options: ["Epsom salt", "Gypsum salt", "Blue vitriol", "Green vitriol"],
+                answer: 1
+            },
+            {
+                question: "Stalactites and Stalagmites form due to the precipitation of :",
+                options: ["CaCO3", "CaCl2", "MgCl2", "MgCO3"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is not a precious/semi-precious stone?",
+                options: ["Sapphire", "Ruby", "Pearl", "Emerald"],
+                answer: 2
+            },
+            {
+                question: "The chemical substance present in bones and teeth is",
+                options: ["Calcium phosphate", "Calcium chloride", "Calcium sulphate", "Calcium borate"],
+                answer: 0
+            },
+            {
+                question: "Baryllium Sulphate is less soluble in water due to",
+                options: ["High inflammable energy", "Low Energy of dissociation", "Low inflammable energy", "Lonic band"],
+                answer: 0
+            },
+            {
+                question: "Chile saltpeter is the common name of:",
+                options: ["Sodium nitrate", "Potassium nitrite", "Potassium nitrate", "Sodium nitrite"],
+                answer: 0
+            },
+            {
+                question: "Setting of plaster of paris involves",
+                options: ["Dehydration process", "Hydration to form other hydrates", "Oxidation process", "Reduction process"],
+                answer: 1
+            },
+            {
+                question: "Find the odd one:",
+                options: ["Marble", "Chalk", "Limestone", "Slaked lime"],
+                answer: 3
+            },
+            {
+                question: "The chemical name of 'Plaster of Paris' commonly used for setting broken bones is",
+                options: ["Calcium nitrate", "Calcium sulphate", "Calcium carbonate", "Calcium chloride"],
+                answer: 1
+            },
+            {
+                question: "Which one of the following forms of phosphorus is most reactive?",
+                options: ["Black phosphorus", "White phosphorus", "Violet phosphorus", "Red phosphorus"],
+                answer: 1
+            },
+            {
+                question: "Limestone is a raw material used by which industry?",
+                options: ["Aluminium", "Fertilizers", "Cement", "Petrochemicals"],
+                answer: 2
+            },
+            {
+                question: "The element absorbed both in cation and anion form is",
+                options: ["Sulphur", "Nitrogen", "Calcium", "Phosphorus"],
+                answer: 1
+            },
+            {
+                question: "Sodium vapour lamps glow with yellow colour. This is due to",
+                options: ["sublimation of sodium to emit yellow colour", "The emission of excess energy absorbed by sodium atoms, in the yellow region of the spectrum", "The low ionisation energy of sodium", "Its ability to absorb all other colours except yellow"],
+                answer: 1
+            },
+            {
+                question: "Which amidst the following is not a gem stone ?",
+                options: ["Cat's-eye", "Topaz", "Opal", "Pearl"],
+                answer: 0
+            },
+            {
+                question: "Aluminium salt commonly used to stop bleeding is",
+                options: ["Aluminium nitrate", "Aluminium sulphate", "Aluminium Chloride", "Potash alum"],
+                answer: 1
+            },
+            {
+                question: "In silvery paints, the main constituent present is",
+                options: ["Aluminium powder", "Silver powder", "Lead powder", "White lead"],
+                answer: 0
+            },
+            {
+                question: "Alum stops bleeding in minor cuts because of",
+                options: ["Solvation", "Emulsion", "Dialysis", "Coagulation"],
+                answer: 3
+            },
+            {
+                question: "The chemical name of 'Hypo' commonly used in photography is",
+                options: ["Sodium thiosulphate", "Silver nitrate", "Sodium nitrate", "Silver iodide"],
+                answer: 0
+            },
+            {
+                question: "Interveinal necrotic spots on leaves appear due to",
+                options: ["HF injury", "SO2injury", "NO2injury", "O3injury"],
+                answer: 1
+            },
+            {
+                question: "Quartz is made of",
+                options: ["Calcium Sulphate", "Calcium Silicate", "Sodium Sulphate", "Sodium Silicate"],
+                answer: 3
+            },
+            {
+                question: "Quartz is a crystalline form of",
+                options: ["Alumina", "Glass", "Silica", "Limestone"],
+                answer: 2
+            },
+            {
+                question: "Urea is a",
+                options: ["Sodium fertilizer", "Phosphatic fertilizer", "Nitrogenous fertilizer", "Potassium fertilizer"],
+                answer: 2
+            },
+            {
+                question: "Oxygen has (+) oxidation number only in",
+                options: ["OF2", "C12O", "H2O (2)", "N2O"],
+                answer: 0
+            },
+            {
+                question: "The oxidation number of nickel in K4[Ni(CN)4] is",
+                options: ["Zero", "+4", "\u20134", "+8"],
+                answer: 0
+            },
+            {
+                question: "A subshell with l = 2 can take up",
+                options: ["3 electron", "5 electron", "8 electron", "10 electron"],
+                answer: 3
+            },
+            {
+                question: "The scientist who experimentally proved the existence of positron is",
+                options: ["Fermi", "Anderson", "Bohr", "Bethe"],
+                answer: 1
+            },
+            {
+                question: "Nucleons are regarded as composites sub-particles known as",
+                options: ["Mesons", "Quarks", "Leptons", "Photons"],
+                answer: 1
+            },
+            {
+                question: "Which one of the following has greatest mass ?",
+                options: ["Electron", "Proton", "Neutron", "Hydrogen nucleus"],
+                answer: 2
+            },
+            {
+                question: "The nuclear particle having no mass and no charge, but only spin is",
+                options: ["Proton", "Neutrino", "Meson", "Electron"],
+                answer: 1
+            },
+            {
+                question: "The most suitable unit for expressing nuclear radius is :",
+                options: ["Nanometre", "Fermi", "Angstrom", "Micron"],
+                answer: 1
+            },
+            {
+                question: "Which one of the following elements is least likely to be found in commercial fertilisers?",
+                options: ["Nitrogen", "Phosphorous", "Potassium", "Silicon"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is caused by the higher concentration of Nitrogen and Phosphorous ?",
+                options: ["Eutrophication", "Hardness", "Alkalinity", "Acidity"],
+                answer: 0
+            },
+            {
+                question: "If the sewage is fully oxidized, the nitrogen is in the form of",
+                options: ["Nitrites", "Ammonia", "Nitramines", "Nitrates"],
+                answer: 3
+            },
+            {
+                question: "If all bullets could not be removed from gun shot injury of a man, it may cause poisoning by",
+                options: ["Mercury", "Lead", "Iron", "Arsenic"],
+                answer: 1
+            },
+            {
+                question: "The green colour seen in firework displays is due to the chloride salt of :",
+                options: ["Sodium", "Strontium", "Barium", "Calcium"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is not soluble in water ?",
+                options: ["Lead Sulphate", "Zinc sulphate", "Potassium sulphate", "Sodium sulphate"],
+                answer: 1
+            },
+            {
+                question: "The three elements most needed in common fertilisers are :",
+                options: ["Sulphur, Phosphorous and Sodium", "Nitrogen, Potassium and Phosphorous", "Phosphorous, Sodium and Nitrogen", "Calcium, Phosphorous and Potassium"],
+                answer: 1
+            },
+            {
+                question: "White phosphorus is always kept under",
+                options: ["Benzene", "Kerosene", "Ether", "Water"],
+                answer: 3
+            },
+            {
+                question: "Milk is a colloidal system in which:",
+                options: ["Water is dispersed in fat", "Fat is dispersed in water", "Fat and water are dispersed in each other", "Fat is dissolved"],
+                answer: 1
+            },
+            {
+                question: "An emulsion is a colloid of a",
+                options: ["Gas in a liquid", "Liquid in a liquid", "Liquid in a gas", "Gas in a solid"],
+                answer: 1
+            },
+            {
+                question: "Colloids can be purified by",
+                options: ["Condensation", "Ceptization", "Coagulation", "Dialysis"],
+                answer: 3
+            },
+            {
+                question: "Which is a natural colloid ?",
+                options: ["Sodium chloride", "Urea", "Cane-sugar", "Blood"],
+                answer: 3
+            },
+            {
+                question: "Suspension particles have the size between",
+                options: ["10\u20132\u2013 10\u20134cm", "10\u20135\u2013 10\u20137cm", "10\u20138\u2013 10\u201310cm", "10\u20131\u2013 10\u20132cm"],
+                answer: 0
+            },
+            {
+                question: "Which of the following acts as best adsorbent?",
+                options: ["Charcoal", "Activated Charcoal", "Activated Coconut Charcoal", "Carbon black"],
+                answer: 2
+            },
+            {
+                question: "Gelatin is mostly used in making ice-creams in order to",
+                options: ["Prevent making a colloid", "Stabilise the colloid and prevent crystallisation", "Stabilise mixture", "Enrich the aroma"],
+                answer: 1
+            },
+            {
+                question: "Milk is",
+                options: ["Emulsion", "Suspension", "Foam", "Gel"],
+                answer: 0
+            },
+            {
+                question: "Milk is a natural",
+                options: ["Solution", "Emulsion", "Mixture", "Suspension"],
+                answer: 1
+            },
+            {
+                question: "Emulsifier is an agent which",
+                options: ["Accelerates the dispersion", "Homogenizes the emulsion", "Stabilizes an emulsion", "Aids the flocculation of emulsion"],
+                answer: 2
+            },
+            {
+                question: "An emulsifier is an agent which",
+                options: ["Stabilises an emulsion", "Aids the flocculation of an emulsion", "Accelerates the dispersion", "Homogenises an emulsion"],
+                answer: 0
+            },
+            {
+                question: "Muddy water is treated with alum in purification process, it is termed as :",
+                options: ["Emulsification", "Absorption", "Adsorption", "Coagulation"],
+                answer: 3
+            },
+            {
+                question: "Which one of the following is an example of a gel ?",
+                options: ["Cheese", "Milk", "Face cream", "Shaving cream"],
+                answer: 2
+            },
+            {
+                question: "Peptization is a process of",
+                options: ["Precipitation of colloidal particles", "Purification of colloids", "Protection of colloidal solution", "Dispersing precipitates into colloidal solution"],
+                answer: 3
+            },
+            {
+                question: "What do you understand by the term Espuma ?",
+                options: ["Foam", "Soap", "Salt", "Calcium"],
+                answer: 0
+            },
+            {
+                question: "Cloud is a colloidal dispersion of",
+                options: ["Air in a dispersion medium of water", "Fog in a dispersion medium of water", "Mist in a dispersion medium of air", "Water drops in a dispersion medium of air"],
+                answer: 3
+            },
+            {
+                question: "Activated Charcoal is used to remove colouring matter from pure substances by",
+                options: ["Bleaching", "Oxidation", "Adsorption", "Reduction"],
+                answer: 2
+            },
+            {
+                question: "Isobars are lines joining places having equal",
+                options: ["Rainfall", "Pressure", "Population", "Height above sea-level"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is used to denature ethanol ?",
+                options: ["Methyl alcohol", "Propyl alcohol", "Phenol", "Methane"],
+                answer: 0
+            },
+            {
+                question: "Molasses a by-product in the manufacture of sugar, is converted into",
+                options: ["Alcohol", "Paper", "Fuel", "Pulp"],
+                answer: 0
+            },
+            {
+                question: "Denatured spirit is ethanol mixed with",
+                options: ["Petrol", "Kerosene", "Water", "Pyridine"],
+                answer: 3
+            },
+            {
+                question: "Rectified spirit is :",
+                options: ["95% ethyl alcohol", "100% ethyl alcohol", "Methylated spirit", "Tincture iodine"],
+                answer: 0
+            },
+            {
+                question: "Wood spirit is",
+                options: ["Methyl alcohol", "Ethyl alcohol", "Butyl alcohol", "Propyl alcohol"],
+                answer: 0
+            },
+            {
+                question: "When formaldehyde and potassium hydroxide are heated, we get",
+                options: ["Acetylene", "Methyl alcohol", "Methane", "Ethyl formate"],
+                answer: 1
+            },
+            {
+                question: "Which component referred to as 'Milk sugar'?",
+                options: ["Lactose", "Maltose", "Galactose", "Sucrose"],
+                answer: 0
+            },
+            {
+                question: "Match the List-I with List-II and select the correct answer using the codes given belowList-I (Vitamin)List-II(Chemical compound)F.Vitamin A1.ThiaminG.Vitamin B12.RetinolH.Vitamin C3.Ascorbic acidJ.Vitamin E4.TocopherolCodes :FGHJA.4132B.2314C.4312D.2134",
+                options: ["A", "B", "C", "D"],
+                answer: 3
+            },
+            {
+                question: "Which of the following vegetable oils does not contain essential fatty acids ?",
+                options: ["Sunflower oil", "Mustard oil", "Coconut oil", "Groundnut oil"],
+                answer: 0
+            },
+            {
+                question: "The example of oligosaccharide is",
+                options: ["Sucrose", "Glucose", "Ribose", "Cellulose"],
+                answer: 0
+            },
+            {
+                question: "The residue left after extracting juice from sugarbeet and sugarcane is called",
+                options: ["Molasses", "Bagasse", "Whey", "Biomass"],
+                answer: 1
+            },
+            {
+                question: "Nitrogen is an essential constituent of all :",
+                options: ["Fats", "Proteins", "Vitamins", "Carbohydrates"],
+                answer: 1
+            },
+            {
+                question: "Which of the following vitamins is generally excreted by human in urine?",
+                options: ["Vitamin B", "Vitamin C", "Vitamin D", "None of these"],
+                answer: 2
+            },
+            {
+                question: "The presence of Cobalt in Vitamin B12was established for the first time by",
+                options: ["Hydrolysis test", "Spectroscopy", "Borax-Bead test", "Sodium Nitroprusside test"],
+                answer: 1
+            },
+            {
+                question: "What is the second largest component in milk ?",
+                options: ["Fat", "Minerals", "Water", "Sugar"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is not present in RNA",
+                options: ["Thymine", "Uracil", "Ribose", "Phosphate"],
+                answer: 0
+            },
+            {
+                question: "The fat of a common mussel-secretes a sticky glue that can be used to make heart implants. The unique chemical compound present in the glue is:",
+                options: ["Amino phenyl alanine", "Hydroxy phenyl alanine", "Phenyl alanine", "Dihydroxy phenyl alanine"],
+                answer: 3
+            },
+            {
+                question: "During fermentation of sugar, the compound which is always formed is :",
+                options: ["Methyl Alcohol", "Ethyl Alcohol", "Acetic Acid", "Ethylene"],
+                answer: 1
+            },
+            {
+                question: "'Vinegar' is a commercial name of",
+                options: ["Oxalic acid", "Hydrochloric acid", "Acetic acid", "Citric acid"],
+                answer: 2
+            },
+            {
+                question: "The chief constituent of vinegar is",
+                options: ["Formic acid", "Acetic acid", "Salycylic acid", "Oxalic acid"],
+                answer: 1
+            },
+            {
+                question: "Vinegar made by fermentation from cane sugar contains",
+                options: ["Palmitic acid", "Lactic acid", "Citric acid", "Acetic acid"],
+                answer: 3
+            },
+            {
+                question: "Which one of the following is found in Vinegar ?",
+                options: ["Acetic acid", "Propionic acid", "Formic acid", "Butyric acid"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is not a derivative of barbituric acid?",
+                options: ["Nembutal", "Amytal", "Veronal", "Equanil"],
+                answer: 3
+            },
+            {
+                question: "Which of the following substance's smell is similar to Ethanoic acid?",
+                options: ["Tomato juice", "Kerosene", "Vinegar", "Lemon"],
+                answer: 2
+            },
+            {
+                question: "The strongest acid of the following is",
+                options: ["P-chlorophenol", "M-nitrophenol", "P-nitrophenol", "O-nitrophenol"],
+                answer: 2
+            },
+            {
+                question: "Methanoic and ethanoic acids can be distinguished by the action of",
+                options: ["NaHCO3", "NaOH", "Tollen's reagent", "SOCl2"],
+                answer: 2
+            },
+            {
+                question: "Among the fuels given below, the one with highest calorific value is",
+                options: ["Coke", "Coal", "Wood", "Natural gas"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is the best fuel in terms of energy released per gram of fuel?",
+                options: ["Hydrogen", "Methane", "Ethanol", "Butane"],
+                answer: 0
+            },
+            {
+                question: "Catalytic converters are generally made from :",
+                options: ["Alkaline metals", "Hydrogen", "Transition metals", "Carbon"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is colourless?",
+                options: ["Chlorine", "Oxygen", "Phosphorus", "Sulphur"],
+                answer: 1
+            },
+            {
+                question: "Iodine value is used to estimate",
+                options: ["Hydroxyl groups in oil", "Alkali content in oil", "Unsaturation in oil", "Carboxylic groups in oil"],
+                answer: 2
+            },
+            {
+                question: "Seaweeds are important source of",
+                options: ["Iron", "Chlorine", "Bromine", "Iodine"],
+                answer: 3
+            },
+            {
+                question: "The strongest oxidizing agent among the following is:",
+                options: ["Chlorine", "Iodine", "Fluorine", "Oxygen"],
+                answer: 2
+            },
+            {
+                question: "Helium is added to the oxygen supply of deep sea divers because it is",
+                options: ["Less poisonous than nitrogen", "Lighter than nitrogen", "Readily miscible with oxygen", "Less soluble in blood than nitrogen at high pressure"],
+                answer: 3
+            },
+            {
+                question: "Vulcanization of rubber is carried out by adding",
+                options: ["Sulphur", "Carbon", "Ozone", "Phosphorus"],
+                answer: 0
+            },
+            {
+                question: "Hamburger effect is otherwise known as\u2013",
+                options: ["Sodium pump", "Anaerobic metabolism", "Chloride shift", "Respiratory product"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following does not form oxyacid ?",
+                options: ["Sulphur", "Chlorine", "Nitrogen", "Fluorine"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is not a method of preparing oxygen?",
+                options: ["Electrolysis of water", "Fractional distillation of liquid air", "Decomposition of potassium permanganate", "Decomposition of manganese dioxide"],
+                answer: 3
+            },
+            {
+                question: "Which one of the following statements is not correct? Vulcanisation of rubber makes it",
+                options: ["Soft and flexible", "Strong and hard", "Chemical resistant", "Withstand higher temperatures"],
+                answer: 0
+            },
+            {
+                question: "The compounds formed when hydrogen combines with p-block elements are called",
+                options: ["Ionic hydrides", "Molecular hydrides", "Metallic hydrides", "Polynuclear hydrides"],
+                answer: 1
+            },
+            {
+                question: "In vulcanisation process, rubber can be hardened by adding",
+                options: ["Nitrogen", "Silicon", "Sulphur", "Alcohol"],
+                answer: 2
+            },
+            {
+                question: "In arc welding, Argon is used because of its",
+                options: ["Low reactivity with metal", "Ability to lower the melting point of the metal", "High flammability", "High calorific value"],
+                answer: 0
+            },
+            {
+                question: "Which of the following elements is obtained from seaweeds ?",
+                options: ["Iodine", "Vanadium", "Argon", "Sulphur"],
+                answer: 0
+            },
+            {
+                question: "Silica gel is a",
+                options: ["Moisturizer", "Flavouring agent", "Drying agent", "Delicious food"],
+                answer: 2
+            },
+            {
+                question: "Silicon is a",
+                options: ["Semiconductor", "Insulator", "Non-conductor", "Conductor"],
+                answer: 0
+            },
+            {
+                question: "Silicon is used in",
+                options: ["Solar energy devices", "Semiconductors", "Transistors", "All of these"],
+                answer: 3
+            },
+            {
+                question: "Vulcanized rubber contains sulphur",
+                options: ["2%", "3-5%", "7-9%", "10-15%"],
+                answer: 1
+            },
+            {
+                question: "Which of the following alloy is used in making magnet ?",
+                options: ["Duralumin", "Stainless steel", "Alnico", "Magnalium"],
+                answer: 2
+            },
+            {
+                question: "Yellow Cake an item of smuggling across border is",
+                options: ["A crude from of heroin", "A crude from of cocaine", "Uranium oxide", "Unreformed gold"],
+                answer: 2
+            },
+            {
+                question: "Which of the following elements is non-radioactive ?",
+                options: ["Uranium", "Thorium", "Plutonium", "Zirconium"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is used in dating archaeological findings ?",
+                options: ["92235U", "614C", "13H", "818O"],
+                answer: 1
+            },
+            {
+                question: "German silver used for making utensils is an alloy of",
+                options: ["Copper, silver, nickel", "Copper, zinc, nickel", "Copper, zinc, aluminium", "Copper, nickel, aluminium"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is the main compound of voter ink?",
+                options: ["Silver nitrate", "Ammonium Chloride", "Silver Chloride", "Ammonium Nitrate"],
+                answer: 0
+            },
+            {
+                question: "The heaviest naturally occurring element is:",
+                options: ["Mercury", "Polonium", "Thorium", "Uranium"],
+                answer: 3
+            },
+            {
+                question: "What is Zeolite?",
+                options: ["Hydrated Aluminosilicate", "Hydrated Calcium Sulphate", "Dehydrated Aluminosilicate", "Dehydrated Calcium Sulphate"],
+                answer: 0
+            },
+            {
+                question: "The product, 9-nitroanthracene is obtained from anthracene by the action of",
+                options: ["Nitric acid and acetic anhydride", "Nitric acid and ethyl alcohol", "Nitric acid and acetic acid", "Nitric acid in excess"],
+                answer: 0
+            },
+            {
+                question: "Cyanide poisoning causes death in seconds because",
+                options: ["It denatures enzymes of the heart/muscle", "It breaks the electron transport chain", "It causes Lysis of red blood cells", "It causes cardiac arrest"],
+                answer: 3
+            },
+            {
+                question: "What is used in storage batteries?",
+                options: ["Copper", "Tin", "Lead", "Zinc"],
+                answer: 2
+            },
+            {
+                question: "The degree of dissociation of an electrolyte depends on",
+                options: ["Dilution", "Impurities", "Atmospheric pressure", "Method of dissolution"],
+                answer: 0
+            },
+            {
+                question: "In the electroplating of gold, the electrolyte used is",
+                options: ["Gold chloride", "Gold nitrate", "Gold sulphate", "Potassium aurocyanide"],
+                answer: 2
+            },
+            {
+                question: "The cathode of a lead storage battery is made up of",
+                options: ["Zinc", "Lead", "Lead oxide", "Manganese dioxide"],
+                answer: 1
+            },
+            {
+                question: "When a lead storage battery is discharged,",
+                options: ["SO2is evolved", "Lead sulphate is consumed", "Lead is formed", "Sulphuric acid is consumed"],
+                answer: 3
+            },
+            {
+                question: "Which of the following pairs of materials serves as electrodes in rechargeable batteries commonly used in devices such as torch lights, electric shavers, etc. ?",
+                options: ["Iron and cadmium", "Nickel and cadmium", "Lead peroxide and lead", "Zinc and carbon"],
+                answer: 1
+            },
+            {
+                question: "Williamson's synthesis is widely used in the laboratory preparation of",
+                options: ["Alcohols", "Ethers", "Aldehydes", "Esters"],
+                answer: 1
+            },
+            {
+                question: "Carborundum is another name of",
+                options: ["Silicon carbide", "Silicon oxide", "Calcium carbide", "Calcium oxide"],
+                answer: 0
+            },
+            {
+                question: "German silver is an alloy of",
+                options: ["Copper, nickel and silver", "Silver, copper and aluminium", "Zinc, copper and nickel", "Zinc, silver and copper"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following does not contain Silver ?",
+                options: ["Ruby Silver", "Lunar Caustic", "German Silver", "Horn Silver"],
+                answer: 2
+            },
+            {
+                question: "Brass gets discoloured in air due to constant exposure in presence of:",
+                options: ["Aluminium phosphide", "Hydrogen sulphide", "Hydrogenated wafers", "Aluminium sulphide"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is not present in German silver?",
+                options: ["Copper", "Nickel", "Silver", "Zinc"],
+                answer: 2
+            },
+            {
+                question: "Aluminium chloride is",
+                options: ["Bronsted Lowry Acid", "Arrhenius Acid", "Lewis Acid", "Lewis Base"],
+                answer: 2
+            },
+            {
+                question: "The buffer action of blood is due to the presence of",
+                options: ["HCI and NaCI", "CI\u2013and [CO3]2\u2013", "CI\u2013and [HCO3]\u2013", "[HCO3]\u2013and H2CO3"],
+                answer: 3
+            },
+            {
+                question: "The basic chemical building block of natural rubber obtained from trees is",
+                options: ["Isoprene", "Vinyl Chloride", "Acetylene", "Neoprene"],
+                answer: 0
+            },
+            {
+                question: "The monomers of dacron are",
+                options: ["Decane and decanol", "Decanone and decanol", "Ethylene glycol and terephthalic acid", "Ethylene glygol and phthalic acid"],
+                answer: 2
+            },
+            {
+                question: "What is a Bakelite ?",
+                options: ["Solution", "Acid", "Base", "Polymer"],
+                answer: 3
+            },
+            {
+                question: "What happens when a drop of glycerol is added to crushed KMnO4spread on a paper ?",
+                options: ["There is a crackling sound", "There is a violent explosion.", "There is no reaction.", "The paper ignites"],
+                answer: 1
+            },
+            {
+                question: "Which colour is produce by Arsenic during flame test?",
+                options: ["Green", "Red", "Crimson", "Blue"],
+                answer: 3
+            },
+            {
+                question: "Bleaching action of moist sulphur dioxide is because of its",
+                options: ["Basic property", "Acidic property", "Oxidising property", "Reducing property"],
+                answer: 2
+            },
+            {
+                question: "Sulphur dioxide bleaches colouring matter by :",
+                options: ["Reduction", "Dehydration", "Decomposition", "Oxidation"],
+                answer: 0
+            },
+            {
+                question: "Which one of the following is commonly used for pulp bleaching in the paper industry?",
+                options: ["Mild sulphuric acid", "Glucose isomerase", "Hydrogen peroxide", "Iodine and water"],
+                answer: 2
+            },
+            {
+                question: "The major use of sulphur is in the manufacture of",
+                options: ["H2SO4", "H2S", "SO2", "Fungicide"],
+                answer: 0
+            },
+            {
+                question: "Percentage of lead in lead pencils is",
+                options: ["0", "31-66", "40", "80"],
+                answer: 0
+            },
+            {
+                question: "0.01 mole of NaOH is added to 10 liters of water. The pH of water changes by",
+                options: ["3", "4", "6", "7"],
+                answer: 1
+            },
+            {
+                question: "The aprotic solvent is",
+                options: ["H2O", "C6H6", "HF", "NH3"],
+                answer: 1
+            },
+            {
+                question: "Which of the following has the highest lattice energy?",
+                options: ["KF", "CsF", "NaF", "RbF"],
+                answer: 2
+            },
+            {
+                question: "\"Paramagnetism\" is the property of",
+                options: ["Paired electrons", "Completely filled electronics subshells", "Unpaired electrons", "Completely vacant electronic subshells"],
+                answer: 2
+            },
+            {
+                question: "The structure of NaCl crystal is",
+                options: ["Body centered cubic", "Face centered cubic", "Octahedral", "Square planar"],
+                answer: 1
+            }
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.innerHTML = `<span class="text-sky-600 dark:text-sky-500 mr-2">Q${index + 1}.</span> ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                if (!option || option.trim() === '') return;
+                
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) return;
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            wrapper.appendChild(questionBlock);
+        });
+
+        // Theme sync
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>

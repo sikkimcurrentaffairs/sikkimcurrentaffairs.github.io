@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Climate · Monsoon MCQ Quiz</title>
+    <style>
+        :root {
+            --primary-color: #1a5276;
+            --secondary-color: #2980b9;
+            --correct-color: #27ae60;
+            --incorrect-color: #e74c3c;
+            --light-gray: #f8f9f9;
+            --dark-gray: #7f8c8d;
+            --gold-color: #f1c40f;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gold-color);
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-top: 10px;
+            font-weight: 400;
+        }
+        
+        .quiz-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .question {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: var(--primary-color);
+            line-height: 1.4;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .option {
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            background-color: white;
+            position: relative;
+            padding-left: 45px;
+        }
+        
+        .option:hover {
+            background-color: var(--light-gray);
+            border-color: var(--secondary-color);
+        }
+        
+        .option::before {
+            content: "";
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .option.selected {
+            background-color: #e1f0fa;
+            border-color: var(--secondary-color);
+            font-weight: 500;
+        }
+        
+        .option.selected::before {
+            border-color: var(--secondary-color);
+            background-color: var(--secondary-color);
+        }
+        
+        .option.correct {
+            background-color: #e8f8f0;
+            border-color: var(--correct-color);
+            color: var(--correct-color);
+        }
+        
+        .option.correct::before {
+            border-color: var(--correct-color);
+            background-color: var(--correct-color);
+        }
+        
+        .option.incorrect {
+            background-color: #fdedec;
+            border-color: var(--incorrect-color);
+            color: var(--incorrect-color);
+        }
+        
+        .option.incorrect::before {
+            border-color: var(--incorrect-color);
+        }
+        
+        .feedback {
+            margin-top: 25px;
+            padding: 18px;
+            border-radius: 8px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .correct-feedback {
+            background-color: #e8f8f0;
+            color: var(--correct-color);
+            border-left: 5px solid var(--correct-color);
+        }
+        
+        .incorrect-feedback {
+            background-color: #fdedec;
+            color: var(--incorrect-color);
+            border-left: 5px solid var(--incorrect-color);
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        button:hover {
+            background-color: #154360;
+            transform: translateY(-2px);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+        
+        .progress-container {
+            margin-bottom: 25px;
+            background-color: var(--light-gray);
+            border-radius: 20px;
+            height: 10px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+            transition: width 0.4s ease;
+        }
+        
+        .progress-text {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: var(--dark-gray);
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .result-container {
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.8s ease;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .score {
+            font-size: 72px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 30px 0;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .score::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--gold-color);
+            border-radius: 2px;
+        }
+        
+        .score-text {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .restart-btn {
+            margin-top: 30px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .restart-btn:hover {
+            background: linear-gradient(135deg, #3498db, #1a5276);
+            transform: translateY(-2px);
+        }
+        
+        .explanation {
+            margin-top: 15px;
+            font-style: italic;
+            color: var(--dark-gray);
+            line-height: 1.5;
+        }
+        
+        .performance-text {
+            font-size: 18px;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f8f9f9;
+        }
+        
+        .week-indicator {
+            background-color: var(--gold-color);
+            color: var(--primary-color);
+            padding: 6px 15px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+            word-break: break-word;
+            max-width: 100%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            
+            header {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .quiz-container {
+                padding: 20px;
+            }
+            
+            .question {
+                font-size: 18px;
+            }
+            
+            .option {
+                padding: 12px 12px 12px 40px;
+                font-size: 15px;
+            }
+            
+            .score {
+                font-size: 60px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="../../../auth.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Climate & Monsoon · Quiz</h1>
+            <div class="subtitle">Understanding weather, climate, and Indian monsoon mechanisms</div>
+        </header>
+        
+        <div class="progress-text">
+            <span>Question <span id="current-question">1</span> of <span id="total-questions">20</span></span>
+            <span>Score: <span id="current-score">0</span></span>
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        
+        <div class="quiz-container">
+            <div class="week-indicator" id="week-indicator">Climate: Monsoon & Rainfall</div>
+            <div class="question" id="question-text"></div>
+            <div class="options" id="options-container"></div>
+            <div class="feedback" id="feedback"></div>
+            
+            <div class="navigation">
+                <button id="prev-btn" disabled>Previous</button>
+                <button id="next-btn">Next</button>
+            </div>
+        </div>
+        
+        <div class="result-container" id="result-container">
+            <h2>Quiz Completed!</h2>
+            <div class="score-text">Your Final Score</div>
+            <div class="score"><span id="final-score">0</span>/<span id="total-questions-final">20</span></div>
+            <div class="performance-text" id="performance-text"></div>
+            <button class="restart-btn" id="restart-btn">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        // --------------------------------------------------------------
+        // Quiz data built from rainfall.txt – 20 climate MCQs
+        // --------------------------------------------------------------
+        const quizData = [
+            {
+                question: "1. What is the primary difference between weather and climate?",
+                options: [
+                    "Weather is the sum of climatic variations over a long period.",
+                    "Climate refers to the state of the atmosphere at any point in time, while weather is the total over 30 years.",
+                    "Weather refers to the day-to-day state of the atmosphere, while climate is the total of weather conditions over a long period (more than thirty years).",
+                    "There is no difference; both terms mean the same thing."
+                ],
+                answer: 2,
+                explanation: "Weather refers to the state of the atmosphere over an area at any point of time. Climate refers to the sum total of weather conditions over a large area for a long period (more than thirty years).",
+                week: "Climate: Monsoon & Rainfall"
+            },
+            {
+                question: "2. The word 'monsoon' is derived from the Arabic word 'mausim', which literally means:",
+                options: ["Wind", "Season", "Rain", "Ocean"],
+                answer: 1,
+                explanation: "The word monsoon is derived from the Arabic word 'mausim' which literally means season.",
+                week: "Climate: Monsoon & Rainfall"
+            },
+            {
+                question: "3. Which of the following is NOT one of the six major controls of the climate of any place?",
+                options: [
+                    "Latitude and Altitude",
+                    "Pressure and Wind System",
+                    "Longitude",
+                    "Ocean Currents and Relief Features"
+                ],
+                answer: 2,
+                explanation: "The six major climatic controls are: latitude, altitude, pressure and wind system, distance from the sea (continentality), ocean currents, and relief features. Longitude is not mentioned as a climatic control.",
+                week: "Climate: Monsoon & Rainfall"
+            },
+            {
+                question: "4. In which of the following places is the diurnal (day and night) range of temperature the highest?",
+                options: ["Kerala", "Andaman and Nicobar Islands", "Thar Desert, Rajasthan", "Mumbai"],
+                answer: 2,
+                explanation: "In the Thar Desert the day temperature may rise to 50°C and drop down to near 15°C the same night, indicating a wide diurnal range.",
+                week: "Climate: Monsoon & Rainfall"
+            },
+            {
+                question: "5. The Coriolis force is responsible for deflecting winds to the right in the Northern Hemisphere. This law is also known as:",
+                options: ["El Nino Effect", "Jet Stream Law", "Ferrel's Law", "Loo Effect"],
+                answer: 2,
+                explanation: "The Coriolis force is also known as 'Ferrel's Law'.",
+                week: "Climate: Monsoon & Rainfall"
+            },
+            {
+                question: "6. Which of the following phenomena is a characteristic feature of the hot weather season (summer) in northern India?",
+                options: ["Snowfall", "Loo", "Western Cyclonic Disturbances", "Mango Showers"],
+                answer: 1,
+                explanation: "A striking feature of the hot weather season is the 'loo' – strong, gusty, hot, dry winds blowing during the day over the north and northwestern India.",
+                week: "Climate: Monsoon & Rainfall"
+            },
+            {
+                question: "7. 'Kaal Baisakhi' is a localised thunderstorm associated with violent winds and torrential downpours. In which state is this phenomenon most common?",
+                options: ["Kerala", "Rajasthan", "West Bengal", "Tamil Nadu"],
+                answer: 2,
+                explanation: "In West Bengal, these storms are known as the 'Kaal Baisakhi'.",
+                week: "Climate: Monsoon & Rainfall"
+            },
+            {
+                question: "8. The pre-monsoon showers that are common in Kerala and Karnataka, which help in the early ripening of mangoes, are locally known as:",
+                options: ["Mahawat", "Kaal Baisakhi", "October Heat", "Mango Showers"],
+                answer: 3,
+                explanation: "These pre-monsoon showers are often referred to as 'mango showers'.",
+                week: "Climate: Monsoon & Rainfall"
+            },
+            {
+                question: "9. The place in India that receives the highest average rainfall in the world is:",
+                options: ["Cherrapunji", "Mawsynram", "Shillong", "Thiruvananthapuram"],
+                answer: 1,
+                explanation: "Mawsynram in the southern ranges of the Khasi Hills receives the highest average rainfall in the world.",
+                week: "Climate: Monsoon & Rainfall"
+            },
+            {
+                question: "10. The wind blowing in the northern plains in summers, known as 'Loo', is characterized by:",
+                options: [
+                    "Cool and moist air",
+                    "Strong, gusty, hot, and dry winds",
+                    "Cold and dry winds from the mountains",
+                    "Winds carrying widespread rainfall"
+                ],
+                answer: 1,
+                explanation: "Loo is described as strong, gusty, hot, dry winds blowing during the day over north and northwestern India.",
+                week: "Climate: Monsoon & Rainfall"
+            },
+            {
+                question: "11. The monsoon arrives in India approximately in:",
+                options: ["Early May", "Early June", "Early July", "Early August"],
+                answer: 1,
+                explanation: "By early June, the low-pressure condition over the northern plains intensifies, attracting trade winds that enter as the south-west monsoon.",
+                week: "Climate: Monsoon & Rainfall"
+            },
+            {
+                question: "12. Which of the following best characterises the cold weather season in northern India?",
+                options: [
+                    "Warm days and warm nights",
+                    "Warm days and cold nights",
+                    "Cool days and cold nights",
+                    "Cold days and warm nights"
+                ],
+                answer: 1,
+                explanation: "During the cold weather season, days are warm and nights are cold.",
+                week: "Climate: Monsoon & Rainfall"
+            },
+            {
+                question: "13. The winter rains in northern India, known locally as 'Mahawat', are caused by:",
+                options: [
+                    "The South-West Monsoon winds",
+                    "The North-East trade winds",
+                    "Cyclonic disturbances originating from the Mediterranean Sea",
+                    "Mango Showers"
+                ],
+                answer: 2,
+                explanation: "Cyclonic disturbances from the west and northwest, originating over the Mediterranean Sea and western Asia, cause the much‑needed winter rains.",
+                week: "Climate: Monsoon & Rainfall"
+            },
+            {
+                question: "14. Which of the following statements about the advancing monsoon is INCORRECT?",
+                options: [
+                    "The south-east trade winds cross the equator and blow into India as the south-west monsoon.",
+                    "The monsoon winds cover the entire country in about a month.",
+                    "The monsoon has a tendency to have 'breaks' in rainfall, leading to wet and dry spells.",
+                    "The windward side of the Western Ghats receives very little rainfall."
+                ],
+                answer: 3,
+                explanation: "Early in the season, the windward side of the Western Ghats receives very heavy rainfall (more than 250 cm). The leeward side receives less.",
+                week: "Climate: Monsoon & Rainfall"
+            },
+            {
+                question: "15. The retreating monsoon season, also known as the transition season, is marked by:",
+                options: [
+                    "Clear skies and a rise in temperature, leading to 'October Heat'",
+                    "The arrival of the 'Loo'",
+                    "Heavy snowfall in the northern plains",
+                    "The onset of the 'Mango Showers'"
+                ],
+                answer: 0,
+                explanation: "The retreat of the monsoon is marked by clear skies and a rise in temperature – commonly known as 'October heat'.",
+                week: "Climate: Monsoon & Rainfall"
+            },
+            {
+                question: "16. Why does the Tamil Nadu coast receive rainfall during the winter season?",
+                options: [
+                    "It is struck by tropical cyclones from the Andaman Sea.",
+                    "The South-West Monsoon winds bring moisture to this coast.",
+                    "The North-East trade winds blow from sea to land here, picking up moisture.",
+                    "It is influenced by the Western Disturbances."
+                ],
+                answer: 2,
+                explanation: "Some rainfall occurs on the Tamil Nadu coast from the northeast trade winds because here they blow from sea to land.",
+                week: "Climate: Monsoon & Rainfall"
+            },
+            {
+                question: "17. Which region in India is NOT drought-prone according to the chapter?",
+                options: [
+                    "Parts of Rajasthan",
+                    "Parts of Gujarat",
+                    "The leeward side of the Western Ghats",
+                    "The windward side of the Western Ghats"
+                ],
+                answer: 3,
+                explanation: "The windward side of the Western Ghats receives heavy rainfall and is prone to floods, not drought. The leeward side is drought‑prone.",
+                week: "Climate: Monsoon & Rainfall"
+            },
+            {
+                question: "18. What happens when the axis of the monsoon trough shifts closer to the Himalayas?",
+                options: [
+                    "There is good rainfall in the northern plains.",
+                    "There are longer dry spells in the plains and widespread rain in the mountainous catchment areas.",
+                    "The monsoon withdraws immediately.",
+                    "Tropical depressions stop forming in the Bay of Bengal."
+                ],
+                answer: 1,
+                explanation: "When the axis shifts closer to the Himalayas, longer dry spells occur in the plains, and widespread rain occurs in the mountainous catchment areas of the Himalayan rivers.",
+                week: "Climate: Monsoon & Rainfall"
+            },
+            {
+                question: "19. The low-pressure conditions over northwestern India get transferred to the Bay of Bengal by early November, leading to:",
+                options: [
+                    "The onset of the South-West Monsoon",
+                    "The arrival of Western Disturbances",
+                    "The occurrence of cyclonic depressions that cross the eastern coasts of India",
+                    "The beginning of the 'Loo'"
+                ],
+                answer: 2,
+                explanation: "This shift is associated with the occurrence of cyclonic depressions, which originate over the Andaman Sea and cross the eastern coasts.",
+                week: "Climate: Monsoon & Rainfall"
+            },
+            {
+                question: "20. Why is the monsoon considered a 'unifying bond' for India?",
+                options: [
+                    "It brings the same amount of rainfall to every part of the country.",
+                    "It binds the country by providing water for agricultural activities and its rhythms dictate the life and festivals of the people.",
+                    "It causes the same temperatures across the country.",
+                    "It arrives on the same day across India."
+                ],
+                answer: 1,
+                explanation: "The entire agricultural calendar and the life of the people, including festivities, revolve around the monsoon. These winds bind the whole country by providing water for agriculture.",
+                week: "Climate: Monsoon & Rainfall"
+            }
+        ];
+
+        // DOM elements
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const feedbackDiv = document.getElementById('feedback');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const currentQuestionSpan = document.getElementById('current-question');
+        const totalQuestionsSpan = document.getElementById('total-questions');
+        const currentScoreSpan = document.getElementById('current-score');
+        const progressBar = document.getElementById('progress-bar');
+        const resultContainer = document.getElementById('result-container');
+        const finalScoreSpan = document.getElementById('final-score');
+        const totalQuestionsFinalSpan = document.getElementById('total-questions-final');
+        const performanceText = document.getElementById('performance-text');
+        const restartBtn = document.getElementById('restart-btn');
+        const weekIndicator = document.getElementById('week-indicator');
+
+        // Quiz state
+        let currentQuestionIndex = 0;
+        let userAnswers = Array(quizData.length).fill(null);
+        let score = 0;
+
+        function initQuiz() {
+            totalQuestionsSpan.textContent = quizData.length;
+            totalQuestionsFinalSpan.textContent = quizData.length;
+            updateProgressBar();
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const question = quizData[currentQuestionIndex];
+            questionText.innerHTML = question.question;
+            weekIndicator.textContent = question.week;
+            
+            optionsContainer.innerHTML = '';
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.textContent = option;
+                optionDiv.addEventListener('click', () => selectOption(index));
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            prevBtn.disabled = currentQuestionIndex === 0;
+            nextBtn.textContent = currentQuestionIndex === quizData.length - 1 ? 'Finish' : 'Next';
+            
+            currentQuestionSpan.textContent = currentQuestionIndex + 1;
+            currentScoreSpan.textContent = score;
+            updateProgressBar();
+            
+            feedbackDiv.style.display = 'none';
+            
+            if (userAnswers[currentQuestionIndex] !== null) {
+                const selectedOptIndex = userAnswers[currentQuestionIndex];
+                const options = optionsContainer.querySelectorAll('.option');
+                if (options[selectedOptIndex]) { 
+                    options[selectedOptIndex].classList.add('selected');
+                }
+                checkAnswer(selectedOptIndex, false); 
+            } else {
+                optionsContainer.querySelectorAll('.option').forEach(opt => {
+                    opt.style.pointerEvents = 'auto';
+                });
+            }
+        }
+
+        function updateProgressBar() {
+            const progress = ((currentQuestionIndex + 1) / quizData.length) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        function selectOption(optionIndex) {
+            if (feedbackDiv.style.display === 'block' && questionText.innerHTML === quizData[currentQuestionIndex].question) {
+                return; 
+            }
+
+            const isFirstAttempt = userAnswers[currentQuestionIndex] === null;
+            
+            if (isFirstAttempt) {
+                userAnswers[currentQuestionIndex] = optionIndex;
+            }
+            
+            const options = document.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            if (options[optionIndex]) {
+                options[optionIndex].classList.add('selected');
+            }
+            
+            checkAnswer(optionIndex, isFirstAttempt);
+        }
+
+        function checkAnswer(selectedIndex, isFirstScoringAttempt) {
+            const question = quizData[currentQuestionIndex];
+            const options = document.querySelectorAll('.option');
+            
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none'; 
+            });
+
+            if (options[question.answer]) {
+                 options[question.answer].classList.add('correct');
+            }
+            if (selectedIndex !== question.answer && options[selectedIndex]) {
+                options[selectedIndex].classList.add('incorrect');
+            }
+            
+            feedbackDiv.innerHTML = ''; 
+            if (selectedIndex === question.answer) {
+                feedbackDiv.className = 'feedback correct-feedback';
+                feedbackDiv.textContent = 'Correct!';
+                if (isFirstScoringAttempt) { 
+                    score++;
+                }
+            } else {
+                feedbackDiv.className = 'feedback incorrect-feedback';
+                const correctAnswerText = question.options[question.answer] || "N/A";
+                feedbackDiv.textContent = `Incorrect. The correct answer is: ${correctAnswerText}`;
+            }
+            currentScoreSpan.textContent = score;
+            
+            if (question.explanation) {
+                const explanation = document.createElement('div');
+                explanation.className = 'explanation';
+                explanation.textContent = question.explanation;
+                feedbackDiv.appendChild(explanation);
+            }
+            
+            feedbackDiv.style.display = 'block';
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < quizData.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+            }
+        }
+
+        function showResult() {
+            document.querySelector('.quiz-container').style.display = 'none';
+            document.querySelector('.progress-text').style.display = 'none';
+            document.querySelector('.progress-container').style.display = 'none';
+            resultContainer.style.display = 'block';
+            finalScoreSpan.textContent = score;
+            
+            const percentage = (score / quizData.length) * 100;
+            let performance = '';
+            if (percentage >= 90) performance = 'Outstanding! You have an excellent grasp of climate science.';
+            else if (percentage >= 75) performance = 'Excellent! Very well-informed about monsoons.';
+            else if (percentage >= 50) performance = 'Good effort! You know quite a bit.';
+            else if (percentage >= 30) performance = 'Keep learning! Review the topics to improve.';
+            else performance = 'A good start! Study more to enhance your knowledge.';
+            performanceText.textContent = performance;
+            // --- Firebase Progress Tracking ---
+            (function() {
+                var quizTitle = document.title || 'Unknown Quiz';
+                var category = 'General';
+                var path = window.location.pathname;
+                if (path.indexOf('Sikkim Current Affairs') !== -1 || quizTitle.indexOf('Sikkim') !== -1) category = 'Sikkim Current Affairs';
+                else if (path.indexOf('National International') !== -1 || quizTitle.indexOf('National') !== -1) category = 'National/International CA';
+                else if (path.indexOf('Physics') !== -1 || quizTitle.indexOf('Physics') !== -1) category = 'Physics';
+                else if (path.indexOf('Polity') !== -1) category = 'Polity';
+                else if (path.indexOf('History') !== -1) category = 'History';
+                else if (path.indexOf('Economics') !== -1) category = 'Economics';
+                else if (path.indexOf('Geography') !== -1) category = 'Geography';
+                if (typeof saveQuizResult === 'function' && typeof isLoggedIn === 'function' && isLoggedIn()) {
+                    saveQuizResult(quizTitle, score, quizData.length, category);
+                }
+            })();
+        }
+
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            userAnswers = Array(quizData.length).fill(null);
+            score = 0;
+            document.querySelector('.quiz-container').style.display = 'block';
+            document.querySelector('.progress-text').style.display = 'flex'; 
+            document.querySelector('.progress-container').style.display = 'block'; 
+            resultContainer.style.display = 'none';
+            feedbackDiv.style.display = 'none';
+            currentScoreSpan.textContent = score; 
+            showQuestion();
+        }
+
+        nextBtn.addEventListener('click', nextQuestion);
+        prevBtn.addEventListener('click', prevQuestion);
+        restartBtn.addEventListener('click', restartQuiz);
+
+        initQuiz();
+    </script>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="../../../auth.js"></script>
+</body>
+</html>

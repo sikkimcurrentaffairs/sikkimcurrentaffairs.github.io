@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Climate & Environment | Sikkim PSC Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        .quiz-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        html.dark .quiz-container {
+            background: #24272c;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #0284c7;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        html.dark .question-block {
+            border-bottom: 1px solid #334155;
+        }
+        .question-text {
+            font-size: 1.15em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+        html.dark .question-text {
+            color: #f1f5f9;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option {
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            padding: 16px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            color: #475569;
+        }
+        html.dark .option {
+            background-color: #1e293b;
+            border: 2px solid #334155;
+            color: #cbd5e1;
+        }
+        .option:hover {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
+            transform: translateX(4px);
+        }
+        html.dark .option:hover {
+            background-color: #334155;
+            border-color: #475569;
+        }
+        .option.correct {
+            background-color: #dcfce7 !important;
+            border-color: #4ade80 !important;
+            color: #166534 !important;
+        }
+        html.dark .option.correct {
+            background-color: #064e3b !important;
+            border-color: #10b981 !important;
+            color: #ecfdf5 !important;
+        }
+        .option.incorrect {
+            background-color: #fee2e2 !important;
+            border-color: #f87171 !important;
+            color: #991b1b !important;
+        }
+        html.dark .option.incorrect {
+            background-color: #7f1d1d !important;
+            border-color: #ef4444 !important;
+            color: #fef2f2 !important;
+        }
+        .options-list.answered {
+            pointer-events: none;
+        }
+        .quiz-stats-badge {
+            background: #f1f5f9;
+            color: #64748b;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        html.dark .quiz-stats-badge {
+            background: #334155;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 min-h-screen p-4 sm:p-8">
+
+    <div class="quiz-container">
+        <a href="ecology.html" class="back-link">&larr; Back to Ecology Topics</a>
+        <h1 class="text-3xl font-bold text-green-800 dark:text-green-400 mb-2">Climate & Environment</h1>
+        <div class="quiz-stats-badge">112 MCQ Questions</div>
+        
+        <div id="questions-wrapper"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "In calm air the air temperature is -10oC, if the wind speed should increase to 30 knots (with no change in air temperature) the thermometer would indicate:",
+                options: ["A much higher temperature than -10oC", "A much lower temperature than -10oC", "A temperature of -10oC", "A temperature of -30oC"],
+                answer: 2
+            },
+            {
+                question: "Infrared and visible satellite images might provide:",
+                options: ["A way of determining cloud thickness and altitude.", "A way of distinguishing between wet and dry clouds.", "A way of identifying clouds suitable for cloud seeding.", "A way of distinguishing between \"new\" and \"old\" clouds."],
+                answer: 0
+            },
+            {
+                question: "The atmosphere near the earth's surface is \"heated from below.\" Which of the following does not significantly contribute to this heating?",
+                options: ["Conduction of heat upward from a hot surface", "Convection from a hot surface", "Absorption of infrared energy that has been radiated from the surface", "Heat energy from the earth's interior"],
+                answer: 3
+            },
+            {
+                question: "The earth's atmosphere is divided into layers based on the vertical profile of:",
+                options: ["Air pressure", "Air temperature", "Air density", "Wind speed"],
+                answer: 1
+            },
+            {
+                question: "The temperature at which water boils depends mainly on:",
+                options: ["Air temperature", "Relative humidity", "Air pressure", "Air density"],
+                answer: 2
+            },
+            {
+                question: "In a temperature inversion:",
+                options: ["Air temperature increases with increasing height", "Air temperature decreases with increasing height", "Air temperature remains constant with increasing height", "It is warmer at night than during the day"],
+                answer: 0
+            },
+            {
+                question: "The instrument that measures temperature, pressure, and humidity at various altitudes in the atmosphere:",
+                options: ["Barograph", "Radiosonde", "Aneroid barometer", "Altimeter"],
+                answer: 1
+            },
+            {
+                question: "Which of the following gases has role an important in maintaining atmospheric temperature?",
+                options: ["Nitrogen", "Oxygen", "Argon", "Carbon dioxide"],
+                answer: 3
+            },
+            {
+                question: "Night time temperatures rarely drop below the dew point temperature because",
+                options: ["The dew will absorb all the heat", "Saturation vapor pressures always increase at night", "At saturation, latent heat of condensation is released into the air", "Both (b) and (c)"],
+                answer: 2
+            },
+            {
+                question: "The deepest radiation inversion would be observed:",
+                options: ["At the equator any day of the year", "In polar regions in winter", "At the top of a high mountain in winter", "On a desert in winter"],
+                answer: 1
+            },
+            {
+                question: "Climate includes",
+                options: ["Seasonal variation", "General patterns of atmosphere conditions", "Average weather of an area", "All of these"],
+                answer: 3
+            },
+            {
+                question: "If there is no atmosphere, the colour of the sky will be",
+                options: ["white", "colourless", "blue", "black"],
+                answer: 3
+            },
+            {
+                question: "In the stratosphere, the air temperature normally:",
+                options: ["Decreases with increasing height", "Increases with increasing height", "Both increases and decreases depending on the season", "Cannot be measured"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is not considered a temperature scale?",
+                options: ["Fahrenheit", "Kelvin", "Calorie", "Celsius"],
+                answer: 2
+            },
+            {
+                question: "The gas that absorbs most of the harmful ultraviolet radiation in the stratosphere:",
+                options: ["Water vapor", "Nitrous oxide", "Carbon dioxide", "Ozone"],
+                answer: 3
+            },
+            {
+                question: "The most abundant gas in the stratosphere is:",
+                options: ["Oxygen (O2)", "Nitrogen (N2)", "Carbon dioxide (CO2)", "Ozone (O3)"],
+                answer: 1
+            },
+            {
+                question: "The temperature scale that sets freezing of pure water at 32oF:",
+                options: ["Kelvin", "Fahrenheit", "Celsius", "British"],
+                answer: 1
+            },
+            {
+                question: "Which one of the following is the correct percentage of the two green house gases that contribute to the total global warming?",
+                options: ["N2O-6%, CO2-86%", "Methane-20%, N2O-18%", "CFCs -14%, Methane-20%", "CO2-40%,CFCs-30%"],
+                answer: 1
+            },
+            {
+                question: "Global warming is caused by",
+                options: ["GHGs", "CFCs", "CH4", "NO2"],
+                answer: 0
+            },
+            {
+                question: "Warming in the stratosphere is mainly caused by:",
+                options: ["Absorption of ultraviolet radiation by ozone", "Release of latent heat energy during condensation", "Chemical reactions between ozone and chlorofluorocarbons", "Frictional heating caused by meteorites"],
+                answer: 0
+            },
+            {
+                question: "This holds a planet's atmosphere close to its surface:",
+                options: ["Radiation", "Gravity", "Cloud cover", "Moisture"],
+                answer: 1
+            },
+            {
+                question: "During the afternoon the greatest temperature difference between the surface air and the air several meters above occurs on a:",
+                options: ["Clear, calm afternoon", "Clear, windy afternoon", "Cloudy, calm afternoon", "Cloudy, windy afternoon"],
+                answer: 0
+            },
+            {
+                question: "Ideal conditions for a strong radiation inversion:",
+                options: ["Clear, calm, dry, winter night", "Clear, calm, moist, summer night", "Cloudy, calm, moist, winter night", "Cloudy, windy, moist, summer night"],
+                answer: 0
+            },
+            {
+                question: "As the air temperature increases, with no addition of water vapor to the air, the dew point will:",
+                options: ["Remain the same", "Increase", "Decrease", "Increase and become equal to the air temperature"],
+                answer: 0
+            },
+            {
+                question: "As the air temperature increases, with no addition of water vapour to the air, the relative humidity will:",
+                options: ["Remain the same", "Increase", "Decrease", "Increase until it becomes equal to the dew point temperature"],
+                answer: 3
+            },
+            {
+                question: "If the air temperature remains constant, evaporating water into the air will ____ the dew point and ____ the relative humidity.",
+                options: ["Increase, increase", "Increase, decrease", "Decrease, increase", "Decrease, decrease"],
+                answer: 0
+            },
+            {
+                question: "If the earth's average surface temperature were to increase, the amount of radiation emitted from the earth's surface would ____, and the wavelength of peak emission would shift toward ____ wavelengths.",
+                options: ["Increase, shorter", "Increase, longer", "Decrease, shorter", "Decrease, longer"],
+                answer: 0
+            },
+            {
+                question: "Which of the following determine the kind (wavelength) and amount of radiation that an object emits?",
+                options: ["Temperature", "Thermal conductivity", "Density", "Latent heat"],
+                answer: 0
+            },
+            {
+                question: "An important reason for the large daily temperature range over deserts is:",
+                options: ["There is little water vapor in the air to absorb and re-radiate infrared radiation", "The light-colored sand radiates heat very rapidly at night", "Dry air is a very poor heat conductor", "Free convection cells are unable to form above the hot desert ground"],
+                answer: 0
+            },
+            {
+                question: "The primary source of energy for the earth's atmosphere is:",
+                options: ["Energy from within the earth", "The sun", "Erupting volcanoes", "Lightning discharges associated with thunderstorms"],
+                answer: 1
+            },
+            {
+                question: "The maximum in daytime surface temperature typically occurs _______ the earth receives its most intense solar radiation.",
+                options: ["Before", "After", "Exactly when", "Long time"],
+                answer: 1
+            },
+            {
+                question: "According to the Stefan-Boltzmann law, the radiative energy emitted by one square meter of an object is equal to a constant multiplied by its temperature raised to the _______ power.",
+                options: ["Negative third", "Zeroeth", "Fourth", "Tenth"],
+                answer: 2
+            },
+            {
+                question: "When the air temperature is below freezing, the saturation vapour pressure over water is .",
+                options: ["Equal to zero", "Less than the saturation vapour pressure over ice", "Greater than the saturation vapour pressure over ice", "Equal to the saturation vapour pressure over ice"],
+                answer: 2
+            },
+            {
+                question: "In the atmosphere, tiny solid or liquid suspended particles of various composition are called:",
+                options: ["Aerosols", "Carcinogens", "Greenhouse gases", "Microbes"],
+                answer: 0
+            },
+            {
+                question: "_________ is essentially stored solar energy that can be converted in to electricity, fuel and heat.",
+                options: ["Biomass", "Fossil", "Heat", "Coal"],
+                answer: 0
+            },
+            {
+                question: "The name given to a liquid drop of dew that freezes when the air temperature drops below freezing is:",
+                options: ["Frost", "Black frost", "Hoarfrost", "White frost"],
+                answer: 0
+            },
+            {
+                question: "An ideal shelter for housing a temperature-measurement instrument should be:",
+                options: ["White", "Black", "In the shade", "Both white and in the shade"],
+                answer: 3
+            },
+            {
+                question: "Suppose it is a winter night and at about 11 p.m., the air cools to the dew-point temperature and a thick radiation fog develops. If the air continues to cool during the night, in 5 hours the dew point temperature will probably:",
+                options: ["Decrease as the air becomes drier", "Decrease as the air becomes moister", "Increase as the air becomes drier", "Increase as the air becomes moister"],
+                answer: 0
+            },
+            {
+                question: "Electromagnetic radiation with wavelengths between 0.4 and 0.7 micrometers is called:",
+                options: ["Ultraviolet light", "Visible light", "Infrared light", "Microwaves"],
+                answer: 1
+            },
+            {
+                question: "Most of the radiation emitted by a human body is in the form of:",
+                options: ["Ultraviolet radiation and is invisible", "Visible radiation but is too weak to be visible", "Infrared radiation and is invisible", "Humans do not emit electromagnetic radiation"],
+                answer: 2
+            },
+            {
+                question: "Solar radiation reaches the earth's surface as:",
+                options: ["Visible radiation only", "Ultraviolet radiation only", "Infrared radiation only", "Visible and infrared radiation only"],
+                answer: 0
+            },
+            {
+                question: "Which of the following can be used as a method of protecting an orchard from damaging low temperatures during a radiation inversion?",
+                options: ["Orchard heaters", "Wind machines", "Irrigation (cover the area with water)", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "According to Wein's displacement law, the wavelength at which maximum radiation occurs",
+                options: ["Is inversely proportional to the temperature", "Is proportional to the temperature", "Is inversely proportional to the pressure", "Is proportional to the pressure"],
+                answer: 0
+            },
+            {
+                question: "The climate of a given region is",
+                options: ["average temperature and precipitation conditions for every day of the year in a given region", "average temperature and precipitation conditions", "its weather patterns", "its weather"],
+                answer: 0
+            },
+            {
+                question: "The temperature scale where 0orepresents freezing and 100oboiling:",
+                options: ["Fahrenheit", "Celsius", "Kelvin", "Absolute"],
+                answer: 1
+            },
+            {
+                question: "\"A good absorber of a given wavelength of radiation is also a good emitter of that wavelength.\" This is a statement of:",
+                options: ["Stefan-Boltzmann's law", "Wien's Law", "Kirchoff's Law", "The First Law of Thermodynamics"],
+                answer: 2
+            },
+            {
+                question: "In summer, humid regions typically have ________ daily temperature ranges and _______ maximum temperatures than drier regions.",
+                options: ["Smaller, lower", "Smaller, higher", "Larger, lower", "Larger, higher"],
+                answer: 0
+            },
+            {
+                question: "Often before sunrise on a clear, calm, cold morning, ice (frost) can be seen on the tops of parked cars, even when the air temperature is above freezing. This condition happens because the tops of the cars are cooling by:",
+                options: ["Conduction", "Convection", "Latent heat", "Radiation"],
+                answer: 3
+            },
+            {
+                question: "Suppose saturated polar air has an air temperature and dew point of -10o C, and unsaturated desert air has an air temperature of 35o C and a dew point of 10o C. The desert air contains ______ water vapour and has a ________ relative humidity than the polar air.",
+                options: ["More, lower", "More, higher", "Less, lower", "Less, higher"],
+                answer: 0
+            },
+            {
+                question: "Radiation can cause",
+                options: ["cardiac disease", "Haemophilia", "leukemia", "bone marrow diseases"],
+                answer: 2
+            },
+            {
+                question: "The earth's radiation is often referred to as ________radiation, while the sun's radiation is often referred to as _________radiation.",
+                options: ["Shortwave, longwave", "Shortwave, shortwave", "Longwave, shortwave", "Longwave, longwave"],
+                answer: 2
+            },
+            {
+                question: "The albedo of the earth's surface is only about 4%, yet the combined albedo of the earth and the atmosphere is about 30%. Which set of conditions below best explains why this is so?",
+                options: ["High albedo of clouds, low albedo of water", "High albedo of clouds, high albedo of water", "Low albedo of clouds, low albedo of water", "Low albedo of clouds, high albedo of water"],
+                answer: 0
+            },
+            {
+                question: "What is troposphere?",
+                options: ["Portion of air", "Portion of water", "Lowest layer of atmosphere where we survive", "Portion of sky"],
+                answer: 2
+            },
+            {
+                question: "The amount of solar radiation reaching the surface of the earth is called",
+                options: ["Solar flux", "reflected light", "minerals", "solvents"],
+                answer: 0
+            },
+            {
+                question: "The lag in daily temperature refers to the time lag between the:",
+                options: ["Time of maximum solar radiation and the time of maximum temperature", "Time of minimum temperature and the time of maximum solar radiation", "Minimum and maximum temperature for a day", "Minimum and maximum solar energy received at the surface for a given day"],
+                answer: 0
+            },
+            {
+                question: "During a radiation inversion, wind machines",
+                options: ["Bring warm air down toward the surface", "Lift cool, surface air to higher altitudes", "Mix the air near the ground", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "Assuming that the night will remain clear, calm, and unsaturated, the predicted minimum temperature is 32oF. Suddenly the wind speed increases and remains gusty throughout the night. The minimum temperature will most likely be:",
+                options: ["About the same as predicted but will occur earlier in the night", "Higher than predicted due to the release of latent heat", "Much lower than predicted due to radiational cooling", "Higher than predicted due to mixing"],
+                answer: 3
+            },
+            {
+                question: "Nitrogen gas returns to the atmosphere by the action of",
+                options: ["Nitrogen fixing bacteria", "Denitrifying bacteria", "Nitrifying bacteria", "Nitrate fertilizers"],
+                answer: 1
+            },
+            {
+                question: "The most abundant gases in the earth's atmosphere by volume are:",
+                options: ["Carbon dioxide and nitrogen", "Oxygen and water vapor", "Nitrogen and oxygen", "Oxygen and helium"],
+                answer: 2
+            },
+            {
+                question: "An increase in albedo would be accompanied by ____ in radiative equilibrium temperature.",
+                options: ["An increase", "A decrease", "No change", "Unstable oscillations"],
+                answer: 1
+            },
+            {
+                question: "More solar radiation is received at the:",
+                options: ["Earth", "Top of the atmosphere", "North and south poles", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "In the northern hemisphere, a solar panel should be placed on the side of the roof facing:",
+                options: ["East", "West", "North", "South"],
+                answer: 3
+            },
+            {
+                question: "Scientists are able to determine the air temperature in the thermosphere by:",
+                options: ["Using radiosondes", "Using temperature probes in orbiting satellites", "Observing changes in satellite orbits", "Direct measurements in manned, high-altitude balloons"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is considered a variable gas in the earth's atmosphere?",
+                options: ["Water vapor", "Nitrogen", "Oxygen", "Argon"],
+                answer: 0
+            },
+            {
+                question: "The earth's first atmosphere was composed primarily of:",
+                options: ["Carbon dioxide and water vapor", "Hydrogen and helium", "Oxygen and water vapor", "Argon and nitrogen"],
+                answer: 1
+            },
+            {
+                question: "Which gas is likely to be reduced in the atmosphere by deforestation?",
+                options: ["Carbon dioxide", "Nitrogen", "Oxygen", "Sulphur dioxide"],
+                answer: 2
+            },
+            {
+                question: "Nuclear accidents mostly release radioactive  __________ into the atmosphere",
+                options: ["Carbon", "Iodine", "Phosphorus", "Sulphur"],
+                answer: 1
+            },
+            {
+                question: "Which of the following processes acts to remove carbon dioxide from the atmosphere?",
+                options: ["Lightning", "Deforestation", "Photosynthesis", "Burning fossil fuels"],
+                answer: 2
+            },
+            {
+                question: "Which of the following weather elements always decreases as we climb upward in the atmosphere?",
+                options: ["Wind", "Temperature", "Pressure", "Moisture"],
+                answer: 2
+            },
+            {
+                question: "A strong radiation inversion is more likely to occur on a:",
+                options: ["Warm, windy night.", "Cool, windy night.", "Rainy night with light winds.", "Clear night with light winds."],
+                answer: 3
+            },
+            {
+                question: "A heat transfer process in the atmosphere that depends upon the movement of air is:",
+                options: ["Conduction", "Absorption", "Reflection", "Convection"],
+                answer: 3
+            },
+            {
+                question: "If the sun suddenly began emitting more energy, the earth's radiative equilibrium temperature would:",
+                options: ["Increase", "Decrease", "Remain the same", "Begin to oscillate"],
+                answer: 0
+            },
+            {
+                question: "If the average temperature of the sun increased, the wavelength of peak solar emission would:",
+                options: ["Shift to a shorter wavelength", "Shift to a longer wavelength", "Remain the same", "Impossible to tell from given information"],
+                answer: 0
+            },
+            {
+                question: "When the air temperature increases, the saturation vapour pressure will:",
+                options: ["Increase", "Decrease", "Remain the same", "Vary over an increasingly broad range of values"],
+                answer: 0
+            },
+            {
+                question: "As the air temperature increases, the air's capacity for water vapour:",
+                options: ["Increases", "Decreases", "Remains constant", "Is unrelated to air temperature and can either increase or decrease"],
+                answer: 0
+            },
+            {
+                question: "As the difference between the air temperature and the dew point increases, the relative humidity:",
+                options: ["Increases", "Decreases", "Remains constant at a value less than 100%", "Remains constant and equal to 100%"],
+                answer: 1
+            },
+            {
+                question: "_________ is the most commonly used unit of radiation",
+                options: ["Becquerel", "Gray", "Rutherford", "Curie"],
+                answer: 3
+            },
+            {
+                question: "The lowest temperature is usually observed:",
+                options: ["At the time of sunset", "Near midnight", "Several hours before sunrise", "Around sunrise"],
+                answer: 3
+            },
+            {
+                question: "The strongest radiation inversions occur when",
+                options: ["Skies are overcast", "Skies are partly cloudy", "Skies are clear", "Precipitation is falling"],
+                answer: 2
+            },
+            {
+                question: "The presence of solid, liquid or gaseous compounds, which may not be normally present, or in excess concentration in the atmosphere is called",
+                options: ["air pollution", "water pollution", "soil pollution", "radioactive pollution"],
+                answer: 0
+            },
+            {
+                question: "The primary cause of a radiation inversion is:",
+                options: ["Infrared radiation emitted by the earth's surface", "Infrared radiation absorbed by the earth's surface", "Solar radiation absorbed by the earth's surface", "Solar radiation reflected by the earth's surface"],
+                answer: 0
+            },
+            {
+                question: "The rate at which temperature decreases with increasing altitude is known as the:",
+                options: ["Temperature slope", "Lapse rate", "Sounding", "Thermocline"],
+                answer: 1
+            },
+            {
+                question: "If the air temperature increased, with no addition or removal of water vapour, the actual vapour pressure would:",
+                options: ["Increase", "Decrease", "Stay the same", "Become greater than the saturation vapor pressure"],
+                answer: 2
+            },
+            {
+                question: "The electrified region of the upper atmosphere is called the:",
+                options: ["Thermosphere", "Mesosphere", "Stratosphere", "Ionosphere"],
+                answer: 3
+            },
+            {
+                question: "Sunlight passes through a thicker portion of the atmosphere at",
+                options: ["Sunrise", "Noon", "Sunset", "Night"],
+                answer: 0
+            },
+            {
+                question: "The earth's radiative equilibrium temperature is:",
+                options: ["The temperature at which the earth is absorbing solar radiation and emitting infrared radiation at equal rates", "The temperature at which the earth is radiating energy at maximum intensity", "The average temperature the earth must maintain to prevent the oceans from freezing solid", "The temperature at which rates of evaporation and condensation on the earth are in balance"],
+                answer: 0
+            },
+            {
+                question: "Suppose yesterday morning you noticed ice crystals (frost) on the grass, yet the minimum temperature reported in the newspaper was only 35oF. The most likely reason for this apparent discrepancy is that:",
+                options: ["Temperature readings are taken in instrument shelters more than 5 feet above the ground", "The thermometer was in error", "The newspaper reported the wrong temperature", "The thermometer was read before the minimum temperature was reached for that day"],
+                answer: 0
+            },
+            {
+                question: "How much radiant energy will an object emit if its temperature is at absolute zero?",
+                options: ["The maximum theoretical amount", "None", "The same as it would at any other temperature", "Depends on the chemical composition of the object"],
+                answer: 1
+            },
+            {
+                question: "Suppose last night was clear and calm. Tonight low clouds will be present. From this you would conclude that tonight's minimum temperature will be:",
+                options: ["Higher than last night's minimum temperature", "Lower than last night's minimum temperature", "The same as last night's minimum temperature", "Above freezing"],
+                answer: 0
+            },
+            {
+                question: "The sun emits its greatest intensity of radiation in:",
+                options: ["The visible portion of the spectrum", "The infrared portion of the spectrum", "The ultraviolet portion of the spectrum", "The x-ray portion of the spectrum"],
+                answer: 0
+            },
+            {
+                question: "The heating of earth's atmosphere due to trapped radiation is known as",
+                options: ["Global warming", "Glass-House effect", "Thermal effect", "Green House effect"],
+                answer: 3
+            },
+            {
+                question: "Lines connecting points of equal temperature are called:",
+                options: ["Isobars", "Isotherms", "Thermals", "Thermographs"],
+                answer: 1
+            },
+            {
+                question: "At what time during a 24-hour day would a radiation temperature inversion best be developed?",
+                options: ["At sunset", "Near sunrise", "Toward the end of the morning", "Between 2 and 5 pm when the air temperature reaches a maximum"],
+                answer: 1
+            },
+            {
+                question: "The most harmful of ultraviolet radiation is",
+                options: ["UV-C,", "UV-B,", "UV-A,", "All the above."],
+                answer: 0
+            },
+            {
+                question: "The earth emits radiation with greatest intensity at:",
+                options: ["Infrared wavelengths", "Radio wavelengths", "Visible wavelengths", "Ultraviolet wavelengths"],
+                answer: 0
+            },
+            {
+                question: "The gas that shows the most variation from place to place and from time to time in the lower atmosphere:",
+                options: ["Ozone (O3)", "Carbon dioxide (CO2)", "Water vapour (H2O)", "Methane (CH4)"],
+                answer: 2
+            },
+            {
+                question: "The temperature to which air must be cooled in order to become saturated is the:",
+                options: ["Minimum temperature", "Dew point temperature", "Wet-bulb temperature", "Freezing point"],
+                answer: 1
+            },
+            {
+                question: "The lowest temperature that can be attained by evaporating water into the air is known as the:",
+                options: ["Heat index", "Minimum temperature", "Wet-bulb temperature", "Frost point"],
+                answer: 2
+            },
+            {
+                question: "On the average, about what percentage of the solar energy that strikes the outer atmosphere eventually reaches the earth's surface?",
+                options: ["5%", "15%", "30%", "50%"],
+                answer: 3
+            },
+            {
+                question: "If the absolute temperature of an object doubles, the maximum energy emitted goes up by a factor of:",
+                options: ["2", "4", "8", "16"],
+                answer: 3
+            },
+            {
+                question: "The global temperature has risen by about  __________ degree celsius, since the peak of last glacialisation.",
+                options: ["10", "7", "8", "5"],
+                answer: 2
+            },
+            {
+                question: "The combined albedo of the earth and the atmosphere is approximately ____ percent.",
+                options: ["4", "10", "30", "50"],
+                answer: 2
+            },
+            {
+                question: "The average temperature of the earth is about  __________ degree F.",
+                options: ["57", "59", "67", "65"],
+                answer: 1
+            },
+            {
+                question: "Ultraviolet radiation which is not lethal but harm to the organism is",
+                options: ["0.1 to 0.28", "0.28-0.32", "0.32-0.4", "0.4-0.5"],
+                answer: 1
+            },
+            {
+                question: "If all the water vapour in the atmosphere were to condense and fall to the ground, the globe would be covered with about ______ of water.",
+                options: ["1 millimeter", "1 inch", "1 foot", "1 meter"],
+                answer: 1
+            },
+            {
+                question: "The total mass of water vapour stored in the atmosphere at any moment is about ____ of the world's supply of precipitation.",
+                options: ["1 day", "1 week", "1 month", "1 year"],
+                answer: 1
+            },
+            {
+                question: "The sun emits a maximum amount of radiation at wavelengths near ____, while the earth emits maximum radiation near wavelengths of ____.",
+                options: ["0.5 micrometers, 30 micrometers", "0.5 micrometers, 10 micrometers", "10 micrometers, 30 micrometers", "1 micrometer, 10 micrometers"],
+                answer: 1
+            },
+            {
+                question: "At which temperature would the earth be radiating energy at the greatest rate or intensity?",
+                options: ["-5oF", "-40oF", "60oF", "32oF"],
+                answer: 0
+            },
+            {
+                question: "The air temperature is 45oF, the wind is blowing at 30 MPH, and the wind chill temperature is 15oF. These conditions would be equivalent to:",
+                options: ["A 15oF air temperature and 0 MPH winds", "A 30oF air temperature and 45 MPH winds", "A 30oF air temperature and 15 MPH winds", "A 15oF air temperature and 30 MPH winds"],
+                answer: 0
+            },
+            {
+                question: "The geographical pattern of average air temperature near sea level is _______ homogeneous in the southern hemisphere as compared to the northern hemisphere.",
+                options: ["Less", "More", "Below", "Above"],
+                answer: 1
+            },
+            {
+                question: "The dew point temperature is a measure of the total amount of water vapor in the air.",
+                options: ["True", "False", "", ""],
+                answer: 0
+            },
+            {
+                question: "Carbon dioxide is a naturally-occurring component of the atmosphere.",
+                options: ["True", "False", "", ""],
+                answer: 0
+            }
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.innerHTML = `<span class="text-green-600 dark:text-green-500 mr-2">Q${index + 1}.</span> ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                if (!option || option.trim() === '') return;
+                
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) return;
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            wrapper.appendChild(questionBlock);
+        });
+
+        // Theme sync
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>

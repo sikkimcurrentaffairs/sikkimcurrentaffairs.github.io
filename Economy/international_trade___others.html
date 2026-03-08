@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>International Trade & Others | Sikkim PSC Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        .quiz-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        html.dark .quiz-container {
+            background: #24272c;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #0284c7;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        html.dark .question-block {
+            border-bottom: 1px solid #334155;
+        }
+        .question-text {
+            font-size: 1.15em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+        html.dark .question-text {
+            color: #f1f5f9;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option {
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            padding: 16px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            color: #475569;
+        }
+        html.dark .option {
+            background-color: #1e293b;
+            border: 2px solid #334155;
+            color: #cbd5e1;
+        }
+        .option:hover {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
+            transform: translateX(4px);
+        }
+        html.dark .option:hover {
+            background-color: #334155;
+            border-color: #475569;
+        }
+        .option.correct {
+            background-color: #dcfce7 !important;
+            border-color: #4ade80 !important;
+            color: #166534 !important;
+        }
+        html.dark .option.correct {
+            background-color: #064e3b !important;
+            border-color: #10b981 !important;
+            color: #ecfdf5 !important;
+        }
+        .option.incorrect {
+            background-color: #fee2e2 !important;
+            border-color: #f87171 !important;
+            color: #991b1b !important;
+        }
+        html.dark .option.incorrect {
+            background-color: #7f1d1d !important;
+            border-color: #ef4444 !important;
+            color: #fef2f2 !important;
+        }
+        .options-list.answered {
+            pointer-events: none;
+        }
+        .quiz-stats-badge {
+            background: #f1f5f9;
+            color: #64748b;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        html.dark .quiz-stats-badge {
+            background: #334155;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 min-h-screen p-4 sm:p-8">
+
+    <div class="quiz-container">
+        <a href="economy.html" class="back-link">&larr; Back to Economy Topics</a>
+        <h1 class="text-3xl font-bold text-amber-800 dark:text-amber-400 mb-2">International Trade & Others</h1>
+        <div class="quiz-stats-badge">8 MCQ Questions</div>
+        
+        <div id="questions-wrapper"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Monopolies and restrictive Trade practices (MRTP) act was passed in:",
+                options: ["1970", "1969", "1971", "1968"],
+                answer: 1
+            },
+            {
+                question: "As per the 2009-10, data the commodity with highest share in total export value was:",
+                options: ["Gems and Jewellery.", "Engineering goods", "Petroleum products", "Rice"],
+                answer: 0
+            },
+            {
+                question: "The Foreign Exchange Management Act(FEMA) was passed in:",
+                options: ["the year 2000", "the year 2005", "the year 1999", "the year 2002"],
+                answer: 2
+            },
+            {
+                question: "Asia\u2019s first Export processing Zone (EPZ) was established in:",
+                options: ["Surat", "Cochin", "Kandla", "Chennai"],
+                answer: 2
+            },
+            {
+                question: "India\u2019s share in textiles trade of the world is:",
+                options: ["4%", "6%", "8%", "10%"],
+                answer: 1
+            },
+            {
+                question: "In the last one decade, which one among the following sectors has attracted the highest foreign direct investment inflows into India?",
+                options: ["Chemicals other than fertilizers", "Services sector", "Food processing", "Telecommunication"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is the most appropriate cause of export surplus?",
+                options: ["Country's exports promotion value", "Country's stringent import policy", "Developments in national and international markets", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "Foreign Direct Investment ceiling in the telecom sector have been raised from 74 percent to",
+                options: ["80 percent", "83 percent", "90 percent", "100 percent"],
+                answer: 3
+            }
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.innerHTML = `<span class="text-amber-600 dark:text-amber-500 mr-2">Q${index + 1}.</span> ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                if (!option || option.trim() === '') return;
+                
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) return;
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            wrapper.appendChild(questionBlock);
+        });
+
+        // Theme sync
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>

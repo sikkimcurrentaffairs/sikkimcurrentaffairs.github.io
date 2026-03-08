@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atomic Structure & Nuclear Chemistry | Sikkim PSC Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        .quiz-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        html.dark .quiz-container {
+            background: #24272c;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #0284c7;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        html.dark .question-block {
+            border-bottom: 1px solid #334155;
+        }
+        .question-text {
+            font-size: 1.15em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+        html.dark .question-text {
+            color: #f1f5f9;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option {
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            padding: 16px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            color: #475569;
+        }
+        html.dark .option {
+            background-color: #1e293b;
+            border: 2px solid #334155;
+            color: #cbd5e1;
+        }
+        .option:hover {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
+            transform: translateX(4px);
+        }
+        html.dark .option:hover {
+            background-color: #334155;
+            border-color: #475569;
+        }
+        .option.correct {
+            background-color: #dcfce7 !important;
+            border-color: #4ade80 !important;
+            color: #166534 !important;
+        }
+        html.dark .option.correct {
+            background-color: #064e3b !important;
+            border-color: #10b981 !important;
+            color: #ecfdf5 !important;
+        }
+        .option.incorrect {
+            background-color: #fee2e2 !important;
+            border-color: #f87171 !important;
+            color: #991b1b !important;
+        }
+        html.dark .option.incorrect {
+            background-color: #7f1d1d !important;
+            border-color: #ef4444 !important;
+            color: #fef2f2 !important;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none;
+        }
+        .quiz-stats-badge {
+            background: #f1f5f9;
+            color: #64748b;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        html.dark .quiz-stats-badge {
+            background: #334155;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 min-h-screen p-4 sm:p-8">
+
+    <div class="quiz-container">
+        <a href="chemistry.html" class="back-link">&larr; Back to Chemistry Topics</a>
+        <h1 class="text-3xl font-bold text-sky-800 dark:text-sky-400 mb-2">Atomic Structure & Nuclear Chemistry</h1>
+        <div class="quiz-stats-badge">82 MCQ Questions</div>
+        
+        <div id="questions-wrapper"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "The nucleus of an atom consists of",
+                options: ["electrons and neutrons", "electrons and protons", "protons and neutrons", "All of the above"],
+                answer: 2
+            },
+            {
+                question: "The most electronegative element among the following is",
+                options: ["sodium", "bromine", "fluorine", "oxygen"],
+                answer: 2
+            },
+            {
+                question: "The number of d-electrons in Fe2+(Z = 26) is not equal to that of",
+                options: ["p-electrons in Ne(Z = 10)", "s-electrons in Mg(Z = 12)", "d-electrons in Fe(Z = 26)", "p-electrons in CI(Z = 17)"],
+                answer: 3
+            },
+            {
+                question: "The gas present in the stratosphere which filters out some of the sun's ultraviolet light and provides an effective shield against radiation damage to living things is",
+                options: ["helium", "ozone", "oxygen", "methane"],
+                answer: 1
+            },
+            {
+                question: "The nucleus of a hydrogen atom consists of",
+                options: ["1 proton only", "1 proton + 2 neutron", "1 neutron only", "1 electron only"],
+                answer: 0
+            },
+            {
+                question: "The number of waves in n x 10thBohr's orbit are",
+                options: ["n2", "n", "n-2", "n3"],
+                answer: 1
+            },
+            {
+                question: "The mass of one Avogadro number of helium atom is",
+                options: ["1.00 gram", "4.00 gram", "8.00 gram", "4 x 6.02 x 1023gram"],
+                answer: 3
+            },
+            {
+                question: "The mass number of a nucleus is",
+                options: ["always less than its atomic number", "the sum of the number of protons and neutrons present in the nucleus", "always more than the atomic weight", "a fraction"],
+                answer: 1
+            },
+            {
+                question: "The following are the half lives of four active isotopes. Which one of the following is the most dangerous to handle?",
+                options: ["3 billion years", "100 years", "0.01 minute", "13 days"],
+                answer: 2
+            },
+            {
+                question: "The ionisation energy of hydrogen atom in the ground state is x KJ. The energy required for an electron to jump from 2ndorbit to 3rdorbit is",
+                options: ["5x/36", "5x", "7.2 x", "x/6"],
+                answer: 0
+            },
+            {
+                question: "The number of electrons presents in H+is",
+                options: ["zero", "one", "two", "three"],
+                answer: 0
+            },
+            {
+                question: "The half life period of an isotope is 2 hours. After 6 hours what fraction of the initial quantity of the isotope will be left behind?",
+                options: ["1/6", "1/3", "1/8", "1/4"],
+                answer: 2
+            },
+            {
+                question: "The number of waves made by an electron moving in an orbit having maximum magnetic quantum number is +3",
+                options: ["4", "5", "2", "zero"],
+                answer: 0
+            },
+            {
+                question: "The number of atoms present in 21.6 gram of silver (atomic weight = 108) are same as the molecules in",
+                options: ["1.8 gram of H2O", "12 moles of KMnO4", "0.6N H2SO4", "4.6 gram of C2H5OH"],
+                answer: 1
+            },
+            {
+                question: "The mass number of an atom is equal to",
+                options: ["the number of protons", "the number of protons and electrons", "the number of nucleons", "the number of neutrons"],
+                answer: 2
+            },
+            {
+                question: "A non-electronic conductor is",
+                options: ["Iron", "Gas Carbon", "Copper Sulphate", "None of these"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is a monoatomic gas?",
+                options: ["Oxygen", "Neon", "Nitrogen", "Fluorine"],
+                answer: 1
+            },
+            {
+                question: "Which of the following can be found as pollutants in the drinking water in some parts of India? Select the correct answer using the code given below.(A) Arsenic(B) Sorbitol(C) Fluoride(D) Formaldehyde(E) Uranium",
+                options: ["B, D and E", "A, B, C, D and E", "A, C and E", "A and C"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is the maximum number of electrons that can be present in M-shell?",
+                options: ["2", "8", "18", "32"],
+                answer: 2
+            },
+            {
+                question: "Atoms of different elements have",
+                options: ["Same atomic number and same electronic configuration", "Different atomic number and same eletronic configu-ration", "Different atomic number and different number of valence electrons", "Same number of electrons and neutrons"],
+                answer: 2
+            },
+            {
+                question: "All isotopes of the same element have ________",
+                options: ["Different atomic numbers and different atomic mass", "Different atomic numbers and the same atomic mass", "The same atomic number but different atomic masses", "The same atomic number and the atomic mass"],
+                answer: 2
+            },
+            {
+                question: "The fundamental particles present in the nucleus of an atom are",
+                options: ["Electron, proton", "Proton, neutron", "Neutron, electron", "Neutron, positron"],
+                answer: 1
+            },
+            {
+                question: "J.J. Thomson\u2019s proposed model of atom is generally called ________ model.",
+                options: ["Cream and cake", "Plum and pudding", "Plum and cake", "Cream and pudding"],
+                answer: 1
+            },
+            {
+                question: "What particles move around the nucleus of an atom and are negatively charged?",
+                options: ["Electrons", "Protons", "Positrons", "Neutrons"],
+                answer: 0
+            },
+            {
+                question: "Atoms having the same number of protons but different number of neutrons are called :",
+                options: ["Isotopes", "Cations", "Higgs-boson", "Anions"],
+                answer: 0
+            },
+            {
+                question: "Chemical properties of isotopes",
+                options: ["Must be same", "Must be different", "Need not be same", "Need not be different"],
+                answer: 0
+            },
+            {
+                question: "Which of the following does the nucleus of an atom consists of?",
+                options: ["Protons and neutrons", "Protons and electrons", "Electrons", "Protons"],
+                answer: 0
+            },
+            {
+                question: "Atomic number is the number equal to",
+                options: ["Protons", "Electrons", "Neutrons", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "Number of neutrons in an atom of hydrogen is",
+                options: ["One", "Zero", "Two", "Three"],
+                answer: 1
+            },
+            {
+                question: "The atomic number of carbon is 6 and its atomic mass is 12. How many are there protons in the nucleus of carbon ?",
+                options: ["6", "12", "18", "Zero"],
+                answer: 0
+            },
+            {
+                question: "An atom of an element has atomic number 17 and mass number 36. The number of neutrons in its nucleus is",
+                options: ["17", "19", "36", "53"],
+                answer: 1
+            },
+            {
+                question: "Atoms of same element having different mass numbers are called________",
+                options: ["Isobars", "Isotopes", "Isotones", "Isomers"],
+                answer: 1
+            },
+            {
+                question: "How many neutrons does iron have?",
+                options: ["8", "13", "26", "30"],
+                answer: 3
+            },
+            {
+                question: "The electronic configuration of an atom having atomic number \u201820\u2019 is",
+                options: ["2, 8, 10", "2, 6, 8, 4", "2, 8, 8, 2", "2, 10, 8"],
+                answer: 2
+            },
+            {
+                question: "Nucleus of an atom consists of.",
+                options: ["Proton", "Neutron", "Proton and Neutron", "Electron, Proton and Neutron"],
+                answer: 2
+            },
+            {
+                question: "In an oxygen molecule, two atoms are united by",
+                options: ["One bond", "Two bonds", "Three bonds", "Four bonds"],
+                answer: 1
+            },
+            {
+                question: "How many electrons are there in a Hydrogen atom?",
+                options: ["One", "Two", "Three", "Four"],
+                answer: 0
+            },
+            {
+                question: "The third shell of an atom can have a maximum of ______ electrons.",
+                options: ["13", "15", "18", "21"],
+                answer: 2
+            },
+            {
+                question: "Who developed the model of atomic structure ?",
+                options: ["Bohr and Rutherford", "Volta", "Alfred Nobel", "Faraday"],
+                answer: 0
+            },
+            {
+                question: "Atomic number of an atom gives the number of which of the following ?",
+                options: ["Electrons", "Protons", "Neutrons", "Neutrons and protons"],
+                answer: 1
+            },
+            {
+                question: "The chemical bahaviour of an atom depends upon",
+                options: ["The number of protons in its nucleus", "The number of neutrons in the nucleus", "The number of electrons orbiting around the nucleus", "The number of nucleons in the nucleus"],
+                answer: 2
+            },
+            {
+                question: "A matured mammalian cell without nucleus is",
+                options: ["Lymphocyte", "Erythrocyte", "Spermatozoan", "Oocyte"],
+                answer: 1
+            },
+            {
+                question: "Ozone saves the biosphere by absorbing high energy radiations called ________ .",
+                options: ["Infra-red (IR)", "Gamma rays", "Ultraviolet rays (UV)", "X\u2013rays"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following is most electronegative?",
+                options: ["Carbon", "Silicon", "Lead", "Tin"],
+                answer: 0
+            },
+            {
+                question: "What is the covalency of nitrogen in ammonia molecule",
+                options: ["2", "3", "4", "5"],
+                answer: 1
+            },
+            {
+                question: "What is the atomic number of Oxygen?",
+                options: ["5", "8", "12", "22"],
+                answer: 1
+            },
+            {
+                question: "In which of the following substances all carbon atoms are quaternary in nature ?",
+                options: ["Graphite", "Diamond", "Teflon", "Napthalene"],
+                answer: 1
+            },
+            {
+                question: "The weight of 6.023 \u00d7 1023atoms of carbon is",
+                options: ["12 gms", "120 gms", "1.2 gms", "0.12 gms"],
+                answer: 0
+            },
+            {
+                question: "Number of 6.023 \u00d7 1023atoms present in one mole of a gas at STP is",
+                options: ["6.023 \u00d7 1020", "6.023 \u00d7 1023", "6.023 \u00d7 10\u201320", "6.023 \u00d7 10\u201323"],
+                answer: 1
+            },
+            {
+                question: "In the periodic table of elements, on moving from left to right across a period, the atomic radius",
+                options: ["Decreases", "Increases", "Remains unchanged", "Does not follow a definite pattern"],
+                answer: 0
+            },
+            {
+                question: "Which one element has the lowest electronegativity value",
+                options: ["Fluorine", "Chlorine", "Francium", "Radium"],
+                answer: 2
+            },
+            {
+                question: "Which one element has the highest electronegativity value",
+                options: ["Lithium", "Nitrogen", "Chlorine", "Fluorine"],
+                answer: 3
+            },
+            {
+                question: "The elements with atomic numbers 9, 17, 35, 53, 85 are all",
+                options: ["Heavy metals", "Noble gases", "Light metals", "Halogens"],
+                answer: 3
+            },
+            {
+                question: "'All the four quantum numbers of two electrons in an atom are not the same.' It is the law of \u2013",
+                options: ["Hund's rule of maximum multiplicity", "Exclusion Principle of Pauli", "Uncertainty Principle of Hiesenberg", "Avogadro's Law"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is not a donor atom?",
+                options: ["Phosphorus", "Antimony", "Arsenic", "Aluminium"],
+                answer: 3
+            },
+            {
+                question: "When a bond is formed between two atoms, the energy of the system will",
+                options: ["Increase", "Decrease", "Remain the same", "May increase or decrease"],
+                answer: 2
+            },
+            {
+                question: "Which of the following has least negative electron gain enthalpy?",
+                options: ["P", "S", "Cl", "F"],
+                answer: 0
+            },
+            {
+                question: "Ultraviolet radiation striking the earth is due to the depletion of",
+                options: ["Carbon monoxide", "Carbon dioxide", "Ozone", "Oxygen"],
+                answer: 2
+            },
+            {
+                question: "Which type of radiations are absorbed by the upper layer of the atmosphere?",
+                options: ["Radio-waves", "Infrared", "Visible", "Ultraviolet"],
+                answer: 3
+            },
+            {
+                question: "When a nutrient like fertilizer is present in large quantities in a water bodies, plants grow and decay in large numbers because of suffocation of pond that does not leave enough oxygen needed to support life. This type of pollution is called",
+                options: ["Smog", "Eutrophication", "Green house effect", "None of these"],
+                answer: 1
+            },
+            {
+                question: "Heavy metals got their name because compared to other atoms they have",
+                options: ["Higher densities", "Higher atomic masses", "Higher atomic numbers", "Higher atomic radii"],
+                answer: 1
+            },
+            {
+                question: "Which one of the following elements exhibits the greatest tendency to lose electrons ?",
+                options: ["Fluorine", "Lithium", "Oxygen", "Zinc"],
+                answer: 1
+            },
+            {
+                question: "What is the atomic number of mercury?",
+                options: ["32", "41", "63", "80"],
+                answer: 3
+            },
+            {
+                question: "An element of atomic no. 29 belongs to",
+                options: ["S-block", "D-block", "P-block", "F-block"],
+                answer: 1
+            },
+            {
+                question: "How many neutrons are there in92U238atom ?",
+                options: ["92", "238", "146", "330"],
+                answer: 2
+            },
+            {
+                question: "The number of neutrons present in an element having mass number 226 and atomic number 88 is :",
+                options: ["88", "138", "314", "50"],
+                answer: 1
+            },
+            {
+                question: "Who modified Bohr's theory by introducing elliptical orbits for electron path?",
+                options: ["Hund", "Thomson", "Rutherford", "Sommerfeld"],
+                answer: 3
+            },
+            {
+                question: "Two electrons in an orbital are differentiated by which of the following ?",
+                options: ["Magnetic quantum number", "Spin quantum number", "Principal quantum number", "Azimuthal quantum number"],
+                answer: 1
+            },
+            {
+                question: "When cathode rays strike a target of high atomic weight, they give rise to",
+                options: ["alpha-rays", "beta and gamma rays", "X-rays", "Positive rays"],
+                answer: 2
+            },
+            {
+                question: "How many electrons can be accommodated in d-orbital?",
+                options: ["3", "6", "8", "10"],
+                answer: 3
+            },
+            {
+                question: "When there are two electrons in the same orbital, they have:",
+                options: ["Same spin", "Opposite spin", "Same or opposite spin", "No spin"],
+                answer: 1
+            },
+            {
+                question: "The antiparticle of an electron is",
+                options: ["Positron", "Proton", "Alpha particles", "Beta particles"],
+                answer: 0
+            },
+            {
+                question: "Conduction band electrons have more mobility than holes because they",
+                options: ["Are lighter", "Experience collision less frequently", "Have negative charge", "Need less energy to move them"],
+                answer: 1
+            },
+            {
+                question: "The orientation of an atomic orbital is governed by",
+                options: ["Principal quantum number", "Magnetic quantum number", "Spin quantum number", "Azimuthal quantum number"],
+                answer: 1
+            },
+            {
+                question: "'Atomic theory' of matter was given by",
+                options: ["Avogadro", "Dalton", "Newton", "Pascal"],
+                answer: 1
+            },
+            {
+                question: "The total energy of revolving electron in an atom",
+                options: ["Cannot be negative", "Can have any value above zero", "Can never be positive", "Will always be positive"],
+                answer: 2
+            },
+            {
+                question: "Number of hydrogen atoms in a Glucose molecule is",
+                options: ["6", "8", "12", "14"],
+                answer: 2
+            },
+            {
+                question: "How many atoms of oxygen are in a glucose molecule?",
+                options: ["3", "4", "6", "10"],
+                answer: 2
+            },
+            {
+                question: "When a metal is heated in a flame, the electrons absorb energy and jump to higher energy state. On coming back to the lower energy siate, they emit light, which we can observe in",
+                options: ["Raman spectra", "Absorption spectra", "Emission spectra", "Fluorescence"],
+                answer: 2
+            },
+            {
+                question: "The transuranium elements are the chemical elements with atomic numbers greater than",
+                options: ["86", "89", "92", "96"],
+                answer: 2
+            },
+            {
+                question: "The coordination number of body centered atom in cubic structure is",
+                options: ["4", "6", "8", "10"],
+                answer: 2
+            },
+            {
+                question: "In a Carbonyl group a carbon atom makes double bond with",
+                options: ["Carbon", "Oxygen", "Hydrogen", "None of the above"],
+                answer: 1
+            }
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.innerHTML = `<span class="text-sky-600 dark:text-sky-500 mr-2">Q${index + 1}.</span> ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                if (!option || option.trim() === '') return;
+                
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) return;
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            wrapper.appendChild(questionBlock);
+        });
+
+        // Theme sync
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>

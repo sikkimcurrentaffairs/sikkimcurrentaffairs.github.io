@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biology - Biotechnology | Sikkim PSC Hub</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+            border-color: #bbb;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .options-list.answered .option:not(.correct):not(.incorrect) {
+            opacity: 0.7;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none;
+        }
+        .quiz-stats {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <a href="biology.html" class="back-link">&larr; Back to Biology</a>
+        <h1>Biotechnology</h1>
+        <p class="quiz-stats">38 Questions</p>
+        <!-- Questions will be dynamically inserted here by JavaScript -->
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Biotechnology is",
+                options: ["Technology used in biology", "Use of genetic engineering", "Development of technology for medicine application", "Use of microorgnisms in industrial process"],
+                answer: 3
+            },
+            {
+                question: "An American multinational company Monsanto has produced an insect resistant cotton variety that is under going field trials in India A toxin gene from which one of the following bacteria has been transferred this one of the following bacteria has been transferred to this transgenic cotton.",
+                options: ["Cacillus subtillis", "Bacillus thuringiensis", "Bacillus anyloli quifanciens", "Bacillus globlii"],
+                answer: 1
+            },
+            {
+                question: "The genetically engineered \'Golden Rice is rich\' in which of the following",
+                options: ["Vitamin A and nicotine acid", "B-Carotene, Vitamin A and folic acid", "B-Carotene and iron", "Vitamin A and niacin"],
+                answer: 1
+            },
+            {
+                question: "Which one of the following types of cell has the ability to develop into any type of all ?",
+                options: ["Endodermal cell", "Ectodermal cell", "Stem cell", "Muscles cell"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following contains powerful oxidative enzymes and help in removing toxic substance from cells?",
+                options: ["Plastids", "Lysosmes", "Dictyosomes", "Peroxisomes"],
+                answer: 3
+            },
+            {
+                question: "Introduction of foreign genes for improving genotype is",
+                options: ["Tissue culture", "Immunisation", "Biotechnology", "Genetic engineering"],
+                answer: 3
+            },
+            {
+                question: "Distribution of clean and quality milk throughout the world has been made possible through work of",
+                options: ["Leeuwenhook", "Koch", "Pasteur", "Blackman"],
+                answer: 2
+            },
+            {
+                question: "from microorganisms to higher organisms Select the correct answer using the codes given below.",
+                options: ["1 only", "2 and 3 only", "1 and 3 only", "1, 2 and 3"],
+                answer: 1
+            },
+            {
+                question: "Nuclease enzyme which begin its attack from free end of polynucleotide is",
+                options: ["Endonuclease", "Exonuclease", "Polymerase", "Kinase"],
+                answer: 1
+            },
+            {
+                question: "The enzymes that are used as molecular scissors to cut DNA at specific sites for various purposes in genetic engineering",
+                options: ["DNA ligases", "DNA polymerases", "Restriction endonucleases", "Restriction exonu leases"],
+                answer: 2
+            },
+            {
+                question: "Plasmid are",
+                options: ["Cytoplasmic organelles which store starch", "Extrachromosomal DNA elements in bacteria", "Genes which cause cancer", "Basic proteins around which DNA is coiled in encaryotic chromosome"],
+                answer: 1
+            },
+            {
+                question: "Antibiotic belong to the category of",
+                options: ["Steroids", "Toxin", "Medicine", "Tonics"],
+                answer: 2
+            },
+            {
+                question: "Modified antibiotics are got through",
+                options: ["Vemalisation", "Ultrafiltration", "Ultracentrifuge", "Genetic engineering"],
+                answer: 3
+            },
+            {
+                question: "Enzyme TPA or plasminogen activator is used for",
+                options: ["Dissolving blood clots", "Maintaining plasma content", "Clearing turbidity of juices", "Stimulating thromboplastin production"],
+                answer: 0
+            },
+            {
+                question: "Genetically engineered human insulin is manufactured by the use of",
+                options: ["E-coli", "Rhizopus", "Pseudomonas", "Ashbya gosspii"],
+                answer: 0
+            },
+            {
+                question: "Antibiotics inhibit the growth of or destroying",
+                options: ["Bacteria", "Bacteria and viruses", "Bacteria, fungi and viruses", "Bacte!ia, algae and viruses"],
+                answer: 2
+            },
+            {
+                question: "Which of the following vitamin is transformed in golden rice?",
+                options: ["Vitamin A", "Vitamin B12", "Vitamic C", "Vitamin D"],
+                answer: 0
+            },
+            {
+                question: "Human protein x-1-antitrysin is used for which of the following disease ?",
+                options: ["Cholera", "Small pox", "Emphysama", "Gout"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is reffered as molecular glue ?",
+                options: ["DNA ligase", "DNA polymerase", "Restriction enzyme", "Topoisomerase"],
+                answer: 0
+            },
+            {
+                question: "The southem blot technique is used for the detection of",
+                options: ["DNA", "RNA", "Protein", "None"],
+                answer: 0
+            },
+            {
+                question: "The northrn blot technique is used for the detection of",
+                options: ["r RNA", "m RNA", "t RNA", "RNA"],
+                answer: 3
+            },
+            {
+                question: "The first product of ancien biotechnology was",
+                options: ["Alcohol", "Lactic acid", "Insulin", "Steroid"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is not use as vector in genetic engineering",
+                options: ["Plasmids", "Bacteriophages", "Anophqles", "Transposons"],
+                answer: 2
+            },
+            {
+                question: "Advancement in genetic engineering has been possible due to discovery of",
+                options: ["(}neogenes", "Transposons", "Restriction endonuclease", "Exonuclease"],
+                answer: 2
+            },
+            {
+                question: "First hormone prepared by genetic engineering is",
+                options: ["Oxytocin", "Somatotropin", "Adrenalin", "Insulin"],
+                answer: 3
+            },
+            {
+                question: "Important objective of biotechnology in agriculture section is",
+                options: ["% produce best resistant varieties of planl", "% increase the nitrogen content", "% decreal the seed number", "%increase the plant weight."],
+                answer: 0
+            },
+            {
+                question: "Antibiotic resistance in microoganisms present in alimentary canal",
+                options: ["1 and 2", "1, 2 & 3", "1 and 3", "2 & 3"],
+                answer: 1
+            },
+            {
+                question: "The first transgenic crop was",
+                options: ["Pea", "Flax", "Tobacco", "Cotton"],
+                answer: 2
+            },
+            {
+                question: "Restrictionendoucleases were used by cohen and Boyer\'s DNA experiments for",
+                options: ["Isolation of cloned bacterial plasmids", "Cleaving the bacterial plasmid", "Isolation of human insulin", "Both a and b"],
+                answer: 3
+            },
+            {
+                question: "A DNA library constitutes",
+                options: ["All the genes in a gene pool", "All the genes sequenced so far", "A collection of all the DNA fragments of an organism inserted in plasmid", "A_DNA fragment inserted in a phage."],
+                answer: 2
+            },
+            {
+                question: "A method used to distinguish DNA of one in vidual from another is",
+                options: ["DNA sequencing", "c DNA", "Hybridisation", "Restriction fragment length polymorphism"],
+                answer: 3
+            },
+            {
+                question: "Which is used extensively for genetic engineering in plant?",
+                options: ["Agrobacterium tumefaciens", "Xanthomonas citri", "Bacillus coagulens", "Clostridium septicum"],
+                answer: 0
+            },
+            {
+                question: "Which of the following does not fall within the area of biotechnology ?",
+                options: ["xtration of copper from its ore.", "Form ation of yoghurt and chesse from milk. (c;) Production of insulin using gene technology.", "", "Production of antibiotics from moulds."],
+                answer: 0
+            },
+            {
+                question: "A genetical.ly engineered form of bringjal known as the Bt-bringal has been developed. The objective of this is",
+                options: ["To make it pest-resistant", "To improve its taste and nutritive qualities", "To make it drought resistant", "To make its self-life longer {CSAT 2011]"],
+                answer: 0
+            },
+            {
+                question: "Stem cells can be used for medical therapies. Select the correct answer using the codes given below",
+                options: ["1 and 2 only", "2 and 3 only", "3 only", "1, 2 and 3 {IAS2012]"],
+                answer: 1
+            },
+            {
+                question: "The concept of cyclic quadrilaterals was known in 7th century AD. Select the correct answer using the codes given below",
+                options: ["1 and 2 only ·", "3 and 4 only", "1, 3 and 4 only", "1, 2, 3 and 4"],
+                answer: 2
+            },
+            {
+                question: "There is some concern that the introduction of Bt brinjal may have adverse effect on the biodiversity. Select the correct answer using the codes given below",
+                options: ["1, 2 and 3 only", "2 and 3 only", "3 and 4 only", "1, 2, 3 and 4 {IAS2012]"],
+                answer: 2
+            },
+            {
+                question: "To increase their self life Select the correct answer using the codes given below",
+                options: ["1 and 2 only", "3 and 4 only", "1, 2 and 4 only", "1, 2, 3 and 4 {IAS2012] \'"],
+                answer: 2
+            }
+        ];
+
+        const quizContainer = document.getElementById('quiz-container');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.textContent = `${index + 1}) ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) {
+                        return;
+                    }
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            quizContainer.appendChild(questionBlock);
+        });
+    </script>
+</body>
+</html>

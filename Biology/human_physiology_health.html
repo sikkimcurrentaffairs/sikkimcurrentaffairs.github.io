@@ -1,0 +1,1866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Human Physiology & Health | Sikkim PSC Hub</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+            border-color: #bbb;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .options-list.answered .option:not(.correct):not(.incorrect) {
+            opacity: 0.7;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none;
+        }
+        .quiz-stats {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <a href="biology.html" class="back-link">&larr; Back to Biology</a>
+        <h1>Human Physiology & Health</h1>
+        <p class="quiz-stats">343 Questions</p>
+        <div id="questions-wrapper"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Pyorrhoea is a disease of the",
+                options: ["nose", "gums", "heart", "lungs"],
+                answer: 1
+            },
+            {
+                question: "Prothrombin which helps in clotting of blood is released by",
+                options: ["lymphocytes", "erythrocytes", "monocytes", "blood platelets"],
+                answer: 3
+            },
+            {
+                question: "Normal adult human male has",
+                options: ["10 gram of haemoglobin/100 gram of blood", "14 gram of haemoglobin/100 gram of blood", "18 gram of haemoglobin/100 gram of blood", "24 gram of haemoglobin/100 gram of blood"],
+                answer: 1
+            },
+            {
+                question: "Night blindness is cause by lack of which vitamin?",
+                options: ["Vitamin A", "Vitamin B", "Vitamin C", "Vitamin D"],
+                answer: 0
+            },
+            {
+                question: "Outer covering of virus made up of protein is",
+                options: ["capsid", "coat", "virion", "viriod"],
+                answer: 0
+            },
+            {
+                question: "Most common disease of poultry in India is",
+                options: ["fowl pox", "tick fever", "ranikhet", "coryza"],
+                answer: 2
+            },
+            {
+                question: "Most abundant tissues of our body are",
+                options: ["muscular", "connective", "epithelial", "nervous"],
+                answer: 1
+            },
+            {
+                question: "Mumps is a disease caused by",
+                options: ["fungus", "bacterium", "virus", "None of these"],
+                answer: 2
+            },
+            {
+                question: "Number of chromosomes in down\'s syndrome is",
+                options: ["46", "47", "48", "49"],
+                answer: 1
+            },
+            {
+                question: "Oxygen in our blood is transported by a protein named",
+                options: ["haemoglobin", "keratin", "collagen", "myoglobin"],
+                answer: 0
+            },
+            {
+                question: "Volume of blood found in a healthy person is",
+                options: ["3-4 litre", "4-5 litre", "5-6 litre", "6-7 litre"],
+                answer: 2
+            },
+            {
+                question: "Which blood group is universal donor?",
+                options: ["O+", "O-", "AB-", "AB+"],
+                answer: 1
+            },
+            {
+                question: "It is an oxygen carrying protein of red colour concentrated in red blood cells.",
+                options: ["Insulin", "Haemoglobin", "Gastrin", "Actin"],
+                answer: 1
+            },
+            {
+                question: "Which blood group is a universal recipient?",
+                options: ["A", "B", "AB", "O"],
+                answer: 2
+            },
+            {
+                question: "The largest artery in human body is",
+                options: ["Aorta", "Capillary", "Vena cava", "Pulmonary vein"],
+                answer: 0
+            },
+            {
+                question: "Number of chamber found in human heart is",
+                options: ["2", "3", "4", "5"],
+                answer: 2
+            },
+            {
+                question: "Blood pressure is the pressure exerted on the wall of",
+                options: ["Heart", "Vein", "Artery", "Cell"],
+                answer: 2
+            },
+            {
+                question: "Which statement regarding the mammalian heart is correct?",
+                options: ["Blood is pumped from the heart via the atria", "Oxygen-loaded blood moves only through the right side of the heart", "When the right atrium contracts, it forces blood into the left atrium", "In the adult heart, blood in the right chambers of the heart cannot enter the left chambers without passing through the lungs"],
+                answer: 3
+            },
+            {
+                question: "An individual whose blood type is B may in an emergency, donate blood to a person whose blood type is",
+                options: ["B or A", "AB or A", "A or O", "AB or B"],
+                answer: 3
+            },
+            {
+                question: "Which of the following carries oxygen to various parts of human body?",
+                options: ["Red blood cells", "White blood cells", "Plasma", "Nerves"],
+                answer: 0
+            },
+            {
+                question: "Instrument used to measure blood pressure is",
+                options: ["E.C.G", "Stetheoscope", "sphygmomanometer", "Arm band"],
+                answer: 2
+            },
+            {
+                question: "Hemoglobin, the oxygen carrying substance in red blood cells, is a",
+                options: ["Nuclei acid", "Carbohydrates", "Fats", "Proteins"],
+                answer: 3
+            },
+            {
+                question: "What carries blood back to the heart?",
+                options: ["Veins", "Arteries", "Both A & B", "None"],
+                answer: 0
+            },
+            {
+                question: "Blood group which have no antibodies",
+                options: ["A", "B", "AB", "O"],
+                answer: 2
+            },
+            {
+                question: "Blood is red in colour due to the presence of ________",
+                options: ["Cytochrome", "Chlorophyll", "Hemocyanin", "Haemoglobin"],
+                answer: 3
+            },
+            {
+                question: "Life of red blood cells in the body is",
+                options: ["60 days", "120 days", "365 days", "465 days"],
+                answer: 1
+            },
+            {
+                question: "The upper chambers of the heart are the",
+                options: ["Ventricles", "Atria", "Both A & B", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "Purification of blood takes place in",
+                options: ["Lungs", "Heart", "Kidney", "Liver"],
+                answer: 2
+            },
+            {
+                question: "Fully mature human RBCs has",
+                options: ["A nucleus", "No nucleus", "Nucleus may or may not be present", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "Which of the following blood group is universal donor?",
+                options: ["B", "O", "A", "AB"],
+                answer: 1
+            },
+            {
+                question: "Human heart is made up of",
+                options: ["Nervous tissue", "Cardiac muscle", "Nonstriated muscle", "Connective tissue"],
+                answer: 1
+            },
+            {
+                question: "Antigens \'A\' and \'B\' are absent in persons belong to blood group",
+                options: ["\'O\'", "\'A\'", "\'B\'", "\'AB\'"],
+                answer: 0
+            },
+            {
+                question: "Main function of white blood corpuscles is",
+                options: ["Transport of CO2", "Transport of oxygen", "To produce immune system of body", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "Red blood corpuscles is also known as",
+                options: ["Erythrocytes", "Leucocytes", "Thrombocytes", "Esinophils"],
+                answer: 0
+            },
+            {
+                question: "Blood group which have no antigen",
+                options: ["A", "B", "AB", "O"],
+                answer: 3
+            },
+            {
+                question: "The normal blood pressure in human beings is",
+                options: ["80/120", "120/80", "80/110", "110/90"],
+                answer: 1
+            },
+            {
+                question: "Which of the following blood cells carry oxygen?",
+                options: ["W.B.Cs", "Platelets", "R.B.Cs", "All of the above"],
+                answer: 2
+            },
+            {
+                question: "In human body lymphocytes are formed in",
+                options: ["Liver", "Bone marrow", "Pancreas", "Spleen"],
+                answer: 1
+            },
+            {
+                question: "The grouping of blood is based on substances called",
+                options: ["Antibodies", "Antigens", "Antitoxin", "Enzymes"],
+                answer: 1
+            },
+            {
+                question: "Which blood group is universal acceptor?",
+                options: ["O+", "O-", "AB-", "AB+"],
+                answer: 3
+            },
+            {
+                question: "Red colour of blood is due to presence of",
+                options: ["Plasma", "Hemoglobin", "RBC", "WBC"],
+                answer: 1
+            },
+            {
+                question: "Average life span of human R.B.C is",
+                options: ["100 days", "90 days", "120 days", "None of these"],
+                answer: 2
+            },
+            {
+                question: "With which of the following body organ is \'pace-maker\' associated?",
+                options: ["Liver", "Brain", "Heart", "Lungs"],
+                answer: 2
+            },
+            {
+                question: "Which of the following blood group is called universal donor ?",
+                options: ["A+", "B+", "O-", "AB+"],
+                answer: 2
+            },
+            {
+                question: "What carries blood away from the heart?",
+                options: ["Arteries", "Veins", "Both A & B", "None"],
+                answer: 0
+            },
+            {
+                question: "Which parts of the heart receive blood from the lungs?",
+                options: ["Right ventricle", "Left atrium", "Left ventricle", "Right atrium"],
+                answer: 1
+            },
+            {
+                question: "The universal donor belongs to blood group",
+                options: ["A", "B", "AB", "O"],
+                answer: 3
+            },
+            {
+                question: "Person having blood group \'B\' can donate the blood to person having blood group",
+                options: ["A and O", "B and O", "A and AB", "B and AB"],
+                answer: 3
+            },
+            {
+                question: "Scientist who discovered blood groups was",
+                options: ["Krebs", "Pavlov", "Karl Landsteiner", "Darwin"],
+                answer: 2
+            },
+            {
+                question: "Where do arteries carry blood?",
+                options: ["Heart", "Lungs", "Tissues", "Brain"],
+                answer: 0
+            },
+            {
+                question: "When a foreign body inter into blood circulatory system the reaction is started by",
+                options: ["RBC", "WBC", "Platletes", "Cytoplasm"],
+                answer: 1
+            },
+            {
+                question: "How many chambers does a human heart have?",
+                options: ["2", "4", "6", "7"],
+                answer: 1
+            },
+            {
+                question: "The muscle which separate the right side and left side of heart is known as",
+                options: ["Keratin", "Maxilla", "Septum", "Tubercules"],
+                answer: 2
+            },
+            {
+                question: "What is the pH value range of human blood?",
+                options: ["7.1-7.15", "7.45-7.55", "7.22-7.28", "7.35-7.45"],
+                answer: 3
+            },
+            {
+                question: "The elastic vessels which transport blood to the heart is known as",
+                options: ["Arteries", "Veins", "Capillaries", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "The elastic vessels which transport blood from the heart is known as",
+                options: ["Arteries", "Sinusoids", "Capillaries", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "The top chambers of human heart are called",
+                options: ["Aorta", "Atrium", "Septum", "Ventricle"],
+                answer: 1
+            },
+            {
+                question: "Antigen is present in",
+                options: ["RBC", "Plasma", "WBC", "Both A and B"],
+                answer: 0
+            },
+            {
+                question: "Hepatitis virus destroys the cells and may cause the disease",
+                options: ["Jaundice", "Malaria", "Typhoid", "Elephantiasis"],
+                answer: 0
+            },
+            {
+                question: "It is disease which used to exist in the past in most countries of old world.",
+                options: ["Small pox", "Malaria", "Measles", "Cholera"],
+                answer: 1
+            },
+            {
+                question: "The harmful poisonous substances produced by bacteria are called",
+                options: ["Toxins", "Antitioxins", "Antibiotic", "Aflatoxins"],
+                answer: 0
+            },
+            {
+                question: "Which is the cause of malaria infection?",
+                options: ["Bacteria", "Plasmodium", "Algae", "Viruses"],
+                answer: 1
+            },
+            {
+                question: "In human beings influenza is caused by",
+                options: ["Bacteria", "Viruses", "Fungi", "Algae"],
+                answer: 1
+            },
+            {
+                question: "Diphtheria disease is caused by",
+                options: ["Corynebacterium diphtheria", "Diplococus pneumo", "Pasteurella pestis", "Streptomyces species"],
+                answer: 0
+            },
+            {
+                question: "Which of the following disease is non-communicable in nature?",
+                options: ["Cholera", "Chicken-pox", "Tuberculosis", "Cancer"],
+                answer: 3
+            },
+            {
+                question: "When a disease break out and spread from one place to another affecting large number of peoples it is called",
+                options: ["Edemic", "Epidemic", "Endemic", "Sporadic"],
+                answer: 1
+            },
+            {
+                question: "Which of the following disease is caused by female Anopheles mosquito?",
+                options: ["Chicken Pox", "Malaria", "Black Fever", "Cholera"],
+                answer: 1
+            },
+            {
+                question: "Which one among the following water-borne diseases is not caused by a bacteria ?",
+                options: ["Cholera", "Typhoid", "Bacillary dysentery", "Hepatitis A"],
+                answer: 3
+            },
+            {
+                question: "Branch of science which deal with the study of causative agent of disease is",
+                options: ["Ecology", "Etiology", "Eugenics", "Euthenics"],
+                answer: 1
+            },
+            {
+                question: "Select the correct statement about active and passive immunity.",
+                options: ["A vaccination is an example of the introduction of passive immunity into the body", "Active and passive humoral immunity are both mechanisms of adaptive immunity that use antibodies", "Immunological memory is established by passive immunization", "The antibodies utilized in active immunity are acquired from another organism"],
+                answer: 1
+            },
+            {
+                question: "Rhinitis is the disease that effects which body part?",
+                options: ["Brain", "Nose", "Blood", "Skin"],
+                answer: 1
+            },
+            {
+                question: "Which disease is caused due to deficiency of Iodine?",
+                options: ["Rickets", "Scurvy", "Goitre", "Growth retardation"],
+                answer: 2
+            },
+            {
+                question: "Source of infection in diseases like Tuberculosis, Mumps and Whooping cough is",
+                options: ["Direct contact", "Droplets of saliva", "Carrier organism", "A vector"],
+                answer: 1
+            },
+            {
+                question: "Which is called as triple vaccine?",
+                options: ["BCG", "DTP", "TAB", "All of the above"],
+                answer: 1
+            },
+            {
+                question: "________ is a thyroid hormone which controls the balance of calcium in the body.",
+                options: ["Calcitonin", "Thyroxine", "Calmodulin", "All of these"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is known as master gland in man?",
+                options: ["Pancrease", "Pituitary", "Adrenal", "Thyroid"],
+                answer: 1
+            },
+            {
+                question: "What is the effect of oversecretion of hormone from pituitary gland?",
+                options: ["Increase growth in length", "Unbalanced development of body", "Body became curve", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is not a gland?",
+                options: ["Thyroid", "Gastrine", "Liver", "Pancreas"],
+                answer: 1
+            },
+            {
+                question: "Oxytocin hormone is secreted by gland",
+                options: ["Pituitary", "Pineal", "Adrenal", "Ovary"],
+                answer: 0
+            },
+            {
+                question: "Enlargment of _______ gland takes place due to deficiency of iodine",
+                options: ["Thyroid", "Pituitary", "Adrenal", "Parotid"],
+                answer: 0
+            },
+            {
+                question: "Which one of following is not a endocrine gland?",
+                options: ["Adrenal", "Pituitary", "Thyroid", "Liver"],
+                answer: 3
+            },
+            {
+                question: "Which one of following is smallest gland of body?",
+                options: ["Liver", "Thyroid", "Pituitary", "Slivary gland"],
+                answer: 2
+            },
+            {
+                question: "Deficiency of which minerals causes goitre?",
+                options: ["Magnesium", "Calcium", "Iodine", "Sulphur"],
+                answer: 2
+            },
+            {
+                question: "Chemical co-ordination in the body is brought out by",
+                options: ["Blood", "Lymph", "Enzymes", "Hormones"],
+                answer: 3
+            },
+            {
+                question: "The disease Goitre is caused in persons who do not have in their diet sufficient",
+                options: ["Calcium", "Sodium", "Iodine", "Iron"],
+                answer: 2
+            },
+            {
+                question: "In case of a heart attack, a hormone is injected as an emergency measure, Which one is it?",
+                options: ["Thyroxine", "Adrenaline", "Heparin", "Insulin"],
+                answer: 1
+            },
+            {
+                question: "Which of the following hormone is called the emergency hormone ?",
+                options: ["Insulin", "Adrenaline", "Estrogen", "Oxytocin"],
+                answer: 1
+            },
+            {
+                question: "Insulin is secreted from which gland or organ of human body?",
+                options: ["Kidney", "Liver", "Small Intestine", "Pancreas"],
+                answer: 3
+            },
+            {
+                question: "There is no bacteria activity in which of the following process?",
+                options: ["Sewage disposal", "Tanning of leather", "Ripening of cheese", "Preparation of sillage"],
+                answer: 2
+            },
+            {
+                question: "Bacteria were first discovered by",
+                options: ["Robert Koch", "Robert Hooke", "Louis Pasteur", "A.V.Leeuwenhoek"],
+                answer: 3
+            },
+            {
+                question: "Which bacteria cause the greatest harm in the food industry?",
+                options: ["Recycling", "Digestive", "Fermenting", "Pathogenic"],
+                answer: 3
+            },
+            {
+                question: "Bacteria divides by",
+                options: ["Binary Fission", "Spirilla", "RNA", "Fusion"],
+                answer: 0
+            },
+            {
+                question: "Which of the following bacterium causes crown gall disease in plants?",
+                options: ["Bacillus thurigiensis", "Agrobacterium tumefaciens", "Pseudomonas fluorescens", "None of these"],
+                answer: 1
+            },
+            {
+                question: "Which one of the following scientists first time saw bacteria through a microscope made by himself ?",
+                options: ["Antonie Van Leeuwenhoek", "Louis Pasteur", "Robert Hooke", "Robert Virchow"],
+                answer: 0
+            },
+            {
+                question: "Bacteria are (were) considered more as plants than animals because of the presence of",
+                options: ["Small nucleus", "Plasma membrane", "Cell wall", "Spore formation"],
+                answer: 2
+            },
+            {
+                question: "Liver fluke is parasite in the liver of",
+                options: ["Sheep", "Goat", "Cattle", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "Most bacteria reproduce by",
+                options: ["Budding", "Binary fission", "Fragmentation", "Mitosis"],
+                answer: 1
+            },
+            {
+                question: "Which type of bacteria get their food from dead organic matter?",
+                options: ["Parasitic", "Autotrophic", "Saprophytic", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "Cork-screw shaped bacteria are known as",
+                options: ["Cocci", "Bacilli", "Spirilla", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "Ringworm is a disease caused by",
+                options: ["Fungi", "Bacteria", "Virus", "Flies"],
+                answer: 0
+            },
+            {
+                question: "Rod shaped bacteria are known as",
+                options: ["Cocci", "Bacilli", "Spirilla", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "Statement which is true about bacteria ?",
+                options: ["All bacteria are autotrophs", "Most of them are heterotrophs but some are autotrophs", "All bacteria heterophs", "All bacteria are photosynthetic"],
+                answer: 1
+            },
+            {
+                question: "Lederberg and Tatum demonstrated conjugation in the bacteria in",
+                options: ["1944", "1945", "1946", "1947"],
+                answer: 2
+            },
+            {
+                question: "The virus is",
+                options: ["Protein and lipid", "Nucleic acid and protein", "Lipid and carbohydrate", "Carbohydrate"],
+                answer: 1
+            },
+            {
+                question: "Which of these is a human disease caused by bacteria?",
+                options: ["TB", "Ascariasis", "Chickenpox", "Common cold"],
+                answer: 0
+            },
+            {
+                question: "Virus range in size from",
+                options: ["2 nm to 70 nm", "2 nm to 100 nm", "2 nm to 200 nm", "2 nm to 300 nm"],
+                answer: 3
+            },
+            {
+                question: "Virus was discovered by",
+                options: ["V.M.Stanely", "Stanely Miller", "D. Iwanowski", "Karpenchenko"],
+                answer: 2
+            },
+            {
+                question: "How many bones are there in the human cranium?",
+                options: ["6", "8", "10", "12"],
+                answer: 1
+            },
+            {
+                question: "In how many parts is the human brain divided?",
+                options: ["2", "3", "4", "5"],
+                answer: 1
+            },
+            {
+                question: "Which part of brain controls fine movement, maintains balance and equilibrium of the body and muscle tone in a human being ?",
+                options: ["Cerebrum", "Thalamus", "Cerebellum", "Hypothalamus"],
+                answer: 2
+            },
+            {
+                question: "The main thinking part of the brain is",
+                options: ["Midbrain", "Hypothalamus", "Forebrain", "Hindbrain"],
+                answer: 2
+            },
+            {
+                question: "Largest part of human brain is",
+                options: ["Cerebellum", "Cerebrum", "Olfactory labbe", "Mid brain"],
+                answer: 1
+            },
+            {
+                question: "What part of the body controls balance?",
+                options: ["Cerebrum", "Cerebellum", "Medulla oblangata", "Amygdala"],
+                answer: 1
+            },
+            {
+                question: "Which part of the brain is responsible for consciousness?",
+                options: ["Brain stem", "Cerebrum", "Cerebellum", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "The brain is covered by",
+                options: ["Meninges", "Skin", "Bone", "All the above"],
+                answer: 3
+            },
+            {
+                question: "Which one is the biggest part of the brain?",
+                options: ["Thalamus", "Medulla", "Cerebellum", "Cerebrum"],
+                answer: 3
+            },
+            {
+                question: "The brain is a part of which organ system?",
+                options: ["Respiratory System", "Circulatory System", "Nervous System", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "Which of the following are longest cells of human body?",
+                options: ["Pancreatic cells", "Epethelial cells", "Nerve cells", "Epidermal cells"],
+                answer: 2
+            },
+            {
+                question: "In what organelle does cellular respiration take place?",
+                options: ["Cytoplasm", "Ribosomes", "Mitochondria", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "In which organelle does cellular respiration occur?",
+                options: ["Chloroplast", "ATP and NADPH", "Cytoplasm", "Mitochondria"],
+                answer: 3
+            },
+            {
+                question: "Which organelle performs cellular respiration?",
+                options: ["Mitochondria", "Cytolasm", "Chloroplasts", "All of the above"],
+                answer: 0
+            },
+            {
+                question: "Smallest cell in human body is",
+                options: ["Ovum", "Nerve cell", "Sperm", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "The longest cells of human body is",
+                options: ["White blood corpuuscles", "Red blood cells", "Neuron cell", "None of these"],
+                answer: 2
+            },
+            {
+                question: "They contain those enzymes which can digest the phagocytosed food particles.",
+                options: ["Ribosomes", "Mitochondria", "Lysosomes", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "Which of the following contain enzymes for cellular respiration ?",
+                options: ["Dictyosomes", "Endoplasmic reticula", "Lysosomes", "Mitochondria"],
+                answer: 3
+            },
+            {
+                question: "Enzyme secreted by stomach digests the food but stomach is not digested by this digestive juice because",
+                options: ["Wall of stomach is lined with mucus", "This is made up of hard cells", "It is made up of steel", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "Which one of the following is the correct sequence in the order of decreasing length of the structural parts given below of small intestine in the human body?",
+                options: ["Jejunum-Duodenum-Jejunum", "Ileum-Duodenum-Jejunum", "Jejunum-Ileum-Duodenum", "Ileum-Jejunum-Duodenum"],
+                answer: 3
+            },
+            {
+                question: "Assertion (A): In human body liver has an important role in fat digestion.Reason (R) : Liver produces two important fat digesting enzymes.Codes",
+                options: ["Both A and R are individually true and R is the correct explanation of A", "Both A and R are individually true, but R is not the correct explanation of A", "A is true R is false", "A is false but R is true"],
+                answer: 2
+            },
+            {
+                question: "Bile produced by",
+                options: ["Liver", "Stomach", "Pancrease", "Dudeneum"],
+                answer: 0
+            },
+            {
+                question: "Saliva secreted from mouth digest",
+                options: ["Protein", "Starch", "Fat", "Vitamin"],
+                answer: 1
+            },
+            {
+                question: "A large number of bacteria in our digestive system, especially in the ________ and large intestine are important in completing digestive processes.",
+                options: ["Large intestine", "Small intestine", "Stomach", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "The hormone which stimulates the stomach for the production of digestive juice is",
+                options: ["Gastrin", "Trysin", "Secretin", "Pepsin"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is the largest digestive gland in humans?",
+                options: ["Spleen", "Liver", "Pancreas", "Hepato-Pancreas"],
+                answer: 3
+            },
+            {
+                question: "Which one among the following is the hardest part of our body ?",
+                options: ["Skull bones of head", "Thumb nails", "Enamel of teeth", "Spinal vertebra"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is the largest gland in human body?",
+                options: ["Thyroid", "Liver", "Kidney", "Pancreas"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is not a digestive enzyme in the human system?",
+                options: ["Trypsin", "Gastrin", "Ptyalin", "Pepsin"],
+                answer: 1
+            },
+            {
+                question: "In the human body which structure is the appendix attached to",
+                options: ["Large intestine", "The small intestine", "The gall bladder", "The stomach"],
+                answer: 0
+            },
+            {
+                question: "Which one is the largest gland of human body?",
+                options: ["Liver", "Thyroid", "Pituitary", "Intestine"],
+                answer: 0
+            },
+            {
+                question: "What does stomach acid mostly consist of?",
+                options: ["Acetic Acid", "Ascorbic Acid", "Hydrochloric Acid", "Sulphuric Acid"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following is a digestive hormone?",
+                options: ["Gastrin", "Pepsin", "Amylase", "Lipase"],
+                answer: 0
+            },
+            {
+                question: "Which body part will be affected with the disease leprosy?",
+                options: ["Blood", "Legs", "Skin", "Brain"],
+                answer: 2
+            },
+            {
+                question: "AIDS is caused by the Human Immunodeficiency Virus (HIV). The transmission of HIV infection generally occurs through",
+                options: ["Eating contaminated food and water", "Transfusion of contaminated blood and blood products", "Inhaling polluted air", "Shaking hand with infected person"],
+                answer: 1
+            },
+            {
+                question: "Which one of the following diseases is caused by bacteria and spread through faecal matter by houseflies ?",
+                options: ["Pertussis", "Typhoid", "Diphtheria", "Chickenpox"],
+                answer: 1
+            },
+            {
+                question: "Jaundice in human beings is the result of",
+                options: ["Incomplete metabolism of biliverdin", "Complete metabolism of biliverdin", "Incomplete metabolism of bilirubin", "Complete metabolism of bilirubin"],
+                answer: 2
+            },
+            {
+                question: "Which of the following can be a symptom of AIDS?",
+                options: ["Hair loss", "Severe weight gain", "Tiredness", "All the above"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following is a hereditary disease?",
+                options: ["Cataract", "Haemophilia", "Pellagra", "Osteoporosis"],
+                answer: 1
+            },
+            {
+                question: "It is very serious disease of brain which is caused by fungi.",
+                options: ["Rust", "Meningitis", "Smut", "Ringworm"],
+                answer: 1
+            },
+            {
+                question: "Administering a vaccine provides protection by inducing synthesis of antibodies (proteins) specific of the vaccine. The cell in the body responsible for the production of antibodies is",
+                options: ["Granulocyte", "Lymphocyte", "Erythrocyte (red blood cell)", "Platelet"],
+                answer: 1
+            },
+            {
+                question: "Antigen is a substance which",
+                options: ["Lowers body temperature", "Destroys harmful bacteria", "Triggers the immune system", "Is used as an antidote to poison"],
+                answer: 2
+            },
+            {
+                question: "Infection of salivary glands by a virus leads to",
+                options: ["Tetanus", "Mumps", "Pyorrhoea", "Ulcers"],
+                answer: 1
+            },
+            {
+                question: "Which virus causes Chicken Pox?",
+                options: ["Rubella Virus", "Herpes Zoster Virus", "Rabies", "Variola Virus"],
+                answer: 1
+            },
+            {
+                question: "Theilreia parva causes infection in",
+                options: ["Dog", "Buffalo", "Cat", "Horse"],
+                answer: 1
+            },
+            {
+                question: "Antibody is produced by",
+                options: ["B-lymphocytes", "Erythrocytes", "Skin cells", "Osteoblast"],
+                answer: 0
+            },
+            {
+                question: "Which disease killed more peoples than any other death causing factors including all other diseases, natural calamities and wars?",
+                options: ["Small Pox", "Measles", "Malaria", "Tetanus"],
+                answer: 2
+            },
+            {
+                question: "In mainly which phylum the body of an organisms is usually divided in there regions called head, thorax and abdomen?",
+                options: ["Annelida", "Chordata", "Arthropods", "Echinodermata"],
+                answer: 2
+            },
+            {
+                question: "Fishes have a ________ chambered heart.",
+                options: ["Single", "Three", "Four", "Two"],
+                answer: 3
+            },
+            {
+                question: "Which of the following does not have blood but undergoes respiration?",
+                options: ["Cockroach", "Snail", "Hydra", "Kangaroo"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following has a bilateral symmetry in its body organization?",
+                options: ["Asterias", "Sea anemone", "Nereis", "Euchinus"],
+                answer: 0
+            },
+            {
+                question: "In which phylum nerve cells are found but nerves are absent?",
+                options: ["Porifera", "Coelenterata", "Platyhelminthes", "Nemathelminthes"],
+                answer: 1
+            },
+            {
+                question: "The animals in which the body cavity is absent are known as ________ .",
+                options: ["Coelomates", "Wild", "Pseudocoelomates", "Acoelomates"],
+                answer: 3
+            },
+            {
+                question: "In all arthropods,the body is covered with a chittinous cuticle which is secreted by the",
+                options: ["Endodermis", "Mesophyll", "Chitin", "Epidermis"],
+                answer: 3
+            },
+            {
+                question: "How many vertebrae found in human vertebral column?",
+                options: ["22", "25", "33", "42"],
+                answer: 2
+            },
+            {
+                question: "Bacteria is included in the kingdom classification of",
+                options: ["Protista", "Plantae", "Animalia", "Monera"],
+                answer: 3
+            },
+            {
+                question: "Bacteria are classified in the kingdom",
+                options: ["Animalia", "Fungi", "Monera", "Protista"],
+                answer: 2
+            },
+            {
+                question: "The skeleton secreting cells in poriferans are known as",
+                options: ["Scleroblasts", "Collenocytes", "Archaeocytes", "Pinacocytes"],
+                answer: 0
+            },
+            {
+                question: "There are certain bacteria which can fix atmospheric gas named",
+                options: ["Oxygen", "Nitrogen", "Hydrogen", "Carbon dioxide"],
+                answer: 1
+            },
+            {
+                question: "Which of the following bacteria is responsible for the formation of curd?",
+                options: ["Lycopodium", "Yeast", "Lacto-bacillus", "Fungus"],
+                answer: 2
+            },
+            {
+                question: "Which is the longest bone in the human body?",
+                options: ["Fibula", "Radius", "Stapes", "Femur"],
+                answer: 3
+            },
+            {
+                question: "The bone of which organ is the longest in the human body?",
+                options: ["Spinal cord", "Thigh", "Rib cage", "Ankle-bone"],
+                answer: 1
+            },
+            {
+                question: "Treatment of body defects through massage and exercise is",
+                options: ["Phylogeny", "Parasitology", "Physiotherapy", "Physiology"],
+                answer: 2
+            },
+            {
+                question: "A typical human ribcage consists of how many ribs ?",
+                options: ["12", "14", "16", "24"],
+                answer: 0
+            },
+            {
+                question: "The total number of bones found in newly born human body ?",
+                options: ["212", "206", "202", "300"],
+                answer: 3
+            },
+            {
+                question: "Which of the following bone is not found in human leg?",
+                options: ["Tibia", "Humerus", "Femur", "Fibula"],
+                answer: 1
+            },
+            {
+                question: "Longest bone found in man is",
+                options: ["Stapes", "Fibula", "Tibia", "Femur"],
+                answer: 3
+            },
+            {
+                question: "What is the total number of bones in the human body?",
+                options: ["206", "103", "309", "412"],
+                answer: 0
+            },
+            {
+                question: "How many pairs of ribs are there in human body?",
+                options: ["10", "11", "12", "13"],
+                answer: 2
+            },
+            {
+                question: "Total number of bone found in man is",
+                options: ["212", "206", "202", "200"],
+                answer: 1
+            },
+            {
+                question: "Strongest bone of body is found in",
+                options: ["Thigh", "Jaw", "Shoulder", "Neck"],
+                answer: 0
+            },
+            {
+                question: "Smallest bone of human body is",
+                options: ["Nails", "Fibula", "Bone of nose", "Stapes"],
+                answer: 3
+            },
+            {
+                question: "Study of bone is called",
+                options: ["Orology", "Oesterology", "Seromology", "Geology"],
+                answer: 1
+            },
+            {
+                question: "Tissue that connects muscle to bone",
+                options: ["Tendons", "Joint capsule", "Body fiber", "Ligament"],
+                answer: 0
+            },
+            {
+                question: "The bone humerus is found in",
+                options: ["Thigh", "Upper arm", "Fore arm", "Leg"],
+                answer: 1
+            },
+            {
+                question: "The bone tibia is found in",
+                options: ["Skull", "Leg", "Arm", "Mouth"],
+                answer: 1
+            },
+            {
+                question: "Longest bone found in which part of human body?",
+                options: ["Vertebral column", "Thigh", "Rib cage", "Arm"],
+                answer: 1
+            },
+            {
+                question: "Which one is the longest bone in human body?",
+                options: ["Tibia", "Fibula", "Radius", "Femur"],
+                answer: 3
+            },
+            {
+                question: "Number of ribs found in a typical human ribcage is",
+                options: ["16", "21", "24", "28"],
+                answer: 2
+            },
+            {
+                question: "Which structure connects one bone to another bone?",
+                options: ["Cartilage", "Tendons", "Ligaments", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "Hinge joint is present between",
+                options: ["Humerus and pactoral griddle", "Femur acetabulum", "Humerus and radio-ulna", "Femur and pelvic gridle"],
+                answer: 2
+            },
+            {
+                question: "Marasmus usually is associated with a deficiency of",
+                options: ["Vitamins", "Calories", "Proteins", "Fats"],
+                answer: 1
+            },
+            {
+                question: "Pellagra is caused due to the deficiency of",
+                options: ["Niacin", "Riboflavin", "Thiamine", "Pyridoxine"],
+                answer: 0
+            },
+            {
+                question: "Rickets is caused due to the deficiency of",
+                options: ["Carotene", "Cyanocobalamine", "Thiamine", "Calciferol"],
+                answer: 3
+            },
+            {
+                question: "The element found in bone and teeth is",
+                options: ["Potassium and calcium", "Calcium and Magnesium", "Calcium and phosphorus", "Phosphorus and sulpher"],
+                answer: 2
+            },
+            {
+                question: "Night Blindness is caused by deficiency of which of the following Vitamin?",
+                options: ["Vitamin B", "Vitamin C", "Vitamin K", "Vitamin A"],
+                answer: 3
+            },
+            {
+                question: "Which of the following vitamin helps in clotting of blood?",
+                options: ["Vitamin K", "Vitamin D", "Vitamin B1", "Vitamin B2"],
+                answer: 0
+            },
+            {
+                question: "Anaemia is due to deficiency of",
+                options: ["Ca", "Fe", "Mg", "P"],
+                answer: 1
+            },
+            {
+                question: "In what chief capacity does vitamin k function?",
+                options: ["Raise plasma calcium", "Blood clot", "Produce rhodopsin", "Bone density"],
+                answer: 1
+            },
+            {
+                question: "When more than 20% of the body weight is due to fat, the person is suffering from",
+                options: ["Marasmus", "Kwashiorkor", "Scurvy", "Obesity"],
+                answer: 3
+            },
+            {
+                question: "Bone deformities occur due to the excess intake of",
+                options: ["Phosphorus", "Potassium", "Fatty acid", "Fluorine"],
+                answer: 3
+            },
+            {
+                question: "Deficiency of \'Thiamine\' causes",
+                options: ["Beri-Beri", "Pellagra", "Anaemia", "Rickets"],
+                answer: 0
+            },
+            {
+                question: "Kwashiorkor disease in children is caused by",
+                options: ["Sufficient carbohydrates but less fats in diet", "Sufficient carbohydrates and fats but deficient proteins in diet", "Sufficient vitamins but deficient fats in diet", "Sufficient fats but deficient vitamins in diet"],
+                answer: 1
+            },
+            {
+                question: "Pellagra and Scurvy are caused by which pair of vitamin deficiency respectively ________",
+                options: ["Vitamin C and Vitamin D", "Vitamin B-12 and Vitamin C", "Vitamin C and Vitamin A", "Vitamin A and Vitamin B-12"],
+                answer: 1
+            },
+            {
+                question: "Deficiency of fluoride leads to which one of the following health problems?",
+                options: ["Tooth caries", "Mottling of tooth", "Bending of bones", "Stiffening of joints"],
+                answer: 0
+            },
+            {
+                question: "Bleeding of gums, falling of teeth, fragile bones and delayed wound healing occur due to the deficiency of which one of the following vitamins?",
+                options: ["Vitamin C", "Vitamin K", "Vitamin D", "Vitamin B"],
+                answer: 0
+            },
+            {
+                question: "Anaemia is caused because of deficiency of which of the following?",
+                options: ["Cobalt", "Iron", "Sodium", "Calcium"],
+                answer: 1
+            },
+            {
+                question: "Goitre is due to the deficiency of",
+                options: ["Calcium", "Zinc", "Selenium", "Iodine"],
+                answer: 3
+            },
+            {
+                question: "The vitamin that is destroyed on heating is",
+                options: ["Vitamin E", "Vitamin C", "Vitamin A", "Vitamin B"],
+                answer: 1
+            },
+            {
+                question: "Which among the following is a vitamin?",
+                options: ["Citric acid", "Follic acid", "Glutonic acid", "None"],
+                answer: 1
+            },
+            {
+                question: "They play key roles in the contraction of muscles,digestion of food and clotting of blood.",
+                options: ["Fats", "Carbohydrates", "Proteins", "Vitamins"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following organisms is dependent on saprophytic mode of nutrition?",
+                options: ["Agaricus", "Ulothrix", "Riccia", "Cladophora"],
+                answer: 0
+            },
+            {
+                question: "Deficiency of which of the following causes non-clotting of blood?",
+                options: ["Vitamin C", "Vitamin K", "Vitamin E", "Vitamin B12"],
+                answer: 1
+            },
+            {
+                question: "The Mode of nutrition in which particulate food is devoured is",
+                options: ["Holozoic", "Holophytic", "Saprophytic", "Parasitic"],
+                answer: 0
+            },
+            {
+                question: "Which nutrient forms most of our body weight?",
+                options: ["Water", "Fats", "Carbohydrates", "Proteins"],
+                answer: 0
+            },
+            {
+                question: "Which Vitamin is obtained from Sun rays?",
+                options: ["Vitamin A", "Vitamin C", "Vitamin K", "Vitamin D"],
+                answer: 3
+            },
+            {
+                question: "An important function of fat in the body is to",
+                options: ["Protect vital organs", "Stores energy", "Insulate us", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "Vitamin K is required for",
+                options: ["Blood clotting", "Respiration", "Carbohydrate metabolism", "Calcium phosphorus"],
+                answer: 0
+            },
+            {
+                question: "Which of the following vitamins acts like hormone?",
+                options: ["Vitamin A", "Vitamin B", "Vitamin C", "Vitamin D"],
+                answer: 3
+            },
+            {
+                question: "Which vitamin is necessary for blood clotting?",
+                options: ["Vitamin A", "Vitamin C", "Vitamin K", "Vitamin D"],
+                answer: 2
+            },
+            {
+                question: "The disease Rickets is caused by the deficiency of",
+                options: ["Vitamin A", "Vitamin B", "Vitamin C", "Vitamin D"],
+                answer: 3
+            },
+            {
+                question: "Amoeba is ________ in nutrition",
+                options: ["Holozoic", "Holophytic", "Saprozoic", "Myxotrophic"],
+                answer: 0
+            },
+            {
+                question: "Excess of fat in the body is stored in",
+                options: ["Adipose tissue", "Acrosome", "Erythrocytes", "Bone marrow"],
+                answer: 0
+            },
+            {
+                question: "________ connects muscle to the bones.",
+                options: ["Cartilage", "Areolar", "Ligaments", "Tendons"],
+                answer: 3
+            },
+            {
+                question: "Blood and lymph are types of",
+                options: ["Muscular tissue", "Epithelial tissue", "Connective tissue", "Permanent tissue"],
+                answer: 2
+            },
+            {
+                question: "Branch of science which deals with the study of tissue found in the body of organism is",
+                options: ["Hepatology", "Histology", "Haematology", "Herpetology"],
+                answer: 1
+            },
+            {
+                question: "Bones join with muscles with the help of",
+                options: ["Ligament", "Tendon", "Cartilage", "Small muscles"],
+                answer: 1
+            },
+            {
+                question: "Most abundant tissue in the body",
+                options: ["Connective", "Nervous", "Muscular", "Epithelial"],
+                answer: 0
+            },
+            {
+                question: "The connective tissue that connects a muscle to a bone is",
+                options: ["Cartilage", "Ligament", "Tendon", "Interstitial fluid"],
+                answer: 2
+            },
+            {
+                question: "What type of tissue is Blood?",
+                options: ["Epithelial", "Cardiac", "Connective", "Muscular"],
+                answer: 2
+            },
+            {
+                question: "The main result of aerobic respiration is the",
+                options: ["Production of lactic acid as an end product", "Production of ATP from the breakdown of glucose", "Conversion of radiant energy into chemical energy", "Storage of energy in a polysaccharide"],
+                answer: 1
+            },
+            {
+                question: "Cellular respiration is best associated with the",
+                options: ["Microtubule", "Ribosome", "Golgi apparatus", "Mitochondrion"],
+                answer: 3
+            },
+            {
+                question: "Slow oxidative muscle fibers are best suited for",
+                options: ["Hitting football", "Heavy workout in the gym", "Running a marathon", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "In which body cavities are the lungs located",
+                options: ["Pelvic cavity", "Thoracic cavity", "Abdominal cavity", "Body cavity"],
+                answer: 1
+            },
+            {
+                question: "Alveoli is related to which of the following system of human body?",
+                options: ["Circulatory system", "Excretory system", "Reproductive system", "Respiratory system"],
+                answer: 3
+            },
+            {
+                question: "Blood leaving lungs, is rich in",
+                options: ["Oxygen", "Carbondioxide", "Haemoglobin", "Number of RBC"],
+                answer: 0
+            },
+            {
+                question: "If CO2concentration in the blood increases, the breathing will",
+                options: ["Increase", "Decrease", "Stop", "No effect"],
+                answer: 0
+            },
+            {
+                question: "In human the thickest skin is present in",
+                options: ["Palm", "Sole", "Neck", "Head"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is responsible for giving colour to human skin?",
+                options: ["Luciferin", "Haemoglobin", "Flavonoids", "Melanin"],
+                answer: 3
+            },
+            {
+                question: "Which is the largest organ in the human body?",
+                options: ["Heart", "Brain", "Skin", "Liver"],
+                answer: 2
+            },
+            {
+                question: "Which of the following acts as an insulator against heat, cold and as a shock-absorber in the body?",
+                options: ["Dermis", "Epidermis", "Subcutaneous fat layer", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "Homeostasis is the condition in which the body maintains",
+                options: ["A relatively stable internal environment within limits", "A changing state within an unlimited range", "The lowest possible energy usage", "A static state with no deviation from preset points"],
+                answer: 0
+            },
+            {
+                question: "The normal temperature of human body on the Kelvin scale is",
+                options: ["280K", "290K", "300K", "310K"],
+                answer: 3
+            },
+            {
+                question: "Animals who have constant body temperature are",
+                options: ["Homeothermic", "Hemothermic", "Hematology", "Histology"],
+                answer: 0
+            },
+            {
+                question: "Cellular respiration occurs in",
+                options: ["Centromere", "Nucleus", "Mitochondria", "Golgi complex"],
+                answer: 2
+            },
+            {
+                question: "Sphygmomanometer measures the blood pressure in the",
+                options: ["Veins", "Arteries", "Eyes", "Synovial"],
+                answer: 1
+            },
+            {
+                question: "Number of which type of WBC is greatest in blood of human?",
+                options: ["Eosinophils", "Basiophils", "Lymphocytes", "Neutrophils"],
+                answer: 3
+            },
+            {
+                question: "Blood is",
+                options: ["Alkaline", "Neutral", "Like a buffer", "Acidic"],
+                answer: 0
+            },
+            {
+                question: "Blood pressure is measured with",
+                options: ["Thermometer", "Barometer", "Sphygmomanometer", "Lactometer"],
+                answer: 2
+            },
+            {
+                question: "In a healthy person rate of heart beat on one minute is",
+                options: ["58 times", "67 times", "72 times", "90 times"],
+                answer: 2
+            },
+            {
+                question: "The vitamin required for coagulation of blood is",
+                options: ["B6", "C", "K", "B"],
+                answer: 2
+            },
+            {
+                question: "Amount of blood found in the body of man is",
+                options: ["10% of total body weight", "25% of total body weight", "7% total body weight", "9% of total body weight"],
+                answer: 2
+            },
+            {
+                question: "The site of RBC formation in human body is",
+                options: ["Heart", "Spleen", "Liver", "Bone marrow"],
+                answer: 3
+            },
+            {
+                question: "Important component that helps in clotting of the blood is called ________ .",
+                options: ["Haemoglobin", "Platelets", "Serum", "Plasma"],
+                answer: 1
+            },
+            {
+                question: "Function of heart in human body is",
+                options: ["Work like pumping machines", "To release energy", "To increase temperature", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "Which blood group is called universal donor?",
+                options: ["AB-", "O-", "AB+", "O+"],
+                answer: 1
+            },
+            {
+                question: "Blood group which has both antibodies is",
+                options: ["A", "B", "AB", "O"],
+                answer: 3
+            },
+            {
+                question: "Which among the following carries impure blood to human heart?",
+                options: ["Aorta", "Pulmonary vein", "Pulmonary arteries", "Vena Cava"],
+                answer: 3
+            },
+            {
+                question: "A person with \'AB\' blood group is sometimes called a universal recipient because of the",
+                options: ["Lack of antigen in his b lood", "Lack of antibodies in his blood", "Lack of both antigen and antibodies in his blood", "Presence of antibodies in his blood"],
+                answer: 1
+            },
+            {
+                question: "Red blood corpuscles is produced into",
+                options: ["Spleen", "Kidney", "Liver", "Bone marrow"],
+                answer: 3
+            },
+            {
+                question: "Oxygenated blood flows through which vessel?",
+                options: ["Pulmonary Veins", "Pulmonary Arteries", "Both A & B", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "The right portion of human heart receives ________ blood.",
+                options: ["Pure", "Impure", "Mixed", "None"],
+                answer: 1
+            },
+            {
+                question: "Arteries supplying blood to the heart are called",
+                options: ["Carotid arteries", "Hepatic arteries", "Coronary arteries", "Pulmonary arteries"],
+                answer: 2
+            },
+            {
+                question: "The plasma of the blood contains which among the following constituents?I. ProteinsII. SaltsIII. Hormones",
+                options: ["Only I and II", "Only I and III", "Only II and III", "All I, II and III"],
+                answer: 3
+            },
+            {
+                question: "Antibodies is produced in the plasma of blood by",
+                options: ["Monocytes", "Lymphocytes", "Eosinophils", "Neutrophils"],
+                answer: 1
+            },
+            {
+                question: "To complete one heart beat the time taken is",
+                options: ["1 sec", "1 minute", "1.5 sec", "0.8 second"],
+                answer: 3
+            },
+            {
+                question: "PH of human blood is",
+                options: ["7.4", "6.2", "9", "7.5 - 8.0"],
+                answer: 0
+            },
+            {
+                question: "PH value of human blood is",
+                options: ["8.1", "8.4", "7.4", "9.2"],
+                answer: 2
+            },
+            {
+                question: "What is the main purpose of white blood corpuscles?",
+                options: ["To carry nutrients", "To combat infection", "To carry oxygen", "To give strength"],
+                answer: 1
+            },
+            {
+                question: "Study of pulse and arterial blood pressure is called",
+                options: ["Sphygmology", "Scerology", "Sonography", "None of these"],
+                answer: 0
+            },
+            {
+                question: "Longest artery found in the body of human is",
+                options: ["Venacava", "Aorta", "Capillaries", "Ventricle"],
+                answer: 1
+            },
+            {
+                question: "Who was the discoverer of human blood groups ?",
+                options: ["Landsteiner", "Livine", "Vinear", "Leeuwenhoek"],
+                answer: 0
+            },
+            {
+                question: "Study of blood is called",
+                options: ["Hepatology", "Hematalogy", "Histology", "None of these"],
+                answer: 1
+            },
+            {
+                question: "A man whose blood group is not known meet with a serious accident and needs blood transfusion immediately. Which one of the blood group mentioned below and readily available in the hospital will be safe for transfusion?",
+                options: ["O, Rh-", "O, Rh+", "AB, Rh-", "AB, Rh+"],
+                answer: 0
+            },
+            {
+                question: "The first heart transplantation was performed by",
+                options: ["Dr. W. Harbe", "Sir F.G. Hafkin", "Dr. Louis Pasteur", "Dr. C. Barnard"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is true about blood plasma?",
+                options: ["The main protein component is hemoglobin", "It is a faint yellow fluid", "It is the same as serum but without the clotting proteins", "It is about 90% water"],
+                answer: 3
+            },
+            {
+                question: "Most of the oxygen transported by the blood is",
+                options: ["Bound to haemoglobin", "Dissolved in plasma", "Dissolved in water", "In ionic form as solute in plasma"],
+                answer: 0
+            },
+            {
+                question: "The audible sounds of heart are made by the closing of the",
+                options: ["Arteries", "Veins", "Valve", "Ventricle"],
+                answer: 2
+            },
+            {
+                question: "Which one is the largest artery in the human body",
+                options: ["Radial Artery", "Ulnar Artery", "Aorta", "Arterioles"],
+                answer: 2
+            },
+            {
+                question: "Which veins do not carry deoxygenated blood?",
+                options: ["Portal Veins", "Hepatic Veins", "Subclavian Veins", "Pulmonary Veins"],
+                answer: 3
+            },
+            {
+                question: "Muscular wall of the heart is externally covered by",
+                options: ["Epithelium", "Endothelium", "Epicardium", "Myocardium"],
+                answer: 2
+            },
+            {
+                question: "The deposition of cholesterol on the walls of blood vessels causes the arteries to lose their elasticity and get stiffened is called",
+                options: ["Hypotension", "Hypertension", "Systolic Pressure", "Arteriosclerosis"],
+                answer: 3
+            },
+            {
+                question: "Increased RBC\'s in the blood leads to a condition called",
+                options: ["Anemia", "Haemophilia", "Polycthemia", "Leukaemia"],
+                answer: 2
+            },
+            {
+                question: "Oxygenated blood is carried from the lungs to the ________ by the pulmonary veins.",
+                options: ["Right ventricle", "Left ventricle", "Right auricle", "Left auricle"],
+                answer: 3
+            },
+            {
+                question: "Which one is the largest cells in white blood corpuscles?",
+                options: ["Lymphocytes", "Basophils", "Monocytes", "Neutrophils"],
+                answer: 2
+            },
+            {
+                question: "Which is the innermost layer of the heart?",
+                options: ["Epicardium", "Endocardium", "Myocardium", "Pericardium"],
+                answer: 1
+            },
+            {
+                question: "________ is a hormone that regulates the amount of glucose in the blood.",
+                options: ["Glucogen", "Thyroxine", "Oxytocin", "Insulin"],
+                answer: 3
+            },
+            {
+                question: "Which one of following is known as pace maker of endocrine gland?",
+                options: ["Thyroxin", "Calcitonin", "Insulin", "Adrenalin"],
+                answer: 0
+            },
+            {
+                question: "The rate of heartbeat is accelerated by the hormone",
+                options: ["Adrenaline", "Acetylcholine", "Thyroxine", "Pituitrin"],
+                answer: 0
+            },
+            {
+                question: "Which one of the following hormones is essential for the uptake of glucose by cells in the human body?",
+                options: ["GH", "TSH", "Insulin", "Cortisol"],
+                answer: 2
+            },
+            {
+                question: "Goitre is caused by the deficiency of ________",
+                options: ["Zinc", "Calcium", "Iodine", "Chlorine"],
+                answer: 2
+            },
+            {
+                question: "Endocrine glands are also known as",
+                options: ["Micro gland", "Macro gland", "Ductless gland", "Acidic gland"],
+                answer: 2
+            },
+            {
+                question: "Which one of following is a ductless gland?",
+                options: ["Liver", "Sweat gland", "Endocrine gland", "Kidney"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is a mixed gland?",
+                options: ["Pituitary", "Adrenal", "Pancreas", "Ovary"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is an endocrine gland?",
+                options: ["Mammary glands", "Apocrine sweat glands", "Reproductive glands", "Salivary glands"],
+                answer: 2
+            },
+            {
+                question: "Growth hormone is secreted from",
+                options: ["Thyroid", "Adrenal", "Gonads", "Pituitary"],
+                answer: 3
+            },
+            {
+                question: "Most important gland of human body is",
+                options: ["Thyroid", "Pituitary", "Pancreas", "Liver"],
+                answer: 1
+            },
+            {
+                question: "Which one of the following completes the given statement correctly ?Cretinism is a human disorder which is due to the under secretion of",
+                options: ["Adrenalin hormone", "Cortisone hormone", "Glucagon hormone", "Thyroxin hormone"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is not an Endocrine Gland?",
+                options: ["Spleen", "Pituitary", "Thyroid", "Adrenal"],
+                answer: 0
+            },
+            {
+                question: "Pineal gland is situated in",
+                options: ["Liver", "Brain", "Kidney", "Uterus"],
+                answer: 1
+            },
+            {
+                question: "Pituitary gland is situated in",
+                options: ["Brain", "Throat", "Kidney", "Pancrease"],
+                answer: 0
+            },
+            {
+                question: "The gland that is present close to trachea",
+                options: ["Pancreas", "Liver", "Adrenal", "Thyroid"],
+                answer: 3
+            },
+            {
+                question: "Study of ductless gland is called",
+                options: ["Embrayology", "Endocrinology", "Ecology", "Euthenics"],
+                answer: 1
+            },
+            {
+                question: "Cretinism is due to the disorder of the ______ gland.",
+                options: ["Thymus", "Parathyroid", "Thyroid", "Adrenal"],
+                answer: 2
+            },
+            {
+                question: "Pancreas secretes",
+                options: ["Insulin", "Glucagon", "Pancreatic juice", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "Which of the following glands is both endocrine and exocrine?",
+                options: ["Pancreas", "Pituitary", "Adrenal", "Pineal"],
+                answer: 0
+            },
+            {
+                question: "Which hormone causes emotional disturbance?",
+                options: ["Thyroxine", "Oxytocin", "Vasopressin", "Adrenalin"],
+                answer: 1
+            },
+            {
+                question: "Haemophilia is a hereditary disease carried by",
+                options: ["Females and expressed by males", "Males and expressed by males", "Females and expressed by females", "Males and expressed by females"],
+                answer: 0
+            },
+            {
+                question: "How many chromosomes are in a human gamete?",
+                options: ["23", "46", "92", "102"],
+                answer: 0
+            },
+            {
+                question: "Which one of the following is not a genetic disorder?",
+                options: ["Colour blindness", "Down\'s syndrome", "Haemophilia", "Xerophthalmia"],
+                answer: 3
+            },
+            {
+                question: "Which part of human eye controls the amount of light entering the eye?",
+                options: ["Pupil", "Iris", "Cornea", "Retina"],
+                answer: 0
+            },
+            {
+                question: "What is the distance of distinct vision (DDV) of a normal human eye?",
+                options: ["15 cm", "25 cm", "30 cm", "40 cm"],
+                answer: 1
+            },
+            {
+                question: "The outer white part of the eye which is supporting wall of the eyeball is known as",
+                options: ["Cornea", "Sclera", "Iris", "Retina"],
+                answer: 1
+            },
+            {
+                question: "Human eye can differentiate between colours due to",
+                options: ["Rods", "Cones", "Bipolar nerves", "Pigmented epithelium"],
+                answer: 1
+            },
+            {
+                question: "The outer membrane that covers the brain is",
+                options: ["Myelin sheath", "Dura mater", "Arachnoid membrane", "Pia mater"],
+                answer: 1
+            },
+            {
+                question: "The innermost membrane that covers the brain is",
+                options: ["Pleura", "Duramater", "Pia mater", "Arachnoid membrane"],
+                answer: 2
+            },
+            {
+                question: "Number of cranial nerve found in man is",
+                options: ["10 pair", "12 pair", "24 pair", "36 pair"],
+                answer: 1
+            },
+            {
+                question: "Centre of intelligence in human brain is",
+                options: ["Gerebellum", "Cerebrum", "Medulla oblangate", "None of these"],
+                answer: 1
+            },
+            {
+                question: "Which part of the brain plays an important role in motor control?",
+                options: ["Cerebellum", "Cerebrum", "Medulla", "Pons"],
+                answer: 0
+            },
+            {
+                question: "Name the part of neuron where information is acquired.",
+                options: ["Axon", "Nucleus", "Dendrite", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "The weight of the brain in the total weight of the body is about",
+                options: ["2%", "3%", "4%", "5%"],
+                answer: 0
+            },
+            {
+                question: "Cerebrum is located in which part of brain?",
+                options: ["Lower side", "Extension of brain", "Fore front", "None of these"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following parts of human brain is the regulating centre for swallowing and vomiting?",
+                options: ["Cerebellum", "Cerebrum", "Medulla oblongata", "Cortex"],
+                answer: 2
+            },
+            {
+                question: "Which group of organisms serves as the best indicator of pollution in a water body?",
+                options: ["Plankton", "Benthos", "Nekton", "Neuston"],
+                answer: 0
+            },
+            {
+                question: "In the human being, normally in which one of the following parts, does the sperm fertilize the ovum?",
+                options: ["Cervix", "Fallopian tube", "Lower part of uterus", "Upper part of uterus"],
+                answer: 1
+            },
+            {
+                question: "Gestation period in human",
+                options: ["6 month", "7 month", "8 month", "9 month"],
+                answer: 3
+            },
+            {
+                question: "In uterus embryo get their nutrition through a structure called",
+                options: ["Fallopian tube", "Placenta", "Uterus", "None of these"],
+                answer: 1
+            },
+            {
+                question: "Fertilization in human takes place inside",
+                options: ["Uterus", "Oviduct", "Ovigland", "None of these"],
+                answer: 1
+            },
+            {
+                question: "A gland below the bladder and surrounding the urethra is",
+                options: ["Prostate", "Seminal vesicle", "Bartholin", "Vas deferens"],
+                answer: 0
+            },
+            {
+                question: "Human beings hearing range is ________",
+                options: ["50 to 50,000 Hz", "40 to 40,000 Hz", "30 to 30,000 Hz", "20 to 20,000 Hz"],
+                answer: 3
+            },
+            {
+                question: "Which lobe of human brain is associated with hearing?",
+                options: ["Frontal lobe", "Parietal lobe", "Temporal lobe", "Occipital lobe"],
+                answer: 2
+            },
+            {
+                question: "Which of the following organs do not have blood vessels?",
+                options: ["Spleen", "Cornea", "Liver", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "Image of object is formed on which part of eye?",
+                options: ["Cornea", "Choroid", "Retina", "Iris"],
+                answer: 2
+            },
+            {
+                question: "________ helps the eye to adjust the focal length of the lens.",
+                options: ["Lens", "Ciliary body", "Retina", "Entire eye ball"],
+                answer: 1
+            },
+            {
+                question: "Eustachian Tube is located in which part of human body?",
+                options: ["Nose", "Ear", "Eyes", "Throat"],
+                answer: 1
+            },
+            {
+                question: "In mammals, an important role of excretion is played by ________",
+                options: ["Large intestine", "Kidneys", "Lungs", "Liver"],
+                answer: 1
+            },
+            {
+                question: "Nephron is related to which of the following system of human body?",
+                options: ["Circulatory system", "Excretory system", "Reproductive system", "Respiratory system"],
+                answer: 1
+            },
+            {
+                question: "Excretion is best described as the removal of",
+                options: ["Undigested material from the digestive tract", "Metabolic wastes from a cell", "Toxic wastes by the process of cyclosis", "Water molecules from dipeptide hydrolysis"],
+                answer: 1
+            },
+            {
+                question: "Filtration of blood occur in",
+                options: ["Lung", "Bowmen\'s capsule", "Uriniferous tubule", "Ureater"],
+                answer: 1
+            },
+            {
+                question: "Blood vessels bringing blood into Bowman\'s capsule is",
+                options: ["Afferent arteriole", "Efferent arteriole", "Renal vein", "Renal portal vein"],
+                answer: 0
+            },
+            {
+                question: "Which organ filters blood in human body?",
+                options: ["Lungs", "Heart", "Liver", "Kidneys"],
+                answer: 3
+            },
+            {
+                question: "Filtration of blood takes place in",
+                options: ["Heart", "Kidney", "Liver", "Spleen"],
+                answer: 1
+            },
+            {
+                question: "The basic functional unit of kidney is",
+                options: ["Henle\'s loop", "Nephron", "Nephridium", "Pyramid"],
+                answer: 1
+            },
+            {
+                question: "The artificial kidney is a",
+                options: ["Transplant", "Machine", "Another\'s kidney", "Other kidney from same body"],
+                answer: 1
+            },
+            {
+                question: "With reference to the work of human kidney consider the following statements1. After the waste is removed in the kidney the clean blood is sent back through renal artery.2. From Bowman\'s capsule, the filtered liquid passes through tiny tubes where much of the glucose is reabsorbed and sent back to the blood in the renal vein.Which of these statements is/are correct?",
+                options: ["Only 1", "Only 2", "Both 1 and 2", "Neither 1 nor 2"],
+                answer: 1
+            },
+            {
+                question: "Which of the following function is performed by the kidneys in the human body?",
+                options: ["Excretion", "Respiration", "Digestion", "Transportation"],
+                answer: 0
+            }
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.textContent = `${index + 1}) ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) {
+                        return;
+                    }
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            wrapper.appendChild(questionBlock);
+        });
+    </script>
+</body>
+</html>

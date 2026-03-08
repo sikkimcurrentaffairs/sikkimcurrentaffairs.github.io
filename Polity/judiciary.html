@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Judiciary | Sikkim PSC Hub</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+            border-color: #bbb;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .options-list.answered .option:not(.correct):not(.incorrect) {
+            opacity: 0.7;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none;
+        }
+        .quiz-stats {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <a href="indian_polity.html" class="back-link">&larr; Back to Indian Polity</a>
+        <h1>Judiciary</h1>
+        <p class="quiz-stats">57 Questions</p>
+        <div id="questions-wrapper"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Which articles of the Constitution of India explicitly confer the power of judicial review on a High Court ?",
+                options: ["Article 335", "Article 336", "Article 13 and Article 226", "Article 35"],
+                answer: 2
+            },
+            {
+                question: "\u201cThe state does not owe loyalty to any particular religion as such; it is not irreligious or anti-religious; it gives equal freedom to all religious.\u201d The definition as given by P. B. Gajendra-Gadkara - former Chief Justice of India is of :",
+                options: ["Sovereignty", "Socialism", "Democracy", "Secularism"],
+                answer: 3
+            },
+            {
+                question: "The number of writs that can be prayed for and issued by the Supreme Court and/or a High Court is",
+                options: ["3", "4", "5", "6"],
+                answer: 2
+            },
+            {
+                question: "The pension of a high court judge is charged to the",
+                options: ["Consolidated Fund of India", "Consolidated Fund of the state where he last served", "Consolidated Funds of the different states where he has served", "Contingency Fund of India"],
+                answer: 0
+            },
+            {
+                question: "The power of Supreme Court of India to decide  the dispute between the centre and states falls under its",
+                options: ["advisory jurisdiction", "appellate jurisdiction", "original jurisdiction", "constitutional jurisdiction"],
+                answer: 2
+            },
+            {
+                question: "Which of the following crops is banned by the Supreme Court of India-",
+                options: ["Lathairus", "Genetically modified brinjal", "Bt cotton for export", "Bt cotton for domestic usages"],
+                answer: 1
+            },
+            {
+                question: "The President of USA appoints the judges of Supreme Court, how-",
+                options: ["Approval of Senate", "At his discretion", "Approval of House of Representatives", "None of these"],
+                answer: 0
+            },
+            {
+                question: "The National Green Tribunal looks after the cases related with-",
+                options: ["Criminal Cases", "Cases related to conservation and security\nof historical sites", "Civil Cases", "Environment and Forest Conservation"],
+                answer: 3
+            },
+            {
+                question: "Which of the following High Court had, legalized the homosexual relations in India in 2009-",
+                options: ["Mizoram", "Goa", "Delhi", "Chandigarh"],
+                answer: 2
+            },
+            {
+                question: "_____ elects the President and the Vice President and removes judges of Supreme Court and High Court.",
+                options: ["Ministry of Defence", "Prime Minister'S Office", "Lok Sabha", "Securities and Exchange Board of India"],
+                answer: 1
+            },
+            {
+                question: "From which of the following nations,we have taken the provision of judicial review?",
+                options: ["England", "USA", "Canada", "Australia"],
+                answer: 1
+            },
+            {
+                question: "Which of the following writs/ orders of the High Court/Supreme Court is sought to get an order of an authority quashed?",
+                options: ["Mandamus", "Certiorari", "Quo Warranto", "Habeas corpus"],
+                answer: 1
+            },
+            {
+                question: "Which among the following writs comes into the category of public litigation petition before High Court or Supreme Court?",
+                options: ["A challenge to elections of the office-bearers\nof a political party", "Against political interference", "Against the decision of Lower Court", "Against a general topic"],
+                answer: 3
+            },
+            {
+                question: "In which of the following cases the Supreme Court held that fundamental rights are unamendable?",
+                options: ["A.K.Gopalan's case", "Keshavananda Bharti's case", "M.C. Mehta's case", "Golak Nath's case"],
+                answer: 3
+            },
+            {
+                question: "Which writ is issued by a High Court or the Supreme Court to compel an authority to perform a function that it was not performing?",
+                options: ["Writ of Certiorari", "Writ of Habeas Corpus", "Writ of Mandamus", "Writ of Quo Warranto"],
+                answer: 2
+            },
+            {
+                question: "______ writ is issued by a higher court (High Court or Supreme Court) when a lower court has considered a case going beyond its jurisdiction.",
+                options: ["Habeas Corpus", "Mandamus", "Prohibition", "Quo-Warranto"],
+                answer: 2
+            },
+            {
+                question: "How many writs can be issued by supreme court?",
+                options: ["2", "3", "5", "6"],
+                answer: 2
+            },
+            {
+                question: "For which one of the following judgements of Supreme Court of India, the Kesavananda Bharti Vs State of India case is considered a landmark?",
+                options: ["The religion cannot be mobilised for political ends", "Abolishing untouchability from the country", "Right of life and liberty cannot be suspended\nunder any circumstance", "The basic structure of the Constitution, as\ndefined in the Preamble, cannot be changed"],
+                answer: 3
+            },
+            {
+                question: "What is the meaning of \"Judicial Review\" of Supreme Court-",
+                options: ["Review of its own verdict", "Review of the functioning of judiciary in country", "Review of constitutional validity of laws", "Timely review of constitution"],
+                answer: 2
+            },
+            {
+                question: "Who can displace the Judge of High Court-",
+                options: ["President on a proposal passed by majority in\nparliament", "President", "Chief Minister in consultation with Governor", "President in consultation with Chief Justice\nof India"],
+                answer: 0
+            },
+            {
+                question: "Who appoits the judges of the Supreme Court of India?",
+                options: ["President", "Chief Justice", "Prime Minister", "Council of Ministers"],
+                answer: 0
+            },
+            {
+                question: "What is the retirement age. of the judge of Supreme Court?",
+                options: ["60 years", "62 years", "64 years", "65 years"],
+                answer: 3
+            },
+            {
+                question: "District Judge is under the control of-",
+                options: ["State Government", "High Court", "Supreme Court", "Governor"],
+                answer: 1
+            },
+            {
+                question: "High Court of Andaman and Nicobar Island is located in which state of India?",
+                options: ["Tamil Nadu", "West Bengal", "Andhra Pradesh", "Karnataka"],
+                answer: 1
+            },
+            {
+                question: "How many judges are in Supreme Court?",
+                options: ["25", "30", "31", "34"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is not an eligibility of the judge of Supreme Court in India?",
+                options: ["Citizen of India", "Age should be 35 years", "Should have practiced at least 10 years in\nany High court", "Should be a jurist"],
+                answer: 1
+            },
+            {
+                question: "What should be the experience of advocacy in any High Court for being a judge of Supreme court?",
+                options: ["10 years", "5 years", "15 years", "20 years"],
+                answer: 0
+            },
+            {
+                question: "Judge of the Superme Court and High Court can be removed by-",
+                options: ["The President", "Parliament", "Union Council of Minister", "Chief Justice of the Supreme court"],
+                answer: 0
+            },
+            {
+                question: "Which one of the following is related to Advisory Jurisdiction of the Supreme Court-",
+                options: ["Speaker of the Parliament' seeking opinion\nfrom the Supreme Court", "Election Commission seeking opinion from\nth Supreme Court", "State'. seeking pinion. rrom the Supreme\nCourt", "President of the India seeks opinion onlaw\nor facts"],
+                answer: 3
+            },
+            {
+                question: "To become a Judge of the High Court one must be a practicing advocate of the High Court for at least-",
+                options: ["20 years", "5 years", "10 years", "15 years"],
+                answer: 2
+            },
+            {
+                question: "The Judges of High Court are administered oath of office by-",
+                options: ["The Chief Justice of High Court", "The President of India", "The Chief Justice of India", "Governor of the State"],
+                answer: 3
+            },
+            {
+                question: "Who is empowered to transfer a Judge from one High Court to another High Court ?",
+                options: ["Chief Justice of India", "President of India", "Law Minister of India", "The Union Cabinet"],
+                answer: 1
+            },
+            {
+                question: "The pension of the judge of High Court is charged on-",
+                options: ["Public account of State", "Consolidated Fund of India", "Public Accounts of India", "Consolidated Fund of State"],
+                answer: 1
+            },
+            {
+                question: "The salary and allowances of judges of Supreme Court are charged on-",
+                options: ["Reserve Bank of India", "Contingency Fund of India", "Consolidated Fund of India", "Finance Commission"],
+                answer: 2
+            },
+            {
+                question: "The retired judge of High Court is not permitted to practice as a lawyer in-",
+                options: ["Supreme Court", "Any court in India", "High Courts", "The High Court where he retired from"],
+                answer: 3
+            },
+            {
+                question: "Which of the following comes under the jurisdiction of both the High Court and the Supreme Court ?",
+                options: ["Disputes between the states interse", "Protection against the vipolation of the\nConstitution", "Protection of Fundamental Rights", "Disputes between centre andthe State"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following statements about the Chief Justice of India (CJI) is not correct?",
+                options: ["He appoints the Chief Justice of all High\nCourts.", "The CJI administers 'the oath'of office 'to the\nPresident.", "When both the office of the President and\nVice President fall vacant simultaneously, the CJI discharges the duties of the\nPresident .", "The CJI can hold his office till he attains the\nage of 65 years."],
+                answer: 0
+            },
+            {
+                question: "The states which have a common High Court are-",
+                options: ["Karnataka and Andhra Pradesh", "Gujarat and Orissa", "Maharashtra and Goa", "Madhya Pradesh and Rajasthan"],
+                answer: 2
+            },
+            {
+                question: "Which two states have a common High Court ?",
+                options: ["Himachal Pradesh and Uttar Pradesh", "Haryana and Punjab", "Gujarat and Maharashtra", "Kerala and Tamil Nadu"],
+                answer: 1
+            },
+            {
+                question: "Match the followings-Union Territory - Jurisdiction (High Court)A. Puducherry - 1. KeralaB. Andaman and Nicobar Islands - 2. MumbaiC. Lakshadweep - 3. Madrasd. Daman and Diu - 4. Calcutta",
+                options: ["A-3, B-4, C-1, D-2", "A-1, B-3, C-4, D-2", "A-1, B-2, C-3, D-4", "A-1, B-4, C-3, D-2"],
+                answer: 0
+            },
+            {
+                question: "Lakshadweep's High Court is located in which state of India?",
+                options: ["Tamil Nadu", "Kerala", "Andhra Pradesh", "Karnataka"],
+                answer: 1
+            },
+            {
+                question: "The principal bench of High Court of Madhya Pradesh is located in-",
+                options: ["Bhopal", "Jabalpur", "Gwalior", "Indore"],
+                answer: 1
+            },
+            {
+                question: "___ means that the Supreme Court will reconsider the case and the legal issues involved in it.",
+                options: ["Original Jurisdiction", "Writ Jurisdiction", "Appellate Jurisdiction", "Advisory Jurisdiction"],
+                answer: 2
+            },
+            {
+                question: "Who was the first Woman Judge of the supreme court?",
+                options: ["Sujata Manohar", "Ruma Pal", "M.S.Fathima Beevi", "None of these"],
+                answer: 2
+            },
+            {
+                question: "Which of the following High Court declared 1st that \"Shutdown\" is Unconstitutional-",
+                options: ["Andhra Pradesh", "Madhya Pradesh", "Kerala", "Odissa"],
+                answer: 2
+            },
+            {
+                question: "Who was the first woman Chif Justice of a High Court of a state if India?",
+                options: ["Sunanda Bhandare", "Fathima Beevi", "Leila Seth", "Anna Chandy"],
+                answer: 2
+            },
+            {
+                question: "The High Court which has the distinction of having the first woman Chief Justice is-",
+                options: ["Guwahati High Court", "Allahabad High Court", "Delhi High Court", "Himanchal Pradesh High Court"],
+                answer: 3
+            },
+            {
+                question: "All of the following are the aims of Lok Adalat, except-",
+                options: ["Secure justice to the weaker sections", "Mass disposal of the cases", "Give the power to rule in the hands of the\ncommon man-", "Minimize cost and delay"],
+                answer: 2
+            },
+            {
+                question: "The power of mitigation of dispute between centre and state falls in ______ of the supreme court of India-",
+                options: ["Original Jurisdiction", "Constitutional Jurisdiction", "Consulting Jurisdiction", "Appellate Jurisdiction"],
+                answer: 0
+            },
+            {
+                question: "The Supreme Court of India acts as a Federel Court when it deals with-",
+                options: ["Civil cases", "Interstate disputes", "Appeals from lower courts", "Election petitions"],
+                answer: 1
+            },
+            {
+                question: "The Supreme Court of India has-",
+                options: ["Original Jurisdiction", "Consultative Jurisdiction", "Appellate and Consultative Jurisdiction", "Original, Appellate and Consultative\nJurisdiction"],
+                answer: 3
+            },
+            {
+                question: "The Supreme Court of India was set up-",
+                options: ["By the Constitution", "By the law of parliament", "By a Presidential Order", "By the Act of 1947"],
+                answer: 0
+            },
+            {
+                question: "The Judge of the High Court hold office-",
+                options: ["During the pleasure of the Chief Justice of\nIndia", "Till they have attained 62 years of age", "Till they have attained 65 years of age", "As long as they desire"],
+                answer: 1
+            },
+            {
+                question: "Which amendment act raised the age of retirement for judges of High Court to 62 from 60?",
+                options: ["12th", "15th", "10th", "252th"],
+                answer: 1
+            },
+            {
+                question: "The retired judges of Supreme court are restricted to practice advocacy in-",
+                options: ["Any court except Supreme Court", "Any court of India", "Any court below High Court", "Any civil Court"],
+                answer: 1
+            },
+            {
+                question: "Chief Justic of the Supreme Court is appointed by the-",
+                options: ["Speaker of the Lok Sabha", "Chairman of the Rajya Sabha", "Prime Minister", "President"],
+                answer: 3
+            },
+            {
+                question: "An appeal to the High Court lies in case the Session Court has awarded the punishment of-",
+                options: ["One year or more", "Two years or more", "Three years or more", "Four years or more"],
+                answer: 3
+            }
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.textContent = `${index + 1}) ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) {
+                        return;
+                    }
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            wrapper.appendChild(questionBlock);
+        });
+    </script>
+</body>
+</html>

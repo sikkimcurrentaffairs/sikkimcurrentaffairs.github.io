@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electricity & Magnetism | Sikkim PSC Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        .quiz-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        html.dark .quiz-container {
+            background: #24272c;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #0284c7;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        html.dark .question-block {
+            border-bottom: 1px solid #334155;
+        }
+        .question-text {
+            font-size: 1.15em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+        html.dark .question-text {
+            color: #f1f5f9;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option {
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            padding: 16px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            color: #475569;
+        }
+        html.dark .option {
+            background-color: #1e293b;
+            border: 2px solid #334155;
+            color: #cbd5e1;
+        }
+        .option:hover {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
+            transform: translateX(4px);
+        }
+        html.dark .option:hover {
+            background-color: #334155;
+            border-color: #475569;
+        }
+        .option.correct {
+            background-color: #dcfce7 !important;
+            border-color: #4ade80 !important;
+            color: #166534 !important;
+        }
+        html.dark .option.correct {
+            background-color: #064e3b !important;
+            border-color: #10b981 !important;
+            color: #ecfdf5 !important;
+        }
+        .option.incorrect {
+            background-color: #fee2e2 !important;
+            border-color: #f87171 !important;
+            color: #991b1b !important;
+        }
+        html.dark .option.incorrect {
+            background-color: #7f1d1d !important;
+            border-color: #ef4444 !important;
+            color: #fef2f2 !important;
+        }
+        .options-list.answered {
+            pointer-events: none;
+        }
+        .quiz-stats-badge {
+            background: #f1f5f9;
+            color: #64748b;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        html.dark .quiz-stats-badge {
+            background: #334155;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 min-h-screen p-4 sm:p-8">
+
+    <div class="quiz-container">
+        <a href="physics.html" class="back-link">&larr; Back to Physics Topics</a>
+        <h1 class="text-3xl font-bold text-blue-800 dark:text-blue-400 mb-2">Electricity & Magnetism</h1>
+        <div class="quiz-stats-badge">103 MCQ Questions</div>
+        
+        <div id="questions-wrapper"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Which of the following terms is not used in the field of physics?",
+                options: ["Latent heat", "Nuclear fusion", "Refractive index", "Stock value"],
+                answer: 3
+            },
+            {
+                question: "Large transformers, when used for some time, become very hot and are cooled by circulating oil. The heating of the transformer is due to:",
+                options: ["The heating effect of current alone", "Hysteresis loss alone", "Both the heating effect of current and hysteresis loss", "Intense sunlight at noon"],
+                answer: 2
+            },
+            {
+                question: "Magnetism at the centre of a bar magnet is",
+                options: ["minimum", "maximum", "zero", "minimum or maximum"],
+                answer: 2
+            },
+            {
+                question: "Suitable impurities are added to a semiconductor depending on its use. This is done in order to",
+                options: ["increase its life", "enable it to withstand higher voltages", "increase its electrical conductivity", "increase its electrical resistivity"],
+                answer: 2
+            },
+            {
+                question: "Mica is used in electrical appliances such as electric iron because mica is",
+                options: ["a good conductor of heat but a bad conductor of electricity", "a bad conductor of heat but a good conductor of electricity", "a good conductor of heat as well as electricity", "a bad conductor of heat as well as electricity"],
+                answer: 0
+            },
+            {
+                question: "Find the current (in A) when a charge of 500 Coulomb flows in 25 seconds.",
+                options: ["12500", "20", "40", "6250"],
+                answer: 1
+            },
+            {
+                question: "The electric current in a metal wire is due to the flow of -",
+                options: ["Electrons", "Protons", "Ions", "Holes"],
+                answer: 0
+            },
+            {
+                question: "An electric fuse is based on",
+                options: ["The chemical effect of the current", "The magnetic effect of the current", "The heating effect of the current", "All of the above"],
+                answer: 2
+            },
+            {
+                question: "Find the current (in A) when a charge of 1200C flows in 6 seconds.",
+                options: ["7200", "200", "100", "3600"],
+                answer: 1
+            },
+            {
+                question: "The fuse in an electric circuit is connected in",
+                options: ["Series with neutral", "Parallel to live", "Parallel to neutral", "Series with live"],
+                answer: 3
+            },
+            {
+                question: "The best conductor of electricity among the following is :",
+                options: ["Copper", "Iron", "Aluminium", "Silver"],
+                answer: 3
+            },
+            {
+                question: "Good conductor of electricity is",
+                options: ["Dry air", "Paper", "Kerosene", "Graphite"],
+                answer: 3
+            },
+            {
+                question: "Pure water is bad conductor of electricity because it is",
+                options: ["Feebly ionized", "Not volatile", "A very good solvent", "A non-polar solvent"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is a conductor of electricity ?",
+                options: ["Rubber", "Pure water", "Salt water", "Benzene"],
+                answer: 2
+            },
+            {
+                question: "A bird sitting on a high tension electric wire does not get electrocuted because",
+                options: ["It has high resistance", "The body is earthed", "It does not form a closed path for the flow of current", "Its feet are good insulators"],
+                answer: 2
+            },
+            {
+                question: "The fuse in our domestic electric circuit melts when there is a high rise in",
+                options: ["Inductance", "Current", "Resistance", "Capacitance"],
+                answer: 1
+            },
+            {
+                question: "In the electrical circuit of a house, the fuse acts as",
+                options: ["A load", "A thermopile", "A safety device", "A step down device"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is an insulator?",
+                options: ["Mercury", "Carbon", "Germanium", "Glass"],
+                answer: 3
+            },
+            {
+                question: "To prevent damage from lightning, lightning conductors are used on tall structures. The lightning conductor",
+                options: ["Should be made of a good conductor but can be of any shape", "Should be in the form of a vertical rod", "Can be of any shape", "Should be made of a good conductor like copper with sharp-pointed edges"],
+                answer: 3
+            },
+            {
+                question: "The ringing of an electric bell in an enclosed evacuated glass bell jar is not heard outside because",
+                options: ["The ringing is not loud enough", "The glass of the bell jar absorbs the sound waves", "The bell jar is too small", "There is no air or any other gas in the bell jar"],
+                answer: 3
+            },
+            {
+                question: "The substance which conducts current in the solid state is",
+                options: ["Diamond", "Graphite", "Iodine", "Sodium chloride"],
+                answer: 1
+            },
+            {
+                question: "Electric current is measured by which instrument?",
+                options: ["Voltmeter", "Ammeter", "Barometer", "Sinometer"],
+                answer: 1
+            },
+            {
+                question: "The S.I. unit of electric charge is :",
+                options: ["Ampere", "Coulomb", "E.s.u", "Kelvin"],
+                answer: 1
+            },
+            {
+                question: "Indicate the false statement about the resistance of a wire",
+                options: ["It depends on material of wire", "It is directly proportional to the length of wire", "It is directly proportional to the area of cross-section of wire", "Resistance of metallic wire increases with increase in temperature"],
+                answer: 2
+            },
+            {
+                question: "The magnitude of current flowing between two end points of a conductor is proportional to the potential difference between them and is called as:",
+                options: ["Avogadro's law", "Rault's law", "Ohms law", "Faraday's law"],
+                answer: 2
+            },
+            {
+                question: "What is the SI unit of electric current?",
+                options: ["Newton", "Joule", "Ampere", "Watt"],
+                answer: 2
+            },
+            {
+                question: "The rate of flow of electric charge is measured in",
+                options: ["Ampere", "Coulomb", "Ampere/coulomb", "Ampere-coulomb"],
+                answer: 0
+            },
+            {
+                question: "A device which is used to limit the current in an electrical circuit is called a",
+                options: ["Grid", "Fuse", "Hub", "Conductor"],
+                answer: 1
+            },
+            {
+                question: "If the current flowing through a circuit is 0.6 A for 6 mins, the amount of electric charge flowing through it is ________",
+                options: ["360C", "216 C", "60 C", "36 C"],
+                answer: 1
+            },
+            {
+                question: "Ohm's law is valid in case of",
+                options: ["Semiconductor", "Conductor", "Superconductor", "Insulator"],
+                answer: 1
+            },
+            {
+                question: "The SI unit of resistance is:",
+                options: ["Newton", "Coulomb", "Ohm", "Joule"],
+                answer: 2
+            },
+            {
+                question: "The base of an electric iron is brightly polished mainly",
+                options: ["To make it smooth and frictionless", "To make it rust-proof", "To reduce heat loss by radiation", "To make it more durable"],
+                answer: 2
+            },
+            {
+                question: "When a bar magnet is cut into two equal halves, the pole strength of each piece \u2013",
+                options: ["Becomes double", "Becomes half", "Becomes zero", "Remains the same"],
+                answer: 3
+            },
+            {
+                question: "A permanent magnet can affect",
+                options: ["Magnets", "Electromagnets", "Both A & B", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "A freely suspended magnet remains horizontal at",
+                options: ["The magnet equator", "The magnetic north pole", "The magnetic south pole", "The geographic pole"],
+                answer: 0
+            },
+            {
+                question: "No current will flow between two charged bodies if they have the same",
+                options: ["Resistance", "Charge", "Potential", "Charge/ potential ratio"],
+                answer: 2
+            },
+            {
+                question: "Two metallic wires made from copper have same length but the radius of wire 1 is half of that of wire 2. The resistance of wire 1 is R. If both the wires are joined together in series, the total resistance becomes",
+                options: ["2R", "R/2", "5R/4", "3R/4"],
+                answer: 2
+            },
+            {
+                question: "Find the resistance (in mega) of a wire of length 20m, cross sectional area 1 cm2and made of a material of resistivity 200m.",
+                options: ["40", "4000", "80", "2000"],
+                answer: 0
+            },
+            {
+                question: "A copper wire of radius r and length l has a resistance of R. A second copper wire with radius 2r and length l is taken and the two wires are joined in a parallel combination. The resultant resistance of the parallel combination of the two wires will be",
+                options: ["5 R", "5 R/4", "4 R/5", "R/5"],
+                answer: 3
+            },
+            {
+                question: "When a number of resistors are connected in series in a circuit, the value of current:",
+                options: ["Increases", "Becomes half", "Decreases", "Remains the same"],
+                answer: 3
+            },
+            {
+                question: "A good conductor while carrying current is",
+                options: ["Alternately charged positive and negative", "Negatively charged", "Positively charged", "Electrically neutral"],
+                answer: 1
+            },
+            {
+                question: "Water cannot be used to extinguish fire caused by electric current, because",
+                options: ["It may cause electrocution", "It may cause hydrolysis", "It may cause electrolysis", "It may spoil the wiring"],
+                answer: 0
+            },
+            {
+                question: "Brightness of bulb depends on voltage or current?",
+                options: ["Current", "Voltage", "Both A & B", "None"],
+                answer: 2
+            },
+            {
+                question: "The resistance of a conductor is inversely proportional to its:",
+                options: ["Length", "Resistivity", "Temperature", "Area of cross section"],
+                answer: 3
+            },
+            {
+                question: "Which one of the following is an ohmic conductor?",
+                options: ["Germanium", "Silicon", "Carbon", "Silver"],
+                answer: 3
+            },
+            {
+                question: "What is the effective resistance (in \u03a9) of two resistors 20 \u03a9 and 30 \u03a9 connected in parallel?",
+                options: ["50", "12", "24", "36"],
+                answer: 1
+            },
+            {
+                question: "What is the resistance (in ohm) of an electrical component if a current of 0.1 A passes through it on application of 5 V of potential difference across it?",
+                options: ["0.5", "100", "50", "1"],
+                answer: 2
+            },
+            {
+                question: "If electric resistance is to be decreased, then the number of resistances should be connected in ________",
+                options: ["Series", "Parallel", "Mixed arrangement", "None of these"],
+                answer: 1
+            },
+            {
+                question: "Ampere second could be the unit of",
+                options: ["Power", "Energy", "Conductance", "Charge"],
+                answer: 3
+            },
+            {
+                question: "Which one of the following is a good electrical conductor?",
+                options: ["Graphite", "Diamond", "Peat", "Charcoal"],
+                answer: 0
+            },
+            {
+                question: "If a copper wire is increased to double its length, its resistance will become",
+                options: ["Four times", "One\u2013fourth", "Double", "Half"],
+                answer: 0
+            },
+            {
+                question: "The filament of electric bulb is made up of :",
+                options: ["Copper", "Nichrome", "Lead", "Tungsten"],
+                answer: 3
+            },
+            {
+                question: "Full form of CFL used in place of electric bulbs is",
+                options: ["Compact fluorescent lamp", "Constantan filament lamp", "Closed filament lamp", "Closed fluorescent lamp"],
+                answer: 0
+            },
+            {
+                question: "Two electric bulbs marked 25W \u2013 220V and 100W \u2013 220V are connected in series to a 440Vsupply. Which of the bulbs will fuse?",
+                options: ["25 W", "Both", "100 W", "Neither"],
+                answer: 0
+            },
+            {
+                question: "The device used to change the speed of an electric fan is",
+                options: ["Amplifier", "Regulator", "Switch", "Rectifier"],
+                answer: 1
+            },
+            {
+                question: "The material used in electric heater is",
+                options: ["Tungsten", "Nichrome", "Brass", "Steel"],
+                answer: 1
+            },
+            {
+                question: "The coil wire in the electric room heater or electric cooking heater is called ________",
+                options: ["Circuit", "Element", "Filament", "Cells"],
+                answer: 1
+            },
+            {
+                question: "Tungsten is used for the manufacture of the filament of an electric bulb, because",
+                options: ["It is a good conductor", "It is economical", "It is malleable", "It has a very high melting point"],
+                answer: 3
+            },
+            {
+                question: "Which of the following metals is used for the manufacture of heating elements provided in electric iron ?",
+                options: ["Nickel", "Chromium", "Nichrome", "Tungsten"],
+                answer: 2
+            },
+            {
+                question: "A current carrying conductor is associated with",
+                options: ["A magnetic field", "An electric field", "An electro-magnetic field", "An electrostatic field"],
+                answer: 2
+            },
+            {
+                question: "A photo-electric cell converts",
+                options: ["Mechanical energy to electric energy", "Heat energy to mechanical energy", "Light energy to chemical energy", "Light energy to electrical energy"],
+                answer: 3
+            },
+            {
+                question: "In a water lifting electric pump, we convert",
+                options: ["Electrical energy into Potential energy", "Kinetic energy into Electrical energy", "Kinetic energy into Potential energy", "Electrical energy into Kinetic energy"],
+                answer: 0
+            },
+            {
+                question: "What will happen if an object is dropped from a height and there is no air resistance?",
+                options: ["It will fall with a constant speed and acceleration", "Its acceleration will increase", "Both speed and acceleration will increase", "Its speed will increase"],
+                answer: 3
+            },
+            {
+                question: "Intensity of gravitational field of earth is maximum at",
+                options: ["Poles", "Equator", "Centre of earth", "Surface"],
+                answer: 0
+            },
+            {
+                question: "What is the name of the device used to convert alternating current into direct current ?",
+                options: ["Ammeter", "Galvanometer", "Rectifier", "Transformer"],
+                answer: 2
+            },
+            {
+                question: "A Step-Up transformer increases",
+                options: ["Power", "Current", "Frequency", "Voltage"],
+                answer: 3
+            },
+            {
+                question: "A transformer",
+                options: ["Converts DC to AC", "Is used to decrease or increase AC voltage", "Converts AC voltage to D.C. voltage", "Converts electrical energy into mechanical energy"],
+                answer: 1
+            },
+            {
+                question: "Which sources produce alternating current (AC)?",
+                options: ["Solar power plants", "Hydro-electric generators", "Batteries", "All of the above"],
+                answer: 1
+            },
+            {
+                question: "Alternating current is converted into direct current by a",
+                options: ["Transformer", "Dynamo", "Oscillator", "Rectifier"],
+                answer: 3
+            },
+            {
+                question: "A parallel-plate capacitor,with air in between the plates, has capacitance C. Now the space between the two plates of the capacitor is filled with a dielectric of dielectric constant 7. Then the value of the capacitance will become",
+                options: ["C", "C/7", "7C", "14C"],
+                answer: 2
+            },
+            {
+                question: "A parallel-plate capacitor of capacitance C1 is made using two gold plates. Another parallel-plate capacitor of capacitance C2 is made using two aluminium plates with same plate separation, and all the four plates are of same area. If rg and ra are respectively the electrical resistivities of gold and aluminium, then which one of the following relations is correct?",
+                options: ["C1>C2", "C2>C1", "C1pa = C2pg", "C1 = C2"],
+                answer: 3
+            },
+            {
+                question: "The best material for the core of a transformer is",
+                options: ["Stainless steel", "Mild steel", "Hard steel", "Soft iron"],
+                answer: 3
+            },
+            {
+                question: "A transformer works on the principle of",
+                options: ["Self induction", "Mutual induction", "Generator", "Inverter"],
+                answer: 1
+            },
+            {
+                question: "Transformer is a device to convert",
+                options: ["D.C. to A.C.", "Low voltage D.C. into high voltage D.C.", "Low voltage A.C. into high voltage A.C.", "Mechanical energy into Electrical energy"],
+                answer: 2
+            },
+            {
+                question: "What part of the atom has a positive charge?",
+                options: ["Neutron", "Proton", "Electron", "All the above"],
+                answer: 1
+            },
+            {
+                question: "Who indirectly determined the mass of the electron by measuring the charge of the electron?",
+                options: ["Thomson", "Millikan", "Rutherford", "Einstein"],
+                answer: 1
+            },
+            {
+                question: "Circuit breaker usually operate under",
+                options: ["After D. C. component has ceased", "Transient state of short-circuit current", "Sub-transient state of short-circuit current", "Steady state of short-circuit current"],
+                answer: 1
+            },
+            {
+                question: "The resistance of the human body (dry condition) is of the order of",
+                options: ["101Ohm", "102Ohm", "103Ohm", "None of these"],
+                answer: 3
+            },
+            {
+                question: "Which component of an IED creates an electrical charge?",
+                options: ["Activator", "Fuse", "Explosive", "Power source"],
+                answer: 3
+            },
+            {
+                question: "A wire carrying current is",
+                options: ["Positively charged", "Negatively charged", "Neutral", "Charged with a type depending upon current strength"],
+                answer: 2
+            },
+            {
+                question: "Low voltage cables are meant for use up to",
+                options: ["3.3 kV", "1.1 kV", "11 kV", "0.5 kV"],
+                answer: 1
+            },
+            {
+                question: "Kirchoff's Voltage Law is known as",
+                options: ["Conservation of Charge", "Conservation Energy", "Both", "None of these"],
+                answer: 1
+            },
+            {
+                question: "The potential difference between the terminals of an electric heater is 60 V when it draws a current of 4 A from the source. What current will the heater draw if the potential difference is increased to 127.5 V ?",
+                options: ["8.5 A", "24 A", "10 A", "12 A"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is a device designed to protect electrical devices from voltage spikes?",
+                options: ["Voltage unloader", "Surge protector", "Heat protector", "Current unloader"],
+                answer: 1
+            },
+            {
+                question: "The device which transfer the signal from low resistance region to high resistance region is",
+                options: ["Diode", "Transistor", "Capacitor", "Inductor"],
+                answer: 1
+            },
+            {
+                question: "Resistance of human body in dry condition",
+                options: ["10 ohm", "1000 ohm", "10000 ohm", "100000 ohm"],
+                answer: 3
+            },
+            {
+                question: "In a conductor",
+                options: ["There is no conduction band", "The forbidden energy gap is very wide", "The forbidden energy gap is very narrow", "The valence band and the conduction band overlap each other"],
+                answer: 3
+            },
+            {
+                question: "The unit of intensity of electric field is",
+                options: ["N/c", "N/m", "J/c", "Volt"],
+                answer: 0
+            },
+            {
+                question: "Where do the electrical charges reside in a charged conductor?",
+                options: ["At the core", "Throughout the body", "Depended upon the nature of the body", "Outer surface of the body"],
+                answer: 3
+            },
+            {
+                question: "An Electric generator is based on which of the following scientific principles?",
+                options: ["Faraday's law of Electromagnetic Induction", "Super Conductivity", "Laws of Thermodynamics", "Newton's Law of Motion"],
+                answer: 0
+            },
+            {
+                question: "What is the unit of Magnetic Induction?",
+                options: ["Ohm", "Farad", "Volt", "Henry"],
+                answer: 3
+            },
+            {
+                question: "Eddy current is generated by",
+                options: ["Conduction", "Induction", "Convection", "Direct Current"],
+                answer: 1
+            },
+            {
+                question: "Which of the following circuit elements is used to ''block\" DC in an electronic circuit ?",
+                options: ["Resistances", "Capacitance", "Inductance", "Diode"],
+                answer: 1
+            },
+            {
+                question: "A small piece of a substance is weakly attracted by a strong magnetic field. The substance is",
+                options: ["Diamagnetic", "Ferromagnetic", "Paramagnetic", "Non-magnetic"],
+                answer: 2
+            },
+            {
+                question: "Magnetic field lines about a current-carrying wire",
+                options: ["Circle the wire in closed loops", "Extend radially from the wire", "Both of these", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "Moving electric charge produces :",
+                options: ["Magnetic field", "Sound waves", "Light rays", "Heat waves"],
+                answer: 0
+            },
+            {
+                question: "A radioactive substance does not undergo any change (in mass or charge) during",
+                options: ["Gamma-emission", "Oxidation", "Alpha-emission", "Beta-emission"],
+                answer: 0
+            },
+            {
+                question: "Addition of suitable impurities into semiconductor, is called",
+                options: ["Doping", "Mixing", "Forming", "Diluting"],
+                answer: 0
+            },
+            {
+                question: "An integrated circuit is more advantages than a coventional circuit because",
+                options: ["They make the electric equipments more reliable and easier for servicing", "A faulty part of a conventional circuit may be difficult to locate and repair", "If a part of the integrated circuit fails the entire circuit is simply replaced", "All the above"],
+                answer: 3
+            },
+            {
+                question: "In electronics what comes under tank circuit ?",
+                options: ["Resistance and capacity", "Resistance and inductance", "Capacity and inductance", "Resistance, capacity and inductance"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is used for regulated electric supply ?",
+                options: ["Zener diode", "Junction diode", "Gun diode", "Tunnel diode"],
+                answer: 0
+            },
+            {
+                question: "Which one among the following components can not be developed within an ''integrated circuit\"?",
+                options: ["Diode", "Triode", "Transformer", "Transistor"],
+                answer: 2
+            },
+            {
+                question: "A metal semiconductor junction diode is called ________",
+                options: ["Schottky diode", "Photo diode", "Tunnel diode", "P-N Junction diode"],
+                answer: 0
+            }
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.innerHTML = `<span class="text-blue-600 dark:text-blue-500 mr-2">Q${index + 1}.</span> ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                if (!option || option.trim() === '') return;
+                
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) return;
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            wrapper.appendChild(questionBlock);
+        });
+
+        // Theme sync
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>

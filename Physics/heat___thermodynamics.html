@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heat & Thermodynamics | Sikkim PSC Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        .quiz-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        html.dark .quiz-container {
+            background: #24272c;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #0284c7;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        html.dark .question-block {
+            border-bottom: 1px solid #334155;
+        }
+        .question-text {
+            font-size: 1.15em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+        html.dark .question-text {
+            color: #f1f5f9;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option {
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            padding: 16px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            color: #475569;
+        }
+        html.dark .option {
+            background-color: #1e293b;
+            border: 2px solid #334155;
+            color: #cbd5e1;
+        }
+        .option:hover {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
+            transform: translateX(4px);
+        }
+        html.dark .option:hover {
+            background-color: #334155;
+            border-color: #475569;
+        }
+        .option.correct {
+            background-color: #dcfce7 !important;
+            border-color: #4ade80 !important;
+            color: #166534 !important;
+        }
+        html.dark .option.correct {
+            background-color: #064e3b !important;
+            border-color: #10b981 !important;
+            color: #ecfdf5 !important;
+        }
+        .option.incorrect {
+            background-color: #fee2e2 !important;
+            border-color: #f87171 !important;
+            color: #991b1b !important;
+        }
+        html.dark .option.incorrect {
+            background-color: #7f1d1d !important;
+            border-color: #ef4444 !important;
+            color: #fef2f2 !important;
+        }
+        .options-list.answered {
+            pointer-events: none;
+        }
+        .quiz-stats-badge {
+            background: #f1f5f9;
+            color: #64748b;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        html.dark .quiz-stats-badge {
+            background: #334155;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 min-h-screen p-4 sm:p-8">
+
+    <div class="quiz-container">
+        <a href="physics.html" class="back-link">&larr; Back to Physics Topics</a>
+        <h1 class="text-3xl font-bold text-blue-800 dark:text-blue-400 mb-2">Heat & Thermodynamics</h1>
+        <div class="quiz-stats-badge">76 MCQ Questions</div>
+        
+        <div id="questions-wrapper"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "On a cold day when a room temperature is 15oC, the metallic cap of a pen becomes much colder than its plastic body, though both are at the same temperature of 15oC, because",
+                options: ["metals have higher thermal capacity than plastics", "plastics have a lower density than metals", "metals are good conductor of heat", "plastics have a higher thermal conductivity than metals"],
+                answer: 2
+            },
+            {
+                question: "Of the four locations mentioned below the highest inside temperature will be attained in the pressure cooker operated with the pressure valve open",
+                options: ["at sea level", "at the top of Mt. Everest", "at a place in a valley below sea level", "in an aeroplane flying at a height of 10,000 m with inside pressure maintained at the sea level"],
+                answer: 2
+            },
+            {
+                question: "The boiling point of water decreases at higher altitudes is due to",
+                options: ["Low temperature", "Low atmospheric pressure", "High temprature", "High atmospheric pressure"],
+                answer: 1
+            },
+            {
+                question: "At boiling point of liquids, its",
+                options: ["Temperature increases", "Atmospheric pressure increases", "Temperature remains constant", "Vapour pressure decreases"],
+                answer: 2
+            },
+            {
+                question: "At hill stations, the boiling point of water will be",
+                options: ["Same as at sea level", "Less than that at sea level", "More than that at sea level", "Equal to the melting point of ice"],
+                answer: 1
+            },
+            {
+                question: "Water boils at a lower temperature on the hills because",
+                options: ["It is cold on the hills", "There is less carbon dioxide on the hills", "There is a decrease in air pressure on the hills", "There is less oxygen"],
+                answer: 2
+            },
+            {
+                question: "The boiling point of water depends upon the",
+                options: ["Atmospheric pressure", "Volume", "Density", "Mass"],
+                answer: 0
+            },
+            {
+                question: "Which metal is the best conductor of heat?",
+                options: ["Silver", "Gold", "Copper", "All of the above"],
+                answer: 0
+            },
+            {
+                question: "On a cold day when the room temperature is 15\u00b0C, the metallic cap of a pen becomes much colder than its plastic body, though both are at the same temperature of 15\u00b0C, because :",
+                options: ["Metals have higher thermal capacity than plastics", "Plastics have a lower density than metals", "Metals are good conductors of heat", "Plastics have a higher thermal conductivity than metals"],
+                answer: 2
+            },
+            {
+                question: "Heat flows as a result of difference of ________",
+                options: ["Temperature", "Density", "Mass", "Volume"],
+                answer: 0
+            },
+            {
+                question: "The boiling point of liquids vary as",
+                options: ["Pressure varies", "Temperature varies", "Volume varies", "Density varies"],
+                answer: 0
+            },
+            {
+                question: "The freezing point of fresh water is ________ .",
+                options: ["4\u00b0C", "3\u00b0C", "5\u00b0C", "0\u00b0C"],
+                answer: 3
+            },
+            {
+                question: "For which of the following substances, the resistance decreases with increase in temperature?",
+                options: ["Pure silicon", "Copper", "Nichrome", "Platinum"],
+                answer: 1
+            },
+            {
+                question: "A bimetal made copper and iron strips welded together is straight at room temperature. It is held vertically with iron strip towards left and copper strip towards right. If this bimetal is heated, it will",
+                options: ["Remain straight", "Bend towards right", "Bend towards left", "None of these"],
+                answer: 2
+            },
+            {
+                question: "Thermal expansion of materials arises from",
+                options: ["Strong bonds", "Thermal vibrations", "Weak bonds", "Asymmetry of potential energy curve"],
+                answer: 3
+            },
+            {
+                question: "Which of the following are methods of heat transfer?",
+                options: ["Convection", "Evaporation", "Revolution", "Thermal Expansion"],
+                answer: 0
+            },
+            {
+                question: "Heat transfer by radiation mainly depends upon",
+                options: ["Kind and extent of its surface", "Its temperature", "Nature of the body", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "The direction of heat flow between two objects depends on",
+                options: ["Their masses", "Their heat contents", "Their temperatures", "Whether they are in solid, liquid or gaseous state"],
+                answer: 2
+            },
+            {
+                question: "Heat from the sun reaches earth by the process of",
+                options: ["Conduction", "Convection", "Radiation", "All of the above"],
+                answer: 2
+            },
+            {
+                question: "What type of heat transfer is boiling water?",
+                options: ["Radiation", "Conduction", "Convection", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "A cup of hot coffee is placed on a metal table in a room. By which of the following methods does it lose heat?",
+                options: ["Conduction and convection only", "Conduction and radiation only", "Convection and radiation only", "Conduction, convection and radiation"],
+                answer: 3
+            },
+            {
+                question: "Heat from the Sun reaches the Earth by",
+                options: ["Reflection", "Conduction", "Radiation", "Convection"],
+                answer: 2
+            },
+            {
+                question: "Heat transfer by conduction occurs when molecules",
+                options: ["Collide", "Combine", "Heated", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "A body absorbs heat most if it is",
+                options: ["Black and rough", "Black and smooth", "White and rough", "White and smooth"],
+                answer: 0
+            },
+            {
+                question: "Sun's heat reaches us by",
+                options: ["Conduction", "Convection", "Radiation", "Reflection"],
+                answer: 2
+            },
+            {
+                question: "When temperature difference between liquid and its surroundings is doubled, the rate of loss of heat will:",
+                options: ["Remain same", "Double", "Three times", "Four times"],
+                answer: 1
+            },
+            {
+                question: "Tap water is placed in an open pad and allowed to evaporate. After some time the temperature of water",
+                options: ["Increases to a great extent", "Increases slightly", "Decreases slightly", "Decreases rapidly"],
+                answer: 2
+            },
+            {
+                question: "Which best describes how air moves during convection?",
+                options: ["Cool air falls down", "Warm air falls down", "Cool air is replaced by warm air", "Air always falls down"],
+                answer: 0
+            },
+            {
+                question: "The temperature at which water boils depends mainly on",
+                options: ["Air Pressure", "Specific heat", "Density", "Relative humidity"],
+                answer: 0
+            },
+            {
+                question: "At what temperature do the Fahrenheit and Celsius scales give the same reading?",
+                options: ["212 degrees", "32 degreees", "-40 degreees", "0 degreees"],
+                answer: 2
+            },
+            {
+                question: "The temperature of a liquid is 32\u00b0 F. What is its temperature in Celsius scale?",
+                options: ["32\u00b0 C", "0\u00b0 C", "100\u00b0 C", "212\u00b0 C"],
+                answer: 1
+            },
+            {
+                question: "To convert temperature from Celcius to Kelvin scale, you must ________ the given temperature.",
+                options: ["Subtract 273", "Multiply 273", "Add 273", "Divide by 273"],
+                answer: 2
+            },
+            {
+                question: "At what temperature (in degree Celsius), the numerical values on Celsius and Fahrenheit scales become equal?",
+                options: ["\u201340", "40", "273", "\u2013273"],
+                answer: 0
+            },
+            {
+                question: "At what temperature (in Fahrenheit) pure water freezes?",
+                options: ["32", "0", "48", "37"],
+                answer: 0
+            },
+            {
+                question: "The temperature which has the same reading on both Fahrenheit and Celsius scales is",
+                options: ["40\u00b0", "\u201340\u00b0", "0\u00b0", "32\u00b0"],
+                answer: 1
+            },
+            {
+                question: "What is the SI unit of temperature?",
+                options: ["Kelvin", "Joule", "Celsius", "Fahrenheit"],
+                answer: 0
+            },
+            {
+                question: "The absolute zero is a temperature at which ________",
+                options: ["Molecular motion in a gas would cease", "Water freezes", "All gases become liquid", "All gases become solid"],
+                answer: 0
+            },
+            {
+                question: "Burns caused by steam are much severe than those caused by boiling water because",
+                options: ["Steam pierces through the pores of body quickly", "Steam has latent heat", "Steam is gas and engulfs the body quickly", "Temperature of steam is higher"],
+                answer: 1
+            },
+            {
+                question: "Which of the following has got more heat capacity ?",
+                options: ["Iron piece", "Water", "Gold piece", "Benzene"],
+                answer: 1
+            },
+            {
+                question: "Heat stored in water vapour is",
+                options: ["Specific heat", "Latent heat", "Absolute heat", "Relative heat"],
+                answer: 1
+            },
+            {
+                question: "Which one of the following has the highest value of specific heat?",
+                options: ["Glass", "Copper", "Lead", "Water"],
+                answer: 3
+            },
+            {
+                question: "Which of the following represents a relation for ''heat lost = heat gained'?",
+                options: ["Principle of thermal equilibrium", "Principle of colors", "Principle of calorimetry", "Principle of vaporization"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is a good conductor of heat but a bad conductor of electricity ?",
+                options: ["Celluloid", "Rubber", "Asbestos", "Mica"],
+                answer: 3
+            },
+            {
+                question: "Temperature of distant luminous bodies can be determined by",
+                options: ["Mercury thermometers", "Gas thermometers", "Pyrometers", "Colour thermometers"],
+                answer: 2
+            },
+            {
+                question: "The wavelength at which the peak of intensity of blackbody radiation occurs",
+                options: ["Increases with increase in temperature", "Decreases with increase in temperature", "Is the same at all temperatures", "Does not follow any pattern as temperature changes"],
+                answer: 1
+            },
+            {
+                question: "Which of the following causes adiabatic temperature changes in atmosphere?",
+                options: ["Deflection and advection", "Latent heat of condensation", "Expansion and compression of the air", "Partial absorption of solar radiation by the atmosphere"],
+                answer: 2
+            },
+            {
+                question: "Which of the following options correctly explains the term heat budget?",
+                options: ["It is a mode of transfer of heat through matter by molecular activity.", "It is the balance between incoming and outgoing radiation", "It is the radiation from the earth in the form of long waves.", "It is the amount of heat which the surface of earth receives from the sun."],
+                answer: 1
+            },
+            {
+                question: "Instruments for measuring Solar Radiation?",
+                options: ["Ammeter", "Pyranometer", "Dynamometer", "Anemometer"],
+                answer: 1
+            },
+            {
+                question: "In a diesel engine the high temperature needed to ignite the fuel is achieved by",
+                options: ["Using heat from exhaust", "The battery", "Compressing air in the cylinders", "An electrical spark"],
+                answer: 2
+            },
+            {
+                question: "Heat transfer horizontally within the atmosphere is called",
+                options: ["Conduction", "Convection", "Absorption", "Advection"],
+                answer: 3
+            },
+            {
+                question: "In a Carnot engine when heat is taken from the source, its temperature",
+                options: ["Remains constant", "Decreases", "Increases", "Decreases and then remains constant"],
+                answer: 0
+            },
+            {
+                question: "Even after sunset, the air near the Earth's surface continue to receive heat due to",
+                options: ["Insolation", "Terrestrial Radiation", "Conduction", "Convection"],
+                answer: 1
+            },
+            {
+                question: "Which of the following has the highest entropy?",
+                options: ["Hydrogen", "Diamond", "Liquid nitrogen", "Mercury"],
+                answer: 0
+            },
+            {
+                question: "The characteristic invalid for heat radiation is that it travels :",
+                options: ["In a straight line", "In all directions", "With the speed of light", "Heating the medium through which it passes"],
+                answer: 2
+            },
+            {
+                question: "Which of the metals has the maximum thermal conductivity?",
+                options: ["Iron", "Aluminium", "Silver", "Copper"],
+                answer: 2
+            },
+            {
+                question: "Which of the following devices can be used to detect radiant heat ?",
+                options: ["Liquid thermometer", "Six's maximum and minimum thermometer", "Constant volume air thermometer", "Thermopile"],
+                answer: 3
+            },
+            {
+                question: "Which of the following device is best suited for measuring the temperature inside metallurgical furnaces?",
+                options: ["Pyrometer", "Thermocouple", "Thermometer", "Thermistor"],
+                answer: 0
+            },
+            {
+                question: "At constant pressure, the volume of a fixed mass of a gas is directly proportional to its absolute temperature. It is the statement of",
+                options: ["Boyle's Law", "Charle's Law", "Gay-Lussac's Law", "Avogadro's Law"],
+                answer: 1
+            },
+            {
+                question: "Two metallic plate of equal thickness and coefficient thermal conductivity K1 and K2 put together face to face. A common plate is constructed. What is equivalent K?",
+                options: ["K1k2/k1+k2", "2k1k2/k1+k2", "K1+k2/k1k2", "None"],
+                answer: 1
+            },
+            {
+                question: "Due to temperature variation along a conductor, potential variation occurs along it. This phenomenon is known as",
+                options: ["Thomson effect", "Joule effect", "Seebeck effect", "Peltier effect"],
+                answer: 0
+            },
+            {
+                question: "If the temperature of a place increases suddenly, the relative humidity",
+                options: ["Increases", "Decreases", "Remains constant", "Fluctuates"],
+                answer: 1
+            },
+            {
+                question: "What is the unit of the physical quantity Entropy?",
+                options: ["Watt per kelvin", "Newton per kelvin", "Pascal per kelvin", "Joule per kelvin"],
+                answer: 3
+            },
+            {
+                question: "Which of the following property of sound is affected by change in air temperature?",
+                options: ["Frequency", "Intensity", "Amplitude", "Wavelength"],
+                answer: 3
+            },
+            {
+                question: "Which electromagnetic radiation is used for satellite communication ?",
+                options: ["Ultraviolet", "Infrared", "Radiowave", "Millimeter wave"],
+                answer: 2
+            },
+            {
+                question: "Certain substances loose their electrical resistance completely at super low temperature. Such substances are called.",
+                options: ["Superconductors", "Semi conductors", "Dielectrics", "Perfect conductors"],
+                answer: 0
+            },
+            {
+                question: "At low temperature, Lead behaves as a :",
+                options: ["Semi conductor", "Superconductor", "Insulator", "Conductor"],
+                answer: 1
+            },
+            {
+                question: "Indicate the correct arrangement for electromagnetic radiation in order of their increasing wavelength.",
+                options: ["Microwave, infrared, visible. X-rays", "X -rays, visible, infrared, microwave", "Visible, infrared, microwave, X-rays", "X - rays, infrared, visible, microwave"],
+                answer: 3
+            },
+            {
+                question: "Which one type of radiation has the longest wave length",
+                options: ["Infrared", "Ultraviolet", "X-ray", "Radio Wave"],
+                answer: 3
+            },
+            {
+                question: "The radiation initially produced in fluorescent tube is",
+                options: ["Infrared", "Ultraviolet", "Microwaves", "X-rays"],
+                answer: 1
+            },
+            {
+                question: "At the Curie temperature, the ferromagnetic materials get converted into",
+                options: ["Diamagnetic materials", "Non-magnetic materials", "Paramagnetic materials", "None of the others"],
+                answer: 2
+            },
+            {
+                question: "Curie point is the temperature at which",
+                options: ["Matter becomes radioactive", "A metal loses magnetic properties.", "A metal loses conductivity", "Transmutation of metal occurs."],
+                answer: 1
+            },
+            {
+                question: "Which type of radiation has the lowest penetrating ability?",
+                options: ["Alpha", "Beta", "Gamma", "All of the above"],
+                answer: 0
+            },
+            {
+                question: "For Gamma radiation, what stops its penetrating abilities?",
+                options: ["Lead", "Steal", "Concrete", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "The damage of the human body due to radiation (X-rays or gamma rays etc) is measured in :",
+                options: ["Rems", "Roentgen", "Curie", "Rads"],
+                answer: 0
+            },
+            {
+                question: "Which type of reaction produces the most harmful radiation ?",
+                options: ["Fusion reaction", "Fission reaction", "Chemical reaction", "Photo-Chemical reaction"],
+                answer: 1
+            },
+            {
+                question: "Solids which conduct electricity at higher temperature but not at lower temperature are called",
+                options: ["Super-conductor", "Metallic-conductor", "Semi-conductor", "Insulator"],
+                answer: 2
+            }
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.innerHTML = `<span class="text-blue-600 dark:text-blue-500 mr-2">Q${index + 1}.</span> ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                if (!option || option.trim() === '') return;
+                
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) return;
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            wrapper.appendChild(questionBlock);
+        });
+
+        // Theme sync
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>

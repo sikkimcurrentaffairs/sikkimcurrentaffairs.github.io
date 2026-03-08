@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central Government | Sikkim PSC Hub</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+            border-color: #bbb;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .options-list.answered .option:not(.correct):not(.incorrect) {
+            opacity: 0.7;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none;
+        }
+        .quiz-stats {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <a href="indian_polity.html" class="back-link">&larr; Back to Indian Polity</a>
+        <h1>Central Government</h1>
+        <p class="quiz-stats">246 Questions</p>
+        <div id="questions-wrapper"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "The speaker of the Lok Sabha can ask a member of the house to stop speaking and let another member speak. This phenomenon is known as :",
+                options: ["Crossing the floor", "Yielding the floor", "Point of Order", "Calling Attention Motion"],
+                answer: 1
+            },
+            {
+                question: "The disqualification of the Members of Parliament and state legislatures on the ground of defection has been provided in :",
+                options: ["Tenth schedule of the Constitution.", "Eleventh schedule of the Constitution.", "Seventh schedule of the Constitution.", "Twelfth schedule of the Constitution."],
+                answer: 0
+            },
+            {
+                question: "The provisions of Concurrent List, freedom of trade, commerce and intercourse and joint sitting of two Houses of Parliament are borrowed from :",
+                options: ["UK Constitution", "Australian Constitution.", "US Constitution", "Irish Constitution"],
+                answer: 1
+            },
+            {
+                question: "When any House of Parliament (Lok Sabha or Rajya Sabha ) is adjourned without naming a day for reassembly it is known as :",
+                options: ["Demand for Grants", "Adjournment of Debate", "Adjournment of the sitting of the House", "Adjournment Sine die"],
+                answer: 3
+            },
+            {
+                question: "The Chairman of Rajya sabha can be removed from his office only if he is removed from :",
+                options: ["Removed from Lok Shaba", "The office of President", "The office of Vice-President", "None of Above"],
+                answer: 2
+            },
+            {
+                question: "The parliamentary form of government as prevalent in India emphasizes the interdependence between :",
+                options: ["Social Justice & Empowerment.", "Urban Development and Rural Development.", "Urban Employment  and Poverty.", "The Legislative and Executive Organs."],
+                answer: 3
+            },
+            {
+                question: "The constitution of India deals with the organization, composition, duration, officers, procedures, privileges, power of the parliament under:",
+                options: ["Article 79 to 122 in Part V", "Article 36 to 51 in Part IV", "Article 152 to 237 in Part VI", "Article 239 to 242 in Part VII"],
+                answer: 0
+            },
+            {
+                question: "The last session of the existing Lok Sabha after a new Lok Sabha has been elected is called :",
+                options: ["Under Duck Session.", "Outer Duck Session.", "Lame Duck Session.", "None of Above."],
+                answer: 2
+            },
+            {
+                question: "The main duty of the Speaker Pro-tem of Lok Sabha is :",
+                options: ["To unite the Cabinet", "To administer oath to the new members.", "To end the session", "To break the deadlock"],
+                answer: 1
+            },
+            {
+                question: "A person to be eligible for election as president of India should have completed",
+                options: ["25 years", "21 years", "30 years", "35 years"],
+                answer: 3
+            },
+            {
+                question: "Which act provides for the disqualification of members of the Parliament or State Legislature for indulging in corrupt practices?",
+                options: ["Quo Warranto", "Government of India Act, 1935", "The Representation of People Act, 1951", "None of these"],
+                answer: 2
+            },
+            {
+                question: "The Administrative Head of the Cabinet Secretariat is",
+                options: ["Cabinet Minister", "The Prime Minister", "Cabinet Secretary", "The President"],
+                answer: 2
+            },
+            {
+                question: "The Cabinet is the nucleus of power in",
+                options: ["Panchromatic Raj", "Parliamentary System", "Patriarchy", "Anarchy"],
+                answer: 1
+            },
+            {
+                question: "President of India can be re-elected",
+                options: ["For any number of terms", "Two terms", "Three Terms", "Five Terms"],
+                answer: 0
+            },
+            {
+                question: "To be eligible as Vice-president a person should have completed:",
+                options: ["30 years of age", "20 years of age", "25 years of age", "35 years of age"],
+                answer: 3
+            },
+            {
+                question: "The parliamentary form of government as prevalent in India emphasizes the interdependence between the:",
+                options: ["Social Justice & Empowerment", "Urban Development and Rural Development", "Urban Employment and Poverty", "Legislative and Executive Organs"],
+                answer: 3
+            },
+            {
+                question: "The main duty of the Speaker Protem of Lok Sabha is :",
+                options: ["To unite the Cabinet", "To administer oath to the new members", "To end the session", "To break the deadlock"],
+                answer: 1
+            },
+            {
+                question: "On Prorogation, the Lok Sabha can be summoned only by :",
+                options: ["The President of India", "The Prime Minister of India", "Speaker of Lok Sabha", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "The questions asked in the Lok Sabha by the member during question hour requiring written answer are :",
+                options: ["Unstarred questions", "Starred questions", "short notice", "none of the above"],
+                answer: 0
+            },
+            {
+                question: "Who was the first Speaker of Lok Sabha?",
+                options: ["Mavlankar", "Hukum Singh", "B.D. Jatti", "V.V. Giri"],
+                answer: 0
+            },
+            {
+                question: "The Parliament of India cannot be regarded as a sovereign body because",
+                options: ["it can legislate only on subjects entrusted to the Centre by the Constitution", "it has to operate within the limits prescribed by the Constitution", "the Supreme Court can declare laws passed by parliament as unconstitutional if they contravene the provisions of the Constitution", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "The name of the Laccadive, Minicoy and Amindivi islands was changed to Lakshadweep by an Act of Parliament in",
+                options: ["1970", "1971", "1972", "1973"],
+                answer: 3
+            },
+            {
+                question: "The members of the Rajya Sabha are elected by",
+                options: ["the people", "Lok Sabha", "elected members of the legislative assembly", "elected members of the legislative council"],
+                answer: 2
+            },
+            {
+                question: "The Parliament of India can make use of the residuary powers",
+                options: ["at all times", "only during national emergency", "during national emergency as well as constitutional emergency as well in a state", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "The members of Lok Sabha hold office for a term of",
+                options: ["4 years", "5 years", "6 years", "3 years"],
+                answer: 1
+            },
+            {
+                question: "The Parliament exercises control over council of ministers, the real executive, in several ways. Which one of the following has been wrongly listed as a method of control over executive?",
+                options: ["Questions", "Supplementary questions", "Adjournment motions", "None of the above"],
+                answer: 3
+            },
+            {
+                question: "The minimum age to qualify for election to the Lok Sabha is",
+                options: ["25 years", "21 years", "18 years", "35 years"],
+                answer: 0
+            },
+            {
+                question: "The members of the Rajya Sabha are",
+                options: ["directly elected by the people on the basis of universal adult franchise", "elected by the members of the state legislative assemblies", "elected by the members of the state legislative councils", "elected by the members of the state legislative councils and state legislative assemblies"],
+                answer: 1
+            },
+            {
+                question: "The president addresses both the Houses of Parliament assembled together",
+                options: ["during emergency session summoned for the purpose", "every session", "first session after each general election and the first session of each year", "any session"],
+                answer: 2
+            },
+            {
+                question: "The president can dissolve the Lok Sabha on",
+                options: ["advice of the prime minister", "advice of the chief justice of India", "recommendation of Lok Sabha", "recommendation of the Rajya Sabha"],
+                answer: 0
+            },
+            {
+                question: "The president can expend out of the Contingency Fund of India",
+                options: ["only with the approval of the Parliament", "without the approval of the Parliament", "only in the case of the national calamities", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "The president can advance money to meet unforeseen expenses, pending authorization by Parliament, from",
+                options: ["the Consolidated Fund of India", "the Contingency Fund", "both the above funds", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "The members of the Rajya Sabha are elected for a term",
+                options: ["of six years", "determined by the state legislative assembly of a state", "of four years", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "The office of the president can fall vacant due to",
+                options: ["resignation", "death", "removal", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "The president can dismiss a member of the council of ministers",
+                options: ["on his own", "on the recommendation of the prime  ministers", "only under emergency conditions", "with the consent of the speaker"],
+                answer: 1
+            },
+            {
+                question: "The president demand for further reforms, attended with the dislocation caused by the non-cooperation movement, led the British government to appoint a Statutory Commission in 1927. This commission was headed by",
+                options: ["Sir John Simon", "Lord Chelmsford", "Lord Minto", "E.S. Montague"],
+                answer: 0
+            },
+            {
+                question: "The office of the prime minister of India",
+                options: ["has a constitutional basis", "has a statutory basis", "has conventional basis", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "The name of a candidate for the office of president of India may be proposed by",
+                options: ["any fifty citizens of India", "any fifty members of the Parliament", "any five member of the Electoral College", "any fifty members of the Electoral College"],
+                answer: 3
+            },
+            {
+                question: "The Parliament can restrict or abrogate by law, fundamental rights with respect to",
+                options: ["the members of the armed forces", "the forces charged with the maintenance of public order", "the persons employed in any bureau or other organization established by the state for purpose of int", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "The minimum number of members that must be present to hold the meeting of the Lok Sabha is",
+                options: ["one-fourth of the total membership", "one-tenth of the total membership of the Houses", "50 percent strength of the Lok Sabha", "at least 100 members"],
+                answer: 1
+            },
+            {
+                question: "The Parliament enjoys legislative power over subjects in",
+                options: ["the union list only", "the concurrent list only", "both union and concurrent list", "all the three lists, viz. union list, state list and the concurrent list"],
+                answer: 2
+            },
+            {
+                question: "The power to prorogue the Lok Sabha rests with",
+                options: ["the speaker", "the president", "the prime minister", "the minister for parliamentary affairs"],
+                answer: 1
+            },
+            {
+                question: "The members of Lok Sabha are",
+                options: ["directly elected by the people", "indirectly elected", "nominated", "partly elected and partly nominated"],
+                answer: 0
+            },
+            {
+                question: "The parliament can legislate on a subject in the state list",
+                options: ["if the Rajya Sabha passes a resolution by two-third majority declaring the subject in state list of", "if the legislatures of two or more states recommend to the Parliament to legislate on such a subject", "for the implementation of treaties and agreements with foreign powers", "All the above"],
+                answer: 3
+            },
+            {
+                question: "The members of Parliament can express themselves in the House in",
+                options: ["English only", "Hindi only", "English or Hindi", "English, Hindi or mother tongue"],
+                answer: 3
+            },
+            {
+                question: "The position of the prime minister of India is superior to that of his counterpart in Britain because",
+                options: ["India is the biggest democracy", "India has adopted the federal system", "India has a written constitution", "his office enjoys constitutional basis"],
+                answer: 3
+            },
+            {
+                question: "The members of the committees of Parliament are",
+                options: ["nominated by the leaders of the various parties in the Parliament", "nominated by the prime minister", "appointed by the speaker or elected by the House from amongst persons who are not members of Parliam", "appointed by the speaker or elected by the House from amongst its own members"],
+                answer: 3
+            },
+            {
+                question: "The parliament can legislate on the subject in the state list",
+                options: ["if the President issues an order authorizing it to do so", "if the Supreme Court of India gives authority to the Parliament of India in this regard", "if the Rajya Sabha passes a resolution by two-third of its to legislate on a state matter in the nat", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "The president convenes and prorogues all sessions of Parliament in consultation with",
+                options: ["the speaker", "the prime minister", "the prime minister and the leader of the Opposition in Lok Sabha", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "The minimum age required to become a member of Rajya Sabha is",
+                options: ["21 years", "25 years", "30 years", "35 years"],
+                answer: 2
+            },
+            {
+                question: "The president can be impeached for",
+                options: ["violating the constitution", "disregarding Parliament", "for not taking the prime minister's advice", "All of the above"],
+                answer: 0
+            },
+            {
+                question: "The members of the standing committee are taken from the Lok Sabha and Rajya Sabha in the ratio of",
+                options: ["two and one respectively", "three and one respectively", "four and one respectively", "equal members for both the Houses"],
+                answer: 0
+            },
+            {
+                question: "The parliament works through committees which",
+                options: ["help the government in the formulation of policy", "exercise effective control over government on a regular and continuing basis", "ensure that the parliament strictly adheres to the provision of the constitution and the prescribed", "both (a) and (b)"],
+                answer: 1
+            },
+            {
+                question: "The minimum age required to become the prime minister of India is",
+                options: ["25 years", "30 years", "40 years", "35 years"],
+                answer: 0
+            },
+            {
+                question: "The oath of office is conducted to the president by",
+                options: ["the speaker of Lok Sabha", "the chief justice of India", "the vice-president of India", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "The president can be removed from his office before the expiry of his normal term only on the recommendation of",
+                options: ["the Supreme Court", "the chief justice of India", "council of ministers", "the two Houses of Parliament"],
+                answer: 3
+            },
+            {
+                question: "The president can assign any of the functions of the union government to the state government",
+                options: ["in consultation with the chief justice of India", "in consultation with the state governor", "in his discretion", "in consultation with the government of the state"],
+                answer: 3
+            },
+            {
+                question: "The Prime Minister of India is-",
+                options: ["Elected", "Selected", "Nominated", "Appointed"],
+                answer: 3
+            },
+            {
+                question: "The Lok Sabha elections are held after every:",
+                options: ["3 years", "4 years", "5 years", "7 years"],
+                answer: 2
+            },
+            {
+                question: "For Rajya Sabha, how many members are nominated by President?",
+                options: ["7", "10", "12", "15"],
+                answer: 2
+            },
+            {
+                question: "The Look East Policy in India was started by which of the following Prime Minister?",
+                options: ["Rajiv Gandhi", "Atal Bihari Vajpayee", "P.V. Narasimha Rao", "Manmohan Singh"],
+                answer: 2
+            },
+            {
+                question: "In which year, the Anti-Defection Law was passed by Indian parliament-",
+                options: ["1984", "1985", "1986", "1988"],
+                answer: 1
+            },
+            {
+                question: "How many years after a Finance Commission is constituted by the President-",
+                options: ["4 years", "5 years", "6 years", "None of these"],
+                answer: 1
+            },
+            {
+                question: "President constftutea which of the folloWing bodies for the distribution of resources between Centre and States-",
+                options: ["Finance Commission", "Planning Commission", "Taxation Commission", "Tariff Commission"],
+                answer: 0
+            },
+            {
+                question: "Who is the Chairman of National Integration Council-",
+                options: ["Prime Minister", "Finance Minister", "Home Minister", "President of India"],
+                answer: 0
+            },
+            {
+                question: "Who among the following is the ex-officio chairman of the NITI Aayog in India?",
+                options: ["President", "Prime Minister", "Vice President", "Finance Minister"],
+                answer: 1
+            },
+            {
+                question: "In which of the following American President had visited to China in 1972 to strengthen diplomatic relations-",
+                options: ["Richard Nixon", "George Bush (senior)", "D.Eisenhower", "J.F. Kennady"],
+                answer: 0
+            },
+            {
+                question: "The 'Right to Vote' in elections of the parliament is a-",
+                options: ["Fundamental Right", "Constitutional Right", "Legal Right", "Natural Right"],
+                answer: 2
+            },
+            {
+                question: "Which Country has the first woman Prime Minister in the world-",
+                options: ["India", "Sri Lanka", "Israel", "Pakistan"],
+                answer: 1
+            },
+            {
+                question: "Who was the President of Chinese Communist Party at the time of freedom of China-",
+                options: ["Zhou enlai", "Den Xiaoping", "Mao Zedong", "Liu Shaoqi"],
+                answer: 2
+            },
+            {
+                question: "When was the Lokpal bill passed in Lok Sabha and Rajya Sabha with more strict provisions-",
+                options: ["2012", "2013", "2009", "2011"],
+                answer: 1
+            },
+            {
+                question: "What is the term of President of Switzerland-",
+                options: ["1 year", "2 year", "3 year", "4 year"],
+                answer: 0
+            },
+            {
+                question: "Which of the following had signed with President Ayub Khan on Tashkent agreement-",
+                options: ["Pt. Jawaharlal Nehru", "Dr. Rajendra Prasad", "Lal Bahadur Shashtri", "Indira Gandhi"],
+                answer: 2
+            },
+            {
+                question: "Who appoints chairman of Union Public Service Commission?",
+                options: ["Prime Minister of India", "President of India", "Judge of Supreme Court", "Judge of High Court"],
+                answer: 1
+            },
+            {
+                question: "Who can initiate the process of removal of the President before the expiry of his term?",
+                options: ["Lok Sabha", "Supreme Court", "Common man", "Member of Parliament"],
+                answer: 0
+            },
+            {
+                question: "What is the meaning of \"Prorogation\" in terms of Parliament-",
+                options: ["End of session of Parliament", "Prevention of discussion on any proposal", "End of daily working of house", "None of these"],
+                answer: 0
+            },
+            {
+                question: "Parliament includes-",
+                options: ["President, Lok Sabha and Rajya Sabha", "Lok Sabha and Rajya Sabha", "Lok Sabha and Legislative Assembly", "Legislative Assembly, Legislative Council and\nLok Sabha"],
+                answer: 0
+            },
+            {
+                question: "Who is the Chairman of the Rajya Sabha?",
+                options: ["President of India", "Prime Minister of India", "Vice President of India", "Speaker of Lok Sabha"],
+                answer: 2
+            },
+            {
+                question: "Who approves a bill as money bill in Lok Sabha-",
+                options: ["President", "Finance Minister", "Prime Minister", "Speaker"],
+                answer: 3
+            },
+            {
+                question: "The number of parliamentary seats (Lok Sabha) of Andhra Pradesh is -",
+                options: ["2", "13", "20", "25"],
+                answer: 3
+            },
+            {
+                question: "_______can give the Union parliament power to make lawson matters included in the State list.",
+                options: ["Ministry of Defence", "Prime Minister's Office", "Securities and Exchange Board of India", "Rajya Sabha"],
+                answer: 3
+            },
+            {
+                question: "Who decides the salary and allowances of the Speaker of the Lok Sabha?",
+                options: ["President", "Pay Commission", "Cabinet", "Parliament"],
+                answer: 3
+            },
+            {
+                question: "Which bill cannot originate in Rajya Sabha ?",
+                options: ["Constitutional Amendment Bill", "Ordinary Bill", "Fundamental Bill", "Money Bill"],
+                answer: 3
+            },
+            {
+                question: "Lok Sabha is the House of the________ Parliament of India-",
+                options: ["Lower", "Upper", "Left", "Right"],
+                answer: 0
+            },
+            {
+                question: "What is the name of Upper house of Indian Parliament?",
+                options: ["Senate", "Rajya Sabha", "House of Lords", "Legislative Assembly"],
+                answer: 1
+            },
+            {
+                question: "The salaries and allowances payable to the Members of the Parliament are decided by the-",
+                options: ["President", "Cabinet", "Parliament", "Finance Commission"],
+                answer: 2
+            },
+            {
+                question: "How many members of Anglo-Indian community can be nominated for the Parliament by the President-",
+                options: ["2", "4", "8", "Depends on President's will"],
+                answer: 0
+            },
+            {
+                question: "What is the total number of members in Rajya Sabha from States and Union Territories?",
+                options: ["6", "10", "12", "15"],
+                answer: 2
+            },
+            {
+                question: "Who is competent to dissolve the Rajya Sabha?",
+                options: ["The Chairman of Rajya Sabha", "The President", "The Joint-session of Parliament", "None of these"],
+                answer: 3
+            },
+            {
+                question: "Rajya Sabha is dissolved-",
+                options: ["After every five year", "After every six year", "On the advice of Prime Minister", "None of these"],
+                answer: 3
+            },
+            {
+                question: "To become a member of the Rajya Sabha a person must be at least_____ years old.",
+                options: ["18", "30", "36", "24"],
+                answer: 1
+            },
+            {
+                question: "What is the minimum age to qualify for Lok Sabha Elections?",
+                options: ["25", "30", "21", "18"],
+                answer: 0
+            },
+            {
+                question: "Who elects the members of Rajya Sabha?",
+                options: ["Elected members of the Legislative Council", "The People", "Elected members of the Legislative Assembly", "Lok Sabha"],
+                answer: 2
+            },
+            {
+                question: "What is the maximum number of Members of the Rajya Sabha?",
+                options: ["150", "200", "250", "300"],
+                answer: 2
+            },
+            {
+                question: "What is the maximum number of members in Lok Sabha?",
+                options: ["512", "542", "552", "532"],
+                answer: 2
+            },
+            {
+                question: "In Lok Sabha the total number of members from States are-",
+                options: ["630", "530", "430", "330"],
+                answer: 1
+            },
+            {
+                question: "If the Speaker, of Lok Sabha wants to resign,  whom does he resign-",
+                options: ["President of India", "Deputy Speaker", "Prime Minister", "Council of Ministers"],
+                answer: 1
+            },
+            {
+                question: "A Member of Parliament will be suspended from his membership, if he absents the house continuously for-",
+                options: ["45 days", "60 days", "90 days", "365 days"],
+                answer: 1
+            },
+            {
+                question: "The function of Protem Speaker is to-",
+                options: ["Conduct the Proceedings of the House in the\nabsence of the Speaker", "Officiate as Speaker when a Speaker is\nunlikely to be elected", "Swearing in members and hold charge till a\nregular Speaker is elected", "Check if the election certificates of members\nare in order"],
+                answer: 2
+            },
+            {
+                question: "Building of the Parliament of India is called-",
+                options: ["Sansad Bhavan", "Lok Sabha Bhavan", "Rajya Sabha Bhavan", "Sarkar Bhavan"],
+                answer: 0
+            },
+            {
+                question: "In which house, the chairman of that house is not a member of house-",
+                options: ["Lok Sabha", "Rajya Sabha", "Legislative Assembly", "Legislative Council"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is not related to Parliament-",
+                options: ["Closure", "Adjournment", "Censure", "Suspension"],
+                answer: 3
+            },
+            {
+                question: "Answer the name of two temporary houses of parliamentary structure of India-",
+                options: ["Rajya Sabha and Legislative Assembly", "Lok Sabha and Legislative Council", "Rajya Sabha and Legislative Council", "Lok Sabha and Legislative Assembly"],
+                answer: 3
+            },
+            {
+                question: "Which of the following motion is related to Union Budget-",
+                options: ["Adjournment", "Censure", "Cut motion", "None of these"],
+                answer: 2
+            },
+            {
+                question: "A motion that seeks to reduce the amount of demand presented by government to Rs. 1/- is known as-",
+                options: ["Disapproval of policy cut", "Token cut", "Economy cut", "Vote on account"],
+                answer: 0
+            },
+            {
+                question: "Howmany times, a Non-money bill is discussed in every house of the parliament-",
+                options: ["Two", "Three", "Four", "One"],
+                answer: 1
+            },
+            {
+                question: "The largest committee of Parliament of India is-",
+                options: ["Public Accounts Committee", "Estimates Committee", "Committee on Public Undertakings", "Joint Parliamentary Committee"],
+                answer: 1
+            },
+            {
+                question: "By which bill, Government presents a proposal for annual revenue collection?",
+                options: ["Money bill", "Finance bill", "Ordinance", "None of these"],
+                answer: 1
+            },
+            {
+                question: "Who generally presents the Finance Budget in Indian Parliament?",
+                options: ["RBI Governor", "Budget Minister", "Finance Minister", "Finance Secretary"],
+                answer: 2
+            },
+            {
+                question: "Which of the followings are the financial committees of Parliament in India-1.Public Accounts Committee2.Estimates Committee3.Committee on Public Undertakings",
+                options: ["1 and 3", "1 and 2", "2 and 3", "1,2 and 3"],
+                answer: 3
+            },
+            {
+                question: "The number of parliamentary seats (Rajya Sabha) of Karnataka is -",
+                options: ["12", "16", "18", "31"],
+                answer: 0
+            },
+            {
+                question: "The number of parliamentary seats (Lok Sabha) of Goa is-",
+                options: ["2", "13", "20", "25"],
+                answer: 0
+            },
+            {
+                question: "Who among the following presides over the Lok Sabha in the absence of Speaker or Deputy Speaker of the Lok Sabha?",
+                options: ["Amember appointed by the President", "Amember nominated by the members of the\nParliament present in the House", "A person from the panel formed by: the\nSpeaker of the Lok Sabha", "A senior most member of the House"],
+                answer: 2
+            },
+            {
+                question: "Who presides the joint sitting of Parliament-",
+                options: ["Chairman of Rajya Sabha", "Senior most member of Parliament", "Speaker of Lok Sabha", "President of India"],
+                answer: 2
+            },
+            {
+                question: "What is the total number of members for the main opposition party in parliament-",
+                options: ["1/3 of total members", "1/4 of total members", "1/6 of total members", "1/10 of total members"],
+                answer: 3
+            },
+            {
+                question: "Indian Parliament is-",
+                options: ["Unicameral", "Bicameral", "Tricameral", "None of these"],
+                answer: 1
+            },
+            {
+                question: "The number of parliamentary seats (Lok Sabha) of Kerala is-",
+                options: ["2", "13", "20", "25"],
+                answer: 2
+            },
+            {
+                question: "First Leader of opposition in Lok Sabha was-",
+                options: ["B. R. Ambedkar", "A. K. Gopalan", "S. Radhakrishnan", "Vallabhbhai Patel"],
+                answer: 1
+            },
+            {
+                question: "Which Lok Sabha speaker has authored the book 'Matoshree'?",
+                options: ["Sumitra Mahajan", "Meira Kumar", "Sornnath Chatterjee", "Manohar Joshi"],
+                answer: 0
+            },
+            {
+                question: "In which year,\"House of People\" was named as Lok Sabha-",
+                options: ["1954", "1964", "1974", "1984"],
+                answer: 0
+            },
+            {
+                question: "Which house of the Indian parliament is a house elected by the people-",
+                options: ["Rajya Sabha", "Lok Sabha", "Lok Sabha and Rajya Sabha both", "None of these"],
+                answer: 1
+            },
+            {
+                question: "There are total parliamentary seats (Rajya Sabha constituency) in Maharashtra-",
+                options: ["11", "19", "10", "1"],
+                answer: 1
+            },
+            {
+                question: "The number of parliamentary seats (Lok Sabha) of Maharashtra is-",
+                options: ["10", "26", "28", "48"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is the first woman speaker of Lok Sabha-",
+                options: ["Meera Kumar", "Sonia Gandhi", "Sushma Swaraj", "Margret Alva"],
+                answer: 0
+            },
+            {
+                question: "Speaker of the Lok Sabha serves fora maximum term of _____ years.",
+                options: ["3", "4", "5", "7"],
+                answer: 2
+            },
+            {
+                question: "Who was the first Deputy Speaker of Lok Sabha?",
+                options: ["G. V. Mavalankar", "Sarvepalli Radhakrishnan", "M. Ananthasayanam Ayyangar", "Dr. P.V. Cherian"],
+                answer: 2
+            },
+            {
+                question: "Which of the followings are currect about \"no-confidence motion\" in Parliament-1. It is not mentioned in the constitution2. The gap between two noconfidence motion should be six months3. It should be supported by at least 100 members of house4. It can only be presented in Lok Sabha",
+                options: ["2 and 4", "1,2,3 and 4", "1,2 and 4", "1 and 4"],
+                answer: 2
+            },
+            {
+                question: "What is the gap period between first no-confidence motion and second no-confidence motion-",
+                options: ["12 months", "3 months", "6 months", "9 months"],
+                answer: 2
+            },
+            {
+                question: "Which of the following statements is correct about the President of India?",
+                options: ["Addresses first session of Parliament after\neach General Election", "Addresses first session of Parliament at the\nbeginning of each year", "Addresses every session of Parliament", "Never addresses Parliament"],
+                answer: 0
+            },
+            {
+                question: "What is the minimum number of members required to be present in any one of the two houses of Parliament for its functioning?",
+                options: ["One fifth \n\nof total members", "One sixth of total members", "One seventh of total members", "One tenth of total members"],
+                answer: 3
+            },
+            {
+                question: "The tenure of the members of Lok Sabha is for how many years?",
+                options: ["11", "9", "7", "5"],
+                answer: 3
+            },
+            {
+                question: "How many times, the tenure of Lok Sabha was increased for 6 years-",
+                options: ["1", "2", "3", "Never"],
+                answer: 0
+            },
+            {
+                question: "Which of the following provision needs a special majority in Parliament?",
+                options: ["Cange in Fundamental Rights", "Creation of New States", "Abolition of Legislative Councils in State", "Rules and Procedures in Parliament"],
+                answer: 0
+            },
+            {
+                question: "Parliament conducts sessions each year-",
+                options: ["1", "2", "3", "4"],
+                answer: 2
+            },
+            {
+                question: "The most important feature of Indian Parliament is-",
+                options: ["It is the union legislature in India", "It includes the President", "It is bicameral", "Its Upper house never dissolves"],
+                answer: 1
+            },
+            {
+                question: "If the Parliament has to appoint a committee for a specific task, it is known as-",
+                options: ["Standing committee", "Adh-oc committee", "Joint committee", "Permanent committee"],
+                answer: 1
+            },
+            {
+                question: "Which of the following committee is not a permanent committee of the Parliament-",
+                options: ["Public accounts committee", "Estimates committee", "Committee on public undertaking", "Advisory committee of finance ministry"],
+                answer: 3
+            },
+            {
+                question: "What is the minimum age to become the Prime Minister of India if he or she is a member of Rajya Sabha?",
+                options: ["18", "25", "30", "35"],
+                answer: 2
+            },
+            {
+                question: "A motion moved by Member of Parliament when he feels a minister has committed a breach of privilege of the House is called-",
+                options: ["No confidence motion", "Censure motion", "Privilege motion", "Cut motion"],
+                answer: 2
+            },
+            {
+                question: "If Parliament has to legislate with respect to a matter in the state list, the proposal for such is to be approved by-",
+                options: ["Lok Sabha, Rajya Sabha and Legislature of\nrelated State", "Lok Sabha and Rajya Sabha both", "Rajya Sabha", "Lok Sabha"],
+                answer: 2
+            },
+            {
+                question: "How many seats are reserved for representatives of Scheduled Castes and Scheduled Tribes in Lok Sabha?",
+                options: ["39", "85", "109", "131"],
+                answer: 3
+            },
+            {
+                question: "The Chairman of Public Accounts Committee of Parliament is appointed by-",
+                options: ["Speaker of Lok Sabha", "Prime Minister of India", "President of India", "Chairman of Rajya Sabha"],
+                answer: 0
+            },
+            {
+                question: "The Chairman of Public Accounts Committee in Indian Parliament is-",
+                options: ["Leader of opposition", "Speaker of Lok Sabha", "Deputy Chairman of Lok Sabha", "Chairman of Rajya Sabha"],
+                answer: 0
+            },
+            {
+                question: "The number of parliamentary seats (Lok Sabha) of Punjab is -",
+                options: ["2", "13", "20", "25"],
+                answer: 1
+            },
+            {
+                question: "There are total parliamentary seats (Rajya Sabha constituency) in Punjab-",
+                options: ["7", "1", "18", "10"],
+                answer: 0
+            },
+            {
+                question: "Who will be elected as the Deputy Chairman of Rajya Sabha-",
+                options: ["Any person who is eligible for member of\nRajya Sabha", "Any member who is working as a member of\nRajya Sabha", "Any member of the Parliament", "A person nominated to Rajya Sabha by the\nPresident"],
+                answer: 1
+            },
+            {
+                question: "A money bill passed by the Lok Sabha is deemed to have been passed by the Rajya Sabha also, when no action is taken by the Upper House within-",
+                options: ["10 days", "20 days", "14 days", "30 days"],
+                answer: 2
+            },
+            {
+                question: "How many members of the Rajya Sabha are elected every two years ?",
+                options: ["All", "One fourth", "Half", "One third"],
+                answer: 3
+            },
+            {
+                question: "For what duration, the election of member of Rajya Sabha is done?",
+                options: ["Two years", "Four years", "Five years", "Six years"],
+                answer: 3
+            },
+            {
+                question: "Rajya Sabha is assisted by the Secretary General, who holds the rank equivalent to?",
+                options: ["Cabinet Minister of the Government of India", "Member of Parliament", "Member of Legislature", "Cabinet Secretary to the Government of\nIndia"],
+                answer: 3
+            },
+            {
+                question: "The Secretary General of the Lok Sabha is the Chief of its Secretariat and is-",
+                options: ["Elected by the Lok Sabha", "Elected by both Houses of Parliament", "Appointed by the Speaker", "Appointed by the President"],
+                answer: 2
+            },
+            {
+                question: "Lok Sabha Secretariat comes under the direct control of-",
+                options: ["Ministry of Home Affairs", "Ministry of Parliamentary Affairs", "Speaker of Lok Sabha", "President"],
+                answer: 2
+            },
+            {
+                question: "The Speaker's vote in the Lok Sabha is called-",
+                options: ["Casting vote", "Sound vote", "Direct vote", "Indirect vote"],
+                answer: 0
+            },
+            {
+                question: "The number of parliamentary seats (Lok Sabha) of Kamataka is-",
+                options: ["10", "26", "28", "48"],
+                answer: 2
+            },
+            {
+                question: "The number of parliamentary seats (Rajya Sabha) of Tamil Nadu is-",
+                options: ["12", "16", "18", "31"],
+                answer: 2
+            },
+            {
+                question: "The number of parliamentary seats (Lok Sabha) of Haryana is-",
+                options: ["10", "26", "28", "48"],
+                answer: 0
+            },
+            {
+                question: "Indian Parliament is capable of making any law for any state, if-",
+                options: ["Emergency is enforced under Article-352", "Two or more states request for that", "President sends a message to the Parliament", "1 and 2 both"],
+                answer: 3
+            },
+            {
+                question: "There are total parliamentary seats (Rajya Sabha constituency) in Odisha-",
+                options: ["11", "19", "10", "1"],
+                answer: 2
+            },
+            {
+                question: "There are total parliamentary seats (Rajya Sabha constituency) in Tripura-",
+                options: ["7", "1", "18", "10"],
+                answer: 1
+            },
+            {
+                question: "The maximum number of elected members of Lok Sabha can be-",
+                options: ["530", "545", "540", "550"],
+                answer: 3
+            },
+            {
+                question: "There are total parliamentary seats (Rajya Sabha constituency) in Sikkim-",
+                options: ["11", "19", "10", "1"],
+                answer: 3
+            },
+            {
+                question: "In which language, Lok Sabha debates are printed?",
+                options: ["Hindi", "English", "Sanskrit", "Both Hindi & English"],
+                answer: 3
+            },
+            {
+                question: "What is the maximum gap period between two sessions of Parliament-",
+                options: ["4 months", "6 months", "8 months", "9 months"],
+                answer: 1
+            },
+            {
+                question: "In Indian parliamentary functioning, \"Zero Hour\" means-",
+                options: ["Time before question hour", "First hour of the session", "Time immediately following question hour", "Acceptance of privilege motion"],
+                answer: 2
+            },
+            {
+                question: "The number of parliamentary seats (Rajya Sabha) of Uttar Pradesh is-",
+                options: ["12", "16", "18", "31"],
+                answer: 3
+            },
+            {
+                question: "The persons, who can speak in Rajya Sabha and Lok Sabha being a member of Rajya Sabha, are-",
+                options: ["Deputy Chairman of Rajya Sabha", "Leader of Rajya Sabha", "Nominated members of Rajya Sabha", "The Ministers who are members in Rajya Sabha"],
+                answer: 3
+            },
+            {
+                question: "The number of parliamentary seats (Lok Sabha) of Chandigarh is-",
+                options: ["1", "6", "11", "15"],
+                answer: 0
+            },
+            {
+                question: "Which State has the highest Lok Sabha seats in India?",
+                options: ["Maharashtra", "Madhya Pradesh", "Uttar Pradesh", "Bihar"],
+                answer: 2
+            },
+            {
+                question: "The number of parliamentary seats (Rajya Sabha) of West Bengal is-",
+                options: ["12", "16", "18", "31"],
+                answer: 1
+            },
+            {
+                question: "Match List-I with List-II and select the correct answer using the codes given below the lists:-List I(From of Govt) - List II(Principles)A. Presidential - 1. Separation of powers SystemB. Parliamentary - 2. Close relationship between executive and legislatureC. Federal System - 3. Division of powersD. Unitary System - 4. Concentration of power",
+                options: ["A-1, B-2, C-3, D-4", "A-2, B-1, C-3, D-4", "A-2, B-1, C-4, D-3", "A-1, B-2, C-4, D-3"],
+                answer: 0
+            },
+            {
+                question: "The impeachment process of President of India is adopted from-",
+                options: ["USA", "UK", "USSR", "France"],
+                answer: 0
+            },
+            {
+                question: "Cabinet system' and 'Collective responsibility' are the contributions of-",
+                options: ["Ireland", "United State", "India", "Britain"],
+                answer: 3
+            },
+            {
+                question: "Who was the first Indian president of Central Legislature'?",
+                options: ["Sacchidanand Sinha", "G.V.Mavalanker", "Vitthal Bhai Patel", "Rajendra Prasad"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is an Example of Unitary  and Presidential system of governance\nGovernment?",
+                options: ["USA", "Canada", "India", "France"],
+                answer: 3
+            },
+            {
+                question: "The convention that \"once a speaker always a speaker\" is followed in-",
+                options: ["UK", "USA", "France", "India"],
+                answer: 0
+            },
+            {
+                question: "The system of Budget was introduced in India during the Viceroyalty of-",
+                options: ["Canning", "Dalhousie", "Ripon", "Elgin"],
+                answer: 0
+            },
+            {
+                question: "How many members were in the interim Parliament of India-",
+                options: ["296", "313", "318", "316"],
+                answer: 0
+            },
+            {
+                question: "The parliament of India has bassed the environment (conservation) bill in-",
+                options: ["1972", "1984", "1981", "1986"],
+                answer: 3
+            },
+            {
+                question: "The most important feature of Cabinet system of Government is-",
+                options: ["Individual responsibility", "Collective responsibility", "Responsibility to none", "Non-responsibility"],
+                answer: 1
+            },
+            {
+                question: "In Presidential Government, the President is-",
+                options: ["Independent of the Legislature", "Dependent on the Legislature", "Dependent on the Judiciary", "Bound by the advice of the Council of Ministers"],
+                answer: 0
+            },
+            {
+                question: "Sovereign Parliament is a contribution of-",
+                options: ["England", "India", "France", "Japan"],
+                answer: 0
+            },
+            {
+                question: "The Parliament can legislate on subjects given in the Union List only in consultation with the State Government for the State of-",
+                options: ["Assam", "Rajasthan", "Jammu & Kashmir", "Kerala"],
+                answer: 2
+            },
+            {
+                question: "Vice-President is-",
+                options: ["Member of Lok Sabha", "Member of Rajya Sabha", "Member of any house", "Not a member of any house"],
+                answer: 3
+            },
+            {
+                question: "In India, Prime Minister can hold his post till, he has-",
+                options: ["Support of armed forces", "Confidence of Rajya Sabha", "Confidence of Lok Sabha", "Support of people"],
+                answer: 2
+            },
+            {
+                question: "Who appoints the Attorney General of India?",
+                options: ["Chief Minister of India", "President of India", "Law Minister", "Prime Minister of India"],
+                answer: 1
+            },
+            {
+                question: "By which of the following method, Prime Minister of India is selected?",
+                options: ["Election", "Appointment", "Nomination", "Selection"],
+                answer: 1
+            },
+            {
+                question: "Who organizes the election process for the post of President of India?",
+                options: ["Vice-President of India", "Election Commission of India", "Chief Justice of India", "Attorney General of India"],
+                answer: 1
+            },
+            {
+                question: "What is the retirement age of the President?",
+                options: ["70 years", "75 years", "80 years", "No age limit"],
+                answer: 3
+            },
+            {
+                question: "What is the age limit to contest for the post of the president of India?",
+                options: ["25 years", "30 years", "35 years", "18 years"],
+                answer: 2
+            },
+            {
+                question: "Who administers the oath of office to the President?",
+                options: ["Chief Justice of India", "Speaker of Lok Sabha", "Vice-President", "Prime Minister"],
+                answer: 0
+            },
+            {
+                question: "The Attorney General of India has the power to appear in-",
+                options: ["Supreme Court", "Any High Court", "Any Session Court", "Any Court in India"],
+                answer: 3
+            },
+            {
+                question: "Attorney General of India has the right to audience in-",
+                options: ["any Session Court", "High Court", "Supreme Court", "any Court of law within the territory of India"],
+                answer: 3
+            },
+            {
+                question: "President can forward his resignation to whom?",
+                options: ["Speaker of Lok Sabha", "Prime Minister", "Vice-president", "Chief justice of supreme court"],
+                answer: 2
+            },
+            {
+                question: "The Vice-President is the ex-officio chaiman of-",
+                options: ["Rajya Sabha", "Lok sabha", "Planning commission", "National development council"],
+                answer: 0
+            },
+            {
+                question: "The Vice President of India is elected by-",
+                options: ["The members of Parliament", "Members of Rajya Sabha", "Elected members of Parliament", "Members of State Legislature and Parliament"],
+                answer: 0
+            },
+            {
+                question: "Which of the following appointments are not made by President of India?",
+                options: ["Speaker of Lok Sabha", "Chief justice of India", "Chief of air force", "Chief of army"],
+                answer: 0
+            },
+            {
+                question: "Which of the following appointment is not in the Jurisdiction of President?",
+                options: ["Chief justice of India", "Chairman of finance commission", "Chief of army", "Speaker of Lok Sabha"],
+                answer: 3
+            },
+            {
+                question: "How many maximum terms, a person can serve as Prime Minister of India?",
+                options: ["3", "5", "7", "No Limit"],
+                answer: 3
+            },
+            {
+                question: "What is the retirement age of the Prime Minister of India?",
+                options: ["60 years", "70 years", "80 years", "No Limit"],
+                answer: 3
+            },
+            {
+                question: "President of India can be removed from his office by-",
+                options: ["Prime Minister of India", "Chief Justice of India", "Parliament", "Lok Sabha"],
+                answer: 2
+            },
+            {
+                question: "Who held the post of President twice?",
+                options: ["S.Radhakrishnan", "K.R.Narayanan", "Neelam Sanjeev Reddy", "Dr. Rajendra Prasad"],
+                answer: 3
+            },
+            {
+                question: "Who completed two successive regimes of the Vice-President of India?",
+                options: ["S.Radhakrishnan", "V.V.Giri", "B.D.Jatti", "M.Hidaytullah"],
+                answer: 0
+            },
+            {
+                question: "Narendra Modi is the Prime Minister of India-",
+                options: ["5th", "10th", "14th", "18th"],
+                answer: 2
+            },
+            {
+                question: "Who has served maximum time as the Prime Minister of India?",
+                options: ["Jawaharlal Nehru", "Indira Gandhi", "Manmohan Singh", "Lal Bahadur Shastri"],
+                answer: 0
+            },
+            {
+                question: "Which of the following person was elected unopposed for the post of president?",
+                options: ["Rajendra Prasad", "S.Radhakrishanan", "N.Sanjeev Reddy", "Shankar Dayal Sharma"],
+                answer: 2
+            },
+            {
+                question: "Which among the following is not appointed by the President of India?",
+                options: ["Vice President of India", "Judge of Supreme Court", "Attorney General of India", "Chief Justice of India"],
+                answer: 0
+            },
+            {
+                question: "Who is the chairman of planning commission?",
+                options: ["President", "Prime Minister", "Finance Minister", "Vice President"],
+                answer: 1
+            },
+            {
+                question: "In Pocket Veto, the President of India can keep a bill for how much duration?",
+                options: ["1 month", "6 month", "12 month", "Indefinite period"],
+                answer: 3
+            },
+            {
+                question: "Howmany members can be nominated for both houses of parliament by the president?",
+                options: ["16", "10", "12", "14"],
+                answer: 2
+            },
+            {
+                question: "How is the President of India elected?",
+                options: ["Directly by public voting", "By single transferable vote", "By secondary voting system", "All options are correct"],
+                answer: 1
+            },
+            {
+                question: "The Electoral College that elects the President of India consists of-",
+                options: ["Elected members of all the State Legislatures", "Members of the Lok Sabha and State Assemblies", "Elected members of the Lok Sabha, Rajya\nSabha and State Assemblies", "Elected members of the Rajya Sabha and\nState Legislatures"],
+                answer: 2
+            },
+            {
+                question: "What is the salary per month of the President of India in 2015?",
+                options: ["Rs 1,50,000", "Rs 1,00,000", "Rs 75,000", "Rs 50,000"],
+                answer: 0
+            },
+            {
+                question: "If the Prime Minister of India submits his resignation to the President, it will mean the resignation of the-",
+                options: ["Prime Minister only", "Prime Minister and the Cabinet Ministers", "Entire Council of Ministers", "Prime Minister, Cabinet Ministers and the\nSpeaker"],
+                answer: 2
+            },
+            {
+                question: "Which of the following does not hold his post after the approval of the President?",
+                options: ["Prime Minister", "Governor", "Election Commission", "Speaker of Lok Sabha"],
+                answer: 3
+            },
+            {
+                question: "The winning candidate in the Election of President of India should secure-",
+                options: ["Majority number of votes polled", "Sixty six percent of votes polled", "Fifty percent of votes polled", "More than fifty percent and majority of the\ntotal votes polled"],
+                answer: 3
+            },
+            {
+                question: "Which of the following can bring the impeachment process of Vice-President?",
+                options: ["Legislative Council", "Legislative Assembly", "Rajya Sabha", "Lok Sabha"],
+                answer: 2
+            },
+            {
+                question: "Who was the first deputy Prime Minister of India?",
+                options: ["Sardar Vallabh Bhai Patel", "Maulana Abul Kalam Azad", "Jawaharlal Nehru", "Guljari Lal Nanda"],
+                answer: 0
+            },
+            {
+                question: "Supreme Court has the right to mitigate the dispute regarding the election of President and Vice-President. It is-",
+                options: ["Fundamental right", "Discretionary right", "Advisory right", "Multifaceted right"],
+                answer: 0
+            },
+            {
+                question: "Who was the first Non-Political President of India?",
+                options: ["Jakir Hussain", "A.P.J. Abdul Kalam", "S.Radhakrishanan", "Rajendra Prasad"],
+                answer: 1
+            },
+            {
+                question: "What is the maximum period for which the Vice President can act as the President in case of vacancy in the the President's office?",
+                options: ["3 months", "6 months", "1 year", "2 year"],
+                answer: 1
+            },
+            {
+                question: "What is the maximum age limit for the President post of India?",
+                options: ["58 years", "60 years", "62 years", "No age limit"],
+                answer: 3
+            },
+            {
+                question: "What is the minimum age for the post of Prime Minister of India?",
+                options: ["18", "21", "25", "35"],
+                answer: 2
+            },
+            {
+                question: "Under which pardoning power of the President, duration of sentence is reduced without changing its character?",
+                options: ["Commutation", "Remission", "Respite", "Reprieve"],
+                answer: 1
+            },
+            {
+                question: "Under which pardoning power of the President, one form of punishment is substituted by a lighter from?",
+                options: ["Commutation", "Remission", "Respite", "Reprieve"],
+                answer: 0
+            },
+            {
+                question: "The ordinance issued by president is applicable for the period of-",
+                options: ["3 months", "6 months", "9 months", "Uncertain time"],
+                answer: 1
+            },
+            {
+                question: "The President can dismiss a member of the Council of Ministers-",
+                options: ["with the consent of the Speaker", "only under emergency conditions", "on the recommendation of the Prime Minister", "on his own"],
+                answer: 2
+            },
+            {
+                question: "Who can be invited to the Parliament for any suggestion or advice?",
+                options: ["Attorney General of India", "Chief Justice of India", "Chief Election Commissioner of India", "Comptroller and Auditor General of India"],
+                answer: 0
+            },
+            {
+                question: "Which of the follwing non-members of Parliament has the right to address it?",
+                options: ["Attorney General of India", "Solicitor General of India", "Chief Justice of India", "Chief Election Commissoner"],
+                answer: 0
+            },
+            {
+                question: "Who on recommendations made by both houses of parliament can oust the judges of high court before completion of their tenure on the basis of misconduct or incapability?",
+                options: ["Chief Justice of India", "Chief Justice of High Court", "President on recommendations made by both\nhouses of Parliament", "Special majority in both houses of Parliament"],
+                answer: 2
+            },
+            {
+                question: "Of the following who held the offices of Judge of the Supreme Court and be Speaker of the Lok Sabha?",
+                options: ["M. Hidayatullah", "K.S. Hegde", "Subba Rao", "P.N. Bhagwati"],
+                answer: 1
+            },
+            {
+                question: "Which of the following Chief Justice of India had the opportunity to act as President of India?",
+                options: ["Justice Mehar Chand Mahajan", "Justice P.B..Gajendra Gadkar", "Justice M.Hidayatulla", "Justice P.N.Bhagawati"],
+                answer: 2
+            },
+            {
+                question: "The Supreme Court is empowered to settle election disputes of President and Vice-President. This is its-",
+                options: ["Original Jurisdiction", "Appellate Jurisdiction", "Advisory Jurisdiction", "Miscellaneous Jurisdiction"],
+                answer: 0
+            },
+            {
+                question: "The President of India can issue a proclamation of National Emergency only on the written recommendation of-",
+                options: ["The Prime Minister", "The Cabinet consisting of only Cabinet\nMinisters of the Union", "The Council of Ministers of the Union", "Parliament"],
+                answer: 1
+            },
+            {
+                question: "By which Constitutional Amendment Bill, did the Parliament lower the voting age from 21 to 18 years?",
+                options: ["42nd", "44th", "61st", "73rd"],
+                answer: 2
+            },
+            {
+                question: "Which article specifies Imposition of President's Rule in States?",
+                options: ["Article 356", "Article 343", "Article 51(A)", "Article 80"],
+                answer: 0
+            },
+            {
+                question: "The President's Rule is imposed on a State in India, when-",
+                options: ["The State Cabinet' of Ministers resigns", "The Governor of the State dies", "The elections are announced", "There is a Constitutional breakdown"],
+                answer: 3
+            },
+            {
+                question: "The President of India enjoys emergency powers of-",
+                options: ["four types", "two types", "five types", "three types"],
+                answer: 3
+            },
+            {
+                question: "In India, how many times has the President declared financial emergency-",
+                options: ["Never", "Two times", "Three times", "Once"],
+                answer: 0
+            },
+            {
+                question: "The National Emergency in India can be declared by the President of India due to the external aggression or armed revolt through-",
+                options: ["Article-352", "Article-356", "Article-360", "Article-368"],
+                answer: 0
+            },
+            {
+                question: "Which year did President declare National emergency on internal dispute-",
+                options: ["1962", "1965", "1971", "1975"],
+                answer: 3
+            },
+            {
+                question: "If the President declares emergency then this proclamation must be approved by the Parliament within-",
+                options: ["1 year", "6 Months", "3 Months", "1 Months"],
+                answer: 3
+            },
+            {
+                question: "What is the period within which a proclamation of national emergency made by the President is to be placed before each house of the Parliament for approval?",
+                options: ["Within one month", "Within two months", "Within four months", "Within six months"],
+                answer: 0
+            },
+            {
+                question: "How many times have the President declared National emergency-",
+                options: ["Once", "Twice", "Thrice", "Never"],
+                answer: 2
+            },
+            {
+                question: "At the time of emergency in 1975, who was serving as the President of India?",
+                options: ["Morarji Desai", "Fakhruddin Ali Ahmed", "V P Singh", "Indira Gandhi"],
+                answer: 1
+            },
+            {
+                question: "Indian Parliament can rename or redefine the boundary of a State by-",
+                options: ["A simple majority", "Absolute majority", "2/3rd majority of the members voting", "2/3rd majority of the members voting and an\nabsolute majority of its total membership"],
+                answer: 0
+            },
+            {
+                question: "Who works as the chairman of State Planning Board-",
+                options: ["Governor", "Chief Minister", "Leader of Opposition", "Speaker"],
+                answer: 1
+            }
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.textContent = `${index + 1}) ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) {
+                        return;
+                    }
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            wrapper.appendChild(questionBlock);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sikkim Panchayat and Political Parties Quiz</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+            border-color: #bbb;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .options-list.answered .option:not(.correct):not(.incorrect) {
+            opacity: 0.7;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none; /* Disables further clicks */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <h1>Sikkim Panchayat and Political Parties Quiz</h1>
+        <!-- Questions will be dynamically inserted here by JavaScript -->
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "According to the text, what is the literal meaning of the word 'Panchayat'?",
+                options: ["A village council", "A council of five people", "A system of self-government", "A judicial body"],
+                answer: 1
+            },
+            {
+                question: "The constitutional recognition to panchayats across India was formally accorded through which amendment in 1993?",
+                options: ["42nd Amendment", "44th Amendment", "73rd Amendment", "74th Amendment"],
+                answer: 2
+            },
+            {
+                question: "Before the 73rd Amendment, which article in the Constitution of India, under the Directive Principles of State Policy, mentioned the organization of village panchayats?",
+                options: ["Article 32", "Article 40", "Article 51", "Article 243"],
+                answer: 1
+            },
+            {
+                question: "In traditional Sikkimese society, the council of elders was known as 'Gyeme' in the Bhutia language and as what in the Nepali language?",
+                options: ["Mandal", "Dzongu", "Illaka", "Panchayat"],
+                answer: 3
+            },
+            {
+                question: "Which Act established the first formal single-tier panchayat system in Sikkim at the village level?",
+                options: ["The Indian Panchayat Act of 1910", "The Local Panchayat of 1951", "The Sikkim Panchayat Act of 1965", "The Sikkim Panchayat Act of 1982"],
+                answer: 2
+            },
+            {
+                question: "The Sikkim Panchayat Act, 1982, was significant because it introduced what structure for the first time?",
+                options: ["A single-tier system with Block Panchayat", "A three-tier panchayati raj system", "A two-tier panchayati raj system with Gram Panchayat and Zilla Panchayat", "The Mandal system for intra-village affairs"],
+                answer: 2
+            },
+           
+            {
+                question: "What major change was brought about by the Sikkim Panchayat (Amendment) Act of 1997?",
+                options: ["It increased the term of panchayats to five years.", "It allowed individuals to contest panchayat elections on political party lines.", "It established the State Election Commission.", "It introduced reservations for women."],
+                answer: 1
+            },
+            {
+                question: "The Sikkim Panchayat (Amendment) Act, 2007, made a significant provision for women's empowerment by increasing their seat reservation in local bodies from:",
+                options: ["30% to 33%", "33% to 40%", "40% to 50%", "25% to 33%"],
+                answer: 1
+            },
+            {
+                question: "According to the Sikkim Panchayat (Amendment) Act of 2005, what is the quorum required for a Gram Sabha meeting?",
+                options: ["One-third of the total members", "One-fourth of the total members", "One-fifth of the total members", "Half of the total members"],
+                answer: 2
+            },
+            {
+                question: "The government of Sikkim established Block Administrative Centres (BACs) in 2006 to facilitate decentralization. How many BACs are there in total across the state?",
+                options: ["24", "28", "33", "32"],
+                answer: 2
+            },
+            {
+                question: "In the administrative structure of Sikkim, what is the rank of a Block Development Officer (BDO)?",
+                options: ["District Collector", "Sub-Divisional Magistrate", "Tehsildar", "Under Secretary"],
+                answer: 3
+            },
+            {
+                question: "What was the first organized political party in Sikkim, formed in December 1947?",
+                options: ["Sikkim National Party", "Sikkim State Congress", "Praja Mandal", "Sikkim Janta Congress"],
+                answer: 1
+            },
+            {
+                question: "The Sikkim State Congress was formed by merging three organizations. Which of the following was NOT one of them?",
+                options: ["Praja Sudharak Samaj", "Swatantra Dal", "Praja Sammelan", "Praja Mandal"],
+                answer: 1
+            },
+            {
+                question: "In 1958, Kazi Lendup Dorjee resigned from the Sikkim State Congress to form a new party called:",
+                options: ["Sikkim National Congress", "Swatantra Dal", "Sikkim Independent Front", "Sikkim United Council"],
+                answer: 1
+            },
+            {
+                question: "The Scheduled Caste League was formed in 1958 by Sanman Singh Darnal and which other leader?",
+                options: ["C.D. Rai", "L.B. Basnet", "P.B. Khati", "Sonam Tshering"],
+                answer: 2
+            },
+            {
+                question: "The Sikkim Independent Front was formed in 1966 by Mrs. Ruth Karthak Lepchani with the main objective of:",
+                options: ["Merging Sikkim with India", "Abolishing the monarchy", "Protecting and preserving the interests of the Lepchas", "Introducing a joint electorate system"],
+                answer: 2
+            },
+            {
+                question: "The Sikkim Congress, which swept the 1974 election by winning 30 out of 32 seats, was formed in February 1973 by the merger of which two parties?",
+                options: ["Sikkim State Congress and Sikkim Janta Party", "Sikkim National Party and Swatantra Dal", "Sikkim National Congress and Sikkim Janta Congress", "Sikkim Parishad and Himali Congress"],
+                answer: 2
+            },
+            {
+                question: "After Sikkim became a constituent state of India, the ruling Sikkim Congress party merged with which national party in December 1975?",
+                options: ["Bharatiya Janta Party (BJP)", "Communist Party of India (Marxist) (CPIM)", "Indian National Congress (INC)", "Janata Party"],
+                answer: 2
+            },
+            {
+                question: "Which political party was formed by N.B. Bhandari in 1977, which was later rechristened as Sikkim Janta Parishad?",
+                options: ["Sikkim Party", "Sikkim Sangram Parishad", "Sikkim Democratic Front", "Sikkim Gorkha League"],
+                answer: 0
+            },
+            {
+                question: "The Sikkim Sangram Parishad, which ruled the state for three consecutive terms (1979-1993), was formed in 1984 by which leader?",
+                options: ["Pawan K Chamling", "R.C. Poudyal", "N.B. Bhandari", "Kazi Lendup Dorjee"],
+                answer: 2
+            },
+            {
+                question: "Who formed the Sikkim Democratic Front (SDF) in 1992, the party which has been ruling the state since 1994 according to the document?",
+                options: ["Prem Singh Tamang (Golay)", "N.B. Bhandari", "Biraj Adhikari", "Pawan K Chamling"],
+                answer: 3
+            },
+            {
+                question: "The Sikkim Krantikari Morcha (SKM) was formed on February 3, 2013, at Soreng. Who is mentioned as the president of the party?",
+                options: ["Pawan K Chamling", "Prem Singh Tamang (Golay)", "K.B. Rai", "N.B. Khatiwada"],
+                answer: 1
+            },
+            {
+                question: "As per the document's classification, which of the following is listed as a 'State Recognised Political Party' in Sikkim?",
+                options: ["Indian National Congress (INC)", "Sikkim Krantikari Morcha (SKM)", "Sikkim Democratic Front (SDF)", "Bharatiya Janta Party (BJP)"],
+                answer: 2
+            },
+            {
+                question: "The creation of block panchayats under the Sikkim Panchayat Act of 1965 led to the merger and amalgamation of old village councils. Which specific system is mentioned as an example?",
+                options: ["The Dzongu System of Chhoddu", "The Mandal system", "The Gyeme system", "The Illaka system"],
+                answer: 0
+            },
+            {
+                question: "Which amendment to the Sikkim Panchayat Act in 2001 specifically protected the traditional institutions of the 'Dzumsas' in the villages of Lachen and Lachung?",
+                options: ["Act No. 7 of 2001", "Act No. 3 of 2004", "Act No. 17 of 2005", "The Amendment Act of 1997"],
+                answer: 0
+            },
+            {
+                question: "The Sikkim Panchayat (Amendment) Act of 2004 inserted a provision for the accounts of the Gram Panchayat to be audited at the end of every financial year by which authority?",
+                options: ["The State Finance Commission", "The District Development Officer (DDO)", "The Block Development Officer (BDO)", "The Comptroller and Auditor General of India"],
+                answer: 3
+            },
+            {
+                question: "The Block Development Officer (BDO) is empowered to accept tenders for works costing up to what amount?",
+                options: ["Rs. 5 lakh", "Rs. 10 lakh", "Rs. 20 lakh", "Rs. 50 lakh"],
+                answer: 2
+            },
+            {
+                question: "The document states that BDOs are not directly appointed but are promoted or transferred from existing state services. To whom are they directly responsible?",
+                options: ["The Chief Minister's Office", "The District Collector (DC)", "The Sub-Divisional Magistrate (SDM)", "The District Development Officer (DDO)"],
+                answer: 3
+            },
+            {
+                question: "Who was elected as the first President of the Sikkim State Congress in 1947?",
+                options: ["Kazi Lendup Dorjee", "C.D. Rai", "Tashi Tsering", "Sonam Tshering"],
+                answer: 2
+            },
+            {
+                question: "The Sikkim National Party was formed in 1948, sponsored by the palace to counter the influence of the Sikkim State Congress. What was one of its major programmes?",
+                options: ["Accession of Sikkim to India", "Abolition of landlordism", "Protection of feudal relations", "Establishment of a written constitution"],
+                answer: 2
+            },
+            {
+                question: "The party formed by R.C. Poudyal in September 1979 was called the Sikkim Congress, but the Election Commission registered it under a different name. What was the registered name?",
+                options: ["Sikkim Congress (United)", "Sikkim Congress (Revolutionary)", "Sikkim People's Congress", "New Sikkim Congress"],
+                answer: 1
+            },
+            {
+                question: "What was the main demand of the Himali Congress, formed in 1983?",
+                options: ["Protection of Lepcha interests", "Reservation of seats for the Tsong community", "The abolition of the parity system", "Merger with the Indian National Congress"],
+                answer: 1
+            },
+            {
+                question: "The Sikkim Gorkha League was formed in 1984 by N.B. Khatiwada with what primary objective?",
+                options: ["To establish a responsible government", "To demand reservation for the Gorkha community", "To protect and preserve the interests of the Nepalese of Sikkim", "To oppose the accession of Sikkim to India"],
+                answer: 2
+            },
+            {
+                question: "Which political party, led by N.B. Bhandari, won 30 out of 32 seats in the 1985 Assembly election and formed the government for a second consecutive term?",
+                options: ["Sikkim Janta Parishad", "Sikkim Parishad", "Sikkim Sangram Parishad", "Sikkim Democratic Front"],
+                answer: 2
+            },
+            {
+                question: "The Sikkim Democratic Front (SDF) took all 32 seats in which Assembly election?",
+                options: ["1994", "2004", "2009", "2014"],
+                answer: 2
+            }
+            
+        ];
+
+        const quizContainer = document.getElementById('quiz-container');
+
+        quizData.forEach((item, index) => {
+            // Create the main container for the question
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            // Create and add the question text
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.textContent = `${index + 1}) ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            // Create the options list
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+            
+            // Create and add each option
+            item.options.forEach((option, optionIndex) => {
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    // Prevent re-answering
+                    if (optionsList.classList.contains('answered')) {
+                        return;
+                    }
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+                    
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        // Highlight the correct answer
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+                
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            quizContainer.appendChild(questionBlock);
+        });
+
+    </script>
+</body>
+</html>

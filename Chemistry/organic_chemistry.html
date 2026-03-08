@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organic Chemistry | Sikkim PSC Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        .quiz-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        html.dark .quiz-container {
+            background: #24272c;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #0284c7;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        html.dark .question-block {
+            border-bottom: 1px solid #334155;
+        }
+        .question-text {
+            font-size: 1.15em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+        html.dark .question-text {
+            color: #f1f5f9;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option {
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            padding: 16px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            color: #475569;
+        }
+        html.dark .option {
+            background-color: #1e293b;
+            border: 2px solid #334155;
+            color: #cbd5e1;
+        }
+        .option:hover {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
+            transform: translateX(4px);
+        }
+        html.dark .option:hover {
+            background-color: #334155;
+            border-color: #475569;
+        }
+        .option.correct {
+            background-color: #dcfce7 !important;
+            border-color: #4ade80 !important;
+            color: #166534 !important;
+        }
+        html.dark .option.correct {
+            background-color: #064e3b !important;
+            border-color: #10b981 !important;
+            color: #ecfdf5 !important;
+        }
+        .option.incorrect {
+            background-color: #fee2e2 !important;
+            border-color: #f87171 !important;
+            color: #991b1b !important;
+        }
+        html.dark .option.incorrect {
+            background-color: #7f1d1d !important;
+            border-color: #ef4444 !important;
+            color: #fef2f2 !important;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none;
+        }
+        .quiz-stats-badge {
+            background: #f1f5f9;
+            color: #64748b;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        html.dark .quiz-stats-badge {
+            background: #334155;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 min-h-screen p-4 sm:p-8">
+
+    <div class="quiz-container">
+        <a href="chemistry.html" class="back-link">&larr; Back to Chemistry Topics</a>
+        <h1 class="text-3xl font-bold text-sky-800 dark:text-sky-400 mb-2">Organic Chemistry</h1>
+        <div class="quiz-stats-badge">60 MCQ Questions</div>
+        
+        <div id="questions-wrapper"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "The nuclear particles which are assumed to hold the nucleons together are",
+                options: ["electrons", "positrons", "neutrons", "mesons"],
+                answer: 3
+            },
+            {
+                question: "The maximum number of isomers for an alkene with molecular formula C4H8is",
+                options: ["5", "4", "2", "3"],
+                answer: 1
+            },
+            {
+                question: "The hardest form of carbon is",
+                options: ["coke", "graphite", "diamond", "charcoal"],
+                answer: 2
+            },
+            {
+                question: "The organic reaction represented by equation CH3- CH = O + H2NOH gives CH3- CH - NH + H2O is an example of",
+                options: ["an addition reaction", "a condensation reaction", "an oxidation reaction", "an elimination reaction"],
+                answer: 1
+            },
+            {
+                question: "The isomerism which exists between CH3CHCI2and CH2CI. CH2CI is",
+                options: ["chain isomerism", "functional group isomerism", "positional isomerism", "metamerism"],
+                answer: 2
+            },
+            {
+                question: "Which among the following coal contains 90 per cent of carbon?",
+                options: ["Anthracite", "Bitumen", "Lignite", "Peat"],
+                answer: 0
+            },
+            {
+                question: "Carbon dioxide is",
+                options: ["A reducing agent", "An oxidising agent", "A dehydrating agent", "A bleaching agent"],
+                answer: 0
+            },
+            {
+                question: "Hardest allotrope of carbon is",
+                options: ["Diamond", "Graphite", "Coke", "Lamp black"],
+                answer: 0
+            },
+            {
+                question: "Highest percentage of carbon is found in which form of coal?",
+                options: ["Anthracite", "Bituminous", "Peat", "Lignite"],
+                answer: 0
+            },
+            {
+                question: "The main source of carbon monoxide is",
+                options: ["Industrial process", "Fuel combustion", "Transportation", "Solid waste disposal"],
+                answer: 2
+            },
+            {
+                question: "Which one is not a pure form of carbon?",
+                options: ["Coal", "Graphite", "Diamond", "Gold"],
+                answer: 3
+            },
+            {
+                question: "Which one is the purest form of carbon?",
+                options: ["Coal", "Graphite", "Diamond", "Iron"],
+                answer: 2
+            },
+            {
+                question: "Terylene is a condensation polymer of ethylene glycol and which acid?",
+                options: ["Benzoic Acid", "Salicylic acid", "Phthalic acid", "Terephthalic acid"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is a natural polymer?",
+                options: ["Bakelite", "Nylon", "Polythene", "Starch"],
+                answer: 3
+            },
+            {
+                question: "Polythene is polymer of",
+                options: ["Ethylene", "Propylene", "Acetylene", "Aniline"],
+                answer: 0
+            },
+            {
+                question: "Sodium Carbonate is commonly known as",
+                options: ["Baking Soda", "Washing Soda", "Caustic Soda", "Caustic Potash"],
+                answer: 1
+            },
+            {
+                question: "Which of these acids is not organic in origin?",
+                options: ["Lactic acid", "Sulphuric acid", "Citric acid", "Oxalic acid"],
+                answer: 1
+            },
+            {
+                question: "The most pure form of Carbon among the options is",
+                options: ["Anthracite", "Lampblack", "Graphite", "Wood Charcoal"],
+                answer: 0
+            },
+            {
+                question: "Carbon footprint can be reduced by",
+                options: ["All of these", "Recycling waste materials", "Using energy efficient appliances", "Commuting by public transport"],
+                answer: 0
+            },
+            {
+                question: "Percentage of carbon in steel ranges from",
+                options: ["0.1 to 1.5", "1.5 to 3.0", "3.0 to 4.0", "4.0 to 6.0"],
+                answer: 0
+            },
+            {
+                question: "Which one of the following contains maximum percentage of carbon ?",
+                options: ["Cast iron", "Stainless steel", "Wrought iron", "High speed steel"],
+                answer: 0
+            },
+            {
+                question: "The percentage of carbon in cast iron is :",
+                options: ["0.01 to 0.25", "0.5 to 1.5", "6 to 8", "3 to 5"],
+                answer: 3
+            },
+            {
+                question: "What is the mass percentage of carbon in carbon dioxide (CO2)?",
+                options: ["15.8 %", "20.1 %", "27.3 %", "32.3 %"],
+                answer: 2
+            },
+            {
+                question: "What is the mass percentage of oxygen in carbon dioxide (CO2)?",
+                options: ["30.5%", "50.9 %", "65.8 %", "72.7 %"],
+                answer: 3
+            },
+            {
+                question: "Choose the incorrect statement pertaining to organic compounds",
+                options: ["They have low melting and boiling points", "They do not dissolve in water", "They are not easily combustible", "They contain mainly carbon and hydrogen"],
+                answer: 2
+            },
+            {
+                question: "The natural source of hydrocarbon is",
+                options: ["Crude oil", "Biomass", "Coal", "Carbohydrates"],
+                answer: 0
+            },
+            {
+                question: "By which organic compound all the oils are known ?",
+                options: ["Carbohydrate", "Protein", "Hydrocarbon", "Ester"],
+                answer: 2
+            },
+            {
+                question: "Which of the following elements is found in all organic compounds?",
+                options: ["Carbon", "Calcium", "Nitrogen", "Oxygen"],
+                answer: 0
+            },
+            {
+                question: "Organic compounds are",
+                options: ["Covalent compounds", "Ionic compounds", "Co-ordination compounds", "Interstitial compounds"],
+                answer: 0
+            },
+            {
+                question: "Alcoholic (\u2013 OH) group can be identified by :",
+                options: ["Tollen's Reagent Test", "Esterification Test", "FeCl3Test", "Ozonolysis Reaction"],
+                answer: 2
+            },
+            {
+                question: "Which one is the simplest form of alkane?",
+                options: ["Propane", "Butane", "Methane", "Decane"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is not a natural source of hydrocarbon?",
+                options: ["Natural Gas", "Coal", "Petroleum", "Mica"],
+                answer: 3
+            },
+            {
+                question: "Which one is the simplest aromatic hydrocarbon?",
+                options: ["Aspirin", "Benzene", "Chloride", "Picric acid"],
+                answer: 1
+            },
+            {
+                question: "Removal of carbon particles from air involves the principle of",
+                options: ["Precipitation", "Filteration", "Electrophoresis", "Sedimentation"],
+                answer: 2
+            },
+            {
+                question: "High concentration hydrocarbon pollutants in atmospheric air causes",
+                options: ["Cancer", "Silicosis", "Respiratory diseases (e.g.asthma)", "Reduced crop yield"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is the correct sequence of countries in terms of maximum carbon dioxide emission?",
+                options: ["China, USA, European Union, India", "USA, India, China, European Union", "China, India, European Union, USA", "European Union, China, USA, India"],
+                answer: 0
+            },
+            {
+                question: "Which one of the following organic compounds has fruity smell?",
+                options: ["Alcohol", "Aldehyde", "Ester", "Ether"],
+                answer: 2
+            },
+            {
+                question: "The first organic compound synthesised in the laboratory was",
+                options: ["Urea", "Uric acid", "Lactic acid", "Glucose"],
+                answer: 0
+            },
+            {
+                question: "In organic compounds, nitrogen is estimated by",
+                options: ["Carius method", "Victor-Meyer's method", "Liebig's method", "Dumas method"],
+                answer: 3
+            },
+            {
+                question: "Commercially, sodium bicarbonate is known as",
+                options: ["Washing soda", "Baking soda", "Bleaching powder", "Soda ash"],
+                answer: 1
+            },
+            {
+                question: "The common name of sodium bicarbonate is",
+                options: ["Soda ash", "Baking soda", "Soda lime", "Baking powder"],
+                answer: 1
+            },
+            {
+                question: "What is the product formed when sodium bicarbonate is heated strongly?",
+                options: ["Sodium Carbonate", "Sodium Hydroxide", "Sodium Peroxide", "Sodium Monoxide"],
+                answer: 0
+            },
+            {
+                question: "Sodium bicarbonate is commercially known as",
+                options: ["Washing soda", "Baking soda", "Caustic soda", "Soda lime"],
+                answer: 1
+            },
+            {
+                question: "The Fungus which is used in the alcohol industry is",
+                options: ["Mushroom", "Candida Aibicans", "Yeast", "Rhizopus"],
+                answer: 2
+            },
+            {
+                question: "Alcohol prepared by the distillation of wood is :",
+                options: ["Propyl alcohol", "Methyl alcohol", "Ethyl alcohol", "Glycerol"],
+                answer: 1
+            },
+            {
+                question: "The new strain of bacteria produced by biotechnology in alcohol industry is",
+                options: ["Escherichia coli", "Saccharomyces cerevisiae", "Bacillus subtilis", "Pseudomonas putida"],
+                answer: 3
+            },
+            {
+                question: "The reaction intermediate formed during the preparation of diethyl ether from ethanol by treatment with H2SO4is",
+                options: ["Carbanion", "Carbocation", "Carbene", "Free radical"],
+                answer: 1
+            },
+            {
+                question: "The enzyme that converts glucose to ethyl alcohol is :",
+                options: ["Invertase", "Maltase", "Zymase", "Diastase"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following organic compound is used to remove stains of iron compounds?",
+                options: ["Oxalic acid", "Benzoic acid", "Phthalic acid", "Cinnamic acid"],
+                answer: 0
+            },
+            {
+                question: "Bakelite is a co-polymer of Phenol and",
+                options: ["Formaldehyde", "Acetaldehyde", "Benzaldehyde", "Cinnaldehyde"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is not an addition polymer?",
+                options: ["Nylon", "PVC", "Polythene", "Polystyrene"],
+                answer: 0
+            },
+            {
+                question: "The polymerisation of which often following is used in manufacturing of polythene in industry ?",
+                options: ["Methane", "Styrene", "Acetylene", "Ethylene"],
+                answer: 3
+            },
+            {
+                question: "Natural rubber is the polymer of :",
+                options: ["Isoprene", "Styrene", "Butadiene", "Ethylene"],
+                answer: 0
+            },
+            {
+                question: "A polymeric substance used to make parachute is",
+                options: ["Rayon", "Viscose", "Cotton", "Terylene"],
+                answer: 1
+            },
+            {
+                question: "PVC is obtained by the polymerisation of",
+                options: ["Propane", "Vinyl chloride", "Styrene", "Acetylene"],
+                answer: 1
+            },
+            {
+                question: "The polymer obtained by the condensation of hexamethylene diamine and adipic acid is :",
+                options: ["Nylon 66", "Terylene", "Tollen's", "Bakelite"],
+                answer: 0
+            },
+            {
+                question: "Neoprene is prepared by polymerisation of which of the following",
+                options: ["2-chloro-1, 3-butadiene", "2-methyl 1, 3-butadiene", "1,3-butadiene", "Acrylonitrile"],
+                answer: 0
+            },
+            {
+                question: "Neoprene is a polymer of",
+                options: ["Chloroprene", "Isoprene", "Isobutane", "Isopentane"],
+                answer: 0
+            },
+            {
+                question: "Silicone is a polymer of",
+                options: ["Tetraalkyl silane", "Silicon tetrachloride", "Dialkyl dichloro silane", "Silane"],
+                answer: 2
+            },
+            {
+                question: "Natural rubber is a polymer of",
+                options: ["Vinyl acetate", "Propene", "Isoprene", "Styrene"],
+                answer: 2
+            }
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.innerHTML = `<span class="text-sky-600 dark:text-sky-500 mr-2">Q${index + 1}.</span> ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                if (!option || option.trim() === '') return;
+                
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) return;
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            wrapper.appendChild(questionBlock);
+        });
+
+        // Theme sync
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>

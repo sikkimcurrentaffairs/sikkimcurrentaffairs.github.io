@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biology - Classification of Animal Kingdom | Sikkim PSC Hub</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+            border-color: #bbb;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .options-list.answered .option:not(.correct):not(.incorrect) {
+            opacity: 0.7;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none;
+        }
+        .quiz-stats {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <a href="biology.html" class="back-link">&larr; Back to Biology</a>
+        <h1>Classification of Animal Kingdom</h1>
+        <p class="quiz-stats">87 Questions</p>
+        <!-- Questions will be dynamically inserted here by JavaScript -->
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Malaria p~it~and I_!t_s>eba groupe~r::- h) Protozoa",
+                options: ["", "Porifera", "Coelenterata", "Anilida"],
+                answer: 2
+            },
+            {
+                question: "Which of th~.Jollowing do not ha~ d~finite sha12e",
+                options: ["Paramecium", "Euglena", "Trypnosoma kd) Amoeba", ""],
+                answer: 0
+            },
+            {
+                question: "Slipper sha.Pe animal is",
+                options: ["Amoeba--", "", "Trypanosoma ,ke7 Paramecium", "None of these"],
+                answer: 3
+            },
+            {
+                question: "· Locomotary organ of Amoeba",
+                options: ["Cilia", "Flagella j.e) Pseudapodia", "", "Tentacles"],
+                answer: 1
+            },
+            {
+                question: "frotozoa which proclu~ala",
+                options: ["Entamoeba", "Trypanosoma", "Trichomonas Leishmania", ""],
+                answer: 2
+            },
+            {
+                question: "Sleepin~ sickness is caused by",
+                options: ["Tric omonas ) Trypanosoma", "Entamoeba histolytica", "Trypanosoma", "Entamoeba gingivalies"],
+                answer: 3
+            },
+            {
+                question: "Spider monkey Which of the above a~ naturally found in Inida ? (a-) 1, 2 and 3 only",
+                options: ["", "2 and 3 only", "1 and 4 only", "1, 2, 3 and 4 [IAS2013}"],
+                answer: 1
+            },
+            {
+                question: "Which one of the following is known <lS venus\'s flower ,has--_. c",
+                options: ["Sycon", "Euspongia", "Euplectella", "None of these"],
+                answer: 0
+            },
+            {
+                question: "und in the .body of spangeA,",
+                options: ["Ostia", "Osuculum", "Redtilla", "Cilia"],
+                answer: 2
+            },
+            {
+                question: "{>.lar~..£mening found at the top of ~con is ~alled w",
+                options: ["Ostia ) Osculum", "", "Redulla", "Trachea"],
+                answer: 0
+            },
+            {
+                question: "Which of the f2!!£?wing have no blood but they respire",
+                options: ["Cockroach", "Earthworm fc) Hydra", "", "Kangaroo"],
+                answer: 3
+            },
+            {
+                question: "Locomotory organ of hydra is-- \'",
+                options: ["Pseudopodia - •", "Cilia je-)\"\' Tentacles", "", "Flagella"],
+                answer: 3
+            },
+            {
+                question: "5=ora)s are=--o",
+                options: ["Forest wood ) Sea animal", "", "Sea plant", "None of these"],
+                answer: 2
+            },
+            {
+                question: "Anim_el knpwn a;; jelly fish",
+                options: ["Hydra", "Physallia \'4 Aurelia", "", "Obelia"],
+                answer: 0
+            },
+            {
+                question: "Sea anemone i§ also ~ow~ as",
+                options: ["Hydra", "Physallia", "Aurelia ) Metridium", ""],
+                answer: 2
+            },
+            {
+                question: "mal whic~ als<,Lknown as \'Portuguese man of war\'-- hysalia",
+                options: ["", "Hydra", "Aurelia", "Obelia"],
+                answer: 3
+            },
+            {
+                question: "!ID.mortality is ~ro~fou~--\'",
+                options: ["Spong fb) Hydra", "", "Earthworm", "Cockroach"],
+                answer: 0
+            },
+            {
+                question: "Flat worm is kept under phyllum-- (a-} Platyhelminthes",
+                options: ["", "Nematchelminthes", "Annelida", "Molusca"],
+                answer: 2
+            },
+            {
+                question: "Tape worm comes under phylum",
+                options: ["Annelida", "Amphibia", "Molusca fd)Platyhelrninthes", ""],
+                answer: 0
+            },
+            {
+                question: "Which oj the followi£g W£!!!1 reach into intestine of _l:mman by eating leaf-- (..a-) Tapeworm",
+                options: ["", "Flat worm", "Hook worm", "Round worm"],
+                answer: 3
+            },
+            {
+                question: "• Disease cause by ascaris jn humai\\.",
+                options: ["Teniasis ,", "Ascarisis ,...", "Liver rot", "lnsomania"],
+                answer: 2
+            },
+            {
+                question: "_The dise~ filaria is caused by",
+                options: ["Ascaris -- ~ Wuchereria bancrafti", "", "Plasmodium", "Tenia solium"],
+                answer: 2
+            },
+            {
+                question: "Pheretim..a posthumaJs scientific name of which of the fallowing",
+                options: ["Leech", "Neris ) Earth worm", "", "Tape worm"],
+                answer: 1
+            },
+            {
+                question: "Among the following animals, choose the one having three ~rs of legs.",
+                options: ["Spider", "Scorpion ~ Bug", "", "Mite"],
+                answer: 0
+            },
+            {
+                question: "Slik is obtain from",
+                options: ["Egg of silk worm", "", "Larva of silkworm ) Pupa of silk worm", "None"],
+                answer: 3
+            },
+            {
+                question: "Larva of house fly called",
+                options: ["Pupa ) Magote", "Imago", "", "None"],
+                answer: 0
+            },
+            {
+                question: "Ihe disease Kala-azar is spread by-- W Sand fly",
+                options: ["", "Bed bug", "Head louse", "None"],
+                answer: 1
+            },
+            {
+                question: "Characteristic feature of class Insecta",
+                options: ["fbree pair leg", "Tw~ pair antena", "One pair of antena", "Four pair antenna"],
+                answer: 2
+            },
+            {
+                question: "Sea lion JY.hich of the above is I are mammal I mammals ?",
+                options: ["1 only ) 1 and 3 only", "", "2 and 3 only", "1, 2 and 3 {lAS 2013]"],
+                answer: 3
+            },
+            {
+                question: "Cuttle fish is )g].~n as",
+                options: ["Loligo", "Sepia (.ef Pila", "", "Torpedo"],
+                answer: 1
+            },
+            {
+                question: "Which one of following is known ~E!.Yil.fish",
+                options: ["Pila", "Sepia", "Torpedo ,", "Octopus"],
+                answer: 3
+            },
+            {
+                question: "Number of arm found in octopus",
+                options: ["4", "5", "6 jel) 8 I [ l r", ""],
+                answer: 2
+            },
+            {
+                question: "Connecting link between Annelida and Mollu~- Ja) Neoi)Tlina",
+                options: ["", "Ketoderma", "Dentalium", "Unio"],
+                answer: 3
+            },
+            {
+                question: "Star fish grouped under phylum",
+                options: ["Mollusca", "Fishes", "Arthropoda Echinodermata", ""],
+                answer: 1
+            },
+            {
+                question: "Aristotle lantern is",
+                options: ["A fresh water echinodermata 1)?,7 A toothed chewing apparatus found in sea-urchin", "", "Circulatory system found in star fish", "A lantern like structure found in brittle star"],
+                answer: 3
+            },
+            {
+                question: "Star fish is named as- Je.) Asterias",
+                options: ["", "Halothuria", "Antedon", "Sea urchin"],
+                answer: 3
+            },
+            {
+                question: "• Heart of fishes pump",
+                options: ["Only pure blooa ,kb) Only impure blood", "", "Pure and impure both", "There is no blood"],
+                answer: 0
+            },
+            {
+                question: "J:Vhich of the following i",
+                options: ["Starfish", "Jelly fish", "Cuttlefish", "Sea horse"],
+                answer: 2
+            },
+            {
+                question: "Which one of following is not a true fish",
+                options: ["Cuttlefish", "Silver fish", "Jelly fish", "None of these"],
+                answer: 2
+            },
+            {
+                question: "§e~se is the example of p~llum- )a} Fishes",
+                options: ["", "Mammal", "Repticle", "Mollusca"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is a true fish- fa) Flying fish",
+                options: ["", "Cry fish", "Cuttlefish", "Silver fish"],
+                answer: 1
+            },
+            {
+                question: "House fly feed on sugar crystal by- \'\"",
+                options: ["CruShing it and sucking the powder", "Crushing and eating", "Sucking ) Dissolving it in saliva and sponging the solution", ""],
+                answer: 2
+            },
+            {
+                question: "In starfish, the organ having a dm11 role of locomotion a nd respiration are",
+                options: ["Madreporite fc) Tube feet", "Dermal branchiae", "", "Tiedrnan\'s bodies"],
+                answer: 1
+            },
+            {
+                question: "Among the following, an unmatched group is",
+                options: ["Sea pen, sea fan, coral and swimming bell", "Cattle fish, starfish, devil fish and squid \"\'1- Sea star, sea urchin, sea anemone and Sea Cow", "", "Globe fish, rat fish, gold fish and pipe fish."],
+                answer: 0
+            },
+            {
+                question: "Give the correct matching of causative agent and disease",
+                options: ["Anopheles- Malaria", "Lashrnania - Sleeping sickness", "Glossina - Kala-azar Wuchereria - Filariasis", ""],
+                answer: 0
+            },
+            {
+                question: "Anopheles and culex mosquitos can be distinguished w ith the help of",
+                options: ["Antennae", "Mouth part j.£) Sitting posture", "", "Feeding habits"],
+                answer: 3
+            },
+            {
+                question: "Closed circulatory system is fot..ID.£. in",
+                options: ["Cockroach", "Snail Cuttlefish", "", "All"],
+                answer: 3
+            },
+            {
+                question: "Open circu.l.ato:cy system is found in- Cockroach",
+                options: ["", "E\"\"arthworrn", "Fishes", "None of these"],
+                answer: 1
+            },
+            {
+                question: "Nervous ~stern or!&illa~c!_ fir",
+                options: ["Taenia", "Ascaris", "Hydra", "Hirudinaria"],
+                answer: 0
+            },
+            {
+                question: "Annelida are advanced ovr Nematoda in having",
+                options: ["Matarnaric segmentation", "Closed circulation", "True coelom kti) All of these", ""],
+                answer: 0
+            },
+            {
+                question: "Nephridia of Earthworm are analogous to",
+                options: ["Tracheae of insects", "Gill of prawn", "Nematoblast of hydra", "Flame cell of Dugesia"],
+                answer: 1
+            },
+            {
+                question: "Cockroach, Housefly_ and Mo~u!!? are insects beacuse tneyhave",
+                options: ["chitinous exoskeleton and body divided into head and cephalothoraxes", "six legs, two pairs of antenna! and body divided into head, thorax and abdomen ),c) segernnted body, six legs and body divided into head, thorax and abdomen", "", "three pairs of legs, one pair of antenna! and flame cells"],
+                answer: 3
+            },
+            {
+                question: "Water vascular system is",
+                options: ["Porifera", "Mollusca fee} Echinodermata", "", "Coelenterata"],
+                answer: 1
+            },
+            {
+                question: "Connecting link betw.i:_en Ann~a and b-rthropoda--:- enpatus",
+                options: ["", "Hydra", "Earthworm", "Sylon"],
+                answer: 3
+            },
+            {
+                question: "A structure common to both earthworm and cockroacp",
+                options: ["O~alidia", "Tr~heae· •", "Dorsal tubular nerve cord 4Q) Ventral nerve cord", ""],
+                answer: 2
+            },
+            {
+                question: "Young of a cockroach is c~-;:-.",
+                options: ["Ephyra ,", "Nymph", "Maggot ;a1\'\"Juvenila", ""],
+                answer: 2
+            },
+            {
+                question: "The largest animal is- ta)whale",
+                options: ["", "Stone fish", "Marlin", "Hilsa"],
+                answer: 2
+            },
+            {
+                question: "_Gibbon is the only aee found in lndie- Which\'of the statements given above is / are correct?",
+                options: ["1 only J(df 2 only", "", "Both 1 and 2", "Neither 1 nor 2"],
+                answer: 0
+            },
+            {
+                question: "Guinea-worm is an annelid Which of these is correct ?",
+                options: ["Giraffes and Zebra (4. Lemurs and horses", "Kangaroo an Koalas", "3 and 4", "Rabbits and Hares"],
+                answer: 1
+            },
+            {
+                question: "Reptilia Codes: A B c D J.p.} 1 2 3 4",
+                options: ["", "2 1 4 3", "1 2 4 3", "2 1 3 4"],
+                answer: 1
+            },
+            {
+                question: "Male sex harmone is",
+                options: ["Adre-Ii:ale;_", "Progestron", "Testosterone", "FSH"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is a female sex harmone ?",
+                options: ["Estrogen \"", "A.ru:Irogen •", "Auxin", "Insulin {SSCGrad 2000/"],
+                answer: 0
+            },
+            {
+                question: "Which one among the following glands is presentinRair~ in human bo.f!x.? ,",
+                options: ["Adrenal", "Liver", "Pancreas", "Pineal"],
+                answer: 0
+            },
+            {
+                question: "Calcium _......r: Iron a:- Sodium Which of the minerals given ~ove is/ are required by mman body for the contraction of muscles ?",
+                options: ["1 only \' 0$-)-2 and 3 only", "", "1 and 3 only", "1, 2 and 3 [lAS 2013}"],
+                answer: 2
+            },
+            {
+                question: "Cornea is an import~t pcyt of-;",
+                options: ["Ear", "Nose", "Kidney .", "Eye"],
+                answer: 3
+            },
+            {
+                question: "Part of e~ used i_uring eye donatioujs- Ta) Retina · r",
+                options: ["", "Cornea", "Eye hens", "Complet eye"],
+                answer: 1
+            },
+            {
+                question: "The hardest part of human body is",
+                options: ["Bone", "Palaque", "Enamel", "Skull"],
+                answer: 2
+            },
+            {
+                question: "During the process of respiration in human beings, the exchange of gases takes place in",
+                options: ["bronchi · .", "alveoli", "bronchiole", "pleura [SCRA 2012}"],
+                answer: 1
+            },
+            {
+                question: "tlumber of spinal nerve is",
+                options: ["10 pair", "12 pair", "15 pair", "None of these"],
+                answer: 3
+            },
+            {
+                question: "Mai.n..function..of.skeleton is",
+                options: ["To cover the skull", "To provide the shape of body", "Formation of RBC", "All of these"],
+                answer: 1
+            },
+            {
+                question: "Number of valy~ found in human heart",
+                options: ["4", "3 ) 2", "", "1"],
+                answer: 0
+            },
+            {
+                question: "1",
+                options: ["", "1 3 ,.", "1 3", "3 1 c 4 2 4 2 through sense of smell"],
+                answer: 3
+            },
+            {
+                question: "Mosquito control Codes : A B C D",
+                options: ["1 3 2 4", "1 3 4 2", "3 1 4 2 3 1 2 4 [IAS Pre 1999} Match List I (Endocrine gland) with I ist IT CHormonEJ; secreted) and select the answer- List-! L;;t:..n A. Gonads", ""],
+                answer: 1
+            },
+            {
+                question: "Cortisone Codes: A B C D",
+                options: ["3 2 4 1", "2 3 4 1 y.y 2 3 1 4", "", "3 2 1 4"],
+                answer: 1
+            },
+            {
+                question: "Stress causes the adrenals to release very less amount of cortisol than usual. Which of these statements are correct ?",
+                options: ["1, 2, 3 and 4", "1, 2 and 3", "2, 3 and 4 \'a? 1 and 4", ""],
+                answer: 1
+            },
+            {
+                question: "Enterogastrone is produced in the small intestine in response to the presence of fatty acid. Which of these statements is/ are correct ?",
+                options: ["Only 1", "Only 2 J..er Both 1 and 2", "", "Neither 1 and 2"],
+                answer: 0
+            },
+            {
+                question: "Assertion",
+                options: ["Both A and Rare true and R is correct explanation of A.", "Both A and Rare true but R is not a correct explanation of A.", "A is true but R is false.", "A is false but R is true."],
+                answer: 3
+            },
+            {
+                question: "Assertion",
+                options: ["Drinking of whiskey increases the frequency of urination. Reason (R) : Alcohal intake speed up the secretion of vasopressin in the body. ,ka) Both A and R is true and R is the correct explanation of A.", "Both A and R is true but R is not correct explanatioin of A.", "A is true but R is false.", "A is false but R is true."],
+                answer: 0
+            },
+            {
+                question: "Which one qtihe foQ2~ is a rich SOJ:!!Ce of en!:_rgyj",
+                options: ["Protein", "Hipid", "CarbohY,drate", "Vitamin"],
+                answer: 2
+            },
+            {
+                question: "Cartilage 2. Blood 3. Neurous Which of the above is/are connectiye tjssue.s?",
+                options: ["· 1 only \' (b\"J 1 & 2", "", "2 and 3", "1, 2 and 3"],
+                answer: 2
+            },
+            {
+                question: "Which part of the alimentary canal in human beings receives the secretions of liver and pancrease through a common duct?",
+                options: ["Stomach \"", "Duodenum", "Junction of Jejunum and gleum", "Gleurm"],
+                answer: 1
+            },
+            {
+                question: "In neture, sulphur always occurs in combined state which of the statement given above is/ are correct?",
+                options: ["1 only", "2 only", "Both 1 and 2", "Neither 1 nor 2"],
+                answer: 0
+            },
+            {
+                question: "All aitimal of class amphibia are characterised by two pairs of limbs ,A:\"\" All reptiles respire by lungs only Which of these statements ~e cQITect",
+                options: ["1, 2, 3 and 4", "1 and 3 jc) 2 and 4", "", "2, 3 and 4"],
+                answer: 3
+            },
+            {
+                question: "Neutrophils Which of the above are white blood corpuscles",
+                options: ["1 and 2 \"", "1, 2 and 4", "3 and 4 (.d) 1, 2, 3 and 4 [NDA2005}", ""],
+                answer: 1
+            },
+            {
+                question: "Starch Codes : A B C Ja) 3 2 1",
+                options: ["", "2 3 1", "1 2 3", "3 1 2"],
+                answer: 3
+            },
+            {
+                question: "Which one among the following statements about stomach is not correct ?",
+                options: ["Stomach act as a temporary reservoir", "Stomach mixes food with gastric juice", "Stomach secretes liplase and amylase in gastric juice", "Rate of stomach emptying depends on the type of food. [NDA 2011}"],
+                answer: 2
+            },
+            {
+                question: "02;._Which among__the fo)lowing is laegest:endocrine _glan.Jl in the body? ;:::: W Thyroid Jk) Parathyroid",
+                options: ["Hae~oglobin )\"Heparin", "", "Fibrin", "Plasma {CDS-II 2013]"],
+                answer: 2
+            }
+        ];
+
+        const quizContainer = document.getElementById('quiz-container');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.textContent = `${index + 1}) ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) {
+                        return;
+                    }
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            quizContainer.appendChild(questionBlock);
+        });
+    </script>
+</body>
+</html>

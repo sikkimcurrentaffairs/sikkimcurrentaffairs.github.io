@@ -1,0 +1,2166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Idioms and Phrases Quiz (300 Questions)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        #quiz-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 700px; /* Increased max-width for potentially longer text */
+        }
+
+        #question-text {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .options button {
+            display: block;
+            width: 100%;
+            padding: 12px; /* Slightly increased padding */
+            margin: 10px 0;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            text-align: left;
+            transition: background-color 0.2s ease-in-out; /* Smooth transition */
+        }
+
+        .options button:hover:not(:disabled) {
+            background-color: #0056b3;
+        }
+        
+        .options button:disabled {
+            cursor: not-allowed;
+            opacity: 0.7; /* Slightly dim disabled buttons */
+        }
+
+        .correct {
+            background-color: #28a745 !important; 
+            color: white !important;
+            border: 2px solid #1e7e34 !important; /* Add border for more emphasis */
+        }
+
+        .incorrect {
+            background-color: #dc3545 !important; 
+            color: white !important;
+            border: 2px solid #b21f2d !important; /* Add border for more emphasis */
+        }
+        
+        .show-correct {
+            background-color: #17a2b8 !important; 
+            color: white !important;
+            border: 2px solid #117a8b !important; /* Add border for more emphasis */
+        }
+
+
+        #feedback {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 1.1em;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        #next-button {
+            display: block;
+            width: 100%;
+            padding: 12px; /* Slightly increased padding */
+            margin-top: 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.2s ease-in-out; /* Smooth transition */
+        }
+        
+        #next-button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        
+        #next-button:hover:not(:disabled) {
+            background-color: #1e7e34;
+        }
+
+        #progress-text {
+            margin-bottom: 10px;
+            font-size: 0.9em;
+            color: #555;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <div id="progress-text">Loading...</div>
+        <div id="question-text">Loading question...</div>
+        <div class="options">
+            <button data-option="A" id="optionA"></button>
+            <button data-option="B" id="optionB"></button>
+            <button data-option="C" id="optionC"></button>
+            <button data-option="D" id="optionD"></button>
+        </div>
+        <div id="feedback"></div>
+        <button id="next-button" disabled>Next Question</button>
+    </div>
+
+    <script>
+        const questions = [
+            // Page 1
+            {
+                id: 1,
+                questionText: "To strain every nerve",
+                options: { A: "to make utmost efforts", B: "to feel weak and tired", C: "to be a diligent worker", D: "to be methodical in work" },
+                correctAnswer: "A"
+            },
+            {
+                id: 2,
+                questionText: "To flog a dead horse",
+                options: { A: "to whip a dead horse", B: "attempt to do the possible", C: "waste one's efforts", D: "to take advantage of a weakness" },
+                correctAnswer: "C"
+            },
+            {
+                id: 3,
+                questionText: "To show a clean pair of heels",
+                options: { A: "to hide", B: "to escape", C: "to pursue", D: "to follow" },
+                correctAnswer: "B"
+            },
+            {
+                id: 4,
+                questionText: "To die in harness",
+                options: { A: "premeditated murder", B: "dying young in an accident", C: "to die while in service", D: "to be taken by surprise" },
+                correctAnswer: "C"
+            },
+            {
+                id: 5,
+                questionText: "To feather one's nest",
+                options: { A: "to make a residential house", B: "something that lasts for a short time", C: "to profit in a dishonest way", D: "none of the above" },
+                correctAnswer: "C"
+            },
+            {
+                id: 6,
+                questionText: "To doctor the accounts",
+                options: { A: "to make changes in account books", B: "to clear the doctors' bill", C: "to verify the accounts in detail", D: "to manipulate the accounts" },
+                correctAnswer: "D"
+            },
+            {
+                id: 7,
+                questionText: "She could never measure up to her parent's expectations.",
+                idiom: "measure up to",
+                options: { A: "Reach the level", B: "Work as hard", C: "Assess the amount", D: "Increase her height" },
+                correctAnswer: "A"
+            },
+            {
+                id: 8,
+                questionText: "The little girl with her flawless performance stole the show.",
+                idiom: "stole the show",
+                options: { A: "Stole something from the show", B: "Crept into the show", C: "Won everybody's praise", D: "Disappeared from the show" },
+                correctAnswer: "C"
+            },
+            {
+                id: 9,
+                questionText: "The thief was on good terms with the police.",
+                idiom: "on good terms with",
+                options: { A: "Kept terms and conditions", B: "Was friendly", C: "Followed the rules", D: "Agreed with them" },
+                correctAnswer: "B"
+            },
+            {
+                id: 10,
+                questionText: "John's offer of help was turned down by the police.",
+                idiom: "turned down",
+                options: { A: "Sent back", B: "Twisted around", C: "Refused", D: "Handed over" },
+                correctAnswer: "C"
+            },
+            {
+                id: 11, 
+                questionText: "To be all at sea",
+                options: { A: "a family voyage", B: "lost and confused", C: "in the middle of the ocean", D: "a string of islands" },
+                correctAnswer: "B"
+            },
+            // Page 2
+            {
+                id: 12,
+                questionText: "To take to one's heels",
+                options: { A: "to walk slowly", B: "to run away", C: "to march forward", D: "to hop and jump" },
+                correctAnswer: "B"
+            },
+            {
+                id: 13,
+                questionText: "To bite the dust",
+                options: { A: "eat voraciously", B: "have nothing to eat", C: "eat roots", D: "to fail" },
+                correctAnswer: "D"
+            },
+            {
+                id: 14,
+                questionText: "A bolt from the blue",
+                options: { A: "a delayed event", B: "an inexplicable event", C: "an unexpected and unpleasant event", D: "an unpleasant event" },
+                correctAnswer: "C"
+            },
+            {
+                id: 15,
+                questionText: "Cold comfort",
+                options: { A: "absurdity", B: "deception", C: "slight satisfaction", D: "foolish proposal" },
+                correctAnswer: "C"
+            },
+            {
+                id: 16,
+                questionText: "The reputed company is in the red due to the recession.",
+                idiom: "in the red",
+                options: { A: "making money", B: "losing money", C: "in danger", D: "spending money" },
+                correctAnswer: "B"
+            },
+            {
+                id: 17,
+                questionText: "When the Principal was entering the class, all my friends quietly disappeared, leaving me alone to face the music.",
+                idiom: "face the music",
+                options: { A: "to listen to him", B: "to enter into the class", C: "to bear the criticism", D: "to listen to a favourable comment" },
+                correctAnswer: "C"
+            },
+            {
+                id: 18,
+                questionText: "The Kenyan team proved to be the dark horse in the ICC World Cup Cricket.",
+                idiom: "dark horse",
+                options: { A: "a strong intruder", B: "a skilled team", C: "the most powerful", D: "an unexpected winner" },
+                correctAnswer: "D"
+            },
+            {
+                id: 19,
+                questionText: "Having no arguments to defend his point, the speaker began to beat about the bush.",
+                idiom: "beat about the bush",
+                options: { A: "wander across the words", B: "speak in a haphazard manner", C: "speak in a round-about manner", D: "make use of irrelevant reference" },
+                correctAnswer: "C"
+            },
+            {
+                id: 20,
+                questionText: "They were offered six months' rent in lieu of notice to vacate the building.",
+                idiom: "in lieu of",
+                options: { A: "in spite of", B: "In place of", C: "despite of", D: "in addition to" },
+                correctAnswer: "B"
+            },
+            {
+                id: 21,
+                questionText: "We know that he is the one responsible for the discord but as he is well - connected all we can do is send him to Coventry.",
+                idiom: "send him to Coventry",
+                options: { A: "transfer him", B: "commend him", C: "boycott him", D: "dismiss him" },
+                correctAnswer: "C"
+            },
+            {
+                id: 22,
+                questionText: "The noble man gave up the ghost.",
+                idiom: "gave up the ghost",
+                options: { A: "left the ghost", B: "lived like a ghost", C: "invited ghost", D: "died" },
+                correctAnswer: "D"
+            },
+            {
+                id: 23,
+                questionText: "A Prime Minister cannot ride roughshod over his ministerial colleagues for long.",
+                idiom: "ride roughshod over",
+                options: { A: "deal unkindly with", B: "take for granted", C: "be high-handed with", D: "exploit wilfully" },
+                correctAnswer: "C"
+            },
+            {
+                id: 24,
+                questionText: "He was down in the mouth as he was defeated in the elections.",
+                idiom: "down in the mouth",
+                options: { A: "unable to speak", B: "very depressed", C: "very angry", D: "very confused" },
+                correctAnswer: "B"
+            },
+            {
+                id: 25,
+                questionText: "They say, join the Army to drink life to the lees.",
+                idiom: "drink life to the lees",
+                options: { A: "to have the best of fun and fortune", B: "to enjoy a life of drinking and dancing", C: "to have a life full of adventures", D: "to have the best of life" },
+                correctAnswer: "C" 
+            },
+            {
+                id: 26,
+                questionText: "The car in the backyard is proving to be a white elephant.",
+                idiom: "a white elephant",
+                options: { A: "very huge item", B: "costly and useless possession", C: "very expensive investment", D: "useful material" },
+                correctAnswer: "B"
+            },
+            // Page 3
+            {
+                id: 27,
+                questionText: "He takes leave once in a blue moon.",
+                idiom: "once in a blue moon",
+                options: { A: "regularly", B: "often", C: "rarely", D: "once a fortnight" },
+                correctAnswer: "C"
+            },
+            {
+                id: 28,
+                questionText: "The meeting has been put off indefinitely.",
+                idiom: "put off",
+                options: { A: "cancelled", B: "postponed", C: "advanced", D: "announced" },
+                correctAnswer: "B"
+            },
+            {
+                id: 29,
+                questionText: "The rules of the deal are set forth in the brochure.",
+                idiom: "set forth",
+                options: { A: "stated", B: "accepted", C: "contradicted", D: "printed" },
+                correctAnswer: "A"
+            },
+            {
+                id: 30,
+                questionText: "She bought her new house for a song.",
+                idiom: "for a song",
+                options: { A: "very cheaply", B: "on loan", C: "at a loss", D: "very easily" },
+                correctAnswer: "A"
+            },
+            {
+                id: 31,
+                questionText: "Raju had given up doing exercise after surgery.",
+                idiom: "given up",
+                options: { A: "learned", B: "started", C: "continued", D: "stopped" },
+                correctAnswer: "D"
+            },
+            {
+                id: 32,
+                questionText: "The chairman tried to get his point across, but the members just wouldn't listen.",
+                idiom: "get his point across",
+                options: { A: "give them a lesson", B: "insist on", C: "make them understand", D: "motivate them" },
+                correctAnswer: "C"
+            },
+            {
+                id: 33,
+                questionText: "Ashok had all fair-weather friends.",
+                idiom: "fair-weather friends",
+                options: { A: "friends who face difficulties calmly.", B: "favourable friends", C: "friends who desert you in difficulties", D: "reliable friends" },
+                correctAnswer: "C"
+            },
+            {
+                id: 34,
+                questionText: "Since the company has lost a good deal of time and money, you will have to make good the loss.",
+                idiom: "make good the loss",
+                options: { A: "make a good effort", B: "try to minimize the loss", C: "compensate for the loss", D: "ensure that there are no further losses" },
+                correctAnswer: "C"
+            },
+            {
+                id: 35,
+                questionText: "a damp squib",
+                options: { A: "rainy weather", B: "a disappointing result", C: "a skirt in a laundry", D: "none of the above" },
+                correctAnswer: "B"
+            },
+            {
+                id: 36,
+                questionText: "in cold blood",
+                options: { A: "angrily", B: "deliberately", C: "excitedly", D: "slowly" },
+                correctAnswer: "B"
+            },
+            {
+                id: 37,
+                questionText: "to take someone for a ride",
+                options: { A: "to give a ride to someone", B: "to deceive someone", C: "to be indifferent", D: "to disclose a secret" },
+                correctAnswer: "B"
+            },
+            {
+                id: 38,
+                questionText: "to move heaven and earth",
+                options: { A: "to cause an earthquake", B: "to try everything possible", C: "to pray to all Gods", D: "to travel in a rocket" },
+                correctAnswer: "B"
+            },
+            {
+                id: 39,
+                questionText: "to smell a rat",
+                options: { A: "to smell foul", B: "to see a rat", C: "to chase a rat", D: "to be suspicious" },
+                correctAnswer: "D"
+            },
+            {
+                id: 40,
+                questionText: "The possession of Jerusalem is a bone of contention between Israel and Palestine.",
+                idiom: "bone of contention",
+                options: { A: "a subject of peace", B: "a subject of trade", C: "a subject of dispute", D: "a subject of exports" },
+                correctAnswer: "C"
+            },
+            {
+                id: 41,
+                questionText: "My friend turned a deaf ear to my tale of loss and refused to help me.",
+                idiom: "turned a deaf ear",
+                options: { A: "paid no heed", B: "went far away", C: "listened carefully", D: "turned his ear away" },
+                correctAnswer: "A"
+            },
+            {
+                id: 42,
+                questionText: "Helena was over head and ears in love with Demetrius.",
+                idiom: "over head and ears",
+                options: { A: "carefully", B: "completely", C: "brilliantly", D: "cautiously" },
+                correctAnswer: "B"
+            },
+            {
+                id: 43,
+                questionText: "Gopi works by fits and starts.",
+                idiom: "by fits and starts",
+                options: { A: "consistently", B: "Irregularly", C: "in high spirits", D: "enthusiastically" },
+                correctAnswer: "B"
+            },
+            // Page 4
+            {
+                id: 44,
+                questionText: "Naresh Goyal had to stand on his feet very early in his life.",
+                idiom: "stand on his feet",
+                options: { A: "to be physically strong", B: "to be independent", C: "to stand erect", D: "to be successful" },
+                correctAnswer: "B"
+            },
+            {
+                id: 45,
+                questionText: "It is high time he came out of his shell.",
+                idiom: "came out of his shell",
+                options: { A: "appeared suddenly", B: "became more sociable", C: "became a loser", D: "removed his clothes" },
+                correctAnswer: "B"
+            },
+            {
+                id: 46,
+                questionText: "Every political party is at present playing to the gallery.",
+                idiom: "playing to the gallery",
+                options: { A: "adopting cheap tactics", B: "befooling the common man", C: "fighting for votes", D: "appeasing the masses" },
+                correctAnswer: "D"
+            },
+            {
+                id: 47,
+                questionText: "His blood ran cold when he heard his uncle was murdered.",
+                idiom: "blood ran cold",
+                options: { A: "He was frightened", B: "He was horrified", C: "He was disgusted", D: "He was depressed" },
+                correctAnswer: "A" 
+            },
+            {
+                id: 48,
+                questionText: "This is so simple that even a man in the street can understand it.",
+                idiom: "a man in the street",
+                options: { A: "an ordinary person", B: "an illiterate person", C: "an unknown person", D: "a stranger" },
+                correctAnswer: "A"
+            },
+            {
+                id: 49,
+                questionText: "When he went to claim insurance for his car, the agent said he hadn't a leg to stand on.",
+                idiom: "hadn't a leg to stand on",
+                options: { A: "had been injured in an accident", B: "was lame", C: "did not have much hope of getting it", D: "would have to wait for some time" },
+                correctAnswer: "C"
+            },
+            {
+                id: 50,
+                questionText: "to cast aspersions",
+                options: { A: "to act as the pillar of support", B: "to raise aspirations", C: "to make unpleasant remarks", D: "to dissolve all the differences" },
+                correctAnswer: "C"
+            },
+            {
+                id: 51,
+                questionText: "on the cards",
+                options: { A: "impossible", B: "shocking", C: "evident", D: "anticipated" },
+                correctAnswer: "D"
+            },
+            {
+                id: 52,
+                questionText: "To turn over a new leaf",
+                options: { A: "to change for the better", B: "to start writing a new book", C: "to work on a novel idea", D: "to clear the garden" },
+                correctAnswer: "A"
+            },
+            {
+                id: 53,
+                questionText: "To keep up one's appearances",
+                options: { A: "to make public appearances now and then.", B: "to maintain one's looks and appearance.", C: "to keep up an outward show of prosperity.", D: "to make it appear that one is not concerned." },
+                correctAnswer: "C"
+            },
+            {
+                id: 54,
+                questionText: "Off and on",
+                options: { A: "repeatedly", B: "always", C: "occasionally", D: "never" },
+                correctAnswer: "C"
+            },
+            {
+                id: 55,
+                questionText: "To take with a grain of salt",
+                options: { A: "to make more palatable", B: "to take a small quantity of", C: "to make something meaningful", D: "to accept with misgiving" },
+                correctAnswer: "D"
+            },
+            {
+                id: 56,
+                questionText: "To talk through one's hat",
+                options: { A: "to talk carefully", B: "to talk softly", C: "to talk nonsense", D: "to talk secretively" },
+                correctAnswer: "C"
+            },
+            {
+                id: 57,
+                questionText: "Ins and outs",
+                options: { A: "entrances and exits", B: "details and complexities", C: "passages and pathways", D: "rules and regulations" },
+                correctAnswer: "B"
+            },
+            {
+                id: 58,
+                questionText: "The thief passed himself off as a ticket examiner.",
+                idiom: "passed himself off as",
+                options: { A: "described himself", B: "deceived everyone", C: "disguised himself", D: "was regarded" },
+                correctAnswer: "C"
+            },
+            {
+                id: 59,
+                questionText: "A brave soldier will never show the white feather in the face of his enemy.",
+                idiom: "show the white feather",
+                options: { A: "show signs of cowardice", B: "act arrogantly", C: "show intimacy", D: "act impudently" },
+                correctAnswer: "A"
+            },
+            // Page 5
+            {
+                id: 60,
+                questionText: "The poor man moved from pillar to post to get money.",
+                idiom: "from pillar to post",
+                options: { A: "went to pillars", B: "went to post", C: "went to money lender", D: "tried his best" },
+                correctAnswer: "D" 
+            },
+            {
+                id: 61,
+                questionText: "You have to be tactful in handling the sensitive matters rather than putting the cart before the horse.",
+                idiom: "putting the cart before the horse",
+                options: { A: "treating these indifferently", B: "behaving thoughtlessly", C: "dealing with these in haste", D: "tackling things in the wrong way" },
+                correctAnswer: "D"
+            },
+            {
+                id: 62,
+                questionText: "The boys cried with one voice that the examination should be postponed.",
+                idiom: "with one voice",
+                options: { A: "unanimously", B: "vehemently", C: "loudly", D: "strongly" },
+                correctAnswer: "A"
+            },
+            {
+                id: 63,
+                questionText: "The scheme appears worthless at the first blush.",
+                idiom: "at the first blush",
+                options: { A: "first attempt", B: "first sight", C: "first step", D: "first phase" },
+                correctAnswer: "B"
+            },
+            {
+                id: 64,
+                questionText: "His pronunciation was so bad and his voice so low that the speech he made was all Greek to me.",
+                idiom: "all Greek to me",
+                options: { A: "strange", B: "incomprehensible", C: "inaudible", D: "uninteresting" },
+                correctAnswer: "B"
+            },
+            {
+                id: 65,
+                questionText: "He looked blank when he was informed about his dismissal.",
+                idiom: "looked blank",
+                options: { A: "was without any emotion", B: "was puzzled and surprised", C: "was uninterested", D: "was unhappy" },
+                correctAnswer: "A"
+            },
+            {
+                id: 66,
+                questionText: "That fellow trumped up a story",
+                idiom: "trumped up",
+                options: { A: "translated", B: "sang with the music of a trumpet", C: "concocted", D: "copied" },
+                correctAnswer: "C"
+            },
+            {
+                id: 67,
+                questionText: "Though he is not a scholar, he wins arguments because he has the gift of the gab.",
+                idiom: "gift of the gab",
+                options: { A: "gifts from many people", B: "a lot of money", C: "Talent for speaking", D: "a good memory" },
+                correctAnswer: "C"
+            },
+            {
+                id: 68,
+                questionText: "The A.T.S. set the bait to arrest the terrorists.",
+                idiom: "set the bait",
+                options: { A: "laid the trap", B: "announced the reward", C: "set the record", D: "put the bet" },
+                correctAnswer: "A"
+            },
+            {
+                id: 69,
+                questionText: "I have decided to give it a shot.",
+                idiom: "give it a shot",
+                options: { A: "click a picture", B: "try something", C: "pose for a picture", D: "injure someone" },
+                correctAnswer: "B"
+            },
+            {
+                id: 70,
+                questionText: "He turned a blind eye to his son's pranks.",
+                idiom: "turned a blind eye to",
+                options: { A: "pretended not to notice", B: "paid special attention to", C: "covered up for", D: "punished severely" },
+                correctAnswer: "A"
+            },
+            {
+                id: 71,
+                questionText: "All his schemes to murder the king ended in smoke.",
+                idiom: "ended in smoke",
+                options: { A: "fructified gradually", B: "came to nothing", C: "were discarded", D: "were partially carried out" },
+                correctAnswer: "B"
+            },
+            {
+                id: 72,
+                questionText: "This fashion of long flowing skirts will run its course.",
+                idiom: "run its course",
+                options: { A: "continue for a long time", B: "become very popular", C: "develop and then come to its usual end", D: "end very soon" },
+                correctAnswer: "C" 
+            },
+            {
+                id: 73,
+                questionText: "The police caught the thief red-handed.",
+                idiom: "red-handed",
+                options: { A: "in a red uniform", B: "with blood in hands", C: "at the time of committing the crime", D: "after reading the rules" },
+                correctAnswer: "C"
+            },
+            // Page 6
+            {
+                id: 74,
+                questionText: "I was so disappointed when my close friend left me in the lurch.",
+                idiom: "left me in the lurch",
+                options: { A: "went away without waiting for me", B: "helped me in difficult times", C: "abandoned me when I needed help", D: "stopped helping me in emergency" },
+                correctAnswer: "C"
+            },
+            {
+                id: 75,
+                questionText: "His position in the company was on the brink of disaster.",
+                idiom: "on the brink of",
+                options: { A: "at the top of", B: "at the point of", C: "on the side of", D: "on the back of" },
+                correctAnswer: "B"
+            },
+            {
+                id: 76,
+                questionText: "The car broke down just as it reached the edge of a cliff. It was indeed a close shave.",
+                idiom: "a close shave",
+                options: { A: "to share one's brand", B: "very risky", C: "narrow escape from danger", D: "to be happy" },
+                correctAnswer: "C"
+            },
+            {
+                id: 77,
+                questionText: "The parents are in high spirits as their son has got a decent job.",
+                idiom: "in high spirits",
+                options: { A: "in good position", B: "drunk", C: "cheerful", D: "shocked" },
+                correctAnswer: "C"
+            },
+            {
+                id: 78,
+                questionText: "When she realised that she had bought a fake product, she knew that her money had gone down the drain.",
+                idiom: "gone down the drain",
+                options: { A: "was lost forever", B: "dropped in the drain", C: "got washed away", D: "her money was safe" },
+                correctAnswer: "A"
+            },
+            {
+                id: 79,
+                questionText: "Even though the new clerk was given a difficult task, he remained cool as a cucumber.",
+                idiom: "cool as a cucumber",
+                options: { A: "not nervous or emotional", B: "caught cold", C: "was happy", D: "was scared" },
+                correctAnswer: "A"
+            },
+            {
+                id: 80,
+                questionText: "Some people do not grease anybody's palm on any account.",
+                idiom: "grease anybody's palm",
+                options: { A: "bribe", B: "flatter", C: "cheat", D: "fight" },
+                correctAnswer: "A"
+            },
+            {
+                id: 81,
+                questionText: "I had to pull strings to put up a good show.",
+                idiom: "pull strings",
+                options: { A: "play music", B: "use personal influence", C: "use the instrument", D: "play a song" },
+                correctAnswer: "B"
+            },
+            {
+                id: 82,
+                questionText: "You can easily overcome this situation if you keep your head.",
+                idiom: "keep your head",
+                options: { A: "keep faith in", B: "remain calm", C: "believe in", D: "trust the others" },
+                correctAnswer: "B"
+            },
+            {
+                id: 83,
+                questionText: "It is clear that the ideas of both reformers ran in the same groove.",
+                idiom: "ran in the same groove",
+                options: { A: "promoted each other", B: "clashed with each other", C: "moved in harmony", D: "moved in different directions" },
+                correctAnswer: "C"
+            },
+            {
+                id: 84,
+                questionText: "This place affords a bird's eye view of the green valley below.",
+                idiom: "a bird's eye view",
+                options: { A: "a beautiful view", B: "a narrow view", C: "an overview", D: "an ugly view" },
+                correctAnswer: "C"
+            },
+            {
+                id: 85,
+                questionText: "To foam at one's mouth",
+                options: { A: "to brush properly", B: "to get very angry", C: "to salivate on seeing food", D: "none of the above" },
+                correctAnswer: "B" 
+            },
+            {
+                id: 86,
+                questionText: "To feel like a fish out of water",
+                options: { A: "disgusted", B: "uncomfortable", C: "disappointed", D: "homeless" },
+                correctAnswer: "B"
+            },
+            {
+                id: 87,
+                questionText: "At the eleventh hour",
+                options: { A: "too late", B: "too early", C: "immediately", D: "at the last moment" },
+                correctAnswer: "D"
+            },
+            {
+                id: 88,
+                questionText: "to burn one's fingers",
+                options: { A: "to get hurt physically", B: "to suffer financial losses", C: "to find work", D: "to suffer nervous breakdown" },
+                correctAnswer: "B"
+            },
+            {
+                id: 89,
+                questionText: "to add fuel to fire",
+                options: { A: "to investigate", B: "to insulate", C: "to initiate", D: "to incite" },
+                correctAnswer: "D"
+            },
+            {
+                id: 90,
+                questionText: "To bring to light",
+                options: { A: "to reveal", B: "to conceal", C: "to provide luminescence", D: "to appeal" },
+                correctAnswer: "A"
+            },
+            // Page 7
+            {
+                id: 91,
+                questionText: "To hit the jackpot",
+                options: { A: "to gamble", B: "to get an unexpected victory", C: "to be wealthy", D: "to make money quickly" },
+                correctAnswer: "B" 
+            },
+            {
+                id: 92,
+                questionText: "To burn the candle at both ends",
+                options: { A: "to spend cautiously", B: "to be stingy", C: "to be extravagant", D: "to survive difficulty" },
+                correctAnswer: "C"
+            },
+            {
+                id: 93,
+                questionText: "Status quo",
+                options: { A: "unchanged position", B: "excellent place", C: "unbreakable statue", D: "long queue" },
+                correctAnswer: "A"
+            },
+            {
+                id: 94,
+                questionText: "By fair means or foul",
+                options: { A: "without using common sense", B: "without difficulty", C: "in any way, honest or dishonest", D: "having been instigated" },
+                correctAnswer: "C"
+            },
+            {
+                id: 95,
+                questionText: "at one's beck and call",
+                options: { A: "to attend a call", B: "to be helped by someone", C: "to be useful to someone", D: "to be dominated by someone" },
+                correctAnswer: "D"
+            },
+            {
+                id: 96,
+                questionText: "to explore every avenue",
+                options: { A: "to search all streets", B: "to scout the wilderness", C: "to find adventure", D: "to try every opportunity" },
+                correctAnswer: "D"
+            },
+            {
+                id: 97,
+                questionText: "a red letter day",
+                options: { A: "a dangerous day in one's life", B: "a sorrowful day in one's life", C: "an important or joyful occasion in one's life", D: "both a dangerous and sorrowful day in one's life" },
+                correctAnswer: "C"
+            },
+            {
+                id: 98,
+                questionText: "to have something up one's sleeve",
+                options: { A: "to hide something in the sleeve", B: "to play a magician trick", C: "to have a secret plan", D: "to play hide and seek" },
+                correctAnswer: "C"
+            },
+            {
+                id: 99,
+                questionText: "on the spur of the moment",
+                options: { A: "to act at once", B: "to ride a horse in a race", C: "to act deliberately", D: "to act at the appointed time" },
+                correctAnswer: "A"
+            },
+            {
+                id: 100,
+                questionText: "When my friend was in Kolkata, he ran into an old friend at the theatre.",
+                idiom: "ran into",
+                options: { A: "hit", B: "met accidentally", C: "planned to meet", D: "invited" },
+                correctAnswer: "B"
+            },
+            {
+                id: 101,
+                questionText: "The news of the President's death spread like wild fire.",
+                idiom: "spread like wild fire",
+                options: { A: "Spread rapidly", B: "caused a major confusion", C: "was a wild rumour", D: "set the nation on fire" },
+                correctAnswer: "A"
+            },
+            {
+                id: 102,
+                questionText: "Going abroad for a holiday was out of the question.",
+                idiom: "out of the question",
+                options: { A: "undesirable", B: "impossible", C: "unpleasant", D: "irresistible" },
+                correctAnswer: "B"
+            },
+            {
+                id: 103,
+                questionText: "As a businessman, my father always maintained that his transactions constituted an open book.",
+                idiom: "an open book",
+                options: { A: "an account book always open", B: "a book of open confessions", C: "an, opening for new ventures", D: "straight forward and honest dealings" },
+                correctAnswer: "D"
+            },
+            {
+                id: 104,
+                questionText: "The project advanced by leaps and bounds.",
+                idiom: "by leaps and bounds",
+                options: { A: "rapidly", B: "slowly", C: "sharply", D: "simply" },
+                correctAnswer: "A"
+            },
+            {
+                id: 105,
+                questionText: "She is too fond of her own voice.",
+                idiom: "fond of her own voice",
+                options: { A: "loves singing", B: "very selfish", C: "does not listen properly to anyone else", D: "very talkative" },
+                correctAnswer: "D"
+            },
+            // Page 8
+            {
+                id: 106,
+                questionText: "Indian police is, on the whole, high handed in dealing with citizens.",
+                idiom: "high handed",
+                options: { A: "kind", B: "overbearing", C: "prompt", D: "adept" },
+                correctAnswer: "B"
+            },
+            {
+                id: 107,
+                questionText: "I take exception to your statement that I am bad tempered.",
+                idiom: "take exception to",
+                options: { A: "do not agree", B: "feel unhappy", C: "object", D: "feel angry" },
+                correctAnswer: "C"
+            },
+            {
+                id: 108,
+                questionText: "His speech fell short on the audience.",
+                idiom: "fell short",
+                options: { A: "had no effect", B: "moved the audience", C: "impressed the audience", D: "was quite short" },
+                correctAnswer: "A"
+            },
+            {
+                id: 109,
+                questionText: "The officer called for an explanation from the cashier for the shortage of cash.",
+                idiom: "called for",
+                options: { A: "asked", B: "begged", C: "served a notice", D: "demanded" },
+                correctAnswer: "D"
+            },
+            {
+                id: 110,
+                questionText: "We wanted the gift to be a surprise for my mother, but my sister gave the game away.",
+                idiom: "gave the game away",
+                options: { A: "lost the game", B: "gave out the secret", C: "gave away the gift", D: "withdrew from the plan" },
+                correctAnswer: "B"
+            },
+            {
+                id: 111,
+                questionText: "The actress took cue from her brother and became successful.",
+                idiom: "took cue from",
+                options: { A: "some help", B: "a hint", C: "some money", D: "learnt acting" },
+                correctAnswer: "B"
+            },
+            {
+                id: 112,
+                questionText: "Let us have a heart to heart talk to solve this problem.",
+                idiom: "heart to heart talk",
+                options: { A: "good talk", B: "emotional talk", C: "frank talk", D: "loving talk" },
+                correctAnswer: "C"
+            },
+            {
+                id: 113,
+                questionText: "To miss the bus",
+                options: { A: "to miss the bus that one regularly takes", B: "to miss an opportunity", C: "to have something to fall back upon", D: "to find fault with others" },
+                correctAnswer: "B"
+            },
+            {
+                id: 114,
+                questionText: "Birds of the same feather",
+                options: { A: "persons of same caste", B: "persons of same colour", C: "birds with same type of feather", D: "persons of same character" },
+                correctAnswer: "D"
+            },
+            {
+                id: 115,
+                questionText: "To fight tooth and nail",
+                options: { A: "to fight a losing battle", B: "to fight heroically", C: "to fight cowardly", D: "to make every possible effort" },
+                correctAnswer: "D"
+            },
+            {
+                id: 116,
+                questionText: "To call a spade a spade",
+                options: { A: "to be frank", B: "to be sly", C: "to be rude", D: "to be diplomatic" },
+                correctAnswer: "A"
+            },
+            {
+                id: 117,
+                questionText: "by putting two and two together",
+                options: { A: "to mix several things", B: "to make an arithmetical calculation", C: "to keep people in pairs", D: "to deduce from given facts" },
+                correctAnswer: "D"
+            },
+            {
+                id: 118,
+                questionText: "to look down one's nose",
+                options: { A: "to show anger", B: "to retaliate", C: "to insult in the presence of others", D: "to regard with contempt" },
+                correctAnswer: "D"
+            },
+            {
+                id: 119,
+                questionText: "to shed crocodile tears",
+                options: { A: "to weep profusely", B: "to pretend grief", C: "to grieve seriously", D: "to mock something" },
+                correctAnswer: "B"
+            },
+            {
+                id: 120,
+                questionText: "To call it a day",
+                options: { A: "to conclude proceedings", B: "to initiate proceedings", C: "to work through the day", D: "None of the above" },
+                correctAnswer: "A"
+            },
+            {
+                id: 121,
+                questionText: "To put up with",
+                options: { A: "to accommodate", B: "to adjust", C: "to understand", D: "to tolerate" },
+                correctAnswer: "D" 
+            },
+            {
+                id: 122,
+                questionText: "To take to heart",
+                options: { A: "to be encouraged", B: "to grieve over", C: "to like", D: "to hate" },
+                correctAnswer: "B"
+            },
+            // Page 9
+            {
+                id: 123,
+                questionText: "Yeoman's service",
+                options: { A: "medical help", B: "excellent work", C: "social work", D: "hard work" },
+                correctAnswer: "B"
+            },
+            {
+                id: 124,
+                questionText: "to go scot-free",
+                options: { A: "to walk like a native of Scotland", B: "to get something free", C: "to escape without punishment", D: "to save tax" },
+                correctAnswer: "C"
+            },
+            {
+                id: 125,
+                questionText: "to see red",
+                options: { A: "get broke", B: "get angry", C: "feel lucky", D: "become rich" },
+                correctAnswer: "B"
+            },
+            {
+                id: 126,
+                questionText: "in the nick of time",
+                options: { A: "in an unexpected time", B: "after some time", C: "at a time when it was too late", D: "precisely at the right time" },
+                correctAnswer: "D"
+            },
+            {
+                id: 127,
+                questionText: "the stage has been set",
+                options: { A: "the conditions are beyond control", B: "the platform for meeting is ready", C: "the situation is getting worse", D: "the situation is conducive" },
+                correctAnswer: "D"
+            },
+            {
+                id: 128,
+                questionText: "on this side of the grave",
+                options: { A: "outside the grave", B: "by the side of the grave", C: "in this world", D: "before going to grave" },
+                correctAnswer: "C"
+            },
+            {
+                id: 129,
+                questionText: "A man who, while pretending to be your friend, sets a spy to watch your activities is indeed a snake in the grass.",
+                idiom: "a snake in the grass",
+                options: { A: "secret enemy", B: "mean fellow", C: "dangerous man", D: "cunning fellow" },
+                correctAnswer: "A"
+            },
+            {
+                id: 130,
+                questionText: "The audience was greatly impressed though I spoke off the cuff.",
+                idiom: "off the cuff",
+                options: { A: "away from the mike", B: "without preparation", C: "off the subject", D: "about the cuff" },
+                correctAnswer: "B"
+            },
+            {
+                id: 131,
+                questionText: "After listening to the student's statements, the teacher had to eat her words.",
+                idiom: "eat her words",
+                options: { A: "withdraw her words", B: "stop speaking", C: "apologize", D: "quarrel" },
+                correctAnswer: "A"
+            },
+            {
+                id: 132,
+                questionText: "to lose ground",
+                options: { A: "to become less powerful", B: "to become less popular", C: "to lose foundation", D: "to be without a leader" },
+                correctAnswer: "B" 
+            },
+            {
+                id: 133,
+                questionText: "to make both ends meet",
+                options: { A: "to buy costly articles", B: "live a luxurious life", C: "to live within one's income", D: "to please all people" },
+                correctAnswer: "C"
+            },
+            {
+                id: 134,
+                questionText: "to fall back on",
+                options: { A: "to oppose something important", B: "to suffer an injury on the back in an accident", C: "to fail to do something important in time", D: "to seek support out of necessity" },
+                correctAnswer: "D"
+            },
+            {
+                id: 135,
+                questionText: "to make one's blood boil",
+                options: { A: "to make somebody furious", B: "to develop fever", C: "to get excited", D: "to make someone nervous" },
+                correctAnswer: "A"
+            },
+            {
+                id: 136,
+                questionText: "She decided that she would get this job by hook or by crook.",
+                idiom: "by hook or by crook",
+                options: { A: "by compromising or other responsi-bilities", B: "by impressing the interviewers", C: "by any means, right or wrong", D: "by becoming a specialist in the field" },
+                correctAnswer: "C"
+            },
+            {
+                id: 137,
+                questionText: "In a debate, no one is allowed to sit on the fence.",
+                idiom: "sit on the fence",
+                options: { A: "to avoid taking sides", B: "to insult a speaker", C: "to relax while others speak", D: "to agree with everyone" },
+                correctAnswer: "A"
+            },
+            // Page 10
+            {
+                id: 138,
+                questionText: "The matter has been sorted out.",
+                idiom: "sorted out",
+                options: { A: "revised", B: "supported", C: "resolved", D: "changed" },
+                correctAnswer: "C"
+            },
+            {
+                id: 139,
+                questionText: "The soldiers carried out the orders of the General very effectively.",
+                idiom: "carried out",
+                options: { A: "exited", B: "executed", C: "supported", D: "applied" },
+                correctAnswer: "B"
+            },
+            {
+                id: 140,
+                questionText: "They set off by car for Mumbai late in the evening.",
+                idiom: "set off",
+                options: { A: "started", B: "travelled", C: "entered", D: "resonated" },
+                correctAnswer: "A"
+            },
+            {
+                id: 141,
+                questionText: "Once his crime was discovered, he had no option but to come clean.",
+                idiom: "come clean",
+                options: { A: "to deny the crime", B: "to confess to the crime", C: "to accuse someone else of the crime", D: "to apologize for the crime" },
+                correctAnswer: "B"
+            },
+            {
+                id: 142,
+                questionText: "The employees were kept in the dark about the latest developments.",
+                idiom: "kept in the dark",
+                options: { A: "were informed after office hours", B: "were informed when it was too late", C: "were given secret information", D: "were not informed at all" },
+                correctAnswer: "D"
+            },
+            {
+                id: 143,
+                questionText: "When things go wrong, everyone starts passing the buck.",
+                idiom: "passing the buck",
+                options: { A: "analyses the problem", B: "prepares to resign", C: "pays a bribe", D: "blames someone else" },
+                correctAnswer: "D"
+            },
+            {
+                id: 144,
+                questionText: "To keep the wolf away from the door.",
+                options: { A: "to avoid a bad person", B: "to clean the house", C: "to avoid extreme poverty", D: "to visit the zoo" },
+                correctAnswer: "C"
+            },
+            {
+                id: 145,
+                questionText: "To break the ice",
+                options: { A: "to clear the snow", B: "to start quarreling", C: "to commence an interaction", D: "to revive old enmity" },
+                correctAnswer: "C"
+            },
+            {
+                id: 146,
+                questionText: "Spick and span",
+                options: { A: "neat and clean", B: "hard-working", C: "kitchen implements", D: "calm and quiet" },
+                correctAnswer: "A" 
+            },
+            {
+                id: 147,
+                questionText: "The pros and cons",
+                options: { A: "good and evil", B: "first and last", C: "fair and foul", D: "for and against" },
+                correctAnswer: "D"
+            },
+            {
+                id: 148,
+                questionText: "Build castles in the air",
+                options: { A: "waste time", B: "daydream", C: "build houses", D: "work hard" },
+                correctAnswer: "B"
+            },
+            {
+                id: 149,
+                questionText: "Sought after",
+                options: { A: "highly paid", B: "pursued by", C: "in great demand", D: "with great talent" },
+                correctAnswer: "C"
+            },
+            {
+                id: 150,
+                questionText: "All at sea", 
+                options: { A: "very proud", B: "overjoyed", C: "puzzled", D: "excited" },
+                correctAnswer: "C"
+            },
+            {
+                id: 151,
+                questionText: "To hit below the belt",
+                options: { A: "to punish", B: "to tie with a belt", C: "to hit with a belt", D: "to attack unfairly" },
+                correctAnswer: "D"
+            },
+            {
+                id: 152,
+                questionText: "Pot-luck dinner",
+                options: { A: "dinner where everybody brings something to eat", B: "dinner where everybody brings his food", C: "dinner where only soup is served", D: "dinner where people eat and play games at the same time" },
+                correctAnswer: "A" 
+            },
+            {
+                id: 153,
+                questionText: "His friends beat the boy to pay off old scores.",
+                idiom: "pay off old scores",
+                options: { A: "to refund old dues.", B: "to take revenge.", C: "to force him to be a scorer in a match.", D: "because he had not scored well earlier." },
+                correctAnswer: "B"
+            },
+            {
+                id: 154,
+                questionText: "Chintan is so innocent that he wears his heart on his sleeve.",
+                idiom: "wears his heart on his sleeve",
+                options: { A: "Wears dress that does not match.", B: "Expresses his feelings openly.", C: "Wears colourful dresses.", D: "Expresses his feelings with the shape of a heart printed on its sleeve." },
+                correctAnswer: "B"
+            },
+            // Page 11
+            {
+                id: 155,
+                questionText: "Tagore was a man of letters.",
+                idiom: "man of letters",
+                options: { A: "of wide contacts.", B: "an excellent letter dictator.", C: "a great writer of letters.", D: "proficient in literary art." },
+                correctAnswer: "D"
+            },
+            {
+                id: 156,
+                questionText: "The poor subordinates are made scapegoats by their superiors.",
+                idiom: "made scapegoats",
+                options: { A: "punished for others' misdeeds.", B: "developed poor relations.", C: "treated humbly and respectfully.", D: "scolded with arrogant reactions." },
+                correctAnswer: "A"
+            },
+            {
+                id: 157,
+                questionText: "She was on the horns of a dilemma as she had either to leave her job or divorce her husband.",
+                idiom: "on the horns of a dilemma",
+                options: { A: "in nervous condition", B: "in terrible mood", C: "in difficult situation", D: "in suspense" },
+                correctAnswer: "C"
+            },
+            {
+                id: 158,
+                questionText: "Brown study",
+                options: { A: "to study sincerely", B: "to study uselessly", C: "deep in thought", D: "practical advantage" },
+                correctAnswer: "C"
+            },
+            {
+                id: 159,
+                questionText: "The young boy was kicking his heels inspite of his mother's stern warnings.",
+                idiom: "kicking his heels",
+                options: { A: "playing happily", B: "kicking someone", C: "forced to wait", D: "passing a gesture of disrespect" },
+                correctAnswer: "C"
+            },
+            {
+                id: 160,
+                questionText: "She denied point-blank her involvement in the crime.",
+                idiom: "point-blank",
+                options: { A: "directly", B: "desperately", C: "stubbornly", D: "rudely" },
+                correctAnswer: "A" 
+            },
+            {
+                id: 161,
+                questionText: "It is hard to strike a bargain with a woman.",
+                idiom: "strike a bargain",
+                options: { A: "to finalize a deal", B: "to negotiate a deal", C: "to negotiate", D: "to deal" },
+                correctAnswer: "A" 
+            },
+            {
+                id: 162,
+                questionText: "He took his father's advice to heart.",
+                idiom: "to heart",
+                options: { A: "casually", B: "patiently", C: "seriously", D: "quietly" },
+                correctAnswer: "C"
+            },
+            {
+                id: 163,
+                questionText: "Can you give me a hand with this luggage?",
+                idiom: "give me a hand",
+                options: { A: "keep a watch on", B: "handle", C: "provide me with", D: "help me with" },
+                correctAnswer: "D"
+            },
+            {
+                id: 164,
+                questionText: "Fling away",
+                options: { A: "to have an affair", B: "to flare up", C: "to throw violently", D: "to swing" },
+                correctAnswer: "C"
+            },
+            {
+                id: 165,
+                questionText: "Stick by",
+                options: { A: "to adhere closely", B: "stand by someone", C: "to paste", D: "to pass by" },
+                correctAnswer: "A" 
+            },
+            {
+                id: 166,
+                questionText: "Wink at",
+                options: { A: "to tease somebody", B: "to like someone", C: "to pretend not to see", D: "to stare at" },
+                correctAnswer: "C"
+            },
+            {
+                id: 167,
+                questionText: "To be on the wane",
+                options: { A: "to complain", B: "to be sick", C: "to be on boat", D: "to be diminishing" },
+                correctAnswer: "D"
+            },
+            {
+                id: 168,
+                questionText: "To give a person the cold shoulder",
+                options: { A: "to offer someone ice-cream", B: "to be humble", C: "to threaten", D: "to treat coldly" },
+                correctAnswer: "D"
+            },
+            {
+                id: 169,
+                questionText: "To get one's back up",
+                options: { A: "to become irritated or angry", B: "to sit straight", C: "to act proud", D: "to give support" },
+                correctAnswer: "A"
+            },
+            {
+                id: 170,
+                questionText: "To strike oil",
+                options: { A: "to have found an oil well", B: "to have lucky success", C: "to have a close escape", D: "to be unsuccessful" },
+                correctAnswer: "B"
+            },
+            // Page 12
+            {
+                id: 171,
+                questionText: "To talk shop",
+                options: { A: "to talk a lot", B: "to use phrases peculiar to one's employment", C: "to like to shop", D: "to lie" },
+                correctAnswer: "B"
+            },
+            {
+                id: 172,
+                questionText: "To draw a line",
+                options: { A: "to fix a limit", B: "to caution someone", C: "to be stern", D: "to insult someone" },
+                correctAnswer: "A"
+            },
+            {
+                id: 173,
+                questionText: "A swan song",
+                options: { A: "melodious song", B: "disharmonious display", C: "utterance/statement made just before death or retirement", D: "concocted tale" },
+                correctAnswer: "C"
+            },
+            {
+                id: 174,
+                questionText: "Knit one's brows",
+                options: { A: "to disappoint somebody", B: "to frown", C: "to have a headache", D: "to express discontentment" },
+                correctAnswer: "B"
+            },
+            {
+                id: 175,
+                questionText: "To plough the sands",
+                options: { A: "to be extremely accomplished", B: "to be resourceful", C: "to be dejected", D: "to busy oneself in an unprofitable proposition" },
+                correctAnswer: "D"
+            },
+            {
+                id: 176,
+                questionText: "To rip up old sores",
+                options: { A: "to destroy something", B: "to act cruelly", C: "to reopen a quarrel", D: "to inflict pain on someone" },
+                correctAnswer: "C"
+            },
+            {
+                id: 177,
+                questionText: "To rate soundly",
+                options: { A: "to censure strongly", B: "to acquire heavy profits", C: "to be at peace", D: "to assure somebody" },
+                correctAnswer: "A"
+            },
+            {
+                id: 178,
+                questionText: "To be no spring chicken",
+                options: { A: "to be brave", B: "to be honest", C: "to be no longer young", D: "to be childish" },
+                correctAnswer: "C"
+            },
+            {
+                id: 179,
+                questionText: "To take to one's bed",
+                options: { A: "to be very attached to one's belongings", B: "to lie in bed due to illness", C: "to fight with one's husband", D: "to agree with someone" },
+                correctAnswer: "B"
+            },
+            {
+                id: 180,
+                questionText: "To stand on ceremony",
+                options: { A: "to celebrate an occasion in a grand way", B: "to be extravagant", C: "to get married", D: "to insist on excessive formality" },
+                correctAnswer: "D"
+            },
+            {
+                id: 181,
+                questionText: "To be at sixes and sevens",
+                options: { A: "a state of total confusion and disorder", B: "to be a great success", C: "to be certain", D: "to give away generously" },
+                correctAnswer: "A"
+            },
+            {
+                id: 182,
+                questionText: "To break the ice", 
+                options: { A: "a strong man", B: "to start a quarrel", C: "to break the awkward silence", D: "to become violent" },
+                correctAnswer: "C"
+            },
+            {
+                id: 183,
+                questionText: "Put one's foot down",
+                options: { A: "to demand", B: "to take rest", C: "to be firm about something", D: "to do something stupid" },
+                correctAnswer: "C"
+            },
+            {
+                id: 184,
+                questionText: "Backstairs influence",
+                options: { A: "one who is easily influenced", B: "influential person", C: "influence exerted secretly", D: "wife's influence on her husband" },
+                correctAnswer: "C"
+            },
+            {
+                id: 185,
+                questionText: "Long in the tooth",
+                options: { A: "distant journey", B: "rather old", C: "ailment", D: "young" },
+                correctAnswer: "B"
+            },
+            {
+                id: 186,
+                questionText: "A brazen-faced fellow",
+                options: { A: "cruel person", B: "ugly person", C: "dark-complexioned person", D: "impudent fellow" },
+                correctAnswer: "D"
+            },
+            {
+                id: 187,
+                questionText: "To see pink elephants",
+                options: { A: "to dream", B: "to anticipate luck", C: "to be afraid of", D: "to have hallucination due to excessive alcoholic intake." },
+                correctAnswer: "D"
+            },
+            // Page 13
+            {
+                id: 188,
+                questionText: "Elbow room",
+                options: { A: "opportunity for freedom of action", B: "special room for the guest", C: "to give enough space to move or work in", D: "to add a new room to the house" },
+                correctAnswer: "C" 
+            },
+            {
+                id: 189,
+                questionText: "French leave",
+                options: { A: "a person who does not take leave", B: "leave without permission", C: "to take long leave", D: "to take a day off and have fun" },
+                correctAnswer: "B"
+            },
+            {
+                id: 190,
+                questionText: "To commit to memory",
+                options: { A: "to learn by heart", B: "to tax one's memory", C: "to be forgetful", D: "to commit oneself totally to a task" },
+                correctAnswer: "A"
+            },
+            {
+                id: 191,
+                questionText: "To burn a hole in the pocket",
+                options: { A: "to steal from someone's pocket", B: "to destroy other's belongings", C: "to be very miserly", D: "money that is spent quickly" },
+                correctAnswer: "D"
+            },
+            {
+                id: 192,
+                questionText: "To bury the hatchet",
+                options: { A: "to have found a treasure", B: "to make peace", C: "to purchase something without discretion", D: "to act in a suspicious manner" },
+                correctAnswer: "B"
+            },
+            {
+                id: 193,
+                questionText: "To beggar description",
+                options: { A: "something of least importance", B: "something beyond description", C: "to describe a beggar", D: "an accurate description" },
+                correctAnswer: "B"
+            },
+            {
+                id: 194,
+                questionText: "To beat the air",
+                options: { A: "efforts that are vain or useless", B: "to be satisfied with one's performance", C: "to be extremely relieved", D: "to be very happy" },
+                correctAnswer: "A"
+            },
+            {
+                id: 195,
+                questionText: "To provide against a rainy day",
+                options: { A: "to provide plentiful", B: "to provide for a possible future, in time of difficulty or need", C: "to store for the family", D: "to store for the rainy season" },
+                correctAnswer: "B"
+            },
+            {
+                id: 196,
+                questionText: "To be all eyes",
+                options: { A: "to be cautious", B: "watching closely and attentively", C: "to be amazed", D: "to be non-plussed" },
+                correctAnswer: "B"
+            },
+            {
+                id: 197,
+                questionText: "Swollen headed",
+                options: { A: "to be suffering from illness", B: "to be conceited", C: "to be narrow-minded", D: "to be dumb" },
+                correctAnswer: "B"
+            },
+            {
+                id: 198,
+                questionText: "To stir up a hornet's nest",
+                options: { A: "to excite the hostility of people", B: "to do some social service", C: "to be totally at a loss in a situation", D: "to be bankrupt" },
+                correctAnswer: "A"
+            },
+            {
+                id: 199,
+                questionText: "My hands are full",
+                options: { A: "I am having a lot of things to carry", B: "I am, having lots of money", C: "I am very busy", D: "I am anxious" },
+                correctAnswer: "C"
+            },
+            {
+                id: 200,
+                questionText: "No love lost between them",
+                options: { A: "to have a fight", B: "to dislike each other", C: "to be as friendly as ever", D: "to be upset" },
+                correctAnswer: "B"
+            },
+            {
+                id: 201,
+                questionText: "To be hand and glove with someone",
+                options: { A: "to be social", B: "to be playful", C: "to be annoyed", D: "to be intimate" },
+                correctAnswer: "D"
+            },
+            {
+                id: 202,
+                questionText: "To play fast and loose",
+                options: { A: "to deceive someone", B: "to be agile", C: "say one thing and do another", D: "to be efficient" },
+                correctAnswer: "C" 
+            },
+            {
+                id: 203,
+                questionText: "To take stock of",
+                options: { A: "to imagine", B: "to supply", C: "to survey", D: "to attract" },
+                correctAnswer: "C"
+            },
+            {
+                id: 204,
+                questionText: "A man of straw",
+                options: { A: "a man of no substance", B: "a man without means", C: "a man of character", D: "a generous man" },
+                correctAnswer: "A"
+            },
+            // Page 14
+            {
+                id: 205,
+                questionText: "Wolf in sheep's clothing",
+                options: { A: "to act on the sly", B: "to be a good actor", C: "to be a hypocrite", D: "to be money-minded or materialistic" },
+                correctAnswer: "C"
+            },
+            {
+                id: 206,
+                questionText: "To cut someone short",
+                options: { A: "to oblige someone", B: "to assist someone", C: "to interrupt someone", D: "to insult someone" },
+                correctAnswer: "C"
+            },
+            {
+                id: 207,
+                questionText: "To stick to one's colours",
+                options: { A: "to refuse to yield", B: "to be patriotic", C: "to be notorious", D: "to be straightforward" },
+                correctAnswer: "A"
+            },
+            {
+                id: 208,
+                questionText: "An old head on young shoulders",
+                options: { A: "to be old before one's age", B: "to be wise beyond one's age", C: "to be youthful in spite of one's old age", D: "to maintain good health" },
+                correctAnswer: "B"
+            },
+            {
+                id: 209,
+                questionText: "To snap one's fingers at",
+                options: { A: "to honour someone", B: "to greet someone", C: "to beckon someone", D: "to treat with contempt" },
+                correctAnswer: "D"
+            },
+            {
+                id: 210,
+                questionText: "Falling foul of",
+                options: { A: "quarrelling with", B: "becoming friends with", C: "being dishonest with", D: "being scared of" },
+                correctAnswer: "A"
+            },
+            {
+                id: 211,
+                questionText: "Harp on the same string",
+                options: { A: "to play music", B: "to dwell tediously on the same subject", C: "to beat someone", D: "to acknowledge" },
+                correctAnswer: "B"
+            },
+            {
+                id: 212,
+                questionText: "Keep a good table",
+                options: { A: "to have an artistic taste", B: "to throw a party", C: "to be a good host", D: "to be extravagant" },
+                correctAnswer: "C" 
+            },
+            {
+                id: 213,
+                questionText: "Take up the cudgels",
+                options: { A: "to take notice", B: "to accept a present", C: "to defend someone vigorously", D: "to accept a challenge" },
+                correctAnswer: "C"
+            },
+            {
+                id: 214,
+                questionText: "Splitting hairs",
+                options: { A: "to be worried", B: "to be venturesome", C: "to trouble someone", D: "to dispute over petty points" },
+                correctAnswer: "D"
+            },
+            {
+                id: 215,
+                questionText: "A great hand at",
+                options: { A: "to be a good artist", B: "to be an expert", C: "to be a good player", D: "to be generous" },
+                correctAnswer: "B"
+            },
+            {
+                id: 216,
+                questionText: "To make a pile",
+                options: { A: "to make a fortune", B: "to make a mess", C: "to be absent-minded", D: "to be corrupt" },
+                correctAnswer: "A"
+            },
+            {
+                id: 217,
+                questionText: "Under someone's wing",
+                options: { A: "to work under someone", B: "to be under someone's protection", C: "to be alert", D: "to be in the army" },
+                correctAnswer: "B"
+            },
+            {
+                id: 218,
+                questionText: "To sow one's wild oats",
+                options: { A: "to swear", B: "to be at ease", C: "to engage in youthful excesses", D: "to till the land" },
+                correctAnswer: "C"
+            },
+            {
+                id: 219,
+                questionText: "An olive branch",
+                options: { A: "an offer of peace", B: "an idea", C: "a lady", D: "a wicked person" },
+                correctAnswer: "A"
+            },
+            {
+                id: 220,
+                questionText: "Not worth a rap",
+                options: { A: "worth nothing", B: "very expensive", C: "worth a lot", D: "modestly priced" },
+                correctAnswer: "A"
+            },
+            {
+                id: 221,
+                questionText: "In merry pin",
+                options: { A: "perplexed", B: "merry making", C: "embarrassed", D: "in a cheerful mood" },
+                correctAnswer: "D"
+            },
+            {
+                id: 222,
+                questionText: "To leap the pale", 
+                options: { A: "to throw a bucket", B: "to get into debt, to spend more than one's income", C: "to have much of fear", D: "to become pale" },
+                correctAnswer: "B" 
+            },
+            // Page 15
+            {
+                id: 223,
+                questionText: "To cut the Gordian knot",
+                options: { A: "to perform the opening ceremony", B: "to be present at the opening ceremony", C: "to solve a difficult problem", D: "to get a sharp cut" },
+                correctAnswer: "C"
+            },
+            {
+                id: 224,
+                questionText: "To sow the wind and reap the whirlwind",
+                options: { A: "to enjoy the fruits of hard work", B: "to be deprived of one's reward", C: "to act wisely", D: "to suffer for one's foolish conduct" },
+                correctAnswer: "D"
+            },
+            {
+                id: 225,
+                questionText: "To play possum",
+                options: { A: "to play hide and seek", B: "to feign ignorance or pretend to be sleeping or dead", C: "to cheat somebody", D: "to play seriously" },
+                correctAnswer: "B"
+            },
+            {
+                id: 226,
+                questionText: "A grass widow",
+                options: { A: "a young widow", B: "widow who has illicit relations with men", C: "a woman whose husband is temporarily away from her", D: "a working old woman" },
+                correctAnswer: "C"
+            },
+            {
+                id: 227,
+                questionText: "Mad as a March hare",
+                options: { A: "sane", B: "intoxicated", C: "as mad as a hare in spring", D: "slightly touched in the brain" },
+                correctAnswer: "C" 
+            },
+            {
+                id: 228,
+                questionText: "Halcyon days",
+                options: { A: "long days", B: "short days", C: "happy and peaceful days", D: "disturbed days" },
+                correctAnswer: "C"
+            },
+            {
+                id: 229,
+                questionText: "Mother wit",
+                options: { A: "to have an intelligent mother", B: "university", C: "silly", D: "common sense" },
+                correctAnswer: "D"
+            },
+            {
+                id: 230,
+                questionText: "A blind date",
+                options: { A: "a cloudy day", B: "unknown future", C: "meeting with someone you do not know", D: "death-day" },
+                correctAnswer: "C"
+            },
+            {
+                id: 231,
+                questionText: "Much ado about nothing",
+                options: { A: "to take something seriously", B: "to play false", C: "to make a fuss", D: "to add" },
+                correctAnswer: "C"
+            },
+            {
+                id: 232,
+                questionText: "Judas' kiss",
+                options: { A: "wooing", B: "a narrow escape", C: "hypocritical affection", D: "a religious person" },
+                correctAnswer: "C"
+            },
+            {
+                id: 233,
+                questionText: "To have no truck with",
+                options: { A: "have no means of conveyance", B: "scientifically backward", C: "to have no trade with", D: "to have no dealings with" },
+                correctAnswer: "D"
+            },
+            {
+                id: 234,
+                questionText: "To clean the Augean stables",
+                options: { A: "to purge/clean the administration of its abuses", B: "to buy horses", C: "to sell horses", D: "to improve working conditions" },
+                correctAnswer: "A"
+            },
+            {
+                id: 235,
+                questionText: "A fly in the ointment",
+                options: { A: "to clean a thing", B: "to sterilise", C: "Small annoyance that spoils a pleasant experience.", D: "an unsuccessful attempt" },
+                correctAnswer: "C"
+            },
+            {
+                id: 236,
+                questionText: "Of the deepest dye",
+                options: { A: "of the worst/ extreme type", B: "of the best type", C: "of the most colourless type", D: "of the colourless type" },
+                correctAnswer: "A"
+            },
+            {
+                id: 237,
+                questionText: "To throw up the sponge",
+                options: { A: "to accept the challenge", B: "to forget the past offences", C: "to admit defeat", D: "to send message" },
+                correctAnswer: "C"
+            },
+            {
+                id: 238,
+                questionText: "To rule the roost",
+                options: { A: "to measure the height of something", B: "to measure the depth", C: "to strike with a stick", D: "to dominate" },
+                correctAnswer: "D"
+            },
+            // Page 16
+            {
+                id: 239,
+                questionText: "Bats in the belfry",
+                options: { A: "to be mad", B: "something needed cleanliness", C: "an impending danger", D: "to be deceived" },
+                correctAnswer: "A"
+            },
+            {
+                id: 240,
+                questionText: "To have a jaundice eye",
+                options: { A: "to have jaundice", B: "to have fever", C: "to be prejudiced", D: "to lose colour" },
+                correctAnswer: "C"
+            },
+            {
+                id: 241,
+                questionText: "Rank and file",
+                options: { A: "Common people", B: "Officers", C: "People of high rank", D: "Army personnel" },
+                correctAnswer: "A" 
+            },
+            {
+                id: 242,
+                questionText: "To egg on",
+                options: { A: "to egg on slowly", B: "to destroy slowly", C: "to give a walk over", D: "to instigate/ cause to proceed further" },
+                correctAnswer: "D"
+            },
+            {
+                id: 243,
+                questionText: "To haul over the coals",
+                options: { A: "to walk over the fire", B: "to burn", C: "to scold for something done wrong", D: "to throw into fire" },
+                correctAnswer: "C"
+            },
+            {
+                id: 244,
+                questionText: "To draw a bead on",
+                options: { A: "to say prayers", B: "to count the beads", C: "to do one's best", D: "to take careful aim at" },
+                correctAnswer: "D"
+            },
+            {
+                id: 245,
+                questionText: "Fabian policy",
+                options: { A: "dictatorial policy", B: "democratic policy", C: "systematic policy", D: "policy of cautious persistence" },
+                correctAnswer: "D"
+            },
+            {
+                id: 246,
+                questionText: "To play to the gallery",
+                options: { A: "to try to get the appreciation from the least intelligent people", B: "to try to win appreciation of intelligent people", C: "to play in the gallery", D: "to disturb people sitting in the gallery" },
+                correctAnswer: "A"
+            },
+            {
+                id: 247,
+                questionText: "Pyrrhic victory",
+                options: { A: "Permanent victory", B: "Defeat", C: "Easy victory", D: "Victory at high cost" },
+                correctAnswer: "D"
+            },
+            {
+                id: 248,
+                questionText: "Go the whole hog",
+                options: { A: "to do something thoroughly", B: "sleep", C: "to neglect duty", D: "to mishandle the case" },
+                correctAnswer: "A"
+            },
+            {
+                id: 249,
+                questionText: "To bite one's lips",
+                options: { A: "to feel sorry", B: "to repress one's anger or other emotions.", C: "laugh at others", D: "to have doubt" },
+                correctAnswer: "B"
+            },
+            {
+                id: 250,
+                questionText: "To hold someone in leash",
+                options: { A: "to restrain", B: "to be firm", C: "to be unsure", D: "to touch the exact point" },
+                correctAnswer: "A"
+            },
+            {
+                id: 251,
+                questionText: "To cool one's heels",
+                options: { A: "to give a cold treatment to somebody", B: "to be kept waiting for sometime", C: "a closed chapter", D: "a hot issue" },
+                correctAnswer: "B"
+            },
+            {
+                id: 252,
+                questionText: "Bag of bones",
+                options: { A: "a bag full of bones", B: "a dead person", C: "a person about to die", D: "an extremely weak person" },
+                correctAnswer: "D"
+            },
+            {
+                id: 253,
+                questionText: "All moonshine",
+                options: { A: "show", B: "lighted only by moon", C: "false", D: "far from reality" },
+                correctAnswer: "D" 
+            },
+            {
+                id: 254,
+                questionText: "To shake the dust off one's feet",
+                options: { A: "to wash feet", B: "to walk fast", C: "to leave a place with a sense of resentment", D: "to rest after a long journey" },
+                correctAnswer: "C"
+            },
+            // Page 17
+            {
+                id: 255,
+                questionText: "Off hand",
+                options: { A: "Without preparation", B: "Out of hand", C: "Rehearsed", D: "In hand" },
+                correctAnswer: "A"
+            },
+            {
+                id: 256,
+                questionText: "A bird of passage",
+                options: { A: "a flying bird", B: "an unreliable person", C: "one who stays for a short time", D: "bad time" },
+                correctAnswer: "C"
+            },
+            {
+                id: 257,
+                questionText: "Count on",
+                options: { A: "Depend on", B: "as a result of", C: "ceremonially", D: "to wait for the benefactor" },
+                correctAnswer: "A"
+            },
+            {
+                id: 258,
+                questionText: "With a string", 
+                options: { A: "not to give any aid", B: "to give unconditional aid", C: "gift or aid with condition", D: "to accept aid" },
+                correctAnswer: "C"
+            },
+            {
+                id: 259,
+                questionText: "To set stores by", 
+                options: { A: "to value highly", B: "to hoard a large quantity of something", C: "to set up store", D: "fix a price" },
+                correctAnswer: "A"
+            },
+            {
+                id: 260,
+                questionText: "To draw the long bow",
+                options: { A: "to shoot", B: "to exaggerate", C: "to criticize", D: "to admire" },
+                correctAnswer: "B"
+            },
+            {
+                id: 261,
+                questionText: "To know the ropes",
+                options: { A: "to recognize the lost things", B: "to de-rigging", C: "to know the procedure of doing a job", D: "to flog" },
+                correctAnswer: "C"
+            },
+            {
+                id: 262,
+                questionText: "To give the devil his due",
+                options: { A: "to be just to a person even though he does not deserve such treatment", B: "to surrender oneself willingly when one's mistake is detected", C: "to punish an innocent person", D: "to punish a guilty person" },
+                correctAnswer: "A"
+            },
+            {
+                id: 263,
+                questionText: "In the swim",
+                options: { A: "knowing latest current things", B: "to cross a river by a boat", C: "to cross a river by swimming", D: "to be in the river" },
+                correctAnswer: "A"
+            },
+            {
+                id: 264,
+                questionText: "To knuckle under",
+                options: { A: "to be in a crisis", B: "to submit", C: "to take rest", D: "to go to bed" },
+                correctAnswer: "B"
+            },
+            {
+                id: 265,
+                questionText: "To have a dig at",
+                options: { A: "to criticise someone", B: "to sow seeds", C: "to weed out", D: "to praise someone" },
+                correctAnswer: "A"
+            },
+            {
+                id: 266,
+                questionText: "In vogue",
+                options: { A: "in fashion", B: "fair", C: "smooth", D: "total absence" },
+                correctAnswer: "A"
+            },
+            {
+                id: 267,
+                questionText: "Three R's",
+                options: { A: "radiogram, radiograph, radio telescope", B: "rabble, rattle, razzle", C: "reading, writing, arithmetic", D: "rail, radar, raft" },
+                correctAnswer: "C"
+            },
+            {
+                id: 268,
+                questionText: "A wild goose chase",
+                options: { A: "foolish and useless enterprise", B: "to hunt", C: "a violent chase", D: "to speak harshly" },
+                correctAnswer: "A"
+            },
+            {
+                id: 269,
+                questionText: "To rest on one's laurels",
+                options: { A: "to cease to strive for further glory", B: "to be lazy", C: "to be proud of one's victory", D: "to die" },
+                correctAnswer: "A" 
+            },
+            {
+                id: 270,
+                questionText: "Raw deal",
+                options: { A: "unjust treatment", B: "unripe fruit", C: "early stage of business", D: "contract not yet finally decided" },
+                correctAnswer: "A"
+            },
+            {
+                id: 271,
+                questionText: "A forlorn hope",
+                options: { A: "a plan which has remote chances of success", B: "hope about unforeseeable future", C: "hope of a single person", D: "hope of a silly person" },
+                correctAnswer: "A"
+            },
+            // Page 18
+            {
+                id: 272,
+                questionText: "Printer's devil",
+                options: { A: "an apprentice in a printing office", B: "blunder", C: "low type of printed material", D: "delay in printing" },
+                correctAnswer: "A"
+            },
+            {
+                id: 273,
+                questionText: "To call on the carpet",
+                options: { A: "subject to criticism", B: "to summon for a scolding", C: "a heartfelt welcome", D: "on the ground" },
+                correctAnswer: "B"
+            },
+            {
+                id: 274,
+                questionText: "To bring the house down",
+                options: { A: "to appeal greatly to the audience", B: "to pull down a building", C: "to defame one's family", D: "to pass a bill unanimously" },
+                correctAnswer: "A"
+            },
+            {
+                id: 275,
+                questionText: "To have an edge on",
+                options: { A: "to cut with a knife", B: "to threaten to wound", C: "to be slightly better than", D: "to be in a dangerous situation" },
+                correctAnswer: "C"
+            },
+            {
+                id: 276,
+                questionText: "In sackcloth and ashes",
+                options: { A: "to cremate", B: "in a state of great mourning", C: "dirty clothes", D: "cheap clothes" },
+                correctAnswer: "B"
+            },
+            {
+                id: 277,
+                questionText: "To put two and two together",
+                options: { A: "to progress steadily", B: "to compare the debit and credit", C: "to conclude keeping in view the merits and demerits", D: "to oppose as a last resort" },
+                correctAnswer: "C" 
+            },
+            {
+                id: 278,
+                questionText: "To weather the storm",
+                options: { A: "to face a crisis", B: "to survive a crisis", C: "to be the victim of a crisis", D: "to create crisis" },
+                correctAnswer: "B" 
+            },
+            {
+                id: 279,
+                questionText: "Lump in the throat",
+                options: { A: "to be hoarse", B: "a highly emotional state", C: "food of low type", D: "wind-pipe" },
+                correctAnswer: "B"
+            },
+            {
+                id: 280,
+                questionText: "To fight shy of",
+                options: { A: "to keep aloof from", B: "to fight social evils", C: "to be bold", D: "to fight and win" },
+                correctAnswer: "A"
+            },
+            {
+                id: 281,
+                questionText: "Hobson's choice",
+                options: { A: "lion's share", B: "the best choice", C: "option of taking the one offered or nothing", D: "the last chance" },
+                correctAnswer: "C"
+            },
+            {
+                id: 282,
+                questionText: "To hit it off",
+                options: { A: "to quarrel", B: "to be hostile", C: "to agree or be congenial", D: "to threaten" },
+                correctAnswer: "C"
+            },
+            {
+                id: 283,
+                questionText: "To whitewash",
+                options: { A: "to clean a place", B: "to work hard", C: "to retrieve damaged reputation", D: "to use cosmetics" },
+                correctAnswer: "C"
+            },
+            {
+                id: 284,
+                questionText: "Within an ace of",
+                options: { A: "very close", B: "within one's means", C: "within a narrow circle", D: "near centre" },
+                correctAnswer: "A"
+            },
+            {
+                id: 285,
+                questionText: "To keep an open mind",
+                options: { A: "to remember", B: "to forget", C: "to come to no decision on a subject until one knows all the facts", D: "to be clear-headed" },
+                correctAnswer: "C"
+            },
+            {
+                id: 286,
+                questionText: "Open question",
+                options: { A: "a question put to all", B: "a question without any generally agreed answer", C: "a permanent problem", D: "a clearly-written/expressed question" },
+                correctAnswer: "B"
+            },
+            {
+                id: 287,
+                questionText: "On one's mettle",
+                options: { A: "roused to do one's best", B: "to put on an overcoat", C: "to safeguard against attack", D: "to use one's own money properly" },
+                correctAnswer: "A"
+            },
+            {
+                id: 288,
+                questionText: "To keep the pot boiling",
+                options: { A: "to earn enough money", B: "to buy one's food", C: "to show anger", D: "to do experiments" },
+                correctAnswer: "A"
+            },
+            // Page 19
+            {
+                id: 289,
+                questionText: "Grist to one's mill",
+                options: { A: "grain to be ground", B: "useful for one's purpose", C: "income from will", D: "to work one's machine" },
+                correctAnswer: "B"
+            },
+            {
+                id: 290,
+                questionText: "Kangaroo court",
+                options: { A: "a group of kangaroos", B: "the young kangaroo", C: "unofficial court", D: "unofficial estimate" },
+                correctAnswer: "C"
+            },
+            {
+                id: 291,
+                questionText: "Wool gathering",
+                options: { A: "to become a shepherd", B: "to shear sheep", C: "to engage in idle or aimless day dreaming", D: "to live in the countryside" },
+                correctAnswer: "C"
+            },
+            {
+                id: 292,
+                questionText: "Between Scylla and Charybdis",
+                options: { A: "between two hills", B: "between two rivers", C: "between two enemies", D: "between two dangers" },
+                correctAnswer: "D"
+            },
+            {
+                id: 293,
+                questionText: "Achilles' heel",
+                options: { A: "bare-foot", B: "to run fast", C: "to wait on somebody", D: "one's vulnerable or susceptible spot" },
+                correctAnswer: "D"
+            },
+            {
+                id: 294,
+                questionText: "To know which side the bread is buttered on",
+                options: { A: "to know where one's interest lies", B: "to be a glutton", C: "to be fond of rich diet", D: "to know how to increase one's income" },
+                correctAnswer: "A"
+            },
+            {
+                id: 295,
+                questionText: "To eke out",
+                options: { A: "to subtract", B: "to supplement", C: "to etch", D: "to oust" },
+                correctAnswer: "B"
+            },
+            {
+                id: 296,
+                questionText: "To be in the doldrums",
+                options: { A: "to be in low spirits", B: "to be within doors", C: "to praise loudly", D: "to be in a crisis" },
+                correctAnswer: "A"
+            },
+            {
+                id: 297,
+                questionText: "Wild cat strike",
+                options: { A: "a furious attack", B: "strike not approved by the trade union", C: "a strike in which violence is committed", D: "to face a strong enemy" },
+                correctAnswer: "B"
+            },
+            {
+                id: 298,
+                questionText: "Blind alley",
+                options: { A: "blindness due to old age", B: "a dark room", C: "unprofitable action", D: "to continue to make efforts in spite of confusion" },
+                correctAnswer: "C"
+            },
+            {
+                id: 299,
+                questionText: "Tied to the apron strings of",
+                options: { A: "be independent", B: "to be dominated by", C: "to live together", D: "to fall in love with" },
+                correctAnswer: "B"
+            },
+            {
+                id: 300,
+                questionText: "Our school is within a stone's throw from the railway station",
+                idiom: "within a stone's throw",
+                options: { A: "Very far-off", B: "with a certain radius", C: "at a short distance", D: "within a definite circumference" },
+                correctAnswer: "C"
+            }
+        ];
+
+        const questionTextElement = document.getElementById('question-text');
+        const optionAButton = document.getElementById('optionA');
+        const optionBButton = document.getElementById('optionB');
+        const optionCButton = document.getElementById('optionC');
+        const optionDButton = document.getElementById('optionD');
+        const feedbackElement = document.getElementById('feedback');
+        const nextButton = document.getElementById('next-button');
+        const progressTextElement = document.getElementById('progress-text');
+        
+        const optionButtons = [optionAButton, optionBButton, optionCButton, optionDButton];
+
+        let quizQueue = [...questions]; // Use a mutable copy for the quiz queue
+        const initialQuestionCount = questions.length;
+        let currentQuestionObject = null; // To store the current question object
+
+        function loadQuestion() {
+            // Reset buttons and feedback for the new question
+            optionButtons.forEach(button => {
+                button.disabled = false;
+                button.classList.remove('correct', 'incorrect', 'show-correct');
+            });
+            feedbackElement.textContent = '';
+            feedbackElement.style.backgroundColor = 'transparent';
+            nextButton.disabled = true;
+
+            if (quizQueue.length === 0) {
+                questionTextElement.textContent = "Quiz Finished! All questions answered correctly.";
+                optionButtons.forEach(btn => btn.style.display = 'none');
+                nextButton.style.display = 'none';
+                progressTextElement.textContent = `Congratulations! All ${initialQuestionCount} initial questions cleared.`;
+                return;
+            }
+
+            currentQuestionObject = quizQueue[0]; // Get the next question from the front of the queue
+
+            let textForDisplay = currentQuestionObject.questionText;
+            if (currentQuestionObject.idiom) {
+                // Underline the idiom if present in the questionText
+                textForDisplay = textForDisplay.replace(currentQuestionObject.idiom, `<u>${currentQuestionObject.idiom}</u>`);
+            }
+            // Display the question using its original ID
+            questionTextElement.innerHTML = `${currentQuestionObject.id}. ${textForDisplay}`;
+            
+            optionAButton.textContent = `A) ${currentQuestionObject.options.A}`;
+            optionBButton.textContent = `B) ${currentQuestionObject.options.B}`;
+            optionCButton.textContent = `C) ${currentQuestionObject.options.C}`;
+            optionDButton.textContent = `D) ${currentQuestionObject.options.D}`;
+
+            progressTextElement.textContent = `Question ID: ${currentQuestionObject.id} | In Queue: ${quizQueue.length} (Initially: ${initialQuestionCount})`;
+        }
+
+        optionButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                const selectedOption = e.target.dataset.option;
+                // currentQuestionObject is set by loadQuestion
+
+                optionButtons.forEach(btn => btn.disabled = true); // Disable all option buttons
+
+                if (selectedOption === currentQuestionObject.correctAnswer) {
+                    e.target.classList.add('correct');
+                    feedbackElement.textContent = "Correct!";
+                    feedbackElement.style.color = 'white';
+                    feedbackElement.style.backgroundColor = '#28a745';
+                    quizQueue.shift(); // Remove correctly answered question from the front
+                } else {
+                    e.target.classList.add('incorrect');
+                    const correctAnswerText = currentQuestionObject.options[currentQuestionObject.correctAnswer];
+                    feedbackElement.innerHTML = `Incorrect. Correct: <b>${currentQuestionObject.correctAnswer})</b> ${correctAnswerText}`;
+                    feedbackElement.style.color = 'white';
+                    feedbackElement.style.backgroundColor = '#dc3545';
+                    
+                    const correctButton = optionButtons.find(btn => btn.dataset.option === currentQuestionObject.correctAnswer);
+                    if(correctButton) correctButton.classList.add('show-correct');
+
+                    // Move the incorrectly answered question to the end of the queue
+                    const failedQuestion = quizQueue.shift(); // Remove from front
+                    quizQueue.push(failedQuestion);          // Add to back
+                }
+                nextButton.disabled = false;
+                nextButton.focus(); // Focus on next button for easier navigation
+            });
+        });
+
+        nextButton.addEventListener('click', () => {
+            loadQuestion();
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (event) => {
+            // Process A, B, C, D only if options are enabled and quiz is ongoing
+            if (!optionAButton.disabled && quizQueue.length > 0) {
+                if (event.key === 'a' || event.key === 'A' || event.key === '1') {
+                    optionAButton.click();
+                } else if (event.key === 'b' || event.key === 'B' || event.key === '2') {
+                    optionBButton.click();
+                } else if (event.key === 'c' || event.key === 'C' || event.key === '3') {
+                    optionCButton.click();
+                } else if (event.key === 'd' || event.key === 'D' || event.key === '4') {
+                    optionDButton.click();
+                }
+            }
+             // Allow Enter for "Next Question" if it's enabled
+            if (event.key === 'Enter' && !nextButton.disabled) {
+                 nextButton.click();
+            }
+        });
+
+        loadQuestion(); // Initial load
+
+    </script>
+
+</body>
+</html>

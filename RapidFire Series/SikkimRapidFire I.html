@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sikkim GK Quiz</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+            border-color: #bbb;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .options-list.answered .option:not(.correct):not(.incorrect) {
+            opacity: 0.7;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none; /* Disables further clicks */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <h1>Sikkim General Knowledge Quiz</h1>
+        <!-- Questions will be dynamically inserted here by JavaScript -->
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "What is the meaning of the term Sikkim?",
+                options: ["High mountain", "Land of glaciers", "New house or place", "River valley"],
+                answer: 2
+            },
+            {
+                question: "When did Sikkim become an Associate State of India?",
+                options: ["15.8.1947", "26.1.1950", "4.9.1974", "16.5.1975"],
+                answer: 2
+            },
+            {
+                question: "When did Sikkim become a full-fledged state of India?",
+                options: ["4.9.1974", "16.5.1975", "26.1.1950", "15.8.1947"],
+                answer: 1
+            },
+            {
+                question: "Which Constitutional Amendment Act made Sikkim the 22nd state of the Indian Republic?",
+                options: ["34th Constitutional Amendment Act", "35th Constitutional Amendment Act", "36th Constitutional Amendment Act, 1975", "37th Constitutional Amendment Act"],
+                answer: 2
+            },
+            {
+                question: "What is the total geographical area of Sikkim?",
+                options: ["7096 sq.km.", "8076 sq.km.", "6056 sq.km.", "9026 sq.km."],
+                answer: 0
+            },
+            {
+                question: "What is the exact geographical location of Sikkim?",
+                options: ["Latitudes 25° 00' 46\" N to 26° 07' 48\" N and longitudes 86° 00' 58\" E to 87° 55' 25\" E", "Latitudes 27° 00' 46\" N to 28° 07' 48\" N and longitudes 88° 00' 58\" E to 88° 55' 25\" E", "Latitudes 29° 00' 46\" N to 30° 07' 48\" N and longitudes 90° 00' 58\" E to 91° 55' 25\" E", "Latitudes 26° 00' 46\" N to 27° 07' 48\" N and longitudes 87° 00' 58\" E to 88° 55' 25\" E"],
+                answer: 1
+            },
+            {
+                question: "What is the present capital of Sikkim?",
+                options: ["Yoksum", "Rabdentse", "Tumlong", "Gangtok"],
+                answer: 3
+            },
+            {
+                question: "What was the first capital of Sikkim?",
+                options: ["Gangtok", "Rabdentse", "Yoksum", "Tumlong"],
+                answer: 2
+            },
+            {
+                question: "What was the second capital of Sikkim?",
+                options: ["Yoksum", "Rabdentse", "Tumlong", "Gangtok"],
+                answer: 1
+            },
+            {
+                question: "What was the third capital of Sikkim?",
+                options: ["Tumlong", "Gangtok", "Yoksum", "Rabdentse"],
+                answer: 0
+            },
+            {
+                question: "In which year was Gangtok made the capital of Sikkim?",
+                options: ["1670", "1793", "1894", "1975"],
+                answer: 2
+            },
+            {
+                question: "In which year was the capital of Sikkim shifted from Yoksum to Rabdentse?",
+                options: ["1642", "1670", "1793", "1894"],
+                answer: 1
+            },
+            {
+                question: "In which year was the capital of Sikkim shifted from Rabdentse to Tumlong?",
+                options: ["1670", "1793", "1894", "1861"],
+                answer: 1
+            },
+            {
+                question: "Who was the Chogyal who shifted the capital from Yoksum to Rabdentse?",
+                options: ["Phuntsog Namgyal", "Tensung Namgyal", "Tsudphud Namgyal", "Thotub Namgyal"],
+                answer: 1
+            },
+            {
+                question: "Who was the Chogyal who shifted the capital from Rabdentse to Tumlong?",
+                options: ["Tensung Namgyal", "Tsudphud Namgyal", "Thotub Namgyal", "Sidkeong Tulku"],
+                answer: 1
+            },
+            {
+                question: "Who was the Chogyal who shifted the capital from Tumlong to Gangtok?",
+                options: ["Tsudphud Namgyal", "Thotub Namgyal", "Palden Thondup Namgyal", "Tensung Namgyal"],
+                answer: 1
+            },
+            {
+                question: "How many districts are there in Sikkim?",
+                options: ["Three", "Four", "Five", "Six"],
+                answer: 1
+            },
+            {
+                question: "Mangan is the headquarters of which district?",
+                options: ["East District", "West District", "North District", "South District"],
+                answer: 2
+            },
+            {
+                question: "Namchi is the headquarters of which district?",
+                options: ["East District", "West District", "North District", "South District"],
+                answer: 3
+            },
+            {
+                question: "Gangtok is the headquarters of which district?",
+                options: ["East District", "West District", "North District", "South District"],
+                answer: 0
+            },
+            {
+                question: "Gyalshing is the headquarters of which district?",
+                options: ["East District", "West District", "North District", "South District"],
+                answer: 1
+            },
+            {
+                question: "What is the total area of the North district?",
+                options: ["750 sq.km.", "954 sq.km.", "1166 sq.km.", "4226 sq.km."],
+                answer: 3
+            },
+            {
+                question: "What is the total area of the South district?",
+                options: ["750 sq.km.", "954 sq.km.", "1166 sq.km.", "4226 sq.km."],
+                answer: 0
+            },
+            {
+                question: "What is the total area of the East district?",
+                options: ["750 sq.km.", "954 sq.km.", "1166 sq.km.", "4226 sq.km."],
+                answer: 1
+            },
+            {
+                question: "What is the total area of the West district?",
+                options: ["750 sq.km.", "954 sq.km.", "1166 sq.km.", "4226 sq.km."],
+                answer: 2
+            },
+            {
+                question: "Which is the biggest district of Sikkim by area?",
+                options: ["East District", "West District", "North District", "South District"],
+                answer: 2
+            },
+            {
+                question: "Which is the smallest district of Sikkim by area?",
+                options: ["East District", "West District", "North District", "South District"],
+                answer: 3
+            },
+            {
+                question: "Which is the biggest district of Sikkim by population?",
+                options: ["East District", "West District", "North District", "South District"],
+                answer: 0
+            },
+            {
+                question: "Which is the smallest district of Sikkim by population?",
+                options: ["East District", "West District", "North District", "South District"],
+                answer: 2
+            },
+            {
+                question: "What is the State Flower of Sikkim?",
+                options: ["Rhododendron", "Nobile Orchid (Dendrobium Nobile)", "Blue Poppy", "Primula"],
+                answer: 1
+            },
+            {
+                question: "What is the State Tree of Sikkim?",
+                options: ["Fig", "Sal", "Teak", "Rhododendron (Rhododendron Nevium)"],
+                answer: 3
+            },
+            {
+                question: "What is the State Animal of Sikkim?",
+                options: ["Snow Leopard", "Musk Deer", "Red Panda (Ailurus fulgens Cuvier)", "Himalayan Tahr"],
+                answer: 2
+            },
+            {
+                question: "What is the State Bird of Sikkim?",
+                options: ["Himalayan Monal", "Blood Pheasant (Ithagenus cruentus)", "Satyr Tragopan", "Fire-tailed Sunbird"],
+                answer: 1
+            },
+            {
+                question: "What are the two major rivers of Sikkim?",
+                options: ["Tista and Rangit", "Tista and Lachen", "Rangit and Rangeet", "Lachung and Tista"],
+                answer: 0
+            },
+            {
+                question: "Cho Lhamo Lake is the source of which river?",
+                options: ["Rangit", "Teesta", "Lachung", "Lachen"],
+                answer: 1
+            },
+            {
+                question: "What is the source of the river Rangit?",
+                options: ["Gurudongmar Lake", "Tso Lhamo Lake", "Rathong Glacier", "Zemu Glacier"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is a tributary of the river Tista?",
+                options: ["Kalej khola", "Rammam khola", "Rothak", "Lachung chu"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is a tributary of the river Rangit?",
+                options: ["Lachung chu", "Rongi chu", "Kalej khola", "Rangpo chu"],
+                answer: 2
+            },
+            {
+                question: "Where do the two rivers (Rangit & Tista) of Sikkim meet?",
+                options: ["Singtam", "Rangpo", "Triveni near Melli", "Jorethang"],
+                answer: 2
+            },
+            {
+                question: "Which mountain range forms the boundary between Sikkim and Tibet?",
+                options: ["Pangola Range", "Singalila Range", "Chola Range", "Kanchenjunga Range"],
+                answer: 2
+            },
+            {
+                question: "Which mountain range forms the boundary between Sikkim and Bhutan?",
+                options: ["Chola Range", "Singalila Range", "Pangola Range", "Dongkya Range"],
+                answer: 2
+            },
+            {
+                question: "Which mountain range forms the boundary between Sikkim and Nepal?",
+                options: ["Chola Range", "Singalila Range", "Pangola Range", "Kanchenjunga Range"],
+                answer: 1
+            },
+            {
+                question: "What is the meaning of Khye Bumsa?",
+                options: ["Superior of ten thousand heroes", "King of the mountains", "The strong one", "Son of Guru Tashi"],
+                answer: 0
+            },
+            {
+                question: "Who was Thekong Tek?",
+                options: ["The first Chogyal of Sikkim", "A Tibetan warrior", "Spiritual leader and chief of the Lepchas", "A Buddhist scholar"],
+                answer: 2
+            },
+            {
+                question: "Where did Khye Bumsa and Thekong Tek sign a treaty of Brotherhood?",
+                options: ["Yoksum", "Kabi Lungtsok", "Rabdentse", "Tumlong"],
+                answer: 1
+            },
+            {
+                question: "What is the meaning of 'Chogyal'?",
+                options: ["Divine King", "Dharmaraja or king", "King of the three realms", "Mountain Ruler"],
+                answer: 1
+            },
+            {
+                question: "Who was the first Chogyal of Sikkim?",
+                options: ["Tensung Namgyal", "Phuntsog Namgyal", "Tsudphud Namgyal", "Khye Bumsa"],
+                answer: 1
+            },
+            {
+                question: "In which year was the first Chogyal of Sikkim consecrated?",
+                options: ["1601", "1642", "1670", "1698"],
+                answer: 1
+            },
+            {
+                question: "Where was the first Chogyal of Sikkim crowned?",
+                options: ["Rabdentse", "Tumlong", "Gangtok", "Yoksum"],
+                answer: 3
+            },
+            {
+                question: "What is the meaning of Yoksum?",
+                options: ["The first capital", "Land of three lamas", "Meeting place of three superior", "Holy place"],
+                answer: 2
+            },
+            {
+                question: "Who were the three lamas who crowned the first Chogyal of Sikkim?",
+                options: ["Latsun Chembo, Sempa Chembo, and Pema Lingpa", "Latsun Chembo, Sempa Chembo, and Rinzing Chembo", "Guru Rinpoche, Latsun Chembo, and Sempa Chembo", "Rinzing Chembo, Pema Lingpa, and Latsun Chembo"],
+                answer: 1
+            },
+            {
+                question: "How many dzongs (districts) did Phontsog Namgyal, the first ruler of Sikkim, divide the country into?",
+                options: ["Ten", "Twelve", "Fourteen", "Sixteen"],
+                answer: 1
+            },
+            {
+                question: "Which of the following was one of the twelve dzongs demarcated by the first chogyal of Sikkim?",
+                options: ["Mangan", "Namchi", "Gangtok", "Gyalshing"],
+                answer: 2
+            },
+            {
+                question: "Who was the head of a Dzong?",
+                options: ["Dzongpen", "Dzonpong", "Chogyal", "Lama"],
+                answer: 1
+            },
+            {
+                question: "Who was the Chogyal who ruled Sikkim for the longest period?",
+                options: ["Phuntsog Namgyal", "Tsugphud Namgyal", "Thotub Namgyal", "Palden Thondup Namgyal"],
+                answer: 1
+            },
+            {
+                question: "Who was the Chogyal who ruled for a very short period?",
+                options: ["Thotub Namgyal", "Palden Thondup Namgyal", "Sidkeong Tulku", "Tsugphud Namgyal"],
+                answer: 2
+            },
+            {
+                question: "Who was the last Chogyal of Sikkim?",
+                options: ["Tsugphud Namgyal", "Sidkeong Tulku", "Palden Thondup Namgyal", "Thotub Namgyal"],
+                answer: 2
+            },
+            {
+                question: "The Treaty of Titaliya was signed during the reign of which ruler?",
+                options: ["Thotub Namgyal", "Sidkeong Tulku", "Palden Thondup Namgyal", "Tsugphud Namgyal"],
+                answer: 3
+            },
+            {
+                question: "When was the Treaty of Titaliya signed?",
+                options: ["10th February 1817", "28th March 1861", "17th March 1890", "7th September 1904"],
+                answer: 0
+            },
+            {
+                question: "The Treaty of Titaliya was signed between Sikkim and...?",
+                options: ["Nepal", "Bhutan", "Tibet", "East India Company"],
+                answer: 3
+            },
+            {
+                question: "The Treaty of Titaliya consisted of how many Articles?",
+                options: ["Eight", "Ten", "Twelve", "Fifteen"],
+                answer: 1
+            },
+            {
+                question: "When was Darjeeling ceded to the East India Company?",
+                options: ["10th February 1817", "1st February 1835", "28th March 1861", "17th March 1890"],
+                answer: 1
+            },
+            {
+                question: "Who was the ruler who signed the Deed of Darjeeling Grant?",
+                options: ["Thotub Namgyal", "Tsugphud Namgyal", "Sidkeong Tulku", "Palden Thondup Namgyal"],
+                answer: 1
+            },
+            {
+                question: "What was the purpose behind the possession of Darjeeling by the East India Company?",
+                options: ["To establish a military base", "To start tea plantations", "To establish a Sanitorium and summer retreat", "To build a trade route to Tibet"],
+                answer: 2
+            },
+            {
+                question: "What was the amount of compensation for the cession of Darjeeling by the East India Company, which was later raised in 1846?",
+                options: ["Rs. 1000 per annum, raised to Rs. 3000", "Rs. 3000 per annum, raised to Rs. 6000", "Rs. 5000 per annum, raised to Rs. 10000", "Rs. 6000 per annum, raised to Rs. 12000"],
+                answer: 1
+            },
+            {
+                question: "Who was the Superintendent of Darjeeling when the Deed of Grant was signed?",
+                options: ["J. Hooker", "A. Campbell", "James Claude White", "Charles Bell"],
+                answer: 1
+            },
+            {
+                question: "Who were the two Britishers arrested and detained by the Sikkim authority in 1849?",
+                options: ["A. Campbell and J. Hooker", "James Claude White and Charles Bell", "Lord Linglithgow and Harishwar Dayal", "A. Campbell and James Claude White"],
+                answer: 0
+            },
+            {
+                question: "Who actually ordered the arrest of Campbell and Hooker in Sikkim?",
+                options: ["Thotub Namgyal", "Tsugphud Namgyal", "Pendi Ongmoo", "Tokhang Dunyer Namgey (Pagla Dewan)"],
+                answer: 3
+            },
+            {
+                question: "When was the Treaty of Tumlong signed?",
+                options: ["10th February 1817", "1st February 1835", "28th March 1861", "17th March 1890"],
+                answer: 2
+            },
+            {
+                question: "Which treaty made Sikkim the de facto protectorate of British India?",
+                options: ["Treaty of Titaliya", "Treaty of Tumlong, 1861", "Anglo-Chinese Convention of 1890", "Lhasa Convention of 1904"],
+                answer: 1
+            },
+            {
+                question: "Who was the ruler who designed the Lepcha Alphabets?",
+                options: ["Phuntsog Namgyal", "Tensung Namgyal", "Chagdor Namgyal", "Guru Tashi"],
+                answer: 2
+            },
+            {
+                question: "Who was the half-sister of Chagdor Namgyal who conspired in his murder in 1717?",
+                options: ["Yo Yo Hang", "Pendi Ongmoo", "Thekong Tek's daughter", "A Tibetan princess"],
+                answer: 1
+            },
+            {
+                question: "Who was the Chogyal who married the daughter of Limboo Raja, Yo Yo Hang?",
+                options: ["Phuntsog Namgyal", "Tensung Namgyal", "Chagdor Namgyal", "Tsugphud Namgyal"],
+                answer: 1
+            },
+            {
+                question: "In which year did the Macaulay Mission enter Sikkim?",
+                options: ["1861", "1886", "1889", "1903"],
+                answer: 1
+            },
+            {
+                question: "Who was the first Political Officer of Sikkim?",
+                options: ["Charles Bell", "A. Campbell", "James Claude White", "Harishwar Dayal"],
+                answer: 2
+            },
+            {
+                question: "When was the office of the Political Officer created in Sikkim?",
+                options: ["March 1861", "June 1889", "March 1890", "September 1904"],
+                answer: 1
+            },
+            {
+                question: "Under whose reign was the Political Officer appointed?",
+                options: ["Tsugphud Namgyal", "Sidkeong Tulku", "Palden Thondup Namgyal", "Thotub Namgyal"],
+                answer: 3
+            },
+            {
+                question: "Who succeeded J.C. Claude (James Claude White) as the Political Officer of Sikkim?",
+                options: ["Harishwar Dayal", "Appa B. Pant", "Charles Bell", "V.H. Coelho"],
+                answer: 2
+            },
+            {
+                question: "When was the Anglo-Chinese Convention signed?",
+                options: ["28th March 1861", "17th March 1890", "7th September 1904", "7th November 1910"],
+                answer: 1
+            },
+            {
+                question: "In which convention did the Chinese Government acknowledge Sikkim as a British protectorate?",
+                options: ["The Treaty of Tumlong", "The Anglo-Chinese Convention of 1890", "The Lhasa Convention", "The Treaty of Titaliya"],
+                answer: 1
+            },
+            {
+                question: "Which treaty demarcates the boundary between Sikkim and Tibet in 1890?",
+                options: ["Treaty of Tumlong", "Lhasa Convention", "Anglo-Chinese Convention", "Treaty of Titaliya"],
+                answer: 2
+            },
+            {
+                question: "When was the Younghusband Mission set up?",
+                options: ["1889", "1890", "1903", "1904"],
+                answer: 2
+            },
+            {
+                question: "When was the Lhasa Convention signed?",
+                options: ["17th March 1890", "1st January 1900", "7th September 1904", "8th December 1905"],
+                answer: 2
+            },
+            {
+                question: "Who was the Viceroy of India who visited Sikkim in 1938?",
+                options: ["Lord Curzon", "Lord Irwin", "Lord Linglithgow", "Lord Mountbatten"],
+                answer: 2
+            },
+            {
+                question: "Who was the first Dewan of Sikkim?",
+                options: ["J.S. Lall", "Nari K. Rustomji", "Baleshwar Prasad", "Harishwar Dayal"],
+                answer: 3
+            },
+            {
+                question: "Who among the following was a Dewan of Sikkim?",
+                options: ["B. Singh", "I.S. Chopra", "Gurbachan Singh", "K.S. Bajpai"],
+                answer: 1
+            },
+            {
+                question: "When was the Sikkim Debt Law passed?",
+                options: ["7th September 1904", "7th November 1910", "2nd January 1897", "17th May 1917"],
+                answer: 1
+            },
+            {
+                question: "In which year was the notice of the Revenue Order No. 1 issued in Sikkim?",
+                options: ["2nd January 1897", "17th May 1917", "1st April 1948", "17th April 1955"],
+                answer: 0
+            },
+            {
+                question: "From which year was the Revenue Order No. 1 actually implemented in Sikkim?",
+                options: ["2nd January 1897", "17th May 1917", "1st April 1948", "17th April 1955"],
+                answer: 1
+            },
+            {
+                question: "In which year was the Sikkim State Income Tax Manual prepared?",
+                options: ["1917", "1948", "1955", "1957"],
+                answer: 1
+            },
+            {
+                question: "In which year was the Sikkim Cooperative Societies Act passed?",
+                options: ["1948", "1955", "1957", "1961"],
+                answer: 1
+            },
+            {
+                question: "When was the Sikkim Motor Vehicles Act passed?",
+                options: ["17th April 1955", "1st April 1957", "In 1961", "23rd December 1966"],
+                answer: 1
+            },
+            {
+                question: "When was the Registration of Companies Act passed in Sikkim?",
+                options: ["1957", "1961", "1966", "1972"],
+                answer: 1
+            },
+            {
+                question: "In which year was the Sikkim Official Secret Act passed?",
+                options: ["1957", "1961", "1966", "1972"],
+                answer: 2
+            },
+            {
+                question: "In which year was the State Trading Corporation of Sikkim created?",
+                options: ["1966", "1972", "1977", "1975"],
+                answer: 1
+            },
+            {
+                question: "Sikkim Distilleries was set up in which year?",
+                options: ["1966", "1972", "1977", "1975"],
+                answer: 1
+            },
+            {
+                question: "In which year was the SIDICO set up in Sikkim?",
+                options: ["1972", "1975", "1977", "1980"],
+                answer: 2
+            },
+            {
+                question: "In which year was the Sikkim Times Corporation established?",
+                options: ["1972", "1975", "1977", "1980"],
+                answer: 2
+            },
+            {
+                question: "When was Sikkim Jewels set up?",
+                options: ["1966", "1972", "1977", "1975"],
+                answer: 1
+            }
+        ];
+
+        const quizContainer = document.getElementById('quiz-container');
+
+        quizData.forEach((item, index) => {
+            // Create the main container for the question
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            // Create and add the question text
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.textContent = `${index + 1}) ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            // Create the options list
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+            
+            // Create and add each option
+            item.options.forEach((option, optionIndex) => {
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    // Prevent re-answering
+                    if (optionsList.classList.contains('answered')) {
+                        return;
+                    }
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+                    
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        // Highlight the correct answer
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+                
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            quizContainer.appendChild(questionBlock);
+        });
+
+    </script>
+</body>
+</html>
+  

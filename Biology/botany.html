@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Botany | Sikkim PSC Hub</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+            border-color: #bbb;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .options-list.answered .option:not(.correct):not(.incorrect) {
+            opacity: 0.7;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none;
+        }
+        .quiz-stats {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <a href="biology.html" class="back-link">&larr; Back to Biology</a>
+        <h1>Botany</h1>
+        <p class="quiz-stats">123 Questions</p>
+        <div id="questions-wrapper"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Pollination is best defined as",
+                options: ["transfer of pollen from anther to stigma", "germination of pollen grains", "growth of pollen tube in ovule", "visiting flowers by insects"],
+                answer: 0
+            },
+            {
+                question: "Photosynthesis generally takes place in which parts of the plant?",
+                options: ["Leaf and other chloroplast bearing parts", "steam and leaf", "Roots and chloroplast bearing parts", "Bark and leaf"],
+                answer: 0
+            },
+            {
+                question: "Out of 900 reported species of living gymnosperms, conifers are represented by about 500 species, About 2,50,000 species of angiosperms (flowering plants) have also been reported in the world. The vast and dominant woodlands in Europe, Asia, North America and mountains such as Himalayas are wooded with",
+                options: ["all gymnosperms, except conifers", "only angiosperms", "only conifers", "angiosperms and all gymnosperms except conifers"],
+                answer: 2
+            },
+            {
+                question: "Plant development is influenced by",
+                options: ["quality of light only", "quality and quantity of light", "quality and duration of light", "quality, quantity and duration of light"],
+                answer: 3
+            },
+            {
+                question: "Photosynthesis takes place faster in",
+                options: ["yellow light", "white light", "red light", "darkness"],
+                answer: 2
+            },
+            {
+                question: "Primary phloem develops from",
+                options: ["lateral meristem", "protoderm", "extrastelar cambium", "provascular tissue"],
+                answer: 3
+            },
+            {
+                question: "O2released in the process of photosynthesis comes from",
+                options: ["CO2", "water", "sugar", "pyruvic acid"],
+                answer: 1
+            },
+            {
+                question: "Phloem is a tissue found in",
+                options: ["reproductive organs of animals", "plants", "insects", "mammals"],
+                answer: 1
+            },
+            {
+                question: "Plant bends towards the source of light on account of the movement of curvature known as",
+                options: ["geotropism", "thigmotropism", "chemotropism", "phototropism"],
+                answer: 3
+            },
+            {
+                question: "Plant have ____ while animals lack it.",
+                options: ["starch", "cellulose", "protein", "fat"],
+                answer: 1
+            },
+            {
+                question: "Photosynthesis is a process",
+                options: ["reductive and exergonic", "reductive and catabolic", "reductive, endergonic and catabolic", "reductive, endergonic and anabolic"],
+                answer: 3
+            },
+            {
+                question: "Monocot root differs from dicot root in having",
+                options: ["open vascular bundles", "scattered vascular bundles", "well developed pith", "radially arranged vascular bundles"],
+                answer: 2
+            },
+            {
+                question: "Pollination by wind is called",
+                options: ["anemophily", "hydrophily", "zoophily", "entomophily"],
+                answer: 0
+            },
+            {
+                question: "Pollen grains in plants are produced in",
+                options: ["roots", "leaves", "flower", "stem"],
+                answer: 2
+            },
+            {
+                question: "Which cell organelles are involved in photosynthesis?",
+                options: ["Chloroplasts", "Plastids", "Lipids", "Plasmids"],
+                answer: 0
+            },
+            {
+                question: "In plants, chloroplasts are necessary for",
+                options: ["Photosynthesis", "Storage", "Cell movement", "Respiration"],
+                answer: 0
+            },
+            {
+                question: "In which of the following organelles does photosynthesis take place?",
+                options: ["Miochondria", "Chloroplast", "Central Vacuole", "Ribosome"],
+                answer: 1
+            },
+            {
+                question: "Distribution of plant on the various part of earth",
+                options: ["Biogeography", "Zoogeography", "Phytogeography", "Geopraphy"],
+                answer: 2
+            },
+            {
+                question: "Silviculture is the branch of botany in which we study about",
+                options: ["Culture of algae", "Development of forest", "Culture of fungi", "Silciphida plant"],
+                answer: 1
+            },
+            {
+                question: "Consider the following statements1. Different plant species grow together2. Light cannot penetrate into the lower strata full of undergrowthWhich of the following type of vegetation is characterized by the above?",
+                options: ["Equatorial moist evergreen", "Tropical deciduous", "Mediterranean", "Warm temperate broad leaved deciduous"],
+                answer: 0
+            },
+            {
+                question: "Lichen is a composite combination of two organisms.",
+                options: ["Fungi and Bryophyta", "Fungi and Fern", "Algae and Bryophyta", "Algae and Fungi"],
+                answer: 3
+            },
+            {
+                question: "Organisms that depend only on raw plant products are said to be",
+                options: ["Herbivorous", "Vegetarian", "Carnivorous", "Omnivorous"],
+                answer: 0
+            },
+            {
+                question: "Which of the following plants have root nodules?",
+                options: ["Leguminous plants", "Parasitic plants", "Epiphytic Plants", "Aquatic Plants"],
+                answer: 0
+            },
+            {
+                question: "Some species of which of the below kinds of organisms are employed as biopesticides?1. Bacteria2. Fungi3. Flowering plants",
+                options: ["1 only", "2 and 3 only", "1 and 3 only", "1, 2 and 3"],
+                answer: 0
+            },
+            {
+                question: "In autotrophic bacteria, where is chlorophyll located?",
+                options: ["In the nucleoid", "In the infolded plasma membrane", "In the ribosomes", "In chloroplast membranes"],
+                answer: 1
+            },
+            {
+                question: "In fungi asexual reproduction occurs mostly by",
+                options: ["Fragmentation", "Budding", "Spore formation", "All of these"],
+                answer: 3
+            },
+            {
+                question: "Important plant diseases like fire-blight and crown all are caused by",
+                options: ["Viruses", "Bacteria", "Fungi", "Protozoans"],
+                answer: 1
+            },
+            {
+                question: "Fossils of blue green algae were found in lime stones with the age almost as old as",
+                options: ["1.3 Billion years", "2.3 Billion years", "3.3 Billion years", "4.3 Billion years"],
+                answer: 1
+            },
+            {
+                question: "Mycology is the branch of botany in which we study about",
+                options: ["Algae", "Fungi", "Bacteria", "Virus"],
+                answer: 1
+            },
+            {
+                question: "Phycology is the branch of botany in which we study about",
+                options: ["Algae", "Fungi", "Ecology", "Virus"],
+                answer: 0
+            },
+            {
+                question: "The unicellular algae used to supply and regulate the oxygen in space programmes is",
+                options: ["Spyrogyra", "Chlorella", "Ulothrix", "Odogonium"],
+                answer: 1
+            },
+            {
+                question: "Blue green algae possess chlorophlyll along with a pigment known as",
+                options: ["Chlorophy", "Phycobilin", "Haemoglobin", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "A cell wall material present only in blue green algae and bacteria is",
+                options: ["Cellulose", "Glycogen", "Muramic acid", "Pectin"],
+                answer: 2
+            },
+            {
+                question: "Sexual reproduction in Algae that takes place through fusion of two dissimilar size gametes is called",
+                options: ["Zoospores", "Anisogamous", "Isogamous", "Oogamous"],
+                answer: 1
+            },
+            {
+                question: "Floridian starch is characteristic energy storage material of which algae?",
+                options: ["Blue green algae", "Brown algae", "Red algae", "Green algae"],
+                answer: 2
+            },
+            {
+                question: "Which of the fungi is commonly called as bread mould?",
+                options: ["Puccinia", "Rhizopus", "Ustilago", "All of these"],
+                answer: 1
+            },
+            {
+                question: "Which one of the following is not reserve food of fungi?",
+                options: ["Glycogen", "Fat", "Starch", "Both A and B"],
+                answer: 2
+            },
+            {
+                question: "The nitrogen fixing bacteria present in the root nodules of leguminous plant is",
+                options: ["Salmonella", "Clostridium", "Rhizobium", "Pseudomonas"],
+                answer: 2
+            },
+            {
+                question: "What organelle carries out photosynthesis?",
+                options: ["Chloroplasts", "Ribosomes", "Chromosomes", "All of the above"],
+                answer: 0
+            },
+            {
+                question: "Which organelles are unique to plant cells?",
+                options: ["Central vacuole", "Chlorophyll", "Cell wall", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "Which of the following organelles of a cell is involved in photosynthesis?",
+                options: ["Chloroplast", "Mitochondria", "Golgi bodies", "Endoplasmic reticulum"],
+                answer: 0
+            },
+            {
+                question: "Which structure is common to plant and animal cells?",
+                options: ["Centriole", "Chloroplast", "Central Vacuole", "Mitochondria"],
+                answer: 3
+            },
+            {
+                question: "The outermost layer in a plant cell is",
+                options: ["Cell wall", "Cell membrane", "Plasma membrane", "Nuclear membrane"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is found in plant cells but not in animal cells?",
+                options: ["Cell Wall", "Vacuoles", "Plasma layer", "Golgi complex"],
+                answer: 0
+            },
+            {
+                question: "Study of the effects of toxic chemical substance on animal and plant is",
+                options: ["Toxicology", "Microbiology", "Limnology", "None of these"],
+                answer: 0
+            },
+            {
+                question: "All living things except bacteria and blue green algae are termed as",
+                options: ["Prokayotes", "Lysosmes", "Eukaryotes", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "There are how many species of fungi?",
+                options: ["80 species", "800 species", "8,000 species", "80,000 species"],
+                answer: 3
+            },
+            {
+                question: "Study of algae is called",
+                options: ["Phycology", "Micro biology", "Psychology", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "The unique feature of bryophytes compared to other green plants groups is that",
+                options: ["They lack roots", "They lack vascular tissue", "They produce spores", "Their sporophytes is attached to gametophyte"],
+                answer: 1
+            },
+            {
+                question: "The plant body not differentiated into root, shoot and stem is termed as",
+                options: ["Rihazome", "Thallus", "Lysosome", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "Scientist who is known as father of botany.",
+                options: ["Aristotle", "Darwin", "Theophrastus", "Linneus"],
+                answer: 2
+            },
+            {
+                question: "In which of the following chlorophyll does not exist?",
+                options: ["Algae", "Fungi", "Bryophytes", "Pteridophytes"],
+                answer: 1
+            },
+            {
+                question: "The branch of botany which deals with identification, nomenclature and classification of an organism is known as",
+                options: ["Morphology", "Phytochemistry", "Taxonomy", "Paleobotany"],
+                answer: 2
+            },
+            {
+                question: "Algae and fungi are collectively known as",
+                options: ["Thallophytes", "Pteridophytes", "Bryophytes", "Spermatophytes"],
+                answer: 0
+            },
+            {
+                question: "Each stamen has a slender stalk or filament at the top of which a pollen bearing organ is present.",
+                options: ["Stigma", "Anther", "Filament", "Ovary"],
+                answer: 1
+            },
+            {
+                question: "The female sex organs in a flower is the ________ .",
+                options: ["Zoospores", "Stamen", "Pistil", "Chlorophyceae"],
+                answer: 2
+            },
+            {
+                question: "The male sex organs in a flower is the ________ .",
+                options: ["Zoospores", "Stamen", "Pistil", "Chlorophyceae"],
+                answer: 1
+            },
+            {
+                question: "Which part of flower produces pollen grains that are generally yellowish in colour?",
+                options: ["Sepals", "Petals", "Stamens", "Carpels"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following is the longest flower in the world?",
+                options: ["Lotus", "Sunflower", "Rafflesia", "Glory Lily"],
+                answer: 2
+            },
+            {
+                question: "Usually the conspicuous, coloured, attractive part of flower is termed as",
+                options: ["Sepals", "Carpels", "Petals", "Stamens"],
+                answer: 2
+            },
+            {
+                question: "The terminal part of the carpel in a flower, which may be sticky is ________",
+                options: ["Ovary", "Style", "Stigma", "Anther"],
+                answer: 2
+            },
+            {
+                question: "The study of flower is known as",
+                options: ["Anthology", "Physiology", "Agrostology", "Phycology"],
+                answer: 0
+            },
+            {
+                question: "The innermost part of a flower is known as",
+                options: ["Pistils", "Sepals", "Stamens", "Petals"],
+                answer: 2
+            },
+            {
+                question: "Vitamin present in guava fruit is",
+                options: ["Vitamin - A", "Vitamin - B", "Vitamin - C", "Vitamin - D"],
+                answer: 2
+            },
+            {
+                question: "Which tissue makes the plant hard and stiff?",
+                options: ["Parenchyma", "Sclerenchyma", "Collenchyma", "Xylem"],
+                answer: 1
+            },
+            {
+                question: "Xylem helps in transportation of which of the following?",
+                options: ["Food", "Water", "Nutrients", "Both food and water"],
+                answer: 1
+            },
+            {
+                question: "The corner of the cells of collenchyma tissue in plant are thickened due to deposition of ________",
+                options: ["Lignin and suberin", "Suberin and cutin", "Cellulose and pectin", "Chitin and lignin"],
+                answer: 2
+            },
+            {
+                question: "Which plant cells give support to plant body?",
+                options: ["Phloem cells", "Xylem cells", "Sclerenchymatous cells", "Parenchyma cells"],
+                answer: 2
+            },
+            {
+                question: "Which plants have vascular tissues i.e .xylem and phloem vessel?",
+                options: ["Tracheophytes", "Bryophytes", "Thallophytes", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "The xylem in plants are responsible for:",
+                options: ["Transport of water", "Transport of food", "Transport of amino acids", "Transport of oxygen"],
+                answer: 0
+            },
+            {
+                question: "The main function of the inner bark of a woody plant is to",
+                options: ["Transport minerals and water from the roots to the leaves", "Act as a membrane impermeable to water and gas", "Transport food from the leaves to the other parts of the plant", "Protect the plant from herbivorous animals"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following tissues is responsible for increase of girth in the stem of a plant?",
+                options: ["Tracheid", "Pericycle", "Intercalary meristem", "Lateral meristem"],
+                answer: 3
+            },
+            {
+                question: "Which of the following transports water from the roots of the plant to its leaves?",
+                options: ["Xylem", "Phloem", "Both xylem and phloem", "Cortex"],
+                answer: 0
+            },
+            {
+                question: "Xylem tissue is mainly concerned with the",
+                options: ["Photosynthesis of plants", "Transport of water and mineral nutrients in plants", "Storage of prepared foods in plants", "Transport of enzymes in plants"],
+                answer: 1
+            },
+            {
+                question: "Plant tissues are of how many types?",
+                options: ["3", "2", "5", "6"],
+                answer: 0
+            },
+            {
+                question: "In plants and mineral salts from soil to the aerial parts of the plant are conducted through",
+                options: ["Xylem vessels", "Phloem vessels", "Vascular bundle", "All of the above"],
+                answer: 0
+            },
+            {
+                question: "Who is regarded as father of plant tissue culture?",
+                options: ["Haberlandt", "White", "Linnaeus", "Skoog"],
+                answer: 0
+            },
+            {
+                question: "In a bisexual flower if androecium and gynoecium mature at different time the phenomenon is known as ________",
+                options: ["Dichogamy", "Herpogamy", "Haterogamy", "None of these"],
+                answer: 0
+            },
+            {
+                question: "The pollen grains of Pinus are carried to its female cone through the",
+                options: ["Pollen tube", "Wind", "Insects", "Animals"],
+                answer: 1
+            },
+            {
+                question: "A seed is ripened ________",
+                options: ["Ovary", "Flower", "Gynoecium", "Ovule"],
+                answer: 3
+            },
+            {
+                question: "Which among the following is not a true fruit?",
+                options: ["Apple", "Date", "Grape", "Plum"],
+                answer: 0
+            },
+            {
+                question: "Which of these is unique to flowering plants?",
+                options: ["Double fertilization", "An embryo surrounded by nutritive tissue", "Haploid gametophytes", "Pollen production"],
+                answer: 0
+            },
+            {
+                question: "The pollination by snails is called",
+                options: ["Zoophily", "Entomophily", "Chiropteriphily", "Malacophily"],
+                answer: 3
+            },
+            {
+                question: "Which one of the following completes the given statement correctly?A seed is a ripened _______",
+                options: ["Ovary", "Flower", "Gynoecium", "Ovule"],
+                answer: 3
+            },
+            {
+                question: "Flowers in which polllination takes place by insect their pollen grains are ________",
+                options: ["Smooth and dry", "Rough and sticky", "Rough and dry", "Large in Size"],
+                answer: 1
+            },
+            {
+                question: "Self pollination will lead to",
+                options: ["Inbreeding", "Over breeding", "Outbreeding", "Rare breeding"],
+                answer: 0
+            },
+            {
+                question: "Chiropterophily is the process of pollination by",
+                options: ["Bee", "Bat", "Insect", "Bird"],
+                answer: 1
+            },
+            {
+                question: "The first root produced from a seed is known as",
+                options: ["Conical root", "Fusiform root", "Radicle", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "Ginger is a stem and not a root because",
+                options: ["It stores food", "It lacks chlorophyll", "It has nodes and internodes", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "Which of the following plants produce only seeds but no fruit?",
+                options: ["Sugarcane", "Peanut", "Cycas", "Almond"],
+                answer: 2
+            },
+            {
+                question: "Consider the following plant1. Guava2. Mint3. Sweet potatoThe roots of which of these plants bear adventitious buds that developed into new individuals under favourable conditions.",
+                options: ["1 and 2", "2 only", "3 only", "1, 2 and 3"],
+                answer: 2
+            },
+            {
+                question: "The water readily available to plants for absorption by roots is",
+                options: ["Gravitational water", "Rain water", "Hygroscopic water", "Capillary water"],
+                answer: 3
+            },
+            {
+                question: "Water molecules enter plant epidermal cells by",
+                options: ["Active Transport", "Translocation", "Osmosis", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "Root pressure is developed in",
+                options: ["Cortex", "Phloem", "Xylem", "Pith"],
+                answer: 2
+            },
+            {
+                question: "Pollen is produced by the process of",
+                options: ["Mitosis", "Pollination", "Meiosis", "Fertilization"],
+                answer: 0
+            },
+            {
+                question: "Almost all kinds of vegetative reproduction are carried out by the division known as",
+                options: ["Mitosis", "Meiosis", "Multiple fission", "Budding"],
+                answer: 0
+            },
+            {
+                question: "In each pollen sacs a large number of pollens or microspores are produced by",
+                options: ["Mitosis", "Meiosis", "Regeneration", "Fragmentation"],
+                answer: 1
+            },
+            {
+                question: "The single membrane surrounding vacuoles in plant cells is known as",
+                options: ["Apoplast", "Symplast", "Tonoplast", "Chloroplast"],
+                answer: 2
+            },
+            {
+                question: "Stem Cell Therapy (SCT) is not useful for the treatment of which one of the following ailments?",
+                options: ["Kidney failure", "Cancer", "Brain injury", "Vision impairment"],
+                answer: 3
+            },
+            {
+                question: "Study of effect of radiation on plant and animal is",
+                options: ["Pathology", "Etiology", "Radiobiology", "Cosmology"],
+                answer: 2
+            },
+            {
+                question: "In plants, which cells carry out photosynthesis?",
+                options: ["Chlorenchymatous", "Sclerenchymatous", "Paranchymatous", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "Part of the plant where photosynthesis generally occurs",
+                options: ["Roots", "Leaves", "Branches", "Flowers"],
+                answer: 1
+            },
+            {
+                question: "The energy stored in photosynthesis is obtained from",
+                options: ["Sunlight", "Oxidation of glucose", "Breakdown of proteins", "Breakdown of glucose"],
+                answer: 0
+            },
+            {
+                question: "Photosynthesis takes place in the presence of chlorophyll and ________",
+                options: ["Water", "Nutrients", "Carbon-dioxide", "Sunlight"],
+                answer: 3
+            },
+            {
+                question: "Plants utilise ________ from the atmosphere for photosynthesis.",
+                options: ["Oxygen", "Nitrogen", "Carbon dioxide", "Hydrogen"],
+                answer: 2
+            },
+            {
+                question: "In Photosynthesis",
+                options: ["Light energy is converted into chemical energy", "Chemical energy is converted into light energy", "Chemical energy is converted into electrical energy", "Light energy is converted into mechanical eneargy"],
+                answer: 0
+            },
+            {
+                question: "Which of the following plays an important part in photosynthesis?",
+                options: ["Chloroplast", "Centrosome", "Tonoplast", "Nematoblast"],
+                answer: 0
+            },
+            {
+                question: "Which of the following plays an important role in photosynthesis?",
+                options: ["Chloroplast", "Centrosome", "Tonoplast", "Nematoblast"],
+                answer: 0
+            },
+            {
+                question: "Which of the following gas is necessary for the process of photosynthesis?",
+                options: ["O2", "CO", "N2", "CO2"],
+                answer: 3
+            },
+            {
+                question: "Photosynthesis fulfills which of the following requirements of the autotrophic organisms?I. CarbonII. WaterIII. Energy",
+                options: ["Only I", "Only III", "I and III", "All I, II and III"],
+                answer: 2
+            },
+            {
+                question: "The gas released during the photosynthesis by the green plants is",
+                options: ["Oxygen", "Nitrogen", "Water vapour", "Carbon dioxide"],
+                answer: 0
+            },
+            {
+                question: "Gaseous exchange takes place in leaves through tiny pores for the purpose of photosynthesis. What are these pores?",
+                options: ["Chloroplast", "Stomata", "Chlorophyl", "Vacuole"],
+                answer: 1
+            },
+            {
+                question: "The photosynthesis occurs in the",
+                options: ["Day", "Night", "Day and Night", "None of these"],
+                answer: 0
+            },
+            {
+                question: "The oxygen released during photosynthesis process comes from",
+                options: ["H2O", "CO2", "NO2", "Glucose"],
+                answer: 0
+            },
+            {
+                question: "In plants, photosynthesis mainly occurs in the",
+                options: ["Leaves", "Flowers", "Root", "Bark"],
+                answer: 0
+            },
+            {
+                question: "Which one is important in photosynthesis to allows plants to absorb energy from light?",
+                options: ["Xanthophyll", "Carotene", "Chlorophyll", "Phaeophytin"],
+                answer: 2
+            },
+            {
+                question: "Photosynthesis occurs in",
+                options: ["Nucleus", "Mitochondria", "Chloroplast", "Peroxisome"],
+                answer: 2
+            },
+            {
+                question: "The ultimate cause of water movement in a plant stem against gravity is",
+                options: ["Osmosis", "Photosynthesis", "Transpiration", "Diffusion"],
+                answer: 2
+            },
+            {
+                question: "The device to measure transpiration in plants is",
+                options: ["Hygrometer", "Crescometer", "Potometer", "Clinometer"],
+                answer: 2
+            },
+            {
+                question: "The numerous minute pores in the epidermis of a leaf are called",
+                options: ["Stomata", "Lenticels", "Hydathodes", "Perforation"],
+                answer: 0
+            },
+            {
+                question: "Stomata helps in",
+                options: ["Exchange of gases", "Exchange of lipids", "Exchange of water", "Exchange of proteins"],
+                answer: 0
+            },
+            {
+                question: "Stomata open at night in",
+                options: ["CAM plants", "C3 plants", "C4 plants", "Succulent plants"],
+                answer: 0
+            },
+            {
+                question: "Rate of transpiration can be measured by",
+                options: ["Ganong\'s potometer", "Auxanometer", "Respirometer", "Porometer"],
+                answer: 0
+            }
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.textContent = `${index + 1}) ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) {
+                        return;
+                    }
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            wrapper.appendChild(questionBlock);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sikkim GK Quiz</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+            border-color: #bbb;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .options-list.answered .option:not(.correct):not(.incorrect) {
+            opacity: 0.7;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none; /* Disables further clicks */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <h1>Sikkim General Knowledge Quiz</h1>
+        <!-- Questions will be dynamically inserted here by JavaScript -->
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "What percentage of people in Sikkim are engaged in agriculture as their main occupation?",
+                options: ["50%", "65%", "75%", "80%"],
+                answer: 1
+            },
+            {
+                question: "Besides rice, what are the two main cash crops of Sikkim mentioned in the text?",
+                options: ["Wheat and Maize", "Barley and Pulses", "Cardamom and Ginger", "Oranges and Apples"],
+                answer: 2
+            },
+            {
+                question: "Under whose initiative did Sikkim first decide to adopt Organic Farming?",
+                options: ["Narendra Modi", "Pawan Chamling", "Kazi Lendup Dorjee Khangsarpa", "N.B. Bhandari"],
+                answer: 1
+            },
+            {
+                question: "In what year did Sikkim's State Legislative Assembly announce the policy to transform Sikkim into a totally Organic State?",
+                options: ["2000", "2003", "2010", "2016"],
+                answer: 1
+            },
+            {
+                question: "Why is Sikkim categorized as a \"food deficit state\"?",
+                options: ["Due to a focus on cash crops over food grains.", "Due to a lack of government support for farmers.", "Due to a low percentage of irrigated area and hilly terrains.", "Due to damage caused by chemical fertilizers."],
+                answer: 2
+            },
+            {
+                question: "What is completely banned in Sikkim to prevent soil acidification and depletion of organic matter?",
+                options: ["The use of tractors", "The use of chemical fertilisers and pesticides", "The cultivation of non-native crops", "The export of agricultural produce"],
+                answer: 1
+            },
+            {
+                question: "What does IPM stand for in the context of agriculture in Sikkim?",
+                options: ["Indian Pest Management", "Integrated Pest Management", "Immediate Pest Mitigation", "Internal Pollution Management"],
+                answer: 1
+            },
+            {
+                question: "What was a key policy adopted by the Sikkim government to discourage the use of chemical fertilizers after the 2003 declaration?",
+                options: ["Imposing a high tax on chemical fertilizers.", "Reducing subsidies on chemical fertilizers by 10% each year.", "Providing free organic manure to all farmers.", "Banning the import of all agricultural goods."],
+                answer: 1
+            },
+            {
+                question: "When was the \"Sikkim State Organic Board\" constituted?",
+                options: ["May 2003", "August 2010", "17th September, 2003", "18th January, 2016"],
+                answer: 2
+            },
+            {
+                question: "When was the Sikkim Organic Mission launched to convert the entire state into a fully organic state?",
+                options: ["March 2010", "August 2010", "November 2010", "January 2016"],
+                answer: 1
+            },
+            {
+                question: "Who officially declared Sikkim as the first state to opt for organic farming in the country on January 18th, 2016?",
+                options: ["The Chief Minister, Pawan Chamling", "The President of India", "The Prime Minister, Narendra Modi", "The Governor of Sikkim"],
+                answer: 2
+            },
+            {
+                question: "What was passed by the State Legislative Assembly to regulate organic inputs and livestock feed?",
+                options: ["The Sikkim Organic Policy", "The Livelihood Schools Act", "The \"Organic inputs and Livestock Feed Regulatory Act\"", "The Farm Waste Recycling Act"],
+                answer: 2
+            },
+            {
+                question: "What was the first government school established in Sikkim in 1906?",
+                options: ["Enchey School", "Nepali Boarding School", "The Bhutia Boarding School", "Tashi Namgyal High School"],
+                answer: 2
+            },
+            {
+                question: "The Tashi Namgyal High School, created in 1924, was an amalgamation of which two schools?",
+                options: ["Enchey School and Paljor Namgyal Girls School", "The Bhutia and Nepali Boarding Schools", "Tashiding School and Tulung School", "Pemayangtse School and Sanga Cholling School"],
+                answer: 1
+            },
+            {
+                question: "According to the text, when did formal education systems begin to develop in Sikkim?",
+                options: ["19th century", "Early 20th century", "Mid 20th century", "After the merger with India in 1975"],
+                answer: 1
+            },
+            {
+                question: "What is the medium of instruction in all government schools in Sikkim?",
+                options: ["Nepali", "Bhutia", "Hindi", "English"],
+                answer: 3
+            },
+            {
+                question: "According to the text, the term literacy rate is used for the population relating to which age group?",
+                options: ["Five years and above", "Six years and above", "Seven years and above", "Ten years and above"],
+                answer: 2
+            },
+            {
+                question: "In which year was a chapter on organic farming included in the school curriculum in Sikkim?",
+                options: ["2010-11", "2012-13", "2013-14", "2014-15"],
+                answer: 1
+            },
+            {
+                question: "When was the National Rural Health Mission (NRHM) launched by the Government of India?",
+                options: ["12th April 2005", "1st January 2006", "15th August 2005", "2nd October 2006"],
+                answer: 0
+            },
+            {
+                question: "What are the main aims of the National Rural Health Mission (NRHM) mentioned in the document?",
+                options: ["To provide free health insurance to all citizens.", "To reduce infant mortality and maternal mortality rates.", "To build a super-speciality hospital in every state.", "To privatize all rural health centers for better efficiency."],
+                answer: 1
+            },
+            {
+                question: "In what year was the first election in Sikkim held on the basis of universal adult franchise?",
+                options: ["1970", "1974", "1975", "1979"],
+                answer: 1
+            },
+            {
+                question: "Who was appointed by the Election Commission of India to conduct the Assembly election of 1974 in Sikkim?",
+                options: ["N.B. Bhandari", "Pawan Chamling", "R.N. Sengupta", "Kazi Lendup Dorjee Khangsarpa"],
+                answer: 2
+            },
+            {
+                question: "Who became the Chief Minister of Sikkim after the 1974 elections?",
+                options: ["B.B. Gooroong", "Nar Bahadur Khatiwara", "Kazi Lendup Dorjee Khangsarpa", "R.C. Poudyal"],
+                answer: 2
+            },
+            {
+                question: "The election of 1979 was the first to be held under what?",
+                options: ["The Tripartite Agreement", "The Constitution of India", "The supervision of the United Nations", "The rule of the Chogyal"],
+                answer: 1
+            },
+            {
+                question: "Who was sworn in as the Chief Minister of Sikkim on October 18, 1979?",
+                options: ["Kazi Lendup Dorjee Khangsarpa", "R.C. Poudyal", "N.B. Bhandari", "Pawan Chamling"],
+                answer: 2
+            },
+            {
+                question: "The cropping pattern in Sikkim demonstrates a focus on food grains, largely led by which crop?",
+                options: ["Rice", "Wheat", "Maize", "Barley"],
+                answer: 0
+            },
+            {
+                question: "What is one of the main components of organic farming practiced in Sikkim to enhance soil fertility?",
+                options: ["Use of genetically modified seeds", "Monoculture cropping", "Biological fixation of nitrogen", "Deep soil tilling"],
+                answer: 2
+            },
+            {
+                question: "As a substitute for chemical fertilisers, what does the Sikkim government encourage?",
+                options: ["Imported synthetic nutrients", "Bio-fertilisers like vermin composting", "Fallowing land for extended periods", "The use of growth hormones"],
+                answer: 1
+            },
+            {
+                question: "Two government farms were converted into organic farms for training and research purposes. In which districts are Nazitam and Melli Dara located?",
+                options: ["North and West", "West and South", "East and South", "North and East"],
+                answer: 2
+            },
+            {
+                question: "By what year was the government subsidy on chemical fertilizers completely eliminated (made nil)?",
+                options: ["2003", "2005", "2007-08", "2010"],
+                answer: 2
+            },
+            {
+                question: "In August 2010, three \"Livelihood Schools\" were established to generate employment. Where were they located?",
+                options: ["Gangtok, Mangan, and Geyzing", "Jorethang, Majhitar, and Rhenock", "Tadong, Bermiok, and Daramdin", "Nazitam, Mellidara, and Soreng"],
+                answer: 2
+            },
+            {
+                question: "What infrastructure was established at Jorethang and Majhitar to encourage the production of certified organic seeds?",
+                options: ["Soil Testing Laboratories", "Biofertilizer production units", "Seed processing units", "Vermiculture hatcheries"],
+                answer: 2
+            },
+            {
+                question: "When was a Sikkim Organic retail outlet established at G.K. New Delhi?",
+                options: ["2008-09", "2009-10", "2010-11", "2012-13"],
+                answer: 2
+            },
+            {
+                question: "According to the document, the total agricultural holding certified as organic in Sikkim is 76,169.604 hectares, cultivated by how many registered farmers?",
+                options: ["58,560", "64,570", "66,227", "100,000"],
+                answer: 2
+            },
+            {
+                question: "Before the 20th century, what was the primary form of education in Sikkim?",
+                options: ["Government-run secular schools", "Private tutoring for the wealthy", "Informal education through monastic schools", "Missionary schools established by the British"],
+                answer: 2
+            },
+            {
+                question: "Who founded the Enchey school in 1909?",
+                options: ["Pawan Chamling", "The landlords of the area", "The Chogyal Sidkeong Tulku", "British missionaries"],
+                answer: 2
+            },
+            {
+                question: "In 1966, the Tashi Namgyal Secondary School was split to form which two institutions?",
+                options: ["Tashi Namgyal College and Tashi Namgyal University", "Tashi Namgyal Secondary School and Tashi Namgyal Academy", "Bhutia Boarding School and Nepali Boarding School", "Paljor Namgyal Girls School and Enchey school"],
+                answer: 1
+            },
+            {
+                question: "According to the Census of 2011, what was the overall literacy rate in Sikkim?",
+                options: ["76.43%", "87.29%", "82.20%", "11.19%"],
+                answer: 2
+            },
+            {
+                question: "The document mentions a significant gender gap in literacy in Sikkim. What is the difference between the male and female literacy rates?",
+                options: ["5.39%", "10.86%", "13.39%", "15.29%"],
+                answer: 2
+            },
+            {
+                question: "In the first Legislative Assembly election of 1974, how many seats were reserved for the Bhutia-Lepcha and Nepali communities, respectively?",
+                options: ["16 for Bhutia-Lepcha, 16 for Nepali", "15 for Bhutia-Lepcha, 15 for Nepali", "10 for Bhutia-Lepcha, 20 for Nepali", "20 for Bhutia-Lepcha, 10 for Nepali"],
+                answer: 1
+            },
+            {
+                question: "In the 1974 election, which party won 31 out of the 32 seats?",
+                options: ["National Party", "Janta Congress", "Sikkim Congress Party", "Sikkim Janta Parishad"],
+                answer: 2
+            },
+            {
+                question: "The members of the Assembly elected in 1974 continued in office until what year?",
+                options: ["1975", "1977", "1979", "1980"],
+                answer: 2
+            },
+            {
+                question: "In the 1979 Assembly Election, which party led by N.B. Bhandari emerged as the single largest party?",
+                options: ["Sikkim Congress (Revolutionary)", "Sikkim Prajatantra Congress", "Indian National Congress", "Sikkim Janta Parishad"],
+                answer: 3
+            },
+            {
+                question: "Even though the Sikkim Janta Parishad was the largest party in 1979, what did it fail to achieve?",
+                options: ["The position of the official opposition", "Recognition from the Election Commission of India", "An absolute majority", "Any seats in the capital, Gangtok"],
+                answer: 2
+            },
+            {
+                question: "B.B. Gooroong was the elected Member of the Legislative Assembly (MLA) from which constituency between 1974-1979?",
+                options: ["Soreng", "Chakung", "Yoksam", "Rinchenpong (BL)"],
+                answer: 1
+            }
+        ];
+
+        const quizContainer = document.getElementById('quiz-container');
+
+        quizData.forEach((item, index) => {
+            // Create the main container for the question
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            // Create and add the question text
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.textContent = `${index + 1}) ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            // Create the options list
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+            
+            // Create and add each option
+            item.options.forEach((option, optionIndex) => {
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    // Prevent re-answering
+                    if (optionsList.classList.contains('answered')) {
+                        return;
+                    }
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+                    
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        // Highlight the correct answer
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+                
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            quizContainer.appendChild(questionBlock);
+        });
+
+    </script>
+</body>
+</html>

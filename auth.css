@@ -1,0 +1,482 @@
+/* =====================================================
+   AUTH SYSTEM STYLES — Sikkim PSC Preparation Hub
+   Neomorphic design, light/dark mode compatible
+   ===================================================== */
+
+/* --- Auth Button Container --- */
+.auth-btn-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* --- Sign In Button (shown when logged out) --- */
+.auth-signin-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    border: 2px solid #0284c7;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: 12px;
+    color: #0284c7;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.auth-signin-btn:hover {
+    background: #0284c7;
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+}
+
+html.dark .auth-signin-btn {
+    border-color: #38bdf8;
+    color: #38bdf8;
+}
+
+html.dark .auth-signin-btn:hover {
+    background: #38bdf8;
+    color: #1a1c20;
+}
+
+.auth-signin-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* --- Mobile Sign In Button --- */
+.auth-signin-btn-mobile {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 12px 16px;
+    border-radius: 12px;
+    background: #0284c7;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(2, 132, 199, 0.2);
+}
+
+.auth-signin-btn-mobile:hover {
+    background: #0369a1;
+}
+
+html.dark .auth-signin-btn-mobile {
+    background: #0284c7;
+    box-shadow: 0 4px 16px rgba(2, 132, 199, 0.3);
+}
+
+/* --- User Avatar & Dropdown (shown when logged in) --- */
+.auth-user-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.auth-user-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 12px 4px 4px;
+    background: #eef1f5;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 4px 4px 8px #d1d9e6, -4px -4px 8px #ffffff;
+}
+
+.auth-user-btn:hover {
+    box-shadow: 2px 2px 4px #d1d9e6, -2px -2px 4px #ffffff;
+}
+
+html.dark .auth-user-btn {
+    background: #24272c;
+    box-shadow: 4px 4px 8px #16181b, -4px -4px 8px #32363d;
+}
+
+html.dark .auth-user-btn:hover {
+    box-shadow: 2px 2px 4px #16181b, -2px -2px 4px #32363d;
+}
+
+.auth-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.auth-avatar-placeholder {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0284c7, #38bdf8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.875rem;
+}
+
+.auth-user-name {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #4b5563;
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+html.dark .auth-user-name {
+    color: #d1d5db;
+}
+
+.auth-chevron {
+    width: 14px;
+    height: 14px;
+    color: #9ca3af;
+    transition: transform 0.25s ease;
+}
+
+.auth-user-btn[aria-expanded="true"] .auth-chevron {
+    transform: rotate(180deg);
+}
+
+/* --- Auth Dropdown Menu --- */
+.auth-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 220px;
+    background: #eef1f5;
+    border-radius: 16px;
+    padding: 8px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 200;
+    box-shadow: 10px 10px 20px #d1d9e6, -10px -10px 20px #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.auth-dropdown.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+html.dark .auth-dropdown {
+    background: #24272c;
+    box-shadow: 10px 10px 20px #16181b, -10px -10px 20px #32363d;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.auth-dropdown-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    margin-bottom: 4px;
+}
+
+html.dark .auth-dropdown-header {
+    border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+
+.auth-dropdown-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.auth-dropdown-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.auth-dropdown-name {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #1f2937;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+html.dark .auth-dropdown-name {
+    color: #f3f4f6;
+}
+
+.auth-dropdown-email {
+    font-size: 0.7rem;
+    color: #9ca3af;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.auth-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #4b5563;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    width: 100%;
+    text-align: left;
+}
+
+.auth-dropdown-item:hover {
+    background: rgba(2, 132, 199, 0.06);
+    color: #0284c7;
+}
+
+html.dark .auth-dropdown-item {
+    color: #d1d5db;
+}
+
+html.dark .auth-dropdown-item:hover {
+    background: rgba(56, 189, 248, 0.06);
+    color: #38bdf8;
+}
+
+.auth-dropdown-item svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.auth-dropdown-divider {
+    height: 1px;
+    background: rgba(0, 0, 0, 0.06);
+    margin: 4px 0;
+}
+
+html.dark .auth-dropdown-divider {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.auth-signout-item {
+    color: #ef4444 !important;
+}
+
+.auth-signout-item:hover {
+    background: rgba(239, 68, 68, 0.06) !important;
+    color: #dc2626 !important;
+}
+
+/* --- Mobile Auth (logged in) --- */
+.auth-mobile-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    margin-bottom: 8px;
+}
+
+.auth-mobile-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 4px 4px 8px #d1d9e6, -4px -4px 8px #ffffff;
+}
+
+html.dark .auth-mobile-avatar {
+    box-shadow: 4px 4px 8px #16181b, -4px -4px 8px #32363d;
+}
+
+.auth-mobile-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.auth-mobile-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+html.dark .auth-mobile-name {
+    color: #f3f4f6;
+}
+
+.auth-mobile-email {
+    font-size: 0.75rem;
+    color: #9ca3af;
+}
+
+.auth-mobile-links {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.auth-mobile-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #4b5563;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.auth-mobile-link:hover {
+    background: rgba(2, 132, 199, 0.06);
+    color: #0284c7;
+}
+
+html.dark .auth-mobile-link {
+    color: #d1d5db;
+}
+
+html.dark .auth-mobile-link:hover {
+    background: rgba(56, 189, 248, 0.06);
+    color: #38bdf8;
+}
+
+.auth-mobile-link svg {
+    width: 20px;
+    height: 20px;
+}
+
+.auth-mobile-signout {
+    color: #ef4444 !important;
+}
+
+.auth-mobile-signout:hover {
+    background: rgba(239, 68, 68, 0.06) !important;
+}
+
+/* --- Progress Saved Toast --- */
+.auth-toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    padding: 12px 20px;
+    background: #eef1f5;
+    border-radius: 14px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #059669;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 8px 8px 16px #d1d9e6, -8px -8px 16px #ffffff;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 9999;
+}
+
+.auth-toast.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+html.dark .auth-toast {
+    background: #24272c;
+    color: #34d399;
+    box-shadow: 8px 8px 16px #16181b, -8px -8px 16px #32363d;
+}
+
+.auth-toast svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* --- Sign In Prompt (quiz pages) --- */
+.auth-signin-prompt {
+    margin-top: 20px;
+    padding: 16px;
+    background: #f0f9ff;
+    border: 1px solid #bae6fd;
+    border-radius: 12px;
+    text-align: center;
+    animation: fadeIn 0.5s ease;
+}
+
+html.dark .auth-signin-prompt {
+    background: rgba(2, 132, 199, 0.1);
+    border-color: rgba(56, 189, 248, 0.2);
+}
+
+.auth-signin-prompt p {
+    font-size: 0.9rem;
+    color: #0369a1;
+    margin-bottom: 10px;
+}
+
+html.dark .auth-signin-prompt p {
+    color: #7dd3fc;
+}
+
+.auth-signin-prompt button {
+    padding: 8px 20px;
+    background: #0284c7;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.auth-signin-prompt button:hover {
+    background: #0369a1;
+}
+
+/* --- Google Icon in Button --- */
+.google-icon {
+    width: 18px;
+    height: 18px;
+}
+
+/* --- Loading spinner --- */
+.auth-loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(2, 132, 199, 0.2);
+    border-top-color: #0284c7;
+    border-radius: 50%;
+    animation: authSpin 0.6s linear infinite;
+}
+
+html.dark .auth-loading {
+    border-color: rgba(56, 189, 248, 0.2);
+    border-top-color: #38bdf8;
+}
+
+@keyframes authSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}

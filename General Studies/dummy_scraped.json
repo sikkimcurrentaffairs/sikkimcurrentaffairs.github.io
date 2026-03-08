@@ -1,0 +1,38 @@
+[
+  {
+    "text": "Which part of the plant absorbs water?",
+    "options": {"A": "Root", "B": "Stem", "C": "Leaf", "D": "Flower"},
+    "answer": "A",
+    "section": 1
+  },
+  {
+    "text": "The heart pumps blood to the lungs via...",
+    "options": {"A": "Aorta", "B": "Pulmonary Artery", "C": "Vena Cava", "D": "Vein"},
+    "answer": "B",
+    "section": 2
+  },
+  {
+    "text": "Mitochondria is known as power house of the cell.",
+    "options": {"A": "True", "B": "False", "C": "Maybe", "D": "None"},
+    "answer": "A",
+    "section": 3
+  },
+  {
+    "text": "Which animal lays eggs?",
+    "options": {"A": "Dog", "B": "Cat", "C": "Platypus", "D": "Cow"},
+    "answer": "C",
+    "section": 4
+  },
+  {
+    "text": "Ozone layer depletion is caused by...",
+    "options": {"A": "CFCs", "B": "CO2", "C": "O2", "D": "N2"},
+    "answer": "A",
+    "section": 5
+  },
+  {
+    "text": "Generic question about biology.",
+    "options": {"A": "A", "B": "B", "C": "C", "D": "D"},
+    "answer": "A",
+    "section": 6
+  }
+]

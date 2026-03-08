@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cell Biology, Genetics & Evolution | Sikkim PSC Hub</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+            border-color: #bbb;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .options-list.answered .option:not(.correct):not(.incorrect) {
+            opacity: 0.7;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none;
+        }
+        .quiz-stats {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <a href="biology.html" class="back-link">&larr; Back to Biology</a>
+        <h1>Cell Biology, Genetics & Evolution</h1>
+        <p class="quiz-stats">119 Questions</p>
+        <div id="questions-wrapper"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Movement of cell against concentration gradient is called",
+                options: ["osmosis", "active transport", "diffusion", "passive transport"],
+                answer: 1
+            },
+            {
+                question: "Process of cell division can take place by",
+                options: ["heterosis", "fusion", "mitosis", "None of these"],
+                answer: 2
+            },
+            {
+                question: "Nucleus, the genetic material containing rounded body in each cell, was first discovered in 1831 by",
+                options: ["Robert Hooke", "Robert Brown", "Rudolf Virchow", "Theodore Schwann"],
+                answer: 1
+            },
+            {
+                question: "Plants hormone that induces cell division is",
+                options: ["auxins", "gibberellins", "cytokinins", "domins"],
+                answer: 2
+            },
+            {
+                question: "Poison glands of snakes are homologous to",
+                options: ["electric organs of fishes", "stings of rays", "sebaceous glands of mammals", "salivary glands of vertebrates"],
+                answer: 3
+            },
+            {
+                question: "Mutation is",
+                options: ["a factor responsible for plant growth", "a change which affects the offspring of F2generation only", "a change that is inherited", "a change which affects the parents"],
+                answer: 2
+            },
+            {
+                question: "It consists of an aqueous ground substance containing a variety of cell organelles and other inclusions such as wastes and storage products.",
+                options: ["Cytoplasm", "Actoplasm", "Endoplasm", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "Where is the genetic information of the cell stored?",
+                options: ["DNA", "Cell membrane", "Nucleus", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "Where does protein synthesis take place in a cell?",
+                options: ["Ribosomes", "Mitochondria", "Cytoplasm", "Nucleus"],
+                answer: 0
+            },
+            {
+                question: "In plants cells,which structure provides a definite shape to the cell and makes it right?",
+                options: ["Cell membrane", "Chitin", "Epidermis", "Cell wall"],
+                answer: 3
+            },
+            {
+                question: "Produces a usable form of energy for the cell",
+                options: ["Lysosomes", "Vacuoles", "Mitochondria", "Ribosomes"],
+                answer: 2
+            },
+            {
+                question: "Which among the following is also called as \'power house of the cell\'?",
+                options: ["Plastids", "Mitochondria", "Golgi bodies", "Cell wall"],
+                answer: 1
+            },
+            {
+                question: "The smallest blood vessels which are one-cell thick, are called ________",
+                options: ["Vena cava", "Arteries", "Veins", "Capillaries"],
+                answer: 3
+            },
+            {
+                question: "Name the blood cells in which nucleus is absent.",
+                options: ["Lymphocytes", "Blood Platelets", "Monocytes", "Eosinophils"],
+                answer: 1
+            },
+            {
+                question: "White blood cell act",
+                options: ["As a defence against infection", "As a source of energy", "For clotting blood", "As a medium for oxygen transport from lung to tissues"],
+                answer: 0
+            },
+            {
+                question: "Sickle-cell anemia is a disease caused due to the abnormality in",
+                options: ["White blood cell", "Red blood cell", "Thrombocytes", "Blood plasma composition"],
+                answer: 1
+            },
+            {
+                question: "________ is the interaction in which one species benefits and the other is neither harmed nor benefited.",
+                options: ["Predation", "Commensalism", "Competition", "Parasitism"],
+                answer: 1
+            },
+            {
+                question: "A species inhabiting different geographical areas is known as",
+                options: ["Allopatric species", "Sympatric species", "Bio species", "Sibling species"],
+                answer: 0
+            },
+            {
+                question: "Two species occupying same or overlapping area are",
+                options: ["Allopatric", "Parapatric", "Sympatric", "Peripatric"],
+                answer: 2
+            },
+            {
+                question: "The DNA of the bacterium is found present in a distinct nuclear region called",
+                options: ["Nucleolus", "Centrosome", "Nucleoid", "Nucleus"],
+                answer: 2
+            },
+            {
+                question: "In ________ cells the genetic material is without any nuclear membrane covering and is directly submerged in the cytoplasm.",
+                options: ["Virus", "Algae", "Bacteria", "Moss"],
+                answer: 2
+            },
+            {
+                question: "A viral species is a group of viruses that has",
+                options: ["Same ecological niche", "Same genetic information", "Both A & B", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "The DNA bacterium consists of ring-like pieces known as the",
+                options: ["Plasmids", "Genes", "Chromosomes", "Mesosomes"],
+                answer: 0
+            },
+            {
+                question: "The number of pyrenoids in a cell of Spirogyra is",
+                options: ["1", "2", "3-5", "Numerous"],
+                answer: 3
+            },
+            {
+                question: "Which among the following does not have a cell wall?",
+                options: ["Euglena", "Paramecium", "Gonyaulax", "Mycoplasma"],
+                answer: 3
+            },
+            {
+                question: "The number of chloroplasts in a cell of Spirogyra is",
+                options: ["1-4", "1-8", "1-14", "2-8"],
+                answer: 2
+            },
+            {
+                question: "Virus is not regarded as a cell, because",
+                options: ["It is anactive unless it finds a host to multiply", "Most of the cellular activity is absent", "The genetic material does not replicate on its own", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "Which organelles supply energy to the cell?",
+                options: ["Mitochondria", "Cytoplasm", "Ribosomes", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "Which is not a function of the cell membrane?",
+                options: ["Helps substances pass from the cytoplasm into the nucleus", "Keeps materials within the cell separated from the environment outside the cell", "Helps control the movement of materials into and out of the cell", "Allows the cell to change shape under pressure"],
+                answer: 0
+            },
+            {
+                question: "In most plants and animals, the fluid filled sacs or cisternae of Golgi Bodies may vary from",
+                options: ["1 to 2", "2 to 3", "3 to 7", "7 to 10"],
+                answer: 2
+            },
+            {
+                question: "A cell consists of three main components which is ________",
+                options: ["Cytoplasm, Nucleus, cell membrane", "Protoplasm, Nucleoplasm, Cytoplasm", "Nucleus, Ribosomes, Plasma membrane", "Plasma membrane, Nucleus, Golgi bodies"],
+                answer: 0
+            },
+            {
+                question: "These are rods or filament like very small bodies present in the cytoplasm of all cells of plants and animals.",
+                options: ["Golgi Bodies", "Ribosomes", "Lysosomes", "Mitochondria"],
+                answer: 3
+            },
+            {
+                question: "Through cell membrane, which substances can pass more easily than others?",
+                options: ["Peptides soluble", "Nucleic acids soluble", "Cellulose soluble", "Lipid soluble"],
+                answer: 3
+            },
+            {
+                question: "Which one of the following functions is not carried out by smooth endoplasmic reticulum?",
+                options: ["Transport of materials", "Synthesis of lipid", "Synthesis of protein", "Synthesis of steroid hormone"],
+                answer: 2
+            },
+            {
+                question: "Where in the cell are chromosomes located?",
+                options: ["Mitochondria", "DNA", "RNA", "Nucleus"],
+                answer: 3
+            },
+            {
+                question: "The main function of the Golgi body is",
+                options: ["Respiration", "To begin cell division", "To produce gastric juice", "Secretion"],
+                answer: 3
+            },
+            {
+                question: "Which organelle is the control center of a cell?",
+                options: ["Nucleus", "Cytoplasm", "Cell membrane", "Endoplasmic reticulum"],
+                answer: 0
+            },
+            {
+                question: "The theory which states that all animals and plants are composed of cells and cell products is known as",
+                options: ["Cell Theory", "Atomic Theory", "Bohr\'s Theory", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "Mitochondria are also known as",
+                options: ["Store house of the cell", "Power house of the cell", "Factory of protein synthesis", "Factory of ribosomes synthesis"],
+                answer: 1
+            },
+            {
+                question: "Which organelles are involved in the manufacture and supply of energy to the cell?",
+                options: ["Ribosomes", "Mitochondria", "Golgi Bodies", "Vacuoles"],
+                answer: 1
+            },
+            {
+                question: "Which statement is one component of the cell theory?",
+                options: ["DNA is the basis of genetic transfer", "All living cells arise from pre-existing cells", "All cells are composed of same organelles", "Tissues are formed from combinations of cells"],
+                answer: 1
+            },
+            {
+                question: "Do plant cells have Mitochondria?",
+                options: ["Yes", "No", "Can\'t be determined", "None"],
+                answer: 0
+            },
+            {
+                question: "Which observation proves that a cell is a eukaryote?",
+                options: ["It contains DNA", "It contains ribosomes", "It has a cell membrane", "It has DNA inside a nucleus"],
+                answer: 3
+            },
+            {
+                question: "Where does cellular respiration take place in the cell?",
+                options: ["Cytoplasm", "Mitochodria", "Ribosomes", "Chromosomes"],
+                answer: 1
+            },
+            {
+                question: "Which of the following organelle is known as the \'Power House\' of the cell?",
+                options: ["Golgi Bodies", "Ribosomes", "Mitochondria", "None of these"],
+                answer: 2
+            },
+            {
+                question: "What three statements make up the cell theory?",
+                options: ["All living things are made up of cells", "New cells come frome exisiting cells", "Cells are the basic unit of structure/function in living things", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "What is the full form of DNA?",
+                options: ["Diribo nucleic acid", "Di nucleic acid", "Dual nitrogen acid", "Deoxyribonucleic acid"],
+                answer: 3
+            },
+            {
+                question: "What is the full form of RNA?",
+                options: ["Ribonucleic Acid", "Ribonitric Acid", "Ribonutrient Acid", "Reverse Nucleic Acid"],
+                answer: 0
+            },
+            {
+                question: "Who formulated Cell theory?",
+                options: ["Schwan", "M.J.Schleiden", "Henri Dutrochet", "Both Schawn and M.J.Scheilden"],
+                answer: 3
+            },
+            {
+                question: "Protein synthesis in a bacterial cell is done by",
+                options: ["Centrioles", "Flagella", "Thylakoids", "Ribosomes"],
+                answer: 3
+            },
+            {
+                question: "The cell was discovered by",
+                options: ["Hooke", "Schleiden", "Oken", "Darwin"],
+                answer: 0
+            },
+            {
+                question: "The Powerhouse of the cell is",
+                options: ["Chloroplast", "Nucleus", "Endoplasmic reticulum", "Mitochondria"],
+                answer: 3
+            },
+            {
+                question: "Which of the following structure is not found in a eukaryotic cell?",
+                options: ["Ribosome", "Mitochondria", "Mesosome", "Golgi body"],
+                answer: 2
+            },
+            {
+                question: "Prokaryotic cell differs from eukaryotic cell in lacking",
+                options: ["DNA", "Nuclear membrane", "Cell organelles", "RNA"],
+                answer: 1
+            },
+            {
+                question: "The prokaryotic cell lacks",
+                options: ["Nuclear envelope and DNA", "Nuclear envelope and plastids", "DNA and mitochondria", "Cell membrance and nucleus"],
+                answer: 1
+            },
+            {
+                question: "Which is the only human cell that has a flagella?",
+                options: ["Blood cells", "Sperm", "Neurons", "Liver cells"],
+                answer: 1
+            },
+            {
+                question: "Sickle-cell anaemia is due to",
+                options: ["Viruses", "Genes", "Hormones", "Bacteria"],
+                answer: 1
+            },
+            {
+                question: "Their cells have a very well defined nucleus ,in which nuclear material (chromosomes or DNA) is enclosed in double nuclear membrane.",
+                options: ["Prokaryotes", "Bacterial", "Viral", "Eukaryotes"],
+                answer: 3
+            },
+            {
+                question: "Which cell can contract and relax?",
+                options: ["Muscle cells", "Excretory cells", "Nervous cells", "Respiratory cells"],
+                answer: 0
+            },
+            {
+                question: "The Vitamin required for the synthesis of nucleic acid is",
+                options: ["Tocoferorl", "Folic acid", "Cyanocobalamine", "Riboflavin"],
+                answer: 1
+            },
+            {
+                question: "Tissue in which cells have lost the capacity of cell division is",
+                options: ["Mesristmatic tissue", "Permanent tissue", "Both a and b", "None of these"],
+                answer: 1
+            },
+            {
+                question: "What is common in both striated and cardiac cell?",
+                options: ["Shape", "Number", "Striations", "Contractions"],
+                answer: 2
+            },
+            {
+                question: "Which type of cell, skin is made up of:",
+                options: ["Epidermal cells", "Connective tissue", "Permanent tissues", "Parenchyma"],
+                answer: 0
+            },
+            {
+                question: "The movement of materials across the cell membrane with the help of biological energy provided by ATP is called",
+                options: ["Active Transport", "Passive Transport", "Endocytosis", "Fractionation"],
+                answer: 0
+            },
+            {
+                question: "Which process requires no energy from the cell?",
+                options: ["Osmosis", "Diffusion", "Both A & B", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "When the concentration of water and solutes on either side of the cell membrane is same, the solution is said to be",
+                options: ["Hypertonic", "Isotonic", "Hypotonic", "None of these"],
+                answer: 1
+            },
+            {
+                question: "What process accounts for species diversity?",
+                options: ["Predation", "Mitosis", "Symbiosis", "Meiosis"],
+                answer: 3
+            },
+            {
+                question: "When are chromatids found in a cell?",
+                options: ["Anaphase", "Metaphase", "Prophase", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "Which phase\'s intiation is indicated by the appearance of the chromosomes as thin threads in the nucleus?",
+                options: ["Prophase", "Metaphase", "Telophase", "Anaphase"],
+                answer: 0
+            },
+            {
+                question: "In which of these mitosis is missing and the cell divided by binary fission?",
+                options: ["Prokaryotes", "Eukaryotes", "Arthropdes", "All of these"],
+                answer: 0
+            },
+            {
+                question: "The stage of mitosis at which chromatids separate as independent chromosomes is the",
+                options: ["Prophase", "Metaphase", "Anaphase", "Telophase"],
+                answer: 2
+            },
+            {
+                question: "A typical chromosome has two parts a centrifuge and ________",
+                options: ["Blastomeres", "Chromosomes", "Centrosomes", "Ribosomes"],
+                answer: 2
+            },
+            {
+                question: "It is the site of chromosome attachment to the fibres of spindle.",
+                options: ["Chromomere", "Centromere", "Centrosme", "Blastomere"],
+                answer: 1
+            },
+            {
+                question: "The shape of chromosome is clearly visible at",
+                options: ["Prophase", "Anaphase", "Metaphase", "Telophase"],
+                answer: 2
+            },
+            {
+                question: "How many daughter cells are formed after the completion mitosis?",
+                options: ["2", "4", "6", "8"],
+                answer: 0
+            },
+            {
+                question: "How many daughter cells reproduces after the completion of Meiosis II?",
+                options: ["2 daughter cells", "4 daughter cells", "6 daughter cells", "8 daughter cells"],
+                answer: 1
+            },
+            {
+                question: "Who first studied the process of cell division in animals?",
+                options: ["Walther Fleming", "Chase", "Mendel", "Drawin"],
+                answer: 0
+            },
+            {
+                question: "Which of the following does not occur during mitosis?",
+                options: ["Spindle formation", "Condensation of the chromosomes", "Breakdown of the nuclear membrane", "Replication of the DNA"],
+                answer: 3
+            },
+            {
+                question: "Meiosis II is similar to mitosis in that",
+                options: ["The daughter cells are diploid", "Sister chromatids separate during anaphase", "DNA replicates before the division", "All of the above"],
+                answer: 2
+            },
+            {
+                question: "Which is a homologous chromosome pair?",
+                options: ["Tetrad", "Gamate", "Chromatid", "Zygote"],
+                answer: 0
+            },
+            {
+                question: "At anaphase stage of mitosis in plant cells, interzonal of the spindle fibres gets transformed into",
+                options: ["Equatorial plate", "Nucleoplast", "Phragmoplast", "Chloroplast"],
+                answer: 2
+            },
+            {
+                question: "During which stage of mitosis does cytokinesis usually occur in animals?",
+                options: ["Prophase", "Metaphase", "Anaphase", "Telophase"],
+                answer: 3
+            },
+            {
+                question: "During the metaphase and anaphase stages of cell division, each chromosome comprises of two unseparated replicas known as the",
+                options: ["Chiasmata", "Plastids", "Chromatids", "Tetrads"],
+                answer: 2
+            },
+            {
+                question: "Unlike Mitosis, Meiosis results in the formation of",
+                options: ["2N daughter cells", "Haploid cells", "Body cells", "Diploid cells"],
+                answer: 1
+            },
+            {
+                question: "How many daughter cells are produced in mitosis?",
+                options: ["2", "4", "8", "None"],
+                answer: 0
+            },
+            {
+                question: "Chromosome start separating at which stage of mitosis?",
+                options: ["Early metaphase", "Late metaphase", "Early anaphase", "Early telophase"],
+                answer: 2
+            },
+            {
+                question: "Which cell division of phase of cell division maintains the chromosomes number constant from generation to generation?",
+                options: ["Mitosis", "Meiosis", "Prophase I", "Zygotene"],
+                answer: 1
+            },
+            {
+                question: "Mitosis cannot take place bacteria because they lack ________",
+                options: ["Chromosomes", "Nucleus", "Centrosome", "Mesosomes"],
+                answer: 1
+            },
+            {
+                question: "During which phase or phase of cell division, the morphology of the chromosomes is best studied?",
+                options: ["Telophase, anaphase", "Prohase, anaphase", "Anaphase, metaphase", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "Metaphase is followed by the next phase of mitosis called",
+                options: ["Anaphase", "Prophase", "Interphase", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "Lysosome is formed from which of the following cell organelles?",
+                options: ["Nucleus", "Endoplasmic reticulum", "Golgi bodies", "Ribosomes"],
+                answer: 2
+            },
+            {
+                question: "In the cell of animals, some microorganisms and lower plants contain",
+                options: ["One centriole", "Two centriole", "Three centriole", "Four centriole"],
+                answer: 1
+            },
+            {
+                question: "Which one among the following cell organelles is semi-permeable ?",
+                options: ["Cell membrane", "Plasma membrane", "Cell wall", "Nucleus"],
+                answer: 0
+            },
+            {
+                question: "Any foreign object that gains entry into the cell is immediately engulfed by the ________ and is completely broken into simple digestible pieces.",
+                options: ["R.B.Cs", "Platelets", "Haemoglobin", "Lysosomes"],
+                answer: 3
+            },
+            {
+                question: "The cell wall of plants is generally made up of cellulose and is differently structured than that of a",
+                options: ["Moss", "Bacterium", "Fern", "Algae"],
+                answer: 1
+            },
+            {
+                question: "Which cell feature is responsible for making proteins?",
+                options: ["Chromosomes", "Nucleus", "Ribosomes", "Cytoplasm"],
+                answer: 2
+            },
+            {
+                question: "In a cell process of respiration takes place in",
+                options: ["Mitochondria", "Plastids", "Ribosomes", "Lysosomes"],
+                answer: 0
+            },
+            {
+                question: "It is the basic structure found in all membranes such as those of mitochondria and chloroplasts.",
+                options: ["Nuclear membrane", "Unit membrane", "Plasma membrane", "Cell wall"],
+                answer: 1
+            },
+            {
+                question: "Which one is found in a pair in each chromosome?",
+                options: ["Genes", "Nuclei", "Bases", "Chromatids"],
+                answer: 3
+            },
+            {
+                question: "Which cell feature is responsible for storing water ?",
+                options: ["Vacuole", "Lysosome", "Mitochondria", "Non of the above"],
+                answer: 0
+            },
+            {
+                question: "Which organelle in the cell, other than nucleus contains DNA?",
+                options: ["Golgi body", "Mitochondria", "Lysosome", "Centriole"],
+                answer: 1
+            },
+            {
+                question: "They are also concerned with the formation and storage of certain compounds secreted by the cell.",
+                options: ["Lysosomes", "Golgi Bodies", "Centriole", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "The sex of a newborn baby is determined by the chromosome inherited from",
+                options: ["The Father", "The Mother", "The Father\'s Father", "Both A & B"],
+                answer: 0
+            },
+            {
+                question: "The chromosome number 2n is known as",
+                options: ["Haploid number", "Diploid number", "Triploid number", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "In 1910, who proved the idea of W.S.Sutton that genes are located on chromosomes?",
+                options: ["T.H.Morgan", "De Duve", "Palade", "Waldeyer"],
+                answer: 0
+            },
+            {
+                question: "Which nitrogenous base is not found in dna?",
+                options: ["Uracil", "Thymine", "Cytosine", "Guanine"],
+                answer: 0
+            },
+            {
+                question: "Gregor Johann Mendel worked on",
+                options: ["Edible pea", "Wild pea", "Garden pea", "Pigeon pea"],
+                answer: 2
+            },
+            {
+                question: "Which describes the correct pairing of DNA bases?",
+                options: ["Guanine - cytosine", "Adenine - cytosine", "Guanine - thymine", "Thymine - cytosine"],
+                answer: 0
+            },
+            {
+                question: "Sex determination of child is done by the chromosome of",
+                options: ["Father", "Mother", "Both father and mother", "None of these"],
+                answer: 0
+            },
+            {
+                question: "Which chemical is not found in DNA nucleotides?",
+                options: ["Thymine", "Uracil", "Adenine", "All of the above"],
+                answer: 1
+            },
+            {
+                question: "Nitrogenous bases in DNA and RNA?",
+                options: ["Adenine", "Cytosine", "Guanine", "All the above"],
+                answer: 3
+            },
+            {
+                question: "In man there are how many pairs of homologous chromosomes?",
+                options: ["46", "23", "16", "11"],
+                answer: 1
+            },
+            {
+                question: "Who is known as Father of Modern Genetics?",
+                options: ["Charles Darwin", "Louis Pasteur", "Gregor Mendel", "Jean Baptiste Lamarck"],
+                answer: 2
+            },
+            {
+                question: "How many pairs of chromosomes are found in a human cell?",
+                options: ["18", "23", "27", "32"],
+                answer: 1
+            },
+            {
+                question: "The experimental material used by Gregor Mendel is ________",
+                options: ["Pea plant", "Drossophila", "Potato plant", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "Mendel\'s second law is the law of",
+                options: ["Segregation", "Independent assortment", "Dominance", "Polygenic inheritance"],
+                answer: 1
+            },
+            {
+                question: "The genotype of a plant showing a dominant phenotype can be determined by",
+                options: ["Backcross", "Dihybrid cross", "Testcross", "Pedigree analysis"],
+                answer: 2
+            },
+            {
+                question: "The schwann cell forms a myelin sheath around the",
+                options: ["Nodes of Ranvier", "Dendrites", "Nucleus", "Axon"],
+                answer: 3
+            },
+            {
+                question: "Which of the following would cause gene flow?",
+                options: ["Individuals moving into population", "Genetic drift", "Mutation", "Artificial selection"],
+                answer: 0
+            }
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.textContent = `${index + 1}) ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) {
+                        return;
+                    }
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            wrapper.appendChild(questionBlock);
+        });
+    </script>
+</body>
+</html>

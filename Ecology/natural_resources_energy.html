@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Natural Resources & Energy | Sikkim PSC Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        .quiz-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        html.dark .quiz-container {
+            background: #24272c;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #0284c7;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        html.dark .question-block {
+            border-bottom: 1px solid #334155;
+        }
+        .question-text {
+            font-size: 1.15em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+        html.dark .question-text {
+            color: #f1f5f9;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option {
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            padding: 16px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            color: #475569;
+        }
+        html.dark .option {
+            background-color: #1e293b;
+            border: 2px solid #334155;
+            color: #cbd5e1;
+        }
+        .option:hover {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
+            transform: translateX(4px);
+        }
+        html.dark .option:hover {
+            background-color: #334155;
+            border-color: #475569;
+        }
+        .option.correct {
+            background-color: #dcfce7 !important;
+            border-color: #4ade80 !important;
+            color: #166534 !important;
+        }
+        html.dark .option.correct {
+            background-color: #064e3b !important;
+            border-color: #10b981 !important;
+            color: #ecfdf5 !important;
+        }
+        .option.incorrect {
+            background-color: #fee2e2 !important;
+            border-color: #f87171 !important;
+            color: #991b1b !important;
+        }
+        html.dark .option.incorrect {
+            background-color: #7f1d1d !important;
+            border-color: #ef4444 !important;
+            color: #fef2f2 !important;
+        }
+        .options-list.answered {
+            pointer-events: none;
+        }
+        .quiz-stats-badge {
+            background: #f1f5f9;
+            color: #64748b;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        html.dark .quiz-stats-badge {
+            background: #334155;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 min-h-screen p-4 sm:p-8">
+
+    <div class="quiz-container">
+        <a href="ecology.html" class="back-link">&larr; Back to Ecology Topics</a>
+        <h1 class="text-3xl font-bold text-green-800 dark:text-green-400 mb-2">Natural Resources & Energy</h1>
+        <div class="quiz-stats-badge">78 MCQ Questions</div>
+        
+        <div id="questions-wrapper"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Water vapour is:",
+                options: ["A gas", "A cloud droplet", "A rain drop", "A snowflake"],
+                answer: 0
+            },
+            {
+                question: "The practical problem in hydrogen production is its",
+                options: ["weight", "valency", "atomicity", "chemical property"],
+                answer: 0
+            },
+            {
+                question: "An example of nitrogen fixing bacteria in the soil",
+                options: ["Rhizobium", "Nostoc", "Azotobacter", "Nitrobacter"],
+                answer: 2
+            },
+            {
+                question: "The algal booin often releases  __________ in water",
+                options: ["acidic", "toxins", "bacteria", "virus"],
+                answer: 1
+            },
+            {
+                question: "The main energy source for the environment is ________",
+                options: ["Solar energy", "Chemical energy", "Bioelectric energy", "Electrical energy"],
+                answer: 0
+            },
+            {
+                question: "Soil chemistry is considered an  __________ factor",
+                options: ["topographic", "econtonal", "biologic", "edaphic"],
+                answer: 3
+            },
+            {
+                question: "Energy resources derived from natural organic materials are called",
+                options: ["geothermal energy sources", "fossil fuels", "biomass", "all of these"],
+                answer: 1
+            },
+            {
+                question: "Two objects, A and B, have the same mass but the specific heat of A is larger than B. If both objects absorb equal amounts of energy,",
+                options: ["A will become warmer than B", "B will become warmer than A", "Both A and B will warm at the same rate", "A will get warmer, but B will get colder"],
+                answer: 1
+            },
+            {
+                question: "Although the polar regions radiate away more heat energy than they receive by insolation in the course of a year, they are prevented from becoming progressively colder each year by the:",
+                options: ["Conduction of heat through the interior of the earth", "Concentration of earth's magnetic field lines at the poles", "Circulation of heat by the atmosphere and oceans", "The insulating properties of snow"],
+                answer: 2
+            },
+            {
+                question: "Typically, water vapour occupies about what percentage of the air's volume near the earth's surface?",
+                options: ["About 78 percent", "About 21 percent", "Close to 10 percent", "Less than 4 percent"],
+                answer: 3
+            },
+            {
+                question: "Heat is energy in the process of being transferred from:",
+                options: ["Hot objects to cold objects", "Low pressure to high pressure", "Cold objects to hot objects", "High pressure to low pressure"],
+                answer: 0
+            },
+            {
+                question: "BOD of a river water is found very high. This means water",
+                options: ["is clear", "is highly polluted", "contain Algae", "contain many dissolved minerals"],
+                answer: 1
+            },
+            {
+                question: "The presence of high coliform counts in water indicates",
+                options: ["contamination by human wastes", "phosphorus contamination", "decreased Biological Oxygen Demand", "hydrocrbon contamination"],
+                answer: 0
+            },
+            {
+                question: "Coal is a  __________ resource.",
+                options: ["abiotic", "inorganic", "deforestation", "none of the above"],
+                answer: 2
+            },
+            {
+                question: "The areas where soil is washed away into streams, transported into rivers and finally lost to the sea are called",
+                options: ["Ecologically sensitive areas", "Grasslands", "Delta", "Biologically sensitive areas"],
+                answer: 0
+            },
+            {
+                question: "The percentage of water vapour present in the air compared to that required for saturation is the:",
+                options: ["Mixing ratio", "Absolute humidity", "Dew point", "Relative humidity"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is the most responsible for world water crisis?",
+                options: ["Dams", "Floods", "Drought", "Population growth"],
+                answer: 2
+            },
+            {
+                question: "Air is composed of gases, water vapours and",
+                options: ["rainfall", "snowfall", "dust particles", "light"],
+                answer: 2
+            },
+            {
+                question: "The unit of total water content of the soil is known as",
+                options: ["Holard", "Chraserd", "Echard", "All of the above"],
+                answer: 0
+            },
+            {
+                question: "_________ energy is the main driving force of the ecological system.",
+                options: ["Hydro", "Solar", "Electric", "Mechanical"],
+                answer: 1
+            },
+            {
+                question: "Which among the following result in the formation of soil?",
+                options: ["Radiation", "Weathering", "Erosion", "Pollution"],
+                answer: 1
+            },
+            {
+                question: "Rain water harvesting is a major method implemented for_____________",
+                options: ["Water Conservation", "Soil Conservation", "Forest conservation", "Ecological conservation"],
+                answer: 0
+            },
+            {
+                question: "Burning of coal produces oxides of sulphur and nitrogen which combined with water vapor leads to",
+                options: ["acid rain", "brackish water", "forest fire", "soil pollution"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is a nonrenewable energy resource?",
+                options: ["Solar", "Methane", "Hydroelectric", "Coal"],
+                answer: 3
+            },
+            {
+                question: "What type of energy is derived from heated groundwater?",
+                options: ["solar", "geothermal", "hydroelectric", "nuclear"],
+                answer: 1
+            },
+            {
+                question: "Freshwater protozoans react to a/an  __________ environment by removing water through _______",
+                options: ["hypotonic, turgor pressure", "isotonic, a contractile vacuole", "hypertonic, a contractile vacuole", "hypotonic, a contractile vacuole"],
+                answer: 3
+            },
+            {
+                question: "Water used for paper mills should not contain",
+                options: ["magnesium", "sodium", "iron", "chlorine"],
+                answer: 2
+            },
+            {
+                question: "Lead in water can cause",
+                options: ["eye disease", "arthritis", "kidney damage", "hair falling"],
+                answer: 2
+            },
+            {
+                question: "The heat energy released when water vapour changes to a liquid is called:",
+                options: ["Latent heat of evaporation", "Latent heat of fusion", "Latent heat of fission", "Latent heat of condensation"],
+                answer: 3
+            },
+            {
+                question: "World Water Day is celebrated on ___________",
+                options: ["May 22", "June 05", "March 22", "May 11"],
+                answer: 2
+            },
+            {
+                question: "The change of state of ice into water vapour is known as:",
+                options: ["Deposition", "Sublimation", "Melting", "Condensation"],
+                answer: 1
+            },
+            {
+                question: "Drinking of fluoride containing water results :",
+                options: ["fluorosis", "chlorosis", "minemata", "methaemoglobinema"],
+                answer: 0
+            },
+            {
+                question: "The maximum pressure that water vapor molecules would exert if the air were saturated is called the:",
+                options: ["Absolute humidity", "Boiling point", "Mixing ratio", "None of the above"],
+                answer: 3
+            },
+            {
+                question: "The density of water vapour in a given parcel of air is expressed by the:",
+                options: ["Absolute humidity", "Relative humidity", "Mixing ratio", "Specific humidity"],
+                answer: 0
+            },
+            {
+                question: "Water heats up ______ and cools off _____ than land.",
+                options: ["More quickly, more quickly", "More quickly, more slowly", "More slowly, more quickly", "More slowly, more slowly"],
+                answer: 3
+            },
+            {
+                question: "What is the leading source of energy used in the United States today?",
+                options: ["coal", "oil resources", "natural gas", "nuclear power"],
+                answer: 1
+            },
+            {
+                question: "Sea water is",
+                options: ["acidic", "alkaline", "neutral", "hypotonic"],
+                answer: 1
+            },
+            {
+                question: "A renewable source of energy is",
+                options: ["Petroleum", "Coal", "Nuclear fuel", "Trees"],
+                answer: 3
+            },
+            {
+                question: "Renewable energy resources are mostly based on",
+                options: ["biomass", "fossil fuels", "nuclear power", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "Soil erosion can be prevented by",
+                options: ["Deforestation", "Afforestation", "Overgrazing", "Removal of vegetation"],
+                answer: 1
+            },
+            {
+                question: "Water from springs contain dissolved  __________ compounds which are used to cure some skin diseases.",
+                options: ["Nitric", "Carbon", "Oxide", "Sulphur"],
+                answer: 3
+            },
+            {
+                question: "Eutrophication of water bodies resulting to killing of fishes is mainly due to non-availability of",
+                options: ["Food", "Light", "Oxygen", "Essential minerals"],
+                answer: 2
+            },
+            {
+                question: "Organisms that feed upon other living organisms as a source of energy and nutrients are called as",
+                options: ["Producers", "Consumers", "Pests", "Decomposers"],
+                answer: 0
+            },
+            {
+                question: "The undesirable change in physical, chemical or biological characteristics of air, land and water is referred as",
+                options: ["Pollutants", "Ecodestructions", "Pollution", "All of these"],
+                answer: 2
+            },
+            {
+                question: "A  __________ is formed due to the collection of water in a natural basis or depression in a mountainous area or in plains.",
+                options: ["Lake", "Stream", "Pond", "Spring"],
+                answer: 0
+            },
+            {
+                question: "All forms of water that comes down on Earth, including rain, snow, hail etc. is known as _____________",
+                options: ["Calcification", "Fixation", "Precipitation", "Accumulation"],
+                answer: 2
+            },
+            {
+                question: "A small quantity of  __________ material can produce an enormous amount of energy",
+                options: ["Metallic", "Non-metallic", "Radioactive", "Conductive"],
+                answer: 2
+            },
+            {
+                question: "Light energy is transformed into chemical energy by",
+                options: ["Photosynthesis", "Respiration", "Recycling", "Productivity"],
+                answer: 0
+            },
+            {
+                question: "The ratio of the mass of water vapour in a given volume (parcel) of air to the mass of the remaining dry air describes the:",
+                options: ["Absolute humidity", "Mixing ratio", "Relative humidity", "Dew point"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is the best indicator of the actual amount of water vapour in the air?",
+                options: ["Air temperature", "Saturation vapour pressure", "Relative humidity", "Dew point temperature"],
+                answer: 3
+            },
+            {
+                question: "Energy of motion is also known as:",
+                options: ["Dynamic energy", "Kinetic energy", "Sensible heat energy", "Static energy"],
+                answer: 1
+            },
+            {
+                question: "_________ are used for converting saline or brackish water into pure distilled water.",
+                options: ["Photo voltaic cells", "Solar desalination systems", "Solar cookers", "Solar water-heating"],
+                answer: 1
+            },
+            {
+                question: "Water vapour contains a huge amount of stored energy known as",
+                options: ["Latent heat", "Solar energy", "Stored heat", "Mechanical energy"],
+                answer: 0
+            },
+            {
+                question: "Enrichment of water body by nutrients like phosphorus and nitrogen is called _____________",
+                options: ["Succession", "Eutrophication", "Stratification", "Climax Vegetation"],
+                answer: 1
+            },
+            {
+                question: "When water changes from a liquid to a vapour, we call this process:",
+                options: ["Freezing", "Condensation", "Sublimation", "Deposition"],
+                answer: 0
+            },
+            {
+                question: "Which one of the following is the non-renewable resource?",
+                options: ["Water", "Oxygen", "Sunlight", "Coal"],
+                answer: 3
+            },
+            {
+                question: "A small particle of soil blown by dust is known as",
+                options: ["saltation", "suspension", "surface creep", "landslide"],
+                answer: 1
+            },
+            {
+                question: "If a glass of water were surrounded by saturated air:",
+                options: ["The level of the water in the glass would slowly decrease", "The water's temperature would slowly increase", "The level of the water in the glass would not change", "The water's temperature would slowly decrease"],
+                answer: 2
+            },
+            {
+                question: "If the amount of energy lost by the earth to space each year were not approximately equal to that received:",
+                options: ["The atmosphere's average temperature would change", "The length of the year would change", "The sun's output would change", "The mass of the atmosphere would change"],
+                answer: 0
+            },
+            {
+                question: "The main reason why vegetables take longer to cook in boiling water at high altitudes is because:",
+                options: ["Water boils at a higher temperature with higher altitude", "The temperature of the boiling water decreases with increasing altitude", "There is less oxygen in the air at high altitude", "Saturation vapor pressure decreases with increasing altitude"],
+                answer: 1
+            },
+            {
+                question: "Upper layer of water in a single body of water is known as",
+                options: ["Hypolimnion", "Epilimnion", "Thermocline", "Hydroline"],
+                answer: 1
+            },
+            {
+                question: "The lower limit of water availability in soil is known as",
+                options: ["Field capacity", "Hypolimnion", "Thermocline", "Wilting point"],
+                answer: 3
+            },
+            {
+                question: "India ranks  __________ amongst the wind-energy producing countries of the world.",
+                options: ["First", "Second", "Third", "Fourth"],
+                answer: 3
+            },
+            {
+                question: "_________ power station at the mouth of the river blocks the flow of polluted water into the sea.",
+                options: ["Thermal", "Nuclear", "Tidal", "Wind"],
+                answer: 2
+            },
+            {
+                question: "Normally rain water is slightly",
+                options: ["Pure", "Acidic", "Toxic", "Oxidize"],
+                answer: 1
+            },
+            {
+                question: "_________ causes loss of water because of seepage of water into the soil.",
+                options: ["Evaporation", "Percolation", "Transpiration", "Infiltration"],
+                answer: 1
+            },
+            {
+                question: "_________ is the element used to produce nuclear energy",
+                options: ["Palladium", "Strontium", "Uranium", "Rhodium"],
+                answer: 2
+            },
+            {
+                question: "Which of the following enhances soil fertility?",
+                options: ["Crop rotation", "Improved methods of agriculture", "Using new seed varieties", "Irrigation"],
+                answer: 0
+            },
+            {
+                question: "Many freshwater animals cannot live for long in sea water and vice versa mainly because of the",
+                options: ["Change in N levels", "Change in the levels of thermal tolerance", "Variations in light intensity", "Osmotic problems"],
+                answer: 3
+            },
+            {
+                question: "The best way to check soil erosion is by providing adequate trees and",
+                options: ["Grass cover", "Manure", "Water", "Sand"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is not a reason why water warms and cools much more slowly than land?",
+                options: ["Solar energy penetrates more deeply into water", "Heat energy is mixed in a deeper layer of water", "Water has a higher heat capacity", "A portion of the solar energy that strikes water is used to evaporate it"],
+                answer: 0
+            },
+            {
+                question: "_________ energy is the energy stored within the earth.",
+                options: ["Geothermal", "Mechanical", "Wind", "Thermal"],
+                answer: 0
+            },
+            {
+                question: "The largest brackish water lake situated in Asia is in Orissa. Which is the lake?",
+                options: ["Chilka lake", "Vembanad lake", "Woolar lake", "Dal lake"],
+                answer: 0
+            },
+            {
+                question: "Oil, coal and natural gas supply approximately  __________ % of the energy used in the United States",
+                options: ["10", "25", "40", "81"],
+                answer: 3
+            },
+            {
+                question: "Of all of the energy production in the United States, what percentage is lost in distribution and inefficient use?",
+                options: ["10", "25", "40", "50"],
+                answer: 2
+            },
+            {
+                question: "The water management act is complemented by the waste water charges act at",
+                options: ["34641", "14631", "35277", "36059"],
+                answer: 0
+            },
+            {
+                question: "Which year was declared as the \"Water Year\" by Indian government",
+                options: ["2010", "2004", "2007", "2000"],
+                answer: 2
+            },
+            {
+                question: "If water vapour comprises 3.5 percent of an air parcel whose total pressure is 1,000 mb, the water vapour pressure would be:",
+                options: ["1,035 mb", "35 mb", "350 mb", "965 mb"],
+                answer: 1
+            }
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.innerHTML = `<span class="text-green-600 dark:text-green-500 mr-2">Q${index + 1}.</span> ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                if (!option || option.trim() === '') return;
+                
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) return;
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            wrapper.appendChild(questionBlock);
+        });
+
+        // Theme sync
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>

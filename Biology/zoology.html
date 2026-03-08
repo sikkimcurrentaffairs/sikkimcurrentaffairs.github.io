@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zoology | Sikkim PSC Hub</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+            border-color: #bbb;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .options-list.answered .option:not(.correct):not(.incorrect) {
+            opacity: 0.7;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none;
+        }
+        .quiz-stats {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <a href="biology.html" class="back-link">&larr; Back to Biology</a>
+        <h1>Zoology</h1>
+        <p class="quiz-stats">15 Questions</p>
+        <div id="questions-wrapper"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Most fish do not sink in water because of the presence of:I. swim bladderII. air bladderIII. air sacsIV. air in spongy bones",
+                options: ["I and II are correct", "II and III are correct", "III and IV are correct", "I, II, III and IV are correct"],
+                answer: 0
+            },
+            {
+                question: "Which one of the following is not an insect:",
+                options: ["Bed bug", "House fly", "Mosquitoes", "Spider"],
+                answer: 3
+            },
+            {
+                question: "Which of the following groups is present in animal cells ?",
+                options: ["Mitochondria, Cell membrane, Cell wall, Cytoplasm", "Chloroplasts, Cytoplasm, Vacuole, Nucleus", "Nucleus, Cell membrane, Mitochondria, Cytoplasm", "Vacuole, Cell membrane, Nucleus, Mitochondria"],
+                answer: 2
+            },
+            {
+                question: "Besides Dog, which one is the other animal that can also cause rabies",
+                options: ["Donkey", "Bat", "Horse", "Crocodile"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is the largest phylum in the animal kingdom in respect of number of species?",
+                options: ["Annalida", "Platyhelminthes", "Chordata", "Arthropoda"],
+                answer: 3
+            },
+            {
+                question: "In Animal Kingdom classification, which of the following is not a Phylum?",
+                options: ["Mollusca", "Chordata", "Coelomates", "Anneldia"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is a fish?",
+                options: ["Jelly fish", "Lobster", "Salmon", "Whale"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following is the largest phylum in the animal kingdom?",
+                options: ["Annelida", "Arthopoda", "Chordata", "Protozoa"],
+                answer: 1
+            },
+            {
+                question: "When a Cuttlefish is described as a Molluscs, it is at which level of classification?",
+                options: ["Class", "Order", "Family", "Phylum"],
+                answer: 3
+            },
+            {
+                question: "The largest invertebrate is",
+                options: ["Octopus", "Squid", "Coral", "Jelly fish"],
+                answer: 1
+            },
+            {
+                question: "Which one is the largest animal phylum?",
+                options: ["Arthropod", "Mollusca", "Chordata", "Coelomates"],
+                answer: 0
+            },
+            {
+                question: "The stages between larval moults in an insect are called",
+                options: ["Pupal", "Instars", "Grubs", "Caterpillars"],
+                answer: 1
+            },
+            {
+                question: "In animals like Annelids, Molluscs, organs have associated to form functional systems, each system concerned with a specific physiological function. This pattern is called ________ system level of organization.",
+                options: ["Organ", "Open", "Closed", "Coelom"],
+                answer: 0
+            },
+            {
+                question: "In animal cells, cell division starts with the division of",
+                options: ["Centromeres", "Centrioles", "Centrosomes", "Ribosomes"],
+                answer: 1
+            },
+            {
+                question: "In Mammal urinary bladder open into",
+                options: ["Uterus", "Urethra", "Vestibule", "Ureter"],
+                answer: 1
+            }
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.textContent = `${index + 1}) ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) {
+                        return;
+                    }
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            wrapper.appendChild(questionBlock);
+        });
+    </script>
+</body>
+</html>

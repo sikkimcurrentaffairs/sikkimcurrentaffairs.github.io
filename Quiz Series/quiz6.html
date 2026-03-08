@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sikkim GK Quiz</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+            border-color: #bbb;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .options-list.answered .option:not(.correct):not(.incorrect) {
+            opacity: 0.7;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none; /* Disables further clicks */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <h1>Sikkim General Knowledge Quiz</h1>
+        <!-- Questions will be dynamically inserted here by JavaScript -->
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "A Seven-Year Development Plan for Sikkim was drafted during 1953-54 for which of the following periods?",
+                options: ["1952-1959", "1953-1960", "1954-1961", "1955-1962"],
+                answer: 2
+            },
+            {
+                question: "For which period was the Second Five Year Plan for Sikkim drafted and approved?",
+                options: ["1959-64", "1960-65", "1961-66", "1962-67"],
+                answer: 2
+            },
+            {
+                question: "The Third Five Year Plan, drawn up in 1966, covered which period?",
+                options: ["1965-1970", "1966-1971", "1967-1972", "1968-1973"],
+                answer: 1
+            },
+            {
+                question: "What was Sikkim's first post-merger plan, and what period did it cover?",
+                options: ["The Fourth Five-Year Plan (1971-1976)", "The Fifth Five-Year Plan (1976-1981)", "The Sixth Five-Year Plan (1980-1985)", "The Third Five-Year Plan (1966-1971)"],
+                answer: 1
+            },
+            {
+                question: "What was the only initiative taken by the government for the creation of an urban local body in Sikkim before its merger with India?",
+                options: ["The Sikkim Municipality Act of 1969", "The Town Development Act of 1969", "The Bazaar Committee Act of 1969", "The Urban Governance Act of 1969"],
+                answer: 2
+            },
+            {
+                question: "In which year was the new Municipality Act passed that established the municipality in Gangtok?",
+                options: ["1975", "1982", "1985", "1990"],
+                answer: 2
+            },
+            {
+                question: "In which vegetation zone of Sikkim are bamboo, ferns, orchids, and sal found?",
+                options: ["The Alpine zone", "The Temperate zone", "The Tropical zone", "The Sub-alpine zone"],
+                answer: 2
+            },
+            {
+                question: "The forests of cherry, laurel, oak, and pine are characteristic of which vegetation zone in Sikkim?",
+                options: ["The Alpine zone", "The Temperate zone", "The Tropical zone", "The Riverine zone"],
+                answer: 1
+            },
+            {
+                question: "The Rhododendron, known as the glory of Sikkim, is typically found at what altitude?",
+                options: ["4000 feet and above", "6000 feet and above", "8000 feet and above", "10000 feet and above"],
+                answer: 2
+            },
+            {
+                question: "According to the document, how many varieties of rhododendron are found in Sikkim?",
+                options: ["Over twenty", "Over thirty", "Over forty", "Over fifty"],
+                answer: 1
+            },
+            {
+                question: "The text states that Sikkim has more than how many varieties of orchids and species of bamboo?",
+                options: ["400 varieties of orchids and 15 species of bamboo", "550 varieties of orchids and 23 species of bamboo", "600 varieties of orchids and 30 species of bamboo", "350 varieties of orchids and 25 species of bamboo"],
+                answer: 1
+            },
+            {
+                question: "Approximately how many varieties of butterflies are found in Sikkim?",
+                options: ["Four hundred", "Five hundred", "Six hundred", "Seven hundred"],
+                answer: 2
+            },
+            {
+                question: "What is the local name for the Blood Pheasant (Ithagenus cruentus) in Sikkim?",
+                options: ["Monal", "Daphe", "Chilimen", "Latkosero"],
+                answer: 2
+            },
+            {
+                question: "What are the local names for the Himalayan Golden Eagle?",
+                options: ["Daphe and Larewa", "Monal and Chilimen", "Latkosero and Monal", "Sunaulo giddha and Budo giddha"],
+                answer: 3
+            },
+            {
+                question: "What is the local name for the Red Panda (Ailurus fulgens Cuvier) in Sikkim?",
+                options: ["Kudo", "Ratwa", "Nervati", "Kasturi"],
+                answer: 0
+            },
+            {
+                question: "What is the botanical name for the medicinal plant known locally as 'Bikh'?",
+                options: ["Swertia chirayata Buch-Ham", "Aconitum heterophyllum Wall", "Aegle marmelos L. Corr", "Piper longum Linn"],
+                answer: 1
+            },
+            {
+                question: "The medicinal plant 'Chimphing' corresponds to which botanical name?",
+                options: ["Herculean wallichi", "Berginia ciliate", "Lycopodium clavatum", "Lindera neesiana"],
+                answer: 0
+            },
+            {
+                question: "What is the botanical name for the plant locally known as 'Ajambari'?",
+                options: ["Rhododendron arboretum", "Viscum articulatum", "Panax pseudoginseng", "Rubia cordifolia"],
+                answer: 2
+            },
+            {
+                question: "Which botanical name corresponds to the local name 'Totala'?",
+                options: ["Podophyllum hexandrum", "Ocimum sanctum Linn.", "Oroxylum indicum", "Astible rivularis"],
+                answer: 2
+            },
+            {
+                question: "What is the botanical name for the well-known medicinal plant 'Tulsi'?",
+                options: ["Astible rivularis", "Oroxylum indicum", "Podophyllum hexandrum", "Ocimum sanctum Linn."],
+                answer: 3
+            },
+            {
+                question: "Which of the following eco-adventurous activities does Sikkim offer, according to the document?",
+                options: ["Scuba diving and paragliding", "Desert safaris and hot air ballooning", "Trekking, mountaineering, and river rafting", "Bungee jumping and surfing"],
+                answer: 2
+            },
+            {
+                question: "What is the height of Mt. Khanchendzonga as listed in the 'Highest Mountains in World' table?",
+                options: ["8,850 m", "8,607 m", "8,585 m", "8,481 m"],
+                answer: 2
+            },
+            {
+                question: "Which hot spring is located in the West district of Sikkim?",
+                options: ["Borong", "Ralong", "Purcha chu (Reshi)", "Yumthang"],
+                answer: 2
+            },
+            {
+                question: "Which of the following hot springs are located in the South district of Sikkim?",
+                options: ["Yumey Samdong and Yumthang", "Purcha chu and Reshi", "Borong and Ralong", "Yumthang and Borong"],
+                answer: 2
+            },
+            {
+                question: "The hot springs Yumey Samdong and Yumthang are located in which district of Sikkim?",
+                options: ["East", "West", "North", "South"],
+                answer: 2
+            }
+        ];
+
+        const quizContainer = document.getElementById('quiz-container');
+
+        quizData.forEach((item, index) => {
+            // Create the main container for the question
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            // Create and add the question text
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.textContent = `${index + 1}) ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            // Create the options list
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+            
+            // Create and add each option
+            item.options.forEach((option, optionIndex) => {
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    // Prevent re-answering
+                    if (optionsList.classList.contains('answered')) {
+                        return;
+                    }
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+                    
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        // Highlight the correct answer
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+                
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            quizContainer.appendChild(questionBlock);
+        });
+
+    </script>
+</body>
+</html>

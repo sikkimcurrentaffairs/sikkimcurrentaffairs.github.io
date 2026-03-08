@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecology & Environment | Sikkim PSC Hub</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+            border-color: #bbb;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .options-list.answered .option:not(.correct):not(.incorrect) {
+            opacity: 0.7;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none;
+        }
+        .quiz-stats {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <a href="biology.html" class="back-link">&larr; Back to Biology</a>
+        <h1>Ecology & Environment</h1>
+        <p class="quiz-stats">17 Questions</p>
+        <div id="questions-wrapper"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Ozone hole refers to",
+                options: ["hole in ozone layer", "decrease in the ozone layer in troposphere", "decrease in thickness of ozone layer in stratosphere", "increase in the thickness of ozone layer in troposphere"],
+                answer: 2
+            },
+            {
+                question: "N2content is kept constant in the biosphere due to",
+                options: ["N2fixation", "industrial pollution", "nitrogen cycle", "absorption of N2"],
+                answer: 2
+            },
+            {
+                question: "Biotic component of the environment does not include-",
+                options: ["Soil system", "Animal system", "Micro-organism system", "Plant system"],
+                answer: 0
+            },
+            {
+                question: "The primary goal of conservation biology is to",
+                options: ["Counter the loss of biodiversity", "Estimate the total number of species that exist", "Integrate human culture back into nature", "Catalogue species"],
+                answer: 0
+            },
+            {
+                question: "Branch of biology in which we study about relationship between living and their environment.",
+                options: ["Physiology", "Genetics", "Ecology", "Geology"],
+                answer: 2
+            },
+            {
+                question: "Every ecosystem must have",
+                options: ["Autotrophs", "Heterotrophs", "Both A & B", "Photosynthesizers"],
+                answer: 0
+            },
+            {
+                question: "Study of typical behaviour of organisms in their natural habitat is called",
+                options: ["Euthenics", "Eugenics", "Ethology", "Ethnology"],
+                answer: 2
+            },
+            {
+                question: "It is the branch of biology which deals with the study of relationship between organisms and their environment.",
+                options: ["Ecology", "Taxonomy", "Evolution", "Genetics"],
+                answer: 0
+            },
+            {
+                question: "A living part of the organisms environment is known as",
+                options: ["Abiotic Factor", "Habitat", "Biotic Factor", "Non­living factor"],
+                answer: 2
+            },
+            {
+                question: "Which of these plants grow in an environment that is neither very wet nor very dry?",
+                options: ["Mesophytes", "Sporophyte", "Saprophytes", "Tracheophytes"],
+                answer: 0
+            },
+            {
+                question: "The scientific study of how organisms interact with their environment is called",
+                options: ["Ecology", "Evolution", "Zoology", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "The ecosystem of a pond is referred as",
+                options: ["Lotic", "Lentic", "Xeric", "Benthic"],
+                answer: 1
+            },
+            {
+                question: "Which one of the following weeds is effective in controlling water pollution caused by industrial effluents?",
+                options: ["Parthenium", "Elephant grass", "Water hycinth", "Mogar grass"],
+                answer: 0
+            },
+            {
+                question: "Such plants which are adapted to survival under conditions a limited supply of water in its habitat are known as",
+                options: ["Hydrophytes", "Saprophytes", "Xerophytes", "Pteridophytes"],
+                answer: 2
+            },
+            {
+                question: "Sulphur Dioxide pollution is indicated by an excessive growth of which of the following?",
+                options: ["Algal Blooms", "Lichens", "Bryophytes", "Protozoa"],
+                answer: 1
+            },
+            {
+                question: "The non-biotic pollutant of underground water is",
+                options: ["Bacteria", "Algae", "Arsenic", "Viruses"],
+                answer: 2
+            },
+            {
+                question: "Study of population is",
+                options: ["Palentology", "Geofraphy", "Demography", "None of these"],
+                answer: 2
+            }
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.textContent = `${index + 1}) ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) {
+                        return;
+                    }
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            wrapper.appendChild(questionBlock);
+        });
+    </script>
+</body>
+</html>

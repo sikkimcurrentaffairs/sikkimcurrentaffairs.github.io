@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inorganic Chemistry & Metallurgy | Sikkim PSC Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        .quiz-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        html.dark .quiz-container {
+            background: #24272c;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #0284c7;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        html.dark .question-block {
+            border-bottom: 1px solid #334155;
+        }
+        .question-text {
+            font-size: 1.15em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+        html.dark .question-text {
+            color: #f1f5f9;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option {
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            padding: 16px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            color: #475569;
+        }
+        html.dark .option {
+            background-color: #1e293b;
+            border: 2px solid #334155;
+            color: #cbd5e1;
+        }
+        .option:hover {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
+            transform: translateX(4px);
+        }
+        html.dark .option:hover {
+            background-color: #334155;
+            border-color: #475569;
+        }
+        .option.correct {
+            background-color: #dcfce7 !important;
+            border-color: #4ade80 !important;
+            color: #166534 !important;
+        }
+        html.dark .option.correct {
+            background-color: #064e3b !important;
+            border-color: #10b981 !important;
+            color: #ecfdf5 !important;
+        }
+        .option.incorrect {
+            background-color: #fee2e2 !important;
+            border-color: #f87171 !important;
+            color: #991b1b !important;
+        }
+        html.dark .option.incorrect {
+            background-color: #7f1d1d !important;
+            border-color: #ef4444 !important;
+            color: #fef2f2 !important;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none;
+        }
+        .quiz-stats-badge {
+            background: #f1f5f9;
+            color: #64748b;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        html.dark .quiz-stats-badge {
+            background: #334155;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 min-h-screen p-4 sm:p-8">
+
+    <div class="quiz-container">
+        <a href="chemistry.html" class="back-link">&larr; Back to Chemistry Topics</a>
+        <h1 class="text-3xl font-bold text-sky-800 dark:text-sky-400 mb-2">Inorganic Chemistry & Metallurgy</h1>
+        <div class="quiz-stats-badge">101 MCQ Questions</div>
+        
+        <div id="questions-wrapper"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "The metallurgical process in which a metal is obtained in a fused state is called",
+                options: ["smelting", "roasting", "calcinations", "froth floatation"],
+                answer: 0
+            },
+            {
+                question: "The metal that is used as a catalyst in the hydrogenation of oils is",
+                options: ["Ni", "Pb", "Cu", "Pt"],
+                answer: 0
+            },
+            {
+                question: "The ore which is found in abundance in India is",
+                options: ["monazite", "fluorspar", "bauxite", "magnetite"],
+                answer: 0
+            },
+            {
+                question: "The luster of a metal is due to",
+                options: ["its high density", "its high polishing", "its chemical inertness", "presence of free electrons"],
+                answer: 3
+            },
+            {
+                question: "The most malleable metal is",
+                options: ["platinum", "silver", "iron", "gold"],
+                answer: 3
+            },
+            {
+                question: "The first metal used by man was",
+                options: ["iron", "copper", "gold", "bronze"],
+                answer: 1
+            },
+            {
+                question: "The iron ore magnetite consists of",
+                options: ["Fe2O3", "Fe3OH4", "FeCO3", "3Fe2O3.3H2O"],
+                answer: 0
+            },
+            {
+                question: "The mineral containing both magnesium and calcium is",
+                options: ["magnesite", "calcite", "carnallite", "dolomite"],
+                answer: 3
+            },
+            {
+                question: "The metal does not give H2on treatment with dilute HCL is",
+                options: ["Zn", "Fe", "Ag", "Ca"],
+                answer: 2
+            },
+            {
+                question: "The most important ore of aluminium is",
+                options: ["bauxite", "magnetite", "haematite", "monazite"],
+                answer: 0
+            },
+            {
+                question: "The metal that is usually extracted from sea water is",
+                options: ["Ca", "Na", "K", "Mg"],
+                answer: 3
+            },
+            {
+                question: "The method of concentrating the ore which makes use of the difference in density between ore and impurities is called",
+                options: ["liquation", "leaching", "levigation", "magnetic separation"],
+                answer: 2
+            },
+            {
+                question: "The metal  used to galvanise iron to protect it from rusting is",
+                options: ["Zinc", "Chromium", "Lead", "Antimony"],
+                answer: 0
+            },
+            {
+                question: "The metal chiefly used for galvanising iron is :",
+                options: ["Zinc", "Mercury", "Cadmium", "Tin"],
+                answer: 0
+            },
+            {
+                question: "Which one of the following metals is used to galvanise iron ?",
+                options: ["Copper", "Lead", "Zinc", "Mercury"],
+                answer: 2
+            },
+            {
+                question: "The metals commonly used for electroplating are",
+                options: ["Gold, Sodium and Chromium", "Chromium, Copper and Nickel", "Nickel, Lead and Chromium", "Gold, Sodium and Potassium"],
+                answer: 1
+            },
+            {
+                question: "Which among the following metals provides amphoteric oxide ?",
+                options: ["Sodium", "Silver", "Aluminium", "Calcium"],
+                answer: 2
+            },
+            {
+                question: "A metal is exposed to the atmosphere for sometime. It becomes coated with green carbonate. The metal must be",
+                options: ["Silver", "Copper", "Aluminium", "Zinc"],
+                answer: 1
+            },
+            {
+                question: "Which metal does not undergo corrosion due to the formation of oxide layer?",
+                options: ["Copper", "Iron", "Aluminium", "Zinc"],
+                answer: 2
+            },
+            {
+                question: "Identify the metal which is non toxic in nature.",
+                options: ["Chromium", "Gold", "Cadmium", "Cobalt"],
+                answer: 1
+            },
+            {
+                question: "The lustre of the metals is because of",
+                options: ["High density, due to closed packing of atoms", "High polish", "Reflection of light due to the presence of free electrons", "Absorption of light due to the presence of cavities"],
+                answer: 2
+            },
+            {
+                question: "The non-metal found in the liquid state is",
+                options: ["Bromine", "Nitrogen", "Fluorine", "Chlorine"],
+                answer: 0
+            },
+            {
+                question: "Which among the following is liquid non-metal ?",
+                options: ["Mercury", "Bromine", "Water", "Alcohol"],
+                answer: 1
+            },
+            {
+                question: "Metal are good conductors, because",
+                options: ["They contain free electrons", "The molecules in them are very close to each other", "The molecules in them collide very freely", "They contain reflecting surface"],
+                answer: 0
+            },
+            {
+                question: "The first metal used by a man was",
+                options: ["Copper", "Silver", "Bronze", "Brass"],
+                answer: 0
+            },
+            {
+                question: "Which metal is extracted from sea water?",
+                options: ["Potassium", "Magnesium", "Aluminium", "Beryllium"],
+                answer: 1
+            },
+            {
+                question: "The two metal ions that cause hardness to water are:",
+                options: ["Calcium, Magnesium", "Sodium, Calcium", "Sodium, Potassium", "Sodium, Magnesium"],
+                answer: 0
+            },
+            {
+                question: "Which of the following metals is not a pollutant ?",
+                options: ["Mercury", "Arsenic", "Lead", "Aluminium"],
+                answer: 3
+            },
+            {
+                question: "Catalyst is a substance which",
+                options: ["Increases the rate of the reaction", "Decreases the rate of reaction", "Has no action on the rate of the reaction", "None of these"],
+                answer: 0
+            },
+            {
+                question: "In surgery, metal pins are used for joining together broken bones. These metal pins remain uncorroded in the body. What is the material of these pins?",
+                options: ["Copper", "Iron", "Aluminium", "Titanium"],
+                answer: 3
+            },
+            {
+                question: "The property of hydrogen which distinguishes it from alkali metals is",
+                options: ["Its electropositive character", "Its affinity for non-metal", "Its reducing character", "Its non-metallic character"],
+                answer: 3
+            },
+            {
+                question: "Which one of the following metals does not react with water to produce Hydrogen ?",
+                options: ["Potassium", "Cadmium", "Sodium", "Lithium"],
+                answer: 1
+            },
+            {
+                question: "The elements in the modern Periodic table are arranged according to their",
+                options: ["Mass number", "Neutron number", "Atomic number", "Atomic Weight"],
+                answer: 2
+            },
+            {
+                question: "Periodic table contains how many periods",
+                options: ["6", "7", "8", "10"],
+                answer: 1
+            },
+            {
+                question: "Which one is the lightest element in the periodic table",
+                options: ["Hydrogen", "Helium", "Oxygen", "Carbon"],
+                answer: 0
+            },
+            {
+                question: "Periodic table contains how many groups",
+                options: ["16", "17", "18", "19"],
+                answer: 2
+            },
+            {
+                question: "Total number of elements in the Periodic table",
+                options: ["112", "115", "118", "127"],
+                answer: 2
+            },
+            {
+                question: "Rock salt is a mineral containing",
+                options: ["Potassium", "Magnesium", "Sodium", "Iron"],
+                answer: 2
+            },
+            {
+                question: "When water itself combines chemically with some element or mineral it is called",
+                options: ["Carbonation", "Desilication", "Hydration", "Oxidation"],
+                answer: 2
+            },
+            {
+                question: "In electro-refining, the pure metal is deposited on",
+                options: ["Vessel", "Electrolyte", "Cathode", "Anode"],
+                answer: 2
+            },
+            {
+                question: "Heating of a ore below its melting point in the absence of air is known as",
+                options: ["Refining", "Calcination", "Roasting", "Smelting"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is an iron ore ?",
+                options: ["Bauxite", "Magnetite", "Lignite", "Nitrite"],
+                answer: 1
+            },
+            {
+                question: "The important metal used with iron to produce stainless steel is",
+                options: ["Aluminium", "Chromium", "Tin", "Carbon"],
+                answer: 1
+            },
+            {
+                question: "Which of the following metals form an amalgam with other metals ?",
+                options: ["Lead", "Tin", "Zinc", "Mercury"],
+                answer: 3
+            },
+            {
+                question: "The metal extracted from Bauxite is :",
+                options: ["Silver", "Copper", "Manganese", "Aluminium"],
+                answer: 3
+            },
+            {
+                question: "Among the following iron ores, the highest percentage of iron content is found in\u2013",
+                options: ["Haemetite", "Magnetite", "Limnonite", "None of these"],
+                answer: 0
+            },
+            {
+                question: "Galena is a mineral of",
+                options: ["Iron", "Gold", "Lead", "Calcium"],
+                answer: 2
+            },
+            {
+                question: "The iron ore which contains 72% of iron is :",
+                options: ["Magnetite", "Limonite", "Haematite", "Siderite"],
+                answer: 0
+            },
+            {
+                question: "Bauxite is an alloy of which of the following metals ?",
+                options: ["Aluminium", "Silver", "Tin", "Iron"],
+                answer: 0
+            },
+            {
+                question: "Which one of the following mineral does not contain oxygen ?",
+                options: ["Haematite", "Bauxite", "Cryolite", "Calcite"],
+                answer: 2
+            },
+            {
+                question: "Which mineral is the ore of aluminium ?",
+                options: ["Haematite", "Bauxite", "Magnetite", "Siderite"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is a metallic ore ?",
+                options: ["Mica", "Quartz", "Feldspar", "Galena"],
+                answer: 3
+            },
+            {
+                question: "In which of the following states maximum iron ore is found ?",
+                options: ["FeCO3", "Fe2O3", "Fe3O4", "FeS2"],
+                answer: 1
+            },
+            {
+                question: "Cinnabar is an ore/mineral of",
+                options: ["Lead", "Manganese", "Molybdenum", "Mercury"],
+                answer: 3
+            },
+            {
+                question: "The manufacture of iron from iron ore involves the process of",
+                options: ["Oxidation", "Reduction", "Fractional distillation", "Electrolysis"],
+                answer: 1
+            },
+            {
+                question: "The manufacturing of iron from iron ore involves the process of",
+                options: ["Oxidation", "Reduction", "Electrolysis", "Fractional distillation"],
+                answer: 1
+            },
+            {
+                question: "The important ore of aluminium is",
+                options: ["Bauxite", "Cryolite", "Fluorspar", "Haematite"],
+                answer: 0
+            },
+            {
+                question: "Which one of the following minerals is found in pure form?",
+                options: ["Iron", "Copper", "Bauxite", "Manganese"],
+                answer: 1
+            },
+            {
+                question: "What is the principal ore of aluminium ?",
+                options: ["Dolomite", "Copper", "Lignite", "Bauxite"],
+                answer: 3
+            },
+            {
+                question: "Burning pyrites ore gives out",
+                options: ["Carbon dioxide gas", "Sulphur dioxide gas", "Nitrogen dioxide gas", "Nitric oxide gas"],
+                answer: 1
+            },
+            {
+                question: "Solder metal is an alloy of",
+                options: ["Lead and tin", "Lead and antimony", "Copper and zinc", "Copper and tin"],
+                answer: 0
+            },
+            {
+                question: "The most important ore of lead is",
+                options: ["Galena", "Magnetite", "Pyrolusite", "Siderite"],
+                answer: 0
+            },
+            {
+                question: "The most abundant metal in the Earth\u2019s crust is",
+                options: ["Zinc", "Copper", "Aluminium", "Iron"],
+                answer: 2
+            },
+            {
+                question: "The ore of Aluminium is",
+                options: ["Fluorspar", "Bauxite", "Chalco pyrites", "Hematite"],
+                answer: 1
+            },
+            {
+                question: "Which is the heaviest metal among the following?",
+                options: ["Gold", "Silver", "Iron", "Copper"],
+                answer: 0
+            },
+            {
+                question: "Among the following the hardest metal is",
+                options: ["Gold", "Iron", "Platinum", "Tungsten"],
+                answer: 3
+            },
+            {
+                question: "Which of the following metals has least melting point ?",
+                options: ["Gold", "Silver", "Mercury", "Copper"],
+                answer: 2
+            },
+            {
+                question: "Which of the following metals occurs in free state ?",
+                options: ["Copper", "Iron", "Zinc", "Lead"],
+                answer: 3
+            },
+            {
+                question: "The \u201cKing of Metals\u201d is :",
+                options: ["Gold", "Silver", "Iron", "Aluminium"],
+                answer: 0
+            },
+            {
+                question: "Which of the following metals is used in Space Crafts to withstand high temperatures ?",
+                options: ["Fe", "Ti", "Ni", "Pb"],
+                answer: 1
+            },
+            {
+                question: "One of the following is used to dissolve noble metals. That is",
+                options: ["Nitric acid", "Hydrochloric acid", "Sulphuric acid", "Aqua regia"],
+                answer: 3
+            },
+            {
+                question: "The most reactive among the halogens is",
+                options: ["Fluorine", "Chlorine", "Bromine", "Iodine"],
+                answer: 0
+            },
+            {
+                question: "Which among the following is not a characteristic of transition metals?",
+                options: ["Tendency to gain electrons", "Low electronegativity", "Low ionization energy", "Malleability"],
+                answer: 0
+            },
+            {
+                question: "Total number of halogen elements found in the periodic table is",
+                options: ["3", "5", "8", "13"],
+                answer: 1
+            },
+            {
+                question: "Which one is the most reactive halogen?",
+                options: ["Iodine", "Bromine", "Fluorine", "Chlorine"],
+                answer: 2
+            },
+            {
+                question: "Who first published the periodic table?",
+                options: ["John Dalton", "Julius Lothar Meyer", "Henry Moseley", "Dmitri Mendeleev"],
+                answer: 3
+            },
+            {
+                question: "This group of alumino-silicate minerals is widely used in making electrical insulators",
+                options: ["Bauxite", "Chromite", "Manganese", "Mica"],
+                answer: 3
+            },
+            {
+                question: "The metal compound commonly found in Sindhoor or Kumkum is based on",
+                options: ["Tin", "Lead", "Copper", "Zinc"],
+                answer: 1
+            },
+            {
+                question: "Which of the toxic heavy metals is found in modern tannery industries ?",
+                options: ["Nickel", "Zinc", "Chromium", "Lead"],
+                answer: 2
+            },
+            {
+                question: "What is the most commonly used substance in fluorescent tubes?",
+                options: ["Sodium oxide and argon", "Sodium vapour and neon", "Mercury vapour and argon", "Mercury oxide and neon"],
+                answer: 2
+            },
+            {
+                question: "Which of the following kinds of spectroscopy can provide information on the energy difference between the initial and final states rather the energy levels involved in the transition?",
+                options: ["UV absorption spectroscopy", "UV photoelectron spectroscopy", "Infrared absorption spectroscopy", "Rotational spectroscopy"],
+                answer: 1
+            },
+            {
+                question: "Which one of the following metals pollutes the air of a city having large number of automobiles?",
+                options: ["Cadmium", "Chromium", "Lead", "Copper"],
+                answer: 2
+            },
+            {
+                question: "Heavy metal pollution of water is caused by:",
+                options: ["Paints", "Wood burning", "Acid Plants", "Domestic sewage"],
+                answer: 0
+            },
+            {
+                question: "Among the following, carbonate ore of Zinc is",
+                options: ["Zinc blende", "Calamine", "Sphalerite", "Zincite"],
+                answer: 1
+            },
+            {
+                question: "The metal used for making aircrafts and rockets is",
+                options: ["Lead", "Aluminium", "Nickel", "Copper"],
+                answer: 1
+            },
+            {
+                question: "Which metal is the heaviest in periodic table among the following ?",
+                options: ["Os", "Pt", "Pb", "W"],
+                answer: 0
+            },
+            {
+                question: "Which of the following metals causes Itai-Itai disease ?",
+                options: ["Cadmium", "Chromium", "Cobalt", "Copper"],
+                answer: 0
+            },
+            {
+                question: "The metal ion present in Vitamin B12 is",
+                options: ["Nickel", "Cobalt", "Iron", "Zinc"],
+                answer: 1
+            },
+            {
+                question: "The metal present in vitamin B12is",
+                options: ["Fe", "Co", "Mg", "Mo"],
+                answer: 1
+            },
+            {
+                question: "Which of the following alkali metals has highest specific heat?",
+                options: ["Caesium", "Rubidium", "Potassium", "Lithium"],
+                answer: 3
+            },
+            {
+                question: "Which among the following is used as a catalyst in the production of high octane fuels?",
+                options: ["HNO3", "H2SO4", "HCl", "HF"],
+                answer: 1
+            },
+            {
+                question: "The substance that is added to make natural rubber strong and more bouncy is",
+                options: ["Polythene", "Sponge", "Sulphur", "Chlorine"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following minerals is found in Monazite sand ?",
+                options: ["Potassium", "Uranium", "Thorium", "Sodium"],
+                answer: 2
+            },
+            {
+                question: "In which of the following ions , the colour is not due to d-d transition ?",
+                options: ["[Ti(H2O)6]3+", "[CoF6]3+", "[CrO4]2\u2212", "[Cu(NH3)4]2+"],
+                answer: 2
+            },
+            {
+                question: "The deterioration of a metal by an electrochemical process is commonly termed as",
+                options: ["Erosion", "Corrosion", "Passivation", "Abrasion"],
+                answer: 1
+            },
+            {
+                question: "German silver, an alloy, does not contain the metal",
+                options: ["Nickel", "Zinc", "Copper", "Silver"],
+                answer: 3
+            },
+            {
+                question: "Type metal used in printing press is an alloy of",
+                options: ["Lead and copper", "Lead and antimony", "Lead and bismuth", "Lead and zinc"],
+                answer: 1
+            },
+            {
+                question: "Ultra purification of a metal is done by :",
+                options: ["Slugging", "Zone melting", "Smelting", "Leaching"],
+                answer: 1
+            },
+            {
+                question: "Haloarenes are more stable than haloalkanes due to",
+                options: ["Resonance effect", "Inductive effect", "Hyper conjugative effect", "All of them"],
+                answer: 0
+            },
+            {
+                question: "Which one of the following is used to restore the colour of old oil paintings ?",
+                options: ["Ozone", "Hydrogen peroxide", "Barium peroxide", "Sodium peroxide"],
+                answer: 1
+            },
+            {
+                question: "Soldering of two metals is possible because of the property of :",
+                options: ["Viscosity", "Osmosis", "Cohesion", "Surface tension"],
+                answer: 2
+            }
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.innerHTML = `<span class="text-sky-600 dark:text-sky-500 mr-2">Q${index + 1}.</span> ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                if (!option || option.trim() === '') return;
+                
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) return;
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            wrapper.appendChild(questionBlock);
+        });
+
+        // Theme sync
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>

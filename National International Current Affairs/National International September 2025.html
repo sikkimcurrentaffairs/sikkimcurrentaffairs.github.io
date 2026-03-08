@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Current Affairs Quiz</title>
+    <style>
+        :root {
+            --primary-color: #1a5276;
+            --secondary-color: #2980b9;
+            --correct-color: #27ae60;
+            --incorrect-color: #e74c3c;
+            --light-gray: #f8f9f9;
+            --dark-gray: #7f8c8d;
+            --gold-color: #f1c40f;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gold-color);
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-top: 10px;
+            font-weight: 400;
+        }
+        
+        .quiz-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .question {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: var(--primary-color);
+            line-height: 1.4;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .option {
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            background-color: white;
+            position: relative;
+            padding-left: 45px;
+        }
+        
+        .option:hover {
+            background-color: var(--light-gray);
+            border-color: var(--secondary-color);
+        }
+        
+        .option::before {
+            content: "";
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .option.selected {
+            background-color: #e1f0fa;
+            border-color: var(--secondary-color);
+            font-weight: 500;
+        }
+        
+        .option.selected::before {
+            border-color: var(--secondary-color);
+            background-color: var(--secondary-color);
+        }
+        
+        .option.correct {
+            background-color: #e8f8f0;
+            border-color: var(--correct-color);
+            color: var(--correct-color);
+        }
+        
+        .option.correct::before {
+            border-color: var(--correct-color);
+            background-color: var(--correct-color);
+        }
+        
+        .option.incorrect {
+            background-color: #fdedec;
+            border-color: var(--incorrect-color);
+            color: var(--incorrect-color);
+        }
+        
+        .option.incorrect::before {
+            border-color: var(--incorrect-color);
+        }
+        
+        .feedback {
+            margin-top: 25px;
+            padding: 18px;
+            border-radius: 8px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .correct-feedback {
+            background-color: #e8f8f0;
+            color: var(--correct-color);
+            border-left: 5px solid var(--correct-color);
+        }
+        
+        .incorrect-feedback {
+            background-color: #fdedec;
+            color: var(--incorrect-color);
+            border-left: 5px solid var(--incorrect-color);
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        button:hover {
+            background-color: #154360;
+            transform: translateY(-2px);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+        
+        .progress-container {
+            margin-bottom: 25px;
+            background-color: var(--light-gray);
+            border-radius: 20px;
+            height: 10px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+            transition: width 0.4s ease;
+        }
+        
+        .progress-text {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: var(--dark-gray);
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .result-container {
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.8s ease;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .score {
+            font-size: 72px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 30px 0;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .score::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--gold-color);
+            border-radius: 2px;
+        }
+        
+        .score-text {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .restart-btn {
+            margin-top: 30px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .restart-btn:hover {
+            background: linear-gradient(135deg, #3498db, #1a5276);
+            transform: translateY(-2px);
+        }
+        
+        .explanation {
+            margin-top: 15px;
+            font-style: italic;
+            color: var(--dark-gray);
+            line-height: 1.5;
+        }
+        
+        .performance-text {
+            font-size: 18px;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f8f9f9;
+        }
+        
+        .week-indicator {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--gold-color);
+            color: var(--primary-color);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            
+            header {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .quiz-container {
+                padding: 20px;
+            }
+
+            .week-indicator {
+                position: relative; 
+                display: block;     
+                width: fit-content; 
+                margin: 0 auto 20px auto; 
+                top: auto;          
+                right: auto;        
+                font-size: 13px;    
+                padding: 6px 12px;  
+            }
+            
+            .question {
+                font-size: 18px;
+            }
+            
+            .option {
+                padding: 12px 12px 12px 40px;
+                font-size: 15px;
+            }
+            
+            .score {
+                font-size: 60px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="../auth.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Current Affairs Quiz</h1>
+            <div class="subtitle">Test Your Knowledge on Recent Events</div>
+        </header>
+        
+        <div class="progress-text">
+            <span>Question <span id="current-question">1</span> of <span id="total-questions">50</span></span>
+            <span>Score: <span id="current-score">0</span></span>
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        
+        <div class="quiz-container">
+            <div class="week-indicator" id="week-indicator">Week 1</div>
+            <div class="question" id="question-text"></div>
+            <div class="options" id="options-container"></div>
+            <div class="feedback" id="feedback"></div>
+            
+            <div class="navigation">
+                <button id="prev-btn" disabled>Previous</button>
+                <button id="next-btn">Next</button>
+            </div>
+        </div>
+        
+        <div class="result-container" id="result-container">
+            <h2>Quiz Completed!</h2>
+            <div class="score-text">Your Final Score</div>
+            <div class="score"><span id="final-score">0</span>/<span id="total-questions-final">0</span></div>
+            <div class="performance-text" id="performance-text"></div>
+            <button class="restart-btn" id="restart-btn">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        const quizData = [
+            // Week 1
+            {
+                question: "The Kaushalya Dam, which is important for flood control in the Ghaggar river basin, is situated in which Indian state?",
+                options: ["Punjab", "Himachal Pradesh", "Rajasthan", "Haryana"],
+                answer: 3,
+                explanation: "The correct answer is Haryana.",
+                week: "Week 1"
+            },
+            {
+                question: "The Ghaggar River, known as the “river of sorrow” due to frequent floods, is located in which region of Punjab?",
+                options: ["Doaba", "Majha", "Malwa", "Puadh"],
+                answer: 2,
+                explanation: "The correct answer is Malwa.",
+                week: "Week 1"
+            },
+            {
+                question: "According to a recent study published in Environmental Research Letters, which critical Atlantic ocean current is at risk of collapsing?",
+                options: ["Canary Current", "Kuroshio Current", "Atlantic Meridional Overturning Circulation (AMOC)", "Labrador Current"],
+                answer: 2,
+                explanation: "The correct answer is Atlantic Meridional Overturning Circulation (AMOC).",
+                week: "Week 1"
+            },
+            {
+                question: "Scientists recently linked the rare appearance of blue dragons in Spain’s Mediterranean waters to which environmental factor?",
+                options: ["Rapid warming of the Mediterranean Sea", "Overfishing of native predators", "Oil spills in the Mediterranean", "Ocean acidification"],
+                answer: 0,
+                explanation: "The correct answer is Rapid warming of the Mediterranean Sea.",
+                week: "Week 1"
+            },
+            {
+                question: "According to a recent ruling by the US Court of Appeals for the Federal Circuit, President Donald Trump exceeded his powers under which US law while imposing certain tariffs?",
+                options: ["Trade Expansion Act, 1962", "International Emergency Economic Powers Act, 1977", "Trade Act, 1974", "Tariff Act, 1930"],
+                answer: 1,
+                explanation: "The correct answer is International Emergency Economic Powers Act, 1977.",
+                week: "Week 1"
+            },
+            // Week 2
+            {
+                question: "What is the name of the massive plan launched by Tirupati Urban Development Authority (TUDA) to rescue and rejuvenate the Swarnamukhi river?",
+                options: ["Operation SWARNA", "Operation PRAKRITI", "Operation KALYANI", "Operation TIRUPATI"],
+                answer: 0,
+                explanation: "The correct answer is Operation SWARNA.",
+                week: "Week 2"
+            },
+            {
+                question: "As per Air Quality Life Index (AQLI) 2025 report, which state/UT records a loss of 8.2 years in life expectancy due to air pollution?",
+                options: ["Gujarat", "Delhi", "Bihar", "Rajasthan"],
+                answer: 1,
+                explanation: "The correct answer is Delhi.",
+                week: "Week 2"
+            },
+            {
+                question: "The Typhon missile system was developed by which country?",
+                options: ["India", "China", "United States", "France"],
+                answer: 2,
+                explanation: "The correct answer is United States.",
+                week: "Week 2"
+            },
+            {
+                question: "According to the new study, which medication may be more effective than aspirin for long-term prevention of heart attacks?",
+                options: ["Metformin", "Clopidogrel", "Ibuprofen", "Heparin"],
+                answer: 1,
+                explanation: "The correct answer is Clopidogrel.",
+                week: "Week 2"
+            },
+            {
+                question: "The Srivilliputhur–Meghamalai Tiger Reserve (SMTR) is located in which state?",
+                options: ["Tamil Nadu", "Andhra Pradesh", "Maharashtra", "Odisha"],
+                answer: 0,
+                explanation: "The correct answer is Tamil Nadu.",
+                week: "Week 2"
+            },
+            // Week 3
+            {
+                question: "The Vrindavani Vastra, a 16th-century silk textile, primarily depicts the childhood stories and divine pastimes of which deity?",
+                options: ["Lord Rama", "Lord Krishna", "Lord Vishnu", "Lord Shiva"],
+                answer: 1,
+                explanation: "The correct answer is Lord Krishna.",
+                week: "Week 3"
+            },
+            {
+                question: "What is “Climaconeis heteropolaris” that was recently mentioned in news?",
+                options: ["A new species of fish", "A new species of diatom", "A new type of bacteria", "A new variety of seaweed"],
+                answer: 1,
+                explanation: "The correct answer is a new species of diatom.",
+                week: "Week 3"
+            },
+            {
+                question: "Which organization has released the National Annual Report & Index on Women’s Safety (NARI) 2025?",
+                options: ["National Human Rights Commission (NHRC)", "National Commission for Women (NCW)", "NITI Aayog", "Ministry of Women & Child Development"],
+                answer: 1,
+                explanation: "The correct answer is National Commission for Women (NCW).",
+                week: "Week 3"
+            },
+            {
+                question: "What type of missile is “Nimbrix” developed by Swedish defense company Saab?",
+                options: ["Counter-unmanned aircraft system (C-UAS) missile", "Anti-tank guided missile (ATGM)", "Intercontinental ballistic missile (ICBM)", "Surface-to-Surface missile (SAS)"],
+                answer: 0,
+                explanation: "The correct answer is Counter-unmanned aircraft system (C-UAS) missile.",
+                week: "Week 3"
+            },
+            {
+                question: "What is the name of India’s first fully indigenous 32-bit microprocessor launched at Semicon India 2025?",
+                options: ["Aryabhata 3201", "Chandrayaan 3201", "Bhaskara 3201", "Vikram 3201"],
+                answer: 3,
+                explanation: "The correct answer is Vikram 3201.",
+                week: "Week 3"
+            },
+            // Week 4
+            {
+                question: "The recently approved Rs 1,500 crore incentive scheme for critical minerals is a part of which mission?",
+                options: ["National Resource Efficiency Mission", "National Critical Mineral Mission", "National Circular Economy Mission", "National Mineral Security Mission"],
+                answer: 1,
+                explanation: "The correct answer is National Critical Mineral Mission.",
+                week: "Week 4"
+            },
+            {
+                question: "According to recent report, which States have crossed 50% coverage of Unique Disability ID (UDID) Card issuance?",
+                options: ["Tamil Nadu, Meghalaya, Odisha, Karnataka", "Bihar, Assam, Tripura, Sikkim", "Kerala, Gujarat, Rajasthan, Jharkhand", "Assam, Tripura, Sikkim, West Bengal"],
+                answer: 0,
+                explanation: "The correct answer is Tamil Nadu, Meghalaya, Odisha, Karnataka.",
+                week: "Week 4"
+            },
+            {
+                question: "Researchers have found evidence that interstellar dust grains align with magnetic fields in the Milky Way. Interstellar dust grains are composed of which materials?",
+                options: ["Iron and nickel", "Silicates and carbonaceous material", "Hydrogen and helium", "Oxygen and nitrogen"],
+                answer: 1,
+                explanation: "The correct answer is Silicates and carbonaceous material.",
+                week: "Week 4"
+            },
+            {
+                question: "What is the name of the biggest anti-Naxal operation conducted on Karregutta hill along the Chhattisgarh-Telangana border?",
+                options: ["Operation Green Hunt", "Operation Prahar", "Operation Black Forest", "Operation Thunder"],
+                answer: 2,
+                explanation: "The correct answer is Operation Black Forest.",
+                week: "Week 4"
+            },
+            {
+                question: "According to recent study, which state has the lowest density of rosewood tree population in south India?",
+                options: ["Tamil Nadu", "Andhra Pradesh", "Karnataka", "Kerala"],
+                answer: 0,
+                explanation: "The correct answer is Tamil Nadu.",
+                week: "Week 4"
+            },
+            // Week 5
+            {
+                question: "Acanthamoeba, recently emerging as a public health concern in Kerala, is what kind of organism?",
+                options: ["Free-living amoeba", "Bacteria", "Virus", "Fungus"],
+                answer: 0,
+                explanation: "The correct answer is Free-living amoeba.",
+                week: "Week 5"
+            },
+            {
+                question: "Where was National Ayush Mission (NAM) Summit 2025 held?",
+                options: ["New Delhi", "Hyderabad", "Bengaluru", "Chennai"],
+                answer: 0,
+                explanation: "The correct answer is New Delhi.",
+                week: "Week 5"
+            },
+            {
+                question: "According to Sample Registration Survey Statistical Report 2023, what is India’s Total Fertility Rate (TFR)?",
+                options: ["2.1", "2.0", "1.9", "1.8"],
+                answer: 2,
+                explanation: "The correct answer is 1.9.",
+                week: "Week 5"
+            },
+            {
+                question: "Where was India’s largest lithium-ion battery manufacturing plant launched?",
+                options: ["Gujarat", "Rajasthan", "Madhya Pradesh", "Haryana"],
+                answer: 3,
+                explanation: "The correct answer is Haryana.",
+                week: "Week 5"
+            },
+            {
+                question: "The Ministry of Housing and Urban Affairs has launched “Angikaar 2025 campaign” under which flagship scheme?",
+                options: ["PM Gramin Awas Yojana", "PM Awas Yojana – Urban 2.0", "PM Surya Ghar Yojana", "Smart Cities Mission"],
+                answer: 1,
+                explanation: "The correct answer is PM Awas Yojana – Urban 2.0.",
+                week: "Week 5"
+            },
+            // Week 6
+            {
+                question: "MY Bharat Aapda Mitras are trained by which institution?",
+                options: ["NITI Aayog", "National Disaster Management Authority (NDMA)", "State Disaster Response Force (SDRF)", "Indian Red Cross Society"],
+                answer: 1,
+                explanation: "The correct answer is National Disaster Management Authority (NDMA).",
+                week: "Week 6"
+            },
+            {
+                question: "Which institute discovered that protein p47 acts as a “mechanical chaperone”, enhancing protein stability under mechanical stress?",
+                options: ["Indian Institute of Science (IISc), Bengaluru", "S. N. Bose National Centre for Basic Sciences (SNBNCBS), Kolkata", "National Chemical Laboratory (NCL), Pune", "Centre for Cellular and Molecular Biology (CCMB), Hyderabad"],
+                answer: 1,
+                explanation: "The correct answer is S. N. Bose National Centre for Basic Sciences (SNBNCBS), Kolkata.",
+                week: "Week 6"
+            },
+            {
+                question: "Wangchu Hydroelectric Project is located in which country?",
+                options: ["Nepal", "Myanmar", "Bangladesh", "Bhutan"],
+                answer: 3,
+                explanation: "The correct answer is Bhutan.",
+                week: "Week 6"
+            },
+            {
+                question: "Flamingo cruise missile is developed by which country?",
+                options: ["Russia", "United States", "Ukraine", "China"],
+                answer: 2,
+                explanation: "The correct answer is Ukraine.",
+                week: "Week 6"
+            },
+            {
+                question: "CoWIN (Covid Vaccine Intelligence Network) portal is operated by which ministry?",
+                options: ["Ministry of Health and Family Welfare", "Ministry of Home Affairs", "Ministry of Science and Technology", "Ministry of Electronics and Information Technology"],
+                answer: 0,
+                explanation: "The correct answer is Ministry of Health and Family Welfare.",
+                week: "Week 6"
+            },
+            // Week 7
+            {
+                question: "Yedshi Ramling Ghat Wildlife Sanctuary is located in which state?",
+                options: ["Gujarat", "Rajasthan", "Maharashtra", "Madhya Pradesh"],
+                answer: 2,
+                explanation: "The correct answer is Maharashtra.",
+                week: "Week 7"
+            },
+            {
+                question: "INS Kadmatt recently participated in which country’s 50th Independence Day celebrations?",
+                options: ["Fiji", "Papua New Guinea", "Indonesia", "Australia"],
+                answer: 1,
+                explanation: "The correct answer is Papua New Guinea.",
+                week: "Week 7"
+            },
+            {
+                question: "Rattle Hydroelectric Project, which was recently seen in news due to landslide, is located in which state/UT?",
+                options: ["Jammu and Kashmir", "Uttarakhand", "Assam", "Himachal Pradesh"],
+                answer: 0,
+                explanation: "The correct answer is Jammu and Kashmir.",
+                week: "Week 7"
+            },
+            {
+                question: "Where was the 18th International Earth Science Olympiad (IESO-2025) held?",
+                options: ["Australia", "Japan", "Indonesia", "China"],
+                answer: 3,
+                explanation: "The correct answer is China.",
+                week: "Week 7"
+            },
+            {
+                question: "The Himalayan brown bear is found mainly in which Indian states?",
+                options: ["Rajasthan, Gujarat, Madhya Pradesh", "Kerala, Tamil Nadu, Karnataka", "Jammu and Kashmir, Himachal Pradesh, Uttarakhand", "Sikkim, Arunachal Pradesh, Nagaland"],
+                answer: 2,
+                explanation: "The correct answer is Jammu and Kashmir, Himachal Pradesh, Uttarakhand.",
+                week: "Week 7"
+            },
+            // Week 8
+            {
+                question: "What is the theme of Combined Commanders’ Conference (CCC) 2025?",
+                options: ["Year of Reforms – Transforming for the Future", "Defence Preparedness in a New Era", "Technology and Strategy for Future Conflicts", "Self Reliance in Defence Production"],
+                answer: 0,
+                explanation: "The correct answer is Year of Reforms – Transforming for the Future.",
+                week: "Week 8"
+            },
+            {
+                question: "Hilsa Fish, that was recently seen in news, is the national fish of which country?",
+                options: ["India", "Myanmar", "Bangladesh", "Sri Lanka"],
+                answer: 2,
+                explanation: "The correct answer is Bangladesh.",
+                week: "Week 8"
+            },
+            {
+                question: "The United Kingdom-India Infrastructure Financing Bridge (UKIIFB) is a joint initiative of the City of London and which Indian institution?",
+                options: ["Reserve Bank of India (RBI)", "Ministry of External Affairs", "Confederation of Indian Industry (CII)", "NITI Aayog"],
+                answer: 3,
+                explanation: "The correct answer is NITI Aayog.",
+                week: "Week 8"
+            },
+            {
+                question: "The Giant African Snail (Lissachatina fulica), one of the world’s worst invasive species, has infested which Indian city?",
+                options: ["Bhubaneswar", "Chennai", "Kolkata", "Mumbai"],
+                answer: 1,
+                explanation: "The correct answer is Chennai.",
+                week: "Week 8"
+            },
+            {
+                question: "Which state has become the fifth State/Union Territory (UT) to achieve full functional literacy?",
+                options: ["Himachal Pradesh", "Lakshadweep", "Uttarakhand", "Manipur"],
+                answer: 0,
+                explanation: "The correct answer is Himachal Pradesh.",
+                week: "Week 8"
+            },
+            // Week 9
+            {
+                question: "Which city topped the list of million-plus-population cities in the Swachh Vayu Survekshan 2025?",
+                options: ["Lucknow", "Indore", "Surat", "Varanasi"],
+                answer: 1,
+                explanation: "The correct answer is Indore.",
+                week: "Week 9"
+            },
+            {
+                question: "Iskander-K cruise missile is developed by which country?",
+                options: ["India", "China", "Russia", "Ukraine"],
+                answer: 2,
+                explanation: "The correct answer is Russia.",
+                week: "Week 9"
+            },
+            {
+                question: "Which organization launched SPREE-2025 and AMNESTY Scheme-2025 to strengthen social security and ease compliance?",
+                options: ["Reserve Bank of India (RBI)", "NITI Aayog", "Employees Provident Fund Organisation (EPFO)", "Employees’ State Insurance Corporation (ESIC)"],
+                answer: 3,
+                explanation: "The correct answer is Employees’ State Insurance Corporation (ESIC).",
+                week: "Week 9"
+            },
+            {
+                question: "Pallas’s cat, that was recently spotted in Arunachal Pradesh, is mainly found in which region?",
+                options: ["Central Asia", "East Africa", "South America", "Southeast Asia"],
+                answer: 0,
+                explanation: "The correct answer is Central Asia.",
+                week: "Week 9"
+            },
+            {
+                question: "Innovations for Defence Excellence (iDEX) is the flagship initiative of which ministry?",
+                options: ["Ministry of Finance", "Ministry of Defence", "Ministry of Science and Technology", "Ministry of Education"],
+                answer: 1,
+                explanation: "The correct answer is Ministry of Defence.",
+                week: "Week 9"
+            },
+            // Week 10
+            {
+                question: "The Bonda tribe is mainly found in which state?",
+                options: ["Madhya Pradesh", "Odisha", "Jharkhand", "Bihar"],
+                answer: 1,
+                explanation: "The correct answer is Odisha.",
+                week: "Week 10"
+            },
+            {
+                question: "Hellfire missile was developed by which country?",
+                options: ["United States", "Russia", "China", "India"],
+                answer: 0,
+                explanation: "The correct answer is United States.",
+                week: "Week 10"
+            },
+            {
+                question: "Reunion Island, that was recently seen in news, is a territory of which country?",
+                options: ["United Kingdom", "France", "Netherlands", "Russia"],
+                answer: 1,
+                explanation: "The correct answer is France.",
+                week: "Week 10"
+            },
+            {
+                question: "What is the name of the world’s first Digital Tribal University launched in New Delhi?",
+                options: ["Janjatiya Kala Kendra", "Adi Sanskriti", "Vanvasi Vishwavidyalaya", "Aadi Mahotsav"],
+                answer: 1,
+                explanation: "The correct answer is Adi Sanskriti.",
+                week: "Week 10"
+            },
+            {
+                question: "Melioidosis, the disease responsible for the public health emergency in Turakapalem village of Andhra Pradesh, is caused by which pathogen?",
+                options: ["Fungus", "Bacteria", "Virus", "Protozoa"],
+                answer: 1,
+                explanation: "The correct answer is Bacteria.",
+                week: "Week 10"
+            }
+        ];
+
+
+        // DOM elements
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const feedbackDiv = document.getElementById('feedback');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const currentQuestionSpan = document.getElementById('current-question');
+        const totalQuestionsSpan = document.getElementById('total-questions');
+        const currentScoreSpan = document.getElementById('current-score');
+        const progressBar = document.getElementById('progress-bar');
+        const resultContainer = document.getElementById('result-container');
+        const finalScoreSpan = document.getElementById('final-score');
+        const totalQuestionsFinalSpan = document.getElementById('total-questions-final');
+        const performanceText = document.getElementById('performance-text');
+        const restartBtn = document.getElementById('restart-btn');
+        const weekIndicator = document.getElementById('week-indicator');
+
+        // Quiz state
+        let currentQuestionIndex = 0;
+        let userAnswers = Array(quizData.length).fill(null);
+        let score = 0;
+
+        // Initialize quiz
+        function initQuiz() {
+            totalQuestionsSpan.textContent = quizData.length;
+            totalQuestionsFinalSpan.textContent = quizData.length; // Also set for result screen
+            updateProgressBar();
+            showQuestion();
+        }
+
+        // Show current question
+        function showQuestion() {
+            const question = quizData[currentQuestionIndex];
+            questionText.innerHTML = question.question; // MODIFIED to use innerHTML for <br> tags
+            weekIndicator.textContent = question.week;
+            
+            optionsContainer.innerHTML = '';
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.textContent = option;
+                optionDiv.addEventListener('click', () => selectOption(index));
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            prevBtn.disabled = currentQuestionIndex === 0;
+            nextBtn.textContent = currentQuestionIndex === quizData.length - 1 ? 'Finish' : 'Next';
+            
+            currentQuestionSpan.textContent = currentQuestionIndex + 1;
+            currentScoreSpan.textContent = score;
+            updateProgressBar();
+            
+            feedbackDiv.style.display = 'none';
+            
+            if (userAnswers[currentQuestionIndex] !== null) {
+                const selectedOptIndex = userAnswers[currentQuestionIndex];
+                const options = optionsContainer.querySelectorAll('.option');
+                if (options[selectedOptIndex]) { 
+                    options[selectedOptIndex].classList.add('selected');
+                }
+                checkAnswer(selectedOptIndex, false); 
+            } else {
+                optionsContainer.querySelectorAll('.option').forEach(opt => {
+                    opt.style.pointerEvents = 'auto';
+                });
+            }
+        }
+
+        function updateProgressBar() {
+            const progress = ((currentQuestionIndex + 1) / quizData.length) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        function selectOption(optionIndex) {
+            if (feedbackDiv.style.display === 'block' && questionText.innerHTML === quizData[currentQuestionIndex].question) { // Check innerHTML if question contains HTML
+                return; 
+            }
+
+            const isFirstAttemptForThisQuestionIndex = userAnswers[currentQuestionIndex] === null;
+            
+            if (isFirstAttemptForThisQuestionIndex) {
+                userAnswers[currentQuestionIndex] = optionIndex;
+            }
+            
+            const options = document.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            if (options[optionIndex]) {
+                options[optionIndex].classList.add('selected');
+            }
+            
+            checkAnswer(optionIndex, isFirstAttemptForThisQuestionIndex);
+        }
+
+        function checkAnswer(selectedIndex, isFirstScoringAttempt) {
+            const question = quizData[currentQuestionIndex];
+            const options = document.querySelectorAll('.option');
+            
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none'; 
+            });
+
+            if (options[question.answer]) {
+                 options[question.answer].classList.add('correct');
+            }
+            if (selectedIndex !== question.answer && options[selectedIndex]) {
+                options[selectedIndex].classList.add('incorrect');
+            }
+            
+            feedbackDiv.innerHTML = ''; 
+            if (selectedIndex === question.answer) {
+                feedbackDiv.className = 'feedback correct-feedback';
+                feedbackDiv.textContent = 'Correct!';
+                if (isFirstScoringAttempt) { 
+                    score++;
+                }
+            } else {
+                feedbackDiv.className = 'feedback incorrect-feedback';
+                const correctAnswerText = question.options[question.answer] || "N/A";
+                feedbackDiv.textContent = `Incorrect. The correct answer is: ${correctAnswerText}`;
+            }
+            currentScoreSpan.textContent = score;
+            
+            if (question.explanation) {
+                const explanation = document.createElement('div');
+                explanation.className = 'explanation';
+                explanation.textContent = question.explanation; // Explanation is kept as textContent
+                feedbackDiv.appendChild(explanation);
+            }
+            
+            feedbackDiv.style.display = 'block';
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < quizData.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+            }
+        }
+
+        function showResult() {
+            document.querySelector('.quiz-container').style.display = 'none';
+            document.querySelector('.progress-text').style.display = 'none';
+            document.querySelector('.progress-container').style.display = 'none';
+            resultContainer.style.display = 'block';
+            finalScoreSpan.textContent = score;
+            
+            const percentage = (score / quizData.length) * 100;
+            let performance = '';
+            if (percentage >= 90) {
+                performance = 'Outstanding! You have an excellent knowledge of Current Affairs.';
+            } else if (percentage >= 75) {
+                performance = 'Excellent! You are very well-informed about Current Affairs.';
+            } else if (percentage >= 50) {
+                performance = 'Good effort! You know quite a bit about Current Affairs.';
+            } else if (percentage >= 30) {
+                performance = 'Keep learning! Review the topics to improve.';
+            } else {
+                performance = 'A good start! Study more to enhance your knowledge of Current Affairs.';
+            }
+            performanceText.textContent = performance;
+            // --- Firebase Progress Tracking ---
+            (function() {
+                var quizTitle = document.title || 'Unknown Quiz';
+                var category = 'General';
+                var path = window.location.pathname;
+                if (path.indexOf('Sikkim Current Affairs') !== -1 || quizTitle.indexOf('Sikkim') !== -1) category = 'Sikkim Current Affairs';
+                else if (path.indexOf('National International') !== -1 || quizTitle.indexOf('National') !== -1) category = 'National/International CA';
+                else if (path.indexOf('Physics') !== -1 || quizTitle.indexOf('Physics') !== -1) category = 'Physics';
+                else if (path.indexOf('Polity') !== -1) category = 'Polity';
+                else if (path.indexOf('History') !== -1) category = 'History';
+                else if (path.indexOf('Economics') !== -1) category = 'Economics';
+                else if (path.indexOf('Geography') !== -1) category = 'Geography';
+                if (typeof saveQuizResult === 'function' && typeof isLoggedIn === 'function' && isLoggedIn()) {
+                    saveQuizResult(quizTitle, score, quizData.length, category);
+                }
+            })();
+        }
+
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            userAnswers = Array(quizData.length).fill(null);
+            score = 0;
+            document.querySelector('.quiz-container').style.display = 'block';
+            document.querySelector('.progress-text').style.display = 'flex'; 
+            document.querySelector('.progress-container').style.display = 'block'; 
+            resultContainer.style.display = 'none';
+            feedbackDiv.style.display = 'none';
+            currentScoreSpan.textContent = score; 
+            showQuestion();
+        }
+
+        nextBtn.addEventListener('click', nextQuestion);
+        prevBtn.addEventListener('click', prevQuestion);
+        restartBtn.addEventListener('click', restartQuiz);
+
+        initQuiz();
+    </script>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="../auth.js"></script>
+</body>
+</html>

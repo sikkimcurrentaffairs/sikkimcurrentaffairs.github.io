@@ -1,0 +1,1911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Constitutional Framework | Sikkim PSC Hub</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+            border-color: #bbb;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .options-list.answered .option:not(.correct):not(.incorrect) {
+            opacity: 0.7;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none;
+        }
+        .quiz-stats {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <a href="indian_polity.html" class="back-link">&larr; Back to Indian Polity</a>
+        <h1>Constitutional Framework</h1>
+        <p class="quiz-stats">352 Questions</p>
+        <div id="questions-wrapper"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Article 359 of the Constitution authorizes the president of India to suspend the right to move any court for the enforcement of Fundamental Rights during :",
+                options: ["A National Emergency", "A failure of constitutional machinery in States", "A financial emergency", "None of Above"],
+                answer: 0
+            },
+            {
+                question: "By which Constitutional Amendment Act was the number of Lok sabha seats increased from 525 to 545 ?",
+                options: ["The Twentieth Amendment Act, 1966.", "The Forty-second Amendment Act, 1976.", "The Forty-fourth Amendment Act, 1978.", "Thirty-first Constitutional  Amendment  Act, 1973."],
+                answer: 3
+            },
+            {
+                question: "Article 169 of the Constitution makes the provision for the abolition or creation of :",
+                options: ["Specifies the number of seats for the Lok Sabha", "Specifies the number of seats for the Rajya Sabha", "Specifies Fundamental Duties", "Legislative Councils in States"],
+                answer: 3
+            },
+            {
+                question: "Which part of the Constitution of India deals with special provisions to SCs, STs, OBCs and Anglo-Indians ?",
+                options: ["Part 16 (Article 330 to 342).", "Part 6 (Article 152 to 237).", "Part 18 (Article 352 to 360).", "Part 14A (Article 323A to 323B)."],
+                answer: 0
+            },
+            {
+                question: "By which Constitutional Amendment Act was the elementary education made a fundamental right under Article 21-A?",
+                options: ["The 81th Constitutional  Amendment Act 2000", "The 86th Constitutional  Amendment Act 2002", "The 88th Constitutional  Amendment Act 2004", "The 96th Constitutional  Amendment Act 2011"],
+                answer: 1
+            },
+            {
+                question: "Under the Chapter Fundamental Rights, rights under Article 15, 16, 19, 29 and 30 have been denies the same to :",
+                options: ["The NRI", "The Aliens", "Children under age 18 years", "None of Above"],
+                answer: 1
+            },
+            {
+                question: "Which Article of the Constitution provides freedom to manage religious affairs ?",
+                options: ["Article 25.", "Article 26.", "Article 27.", "Article 28."],
+                answer: 1
+            },
+            {
+                question: "A governor, though he remains in office at the pleasure of the President is an integral part of :",
+                options: ["Lok Shabha", "State Legislature", "Raj Shabha", "None of Above"],
+                answer: 1
+            },
+            {
+                question: "Which article of Constitution declares that the council of ministers is collectively responsible to state legislative assembly?",
+                options: ["Article 164", "Article 168", "Article 188", "Article 189"],
+                answer: 0
+            },
+            {
+                question: "How many times has the Preamble to the constitution of India been amended ?",
+                options: ["5", "4", "1", "2"],
+                answer: 2
+            },
+            {
+                question: "In which historic case did the supreme court of India hold that the preamble to the constitution of India is a part of the constitution and hence can be amended ?",
+                options: ["S. R. Bommai Vs. Union of India", "Kesavananda Bharti Vs. State of Kerala (1973)", "L.M.Singhvi Vs. Union of India", "None of Above"],
+                answer: 1
+            },
+            {
+                question: "The fifth schedule to the constitution of India deals with administration and control of :",
+                options: ["Scheduled areas and Scheduled Tribes.", "The Forms of Oaths or Affirmations.", "The Union list, State list and the concurrent list.", "Provisions as to disqualification on ground of defection."],
+                answer: 0
+            },
+            {
+                question: "Article 360 to constitution of India deals with the provisions as to :",
+                options: ["Official Language", "Temporary, Transitional and Special Provisions", "Amendment of the Constitution", "Financial Emergency."],
+                answer: 3
+            },
+            {
+                question: "The idea of Republic and the ideals of liberty, equality and fraternity as laid down in the preamble to the constitution of India have been borrowed from :",
+                options: ["USA constitution", "Canada constitution", "French constitution", "The UK constitution"],
+                answer: 2
+            },
+            {
+                question: "The provisions as covered by Article 343 to 351 under Part XVII of the constitution of India deals with",
+                options: ["Religion", "Official Language", "President", "Emergency"],
+                answer: 1
+            },
+            {
+                question: "Which schedule of the constitution of India deals with powers, authority and responsibilities of municipalities?",
+                options: ["Fifth schedule", "Twelfth schedule", "Seventh schedule", "Tenth schedule"],
+                answer: 1
+            },
+            {
+                question: "The ideals of liberty, equality and fraternity as enshrined in the Preamble to the constitution of India have been taken from",
+                options: ["The French Revolution, 1789", "Russia Revolution, 1917", "Irish Revolution, 1865", "None of these"],
+                answer: 0
+            },
+            {
+                question: "Whose remarks are these \u2013 the Preamble is the horoscope of our sovereign democratic republic?",
+                options: ["Indra Gandhi", "Jawaharlal Nehru", "Granville Austin", "K.M. Munshi"],
+                answer: 3
+            },
+            {
+                question: "Which part of Indian constitution is described the Magna Carta of India?",
+                options: ["Part III containing Fundamental Rights (Article 12 to 35)", "Part IV Directive principles of state policy", "Part II Citizenship", "Part IV Fundamental Duties"],
+                answer: 0
+            },
+            {
+                question: "Which Article of the constitution defines the term state in Indian context?",
+                options: ["Article 15", "Article 12", "Article 17", "Article 20"],
+                answer: 1
+            },
+            {
+                question: "The only state in the Indian union which used to have its own separate state constitution was",
+                options: ["Nagaland", "Jammu & Kashmir", "Sikkim", "Goa"],
+                answer: 1
+            },
+            {
+                question: "Which Article of the Constitution of India has defined the term \u2018State\u2019?",
+                options: ["Article 12", "Article 19", "Article 51", "Article 77"],
+                answer: 0
+            },
+            {
+                question: "Granville Austin has described the Directive principles and the fundamental rights as",
+                options: ["The heart of the Constitution", "The conscience of the Constitution", "The back bone of the Constitution", "None of these"],
+                answer: 1
+            },
+            {
+                question: "Which article authorizes the Parliament to form a new state by separation of territory from any state?",
+                options: ["Articles 13", "Articles 3", "Articles 23", "Articles 33"],
+                answer: 1
+            },
+            {
+                question: "Under the citizenship act of 1955 the ways prescribed for acquiring citizenship are",
+                options: ["By birth and by descent", "By registration and by naturalization", "by incorporation of territory", "All of above"],
+                answer: 3
+            },
+            {
+                question: "Which article declares that all laws that are inconsistent with or in derogation of any of the fundamental rights shall be void?",
+                options: ["Article 3", "Article 23", "Article 33", "Article 13"],
+                answer: 3
+            },
+            {
+                question: "The idea of Directive Principles of state policy in the constitution of India has been borrowed from",
+                options: ["The Irish constitution", "The French Constitution", "The Japanese Constitution", "The Canadian Constitution"],
+                answer: 0
+            },
+            {
+                question: "The procedure for the amendment of the Constitution is laid down in:",
+                options: ["Article 368.", "Article 262", "Article 351", "Article 332"],
+                answer: 0
+            },
+            {
+                question: "Which Article of the Constitution of India lays down that any section of the citizens shall have the right to conserve its distinct language, script or culture?",
+                options: ["Article 21", "Article 29", "Article 39", "Article 49"],
+                answer: 1
+            },
+            {
+                question: "The citizenship Act 1955 prescribes way of losing citizenship whether acquired under the Act or prior to it under the Constitution, viz :",
+                options: ["Renunciation", "Termination", "Deprivation", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "The Fundamental Duties in the Indian Constitution are inspired by",
+                options: ["Australian Constitution", "British Constitution", "The Constitution of erstwhile USSR", "Canadian Constitution"],
+                answer: 2
+            },
+            {
+                question: "The inclusion of a separate chapter on fundamental duties in the Constitution was recommended by",
+                options: ["Sardar Swaran Singh Committee", "Ram Nandan Committee", "Mondal Commitee", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "Part XVIII  of the Constitution deals with",
+                options: ["Directive Principal", "Fundamental Duties", "Fundamental Rights", "Emergency Provisions"],
+                answer: 3
+            },
+            {
+                question: "Right to freedom of religion as enshrined in Article 25-28 includes",
+                options: ["Freedom of Conscience", "Free profession", "Practice and propagation of religion", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "The right to move the Supreme Court for the enforcement of fundamental rights including the writs of habeas corpus, mandamus, prohibition, certiorari and quo warranto are the parts of",
+                options: ["Fundamentals Rights", "Right to Constitutional Remedies", "Directive Principle", "Right to freedom"],
+                answer: 1
+            },
+            {
+                question: "The right to acquire, hold and dispose of property was deleted from the chapter of fundamental right by",
+                options: ["The 44th Constitutional Amendment Act", "The 42th Constitutional Amendment Act", "The 88th Constitutional Amendment Act", "The 48th Constitutional Amendment Act"],
+                answer: 0
+            },
+            {
+                question: "Which Article grants protection to persons who are arrested or detained?",
+                options: ["Article 23", "Article 24", "Article 25", "Article 22"],
+                answer: 3
+            },
+            {
+                question: "The Article 40 which requires the state to organize village panchayats and  authority to enable them to function as units of self government is part of",
+                options: ["Directive Principles of States Policy", "Right to Constitutional Remedies", "Right to Freedom of Conscience", "None of these"],
+                answer: 0
+            },
+            {
+                question: "The foremost basic features of the Constitution of India include",
+                options: ["Supremacy of the Constitution", "Independence of Judiciary", "Rule of Law, Principal of Equality", "Judicial Review and Secularism"],
+                answer: 0
+            },
+            {
+                question: "The Citizen Act 1955, prescribes the way of losing citizenship acquired under the Act prior to it under the constitution viz. :",
+                options: ["Deprivation.", "Renunciation", "Termination", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "The constitution provides prohibition of traffic in human beings and forced labour under",
+                options: ["Article 23", "Article 43", "Article 33", "Article 231"],
+                answer: 0
+            },
+            {
+                question: "Which article declares that a constitutional amendment is not a law and hence cannot be challenged?",
+                options: ["Article 13", "Article 14", "Article 15", "Article 16"],
+                answer: 0
+            },
+            {
+                question: "The most important law enforcing Article 24 prohibiting the employment of children below the age of 14 years in any factory of other hazardous activities is :",
+                options: ["The Child Labour (Prohibition and Regulation) Act 1986", "The Unlawful Activities Act 1967", "The Legal Services Authorities Act 1987", "Prevention of Atrocities Act, 1989"],
+                answer: 0
+            },
+            {
+                question: "The Constitution of India has divided the powers between the Centre and the States in terms of:",
+                options: ["Concurrent list", "State list", "The Union List, State List and Concurrent List", "Union list"],
+                answer: 2
+            },
+            {
+                question: "Which constitutional Amendment Act facilitates the appointment of the same person as a governor for two or more states?",
+                options: ["1st Constitutional Amendment Act, 1951", "7th Constitutional Amendment Act, 1956", "15th Constitutional Amendment Act, 1963", "4th Constitutional Amendment Act, 1955"],
+                answer: 1
+            },
+            {
+                question: "Which Article of the constitution empowers the High court to issue writs including habeas corpus, mandamus, certiorari, prohibition and quo warranto for the enforcement of fundamental rights of the citizens and for any other purpose ?",
+                options: ["Article 226", "Article 227", "Article 228", "Article 229"],
+                answer: 0
+            },
+            {
+                question: "The pardoning power of the president in India as enshrined in the Article 72 of the constitution of India includes :",
+                options: ["remission, respite, reprieve", "pardon, commutation", "pardon, commutation, remission, respite, reprieve", "commutation"],
+                answer: 2
+            },
+            {
+                question: "Under which article of the constitution does the governor of state possess the pardoning power?",
+                options: ["Article 161.", "Article 162", "Article 163", "Article 164"],
+                answer: 0
+            },
+            {
+                question: "The president of the constituent assembly of India was:",
+                options: ["Dr. Rajendra Prasad.", "Jawahar Lal Nehru", "Sachidanand Sahu", "Hakim Ajmal Khan"],
+                answer: 0
+            },
+            {
+                question: "The concept of Procedure established by Law as incorporated in the constitution of India is borrowed from :",
+                options: ["Irish constitution", "American constitution", "English constitution", "Japanese constitution."],
+                answer: 3
+            },
+            {
+                question: "In which schedule to the constitution of India is the division of powers between the union and the states in terms of the union list and the state list laid down?",
+                options: ["Fifth schedule", "Sixth schedule", "Seventh schedule", "Fourth schedule"],
+                answer: 2
+            },
+            {
+                question: "In which case did the Supreme Court hold that the preamble is not the part of the constitution?",
+                options: ["The Berubari union case", "Golak Nath case", "Kesavananda Bharati case", "none of the above"],
+                answer: 0
+            },
+            {
+                question: "Under which article is the right to freedom of conscience and free profession, practice and propagation of religion mentioned?",
+                options: ["Article 24", "Article 25", "Article 26", "Article 27"],
+                answer: 1
+            },
+            {
+                question: "Part XX of the constitution of India covered by article 368 mentions:",
+                options: ["Temporary, Transitional and Special provisions", "Amendments of the constitution", "Elections", "Official Language"],
+                answer: 1
+            },
+            {
+                question: "Concurrent list freedom of trade commerce and joint sitting of the two houses of parliament are the provisions mentioned in Indian constitution. They have been borrowed from:",
+                options: ["Australian constitution", "American constitution", "Irish constitution", "Japanese constitution"],
+                answer: 0
+            },
+            {
+                question: "As per the Preamble of the Constitution of India, the nature of Indian State is of :",
+                options: ["Sovereign", "Socialist", "Republic", "A sovereign, socialist, secular, democratic and republican polity"],
+                answer: 3
+            },
+            {
+                question: "The three words which were added in the preamble to the Constitution of India by the 42nd Constitutional Amendment Act 1976 are :",
+                options: ["socialist, secular and integrity", "sovereign, secular and socialist", "sovereign, republic and democratic", "sovereign, secular and republic"],
+                answer: 0
+            },
+            {
+                question: "Article 1 describes India that is Bharat as :",
+                options: ["union of states", "federal state with unitary features", "unitary state with federal features", "federal state"],
+                answer: 0
+            },
+            {
+                question: "Which provision made in the Constitution of India is the bedrock of the democratic system in the country?",
+                options: ["Directive Principles of State Policy", "Fundamental Rights", "Fundamental Duties", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "About which feature of the Constitution is it said that \u201cit is a cheque on a bank payable only when the resources of the bank permit?\u201d",
+                options: ["Directive Principle of State Policy", "Fundamental Duties", "Fundamental Rights", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "The major writs as enshrined in the Constitution of India are :",
+                options: ["habeas corpus, mandamus, prohibition, certiorari and quo warranto", "habeas corpus and mandamus", "certiorari and quo warranto", "Habeas corpus, mandamus and prohibition"],
+                answer: 0
+            },
+            {
+                question: "The lengthiest Constitution of the world is :",
+                options: ["the constitution of India", "the constitution of Ireland", "the constitution of Australia", "the constitution of Japan"],
+                answer: 0
+            },
+            {
+                question: "The Constitutional Advisor of the Constituent Assembly was :",
+                options: ["Sachchidananda Sinha", "B. N. Rau", "Gopalaswamy Ayyangar", "H. N. Kunzru"],
+                answer: 1
+            },
+            {
+                question: "Which article of the constitution was called by Dr.  B.R. Ambedkar as the most important article?",
+                options: ["Article 19", "Article 356", "Article 32", "Article 14"],
+                answer: 2
+            },
+            {
+                question: "The provision of writs as enshrined in the constitution of India is borrowed from:",
+                options: ["English law", "Irish law", "Australian law", "Japanese law"],
+                answer: 0
+            },
+            {
+                question: "The writ issued by the court to enquire into the legality of claim of a person to a public office (and thereby preventing illegal usurpation of that office) is known as :",
+                options: ["Mandamus", "Quo warranto", "Prohibition", "Habeas Corpus"],
+                answer: 1
+            },
+            {
+                question: "Article  359  authorizes the president to suspend the fight to move any court for the enforcement of Fundamental Rights during :",
+                options: ["A National Emergency", "A failure of constitutional machinery in States", "A financial emergency", "None of the Above"],
+                answer: 0
+            },
+            {
+                question: "Which Article of the Constitution declares that the council of ministers is collectively responsible to the legislative assembly of the state?",
+                options: ["Article 164", "Article 168", "Article 188", "Article 189"],
+                answer: 0
+            },
+            {
+                question: "The purpose of the inclusion of Directive Principles of State Policy in the Indian Constitution is to establish :",
+                options: ["Political Democracy", "Social Democracy", "Gandhian Democracy", "Social and Economic Democracy"],
+                answer: 3
+            },
+            {
+                question: "The Union List in Seventh Schedule contains:",
+                options: ["97 Matters/Items.", "87 Matters/Items.", "95 Matters/Items.", "91 Matters/Items."],
+                answer: 0
+            },
+            {
+                question: "Cultural and Education Rights as enshrined in the Constitution of India are covered by :",
+                options: ["Article 28", "Article 29 and Article 30", "Article 25", "Article 27"],
+                answer: 1
+            },
+            {
+                question: "The preamble says that the state in India will assure the dignity of the individual. The constitution seeks to achieve this object by guaranteeing",
+                options: ["equal fundamental rights to each citizen", "the right to adequate means of livelihood to each individual", "just and humane conditions of work to each individual", "equal wages for equal work to each individual irrespective of sex"],
+                answer: 0
+            },
+            {
+                question: "The Objectives Resolution which laid down the main objectives to guide the deliberations of the Assembly was moved by",
+                options: ["Sardar Patel", "Jawaharlal Nehru", "K.M. Munshi", "B.R. Ambedkar"],
+                answer: 1
+            },
+            {
+                question: "Preamble enshrines the ideals of liberty, equality and fraternity - ideals inspired by the",
+                options: ["Russian Revolution", "Irish Revolution", "French Revolution", "US Constitution"],
+                answer: 2
+            },
+            {
+                question: "The position of the president which was undermined by the 42nd amendment was subsequently somewhat retrieved by the",
+                options: ["44th amendment", "45th amendment", "26th amendment", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "The national flag was adopted by the Constituent Assembly of India on 22 July 1947 and was presented to the nation at the midnight session of the Assembly on 14th August 1947 on behalf of",
+                options: ["the minorities of India", "the National Integration Council", "the women of India", "the people of India"],
+                answer: 2
+            },
+            {
+                question: "The preamble to our constitution provided that India is",
+                options: ["a sovereign, socialist and democratic republic", "a sovereign, socialist, secular and democratic republic", "a sovereign republic with a socialist pattern of society", "a socialist, secular and democratic republic"],
+                answer: 1
+            },
+            {
+                question: "The name of the union given in the Constitution is",
+                options: ["Hindustan or Bharatavarsha", "India or Hindustan", "India or Bharat", "Bharatadesh or India"],
+                answer: 2
+            },
+            {
+                question: "The preamble enshrines certain ideals that were first spelt out in",
+                options: ["the speech by Jawaharlal Nehru on the banks of Ravi when he called forPurana Swaraj", "the Nehru report", "a resolution adopted at the Karachi session of the Indian National Congress", "the Objectives Resolution adopted by the Constituent Assembly"],
+                answer: 3
+            },
+            {
+                question: "The Objectives Resolution was unanimously adopted by the Constituent Assembly on",
+                options: ["22nd January 1947", "26th November 1946", "1st October 1948", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "The preamble declares India as a sovereign state which implies",
+                options: ["India is free to conduct her internal affairs", "India is free to conduct her external affairs", "India is free to conduct her internal as well as external affairs", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "The preamble to our constitution includes all the following except",
+                options: ["adult franchise", "equality of status", "fraternity", "justice"],
+                answer: 0
+            },
+            {
+                question: "How many Schedules are there in the Constitution of India?",
+                options: ["9", "10", "11", "12"],
+                answer: 3
+            },
+            {
+                question: "Which among the following in our constitution is called \" Magna carta\"?",
+                options: ["Directive principles of state policy", "Fundamental Duties", "Preamble", "Fundamental Rights"],
+                answer: 3
+            },
+            {
+                question: "How many members are in United Nation general assembly-",
+                options: ["190", "191", "192", "193"],
+                answer: 3
+            },
+            {
+                question: "Who among the following is not a part of political executive?",
+                options: ["Finance Minister", "Defence Minister", "Foreign Minister", "Secretary of Ministry of Defence"],
+                answer: 3
+            },
+            {
+                question: "Which among the following country is not a part of 'Second World Countries'?",
+                options: ["Russia", "China", "Mongolia", "Argentina"],
+                answer: 3
+            },
+            {
+                question: "According to Indian constitution, which of the following is a Constitutional Body-",
+                options: ["Finance Commission", "National Development Council", "Planning Commission", "None of these"],
+                answer: 0
+            },
+            {
+                question: "Under which of the following Article of Indian constitution, the verdict of Central Administrative Tribunal can be challenged in Supreme Court-",
+                options: ["323 A", "329", "343 C", "343 K"],
+                answer: 0
+            },
+            {
+                question: "Under which of the following article the Election Commission was established-",
+                options: ["Article-355", "Article-356", "Article-324", "Article-320"],
+                answer: 2
+            },
+            {
+                question: "The Article-343 of the Indian Constitution is about-",
+                options: ["Number of seats for the Lok Sabha", "Number of seats for the Rajya Sabha", "Hindi as official language", "Special status to Kashmir"],
+                answer: 2
+            },
+            {
+                question: "Article-370 of constitution is applicable on which state-",
+                options: ["Nagaland", "Mizoram", "Manipur", "Jammu and Kashmir"],
+                answer: 3
+            },
+            {
+                question: "Bharatiya Janata Party is a part of which political group?",
+                options: ["United Progressive Alliance", "National Democratic Alliance", "Janata Parivar", "Rashtra Parivar"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is a feature of civil services India-",
+                options: ["Neutrality and unbiasedness", "Temporary political executive relations", "Partiality", "All of these"],
+                answer: 0
+            },
+            {
+                question: "The money of candidates for Lok Sabha and Legislative Assembly is forfeited-",
+                options: ["When he loses the election", "When he could not secure 1/4 votes", "When he could not secure 1/5 votes", "When he could not secure 1/6 votes"],
+                answer: 3
+            },
+            {
+                question: "Indian National Congress is a part of which political group?",
+                options: ["United Progressive Alliance", "National Democratic Alliance", "Janata Parivar", "Rashtra Parivar"],
+                answer: 0
+            },
+            {
+                question: "Which of these languages is generally not spoken in Southern part of India?",
+                options: ["Telugu", "Konkani", "Maithili", "Malayalam"],
+                answer: 2
+            },
+            {
+                question: "Who among the following is constitutionallyempowered to  alter Scheduled Area?",
+                options: ["Supreme Court of India", "High Court of State", "Prime Minister of India", "President of India"],
+                answer: 3
+            },
+            {
+                question: "Parliament and Constitution are not mode of-",
+                options: ["Legal Justice", "Political Justice", "Economic Justice", "Social Justice"],
+                answer: 0
+            },
+            {
+                question: "Which article of the Constitution deals with money bills-",
+                options: ["Article-130", "Article-110", "Article-120", "Article-100"],
+                answer: 1
+            },
+            {
+                question: "Who among the following is a part of political executive?",
+                options: ["District Magistrate", "Secretary of Ministry of defence", "Finance Minister", "Superintendent of Police"],
+                answer: 2
+            },
+            {
+                question: "The initial tenure of member of Lok Sabha was 5 years, it was changed by 42nd amendment to-",
+                options: ["9 years", "7 years", "6 years", "8 years"],
+                answer: 2
+            },
+            {
+                question: "Which Article gives the power to the Parliament to make law on subjects of state list-",
+                options: ["115", "183", "221", "249"],
+                answer: 3
+            },
+            {
+                question: "In which of the form, composit India has been described in the constitution?",
+                options: ["A Union State", "Semi Federal", "Federation of States and Territories", "Partly Unitary and Partly Federal"],
+                answer: 0
+            },
+            {
+                question: "The Phrase \"equality before law\" used in article-14 of Indian constitution has been borrowed\nfrom-",
+                options: ["U.S.A", "Germany", "Britain", "Greece"],
+                answer: 2
+            },
+            {
+                question: "Name of qountry from which the consititution features of procedures for amendment was borrowed by India-",
+                options: ["Britain", "America", "South Africa", "Germany"],
+                answer: 2
+            },
+            {
+                question: "Which of the following feature as been adopted from the constitution of USA by the maker of Indian constitution?",
+                options: ["Judicial Review", "Fundamental Rights", "Removal of the Judges of Supreme Court", "All of these"],
+                answer: 3
+            },
+            {
+                question: "The assumption of concurrent list of Indian constitution has been borrowed from-",
+                options: ["Japan", "Canada", "Australia", "USA"],
+                answer: 2
+            },
+            {
+                question: "Who was the constitutional advisor to the constituent assembly at the time of the drafting of the constitution?",
+                options: ["Jawaharlal Nehru", "Dr.B.R Ambedkar", "B.N. Rau", "Rajendra Prasad"],
+                answer: 2
+            },
+            {
+                question: "Who is considered as the maker of the constitution of India?",
+                options: ["Mahatma Gandhi", "B.R Ambedkar", "Jawaharlal Nehru", "B.N.Rau"],
+                answer: 1
+            },
+            {
+                question: "Bicameral system is a feature of which of the following form of government-",
+                options: ["Parliamentary system", "President system", "Federal system", "Unitary system"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is not a feature of centralized government?",
+                options: ["Dependent State", "Judicial Review", "Single Government", "Flexible Constitution"],
+                answer: 1
+            },
+            {
+                question: "The Chairman of the Drafting Committee of the constituent Assembly of India was-",
+                options: ["K.M.Munshi", "D.P. Khaitan", "Dr. B.R. Arnbedkar", "T.T. Krishanmachari"],
+                answer: 2
+            },
+            {
+                question: "The concept of constitution first originated in-",
+                options: ["Switzerland", "Britain", "U.S.A", "Japan"],
+                answer: 1
+            },
+            {
+                question: "Who among the following was not a member of the constituent Assembly?",
+                options: ["Sardar Vallabhbhai Patel", "Acharya J. B Kripalani", "Jay Prakash Narayan", "K.M.Munshi"],
+                answer: 2
+            },
+            {
+                question: "The constituent Assembly was set up in-",
+                options: ["1945", "1946", "1947", "1949"],
+                answer: 1
+            },
+            {
+                question: "From which of the following country Indian Constitution borrowed the feature \"The written Constituion?",
+                options: ["USSR", "UK", "U.S", "Japan"],
+                answer: 2
+            },
+            {
+                question: "Constitution Day of India is on-",
+                options: ["26th January", "23rd June", "15th August", "26th November"],
+                answer: 3
+            },
+            {
+                question: "First country to make constitution is -",
+                options: ["India", "England", "USA", "Sri Lanka"],
+                answer: 2
+            },
+            {
+                question: "The Constituion of which country is the longest written constitution of any sovereign country in the world?",
+                options: ["Russia", "United Kingdom", "USA", "India"],
+                answer: 3
+            },
+            {
+                question: "The Indian constitution was adopted on-",
+                options: ["26 January, 1950", "26 January, 1946", "26 November, 1949", "31 December, 19,49"],
+                answer: 2
+            },
+            {
+                question: "The constitution of India was framed by-",
+                options: ["Planning Commission", "Constituent Assembly", "President", "Working Committee"],
+                answer: 1
+            },
+            {
+                question: "The Constituent Assembly of India was constituted on the scheme of-",
+                options: ["Wavell plan", "Cripps mission", "August offer", "Cabinet mission"],
+                answer: 3
+            },
+            {
+                question: "Who was the chairman of the Constituent Assembly of India-",
+                options: ["Dr. B.Rambedkar", "Dr.Rajendra Prasad", "Dr. B.N. Rao", "Pandit Jawaharlal Nehru"],
+                answer: 1
+            },
+            {
+                question: "The drafting committee wrote the Indian Constitution in which language ?",
+                options: ["English and Hindi", "Only English", "English and Urdu", "English,Hindi and Urdu"],
+                answer: 1
+            },
+            {
+                question: "Emergency provisions in Indian Constitution has been taken from-",
+                options: ["British constitution", "Government of India Act 1935", "Irish constitution", "Japanese constitution"],
+                answer: 1
+            },
+            {
+                question: "Which of the following has the feature of dual citizenship?",
+                options: ["Unitary Government", "Federal Government", "Parliamentary Government", "President Ruled Government"],
+                answer: 1
+            },
+            {
+                question: "When was the first Central Legislative Assembly constituted-",
+                options: ["1922", "1923", "1921", "1920"],
+                answer: 2
+            },
+            {
+                question: "Who presided over the first meeting of Indian constituent Assembly?",
+                options: ["Dr. Rajendra Prasad", "Saehehidandada Sinha", "B.R Ambedkar", "H.V. Kamath"],
+                answer: 1
+            },
+            {
+                question: "Who among the following was the Chairman of Fundamental Rights sub-Committee of the\nConstitutent Assembly?",
+                options: ["J. B. Kripalani", "Rajendra Prasad", "B. R. Arnbedkar", "Gopinath Bardoloi"],
+                answer: 0
+            },
+            {
+                question: "Where do we find the ideals of Indian democracy in the constitution?",
+                options: ["The Preamble", "Part III", "Part IV", "Part I"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is a feature of Presidential form of government?",
+                options: ["It protects the freedom of people", "It ensures the speedy execution of policies", "Fix term stabilizes the system", "All of these"],
+                answer: 3
+            },
+            {
+                question: "Which among the following Articles came into force on 26th November 1949, the day the Indian Constitution was adopted?",
+                options: ["Article 388", "Article 390", "Article 387", "Article 386"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is not a feature of Indian Constituion?",
+                options: ["Parliamentary form of Government", "Independence of Judiciary", "Presidential form of Government", "Federal Government"],
+                answer: 2
+            },
+            {
+                question: "The Indian constitution came into force on-",
+                options: ["26 January, 1950", "26 January, 1952", "15 August, 1948", "31 Novembar,1949"],
+                answer: 0
+            },
+            {
+                question: "January 26 selected as the date for the inauguration of the Constitution, because-",
+                options: ["It was considered to be an auspicious day", "On that day the Quit India Movement was\nstarted in 1942", "The Congress had observed it as the\nIndependence Day in 1930", "None of these"],
+                answer: 2
+            },
+            {
+                question: "Indian Constitution is made up of how many words?",
+                options: ["40,000", "1,17,369", "80,000", "1,45,000"],
+                answer: 3
+            },
+            {
+                question: "Who described Constitution of India as 'quasi-federal'?",
+                options: ["Granville Austin", "Ione Jennings", "Morris Jones", "K. C. Wheare"],
+                answer: 3
+            },
+            {
+                question: "Who among the following proposed the suggestion for a Constituent Assembly first in 1935?",
+                options: ["Nehru", "Gandhi", "J.P. Narayan", "M.N. Roy"],
+                answer: 3
+            },
+            {
+                question: "Which of the following exercised the most profound inference in framing of Indian constitution?",
+                options: ["British constitution", "U.S. constitution", "Irish constitution", "GOI act, 1935"],
+                answer: 3
+            },
+            {
+                question: "Fundamental Rights of Indian constitution have been adopted from which of the following\nnation-",
+                options: ["America", "UK", "Soviet Russia", "None of these"],
+                answer: 0
+            },
+            {
+                question: "Which of the following country has an Non-written constitution-",
+                options: ["USA", "UK", "Pakistan", "India"],
+                answer: 1
+            },
+            {
+                question: "Objective resolution was moved in constituent assembly by-",
+                options: ["Jawaharlal Nehru", "Kiran Desai", "K. Natwar Singh", "K. M.Munshi"],
+                answer: 0
+            },
+            {
+                question: "The National Anthem was adopted by the Constituent Assembly in-",
+                options: ["24th May 1949", "24th November 1949", "24th January 1950", "24th June 1950"],
+                answer: 2
+            },
+            {
+                question: "The directive principle of state policy has been adopted from which constitution?",
+                options: ["U.S. Constitution", "British Constitution", "Irish Constitution", "French Constitution"],
+                answer: 2
+            },
+            {
+                question: "The method of amending the constitution by popular veto is found in-",
+                options: ["Britain", "Switzerland", "Russia", "India"],
+                answer: 1
+            },
+            {
+                question: "The system of nomination of members of Rajya Sabha has been borrowed from the constitution-",
+                options: ["United States of America", "Ireland", "South Africa", "France"],
+                answer: 1
+            },
+            {
+                question: "Which of the folowing was not a member of the drafting committee of the constitution-",
+                options: ["B.R Ambedkar", "Alladi Krishnaswamy", "Gopalaswami Ayyangar", "Rajendra Prasad"],
+                answer: 3
+            },
+            {
+                question: "In India single citizenship has been adopted from-",
+                options: ["England", "USA", "Canada", "France"],
+                answer: 0
+            },
+            {
+                question: "Which of the following judgements stated that 'Secularism' and 'Federalism are the basic features of the Indian Constitution?",
+                options: ["Keshavanada Bharati case", "S.R. Bommai case", "Indira Sawhney case", "Minerva Mills case"],
+                answer: 1
+            },
+            {
+                question: "The Constituent Assembly which enacted the Constitution of Indian, its members were-",
+                options: ["Nominated by Political Parties", "Elected by the Legislative Assemblies of\ndifferent provinces", "Directly elected by People", "Nominated by Governer General"],
+                answer: 1
+            },
+            {
+                question: "The original constitution of India was published in?",
+                options: ["Delhi", "Srinagar", "Ajmer", "Dehradun"],
+                answer: 3
+            },
+            {
+                question: "The original 1950 Constitution of India is preserved in-",
+                options: ["President House", "Prime Minister House", "Parliament House", "Archaeological Survey of India"],
+                answer: 2
+            },
+            {
+                question: "Where is the word \"Federal\" used in the constitution of India?",
+                options: ["Preamble", "Part 3", "Article 368", "Nowhere in constitution"],
+                answer: 3
+            },
+            {
+                question: "Indian Constitution is-",
+                options: ["Federal", "Quasi Federal", "Unitary", "Presidential"],
+                answer: 1
+            },
+            {
+                question: "The president of India has the same constitution powers which have-",
+                options: ["British crown", "President of USA", "President of Pakistan", "President of France"],
+                answer: 0
+            },
+            {
+                question: "How many fundamental duties are there in Indian constitution?",
+                options: ["9", "10", "11", "12"],
+                answer: 2
+            },
+            {
+                question: "Article 14 of the Indian Constitution guarantees Indian citizens-",
+                options: ["Equal protection of laws", "Equality before law", "Equal distribution of economic resources", "Equality before law and equal protection of\nthe laws"],
+                answer: 3
+            },
+            {
+                question: "Which of the following Article of Indian Constitution deals with the Right to Equality before Law?",
+                options: ["Article-13", "Article-14", "Article-15", "Article-17"],
+                answer: 1
+            },
+            {
+                question: "Of the various grounds below which discrimination by the State is not prohibited in ArticleIS of the Constitution?",
+                options: ["Place of birth", "Race", "Language", "Caste"],
+                answer: 2
+            },
+            {
+                question: "Which article of the Indian Constitution provides for equal opportunities for all citizens in Public employment?",
+                options: ["Article-22", "Article-16", "Article-20", "Article-25"],
+                answer: 1
+            },
+            {
+                question: "The following article of tbe Indian Constitution abolished the practice of untouchability-",
+                options: ["Article-14", "Article-18", "Article-17", "Article-19"],
+                answer: 2
+            },
+            {
+                question: "The Articles-17 and 18 of constitution provide-",
+                options: ["Social equality", "Economic equality", "Political equality", "Religious equality"],
+                answer: 0
+            },
+            {
+                question: "Article-19 of the Indian Constitution \"Protection of certain rights regarding freedom of speech etc\" deals with?",
+                options: ["The Union Government", "The State Government", "The directive principles of state policy", "The fundamental rights of the Indian Citizen"],
+                answer: 3
+            },
+            {
+                question: "Article 19 of the Indian Constitution provides-",
+                options: ["6 freedoms", "7 freedoms", "8 freedoms", "9 freedoms"],
+                answer: 0
+            },
+            {
+                question: "Article 20 of the Indian Constitution \"Protection inrespect of conviction for offences\" deals with?",
+                options: ["The fundamental rights of the Indian Citizen", "The Union Government", "The State Government", "The Directive Principles of State Policy"],
+                answer: 0
+            },
+            {
+                question: "Article-21 of the Indian Constitution \"Protection of life and personal liberty\" deals with?",
+                options: ["The Union Government", "The fundamental rights of the Indian Citizen", "The State Government", "The Directive Principles of State Policy"],
+                answer: 1
+            },
+            {
+                question: "According to Indian constitution, Right to life is-",
+                options: ["Political right", "Economic right", "Fundamental right", "Religious right"],
+                answer: 2
+            },
+            {
+                question: "Article 24 of the Indian Constitution \"Prohibition of employment of children in factories etc\" deals with?",
+                options: ["The fundamental rights of the Indian citizen", "The Union Government", "The State Government", "The Directive Principles of State Policy"],
+                answer: 0
+            },
+            {
+                question: "Article 27 of the Indian Constitution \"Freedom as to payment of taxes for promotion of any particular religion\" deals with?",
+                options: ["The Union Government", "The State Government", "The Directive Principles of State Policy", "The fundamental rights of the Indian Citizen"],
+                answer: 3
+            },
+            {
+                question: "What is the basis of recognition of minorities in Indian constitution?",
+                options: ["Religion", "Caste", "Ratio of the community to total population", "Colour"],
+                answer: 0
+            },
+            {
+                question: "Article-31(A) of the Indian Constitution \"Saving of Laws providing for acquisition of estates etc\" deals with?",
+                options: ["The State Government", "The Union Government", "The fundamental rights of the Indian Citizen", "The Directive Principles of State Policy"],
+                answer: 2
+            },
+            {
+                question: "Article-31(B) of the Indian Constitution \"Validation of certain Acts and Regulations\" deals with the-",
+                options: ["State Government", "Union Government", "Directive Principles of State Policy", "Fundamental rights of the Indian Citizen"],
+                answer: 3
+            },
+            {
+                question: "Article-31(C) of the Indian Constitution \"Saving of laws giving effect to certain directive principles\" deals with?",
+                options: ["The fundamental rights of the Indian Citizen", "The State Government", "The Union Government", "The directive principles of state policy"],
+                answer: 0
+            },
+            {
+                question: "Under which of the following article of Indian constitution, the fundamental rights of defence forces' personnel can be restricted specially?",
+                options: ["Article-21", "Article-25", "Article-33", "Article-19"],
+                answer: 2
+            },
+            {
+                question: "Which Article specifies the Fundamental Duties of every citizen?",
+                options: ["Article-80", "Article-343", "Article-51(A)", "Article-356"],
+                answer: 2
+            },
+            {
+                question: "Fundamental duties are included in the Indian Constitution by the Amendment-",
+                options: ["44th", "42th", "26th", "25th"],
+                answer: 1
+            },
+            {
+                question: "When were the fundamental duties inserted in Indian constitution?",
+                options: ["1971", "1972", "1975", "1976"],
+                answer: 3
+            },
+            {
+                question: "Which of the followings issues a writ?",
+                options: ["Any High Court and Supreme Court", "Any Court", "District Court", "Administrative Tribunal"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is not a fundamental duty?",
+                options: ["To abide by constitution and respect the\nNational Flag", "To promote harmony and brotherhood", "To uphold and protect the sovereignty", "Abolition of' titles except military and\nacademic"],
+                answer: 3
+            },
+            {
+                question: "A writ of ____ means that the court orders that the arrested person should be presented before it.",
+                options: ["Habeas Corpus", "Mandamus", "Prohibition", "Quo-Warranto"],
+                answer: 0
+            },
+            {
+                question: "Which of the following writ's meaning is- \"to have the body of\"?",
+                options: ["Habeas corpus", "Mandamus", "Quo warranto", "Certiorari"],
+                answer: 0
+            },
+            {
+                question: "In which of the following situations Habeas corpus writ is issued?",
+                options: ["Loss of property", "Extra tax receipts", "Faulty police detention", "Violation of freedom of Expression"],
+                answer: 2
+            },
+            {
+                question: "Which of the following writ is issued by a higher court to a lower court?",
+                options: ["Habeas Corpus", "Quo-Warranto", "Prohibition", "None of these"],
+                answer: 2
+            },
+            {
+                question: "Which Article of the Indian Constitution did Dr. B.R. Ambedkar term as the \"Heart and Soul of the Indian Constitution\"?",
+                options: ["Article 14", "Article 19", "Article 356", "Article 32"],
+                answer: 3
+            },
+            {
+                question: "By which of the following rights fundamental rights are ensured in Indian constitution?",
+                options: ["Right to equality", "Right against exploitation", "Right to constitutional remedies", "Educational and cultural right"],
+                answer: 2
+            },
+            {
+                question: "The Basic Structure of our Constitution was proclaimed by the Supreme Court in-",
+                options: ["Keshavananda Bharti case", "Golaknath case", "Minerva Mills case", "Gopalan case"],
+                answer: 0
+            },
+            {
+                question: "A writ of Mandamus can be issued by the Supreme Court to-",
+                options: ["An official to perform public duty", "The Prime Minister to dissolve the Cabinet", "The company to raise wages", "The Government to pay the salaries to employees"],
+                answer: 0
+            },
+            {
+                question: "Which of the following fundamental right can be  controlled by preventive detention act-",
+                options: ["Right to religion", "Right to constitutional remedies", "Right to freedom", "Right to equality"],
+                answer: 2
+            },
+            {
+                question: "In the Constitution of India the 'Right to Constitutional Remedies' has been provided in Article-",
+                options: ["30", "31", "32", "35"],
+                answer: 2
+            },
+            {
+                question: "Under which Article of the Constitution can an individual move to the Supreme Court directly in case of any violation of Fundamental Rights?",
+                options: ["Article-32", "Article-28", "Article-29", "Article-31"],
+                answer: 0
+            },
+            {
+                question: "Constitution of India considers free and compulsory education to children up to-",
+                options: ["10 years", "14 years", "18 years", "21 years"],
+                answer: 1
+            },
+            {
+                question: "Which Fundamental Right in the Indian Constitution states that all persons shall be equally protected by the laws of the country?",
+                options: ["Right to Equality", "Right to Freedom", "Right against exploitation", "Right to Freedom of Religion"],
+                answer: 0
+            },
+            {
+                question: "Which Fundamental Right in the Indian Constitution includes equal access to shops bathing ghats hotels etc?",
+                options: ["Right to Liberty and Personal Freedom", "Right to Freedom of Religion", "Right to Equality", "Cultural and Educational Rights"],
+                answer: 2
+            },
+            {
+                question: "Which Fundamental Right in the Indian CoilStitution includes abolition of untouchability?",
+                options: ["Right to Liberty and Personal Freedom", "Right to Freedom of Religion", "Right to Equality", "Cultural and Educational Rights"],
+                answer: 2
+            },
+            {
+                question: "According to Indian constitution which is not a fundamental right-",
+                options: ["Right to education", "Right to information", "Right to Expression", "Right to life"],
+                answer: 1
+            },
+            {
+                question: "Point out which from the following is not a right enumerated in the Constitution of India but has been articulated by the Supreme Court to be a Fundamental Right?",
+                options: ["Right to privacy", "Equality before law", "Abolition of untouchability", "Right to form associations or unions"],
+                answer: 0
+            },
+            {
+                question: "Which fundamental right was abolished by the 44th Amendment?",
+                options: ["Right to Liberty", "Right to Property", "Right to Equality", "Right to Religion"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is not a fundamental rights in Indian constitution?",
+                options: ["Right to equality", "Right to freedom", "Right to property", "Right against exploitation"],
+                answer: 2
+            },
+            {
+                question: "By which of the following constitutional amendment act the Right to property ceases to be a fundamental right?",
+                options: ["44th", "42th", "43th", "45th"],
+                answer: 0
+            },
+            {
+                question: "According to Indian constitution Right to property is-",
+                options: ["Fundamental right", "Natural right", "Legal right", "Moral right"],
+                answer: 2
+            },
+            {
+                question: "Which of the followings is not a fundamental right?",
+                options: ["Right to equality", "Right against Exploitation", "Right to strike", "Right to religious freedom"],
+                answer: 2
+            },
+            {
+                question: "Which one of the followingis an item included in the list of Fundamental Duties of an Indian citizen in the Constitution?",
+                options: ["To practice secularism", "To develop scientific temper humanism and\nthe spirit of enquiry and reform", "To pay all taxes to government regularly and\ncorrectly", "Not to assault any public servant during\nperformance of his duties"],
+                answer: 1
+            },
+            {
+                question: "Which of the following does not come under Fundamental Duty?",
+                options: ["To safe guard public property", "To protect and improve the natural environment", "To promote harmony", "To protect freedom of speech and Expression"],
+                answer: 3
+            },
+            {
+                question: "Which type of writ is not issued under Indian constitution?",
+                options: ["Mandamus", "Prohibition", "Injuction", "Certiorari"],
+                answer: 2
+            },
+            {
+                question: "\"Public health and sanitation; hospitals and dispensaries\" is listed in the______ list  given in the Seventh Schedule in the Constitution of India.",
+                options: ["Union", "State", "Global", "Concurrent"],
+                answer: 1
+            },
+            {
+                question: "Which one of the following schedules of the Constitution of India contains provisions regarding anti-defection Act?",
+                options: ["Second Schedule", "Fifth Schedule", "Eighth Schedule", "Tenth Schedule"],
+                answer: 3
+            },
+            {
+                question: "Anti-defection law is given in which schedule of Indian constitution?",
+                options: ["Second Schedule", "Tenth Schedule", "Third Schedule", "Fourth Schedule"],
+                answer: 1
+            },
+            {
+                question: "What was the exact constitutional position of the Indian Republic when the Constitution was brought into force with effect from 26th January, 1950?",
+                options: ["A Democratic Republic", "A Sovereign Democratic Republic", "Sovereign Secular Democratic Republic", "A Sovereign Secular Soicalist Democratic\nRepublic"],
+                answer: 1
+            },
+            {
+                question: "The meaning of Residuary Powers in constitution of India is-",
+                options: ["Powers related to International issues", "Powers related to Internal Emergency", "Power which can be exercised by Central and\nState Governments", "Powers which are not included in Union,\nState, and Concurrent List"],
+                answer: 3
+            },
+            {
+                question: "The Residuary powers of legislation under Indian Constitution rests with-",
+                options: ["President", "Prime Minister", "Parliament", "States"],
+                answer: 2
+            },
+            {
+                question: "How many schedules are in the constitution of India-",
+                options: ["9", "10", "11", "12"],
+                answer: 3
+            },
+            {
+                question: "\"Bankruptcy and insolvency\" is listed in the ______  list given in the Seventh Schedule in the Constitution of India.",
+                options: ["Union", "State", "Global", "Concurrent"],
+                answer: 3
+            },
+            {
+                question: "\"Betting and gambling\" is listed in the_____  list given in the Seventh Schedule in the Constitution of India.",
+                options: ["Union", "State", "Global", "Concurrent"],
+                answer: 1
+            },
+            {
+                question: "\"Central Bureau of Intelligence and Investigation\" is listed in the _______ list given in the Seventh Schedule in the Constitution of India.",
+                options: ["Union", "State", "Global", "Concurrent"],
+                answer: 0
+            },
+            {
+                question: "The civil affairs like marriage, divorce, inheritance etc. which has been authorised by the constitution to make legal laws?",
+                options: ["Centre, by the Union List of the Constitution", "States, by the State List of the Constitution", "Centre and States, by the Concurrent List of\nthe Constitution", "Religious authorities which have relation to\nindividual affairs"],
+                answer: 2
+            },
+            {
+                question: "The Indian Constitution declares India as all of the following, except-",
+                options: ["Communist", "Democratic republic", "Socialist", "Secular"],
+                answer: 0
+            },
+            {
+                question: "Indian constitution not only imagines the democratic form of government but also imagines a democratic society, because its\nideology consists of-1. Justice, 2. Liberty, 3. Equality, 4. Fraternity",
+                options: ["1 and 2", "2 and 3", "1 and 3", "1,2,3 and 4"],
+                answer: 3
+            },
+            {
+                question: "In our Constitution Economic planning is in-",
+                options: ["Union list", "State list", "Concurrent list", "Not in any list"],
+                answer: 2
+            },
+            {
+                question: "The total number of Languages in 8th schedule of Indian Constitution are-",
+                options: ["15", "18", "22", "14"],
+                answer: 2
+            },
+            {
+                question: "Which of the following languages is not mentioned in 8th schedule of the constitution-",
+                options: ["Sanskrit", "Sindhi", "English", "Nepali"],
+                answer: 2
+            },
+            {
+                question: "Which schedule of constitution of India contains special provisions for the administration and control of scheduled Area in several states?",
+                options: ["Third", "Fifth", "Seventh", "Ninth"],
+                answer: 1
+            },
+            {
+                question: "The Ninth Schedule to the Indian constitution was added by-",
+                options: ["First Amendment", "Eighth Amendment", "Ninth Amendment", "Forty Second Amendment"],
+                answer: 0
+            },
+            {
+                question: "\"Foreign jurisdiction\" is listed in the ______ list given in the Seventh Schedule in the Constitution of India.",
+                options: ["Union", "State", "Global", "Concurrent"],
+                answer: 0
+            },
+            {
+                question: "\"Forests\" is listed in the ________ list given in the Seventh Schedule in the Constitution of India.",
+                options: ["Union", "State", "Global", "Concurrent"],
+                answer: 3
+            },
+            {
+                question: "Which Schedule contains provisions regarding allocation of seats in Rajya Sabha?",
+                options: ["Fourth Schedule", "Fifth Schedule", "Ninth Schedule", "Eleventh Schedule"],
+                answer: 0
+            },
+            {
+                question: "The term 'Fraternity' in the Preamble of the Indian Constitution means a sense of-",
+                options: ["Friendliness", "Statehood", "Love and affection", "Brotherhood"],
+                answer: 3
+            },
+            {
+                question: "Indian Constitution has how many Parts?",
+                options: ["22", "32", "42", "52"],
+                answer: 0
+            },
+            {
+                question: "Indian Constitution has how many Articles?",
+                options: ["101", "195", "295", "395"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is not mentioned in The Preamble of our constitution-",
+                options: ["Justice", "Fraternity", "Equality of dignity", "Adult suffrage"],
+                answer: 3
+            },
+            {
+                question: "Which of the following term is not used in the preamble of the constitution-",
+                options: ["Sovereign Democratic Republic", "Socialist", "Secular", "Federal"],
+                answer: 3
+            },
+            {
+                question: "Where is the objective of \"Social justice\" articulated in constitution?",
+                options: ["Article-14", "Article-15", "Article-16", "Preamble"],
+                answer: 3
+            },
+            {
+                question: "Which of the following languages were added in 8th schedule later-",
+                options: ["English, Sindhi, Marathi, Sanskrit", "Sanskrit, Sindhi, Konkani, Manipuri", "Sindhi, Konkani, Manipuri, Nepali", "Marathi, Oriya, Konkani, Nepali"],
+                answer: 2
+            },
+            {
+                question: "In which part of the Constitution, details of citizenship are mentioned?",
+                options: ["I", "II", "III", "IV"],
+                answer: 1
+            },
+            {
+                question: "Which part of the Indian Constitution deals with Fundamental Rights?",
+                options: ["Part-I", "Part-II", "Part-III", "Part-IV"],
+                answer: 2
+            },
+            {
+                question: "Part-IV of Constitution of India deals with-",
+                options: ["Fundamental Right", "Citizenship", "Directive Principles of State Policy", "Union executive"],
+                answer: 2
+            },
+            {
+                question: "Match List-I (Parts of the Indian Constitution) with List-II (Provisions) and select the correct answer using the codes given below-List I        -     List IIA. Part-IV(A)   -   1. The Fundamental DutiesB. Part-VIII   -   2. The Union TerritoriesC. Part-IX   -   3. The PanchayatsD. Part-IX(A)   -   4. The Municipalities",
+                options: ["A-1, B-2, C-3, D-4", "A-2, B-1, C-3, D-4", "A-4, B-3, C-1, D-2", "A-4, B-3, C-2, D-1"],
+                answer: 0
+            },
+            {
+                question: "The Philosophy and values of the makers of constitution are reflected in-",
+                options: ["Fundamental rights", "Directive principles of state policy", "The preamble", "Fundamental duties"],
+                answer: 2
+            },
+            {
+                question: "\"Population control and family planning\" is listed in the list given in the________Seventh Schedule in the Constitution of India.",
+                options: ["Union", "State", "Global", "Concurrent"],
+                answer: 3
+            },
+            {
+                question: "Which of the following forms are/is described for India in the preamble of constitution-",
+                options: ["A Sovereign, Democratic, Republic", "A Socialist, Democratic, Republic", "A Sovereign, Socialist, Secular Democratic\nRepublic", "A Republic"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is described as the 'Soul of the constitution'?",
+                options: ["Fundamental Right", "Fundamental Duties", "Directive Principles for state Policy", "Preamble"],
+                answer: 3
+            },
+            {
+                question: "Which of the following attribute in the preamble states that No one should treat a fellow ciizen as inferior?",
+                options: ["Justice", "Liberty", "Equality", "Fraternity"],
+                answer: 3
+            },
+            {
+                question: "The order of the following words seen in Preamble is-1. DEMOCRATIC, 2. SOCIALIST, \n3. SOVEREIGN, 4. SECULAR, 5. REPUBLIC",
+                options: ["3,2,4,1,5", "2,3,4,1,5", "3,2,1,4,5", "3,1,2,5,4"],
+                answer: 0
+            },
+            {
+                question: "The term 'We' in preamble means-",
+                options: ["Indian Gevernment", "Supreme Court", "Indian Parliament", "The People of India"],
+                answer: 3
+            },
+            {
+                question: "How many times has The Preamble for the canstitution been amended-",
+                options: ["3 times", "2 times", "1 times", "Never amended"],
+                answer: 2
+            },
+            {
+                question: "Which Amendment Act introduced changes in the Preamble to the Indian Constitution?",
+                options: ["The 3rd Amendment Act, 1975", "The 40th Amendment Act, 1976", "The 42nd Amendment Act, 1976", "The 4th Amendment Act, 1979"],
+                answer: 2
+            },
+            {
+                question: "In which Amendment, the words 'Socialist', Secular' and 'Unity and Integrity of the Nation wereadded to the Premable of constitution of India?",
+                options: ["42nd", "44th", "52nd", "None of them"],
+                answer: 0
+            },
+            {
+                question: "At the time of enactment of the Constitution, which one of the following ideals was not included in the preamble?",
+                options: ["Liberty", "Equality", "Socialist", "Justice"],
+                answer: 2
+            },
+            {
+                question: "Which of the following subjects are not included in concurrent list orour'constitution-",
+                options: ["Labor union", "Share market and future market", "Conservation of wild animals and birds", "Forest"],
+                answer: 1
+            },
+            {
+                question: "\"Prevention of cruelty to animals\" is listed in the ________ list given in the Seventh Schedule in the Constitution of India.",
+                options: ["Union", "State", "Global", "Concurrent"],
+                answer: 3
+            },
+            {
+                question: "\"Reserve Bank of India\" is listed in the _______ list given in the Seventh Schedule in the Constitution of India.",
+                options: ["Union", "State", "Global", "Concurrent"],
+                answer: 0
+            },
+            {
+                question: "\"Relief of the disabled and unemployable\" is listed in the ________ list given in the Seventh Schedule in the Constitution of India.",
+                options: ["Union", "State", "Global", "Concurrent"],
+                answer: 1
+            },
+            {
+                question: "Seventh schedule of the Constitution of India deals with-",
+                options: ["Allocation of Seats in the Council of States", "Distribution of power between the Union and\nthe States", "Power and Authority of the Municipalities", "Powers of the Governor of the State"],
+                answer: 1
+            },
+            {
+                question: "\"Taxes on lands and buildings\" is listed in the  ______ list given in the Seventh Schedule in the Constitution of India.",
+                options: ["Union", "State", "Global", "Concurrent"],
+                answer: 1
+            },
+            {
+                question: "Who proposed the Preamble before the drafting committe of the Constitution?",
+                options: ["Jawaharlal Nehru", "B.R. Ambedkar", "B.N. Rao", "Mahatma Gandhi"],
+                answer: 0
+            },
+            {
+                question: "What is meant when the Constitution declare India \"Secular State\"?",
+                options: ["Religious worship is not allowed", "Religions are patronised by the State", "The state regards religions as a private affairs\nof the citizen and does not discriminate on\nthis basis", "None of these"],
+                answer: 2
+            },
+            {
+                question: "\"Trade unions\" is listed in the,______ list given in the Seventh Scliedule of the Constitution of India.",
+                options: ["Union", "Global", "State", "Concurrent"],
+                answer: 3
+            },
+            {
+                question: "The first country which adopted Preamble for its written constitution-",
+                options: ["USA", "India", "Britain", "Canada"],
+                answer: 0
+            },
+            {
+                question: "\"United Nations Organization\" is listed in the  ________ list given in the Seventh Schedule in the Constitution of India.",
+                options: ["Union", "State", "Global", "Concurrent"],
+                answer: 0
+            },
+            {
+                question: "Where can we see the values of Indian democracy in the constitution?",
+                options: ["Preamble", "Part-3", "Part-4", "Part-1"],
+                answer: 0
+            },
+            {
+                question: "Article-60 of the Indian Constitution refers to-",
+                options: ["Election of the president of India", "Oath of the President", "Impeachment of the President", "Vice President of India"],
+                answer: 1
+            },
+            {
+                question: "Articles-74 and 75 ofIndian Constitution deal with matters of-",
+                options: ["Council of Ministers", "Speaker of Lok Sabha", "President of India", "Cabinet Ministers"],
+                answer: 0
+            },
+            {
+                question: "According to Indian constitution, Central Minister will hold his post at the will of-",
+                options: ["President of India", "Prime Minister of India", "Parliament", "Supreme Court"],
+                answer: 0
+            },
+            {
+                question: "According to Article-75(3) of the Constitution of India the Council of Ministers are collectively responaible to the-",
+                options: ["President", "Parliament", "Lok Sabha", "Rajya Sabha"],
+                answer: 2
+            },
+            {
+                question: "According to the Indian Constitution, the vacancy in the office of the President of India shall be filled within-",
+                options: ["1 month", "6 months", "3 months", "1 year"],
+                answer: 1
+            },
+            {
+                question: "Article 134(A) of the Indian Constitution\"Certificate for appeal to the Supreme Court\" deals with?",
+                options: ["the State Government", "the Union Government", "the fundamental rights of the Indian citizen", "the Directive Principles of State Policy"],
+                answer: 3
+            },
+            {
+                question: "_____ means that the Presjdent of India can refer any matter that is of public importance or that which involves interpretation of Constitution to Supreme Court for advice.",
+                options: ["Original Jurisdiction", "Writ Jurisdiction", "Appellate Jurisdiction", "Advisory Jurisdiction"],
+                answer: 3
+            },
+            {
+                question: "Who can send a matter to Supreme Court for consultation under Article-143?",
+                options: ["President of India", "Governor", "Deputy governor", "President and governor"],
+                answer: 0
+            },
+            {
+                question: "Article-222 of the Indian Constitution \"Transfer of a Judge from one High Court to another\" deals with?",
+                options: ["The Directive Principles of State Policy", "The Union Government", "The State Government", "The fundamental rights of the Indian Citizen"],
+                answer: 2
+            },
+            {
+                question: "A proceeding under Article-226 in case of detention of a person is a-",
+                options: ["Civil proceeding", "Criminal proceeding", "Judicial proceeding", "Statutory proceeding"],
+                answer: 1
+            },
+            {
+                question: "Article-228 of the Indian Constitution \"Transfer of certain cases to High Court\" deals with?",
+                options: ["The Directive Principles of State Policy", "The State Government", "The Union Government", "The fundamental rights of the Indian Citizen"],
+                answer: 1
+            },
+            {
+                question: "Article-231 of the Indian Constitution \"Establishment of a common High Court for two or more States\" deals with?",
+                options: ["The State Government", "The Directive Principles of State Policy", "The Union Government", "The fundamental rghts of the Indian Citizen"],
+                answer: 0
+            },
+            {
+                question: "\"Judicial Review\" in Indian constitution is based on-",
+                options: ["On the rule of law", "Due process of law", "On the procedure established by law", "On former decisions and conventions"],
+                answer: 2
+            },
+            {
+                question: "The interpreter of Indian constitution is-",
+                options: ["Central Cabinet", "President", "High Court", "Supreme Court"],
+                answer: 3
+            },
+            {
+                question: "Under which of the following jurisdiction can any individual, whose fundamental right has been violated, can directly move the Supreme Court for remedy?",
+                options: ["Original Jurisdiction", "Writ Jurisdiction", "Appellate Jurisdiction", "Advisory Jurisdiction"],
+                answer: 1
+            },
+            {
+                question: "Which of th e following amendment act is related to goods and services tax (GST)?",
+                options: ["101st", "118th", "257th", "94th"],
+                answer: 0
+            },
+            {
+                question: "Which of the following constitutional Amendment is known as \"Mini constitution\"-",
+                options: ["7th Constitutional Amendment Act 1956", "24th Constitutional Amendment Act 1971", "42nd Constitutional Amendment Act 1976", "44th Constitutional Amendment Act 1978"],
+                answer: 2
+            },
+            {
+                question: "Which Constitutional Amendment Act deals with the disqualification of MPs and MLAs?",
+                options: ["42nd Amendment act", "52nd Amendment Act", "62nd Amendment Act", "32nd Amendment Act"],
+                answer: 1
+            },
+            {
+                question: "Which of the following constitutional Amendment Act, deals with the Elementary Education as a Fundamental Right?",
+                options: ["84th Amendment Act", "85th Amendment Act", "86th Amendment Act", "87th Amendment Act"],
+                answer: 2
+            },
+            {
+                question: "An amendment of the constitution may be initiated-",
+                options: ["By introduction by the President of India", "By introduction of a Bill in Rajya Sabha", "By the Governors of States", "By the introduction of a bill in either House\nof Parliament"],
+                answer: 3
+            },
+            {
+                question: "Which article of Indian constitution has the provision for National Emergency?",
+                options: ["Article 350", "Article 352", "Article 312", "Article 280"],
+                answer: 1
+            },
+            {
+                question: "A law can be enacted, or executive order issued, even contrary to Article-19, during proclamation of emergency-",
+                options: ["Casued by war or external aggression", "Caused by internal armed rebellion", "Casued by constitutional breakdown", "Caused by financial crisis"],
+                answer: 0
+            },
+            {
+                question: "Which among the following Article of the Indian Constitution provides for State emergency and suspends constitutional\narrangement in a State?",
+                options: ["Article-352", "Article-356", "Article-389", "Article-392"],
+                answer: 1
+            },
+            {
+                question: "Under which of the following articles, president can make the proclamation of emergency in failure of constitutional machinery in any state-",
+                options: ["352", "356", "360", "350"],
+                answer: 1
+            },
+            {
+                question: "How many types of emergency is provisioned in the constitution-",
+                options: ["1", "2", "3", "4"],
+                answer: 2
+            },
+            {
+                question: "According to the Indian Constitution, who has the power to declare emergency ?",
+                options: ["Prime Minister", "President", "Chief Justice", "Parliament"],
+                answer: 1
+            },
+            {
+                question: "Indian Constitution can be amended according to the procedure laid down in the following Article-",
+                options: ["Article 368", "Article 345", "Article 351", "Article 333"],
+                answer: 0
+            },
+            {
+                question: "Article 368 of the Indian Constitution deals with-",
+                options: ["Emergency Provisions", "Right to primary Education", "Right to Information", "Amending Procedure"],
+                answer: 3
+            },
+            {
+                question: "During emergency imposed under Article-352, which of the following constitutional provisions stands suspended?",
+                options: ["Directive Principles of State Policy", "Amendment Procedures", "Fundamental Rights", "Judicial Review"],
+                answer: 2
+            },
+            {
+                question: "The first General Election in India and first Amendment to the Constitution was held in-",
+                options: ["1949", "1950", "1951", "1952"],
+                answer: 2
+            },
+            {
+                question: "In which year did the first amendment of Indian Constitution take place?",
+                options: ["1951", "1950", "1948", "1949"],
+                answer: 0
+            },
+            {
+                question: "By which Amendment were 'Fundamental Duties' added to the Constitution?",
+                options: ["40th Amendment", "42nd Amendment", "44th Amendment", "45th Amendment"],
+                answer: 1
+            },
+            {
+                question: "Under which article of constitution, proclamation of National Emergency is declared-",
+                options: ["Article 352", "Article 356", "Article 360", "Article 361"],
+                answer: 0
+            },
+            {
+                question: "Under which Article of the constitution can an Emergency be declared in India on account of war or external aggression?",
+                options: ["Article-356", "Article-353", "Article-352", "Article-354"],
+                answer: 2
+            },
+            {
+                question: "_______ amends the Constitution.",
+                options: ["Ministry of Defence", "Prime Minister's Office", "Parliament", "Securities and Exchange Board of India"],
+                answer: 2
+            },
+            {
+                question: "Which of the following feature of the Indian constitution cannot be amended under article 368-",
+                options: ["Sovereignty, Territorial integrity, Redel'al\nsystem, Judicial review", "Sovereignty, Territorial integrity,\nParliamentary form of government", "Judicial review, and Federal system", "Sovereignty, Territorial integrity, Federal\nsystem, Judicial review, and Parliamentary form"],
+                answer: 3
+            },
+            {
+                question: "Under which Article of the constitution, the President of India can declare the financial emergency-",
+                options: ["Article 360", "Article 356", "Article 364", "Article 352"],
+                answer: 0
+            },
+            {
+                question: "A proclamation of emergency, under Article-352, on account of war or aggression requires approval of the parliament within-",
+                options: ["One month", "Two months", "Four months", "Six months"],
+                answer: 0
+            },
+            {
+                question: "What is the maximum period upto which a proclamation issued by the President under Article-356 of the Constitution and approved/extended by the Parliament may, normally, remain in force?",
+                options: ["Six months", "One year", "Two years", "Untill it is repealed by the Parliament"],
+                answer: 0
+            },
+            {
+                question: "The majority of the provisions of the Indian Constitution can be amended-",
+                options: ["By the State Legislatures acting together", "By the Parliament alone", "With the joint approval of the Parliament and\nState Legislatures", "Only on ratification by half of the States"],
+                answer: 1
+            },
+            {
+                question: "Under which article, President of India can proclaim constitutional emergency?",
+                options: ["Article 32", "Article 349", "Article 356", "Article 360"],
+                answer: 2
+            },
+            {
+                question: "Which period below depicts internal emergency in India under article 352?",
+                options: ["26th June, 1974 to 23rd March, 1976", "25th June, 1975 to 21st March, 1977", "20th June, 1975 to 20th March, 1977", "21st June, 1976 to 21st March, 1974"],
+                answer: 1
+            },
+            {
+                question: "Under which Article was Emergency in India declared in 1975?",
+                options: ["Article-1", "Article-152", "Article-286", "Article-352"],
+                answer: 3
+            },
+            {
+                question: "By which of the following modes can citizenship be acquired in India?i. By birth, ii. Hereditary, iii. By Registration, iv. By Request",
+                options: ["i and ii", "i, ii, and iii", "ii and iii", "iv, ii and iii"],
+                answer: 1
+            },
+            {
+                question: "Which Article of the Indian Constitution empowers the Parliament to regulate right of citizenship?",
+                options: ["Article-8", "Article-9", "Article-10", "Article-11"],
+                answer: 3
+            },
+            {
+                question: "Which is the competent body to prescribe conditions for acquisition of citizenship?",
+                options: ["Election Commission", "President", "Parliament", "Parliament & Assemblies"],
+                answer: 2
+            },
+            {
+                question: "Which body decides the conditions for getting the citizenship of India?",
+                options: ["Election commission", "President", "Parliament", "Parliament and legislative assemblies"],
+                answer: 2
+            },
+            {
+                question: "Which of the following article describes India also as Bharat?",
+                options: ["Article-1", "Article-2", "Article-3", "Article-4"],
+                answer: 0
+            },
+            {
+                question: "Under Article of the Indian constitution,it is declared that \"Bharat means India shall be-",
+                options: ["Union of States", "Federal State of Unitary features", "Federal State of Federal features", "Federal state"],
+                answer: 0
+            },
+            {
+                question: "In which of the form, composite India has been described in the constitution?",
+                options: ["A Union State", "Semi Federal", "Federation of States and Territories", "Partly Unitary and Partly Federal"],
+                answer: 0
+            },
+            {
+                question: "In which of the following form, India has been described in the constitution?",
+                options: ["Confederation", "Unitary", "Union of states", "Federation"],
+                answer: 2
+            },
+            {
+                question: "Provisions of citizenship in Indian Constitution, became applicable in-",
+                options: ["1950", "1949", "1951", "1952"],
+                answer: 1
+            },
+            {
+                question: "In which of the following articles, citizenship rights of people who migrated from Pakistan to India is mentioned?",
+                options: ["Article-4", "Article-8", "Article-6", "Article-10"],
+                answer: 2
+            },
+            {
+                question: "Which State was formed after the amendment of Articles-239(A) and 240?",
+                options: ["Arunachal Pradesh", "Uttrakhand", "Sikkim", "Chhattisgarh"],
+                answer: 0
+            },
+            {
+                question: "In how many ways Indian citizenship can be lost?",
+                options: ["One", "Two", "Three", "Four"],
+                answer: 2
+            },
+            {
+                question: "In how many ways Indian citizenship can be acquired?",
+                options: ["Three", "Four", "Five", "Six"],
+                answer: 2
+            },
+            {
+                question: "Indian Citizenship is granted by-",
+                options: ["The President of India", "The Prime Minister", "The Ministry of Home Affairs", "The Ministry of External Affairs"],
+                answer: 2
+            },
+            {
+                question: "Formation of a new state in India is done by Citizenship-",
+                options: ["Special Majority", "Simple Majority", "Without Majority", "None of these"],
+                answer: 1
+            },
+            {
+                question: "Match the following-Column-I   - Column-II1. Acquisition of Indian - a. By deprivation Citizenship2. Loss of Indian  - b. Equality before law and equal protection of laws3. Fundamental Right - c. By Registration",
+                options: ["1-c, 2-a, 3-b", "1-b, 2-a, 3-c", "1-c, 2-b, 3-a", "1-b, 2-c, 3-a"],
+                answer: 0
+            },
+            {
+                question: "The Jammu and Kashmir State Legislative Assembly has a tenure -",
+                options: ["Six years", "Five years", "Four years", "Seven years"],
+                answer: 1
+            },
+            {
+                question: "The money bill can be presented in the state assembly with prior athorization of-",
+                options: ["Governor of the State", "Chief Minister of the State", "Speaker of the Assembly", "Finance Minister of the State"],
+                answer: 0
+            },
+            {
+                question: "Article-187 of the Indian constitution \"Secretariat of State Legislature\" deals with?",
+                options: ["The State Government", "The Directive Principles of State Policy", "The Union Government", "The fundamental rights of the Indian Citizen"],
+                answer: 0
+            },
+            {
+                question: "Which Article of the Indian constitution defines the duties of the Chief Minister?",
+                options: ["Article-166", "Article-163", "Article-167", "Article-164"],
+                answer: 2
+            },
+            {
+                question: "Article-173 of the Indian Constitution \"Qualification for membership of the State Legislature\" deals with?",
+                options: ["The Directive Principles of State Policy", "The State Government", "The Union Government", "The fundamental rights of the Indian Citizen"],
+                answer: 1
+            },
+            {
+                question: "Article-211 of the Indian Constitution \"Restriction on discussion in the Legislature\" deals with?",
+                options: ["The Directive Principles of State Policy", "The Union Government", "The fundamental rights of the Indian Citizen", "The State Government"],
+                answer: 3
+            },
+            {
+                question: "The constitution does not have the provision to impeach-",
+                options: ["Chief Justice of Supreme Court", "Chief Justice of Any High Court", "Governor", "President"],
+                answer: 2
+            },
+            {
+                question: "What is the full form of MLA in the Indian Constitution?",
+                options: ["Member of Legislative Assembly", "Master of Legislative Assembly", "Member of Left Assembly", "Master of Left Assembly"],
+                answer: 0
+            },
+            {
+                question: "According to which article, state council can be formed or dissolved-",
+                options: ["Article 167", "Article 168", "Article 170", "Article 169"],
+                answer: 3
+            },
+            {
+                question: "How many legislative assembly seats are in Delhi-",
+                options: ["60", "70", "40", "50"],
+                answer: 1
+            },
+            {
+                question: "An Ordinary bill passed by the State Assembly can be delayed by the Legislative Counell for maximum period of-",
+                options: ["1 month", "6 month", "3 month", "4 month"],
+                answer: 3
+            },
+            {
+                question: "Which state assembly has the maximum number of members-",
+                options: ["Uttar Pradesh", "Maharashtra", "West Bengal", "Andhra Pradesh"],
+                answer: 0
+            },
+            {
+                question: "By wich of the following Amendment act of the Indian Constitution, the Panchayati Raj System got the constitutional status-",
+                options: ["71st", "72nd", "73rd", "74th"],
+                answer: 2
+            },
+            {
+                question: "Which of the following constitutional Amendments gave a constitutional status to Urban Bodies-",
+                options: ["71st", "72nd", "73rd", "74th"],
+                answer: 3
+            },
+            {
+                question: "73rd Constitutional amendment is related to-",
+                options: ["Panchayati Raj", "Currency Exchange", "Finance Commission", "RBI"],
+                answer: 0
+            },
+            {
+                question: "Which constitutional amendment has made Directive principles of state policy more important than fundamental rights?",
+                options: ["42nd", "44rd", "52th", "56th"],
+                answer: 0
+            },
+            {
+                question: "In which of the following matter the Supreme Court upheld the importance of fundamental rights over directive principles of state policy?",
+                options: ["Golaknath case", "Keshavananda Bharti case", "Minerava Mills Case", "All of these"],
+                answer: 2
+            },
+            {
+                question: "Reservation for the Scheduled Castes andScheduled Tribes in the services has been provided in the Indian Constitution under-",
+                options: ["Article-375", "Article-315", "Article-335", "Article-365"],
+                answer: 2
+            },
+            {
+                question: "Which of the following article of Indian constitution is related with the declaration of a welfare state?",
+                options: ["Article-99", "Article-39", "Article-59", "Article-69"],
+                answer: 1
+            },
+            {
+                question: "Which of the article ensures that Directive principles of state policy cannot be enforced by any court?",
+                options: ["Article-31", "Article-38", "Article-37", "Article-39"],
+                answer: 2
+            },
+            {
+                question: "Article-39(A) of the Indian Constitution \"Equal justice and free legal aid\" deals with?",
+                options: ["the State Government", "the directive principles of state policy", "the Union Government", "the fundamental rights of the Indian Citizen"],
+                answer: 1
+            },
+            {
+                question: "Which article of the Indian Constitution provides for the  institution of Panchayati Raj?",
+                options: ["Artilce-36", "Article-39", "Article-40", "Article-48"],
+                answer: 2
+            },
+            {
+                question: "Which Article of the Indian Constitution directs the State Governments to organise Village Panchayats?",
+                options: ["Article-32", "Article-37", "Article-41", "Article-51"],
+                answer: 2
+            },
+            {
+                question: "Article-41 of the Indian Constitution \"Right to work to education and to public assistance in certain cases\" deals with?",
+                options: ["The Union Government", "The directive principles of state policy", "The State Government", "The fundamental rights of the Indian Citizen"],
+                answer: 1
+            },
+            {
+                question: "Which Article of the Indian constitution provides for the employer to give maternity benefits to its employees?",
+                options: ["Article-14", "Article-42", "Article-43", "Article-44"],
+                answer: 1
+            },
+            {
+                question: "Article-43(A) of the Indian Constitution \"Participation of workers in management of\nindustries\" deals with?",
+                options: ["The State Government", "The Union Government", "The directive principles of state policy", "The fundamental rights of the Indian Citizen"],
+                answer: 2
+            },
+            {
+                question: "Article-44 of the Indian Constitution \"Uniform civil code for the citizens\" deals with-",
+                options: ["The directive principles of state policy", "The Union Government", "The State Government", "The fundamental rights of the Indian Citizen"],
+                answer: 0
+            },
+            {
+                question: "Uniform Civil Code is mentioned in which article of Indian Constitution?",
+                options: ["44", "4", "14", "34"],
+                answer: 0
+            },
+            {
+                question: "Article-48(A) of the Indian Constitution \"Protection and improvement of environment and safeguarding of forests and wild life\" deals with?",
+                options: ["The state Government", "The Union Government", "The fundamental rights of the Indian Citizen", "the directive principles of state poli"],
+                answer: 3
+            },
+            {
+                question: "Separation of the judiciary from the executive has been provided in one of the following parts of the Indian Constitution-",
+                options: ["The Preamble", "The Fundamental Right", "The Directive Principles of State Policy", "The Seventh Schedule"],
+                answer: 2
+            },
+            {
+                question: "Which directive principle has the direct impact of the moral philosophy of Mahatma Gandhi?",
+                options: ["Equal pay for equal work", "Free Legal Aid and Advice", "Ban on Cow Slaughter", "Conservation of Historical Monuments"],
+                answer: 2
+            },
+            {
+                question: "Which part of the constitution relates with the directive principles of the state policy?",
+                options: ["Part-III", "Part-IV", "Part-I", "Part-II"],
+                answer: 1
+            },
+            {
+                question: "Which part of the constitution of India ensures the Social and  Economic democracy?",
+                options: ["Provision of emergency", "Centrestate relation", "Directive principles of state policy", "None of these"],
+                answer: 2
+            }
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.textContent = `${index + 1}) ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) {
+                        return;
+                    }
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            wrapper.appendChild(questionBlock);
+        });
+    </script>
+</body>
+</html>

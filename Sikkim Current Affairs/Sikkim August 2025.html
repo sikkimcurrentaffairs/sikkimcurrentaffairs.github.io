@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sikkim Current Affairs Quiz</title>
+    <style>
+        :root {
+            --primary-color: #1a5276;
+            --secondary-color: #2980b9;
+            --correct-color: #27ae60;
+            --incorrect-color: #e74c3c;
+            --light-gray: #f8f9f9;
+            --dark-gray: #7f8c8d;
+            --gold-color: #f1c40f;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gold-color);
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-top: 10px;
+            font-weight: 400;
+        }
+        
+        .quiz-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .question {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: var(--primary-color);
+            line-height: 1.4;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .option {
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            background-color: white;
+            position: relative;
+            padding-left: 45px;
+        }
+        
+        .option:hover {
+            background-color: var(--light-gray);
+            border-color: var(--secondary-color);
+        }
+        
+        .option::before {
+            content: "";
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .option.selected {
+            background-color: #e1f0fa;
+            border-color: var(--secondary-color);
+            font-weight: 500;
+        }
+        
+        .option.selected::before {
+            border-color: var(--secondary-color);
+            background-color: var(--secondary-color);
+        }
+        
+        .option.correct {
+            background-color: #e8f8f0;
+            border-color: var(--correct-color);
+            color: var(--correct-color);
+        }
+        
+        .option.correct::before {
+            border-color: var(--correct-color);
+            background-color: var(--correct-color);
+        }
+        
+        .option.incorrect {
+            background-color: #fdedec;
+            border-color: var(--incorrect-color);
+            color: var(--incorrect-color);
+        }
+        
+        .option.incorrect::before {
+            border-color: var(--incorrect-color);
+        }
+        
+        .feedback {
+            margin-top: 25px;
+            padding: 18px;
+            border-radius: 8px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .correct-feedback {
+            background-color: #e8f8f0;
+            color: var(--correct-color);
+            border-left: 5px solid var(--correct-color);
+        }
+        
+        .incorrect-feedback {
+            background-color: #fdedec;
+            color: var(--incorrect-color);
+            border-left: 5px solid var(--incorrect-color);
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        button:hover {
+            background-color: #154360;
+            transform: translateY(-2px);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+        
+        .progress-container {
+            margin-bottom: 25px;
+            background-color: var(--light-gray);
+            border-radius: 20px;
+            height: 10px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+            transition: width 0.4s ease;
+        }
+        
+        .progress-text {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: var(--dark-gray);
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .result-container {
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.8s ease;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .score {
+            font-size: 72px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 30px 0;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .score::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--gold-color);
+            border-radius: 2px;
+        }
+        
+        .score-text {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .restart-btn {
+            margin-top: 30px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .restart-btn:hover {
+            background: linear-gradient(135deg, #3498db, #1a5276);
+            transform: translateY(-2px);
+        }
+        
+        .explanation {
+            margin-top: 15px;
+            font-style: italic;
+            color: var(--dark-gray);
+            line-height: 1.5;
+        }
+        
+        .performance-text {
+            font-size: 18px;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f8f9f9;
+        }
+        
+        .week-indicator {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--gold-color);
+            color: var(--primary-color);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            
+            header {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .quiz-container {
+                padding: 20px;
+            }
+
+            .week-indicator {
+                position: relative; 
+                display: block;     
+                width: fit-content; 
+                margin: 0 auto 20px auto; 
+                top: auto;          
+                right: auto;        
+                font-size: 13px;    
+                padding: 6px 12px;  
+            }
+            
+            .question {
+                font-size: 18px;
+            }
+            
+            .option {
+                padding: 12px 12px 12px 40px;
+                font-size: 15px;
+            }
+            
+            .score {
+                font-size: 60px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="../auth.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Sikkim Current Affairs Quiz</h1>
+            <div class="subtitle">Test Your Knowledge on Events from August 2025</div>
+        </header>
+        
+        <div class="progress-text">
+            <span>Question <span id="current-question">1</span> of <span id="total-questions">46</span></span>
+            <span>Score: <span id="current-score">0</span></span>
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        
+        <div class="quiz-container">
+            <div class="week-indicator" id="week-indicator">Week 1</div>
+            <div class="question" id="question-text"></div>
+            <div class="options" id="options-container"></div>
+            <div class="feedback" id="feedback"></div>
+            
+            <div class="navigation">
+                <button id="prev-btn" disabled>Previous</button>
+                <button id="next-btn">Next</button>
+            </div>
+        </div>
+        
+        <div class="result-container" id="result-container">
+            <h2>Quiz Completed!</h2>
+            <div class="score-text">Your Final Score</div>
+            <div class="score"><span id="final-score">0</span>/<span id="total-questions-final">0</span></div>
+            <div class="performance-text" id="performance-text"></div>
+            <button class="restart-btn" id="restart-btn">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        const quizData = [
+            // Week 1 Questions
+            {
+                question: "What is the title of the book released by Governor Mathur during the 'Utkarsh Utsav' to mark his one year in office?",
+                options: ["Sikkim Panorama", "Jaise Mene Jana", "A Year at Raj Bhavan", "The Governor's Diary"],
+                answer: 1,
+                explanation: "The correct answer is 'Jaise Mene Jana'.",
+                week: "Week 1"
+            },
+            {
+                question: "Which place in South Sikkim was recognized as the 'Upcoming Tourist Destination – India' at the MIcE Affairs Annual Event?",
+                options: ["Namchi", "Ravangla", "Yangang", "Jorethang"],
+                answer: 2,
+                explanation: "The correct answer is 'Yangang'.",
+                week: "Week 1"
+            },
+            {
+                question: "The Himalayan Zoological Park (HZP) at Bulbuley recently announced the birth of cubs of which animal?",
+                options: ["Snow Leopard", "Clouded Leopard", "Tibetan Wolf", "Red Panda"],
+                answer: 3,
+                explanation: "The HZP announced the birth of Red Panda cubs.",
+                week: "Week 1"
+            },
+            {
+                question: "Where was the State Level ‘Sampoornata Abhiyan Samman Samaroha’ program held?",
+                options: ["Manan Bhawan", "Chintan Bhawan", "Samman Bhawan", "Raj Bhavan"],
+                answer: 1,
+                explanation: "The program was held at Chintan Bhawan.",
+                week: "Week 1"
+            },
+            {
+                question: "Who is the recipient of the Kanchenjunga Krishna Smriti Purashkar, presented by the Nepali Sahitya Parishad?",
+                options: ["P.S Tamang Golay", "Birkey Khadka", "Amir Sundas", "Nikhil Jabez Pradhan"],
+                answer: 2,
+                explanation: "Amir Sundas is the recipient of the Kanchenjunga Krishna Smriti Purashkar.",
+                week: "Week 1"
+            },
+            {
+                question: "Which award will Chief Minister P.S Tamang Golay receive at the 34th Nepali Bhasa Manyata Diwas celebration?",
+                options: ["Dooars Gaurav Samman", "Rajya Ratna Puraskar", "Kanchenjunga Krishna Smriti Purashkar", "Sikkim Sewa Ratna"],
+                answer: 1,
+                explanation: "Chief Minister P.S Tamang Golay will receive the Rajya Ratna Puraskar.",
+                week: "Week 1"
+            },
+            {
+                question: "Nikhil Jabez Pradhan from Jitlang, West Pendam, has secured a spot in which prestigious MBA program?",
+                options: ["Harvard Business School MBA", "Stanford GSB MBA", "INSEAD MBA", "Erasmus Mundus Impact MBA"],
+                answer: 3,
+                explanation: "Nikhil Jabez Pradhan secured a spot in the Erasmus Mundus Impact MBA program.",
+                week: "Week 1"
+            },
+            {
+                question: "Who from the Sikkim Police won two gold medals at the World Strength Lifting Championship?",
+                options: ["Phurba Rinzing Sherpa", "Chewang Lendup Bhutia", "Neaha Rai", "Sanjeet Kharel"],
+                answer: 1,
+                explanation: "Chewang Lendup Bhutia of Sikkim Police won two gold medals.",
+                week: "Week 1"
+            },
+            {
+                question: "The state-level PM-Kisan Samman Nidhi programme in Sikkim was observed at which location?",
+                options: ["Chintan Bhawan, Gangtok", "District Collectorate, Namchi", "CAEPHT Agriculture College, Ranipool", "Community Hall, Gyalshing"],
+                answer: 2,
+                explanation: "The programme was observed at CAEPHT Agriculture College, Ranipool.",
+                week: "Week 1"
+            },
+            {
+                question: "What is the title of the third studio album by the artist Bosing?",
+                options: ["Echoes of the Himalayas", "The Last BO", "Gangtok Blues", "Sounds of Sikkim"],
+                answer: 1,
+                explanation: "The title of Bosing's third studio album is 'The Last BO'.",
+                week: "Week 1"
+            },
+            {
+                question: "What was the theme for the fourth edition of the Knowledge Series held as part of the Tendong Lho Rum Faat 2025?",
+                options: ["'Youth and Culture in the Digital Age'", "'Climate Action and Mountain Communities'", "'Indigenous wisdom and heritage as guides to sustainable and resilient futures'", "'Ecotourism as a tool for conservation'"],
+                answer: 2,
+                explanation: "The theme was 'Indigenous wisdom and heritage as guides to sustainable and resilient futures'.",
+                week: "Week 1"
+            },
+            {
+                question: "Who is renowned as the ‘Father of Karate in Sikkim’?",
+                options: ["Sanjeet Kharel", "Chewang Lendup Bhutia", "D.B Subba", "Kumar Yonzon"],
+                answer: 2,
+                explanation: "D.B Subba is renowned as the ‘Father of Karate in Sikkim’.",
+                week: "Week 1"
+            },
+            {
+                question: "In which constituency will horse riding be introduced at Sitaram Vatika Dara, under an initiative by MLA Sanjeet Kharel?",
+                options: ["Gyalshing-Barnyak", "Namthang-Rateypani", "Soreng-Chakung", "Rhenock"],
+                answer: 1,
+                explanation: "Horse riding will be introduced in the Namthang-Rateypani constituency.",
+                week: "Week 1"
+            },
+            {
+                question: "The Aakansha Haat, an initiative under NiTi Aayog, recently concluded in the market area of which town?",
+                options: ["Mangan", "Namchi", "Gyalshing", "Gangtok"],
+                answer: 2,
+                explanation: "The Aakansha Haat concluded in Gyalshing.",
+                week: "Week 1"
+            },
+            {
+                question: "As part of the Tendong Lho Rum Faat Celebration 2025, a symposium titled 'Lepcha Mon & Bongthing: Tracing Their Ancient Spiritual Routes' was held at which venue in Gangtok?",
+                options: ["Chintan Bhawan", "Manan Bhawan", "Kurmom Building", "Namgyal Institute of Tibetology"],
+                answer: 2,
+                explanation: "The symposium was held at Kurmom Building.",
+                week: "Week 1"
+            },
+            {
+                question: "The Sikkim government has officially notified which date as Aama Samman Diwas?",
+                options: ["August 7", "August 10", "August 15", "August 20"],
+                answer: 1,
+                explanation: "August 10th has been notified as Aama Samman Diwas.",
+                week: "Week 1"
+            },
+            {
+                question: "Which school's taekwondo team won the Beginner B Match Championship Trophy at the 2nd Kanchenjunga Cup Taekwondo Poomsae Champions 2025?",
+                options: ["Tashi Namgyal Academy", "Paljor Namgyal Girls' School", "Greendale School", "St. Xavier's School"],
+                answer: 2,
+                explanation: "Greendale School won the championship trophy.",
+                week: "Week 1"
+            },
+            {
+                question: "A successful trial run of the NDM-6 Diesel-Hydraulic (DSL) Loco was conducted for which historic railway?",
+                options: ["Kalka-Shimla Railway", "Nilgiri Mountain Railway", "Matheran Hill Railway", "Darjeeling Himalayan Railway (DHR)"],
+                answer: 3,
+                explanation: "The trial run was for the Darjeeling Himalayan Railway (DHR).",
+                week: "Week 1"
+            },
+            {
+                question: "The General Sagat Singh memorial cup is being held at the Thegu football ground, located at what altitude in East Sikkim?",
+                options: ["10,200 ft", "11,500 ft", "12,600 ft", "14,100 ft"],
+                answer: 2,
+                explanation: "The Thegu football ground is located at an altitude of 12,600 ft.",
+                week: "Week 1"
+            },
+            {
+                question: "Who is the recipient of the Dooars Gaurav Samman 2025, also known by the pen name ‘Dooarseli’?",
+                options: ["Amir Sundas", "D.B Subba", "Birkey Khadka", "P.S Tamang Golay"],
+                answer: 2,
+                explanation: "Birkey Khadka is the recipient of the Dooars Gaurav Samman 2025.",
+                week: "Week 1"
+            },
+            {
+                question: "At the 42nd National Arm Wrestling Championship in Guwahati, how many gold medals did the Sikkim team win?",
+                options: ["5", "8", "12", "21"],
+                answer: 1,
+                explanation: "The Sikkim team won 8 gold medals.",
+                week: "Week 1"
+            },
+            {
+                question: "What is the name of the first Cold-Pressed Mustard oil company launched in North Bengal?",
+                options: ["Himali Gold", "Anoc", "Dooars Fresh", "Teesta Pure"],
+                answer: 1,
+                explanation: "The first Cold-Pressed Mustard oil company is named Anoc.",
+                week: "Week 1"
+            },
+            {
+                question: "Who has been appointed as the first Chairman of the Health Department in Sikkim?",
+                options: ["Dr. M. K. Sharma", "Sanjeet Kharel", "Phurba Rinzing Sherpa", "Kumar Yonzon"],
+                answer: 2,
+                explanation: "Phurba Rinzing Sherpa has been appointed as the first Chairman of the Health Department.",
+                week: "Week 1"
+            },
+            {
+                question: "Who from Guruthang Busty, Gyalshing, was invited as a Special Guest by the Government of India for the Independence Day 2025 celebrations in New Delhi?",
+                options: ["Sonam Choden Bhutia", "Anamika Gurung", "Neaha Rai", "Kaeshikka Chettri"],
+                answer: 1,
+                explanation: "Anamika Gurung was invited as a Special Guest for the Independence Day celebrations.",
+                week: "Week 1"
+            },
+            {
+                question: "A wall collapse recently occurred at which tunnel of the Sevoke-Rongpo Railway Project site?",
+                options: ["Tunnel no. 5", "Tunnel no. 7", "Tunnel no. 10", "Tunnel no. 14"],
+                answer: 1,
+                explanation: "The wall collapse occurred at Tunnel no. 7.",
+                week: "Week 1"
+            },
+            {
+                question: "Tribeny Rai’s debut Nepali film, selected for the San Sebastián Film Festival, is titled ‘Shape of Momo’. What is its Nepali title?",
+                options: ["Momo Mitho", "Pahad ko Katha", "Chhora Jastai", "Aama ko Sapana"],
+                answer: 2,
+                explanation: "The Nepali title of the film is ‘Chhora Jastai’.",
+                week: "Week 1"
+            },
+            {
+                question: "National Handloom Day, celebrated on August 7th, commemorates which historic Indian movement?",
+                options: ["Non-Cooperation Movement", "Quit India Movement", "Swadeshi Movement", "Civil Disobedience Movement"],
+                answer: 2,
+                explanation: "National Handloom Day commemorates the Swadeshi Movement.",
+                week: "Week 1"
+            },
+            {
+                question: "The Department of Culture organized a symposium on ‘Lepcha Mun and Bongthing’ in collaboration with which organization?",
+                options: ["Nepali Sahitya Parishad", "Sikkim Lepcha Association", "Renjyong Mutanchi Ringmom Kurmom (RMRK)", "Green Zone Society"],
+                answer: 2,
+                explanation: "The collaboration was with Renjyong Mutanchi Ringmom Kurmom (RMRK).",
+                week: "Week 1"
+            },
+            {
+                question: "Sikkimese mountaineer Neaha Rai from Ravangla successfully summited which twin peaks in Ladakh?",
+                options: ["Nun and Kun", "Stok Kangri I and II", "Mt. Kang Yatse I and Mt. Kang Yatse II", "Chamser and Lungser Kangri"],
+                answer: 2,
+                explanation: "Neaha Rai summited Mt. Kang Yatse I and Mt. Kang Yatse II.",
+                week: "Week 1"
+            },
+            {
+                question: "Which renowned entrepreneur from Pendam Ralong Busti, East Sikkim, was invited to the Independence Day celebrations in New Delhi?",
+                options: ["Anamika Gurung", "Kezia Chettri", "Sonam Choden Bhutia", "Kaeshikka Chettri"],
+                answer: 2,
+                explanation: "Sonam Choden Bhutia was invited to the Independence Day celebrations.",
+                week: "Week 1"
+            },
+            {
+                question: "Kezia Chettri from Singtam was selected as one of the top four candidates in Asia for which prestigious post?",
+                options: ["UN Youth Ambassador (Asia)", "Commonwealth Student Association Regional Representative (Asia)", "SAARC Youth Icon", "Asian Development Bank Youth Fellow"],
+                answer: 1,
+                explanation: "Kezia Chettri was selected for Commonwealth Student Association Regional Representative (Asia).",
+                week: "Week 1"
+            },
+            {
+                question: "Who has become Sikkim's first Board-Certified Genetic Counselor?",
+                options: ["Anamika Gurung", "Sonam Choden Bhutia", "Kezia Chettri", "Kaeshikka Chettri"],
+                answer: 3,
+                explanation: "Kaeshikka Chettri has become Sikkim's first Board-Certified Genetic Counselor.",
+                week: "Week 1"
+            },
+            {
+                question: "The Open Futsal Tournament 2025, hosted by the Futsal Association of Sikkim, was held under what theme?",
+                options: ["'Sports for Unity'", "'Celebrating 50 Years of Statehood'", "'Zero Waste Management'", "'Fit Sikkim, Clean Sikkim'"],
+                answer: 2,
+                explanation: "The theme of the tournament was 'Zero Waste Management'.",
+                week: "Week 1"
+            },
+            {
+                question: "Who has been appointed as the new Vice-Chancellor of Sikkim University?",
+                options: ["Prof. Avinash Khare", "Prof. Santanu Kumar Swain", "Prof. Tanka Bahadur Subba", "Prof. Mahendra P. Lama"],
+                answer: 1,
+                explanation: "Prof. Santanu Kumar Swain has been appointed as the new Vice-Chancellor.",
+                week: "Week 1"
+            },
+            {
+                question: "Which monastery hosted a football event to commemorate India’s 79th Independence Day?",
+                options: ["Rumtek Monastery", "Pemayangtse Monastery", "Phodong Monastery", "Enchey Monastery"],
+                answer: 2,
+                explanation: "Phodong Monastery hosted the football event.",
+                week: "Week 1"
+            },
+            {
+                question: "In observance of Aama Samman Diwas, the Sikkim Government will establish an “Aama Suvidha Ghar” at which location?",
+                options: ["Gangtok", "Melli", "Singtam", "Rangpo"],
+                answer: 3,
+                explanation: "An “Aama Suvidha Ghar” will be established at Rangpo.",
+                week: "Week 1"
+            },
+            {
+                question: "A new variety of Hybrid Cymbidium orchid has been named ‘Cymbidium Kumar Yonzon’ in honor of an environmentalist. Which organization officially registered this name?",
+                options: ["The Orchid Society of India", "The American Orchid Society", "The Royal Horticultural Society (RHS)", "The World Orchid Association"],
+                answer: 2,
+                explanation: "The name was officially registered by The Royal Horticultural Society (RHS).",
+                week: "Week 1"
+            },
+            // Week 2 Questions
+            {
+                question: "Which school secured the first position in the State-Level Folk Dance competition held at Manan Bhawan?",
+                options: ["Enchey Senior Secondary School", "Greendale School", "Tashi Namgyal Senior Secondary School", "Paljor Namgyal Girls' School"],
+                answer: 2,
+                explanation: "Tashi Namgyal Senior Secondary School secured the first position.",
+                week: "Week 2"
+            },
+            {
+                question: "The 'Stairway to Heaven' project is being constructed at which location?",
+                options: ["Tendong Hill", "Daramdin", "Yangang", "Ravangla"],
+                answer: 1,
+                explanation: "The project is being constructed at Daramdin.",
+                week: "Week 2"
+            },
+            {
+                question: "Under the Sikkim Aama Sahyog Yojana, what financial assistance will be provided to the beneficiaries?",
+                options: ["Annual cash grant of ₹5,000", "Free health insurance coverage", "Refills for four LPG cylinders annually", "Educational scholarships for one child"],
+                answer: 2,
+                explanation: "The scheme provides refills for four LPG cylinders annually.",
+                week: "Week 2"
+            },
+            {
+                question: "In Lepcha terminology, what is a display of their artifacts known as?",
+                options: ["Namthar", "Mun", "Bongthing", "Sumok thyaktuk"],
+                answer: 3,
+                explanation: "A display of Lepcha artifacts is known as 'Sumok thyaktuk'.",
+                week: "Week 2"
+            },
+            {
+                question: "In the context of Lepcha culture, what is a 'Namthar'?",
+                options: ["A traditional musical instrument", "A spiritual text", "A ceremonial dagger", "A display of artifacts"],
+                answer: 1,
+                explanation: "A 'Namthar' is a spiritual text in Lepcha culture.",
+                week: "Week 2"
+            },
+            {
+                question: "Who was the recipient of the Tendong Award during the Tendong Lho Rum Faat celebrations?",
+                options: ["Chuksung Lepcha", "Namgyal Lepcha", "Prashansha Lepcha", "Lha Tshering Kunchudyangmu"],
+                answer: 1,
+                explanation: "Namgyal Lepcha was the recipient of the Tendong Award.",
+                week: "Week 2"
+            },
+            {
+                question: "Who received the Gb Mainwaring Lepcha Literary award?",
+                options: ["Prashansha Lepcha", "Namgyal Lepcha", "Chuksung Lepcha", "Gb Mainwaring"],
+                answer: 2,
+                explanation: "Chuksung Lepcha received the Gb Mainwaring Lepcha Literary award.",
+                week: "Week 2"
+            },
+            {
+                question: "The Lha Tshering Kunchudyangmu Memorial Lepcha literary award was conferred upon whom?",
+                options: ["Prashansha Lepcha", "Chuksung Lepcha", "Namgyal Lepcha", "Anjana Sharma"],
+                answer: 0,
+                explanation: "The award was conferred upon Prashansha Lepcha.",
+                week: "Week 2"
+            },
+            {
+                question: "What is the scientific name for the Nakima plant?",
+                options: ["Curcuma longa", "Zingiber officinale", "Tupistra nutans", "Dendrobium nobile"],
+                answer: 2,
+                explanation: "The scientific name for the Nakima plant is Tupistra nutans.",
+                week: "Week 2"
+            },
+             {
+                question: "Anjana Sharma, a zilla panchayat member from Ralang-Borong ZTC, represented Sikkim at which UN Women’s India programme?",
+                options: ["WeEmpower Asia", "SheLeads II", "HeForShe Conclave", "Women in Power Forum"],
+                answer: 1,
+                explanation: "Anjana Sharma represented Sikkim at the SheLeads II programme.",
+                week: "Week 2"
+            }
+        ];
+
+
+        // DOM elements
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const feedbackDiv = document.getElementById('feedback');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const currentQuestionSpan = document.getElementById('current-question');
+        const totalQuestionsSpan = document.getElementById('total-questions');
+        const currentScoreSpan = document.getElementById('current-score');
+        const progressBar = document.getElementById('progress-bar');
+        const resultContainer = document.getElementById('result-container');
+        const finalScoreSpan = document.getElementById('final-score');
+        const totalQuestionsFinalSpan = document.getElementById('total-questions-final');
+        const performanceText = document.getElementById('performance-text');
+        const restartBtn = document.getElementById('restart-btn');
+        const weekIndicator = document.getElementById('week-indicator');
+
+        // Quiz state
+        let currentQuestionIndex = 0;
+        let userAnswers = Array(quizData.length).fill(null);
+        let score = 0;
+
+        // Initialize quiz
+        function initQuiz() {
+            totalQuestionsSpan.textContent = quizData.length;
+            totalQuestionsFinalSpan.textContent = quizData.length; // Also set for result screen
+            updateProgressBar();
+            showQuestion();
+        }
+
+        // Show current question
+        function showQuestion() {
+            const question = quizData[currentQuestionIndex];
+            questionText.innerHTML = question.question; // MODIFIED to use innerHTML for <br> tags
+            weekIndicator.textContent = question.week;
+            
+            optionsContainer.innerHTML = '';
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.textContent = option;
+                optionDiv.addEventListener('click', () => selectOption(index));
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            prevBtn.disabled = currentQuestionIndex === 0;
+            nextBtn.textContent = currentQuestionIndex === quizData.length - 1 ? 'Finish' : 'Next';
+            
+            currentQuestionSpan.textContent = currentQuestionIndex + 1;
+            currentScoreSpan.textContent = score;
+            updateProgressBar();
+            
+            feedbackDiv.style.display = 'none';
+            
+            if (userAnswers[currentQuestionIndex] !== null) {
+                const selectedOptIndex = userAnswers[currentQuestionIndex];
+                const options = optionsContainer.querySelectorAll('.option');
+                if (options[selectedOptIndex]) { 
+                    options[selectedOptIndex].classList.add('selected');
+                }
+                checkAnswer(selectedOptIndex, false); 
+            } else {
+                optionsContainer.querySelectorAll('.option').forEach(opt => {
+                    opt.style.pointerEvents = 'auto';
+                });
+            }
+        }
+
+        function updateProgressBar() {
+            const progress = ((currentQuestionIndex + 1) / quizData.length) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        function selectOption(optionIndex) {
+            if (feedbackDiv.style.display === 'block' && questionText.innerHTML === quizData[currentQuestionIndex].question) { // Check innerHTML if question contains HTML
+                return; 
+            }
+
+            const isFirstAttemptForThisQuestionIndex = userAnswers[currentQuestionIndex] === null;
+            
+            if (isFirstAttemptForThisQuestionIndex) {
+                userAnswers[currentQuestionIndex] = optionIndex;
+            }
+            
+            const options = document.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            if (options[optionIndex]) {
+                options[optionIndex].classList.add('selected');
+            }
+            
+            checkAnswer(optionIndex, isFirstAttemptForThisQuestionIndex);
+        }
+
+        function checkAnswer(selectedIndex, isFirstScoringAttempt) {
+            const question = quizData[currentQuestionIndex];
+            const options = document.querySelectorAll('.option');
+            
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none'; 
+            });
+
+            if (options[question.answer]) {
+                 options[question.answer].classList.add('correct');
+            }
+            if (selectedIndex !== question.answer && options[selectedIndex]) {
+                options[selectedIndex].classList.add('incorrect');
+            }
+            
+            feedbackDiv.innerHTML = ''; 
+            if (selectedIndex === question.answer) {
+                feedbackDiv.className = 'feedback correct-feedback';
+                feedbackDiv.textContent = 'Correct!';
+                if (isFirstScoringAttempt) { 
+                    score++;
+                }
+            } else {
+                feedbackDiv.className = 'feedback incorrect-feedback';
+                const correctAnswerText = question.options[question.answer] || "N/A";
+                feedbackDiv.textContent = `Incorrect. The correct answer is: ${correctAnswerText}`;
+            }
+            currentScoreSpan.textContent = score;
+            
+            if (question.explanation) {
+                const explanation = document.createElement('div');
+                explanation.className = 'explanation';
+                explanation.textContent = question.explanation; // Explanation is kept as textContent
+                feedbackDiv.appendChild(explanation);
+            }
+            
+            feedbackDiv.style.display = 'block';
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < quizData.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+            }
+        }
+
+        function showResult() {
+            document.querySelector('.quiz-container').style.display = 'none';
+            document.querySelector('.progress-text').style.display = 'none';
+            document.querySelector('.progress-container').style.display = 'none';
+            resultContainer.style.display = 'block';
+            finalScoreSpan.textContent = score;
+            
+            const percentage = (score / quizData.length) * 100;
+            let performance = '';
+            if (percentage >= 90) {
+                performance = 'Outstanding! You have an excellent knowledge of Sikkim\'s current affairs.';
+            } else if (percentage >= 75) {
+                performance = 'Excellent! You are very well-informed about recent events in Sikkim.';
+            } else if (percentage >= 50) {
+                performance = 'Good effort! You know quite a bit about what\'s happening in Sikkim.';
+            } else if (percentage >= 30) {
+                performance = 'Keep learning! Review the topics to improve.';
+            } else {
+                performance = 'A good start! Study more to enhance your knowledge of Sikkim.';
+            }
+            performanceText.textContent = performance;
+            // --- Firebase Progress Tracking ---
+            (function() {
+                var quizTitle = document.title || 'Unknown Quiz';
+                var category = 'General';
+                var path = window.location.pathname;
+                if (path.indexOf('Sikkim Current Affairs') !== -1 || quizTitle.indexOf('Sikkim') !== -1) category = 'Sikkim Current Affairs';
+                else if (path.indexOf('National International') !== -1 || quizTitle.indexOf('National') !== -1) category = 'National/International CA';
+                else if (path.indexOf('Physics') !== -1 || quizTitle.indexOf('Physics') !== -1) category = 'Physics';
+                else if (path.indexOf('Polity') !== -1) category = 'Polity';
+                else if (path.indexOf('History') !== -1) category = 'History';
+                else if (path.indexOf('Economics') !== -1) category = 'Economics';
+                else if (path.indexOf('Geography') !== -1) category = 'Geography';
+                if (typeof saveQuizResult === 'function' && typeof isLoggedIn === 'function' && isLoggedIn()) {
+                    saveQuizResult(quizTitle, score, quizData.length, category);
+                }
+            })();
+        }
+
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            userAnswers = Array(quizData.length).fill(null);
+            score = 0;
+            document.querySelector('.quiz-container').style.display = 'block';
+            document.querySelector('.progress-text').style.display = 'flex'; 
+            document.querySelector('.progress-container').style.display = 'block'; 
+            resultContainer.style.display = 'none';
+            feedbackDiv.style.display = 'none';
+            currentScoreSpan.textContent = score; 
+            showQuestion();
+        }
+
+        nextBtn.addEventListener('click', nextQuestion);
+        prevBtn.addEventListener('click', prevQuestion);
+        restartBtn.addEventListener('click', restartQuiz);
+
+        initQuiz();
+    </script>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="../auth.js"></script>
+</body>
+</html>```

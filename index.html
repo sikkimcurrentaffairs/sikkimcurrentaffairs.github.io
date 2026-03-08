@@ -1,0 +1,1722 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sikkim PSC preparation hub</title>
+    <script>
+        (function () {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        })();
+    </script>
+    <script>
+        if (typeof window.tailwind === 'undefined') { window.tailwind = {}; }
+        window.tailwind.config = { darkMode: 'class' };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="auth.css">
+
+    <style>
+        /* --- SOFT DARK MODE --- */
+        html body {
+            background-color: #eef1f5;
+            /* Slightly lighter/cleaner base */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        html.dark body {
+            background-color: #1a1c20 !important;
+            /* Deeper dark for OLED vibe */
+            color: #e5e7eb;
+        }
+
+        /* Force Hero Title Colors */
+        .hero-title-word {
+            color: #4c4c4c !important;
+            /* Slightly darker charcoal */
+        }
+
+        html.dark .hero-title-word {
+            color: #ffffff !important;
+        }
+
+        /* Forced Contrast Utilities */
+        html.dark .dark-force-white {
+            color: #ffffff !important;
+        }
+
+
+        /* Refined Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        .dark ::-webkit-scrollbar-thumb {
+            background: #475569;
+        }
+
+        .glassmorphic-header,
+        .quiz-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Neomorphic Styles */
+        .quiz-card {
+            background: #eef1f5;
+            border-radius: 24px;
+            box-shadow: 10px 10px 20px #d1d9e6, -10px -10px 20px #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .quiz-card:hover {
+            box-shadow: 5px 5px 10px #d1d9e6, -5px -5px 10px #ffffff,
+                inset 2px 2px 5px #d1d9e6, inset -2px -2px 5px #ffffff;
+            transform: translateY(-2px);
+        }
+
+        html.dark .quiz-card {
+            background: #24272c;
+            box-shadow: 10px 10px 20px #16181b, -10px -10px 20px #32363d;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        html.dark .quiz-card:hover {
+            box-shadow: 5px 5px 10px #16181b, -5px -5px 10px #32363d,
+                inset 2px 2px 5px #16181b, inset -2px -2px 5px #32363d;
+        }
+
+        /* Search & Tabs: Inset Depth */
+        .search-bar-container,
+        .tab-container {
+            background: #eef1f5;
+            border-radius: 20px;
+            box-shadow: inset 8px 8px 16px #d1d9e6, inset -8px -8px 16px #ffffff;
+            padding: 4px 16px;
+            transition: box-shadow 0.25s ease, background 0.25s ease;
+        }
+
+        .search-bar-container:focus-within {
+            box-shadow: inset 12px 12px 24px #d1d9e6, inset -12px -12px 24px #ffffff;
+        }
+
+        .search-bar-container input {
+            outline: none !important;
+            box-shadow: none !important;
+            background: transparent;
+        }
+
+        .search-bar-container input:focus {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        html.dark .search-bar-container,
+        html.dark .tab-container {
+            background: #24272c;
+            box-shadow: inset 8px 8px 16px #16181b, inset -8px -8px 16px #32363d;
+        }
+
+        html.dark .search-bar-container:focus-within {
+            box-shadow: inset 12px 12px 24px #16181b, inset -12px -12px 24px #32363d;
+        }
+
+        .tab-button {
+            transition: all 0.3s ease;
+            position: relative;
+            font-weight: 500;
+        }
+
+        .tab-button.active {
+            background: #eef1f5;
+            box-shadow: 6px 6px 12px #d1d9e6, -6px -6px 12px #ffffff;
+            color: #0284c7;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        html.dark .tab-button.active {
+            background: #24272c;
+            box-shadow: 6px 6px 12px #16181b, -6px -6px 12px #32363d;
+            color: #38bdf8;
+        }
+
+        .section-hidden {
+            display: none !important;
+        }
+
+        .glassmorphic-header {
+            background: rgba(238, 241, 245, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(209, 217, 230, 0.5);
+        }
+
+        html.dark .glassmorphic-header {
+            background: rgba(26, 28, 32, 0.85);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Dropdown Styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: #eef1f5;
+            min-width: 200px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            z-index: 100;
+            padding: 0.75rem;
+            opacity: 0;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        html.dark .dropdown-content {
+            background: #24272c;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: #4b5563;
+            font-weight: 500;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(2, 132, 199, 0.05);
+            color: #0284c7;
+        }
+
+        html.dark .dropdown-item {
+            color: #d1d5db;
+        }
+
+        html.dark .dropdown-item:hover {
+            background: rgba(56, 189, 248, 0.05);
+            color: #38bdf8;
+        }
+
+        .nav-link {
+            position: relative;
+            color: #4b5563;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        html.dark .nav-link {
+            color: #d1d5db;
+        }
+
+        .nav-link:hover {
+            color: #0284c7;
+        }
+
+        html.dark .nav-link:hover {
+            color: #38bdf8;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #0284c7;
+            transition: width 0.3s ease;
+        }
+
+        html.dark .nav-link::after {
+            background-color: #38bdf8;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.03);
+            }
+        }
+
+        .cta-button-pulse:hover {
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(25px);
+            animation: fadeInUpAnimation 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        @keyframes fadeInUpAnimation {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Yearly Archive Header Styles */
+        .year-header {
+            background: #eef1f5;
+            border-radius: 32px;
+            box-shadow: 10px 10px 20px #d1d9e6,
+                -10px -10px 20px #ffffff;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html.dark .year-header {
+            background: #24272c;
+            box-shadow: 10px 10px 20px #16181b,
+                -10px -10px 20px #32363d;
+        }
+
+        /* Softened Archive Cards */
+        .year-content .quiz-card {
+            border-radius: 32px;
+            box-shadow: 10px 10px 20px #d1d9e6,
+                -10px -10px 20px #ffffff;
+            border: none !important;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .year-content .quiz-card:hover {
+            box-shadow: 6px 6px 12px #d1d9e6,
+                -6px -6px 12px #ffffff,
+                inset 4px 4px 8px rgba(209, 217, 230, 0.4),
+                inset -4px -4px 8px rgba(255, 255, 255, 0.5) !important;
+            transform: translateY(-4px);
+        }
+
+        html.dark .year-content .quiz-card {
+            background: #24272c;
+            box-shadow: 10px 10px 20px #16181b,
+                -10px -10px 20px #32363d;
+            border: none !important;
+        }
+
+        html.dark .year-content .quiz-card:hover {
+            box-shadow: 6px 6px 12px #16181b,
+                -6px -6px 12px #32363d,
+                inset 4px 4px 8px rgba(22, 24, 27, 0.5),
+                inset -4px -4px 8px rgba(50, 54, 61, 0.4) !important;
+        }
+
+        html.dark .year-header,
+        html.dark .year-header h3 {
+            color: #f3f4f6 !important;
+        }
+
+        html.dark .year-header .chevron-icon {
+            color: #38bdf8 !important;
+        }
+
+        html.dark .year-content .quiz-card h2 {
+            color: #e5e7eb !important;
+        }
+
+        html.dark .year-content .quiz-card span.text-sky-600 {
+            color: #38bdf8 !important;
+        }
+
+        .year-header:hover {
+            transform: translateY(-2px);
+        }
+
+        .year-content {
+            transition: max-height 0.4s ease-out, opacity 0.3s ease;
+            overflow: hidden;
+            padding: 40px;
+            margin: -40px;
+        }
+
+        .year-collapsed .year-content {
+            max-height: 0 !important;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .year-collapsed .chevron-icon {
+            transform: rotate(-90deg);
+        }
+
+        .chevron-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .delay-100 {
+            animation-delay: 0.1s;
+        }
+
+        .delay-200 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-300 {
+            animation-delay: 0.3s;
+        }
+
+        .delay-400 {
+            animation-delay: 0.4s;
+        }
+
+        .sun-icon-animator,
+        .moon-icon-animator {
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+
+        .sun-icon-animator {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+        }
+
+        html.dark .sun-icon-animator {
+            opacity: 0;
+            transform: scale(0.5) rotate(-90deg);
+        }
+
+        .moon-icon-animator {
+            opacity: 0;
+            transform: scale(0.5) rotate(90deg);
+        }
+
+        html.dark .moon-icon-animator {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+        }
+
+        .knob-at-start {
+            transform: translateX(0px);
+        }
+
+        .knob-at-end {
+            transform: translateX(1.25rem);
+        }
+
+        /* Logo Transition */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            position: relative;
+            height: 40px;
+            /* Adjust based on your logo design */
+        }
+
+        @media (min-width: 640px) {
+            .logo-container {
+                height: 48px;
+            }
+        }
+
+        .logo-img {
+            height: 100%;
+            width: auto;
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+
+        .logo-dark {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        html.dark .logo-light {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        html.dark .logo-dark {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Hide scrollbars but allow scrolling */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .footer-line {
+            border-top: 1px solid rgba(0, 0, 0, 0.1) !important;
+        }
+
+        html.dark .footer-line {
+            border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
+        }
+
+        /* Navigation Links */
+        .nav-link {
+            position: relative;
+            font-weight: 500;
+            color: #4b5563;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #0284c7;
+        }
+
+        html.dark .nav-link {
+            color: #d1d5db;
+        }
+
+        html.dark .nav-link:hover {
+            color: #38bdf8;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #0284c7;
+            transition: width 0.3s ease;
+        }
+
+        html.dark .nav-link::after {
+            background-color: #38bdf8;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile Menu */
+        #mobile-menu {
+            transform: translateY(-100%);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+        }
+
+        #mobile-menu.active {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .hamburger-line {
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-open .hamburger-line-1 {
+            transform: translateY(6px) rotate(45deg);
+        }
+
+        .mobile-menu-open .hamburger-line-2 {
+            opacity: 0;
+        }
+
+        .mobile-menu-open .hamburger-line-3 {
+            transform: translateY(-6px) rotate(-45deg);
+        }
+    </style>
+</head>
+
+<body class="font-sans text-gray-900 dark:text-white antialiased">
+
+    <div class="min-h-screen flex flex-col">
+        <nav class="sticky top-0 z-50 glassmorphic-header">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <div class="flex items-center mr-10 lg:mr-16">
+                        <a href="index.html" class="logo-container" aria-label="Sikkim PSC Preparation Hub Home">
+                            <img src="logo/light theme.png" alt="Sikkim PSC Logo" class="logo-img logo-light">
+                            <img src="logo/dark theme logo.png" alt="Sikkim PSC Logo" class="logo-img logo-dark">
+                        </a>
+                    </div>
+                    <div class="hidden md:flex items-center space-x-10 lg:space-x-14">
+                        <a href="index.html" class="nav-link">Home</a>
+                        <a href="about.html" class="nav-link">About</a>
+                        <a href="notes-ai.html" class="nav-link flex items-center">
+                            <span class="text-sky-600">Notes</span>
+                            <span class="text-sky-600 dark:text-sky-400">(AI)</span>
+                            <span class="ml-1.5 flex h-2 w-2">
+                                <span
+                                    class="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-sky-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
+                            </span>
+                        </a>
+                        <a href="mocktests.html" class="nav-link">Mocktests</a>
+                        <a href="question-bank.html" class="nav-link">Question Bank</a>
+                        <div class="dropdown">
+                            <button class="nav-link flex items-center space-x-1">
+                                <span>More</span>
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="h-4 w-4 transition-transform duration-200" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            <div class="dropdown-content">
+                                <a href="exam-calendar.html" class="dropdown-item">Exam Calendar</a>
+                                <a href="faqs.html" class="dropdown-item">FAQs</a>
+                                <a href="blogs.html" class="dropdown-item">Blogs</a>
+                                <a href="contact.html" class="dropdown-item">Contact me</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-2 sm:space-x-4">
+                        <div class="hidden md:block" id="auth-btn-desktop">
+                            <div class="auth-loading"></div>
+                        </div>
+                        <button id="darkModeToggle" type="button" aria-label="Toggle Dark Mode"
+                            class="relative inline-flex items-center h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:focus:ring-offset-black bg-gray-300 dark:bg-sky-600"
+                            role="switch" aria-checked="false">
+                            <span class="sr-only">Toggle Dark Mode</span>
+                            <span
+                                class="toggle-knob pointer-events-none relative inline-block h-5 w-5 rounded-full bg-white shadow ring-0 transition-transform duration-300 ease-in-out">
+                                <span
+                                    class="sun-icon-animator absolute inset-0 flex h-full w-full items-center justify-center">
+                                    <svg class="h-3 w-3 text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-6.364-.386l1.591-1.591M3 12h2.25m.386-6.364l1.591 1.591" />
+                                    </svg>
+                                </span>
+                                <span
+                                    class="moon-icon-animator absolute inset-0 flex h-full w-full items-center justify-center">
+                                    <svg class="h-3 w-3 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21c1.33 0 2.597-.266 3.752-.748A9.753 9.753 0 0021.752 15.002z" />
+                                    </svg>
+                                </span>
+                            </span>
+                        </button>
+
+                        <!-- Mobile menu button -->
+                        <button id="mobile-menu-button" type="button"
+                            class="md:hidden inline-flex items-center justify-center p-2 rounded-xl text-gray-500 hover:text-sky-600 hover:bg-white/50 dark:text-gray-400 dark:hover:text-sky-400 dark:hover:bg-black/20 focus:outline-none transition-all duration-300"
+                            aria-expanded="false">
+                            <span class="sr-only">Open main menu</span>
+                            <div class="w-6 h-5 relative flex flex-col justify-between">
+                                <span
+                                    class="hamburger-line hamburger-line-1 w-full h-0.5 bg-current rounded-full"></span>
+                                <span
+                                    class="hamburger-line hamburger-line-2 w-full h-0.5 bg-current rounded-full"></span>
+                                <span
+                                    class="hamburger-line hamburger-line-3 w-full h-0.5 bg-current rounded-full"></span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile menu, show/hide based on menu state. -->
+            <div id="mobile-menu"
+                class="md:hidden absolute w-full glassmorphic-header border-b border-white/20 shadow-xl">
+                <div class="px-4 pt-3 pb-6 space-y-4">
+                    <a href="index.html"
+                        class="block px-4 py-3 rounded-xl text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-sky-50 dark:hover:bg-sky-900/30 hover:text-sky-600 dark:hover:text-sky-400 transition-all">Home</a>
+                    <a href="about.html"
+                        class="block px-4 py-3 rounded-xl text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-sky-50 dark:hover:bg-sky-900/30 hover:text-sky-600 dark:hover:text-sky-400 transition-all">About</a>
+                    <a href="notes-ai.html"
+                        class="block px-4 py-3 rounded-xl text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-sky-50 dark:hover:bg-sky-900/30 hover:text-sky-600 dark:hover:text-sky-400 transition-all flex items-center justify-between">
+                        Notes(AI)
+                        <span
+                            class="bg-sky-100 text-sky-600 dark:bg-sky-900/50 dark:text-sky-400 text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">New</span>
+                    </a>
+                    <a href="mocktests.html"
+                        class="block px-4 py-3 rounded-xl text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-sky-50 dark:hover:bg-sky-900/30 hover:text-sky-600 dark:hover:text-sky-400 transition-all">Mocktests</a>
+                    <a href="question-bank.html"
+                        class="block px-4 py-3 rounded-xl text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-sky-50 dark:hover:bg-sky-900/30 hover:text-sky-600 dark:hover:text-sky-400 transition-all">Question
+                        Bank</a>
+
+                    <div class="pt-4 mt-2">
+                        <span
+                            class="px-4 text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">More</span>
+                        <div class="mt-2 space-y-1">
+                            <a href="exam-calendar.html"
+                                class="block px-4 py-2 text-base font-medium text-gray-600 dark:text-gray-400 hover:text-sky-600 dark:hover:text-sky-400 transition-all">Exam
+                                Calendar</a>
+                            <a href="faqs.html"
+                                class="block px-4 py-2 text-base font-medium text-gray-600 dark:text-gray-400 hover:text-sky-600 dark:hover:text-sky-400 transition-all">FAQs</a>
+                            <a href="blogs.html"
+                                class="block px-4 py-2 text-base font-medium text-gray-600 dark:text-gray-400 hover:text-sky-600 dark:hover:text-sky-400 transition-all">Blogs</a>
+                            <a href="contact.html"
+                                class="block px-4 py-2 text-base font-medium text-gray-600 dark:text-gray-400 hover:text-sky-600 dark:hover:text-sky-400 transition-all">Contact
+                                me</a>
+                        </div>
+                    </div>
+                    <div class="pt-4 mt-4 border-t border-gray-100 dark:border-gray-800" id="auth-btn-mobile">
+                        <div class="auth-loading" style="margin: 12px auto; display: block; width: 20px;"></div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-24">
+            <div class="text-center">
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight fade-in-up">
+                    <span class="hero-title-word">Sikkim</span> <span class="text-sky-600">PSC preparation <span
+                            class="hero-title-word">hub</span></span>
+                </h1>
+                <p
+                    class="mt-4 sm:mt-6 max-w-2xl mx-auto text-lg sm:text-xl text-gray-600 dark:text-gray-200 fade-in-up delay-100">
+                    Your comprehensive, free, and open-source platform for Sikkim Public Service Commission exam
+                    preparation. Access monthly Current Affairs, general study materials and much more without any
+                    subscription.
+                </p>
+
+                <!-- Search Bar Section -->
+                <div class="mt-10 sm:mt-12 max-w-5xl mx-auto fade-in-up delay-200">
+                    <div class="search-bar-container flex items-center">
+                        <svg class="h-5 w-5 text-gray-400 dark:text-gray-300" xmlns="http://www.w3.org/2000/svg"
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        <input type="text" id="quizSearch" placeholder="Search Sikkim CA & Static GK..."
+                            class="w-full bg-transparent border-none outline-none focus:ring-0 focus:outline-none px-4 py-3 text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-300"
+                            onkeyup="filterQuizzes()">
+                    </div>
+                </div>
+
+                <!-- Tab Switcher Section -->
+                <div class="mt-8 max-w-5xl mx-auto fade-in-up delay-300">
+                    <div class="tab-container flex p-2 space-x-4 sm:space-x-6 overflow-x-auto no-scrollbar">
+                        <button onclick="switchSection('ca')" id="tab-ca"
+                            class="tab-button active flex-1 py-2 px-5 text-xs sm:text-sm font-semibold transition-all sm:whitespace-nowrap">
+                            Sikkim CA & Static GK
+                        </button>
+                        <button onclick="switchSection('nia')" id="tab-nia"
+                            class="tab-button flex-1 py-2 px-5 text-xs sm:text-sm font-semibold transition-all sm:whitespace-nowrap">
+                            National/International CA
+                        </button>
+                        <button onclick="switchSection('gs')" id="tab-gs"
+                            class="tab-button flex-1 py-2 px-5 text-xs sm:text-sm font-semibold transition-all sm:whitespace-nowrap">
+                            General Studies
+                        </button>
+                        <button onclick="switchSection('en')" id="tab-en"
+                            class="tab-button flex-1 py-2 px-5 text-xs sm:text-sm font-semibold transition-all sm:whitespace-nowrap">
+                            English &amp; Vocabulary
+                        </button>
+                        <button onclick="switchSection('pyq')" id="tab-pyq"
+                            class="tab-button flex-1 py-2 px-5 text-xs sm:text-sm font-semibold transition-all sm:whitespace-nowrap">
+                            SPSC PYQs
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sikkim Current Affairs & Static GK Section -->
+            <section id="section-ca" class="mt-16 sm:mt-20">
+                <h2 class="text-3xl font-bold text-sky-600 dark:text-sky-400 mb-8 border-l-4 border-sky-600 pl-4">
+                    Sikkim Current Affairs & Static GK (Updated Every Month)</h2>
+
+                <!-- Latest (current year) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 mb-12">
+                    <!-- January 2026 -->
+                    <a href="Sikkim Current Affairs/Sikkim January 2026.html"
+                        class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up focus:outline-none focus:ring-4 focus:ring-sky-500/50 dark:focus:ring-sky-400/40 focus:ring-offset-4 dark:focus:ring-offset-black">
+                        <div class="flex flex-col items-center">
+                            <div
+                                class="icon-bg mb-5 sm:mb-6 p-4 rounded-full group-hover:scale-110 transition-transform duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor"
+                                    class="icon-svg w-10 h-10 sm:w-12 sm:h-12 text-sky-600">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5M12 10.5h.008v.008H12v-.008ZM12 13.5h.008v.008H12v-.008ZM12 16.5h.008v.008H12v-.008ZM9.75 10.5h.008v.008H9.75v-.008ZM9.75 13.5h.008v.008H9.75v-.008ZM9.75 16.5h.008v.008H9.75v-.008ZM7.5 10.5h.008v.008H7.5v-.008ZM7.5 13.5h.008v.008H7.5v-.008ZM7.5 16.5h.008v.008H7.5v-.008ZM14.25 10.5h.008v.008h-.008v-.008ZM14.25 13.5h.008v.008h-.008v-.008ZM14.25 16.5h.008v.008h-.008v-.008ZM16.5 10.5h.008v.008H16.5v-.008ZM16.5 13.5h.008v.008H16.5v-.008Z" />
+                                </svg>
+                            </div>
+                            <h2
+                                class="text-2xl sm:text-3xl font-semibold text-center mb-3 group-hover:text-sky-600 dark:group-hover:text-sky-300 transition-colors duration-300">
+                                January 2026</h2>
+                            <p class="text-sm sm:text-base text-center mb-6">Latest Monthly Highlights</p>
+                            <span
+                                class="cta-button-pulse inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-sky-600 rounded-lg group-hover:bg-sky-700 dark:bg-sky-500 dark:group-hover:bg-sky-600 transition-all duration-300 transform group-hover:scale-105 shadow-md group-hover:shadow-lg">
+                                Start Quiz <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="2" stroke="currentColor"
+                                    class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                </svg>
+                            </span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- 2025 Archive -->
+                <div class="archive-year mb-8 year-collapsed" id="year-sikkim-2025">
+                    <div class="year-header flex items-center justify-between p-5 mb-6"
+                        onclick="toggleYear('year-sikkim-2025')">
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-gray-200">Archive 2025</h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                            stroke="currentColor" class="chevron-icon w-6 h-6 text-sky-600">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                        </svg>
+                    </div>
+                    <div class="year-content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12"
+                        style="max-height: 4000px;">
+                        <!-- December 2025 -->
+                        <a href="Sikkim Current Affairs/Sikkim December 2025.html"
+                            class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up transition-shadow duration-300">
+                            <div class="flex flex-col items-center">
+                                <h2 class="text-2xl font-semibold mb-3">December 2025</h2>
+                                <span class="text-sky-600 font-medium">Start Quiz &rarr;</span>
+                            </div>
+                        </a>
+                        <!-- November 2025 -->
+                        <a href="Sikkim Current Affairs/Sikkim November 2025.html"
+                            class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up transition-shadow duration-300">
+                            <div class="flex flex-col items-center">
+                                <h2 class="text-2xl font-semibold mb-3">November 2025</h2>
+                                <span class="text-sky-600 font-medium">Start Quiz &rarr;</span>
+                            </div>
+                        </a>
+                        <!-- October 2025 -->
+                        <a href="Sikkim Current Affairs/Sikkim October 2025.html"
+                            class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up transition-shadow duration-300">
+                            <div class="flex flex-col items-center">
+                                <h2 class="text-2xl font-semibold mb-3">October 2025</h2>
+                                <span class="text-sky-600 font-medium">Start Quiz &rarr;</span>
+                            </div>
+                        </a>
+                        <!-- September 2025 -->
+                        <a href="Sikkim Current Affairs/Sikkim September 2025.html"
+                            class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up transition-shadow duration-300">
+                            <div class="flex flex-col items-center">
+                                <h2 class="text-2xl font-semibold mb-3">September 2025</h2>
+                                <span class="text-sky-600 font-medium">Start Quiz &rarr;</span>
+                            </div>
+                        </a>
+                        <!-- August 2025 -->
+                        <a href="Sikkim Current Affairs/Sikkim August 2025.html"
+                            class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up transition-shadow duration-300">
+                            <div class="flex flex-col items-center">
+                                <h2 class="text-2xl font-semibold mb-3">August 2025</h2>
+                                <span class="text-sky-600 font-medium">Start Quiz &rarr;</span>
+                            </div>
+                        </a>
+                        <!-- July 2025 -->
+                        <a href="Sikkim Current Affairs/Sikkim July 2025.html"
+                            class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up transition-shadow duration-300">
+                            <div class="flex flex-col items-center">
+                                <h2 class="text-2xl font-semibold mb-3">July 2025</h2>
+                                <span class="text-sky-600 font-medium">Start Quiz &rarr;</span>
+                            </div>
+                        </a>
+                        <!-- June 2025 -->
+                        <a href="Sikkim Current Affairs/Sikkim June 2025.html"
+                            class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up transition-shadow duration-300">
+                            <div class="flex flex-col items-center">
+                                <h2 class="text-2xl font-semibold mb-3">June 2025</h2>
+                                <span class="text-sky-600 font-medium">Start Quiz &rarr;</span>
+                            </div>
+                        </a>
+                        <!-- May 2025 -->
+                        <a href="Sikkim Current Affairs/Sikkim May 2025.html"
+                            class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up transition-shadow duration-300">
+                            <div class="flex flex-col items-center">
+                                <h2 class="text-2xl font-semibold mb-3">May 2025</h2>
+                                <span class="text-sky-600 font-medium">Start Quiz &rarr;</span>
+                            </div>
+                        </a>
+                        <!-- April 2025 -->
+                        <a href="Sikkim Current Affairs/Sikkim April 2025.html"
+                            class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up transition-shadow duration-300">
+                            <div class="flex flex-col items-center">
+                                <h2 class="text-2xl font-semibold mb-3">April 2025</h2>
+                                <span class="text-sky-600 font-medium">Start Quiz &rarr;</span>
+                            </div>
+                        </a>
+                        <!-- March 2025 -->
+                        <a href="Sikkim Current Affairs/Sikkim March 2025.html"
+                            class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up transition-shadow duration-300">
+                            <div class="flex flex-col items-center">
+                                <h2 class="text-2xl font-semibold mb-3">March 2025</h2>
+                                <span class="text-sky-600 font-medium">Start Quiz &rarr;</span>
+                            </div>
+                        </a>
+                        <!-- February 2025 -->
+                        <a href="Sikkim Current Affairs/Sikkim February 2025.html"
+                            class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up transition-shadow duration-300">
+                            <div class="flex flex-col items-center">
+                                <h2 class="text-2xl font-semibold mb-3">February 2025</h2>
+                                <span class="text-sky-600 font-medium">Start Quiz &rarr;</span>
+                            </div>
+                        </a>
+                        <!-- January 2025 -->
+                        <a href="Sikkim Current Affairs/Sikkim January 2025.html"
+                            class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up transition-shadow duration-300">
+                            <div class="flex flex-col items-center">
+                                <h2 class="text-2xl font-semibold mb-3">January 2025</h2>
+                                <span class="text-sky-600 font-medium">Start Quiz &rarr;</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 2024 Archive -->
+                <div class="archive-year mb-8 year-collapsed" id="year-sikkim-2024">
+                    <div class="year-header flex items-center justify-between p-5 mb-6"
+                        onclick="toggleYear('year-sikkim-2024')">
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-gray-200">Archive 2024</h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                            stroke="currentColor" class="chevron-icon w-6 h-6 text-sky-600">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                        </svg>
+                    </div>
+                    <div class="year-content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12"
+                        style="max-height: 1000px;">
+                        <!-- December 2024 -->
+                        <a href="Sikkim Current Affairs/Sikkim December 2024.html"
+                            class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up transition-shadow duration-300">
+                            <div class="flex flex-col items-center">
+                                <h2 class="text-2xl font-semibold mb-3">December 2024</h2>
+                                <span class="text-sky-600 font-medium">Start Quiz &rarr;</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Sikkim Static GK Sub-section -->
+                <div class="mt-16 sm:mt-20">
+                    <h2 class="text-3xl font-bold text-sky-600 dark:text-sky-400 mb-8 border-l-4 border-sky-600 pl-4">
+                        Sikkim Static GK</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
+                        <!-- Sikkim Rapid Fire Series -->
+                        <a href="Sikkim Rapid Fire Series.html"
+                            class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up focus:outline-none focus:ring-4 focus:ring-red-500/50 dark:focus:ring-red-400/40 focus:ring-offset-4 dark:focus:ring-offset-black">
+                            <div class="flex flex-col items-center">
+                                <div
+                                    class="icon-bg mb-5 sm:mb-6 p-4 rounded-full group-hover:scale-110 transition-transform duration-300 bg-red-100 dark:bg-red-900/30">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor"
+                                        class="w-10 h-10 sm:w-12 sm:h-12 text-red-600">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-1.568-4.564 3.75 3.75 0 102.998 8.485z" />
+                                    </svg>
+                                </div>
+                                <h2
+                                    class="text-2xl sm:text-3xl font-bold text-center mb-3 group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors duration-300">
+                                    Rapid Fire Series</h2>
+                                <p
+                                    class="text-sm sm:text-base text-center mb-6 text-red-700 dark:text-red-300 font-medium">
+                                    Comprehensive & Detailed</p>
+                                <span
+                                    class="cta-button-pulse inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-red-600 rounded-lg group-hover:bg-red-700 transition-all duration-300 transform group-hover:scale-105 shadow-md group-hover:shadow-lg">
+                                    Start Now <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="2" stroke="currentColor" class="w-5 h-5 ml-2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                    </svg>
+                                </span>
+                            </div>
+                        </a>
+
+                        <!-- Sikkim Quiz Series -->
+                        <a href="Sikkim Quiz Series.html"
+                            class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up delay-100 focus:outline-none focus:ring-4 focus:ring-green-500/50 dark:focus:ring-green-400/40 focus:ring-offset-4 dark:focus:ring-offset-black">
+                            <div class="flex flex-col items-center">
+                                <div
+                                    class="icon-bg mb-5 sm:mb-6 p-4 rounded-full group-hover:scale-110 transition-transform duration-300 bg-green-100 dark:bg-green-900/30">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor"
+                                        class="w-10 h-10 sm:w-12 sm:h-12 text-green-600">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <h2
+                                    class="text-2xl sm:text-3xl font-bold text-center mb-3 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors duration-300">
+                                    Quiz Series</h2>
+                                <p
+                                    class="text-sm sm:text-base text-center mb-6 text-green-700 dark:text-green-300 font-medium">
+                                    Quick & Easy Practice</p>
+                                <span
+                                    class="cta-button-pulse inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-green-600 rounded-lg group-hover:bg-green-700 transition-all duration-300 transform group-hover:scale-105 shadow-md group-hover:shadow-lg">
+                                    Start Now <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="2" stroke="currentColor" class="w-5 h-5 ml-2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                    </svg>
+                                </span>
+                            </div>
+                        </a>
+
+                        <!-- Important Dates Sikkim -->
+                        <a href="Important Dates Sikkim/importantdatesikkim.html"
+                            class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up delay-200 focus:outline-none focus:ring-4 focus:ring-amber-500/50 dark:focus:ring-amber-400/40 focus:ring-offset-4 dark:focus:ring-offset-black">
+                            <div class="flex flex-col items-center">
+                                <div
+                                    class="icon-bg mb-5 sm:mb-6 p-4 rounded-full group-hover:scale-110 transition-transform duration-300 bg-amber-100 dark:bg-amber-900/30">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor"
+                                        class="w-10 h-10 sm:w-12 sm:h-12 text-amber-600">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+                                    </svg>
+                                </div>
+                                <h2
+                                    class="text-2xl sm:text-3xl font-bold text-center mb-3 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors duration-300">
+                                    Important Dates</h2>
+                                <p class="text-sm sm:text-base text-center mb-6">Historical & Cultural Dates</p>
+                                <span
+                                    class="cta-button-pulse inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-amber-600 rounded-lg group-hover:bg-amber-700 transition-all duration-300 transform group-hover:scale-105 shadow-md group-hover:shadow-lg">
+                                    View Dates <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="2" stroke="currentColor" class="w-5 h-5 ml-2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                    </svg>
+                                </span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- National & International Current Affairs Section -->
+            <section id="section-nia" class="mt-20 mb-12 section-hidden">
+                <h2 class="text-3xl font-bold text-sky-600 dark:text-sky-400 mb-8 border-l-4 border-sky-600 pl-4">
+                    National & International Current Affairs (Updated Every Month)</h2>
+
+                <!-- Latest NIA (2026) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 mb-12">
+                    <!-- January 2026 -->
+                    <a href="National International Current Affairs/National International January 2026.html"
+                        class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up focus:outline-none focus:ring-4 focus:ring-sky-500/50 dark:focus:ring-sky-400/40 focus:ring-offset-4 dark:focus:ring-offset-black">
+                        <div class="flex flex-col items-center">
+                            <div
+                                class="icon-bg mb-5 sm:mb-6 p-4 rounded-full group-hover:scale-110 transition-transform duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor"
+                                    class="icon-svg w-10 h-10 sm:w-12 sm:h-12 text-sky-600">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A12.042 12.042 0 0112 17.25c-2.992 0-5.727-1.1-7.824-2.897m0 0A8.96 8.96 0 013 12c0-.773.098-1.523.282-2.238" />
+                                </svg>
+                            </div>
+                            <h2
+                                class="text-2xl sm:text-3xl font-semibold text-center mb-3 group-hover:text-sky-600 dark:group-hover:text-sky-300 transition-colors duration-300">
+                                January 2026</h2>
+                            <p class="text-sm sm:text-base text-center mb-6">Latest National & International Highlights
+                            </p>
+                            <span
+                                class="cta-button-pulse inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-sky-600 rounded-lg group-hover:bg-sky-700 dark:bg-sky-50 dark:group-hover:bg-sky-600 transition-all duration-300 transform group-hover:scale-105 shadow-md group-hover:shadow-lg">
+                                Start Quiz <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="2" stroke="currentColor"
+                                    class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                </svg>
+                            </span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- 2025 Archive -->
+                <div class="archive-year mb-8 year-collapsed" id="year-nia-2025">
+                    <div class="year-header flex items-center justify-between p-5 mb-6"
+                        onclick="toggleYear('year-nia-2025')">
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-gray-200">Archive 2025</h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                            stroke="currentColor" class="chevron-icon w-6 h-6 text-sky-600">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                        </svg>
+                    </div>
+                    <div class="year-content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12"
+                        style="max-height: 4000px;">
+                        <!-- December 2025 -->
+                        <a href="National International Current Affairs/National International December 2025.html"
+                            class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up transition-shadow duration-300">
+                            <div class="flex flex-col items-center">
+                                <h2 class="text-2xl font-semibold mb-3">December 2025</h2>
+                                <span class="text-sky-600 font-medium">Start Quiz &rarr;</span>
+                            </div>
+                        </a>
+                        <!-- November 2025 -->
+                        <a href="National International Current Affairs/National International November 2025.html"
+                            class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up transition-shadow duration-300">
+                            <div class="flex flex-col items-center">
+                                <h2 class="text-2xl font-semibold mb-3">November 2025</h2>
+                                <span class="text-sky-600 font-medium">Start Quiz &rarr;</span>
+                            </div>
+                        </a>
+                        <!-- October 2025 -->
+                        <a href="National International Current Affairs/National International October 2025.html"
+                            class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up transition-shadow duration-300">
+                            <div class="flex flex-col items-center">
+                                <h2 class="text-2xl font-semibold mb-3">October 2025</h2>
+                                <span class="text-sky-600 font-medium">Start Quiz &rarr;</span>
+                            </div>
+                        </a>
+                        <!-- September 2025 -->
+                        <a href="National International Current Affairs/National International September 2025.html"
+                            class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up transition-shadow duration-300">
+                            <div class="flex flex-col items-center">
+                                <h2 class="text-2xl font-semibold mb-3">September 2025</h2>
+                                <span class="text-sky-600 font-medium">Start Quiz &rarr;</span>
+                            </div>
+                        </a>
+                        <!-- August 2025 -->
+                        <a href="National International Current Affairs/National International August 2025.html"
+                            class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up transition-shadow duration-300">
+                            <div class="flex flex-col items-center">
+                                <h2 class="text-2xl font-semibold mb-3">August 2025</h2>
+                                <span class="text-sky-600 font-medium">Start Quiz &rarr;</span>
+                            </div>
+                        </a>
+                        <!-- July 2025 -->
+                        <a href="National International Current Affairs/National International July 2025.html"
+                            class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up transition-shadow duration-300">
+                            <div class="flex flex-col items-center">
+                                <h2 class="text-2xl font-semibold mb-3">July 2025</h2>
+                                <span class="text-sky-600 font-medium">Start Quiz &rarr;</span>
+                            </div>
+                        </a>
+                        <!-- June 2025 -->
+                        <a href="National International Current Affairs/National International June 2025.html"
+                            class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up transition-shadow duration-300">
+                            <div class="flex flex-col items-center">
+                                <h2 class="text-2xl font-semibold mb-3">June 2025</h2>
+                                <span class="text-sky-600 font-medium">Start Quiz &rarr;</span>
+                            </div>
+                        </a>
+                        <!-- May 2025 -->
+                        <a href="National International Current Affairs/National International May 2025.html"
+                            class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up transition-shadow duration-300">
+                            <div class="flex flex-col items-center">
+                                <h2 class="text-2xl font-semibold mb-3">May 2025</h2>
+                                <span class="text-sky-600 font-medium">Start Quiz &rarr;</span>
+                            </div>
+                        </a>
+                        <!-- April 2025 -->
+                        <a href="National International Current Affairs/National International April 2025.html"
+                            class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up transition-shadow duration-300">
+                            <div class="flex flex-col items-center">
+                                <h2 class="text-2xl font-semibold mb-3">April 2025</h2>
+                                <span class="text-sky-600 font-medium">Start Quiz &rarr;</span>
+                            </div>
+                        </a>
+                        <!-- March 2025 -->
+                        <a href="National International Current Affairs/National International March 2025.html"
+                            class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up transition-shadow duration-300">
+                            <div class="flex flex-col items-center">
+                                <h2 class="text-2xl font-semibold mb-3">March 2025</h2>
+                                <span class="text-sky-600 font-medium">Start Quiz &rarr;</span>
+                            </div>
+                        </a>
+                        <!-- February 2025 -->
+                        <a href="National International Current Affairs/National International February 2025.html"
+                            class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up transition-shadow duration-300">
+                            <div class="flex flex-col items-center">
+                                <h2 class="text-2xl font-semibold mb-3">February 2025</h2>
+                                <span class="text-sky-600 font-medium">Start Quiz &rarr;</span>
+                            </div>
+                        </a>
+                        <!-- January 2025 -->
+                        <a href="National International Current Affairs/National International January 2025.html"
+                            class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up transition-shadow duration-300">
+                            <div class="flex flex-col items-center">
+                                <h2 class="text-2xl font-semibold mb-3">January 2025</h2>
+                                <span class="text-sky-600 font-medium">Start Quiz &rarr;</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 2024 Archive -->
+                <div class="archive-year mb-8 year-collapsed" id="year-nia-2024">
+                    <div class="year-header flex items-center justify-between p-5 mb-6"
+                        onclick="toggleYear('year-nia-2024')">
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-gray-200">Archive 2024</h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                            stroke="currentColor" class="chevron-icon w-6 h-6 text-sky-600">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                        </svg>
+                    </div>
+                    <div class="year-content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12"
+                        style="max-height: 1000px;">
+                        <!-- December 2024 -->
+                        <a href="National International Current Affairs/National International December 2024.html"
+                            class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up transition-shadow duration-300">
+                            <div class="flex flex-col items-center">
+                                <h2 class="text-2xl font-semibold mb-3">December 2024</h2>
+                                <span class="text-sky-600 font-medium">Start Quiz &rarr;</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- General Studies Section -->
+            <section id="section-gs" class="mt-20 mb-12 section-hidden">
+                <h2 class="text-3xl font-bold text-sky-600 dark:text-sky-400 mb-8 border-l-4 border-sky-600 pl-4">
+                    General Studies (Subject and Topicwise MCQ)</h2>
+                <div id="gsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12">
+                    <!-- Indian History -->
+                    <a href="#"
+                        class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up focus:outline-none focus:ring-4 focus:ring-sky-500/50 dark:focus:ring-sky-400/40 focus:ring-offset-4 dark:focus:ring-offset-black">
+                        <div class="flex flex-col items-center">
+                            <div
+                                class="icon-bg mb-5 sm:mb-6 p-4 rounded-full group-hover:scale-110 transition-transform duration-300 bg-amber-100 dark:bg-amber-900/30">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor"
+                                    class="w-10 h-10 sm:w-12 sm:h-12 text-amber-600">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18c-2.305 0-4.408.867-6 2.292m0-14.25v14.25" />
+                                </svg>
+                            </div>
+                            <h2
+                                class="text-2xl sm:text-3xl font-semibold text-center mb-3 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors duration-300">
+                                Indian History</h2>
+                            <p class="text-sm sm:text-base text-center mb-6">Ancient, Medieval, and Modern History</p>
+                            <span
+                                class="cta-button-pulse inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-amber-600 rounded-lg group-hover:bg-amber-700 transition-all duration-300 transform group-hover:scale-105 shadow-md group-hover:shadow-lg">
+                                Coming Soon <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="2" stroke="currentColor" class="w-5 h-5 ml-2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </span>
+                        </div>
+                    </a>
+
+
+
+                    <!-- Economics -->
+                    <a href="Economy/economy.html"
+                        class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up delay-150 focus:outline-none focus:ring-4 focus:ring-sky-500/50 dark:focus:ring-sky-400/40 focus:ring-offset-4 dark:focus:ring-offset-black">
+                        <div class="flex flex-col items-center">
+                            <div
+                                class="icon-bg mb-5 sm:mb-6 p-4 rounded-full group-hover:scale-110 transition-transform duration-300 bg-emerald-100 dark:bg-emerald-900/30">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor"
+                                    class="w-10 h-10 sm:w-12 sm:h-12 text-emerald-600">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M2.25 18L9 11.25l4.5 4.5L21.75 4.5M21.75 4.5V9M21.75 4.5H17.25" />
+                                </svg>
+                            </div>
+                            <h2
+                                class="text-2xl sm:text-3xl font-semibold text-center mb-3 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors duration-300">
+                                Economics</h2>
+                            <p class="text-sm sm:text-base text-center mb-6">157 MCQs &bull; Indian Economy & Banking
+                            </p>
+                            <span
+                                class="cta-button-pulse inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-emerald-600 rounded-lg group-hover:bg-emerald-700 transition-all duration-300 transform group-hover:scale-105 shadow-md group-hover:shadow-lg">
+                                Practice Now <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="2" stroke="currentColor" class="w-5 h-5 ml-2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                </svg>
+                            </span>
+                        </div>
+                    </a>
+
+                    <!-- Geography -->
+                    <a href="#"
+                        class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up delay-200 focus:outline-none focus:ring-4 focus:ring-sky-500/50 dark:focus:ring-sky-400/40 focus:ring-offset-4 dark:focus:ring-offset-black">
+                        <div class="flex flex-col items-center">
+                            <div
+                                class="icon-bg mb-5 sm:mb-6 p-4 rounded-full group-hover:scale-110 transition-transform duration-300 bg-cyan-100 dark:bg-cyan-900/30">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor"
+                                    class="w-10 h-10 sm:w-12 sm:h-12 text-cyan-600">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A12.042 12.042 0 0112 17.25c-2.992 0-5.727-1.1-7.824-2.897m0 0A8.96 8.96 0 013 12c0-.773.098-1.523.282-2.238" />
+                                </svg>
+                            </div>
+                            <h2
+                                class="text-2xl sm:text-3xl font-semibold text-center mb-3 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors duration-300">
+                                Geography</h2>
+                            <p class="text-sm sm:text-base text-center mb-6">World & Indian Geography</p>
+                            <span
+                                class="cta-button-pulse inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-cyan-600 rounded-lg group-hover:bg-cyan-700 transition-all duration-300 transform group-hover:scale-105 shadow-md group-hover:shadow-lg">
+                                Coming Soon <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="2" stroke="currentColor" class="w-5 h-5 ml-2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </span>
+                        </div>
+                    </a>
+
+                    <!-- Physics -->
+                    <a href="Physics/physics.html"
+                        class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up delay-250 focus:outline-none focus:ring-4 focus:ring-sky-500/50 dark:focus:ring-sky-400/40 focus:ring-offset-4 dark:focus:ring-offset-black">
+                        <div class="flex flex-col items-center">
+                            <div
+                                class="icon-bg mb-5 sm:mb-6 p-4 rounded-full group-hover:scale-110 transition-transform duration-300 bg-blue-100 dark:bg-blue-900/30">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor"
+                                    class="w-10 h-10 sm:w-12 sm:h-12 text-blue-600">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                                </svg>
+                            </div>
+                            <h2
+                                class="text-2xl sm:text-3xl font-semibold text-center mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+                                Physics</h2>
+                            <p class="text-sm sm:text-base text-center mb-6">1432 MCQs &bull; 8 Topics</p>
+                            <span
+                                class="cta-button-pulse inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-blue-600 rounded-lg group-hover:bg-blue-700 transition-all duration-300 transform group-hover:scale-105 shadow-md group-hover:shadow-lg">
+                                Practice Now <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="2" stroke="currentColor" class="w-5 h-5 ml-2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                </svg>
+                            </span>
+                        </div>
+                    </a>
+
+                    <!-- Chemistry -->
+                    <a href="Chemistry/chemistry.html"
+                        class="quiz-card group block p-6 sm:p-8 md:p-10 focus:outline-none focus:ring-4 focus:ring-sky-500/50 dark:focus:ring-sky-400/40 focus:ring-offset-4 dark:focus:ring-offset-black">
+                        <div class="flex flex-col items-center">
+                            <div
+                                class="icon-bg mb-5 sm:mb-6 p-4 rounded-full group-hover:scale-110 transition-transform duration-300 bg-rose-100 dark:bg-rose-900/30">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor"
+                                    class="w-10 h-10 sm:w-12 sm:h-12 text-rose-600">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M9.75 3.104v1.607a2.1 2.1 0 01-.21.917l-4.227 8.455a2.1 2.1 0 00-.21.917v4.032a2.1 2.1 0 002.1 2.1h9.354a2.1 2.1 0 002.1-2.1v-4.032c0-.324-.074-.643-.21-.917l-4.227-8.455a2.1 2.1 0 01-.21-.917V3.104M9 3h6m-5 9h4m-5 3h4m-5 3h4" />
+                                </svg>
+                            </div>
+                            <h2
+                                class="text-2xl sm:text-3xl font-semibold text-center mb-3 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors duration-300">
+                                Chemistry</h2>
+                            <p class="text-sm sm:text-base text-center mb-6">1106 MCQs &bull; 8 Topics</p>
+                            <span
+                                class="cta-button-pulse inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-rose-600 rounded-lg group-hover:bg-rose-700 transition-all duration-300 transform group-hover:scale-105 shadow-md group-hover:shadow-lg">
+                                Practice Now <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="2" stroke="currentColor" class="w-5 h-5 ml-2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                </svg>
+                            </span>
+                        </div>
+                    </a>
+
+                    <!-- Biology -->
+                    <a href="Biology/biology.html"
+                        class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up focus:outline-none focus:ring-4 focus:ring-sky-500/50 dark:focus:ring-sky-400/40 focus:ring-offset-4 dark:focus:ring-offset-black">
+                        <div class="flex flex-col items-center">
+                            <div
+                                class="icon-bg mb-5 sm:mb-6 p-4 rounded-full group-hover:scale-110 transition-transform duration-300 bg-lime-100 dark:bg-lime-900/30">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor"
+                                    class="w-10 h-10 sm:w-12 sm:h-12 text-lime-600">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                                </svg>
+                            </div>
+                            <h2
+                                class="text-2xl sm:text-3xl font-semibold text-center mb-3 group-hover:text-lime-600 dark:group-hover:text-lime-400 transition-colors duration-300">
+                                Biology</h2>
+                            <p class="text-sm sm:text-base text-center mb-6">1118 MCQs &bull; 7 Topics</p>
+                            <span
+                                class="cta-button-pulse inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-lime-600 rounded-lg group-hover:bg-lime-700 transition-all duration-300 transform group-hover:scale-105 shadow-md group-hover:shadow-lg">
+                                Start Practice <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="2" stroke="currentColor" class="w-5 h-5 ml-2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                </svg>
+                            </span>
+                        </div>
+                    </a>
+
+                    <!-- Indian Polity -->
+                    <a href="Polity/indian_polity.html"
+                        class="quiz-card group block p-6 sm:p-8 md:p-10 focus:outline-none focus:ring-4 focus:ring-sky-500/50 dark:focus:ring-sky-400/40 focus:ring-offset-4 dark:focus:ring-offset-black">
+                        <div class="flex flex-col items-center">
+                            <div
+                                class="icon-bg mb-5 sm:mb-6 p-4 rounded-full group-hover:scale-110 transition-transform duration-300 bg-orange-100 dark:bg-orange-900/30">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor"
+                                    class="w-10 h-10 sm:w-12 sm:h-12 text-orange-600">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z" />
+                                </svg>
+                            </div>
+                            <h2
+                                class="text-2xl sm:text-3xl font-semibold text-center mb-3 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors duration-300">
+                                Indian Polity</h2>
+                            <p class="text-sm sm:text-base text-center mb-6">1101 MCQs &bull; 7 Topics</p>
+                            <span
+                                class="cta-button-pulse inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-orange-600 rounded-lg group-hover:bg-orange-700 transition-all duration-300 transform group-hover:scale-105 shadow-md group-hover:shadow-lg">
+                                Start Practice <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="2" stroke="currentColor" class="w-5 h-5 ml-2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                </svg>
+                            </span>
+                        </div>
+                    </a>
+
+                    <!-- Ecology -->
+                    <a href="Ecology/ecology.html"
+                        class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up delay-100 focus:outline-none focus:ring-4 focus:ring-sky-500/50 dark:focus:ring-sky-400/40 focus:ring-offset-4 dark:focus:ring-offset-black">
+                        <div class="flex flex-col items-center">
+                            <div
+                                class="icon-bg mb-5 sm:mb-6 p-4 rounded-full group-hover:scale-110 transition-transform duration-300 bg-emerald-100 dark:bg-emerald-900/30">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor"
+                                    class="w-10 h-10 sm:w-12 sm:h-12 text-emerald-600">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A12.042 12.042 0 0112 17.25c-2.992 0-5.727-1.1-7.824-2.897m0 0A8.96 8.96 0 013 12c0-.773.098-1.523.282-2.238" />
+                                </svg>
+                            </div>
+                            <h2
+                                class="text-2xl sm:text-3xl font-semibold text-center mb-3 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors duration-300">
+                                Ecology</h2>
+                            <p class="text-sm sm:text-base text-center mb-6">882 MCQs &bull; 6 Topics</p>
+                            <span
+                                class="cta-button-pulse inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-emerald-600 rounded-lg group-hover:bg-emerald-700 transition-all duration-300 transform group-hover:scale-105 shadow-md group-hover:shadow-lg">
+                                Start Practice <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="2" stroke="currentColor" class="w-5 h-5 ml-2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                </svg>
+                            </span>
+                        </div>
+                    </a>
+
+                    <!-- Miscellaneous -->
+                    <a href="#"
+                        class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up delay-150 focus:outline-none focus:ring-4 focus:ring-sky-500/50 dark:focus:ring-sky-400/40 focus:ring-offset-4 dark:focus:ring-offset-black">
+                        <div class="flex flex-col items-center">
+                            <div
+                                class="icon-bg mb-5 sm:mb-6 p-4 rounded-full group-hover:scale-110 transition-transform duration-300 bg-slate-100 dark:bg-slate-900/30">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor"
+                                    class="w-10 h-10 sm:w-12 sm:h-12 text-slate-600">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+                                </svg>
+                            </div>
+                            <h2
+                                class="text-2xl sm:text-3xl font-semibold text-center mb-3 group-hover:text-slate-600 dark:group-hover:text-slate-400 transition-colors duration-300">
+                                Miscellaneous</h2>
+                            <p class="text-sm sm:text-base text-center mb-6">General Knowledge & Mix Quizzes</p>
+                            <span
+                                class="cta-button-pulse inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-slate-600 rounded-lg group-hover:bg-slate-700 transition-all duration-300 transform group-hover:scale-105 shadow-md group-hover:shadow-lg">
+                                Coming Soon <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="2" stroke="currentColor" class="w-5 h-5 ml-2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- English Section -->
+            <section id="section-en" class="mt-20 mb-12 section-hidden">
+                <h2 class="text-3xl font-bold text-sky-600 dark:text-sky-400 mb-8 border-l-4 border-sky-600 pl-4">
+                    English — Grammar &amp; Vocabulary (MCQ)</h2>
+                <div id="enContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12">
+                    <!-- Vocabulary -->
+                    <a href="English Vocabulary.html"
+                        class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up delay-100 focus:outline-none focus:ring-4 focus:ring-sky-500/50 dark:focus:ring-sky-400/40 focus:ring-offset-4 dark:focus:ring-offset-black">
+                        <div class="flex flex-col items-center">
+                            <div
+                                class="icon-bg mb-5 sm:mb-6 p-4 rounded-full group-hover:scale-110 transition-transform duration-300 bg-fuchsia-100 dark:bg-fuchsia-900/30">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor"
+                                    class="w-10 h-10 sm:w-12 sm:h-12 text-fuchsia-600">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18c-2.305 0-4.408.867-6 2.292m0-14.25v14.25" />
+                                </svg>
+                            </div>
+                            <h2
+                                class="text-2xl sm:text-3xl font-semibold text-center mb-3 group-hover:text-fuchsia-600 dark:group-hover:text-fuchsia-400 transition-colors duration-300">
+                                Vocabulary</h2>
+                            <p class="text-sm sm:text-base text-center mb-6">Synonyms, Antonyms, Idioms</p>
+                            <span
+                                class="cta-button-pulse inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-fuchsia-600 rounded-lg group-hover:bg-fuchsia-700 transition-all duration-300 transform group-hover:scale-105 shadow-md group-hover:shadow-lg">
+                                Start Now <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="2" stroke="currentColor" class="w-5 h-5 ml-2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                </svg>
+                            </span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- SPSC PYQs Section -->
+            <section id="section-pyq" class="mt-20 mb-12 section-hidden">
+                <h2 class="text-3xl font-bold text-sky-600 dark:text-sky-400 mb-4 border-l-4 border-sky-600 pl-4">
+                    SPSC PYQs (Previous Year Questions)</h2>
+                <p class="text-gray-600 dark:text-white mb-8 max-w-3xl">
+                    Subject-Wise PYQs of Sikkim Public Service Commission exam.
+                </p>
+                <div id="pyqContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12">
+                    <!-- Static GK PYQs -->
+                    <a href="#"
+                        class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up focus:outline-none focus:ring-4 focus:ring-sky-500/50 dark:focus:ring-sky-400/40 focus:ring-offset-4 dark:focus:ring-offset-black">
+                        <div class="flex flex-col items-center">
+                            <div
+                                class="icon-bg mb-5 sm:mb-6 p-4 rounded-full group-hover:scale-110 transition-transform duration-300 bg-sky-100 dark:bg-sky-900/30">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor"
+                                    class="w-10 h-10 sm:w-12 sm:h-12 text-sky-600">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A12.042 12.042 0 0112 17.25c-2.992 0-5.727-1.1-7.824-2.897m0 0A8.96 8.96 0 013 12c0-.773.098-1.523.282-2.238" />
+                                </svg>
+                            </div>
+                            <h2
+                                class="text-2xl sm:text-3xl font-semibold text-center mb-3 group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors duration-300">
+                                Static GK PYQs</h2>
+                            <p class="text-sm sm:text-base text-center mb-6">Past Papers: History, Geography, Polity</p>
+                            <span
+                                class="cta-button-pulse inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-sky-600 rounded-lg group-hover:bg-sky-700 transition-all duration-300 transform group-hover:scale-105 shadow-md group-hover:shadow-lg">
+                                Coming Soon <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="2" stroke="currentColor" class="w-5 h-5 ml-2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </span>
+                        </div>
+                    </a>
+
+                    <!-- English PYQs -->
+                    <a href="#"
+                        class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up delay-100 focus:outline-none focus:ring-4 focus:ring-violet-500/50 dark:focus:ring-violet-400/40 focus:ring-offset-4 dark:focus:ring-offset-black">
+                        <div class="flex flex-col items-center">
+                            <div
+                                class="icon-bg mb-5 sm:mb-6 p-4 rounded-full group-hover:scale-110 transition-transform duration-300 bg-violet-100 dark:bg-violet-900/30">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor"
+                                    class="w-10 h-10 sm:w-12 sm:h-12 text-violet-600">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18c-2.305 0-4.408.867-6 2.292m0-14.25v14.25" />
+                                </svg>
+                            </div>
+                            <h2
+                                class="text-2xl sm:text-3xl font-semibold text-center mb-3 group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors duration-300">
+                                English PYQs</h2>
+                            <p class="text-sm sm:text-base text-center mb-6">Past Papers: Grammar & Vocab</p>
+                            <span
+                                class="cta-button-pulse inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-violet-600 rounded-lg group-hover:bg-violet-700 transition-all duration-300 transform group-hover:scale-105 shadow-md group-hover:shadow-lg">
+                                Coming Soon <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="2" stroke="currentColor" class="w-5 h-5 ml-2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+        </main>
+
+
+
+
+        <footer class="py-8 text-center mt-16 sm:mt-24 footer-line">
+            <p class="text-sm text-gray-500 dark:text-gray-300">
+                © <span id="currentYear"></span> Sikkim PSC preparation hub.
+                Designed by <a href="https://www.instagram.com/nothisisdk/" target="_blank" rel="noopener noreferrer"
+                    class="font-semibold text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-500">nothisisdk</a>.
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        const darkModeToggle = document.getElementById('darkModeToggle'), htmlElement = document.documentElement, knob = darkModeToggle.querySelector('.toggle-knob');
+        const applyTheme = t => { if (t === 'dark') { htmlElement.classList.add('dark'); darkModeToggle.setAttribute('aria-checked', 'true'); knob.classList.remove('knob-at-start'); knob.classList.add('knob-at-end') } else { htmlElement.classList.remove('dark'); darkModeToggle.setAttribute('aria-checked', 'false'); knob.classList.remove('knob-at-end'); knob.classList.add('knob-at-start') } };
+
+        // Initialize UI state based on head script results
+        const currentTheme = htmlElement.classList.contains('dark') ? 'dark' : 'light';
+        applyTheme(currentTheme);
+
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => { if (!localStorage.getItem('theme')) applyTheme(event.matches ? "dark" : "light") });
+        darkModeToggle.addEventListener('click', () => { const newTheme = htmlElement.classList.contains('dark') ? 'light' : 'dark'; applyTheme(newTheme); localStorage.setItem('theme', newTheme) });
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Year archive expand/collapse
+        function toggleYear(id) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.classList.toggle('year-collapsed');
+        }
+
+        // Tab switching logic
+        function switchSection(section) {
+            const sections = {
+                'ca': document.getElementById('section-ca'),
+                'gs': document.getElementById('section-gs'),
+                'en': document.getElementById('section-en'),
+                'nia': document.getElementById('section-nia'),
+                'pyq': document.getElementById('section-pyq')
+            };
+            const tabs = {
+                'ca': document.getElementById('tab-ca'),
+                'gs': document.getElementById('tab-gs'),
+                'en': document.getElementById('tab-en'),
+                'nia': document.getElementById('tab-nia'),
+                'pyq': document.getElementById('tab-pyq')
+            };
+            const placeholders = {
+                'ca': "Search Sikkim CA & Static GK...",
+                'gs': "Search General Studies...",
+                'en': "Search English & Vocabulary MCQ...",
+                'nia': "Search National & International CA...",
+                'pyq': "Search SPSC PYQs..."
+            };
+
+            // Toggle visibility and active state
+            for (const key in sections) {
+                if (key === section) {
+                    sections[key].classList.remove('section-hidden');
+                    tabs[key].classList.add('active');
+                } else {
+                    sections[key].classList.add('section-hidden');
+                    tabs[key].classList.remove('active');
+                }
+            }
+
+            // Update placeholder
+            document.getElementById('quizSearch').placeholder = placeholders[section];
+
+            // Clear search when switching tabs for a fresh view
+            document.getElementById('quizSearch').value = '';
+            filterQuizzes();
+
+            // Save active tab to localStorage
+            localStorage.setItem('activeTab', section);
+        }
+
+        // Search filtering logic
+        function filterQuizzes() {
+            const input = document.getElementById('quizSearch');
+            const filter = input.value.toLowerCase();
+            const quizCards = document.querySelectorAll('.quiz-card');
+
+            quizCards.forEach(card => {
+                const h2 = card.querySelector('h2');
+                const p = card.querySelector('p');
+                const title = (h2 && h2.textContent) ? h2.textContent.toLowerCase() : '';
+                const description = (p && p.textContent) ? p.textContent.toLowerCase() : '';
+
+                // Only filter cards in the CURRENTLY VISIBLE section
+                const parentSection = card.closest('section');
+                const isSectionVisible = !parentSection.classList.contains('section-hidden');
+
+                if (isSectionVisible) {
+                    if (title.includes(filter) || description.includes(filter)) {
+                        card.style.display = "";
+                        card.classList.add('fade-in-up');
+                    } else {
+                        card.style.display = "none";
+                        card.classList.remove('fade-in-up');
+                    }
+                } else {
+                    // Reset hidden section cards so they are ready when switched
+                    card.style.display = "";
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Restore active tab from localStorage
+            const savedTab = localStorage.getItem('activeTab');
+            if (savedTab) {
+                switchSection(savedTab);
+            }
+
+            // Mobile Menu Toggle logic
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+                    mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+                    mobileMenu.classList.toggle('active');
+                    mobileMenuButton.classList.toggle('mobile-menu-open');
+                });
+
+                // Close menu when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (mobileMenu.classList.contains('active') && !mobileMenu.contains(e.target) && e.target !== mobileMenuButton) {
+                        mobileMenu.classList.remove('active');
+                        mobileMenuButton.classList.remove('mobile-menu-open');
+                        mobileMenuButton.setAttribute('aria-expanded', 'false');
+                    }
+                });
+
+                // Close menu on resize if switching to desktop
+                window.addEventListener('resize', () => {
+                    if (window.innerWidth >= 768 && mobileMenu.classList.contains('active')) {
+                        mobileMenu.classList.remove('active');
+                        mobileMenuButton.classList.remove('mobile-menu-open');
+                        mobileMenuButton.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            }
+        });
+
+    </script>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="auth.js"></script>
+</body>
+
+</html>

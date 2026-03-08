@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Constitutional & Non-Constitutional Bodies | Sikkim PSC Hub</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+            border-color: #bbb;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .options-list.answered .option:not(.correct):not(.incorrect) {
+            opacity: 0.7;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none;
+        }
+        .quiz-stats {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <a href="indian_polity.html" class="back-link">&larr; Back to Indian Polity</a>
+        <h1>Constitutional & Non-Constitutional Bodies</h1>
+        <p class="quiz-stats">9 Questions</p>
+        <div id="questions-wrapper"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "The provision of adjudication of disputes relating to waters of inter-state rivers or river valleys is laid down in",
+                options: ["Article 237", "Article 268", "Article 272", "Article 262."],
+                answer: 3
+            },
+            {
+                question: "The concept of Lokpal has been taken from-",
+                options: ["Britain", "America", "Scandinavian countries", "France"],
+                answer: 2
+            },
+            {
+                question: "Who constitutes the Finance Commission-",
+                options: ["Finance Minister", "Prime Minister", "Speaker of Lok Sabha", "President"],
+                answer: 3
+            },
+            {
+                question: "Which of the following does not fall under the jurldiction of Election Commission-",
+                options: ["Election of Prime Minister of India", "Election of the President", "Recognition to political parties", "Allocation of signs to poltical parties"],
+                answer: 0
+            },
+            {
+                question: "The Model Code of Conduct, issued by the Election Commission of India for conduct of political parties and candidates during elections, is-",
+                options: ["A command by the Supreme Court of India", "Agreement between all registered political\nparties", "Stipulated in Constitution", "Specified in the Representation of the People\nAct, 1951"],
+                answer: 1
+            },
+            {
+                question: "Planning Commission of India was-",
+                options: ["A Constitutional Body", "A Free and Autonomous Body", "A Statutory Body", "A Non-Constitutional Body"],
+                answer: 3
+            },
+            {
+                question: "When was the Planning Commission set up-",
+                options: ["1950", "1951", "1952", "1949"],
+                answer: 0
+            },
+            {
+                question: "The First Finance Commission was constituted in-",
+                options: ["1950", "1951", "1952", "1954"],
+                answer: 1
+            },
+            {
+                question: "Which of the following committee had recommended a report for forming the institution of Lokpal and Lokayukta-",
+                options: ["First Administrative Reform Commission", "Gorwala Report", "Ashok Mehta Committee", "The Appleby Report"],
+                answer: 0
+            }
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.textContent = `${index + 1}) ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) {
+                        return;
+                    }
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            wrapper.appendChild(questionBlock);
+        });
+    </script>
+</body>
+</html>

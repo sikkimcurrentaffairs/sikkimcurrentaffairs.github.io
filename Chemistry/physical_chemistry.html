@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physical Chemistry | Sikkim PSC Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        .quiz-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        html.dark .quiz-container {
+            background: #24272c;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #0284c7;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        html.dark .question-block {
+            border-bottom: 1px solid #334155;
+        }
+        .question-text {
+            font-size: 1.15em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+        html.dark .question-text {
+            color: #f1f5f9;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option {
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            padding: 16px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            color: #475569;
+        }
+        html.dark .option {
+            background-color: #1e293b;
+            border: 2px solid #334155;
+            color: #cbd5e1;
+        }
+        .option:hover {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
+            transform: translateX(4px);
+        }
+        html.dark .option:hover {
+            background-color: #334155;
+            border-color: #475569;
+        }
+        .option.correct {
+            background-color: #dcfce7 !important;
+            border-color: #4ade80 !important;
+            color: #166534 !important;
+        }
+        html.dark .option.correct {
+            background-color: #064e3b !important;
+            border-color: #10b981 !important;
+            color: #ecfdf5 !important;
+        }
+        .option.incorrect {
+            background-color: #fee2e2 !important;
+            border-color: #f87171 !important;
+            color: #991b1b !important;
+        }
+        html.dark .option.incorrect {
+            background-color: #7f1d1d !important;
+            border-color: #ef4444 !important;
+            color: #fef2f2 !important;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none;
+        }
+        .quiz-stats-badge {
+            background: #f1f5f9;
+            color: #64748b;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        html.dark .quiz-stats-badge {
+            background: #334155;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 min-h-screen p-4 sm:p-8">
+
+    <div class="quiz-container">
+        <a href="chemistry.html" class="back-link">&larr; Back to Chemistry Topics</a>
+        <h1 class="text-3xl font-bold text-sky-800 dark:text-sky-400 mb-2">Physical Chemistry</h1>
+        <div class="quiz-stats-badge">161 MCQ Questions</div>
+        
+        <div id="questions-wrapper"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "The metal used to recover copper from a solution of copper sulphate is",
+                options: ["Na", "Ag", "Hg", "Fe"],
+                answer: 3
+            },
+            {
+                question: "The law which states that the amount of gas dissolved in a liquid is proportional to its partial pressure is",
+                options: ["Dalton's law", "Gay Lussac's law", "Henry's law", "Raoult's law"],
+                answer: 2
+            },
+            {
+                question: "The most abundant rare gas in the atmosphere is",
+                options: ["He", "Ne", "Ar", "Xe"],
+                answer: 2
+            },
+            {
+                question: "The material which can be deformed permanently by heat and pressure is called a",
+                options: ["thermoplastic", "thermoset", "chemical compound", "polymer"],
+                answer: 1
+            },
+            {
+                question: "The gas used in the manufacture of vanaspati from vegetable oil is",
+                options: ["hydrogen", "oxygen", "nitrogen", "carbon dioxide"],
+                answer: 0
+            },
+            {
+                question: "The gas used for artificial ripening of green fruit is",
+                options: ["ethylene", "ethane", "carbon dioxide", "acetylene"],
+                answer: 0
+            },
+            {
+                question: "The hottest part of the gas flame is known as",
+                options: ["luminous zone", "dark zone", "blue zone", "non-luminous zone"],
+                answer: 0
+            },
+            {
+                question: "Equal masses of oxygen, hydrogen and methane are kept under identical conditions. The ratio of the volumes of gases will be",
+                options: ["2 : 16 : 2", "2 : 16 : 1", "1 : 16 : 2", "1 : 1 : 1"],
+                answer: 2
+            },
+            {
+                question: "The inert gases are ____ in water.",
+                options: ["sparingly soluble", "insoluble", "soluble", "None of these"],
+                answer: 0
+            },
+            {
+                question: "Air is said to be saturated when :",
+                options: ["It contains maximum content of water vapour", "Its pressure is minimum", "Its thickness is maximum", "It blows over the barren land"],
+                answer: 0
+            },
+            {
+                question: "The gas used to extinguish fire is",
+                options: ["Neon", "Nitrogen", "Carbon dioxide", "Carbon monoxide"],
+                answer: 2
+            },
+            {
+                question: "Which of the following gases is present under pressure in soft drinks?",
+                options: ["Oxygen", "Nitrogen", "Carbon dioxide", "Nitrous oxide"],
+                answer: 2
+            },
+            {
+                question: "Highly toxic gas which causes headache, visual difficulty, paralysis and even death is",
+                options: ["CO2", "O3", "CO", "All of these"],
+                answer: 2
+            },
+            {
+                question: "Water gas is the combination of",
+                options: ["CO and H2", "CO2and H2", "CO and H2O", "CO2and CO"],
+                answer: 0
+            },
+            {
+                question: "The gas that causes suffocation and death when coal or coke is burnt in a closed room is",
+                options: ["Methane", "Ethane", "Carbon monoxide", "Carbon dioxide"],
+                answer: 2
+            },
+            {
+                question: "Which gas is used as fire extinguisher ?",
+                options: ["Carbon dioxide", "Carbon monoxide", "Carbon suboxide", "Sulphur dioxide"],
+                answer: 0
+            },
+            {
+                question: "A potato tuber has been cut into two halves. A few drops of iodine solution are placed on the cut surface of one of the halves. What colour change will be noticed?",
+                options: ["From brown to blue-black", "From brown to orange-red", "From blue to pink", "From pink to blue-green"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is chiefly present in LPG (Liquefied Petroleum Gas) ?",
+                options: ["Methane", "Ethane", "Propane", "Butane"],
+                answer: 3
+            },
+            {
+                question: "Cooking gas is a mixture of",
+                options: ["Methane and ethylene", "Carbon dioxide and oxygen", "Butane and propane", "Carbon monoxide and carbon dioxide"],
+                answer: 2
+            },
+            {
+                question: "Thermal electricity is generated by using which of these ?",
+                options: ["Coal only", "Coal and Natural Gas only", "Coal, Natural Gas and Petroleum", "None of these"],
+                answer: 2
+            },
+            {
+                question: "The gas that usually causes explosions in coal mines is",
+                options: ["Hydrogen", "Carbon monoxide", "Air", "Methane"],
+                answer: 3
+            },
+            {
+                question: "Indane gas is mixture of",
+                options: ["Butane and hydrogen", "Butane and oxygen", "Butane and propane", "Methane and oxygen"],
+                answer: 2
+            },
+            {
+                question: "The charcoal used to decolourise brown sugar solution is",
+                options: ["Wood charcoal", "Coconut charcoal", "Animal charcoal", "Sugar charcoal"],
+                answer: 2
+            },
+            {
+                question: "Domestic cooking gas consists mostly of",
+                options: ["Methane and ethane", "Liquified butane and isobutane", "Hydrogen and acetylene", "Ethylene and carbon monoxide"],
+                answer: 1
+            },
+            {
+                question: "Piped Natural Gas (PNG) is used for",
+                options: ["Mining", "Welding", "Anaesthesia", "Cooking"],
+                answer: 3
+            },
+            {
+                question: "Helium gas is used in gas balloons instead of hydrogen gas because it is",
+                options: ["Lighter than hydrogen", "More abundant than hydrogen", "Non-combustible", "More stable"],
+                answer: 2
+            },
+            {
+                question: "A mixture of water and alcohol can be separated by",
+                options: ["Filtration", "Evaporation", "Decantation", "Distillation"],
+                answer: 3
+            },
+            {
+                question: "Which one is a naturally occuring noble gas?",
+                options: ["Sodium", "Potassium", "Argon", "Boron"],
+                answer: 2
+            },
+            {
+                question: "The gas used for filling weather balloons is",
+                options: ["Helium", "Hydrogen", "Air", "Nitrogen"],
+                answer: 0
+            },
+            {
+                question: "Which one of the following is also known as solution ?",
+                options: ["A compound", "A homogeneous mixture", "A heterogeneous mixture", "A suspension"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is not a noble gas ?",
+                options: ["Hydrogen", "Helium", "Neon", "Argon"],
+                answer: 0
+            },
+            {
+                question: "Except mercury which is the other metal that is liquid at standard conditions for temperature and pressure?",
+                options: ["Lead", "Bromine", "Barium", "Magnesium"],
+                answer: 1
+            },
+            {
+                question: "Iron filings can be separated from a heterogeneous mixture using the technique of :",
+                options: ["Sublimation", "Magnetization", "Sedimentation", "Evaporation"],
+                answer: 1
+            },
+            {
+                question: "The most abundant inert gas in the atmosphere is",
+                options: ["Helium", "Neon", "Argon", "Krypton"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following elements is an example of noble gas ?",
+                options: ["Nitrogen", "Hydrogen", "Chlorine", "Helium"],
+                answer: 3
+            },
+            {
+                question: "Helium gas is filled in balloons because",
+                options: ["Its atomic number is 2", "It is lighter than air", "It is one of the constitutents of water", "It is a noble gas"],
+                answer: 1
+            },
+            {
+                question: "The inert gas which is substituted for nitrogen in the air used by deep sea divers for breathing is",
+                options: ["Neon", "Krypton", "Argon", "Helium"],
+                answer: 3
+            },
+            {
+                question: "At room temperature, the metal that remains liquid is:",
+                options: ["Mercury", "Platinum", "Lead", "Zinc"],
+                answer: 0
+            },
+            {
+                question: "Which gas emitted by power stations causes acid rain?",
+                options: ["Carbon dioxide", "Sulphur dioxide", "Helium", "Nitrogen"],
+                answer: 1
+            },
+            {
+                question: "Major gaseous pollutant of the thermal power station is",
+                options: ["H2S", "NH3", "NO2", "SO2"],
+                answer: 3
+            },
+            {
+                question: "The gas causing acid rain in an industrial area is",
+                options: ["Carbon dioxide", "Carbon monoxide", "Sulphur dioxide", "Methane"],
+                answer: 2
+            },
+            {
+                question: "The liquid waste from kitchens and baths, of residences is known as :",
+                options: ["Domestic sewage", "Storm water", "Sullage", "Refuse"],
+                answer: 2
+            },
+            {
+                question: "Which of the following metals can displace copper from copper sulphate solution ?",
+                options: ["Platinum", "Mercury", "Iron", "Gold"],
+                answer: 2
+            },
+            {
+                question: "Which among the following is used to dilute oxygen in the gas cylinders used by divers ?",
+                options: ["Krypton", "Argon", "Helium", "Neon"],
+                answer: 2
+            },
+            {
+                question: "Which one element from below list is liquid at room temperature?",
+                options: ["Zinc", "Argon", "Lead", "Bromine"],
+                answer: 3
+            },
+            {
+                question: "Iodine can be separated from a mixture of Iodine and Potassium Chloride by",
+                options: ["Sedimentation", "Filtration", "Sublimation", "Distillation"],
+                answer: 2
+            },
+            {
+                question: "The gas used to dilute oxygen for breathing by deep sea divers is:",
+                options: ["Neon", "Argon", "Nitrogen", "Helium"],
+                answer: 3
+            },
+            {
+                question: "Water can be separated from alcohol water mixture by",
+                options: ["Decantation", "Evaporation", "Distillation", "Sublimation"],
+                answer: 2
+            },
+            {
+                question: "Which gas is used for converting vegetable oils into saturated fats ?",
+                options: ["H2", "O2", "Cl2", "SO2"],
+                answer: 0
+            },
+            {
+                question: "Which of the following gases will effuse out of football bladder most quickly ?",
+                options: ["He", "H2", "N2", "O2"],
+                answer: 1
+            },
+            {
+                question: "Carbon monoxide is an inflammable gas. Which one of the following is also inflammable?",
+                options: ["Helium", "Nitrogen", "Oxygen", "Hydrogen"],
+                answer: 3
+            },
+            {
+                question: "The gas which turns into liquid at the lowest temperature among the following is",
+                options: ["Hydrogen", "Oxygen", "Helium", "Nitrogen"],
+                answer: 0
+            },
+            {
+                question: "The gas that is used in the manufacture of vanaspati ghee is :",
+                options: ["Oxygen", "Carbon dioxide", "Hydrogen", "Nitrogen"],
+                answer: 2
+            },
+            {
+                question: "The lightest gas which is non-inflammable is",
+                options: ["Hydrogen", "Helium", "Oxygen", "Nitrogen"],
+                answer: 1
+            },
+            {
+                question: "The biogas used for cooking is a mixture of which of the following?",
+                options: ["Carbon dioxide and oxygen", "Isobutane and propane", "Methane and carbon monoxide", "Methane and carbon dioxide"],
+                answer: 3
+            },
+            {
+                question: "The major constituent of gobar gas is",
+                options: ["Carbon dioxide", "Methane", "Butane", "Isobutane"],
+                answer: 1
+            },
+            {
+                question: "________ is a by product of sewage treatment and can be decomposed to produce biogas",
+                options: ["Sewage", "Sludge", "Sewer", "Scum"],
+                answer: 1
+            },
+            {
+                question: "Gobar gas contains mainly :",
+                options: ["Methane", "Ethylene", "Propylene", "Acetylene"],
+                answer: 0
+            },
+            {
+                question: "Gobar gas mainly contains",
+                options: ["Carbon dioxide", "Carbon monoxide", "Hydrogen sulphide", "Methane"],
+                answer: 3
+            },
+            {
+                question: "The main constituent of biogas is",
+                options: ["Oxygen", "Methane", "Acetic acid", "Methyl alcohol"],
+                answer: 1
+            },
+            {
+                question: "For generation of biogas, the materials commonly used are",
+                options: ["Animal wastes", "Crop residues", "Aquatic plants", "Forest residues"],
+                answer: 0
+            },
+            {
+                question: "The main constituent of natural gas is",
+                options: ["Methane", "Ethane", "Butane", "Propane"],
+                answer: 0
+            },
+            {
+                question: "The chief constituent of natural gas is:",
+                options: ["Methane", "Helium", "Nitrogen", "Propane"],
+                answer: 0
+            },
+            {
+                question: "The highest volume of gases in lower atmosphere is comprised of",
+                options: ["Hydrogen", "Carbon dioxide", "Oxygen", "Nitrogen"],
+                answer: 3
+            },
+            {
+                question: "Which is not a green house gas ?",
+                options: ["CO2", "CH4", "N2O", "Chlorofluorocarbons"],
+                answer: 2
+            },
+            {
+                question: "Earth\u2019s atmosphere is an envelope of gases extending to a height of",
+                options: ["100 km", "150 km", "200 km", "300 km"],
+                answer: 2
+            },
+            {
+                question: "Besides CO2, the other green house gas is",
+                options: ["CH4", "N2", "Ar", "O2"],
+                answer: 0
+            },
+            {
+                question: "The atmospheric gas that is mainly responsible for green house effect :",
+                options: ["Ozone", "Nitrogen", "Oxygen", "Carbon dioxide"],
+                answer: 3
+            },
+            {
+                question: "Which one of the following is a greenhouse gas ?",
+                options: ["Nitrogen", "Helium", "Carbon dioxide", "Sulphur dioxide"],
+                answer: 2
+            },
+            {
+                question: "Which gas does not form the part of atmosphere ?",
+                options: ["Nitrogen", "Helium", "Chlorine", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following is not a \u2018green house gas\u2019 ?",
+                options: ["Chlorofluorocarbons", "Methane", "Carbon dioxide", "Nitrogen"],
+                answer: 3
+            },
+            {
+                question: "Green house effect is accelerated by",
+                options: ["Deforestation", "Rapid industrialization", "Increased transportation activity", "All of these"],
+                answer: 3
+            },
+            {
+                question: "The increasing abundance of green house gases in atmosphere has led to the following effect except",
+                options: ["Global warming", "Depletion of ozone layer in the stratosphere", "Oxygen fertilization effect", "Carbon dioxide ferilization effect"],
+                answer: 2
+            },
+            {
+                question: "The components of water can be separated by",
+                options: ["Physical methods", "Chemical methods", "Both A and B", "They can not be separated"],
+                answer: 1
+            },
+            {
+                question: "The chemical formula of the laughing gas is",
+                options: ["NO", "N2O", "NO2", "N2O3"],
+                answer: 1
+            },
+            {
+                question: "Aerated water contains",
+                options: ["SO2", "NO2", "H2", "CO2"],
+                answer: 3
+            },
+            {
+                question: "In sugar solution,",
+                options: ["Sugar is solute, water is solvent", "Sugar is solvent, water is solute", "Both are solutes", "Both are solvents"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is the strongest base in aqueous solution ?",
+                options: ["Diethylamine", "Triethylamine", "Ammonia", "Ethylamine"],
+                answer: 0
+            },
+            {
+                question: "The acid which fails to liberate carbon dioxide from sodium bicarbonate is :",
+                options: ["Acetic acid", "Formic acid", "Carbonic acid", "Sulphuric acid"],
+                answer: 3
+            },
+            {
+                question: "The gas dissolved in water that makes it basic is :",
+                options: ["Ammonia", "Sulphur dioxide", "Hydrogen", "Carbon dioxide"],
+                answer: 0
+            },
+            {
+                question: "When lime juice is dropped on baking soda, brisk effervescence takes place because the gas evolved is",
+                options: ["Hydrogen", "Oxygen", "Carbon dioxide", "All of them"],
+                answer: 2
+            },
+            {
+                question: "Which of the following gases is most toxic ?",
+                options: ["Carbon dioxide", "Carbon monoxide", "Sulphur dioxide", "Chlorine"],
+                answer: 1
+            },
+            {
+                question: "Water gas is the mixture of",
+                options: ["Carbon dioxide and hydrogen", "Carbon monoxide and nitrogen", "Carbon monoxide and hydrogen", "Carbon dioxide and nitrogen"],
+                answer: 2
+            },
+            {
+                question: "Which of the following electrodes is used in strongly alkaline solution?",
+                options: ["Mercury - mercuric oxide electrode", "Mercury - mercurous sulphate electrode", "Mercury - mercurous chloride electrode", "Silver - silver chloride electrode"],
+                answer: 0
+            },
+            {
+                question: "Electrolysis of an aqueous solution of copper sulphate using copper electrodes gives",
+                options: ["Copper at cathode and oxygen at anode", "Copper at anode and oxygen at cathode.", "Copper at cathode and anodes dissolve to give copper", "Hydrogen at cathode and oxygen at anode"],
+                answer: 0
+            },
+            {
+                question: "The aqueous solution of potassium chloride is",
+                options: ["A weak electrolyte", "A strong electrolyte", "A non-electrolyte", "Initially weak and then become a strong electrolyte"],
+                answer: 1
+            },
+            {
+                question: "Froth floatation process to concentrate the minerals is applicable to",
+                options: ["Calamine", "Chalcopyrites", "Bauxite", "Haematite"],
+                answer: 1
+            },
+            {
+                question: "Brass is a solution of molten copper in",
+                options: ["Solid zinc", "Molten zinc", "Gaseous zinc", "Molten tin"],
+                answer: 1
+            },
+            {
+                question: "The substance which does not expand on going from liquid state to solid state is",
+                options: ["Water", "Cast-iron", "Aluminium", "Type metal"],
+                answer: 3
+            },
+            {
+                question: "Glycol is added to aviation gasoline because it",
+                options: ["Reduces evaporation of petrol", "Increases efficiency of petrol", "Prevents freezing of petrol", "Reduces consumption of petrol"],
+                answer: 2
+            },
+            {
+                question: "Which one is the most reactive gaseous element?",
+                options: ["Chlorine", "Bromine", "Iodine", "Flourine"],
+                answer: 3
+            },
+            {
+                question: "The gas which emits from rice field is",
+                options: ["Ethane", "Methane", "Nitrogen", "All of the above"],
+                answer: 1
+            },
+            {
+                question: "The gas used for artificial fruit ripening of green fruit is \u2013",
+                options: ["Ethylene", "Acetylene", "Ethane", "Methane"],
+                answer: 0
+            },
+            {
+                question: "The gas produced in marshy places due to decomposition of vegetation is",
+                options: ["Carbon monoxide", "Carbon dioxide", "Sulphur dioxide", "Methane"],
+                answer: 3
+            },
+            {
+                question: "Vinegar is an aqueous solution of",
+                options: ["Oxalic acid", "Citric acid", "Hydrochloric acid", "Acetic acid"],
+                answer: 3
+            },
+            {
+                question: "The most suitable vessel for storing concentrated sulphuric acid is",
+                options: ["Copper vessel", "Aluminium vessel", "Glass vessel", "Earthen vessel"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following nonmetals shows allotropy in the liquid state?",
+                options: ["Carbon", "Sulphur", "Phosphorous", "Bromine"],
+                answer: 1
+            },
+            {
+                question: "One of the constituents of tear gas is",
+                options: ["Ethane", "Ethanol", "Ether", "Chloropicrin"],
+                answer: 3
+            },
+            {
+                question: "What is a mixture of potassium nitrate, powdered charcoal and sulphur called?",
+                options: ["Glass", "Cement", "Paint", "Gun powder"],
+                answer: 3
+            },
+            {
+                question: "The gas used in the artificial ripening of fruits is",
+                options: ["Acetylene", "Methane", "Ethane", "Butane"],
+                answer: 0
+            },
+            {
+                question: "The chemical name of 'laughing gas' is",
+                options: ["Nitric oxide", "Nitrogen dioxide", "Nitrogen pentoxide", "Nitrous oxide"],
+                answer: 3
+            },
+            {
+                question: "Laughing gas is",
+                options: ["Nitric oxide", "Nitrous oxide", "Nitrogen trioxide", "Nitrogen pentoxide"],
+                answer: 1
+            },
+            {
+                question: "Which of the following statements are correct about chloroform?a. Liquid fuelb. Anaesthetic in naturec. Produces phosgened. Fire extinguisher",
+                options: ["A, B", "A, C", "B, C", "D, A"],
+                answer: 2
+            },
+            {
+                question: "Tear gas used by the police to disperse the mob contains",
+                options: ["Carbon dioxide", "Chlorine", "Ammonia", "Hydrogen sulphide"],
+                answer: 1
+            },
+            {
+                question: "Tear gas is :",
+                options: ["Chloroprene", "Carbonyl chloride", "Nitrous oxide", "Bleaching powder"],
+                answer: 1
+            },
+            {
+                question: "When ice cubes are made, the entropy of water",
+                options: ["Does not change", "Decreases", "Increases", "May either increase or decrease depending on the process used"],
+                answer: 1
+            },
+            {
+                question: "Entropy of Universe is always",
+                options: ["Decreasing", "Zero", "Constant", "Increasing"],
+                answer: 3
+            },
+            {
+                question: "Kinetics is the study of:",
+                options: ["The rate of chemical reaction", "How fast the reactions go", "The mechanisms and paths of the molecules take in joining from one reactant to products", "All of these are correct"],
+                answer: 3
+            },
+            {
+                question: "Bhopal gas tragedy is associated with leakage of",
+                options: ["Carbon dioxide", "Nitrogen dioxide", "Sulphur dioxide", "Methyl isocyanate"],
+                answer: 3
+            },
+            {
+                question: "An important green-house gas other than methane being produced from the agricultural fields is",
+                options: ["Nitrous oxide", "Ammonia", "Sulphur dioxide", "Arsine"],
+                answer: 0
+            },
+            {
+                question: "The gas which is mainly responsible for the green house effect is:",
+                options: ["Ozone", "Oxygen", "Carbon dioxide", "Carbon monoxide"],
+                answer: 2
+            },
+            {
+                question: "The Bhopal gas tragedy was caused by the gas",
+                options: ["Methyl chloride", "Methyl Isocyanide", "Methyl Isocyanate", "Methyl Cyanide"],
+                answer: 2
+            },
+            {
+                question: "The Bhopal tragedy was caused by the gas",
+                options: ["Phosgene", "Carbon monoxide", "Methyl isocyanate", "Chlorine"],
+                answer: 2
+            },
+            {
+                question: "Gas released during Bhopal tragedy was :",
+                options: ["Sodium isothiocyanate", "Potassium isothiocyanate", "Ethyl isocyanate", "Methyl isocyanate"],
+                answer: 3
+            },
+            {
+                question: "Which one amongst the following is not a Green House gas?",
+                options: ["Nitrogen", "Carbon dioxide", "Carbon Monoxide", "Chloro fluoro carbons"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is not a greenhouse gas ?",
+                options: ["Hydrogen", "Carbon dioxide", "Nitric oxide", "Chlorofluorocarbon"],
+                answer: 0
+            },
+            {
+                question: "Which is abundant in Gobar gas?",
+                options: ["Carbon dioxide", "Methane", "Oxygen", "Hydrogen"],
+                answer: 1
+            },
+            {
+                question: "The major harmful gas emitted by automobile vehicle which causes air pollution is",
+                options: ["Carbon Monoxide", "Methane", "Carbon dioxide", "Ozone gas"],
+                answer: 0
+            },
+            {
+                question: "The major harmful gas emitted by automobile vehicles which causes air pollution is",
+                options: ["Carbon Monoxide", "Methane", "Carbon dioxide", "Ozone gas"],
+                answer: 0
+            },
+            {
+                question: "Which one of the following is a major green house gas?",
+                options: ["Carbon dioxide", "Chloro fluorocarbon", "Carbon monoxide", "Freon"],
+                answer: 0
+            },
+            {
+                question: "The gas involved in Bhopal incident was",
+                options: ["Hydrogen sulphide", "Nitrogen dioxide", "Methyl chloride", "Methyl isocyanate"],
+                answer: 3
+            },
+            {
+                question: "Which one of the following group of gases contributes to the 'Green House Effect'?",
+                options: ["Carbon dioxide and Methane", "Ammonia and Ozone", "Carbon monoxide and Sulphur dioxide", "Carbon tetraflouride and Nitrous oxide"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is not a gaseous air pollutant?",
+                options: ["Oxides of nitrogen", "Hydrocarbon", "Smoke", "Oxides of sulphur"],
+                answer: 1
+            },
+            {
+                question: "The gas liberated in the Bhopal gas tragedy was:",
+                options: ["Pheynl isocynate", "Acetylene", "Ethylene", "Methyl isocynate"],
+                answer: 3
+            },
+            {
+                question: "'Bhopal gas tragedy' 1984 is related to which gas",
+                options: ["Aluminium Phosphide", "Methyl bromide", "Methyl isocyanate", "Carbon dioxide"],
+                answer: 2
+            },
+            {
+                question: "Which gas is most stable at room temperature?",
+                options: ["H2", "N2", "F2", "O2"],
+                answer: 1
+            },
+            {
+                question: "Which among the following stage is suitable indicator when solution of sodium carbonate is mixed with sulphuric acid ?",
+                options: ["Methylene blue", "Methyl red", "Phenolphthaline", "Methyl orange"],
+                answer: 3
+            },
+            {
+                question: "The main component of liquid bleach is:",
+                options: ["Sodium chloride", "Sodium hypochlorite", "Hydrochloric acid", "Sodium hypochlorate"],
+                answer: 1
+            },
+            {
+                question: "The name of unreactive gas is",
+                options: ["Carbon dioxide", "Hydrogen", "Nitrogen", "Oxygen"],
+                answer: 2
+            },
+            {
+                question: "In deep-sea diving, divers use a mixture of gases consisting of oxygen and",
+                options: ["Hydrogen", "Nitrogen", "Argon", "Helium"],
+                answer: 3
+            },
+            {
+                question: "Now-a-days yellow lamps are frequently used as street lights. Which of the following gases is used in these lamps ?",
+                options: ["Sodium", "Neon", "Hydrogen", "Nitrogen"],
+                answer: 0
+            },
+            {
+                question: "The most volatile of the given liquids is",
+                options: ["Ether", "Liquid", "Liquid NH3", "Liquid He"],
+                answer: 3
+            },
+            {
+                question: "Liquid Nitrogen boils at",
+                options: ["77 kelvin", "82 Kelvin", "54 kelvin", "97 Kelvin"],
+                answer: 0
+            },
+            {
+                question: "Which of the following gases is mixed with oxygen for breathing by divers in aqua lungs?",
+                options: ["Methane", "Nitrogen", "Helium", "Hydrogen"],
+                answer: 2
+            },
+            {
+                question: "An emulsion is a colloidal solution of",
+                options: ["Liquid in liquid", "Solid in liquid", "Gas in solid", "Solid in Solid"],
+                answer: 0
+            },
+            {
+                question: "A colloidal system in which a liquid is dispersed in a liquid is called",
+                options: ["Gel", "Emulsion", "Sol", "Precipitate"],
+                answer: 1
+            },
+            {
+                question: "A substance which readily forms colloidal solution in contact with water is called",
+                options: ["Extrinsic colloid", "Associated colloid", "Hydrophobic colloid", "Hydrophilic colloid"],
+                answer: 3
+            },
+            {
+                question: "The molecular mass of a gas is",
+                options: ["Twice its vapour pressure", "Equal to its vapour pressure", "Half its vapour pressure", "Not related to its vapour pressure"],
+                answer: 0
+            },
+            {
+                question: "The value of gas constant R in Ergs deg\u20131mole\u20131is",
+                options: ["8.314 \u00d7 107", "8.341 \u00d7 107", "8.413 \u00d7 107", "4.183 \u00d7 107"],
+                answer: 0
+            },
+            {
+                question: "The absolute temperature of a gas is doubled and the pressure is reduced to half, the volume of the gas",
+                options: ["Remains unchanged", "Will be doubled", "Will increase four-fold", "Will be reduced to half"],
+                answer: 2
+            },
+            {
+                question: "Two moles of an ideal gas expand freely into vacuum. The work done by the gas is",
+                options: ["2J", "4J", "Infinity", "0"],
+                answer: 3
+            },
+            {
+                question: "Which among the following is a carbohydrate ?",
+                options: ["Nylon", "Cane-sugar", "Turpentine", "Hydrogen peroxide"],
+                answer: 1
+            },
+            {
+                question: "If a buffer solution is diluted its pH",
+                options: ["Is increased", "Remains same", "Is decreased", "Will slowly increase and then it will decrease"],
+                answer: 1
+            },
+            {
+                question: "The apparatus used to test acidity of aqueous solution is",
+                options: ["PH meter", "Ammeter", "Hygrometer", "Acidmeter"],
+                answer: 0
+            },
+            {
+                question: "The heat value of combustion of Gasoline is",
+                options: ["12600 kJ/kg", "14600 kJ/kg", "39400 kJ/kg", "47000 kJ/kg"],
+                answer: 3
+            },
+            {
+                question: "Which one of the following gases has the highest calorific value?",
+                options: ["Natural gas", "Water gas", "Coal gas", "Indane gas"],
+                answer: 3
+            },
+            {
+                question: "If the equilibrium constants for the systems H2+ I2-> 2HI and 2HI -> H2+ I2are K1and K2respectively, the relationship between K1and K2is :",
+                options: ["K1= K2", "K1= 2K2", "K1= K2/2", "K1= 1/K2"],
+                answer: 3
+            },
+            {
+                question: "The influence of temperature on reaction rate is predicted by",
+                options: ["Van der Waals equation", "Kirchhoff's equation", "Arrhenius equation", "Lewis equation"],
+                answer: 2
+            },
+            {
+                question: "The inert gas used as beacon light is",
+                options: ["Kr", "Ar", "He", "Ne"],
+                answer: 3
+            },
+            {
+                question: "The noble gas used in radiotherapy is",
+                options: ["Neon", "Argon", "Radon", "Xenon"],
+                answer: 2
+            },
+            {
+                question: "Inert gases are",
+                options: ["Miscible with water", "Not stable", "Chemically unreactive", "Chemically very active"],
+                answer: 2
+            },
+            {
+                question: "An inert gas mixed with oxygen given to patients suffering from restricted breathing is",
+                options: ["Helium", "Krypton", "Radon", "Argon"],
+                answer: 0
+            },
+            {
+                question: "Which of the inert gases can form compounds?",
+                options: ["Helium", "Xenon", "Krypton", "Argon"],
+                answer: 1
+            },
+            {
+                question: "In its reaction with silver nitrate, C2H2shows",
+                options: ["Oxidising property", "Reducing property", "Basic property", "Acidic property"],
+                answer: 3
+            },
+            {
+                question: "Peroxyacetyl nitrate is a",
+                options: ["Acidic dye", "Plant hormone", "Vitamin", "Secondary pollutant"],
+                answer: 3
+            },
+            {
+                question: "Aqueous solution of which of the following is a good conductor of electricity",
+                options: ["Ammonium acetate", "Glucose", "Ammonia", "Acetic acid"],
+                answer: 0
+            },
+            {
+                question: "Silver nitrate solution is kept in brown bottles in laboratory because",
+                options: ["It reacts with ordinary white bottles", "Brown bottles stops the passage of light through it", "Brown bottles do not react with it", "Brown bottles react with it"],
+                answer: 1
+            },
+            {
+                question: "Molality of pure water is",
+                options: ["18.00", "1.80", "5.55", "55.5"],
+                answer: 3
+            },
+            {
+                question: "A solution is",
+                options: ["A homogeneous mixture of two or more substances", "A solid dissolved in a liquid", "A solid dissolved i water", "A mixture of two liquids"],
+                answer: 0
+            },
+            {
+                question: "Which one is the most dense liquid from the below?",
+                options: ["Water", "Choloform", "Gasolin", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "Which of the following partially miscible liquid pairs has both lower and upper critical solution temperature?",
+                options: ["Water and Phenol", "Aniline and n-hexane", "Glycerine and m-toluene", "Water and diethyl aniline"],
+                answer: 2
+            }
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.innerHTML = `<span class="text-sky-600 dark:text-sky-500 mr-2">Q${index + 1}.</span> ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                if (!option || option.trim() === '') return;
+                
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) return;
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            wrapper.appendChild(questionBlock);
+        });
+
+        // Theme sync
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>

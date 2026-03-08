@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biology - Scientists, Discoveries and Biodiversity | Sikkim PSC Hub</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+            border-color: #bbb;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .options-list.answered .option:not(.correct):not(.incorrect) {
+            opacity: 0.7;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none;
+        }
+        .quiz-stats {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <a href="biology.html" class="back-link">&larr; Back to Biology</a>
+        <h1>Scientists, Discoveries and Biodiversity</h1>
+        <p class="quiz-stats">30 Questions</p>
+        <!-- Questions will be dynamically inserted here by JavaScript -->
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "_Bio!2gist wo _p_roposed th~Jife is ox:.iginated in",
+                options: ["Hippocrates", "Aristotle ,(G)-Thales", "", "Theophrastus"],
+                answer: 1
+            },
+            {
+                question: "Ir.ansplantation of heart is first done.£y",
+                options: ["Dr. Willum Harvey", "Sir F.G Hoffkins", "Dr. Louis Pasture Dr. Christian Banard", ""],
+                answer: 0
+            },
+            {
+                question: "flrst Calf clonejs created lzy",
+                options: ["Me clintock \'91 Ian Wilmut", "", "Stanley", "Monod"],
+                answer: 2
+            },
+            {
+                question: "Qo~elix model of DNA is given by",
+                options: ["Watson and Crick MPPSC: (Pre)199-J", "Meghnath Sha", "Stepham Hawking", ""],
+                answer: 0
+            },
+            {
+                question: "Antibiotic Streptomx_cin was discorvered by- W Saleman Waksman",
+                options: ["", "Alexander Fleming", "Bates on", "None of these"],
+                answer: 2
+            },
+            {
+                question: "T. Schwann Code",
+                options: ["4 3", "2 & 4", "1 & 3 Match the following- A. Structur; of f5FJ\'A B. ABO Blood Group C. Jumping gene D . Regulatory gene Code: A B", "3&4"],
+                answer: 1
+            },
+            {
+                question: "r Go~d Kh.2_ran_!l shared~el prize worJ<ed in the field of",
+                options: ["Bio chemistry", "", "Economics Medical science", "Literature"],
+                answer: 2
+            },
+            {
+                question: "Scientist who Qjscove..!:!d ~opheles mos~to tra~mit malaria- · \"\'\"J:a1 ~ Ronal ross",
+                options: ["", "C.V. Raman", "A. Fleming", "Max Plank"],
+                answer: 2
+            },
+            {
+                question: "Blood Gro\\.:!B._iS dl.scovereq_by- ktrf Landshner",
+                options: ["", "Robert Koch", "Willum F:Iarvy", "Loius Pasture"],
+                answer: 1
+            },
+            {
+                question: "Scientist wbQ laid the foundation of bacteriology",
+                options: ["Leeuwenhoek - LO\'fus Pasteure", "", "Willurn Herve", "Edward Jenner"],
+                answer: 0
+            },
+            {
+                question: "The Harmone insuiTe is in_yented by.- F.G Banting",
+                options: ["", "Schilden & Schwan", "Brown", "Aobert Hook"],
+                answer: 3
+            },
+            {
+                question: "sco~ was in~ente_? by",
+                options: ["Jenner", "Sabin Lanni", "", "Pasteure"],
+                answer: 3
+            },
+            {
+                question: "_ Scientist_who cry_.§tallised vir4s for the first time",
+                options: ["Circulation of blood", "Watson J4 Stanley", "", "Emerson 21:: Match List-! with List- II and select the correct answer using.the codes given below the lists- List I List II (Discovery I Invention ) (Scientist)"],
+                answer: 0
+            },
+            {
+                question: "William Harvey inhumen body",
+                options: ["", "Stethoscape", "X-rays", "Electro-Cardoigram (ECG)"],
+                answer: 1
+            },
+            {
+                question: "Jhe term biot~ology was coined by",
+                options: ["Chohen & Boyer", "Nathan & Smith Jc) Karl Ereky", "", "Willam Hays"],
+                answer: 0
+            },
+            {
+                question: "Jhe first eure e~yme ~as prepan;.d by;",
+                options: ["Alexander Fleming 1tfJ Christian Hep.sen", "", "Summer", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "The term antibiotic was first of all used by- kar Waksman ·",
+                options: ["", "Fank", "Flemming", "Jenner"],
+                answer: 3
+            },
+            {
+                question: "Lan wilmut created the first cloned sheep. Which of the statements given above is I are correct",
+                options: ["1 only", "2 only Both 1 and 2", "", "Neither 1 nor 2"],
+                answer: 1
+            },
+            {
+                question: "Craig C. Mello of university of Massa chusetis Medical school, Worcester. Select the correct answer using code",
+                options: ["1 & 4", "2 & 3", "1 1 2 & 3", "2 I 3 & 4 Ans\" ers"],
+                answer: 1
+            },
+            {
+                question: "Consider the following statements - (1) National parks are a special category of protected areas of land and sea coasts, where people are an integral part of the system. (2) Sanctuaries are concerned with conservation of particular species (3) Biosphere reserves are connected with the habitate of a particular wild animal. Which of the statements given above is/ are correct ?",
+                options: ["1, 2 and 3", "2 only", "1 and 2 only", "1 and 3 only"],
+                answer: 1
+            },
+            {
+                question: "The \'red data book\' con~ininl;? i~ormation on all wild plant and animals which is in danger of extinction §as peen E,ublished by which one of the following ?",
+                options: ["International union for conservation of nature and natural Resources (IUCN)", "World Wild life Fund (WWF)", "World Conservation Union (WCU)", "United National union Program (UNEP)[CDS 2009}"],
+                answer: 0
+            },
+            {
+                question: "Kerala Code: A B c D",
+                options: ["3 1 4 2", "2 4 1 3 tcT 2 1 4 3", "", "1 2 3 4"],
+                answer: 1
+            },
+            {
+                question: "Logo of ffi\'\\l.E-:N is",
+                options: ["Red Panda", "Giant Panda", "Polar bear", "Tiger"],
+                answer: 0
+            },
+            {
+                question: "·species listed in Red Data boo.l&._at,e",
+                options: ["Vulnerable", "Threatened Endangered", "", "All of above"],
+                answer: 3
+            },
+            {
+                question: "Which pair of g£_ographical ~e2 sho~s maxE:nun; diversity in our country ? ;",
+                options: ["Eastern Himalayas and Western Ghats", "Sundervans and Rann of Kutchch", "Eastern Ghats & and West Bengal", "Kerala and Punjab"],
+                answer: 0
+            },
+            {
+                question: "Pollination of crops Select the correct answer using the codes given below",
+                options: ["1, 2 and 3 only", "2, 3 and 4 only", "1 and 4 only", "1, 2, 3 and 4 [CSAT 2011}"],
+                answer: 1
+            },
+            {
+                question: "Protected sites for conservation of nature and natural resources in various countries Select the correct answer using the codes given below",
+                options: ["1 & 3 ) 2 only", "", "2 & 3", "3 only [CSAT2011}"],
+                answer: 0
+            },
+            {
+                question: "Polar bears are carnivores and prey on many arctic birds and fish. However, under natural conditions, no one found polar bears predating any penguin. This is because",
+                options: ["Penguins have chemical substance in their muscles which is £oxic to polar bears", "Penguins are gregarious and always move in groups, therefore, a polar hear cannot approach them.", "Polar hears and penguins nerer coexist under natural conditions. The former lives in the North pole while the later lives in the south pole", "Polar hears and penguins display symbiotic relationships and they help each other for their existence in the ice-cold ecosystem"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following strongly threatens biodiversity ?",
+                options: ["Eragile ecosystems such as mangroves and wetlands", "Inaccessible habitates in the Himalayas", "Desstruction of natural habitates and regetation and Jhum cultivation", "Creation of biosphere reserves"],
+                answer: 2
+            },
+            {
+                question: "What is the difference between the antelopes Oryx and Chiru? Oryx is adapted to live in hot and arid areas whereas Chiru is adapted to live in steppes and semi-desert areas of cold high mountains",
+                options: [",", "and", "given above is correct", "None of the statements"],
+                answer: 0
+            }
+        ];
+
+        const quizContainer = document.getElementById('quiz-container');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.textContent = `${index + 1}) ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) {
+                        return;
+                    }
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            quizContainer.appendChild(questionBlock);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biology - Plant Disease and Agriculture | Sikkim PSC Hub</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+            border-color: #bbb;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .options-list.answered .option:not(.correct):not(.incorrect) {
+            opacity: 0.7;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none;
+        }
+        .quiz-stats {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <a href="biology.html" class="back-link">&larr; Back to Biology</a>
+        <h1>Plant Disease and Agriculture</h1>
+        <p class="quiz-stats">12 Questions</p>
+        <!-- Questions will be dynamically inserted here by JavaScript -->
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "canlser disease in lemon is d11..e tQ.",
+                options: ["Fungi fb1 Bacteria", "", "Virus", "Nematode"],
+                answer: 3
+            },
+            {
+                question: "Red rust disease pf tea is c2us~d by",
+                options: ["Bacteria", "Lichen", "Fungi Green algae", ""],
+                answer: 2
+            },
+            {
+                question: "Study of boneis oilled",
+                options: ["Orology", "Anatomy ) Dermetology ) Oesteology", "Seromology", "Geology"],
+                answer: 1
+            },
+            {
+                question: "Study of insects is_£allej.-;",
+                options: ["Ichthyology", "Neonatology", "Entomology", "Anthropology \'\"\""],
+                answer: 2
+            },
+            {
+                question: "Study of system of animal body which protect it from infection of various desease is called",
+                options: ["Hemology", "Immunology", "Microbiology", "Pathology"],
+                answer: 1
+            },
+            {
+                question: "Study Qf diseasejike ca~ce~ Ta> Osteology kb1 Oncology",
+                options: ["Oncology", "Herpetology", "Karyology", "Saurology"],
+                answer: 1
+            },
+            {
+                question: ",Study of typical behaviO).tr of organisms~ th!ir natur\"!l • habitates",
+                options: ["Euthenics", "Eugenics", "Ethology", "Ethnology"],
+                answer: 2
+            },
+            {
+                question: "Study of tiss2-e cultureJs usefu! for.",
+                options: ["Oncology", "Gerontology J._c) Melacology", "Insect", "Chondrology"],
+                answer: 1
+            },
+            {
+                question: "When a disease break out and spread from one place to another affecting large number of peoples it is called",
+                options: ["Edemic", "Epidemic", "Endemic", "Sporadic"],
+                answer: 1
+            },
+            {
+                question: ", Study of bloo~ is ca]Jed",
+                options: ["Hepatology", "Hematalogy", "Histology", "None of these"],
+                answer: 1
+            },
+            {
+                question: "§.tudy of internal structure of organism is called",
+                options: ["Morphology", "Anatomy", "Histology", "Cytology"],
+                answer: 1
+            },
+            {
+                question: "!reatn:.!_ent of body defects through massage and exercise",
+                options: ["Phylogeny", "Parasitology", "Physiotherapy", "Physiology"],
+                answer: 2
+            }
+        ];
+
+        const quizContainer = document.getElementById('quiz-container');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.textContent = `${index + 1}) ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) {
+                        return;
+                    }
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            quizContainer.appendChild(questionBlock);
+        });
+    </script>
+</body>
+</html>

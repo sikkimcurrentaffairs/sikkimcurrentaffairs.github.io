@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Government | Sikkim PSC Hub</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+            border-color: #bbb;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .options-list.answered .option:not(.correct):not(.incorrect) {
+            opacity: 0.7;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none;
+        }
+        .quiz-stats {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <a href="indian_polity.html" class="back-link">&larr; Back to Indian Polity</a>
+        <h1>Local Government</h1>
+        <p class="quiz-stats">8 Questions</p>
+        <div id="questions-wrapper"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "The members of the panchayat are",
+                options: ["nominated by the district officer", "the electorates of the respective territorial constituencies", "nominated by local self-government minister of the state", "nominated by the block development organization"],
+                answer: 1
+            },
+            {
+                question: "The term \"Gram Sabha\" denotes-",
+                options: ["Senior citizens of a Village", "Population of a Village", "Electoral college for Panchayat", "Elected members of Panchayat"],
+                answer: 2
+            },
+            {
+                question: "The State Election Commission conducts, controls and supervises Municipal elections under-",
+                options: ["Article-240(1)", "Article-243(ZA)", "Article-243(K)", "Article-245(D)"],
+                answer: 1
+            },
+            {
+                question: "What is the system of Local Self Government in the Panchayati Raj set up?",
+                options: ["Four tier system at the village, block, district\nand State level", "Three tier structure at village, block and\ndistrict level", "Two tier system at village and block level", "Single tier set up at village level"],
+                answer: 1
+            },
+            {
+                question: "Which of the following state had implemented the provision of removal of the elected members of local self-governance institutions-",
+                options: ["Madhya Pradesh", "Kerala", "Haryana", "Bihar"],
+                answer: 0
+            },
+            {
+                question: "The \"Recall Provision\" to removethe elected office bearers from the Local Self Government institution has been executed in-",
+                options: ["Bihar", "Kerala", "Haryana", "Madhya Pradesh"],
+                answer: 3
+            },
+            {
+                question: "Who is the head of Municipal Corporation?",
+                options: ["Prime Minister", "Sarpanch", "Governor", "Mayor"],
+                answer: 3
+            },
+            {
+                question: "Which of the followingis not an administrative function of a Village Panchayat?",
+                options: ["Providing sanitation and drainage", "Providing burial and cremation grounds", "Providing college education", "Maintenance of road"],
+                answer: 2
+            }
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.textContent = `${index + 1}) ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) {
+                        return;
+                    }
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            wrapper.appendChild(questionBlock);
+        });
+    </script>
+</body>
+</html>

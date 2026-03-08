@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mechanics | Sikkim PSC Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        .quiz-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        html.dark .quiz-container {
+            background: #24272c;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #0284c7;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        html.dark .question-block {
+            border-bottom: 1px solid #334155;
+        }
+        .question-text {
+            font-size: 1.15em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+        html.dark .question-text {
+            color: #f1f5f9;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option {
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            padding: 16px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            color: #475569;
+        }
+        html.dark .option {
+            background-color: #1e293b;
+            border: 2px solid #334155;
+            color: #cbd5e1;
+        }
+        .option:hover {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
+            transform: translateX(4px);
+        }
+        html.dark .option:hover {
+            background-color: #334155;
+            border-color: #475569;
+        }
+        .option.correct {
+            background-color: #dcfce7 !important;
+            border-color: #4ade80 !important;
+            color: #166534 !important;
+        }
+        html.dark .option.correct {
+            background-color: #064e3b !important;
+            border-color: #10b981 !important;
+            color: #ecfdf5 !important;
+        }
+        .option.incorrect {
+            background-color: #fee2e2 !important;
+            border-color: #f87171 !important;
+            color: #991b1b !important;
+        }
+        html.dark .option.incorrect {
+            background-color: #7f1d1d !important;
+            border-color: #ef4444 !important;
+            color: #fef2f2 !important;
+        }
+        .options-list.answered {
+            pointer-events: none;
+        }
+        .quiz-stats-badge {
+            background: #f1f5f9;
+            color: #64748b;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        html.dark .quiz-stats-badge {
+            background: #334155;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 min-h-screen p-4 sm:p-8">
+
+    <div class="quiz-container">
+        <a href="physics.html" class="back-link">&larr; Back to Physics Topics</a>
+        <h1 class="text-3xl font-bold text-blue-800 dark:text-blue-400 mb-2">Mechanics</h1>
+        <div class="quiz-stats-badge">242 MCQ Questions</div>
+        
+        <div id="questions-wrapper"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Siphon will fail to work if:",
+                options: ["The densities of the liquid in the two vessels are equal.", "The level of the liquid in the two vessels are at the same height.", "Both its limbs are of unequal length.", "The temperature of the liquids in the two vessels are the same."],
+                answer: 1
+            },
+            {
+                question: "If two bodies of different masses, initially at rest, are acted upon by the same force for the same time, then the both bodies acquire the same:",
+                options: ["Velocity", "Momentum", "Acceleration", "Kinetic energy"],
+                answer: 1
+            },
+            {
+                question: "Find the maximum velocity for the overturn of a car moving on a circular track of radius 100 m. The co-efficient of friction between the road and tyre is 0.2",
+                options: ["0.14 m/s", "140 m/s", "1.4 km/s", "14 m/s"],
+                answer: 3
+            },
+            {
+                question: "Moment of inertia is:",
+                options: ["Vector", "Scalar", "Phasor", "Tensor"],
+                answer: 3
+            },
+            {
+                question: "Sound travels with a different speed in media. In what order does the velocity of sound increase in these media?",
+                options: ["Water, iron and air", "Iron, air and water", "Air, water and iron", "Iron, water and air"],
+                answer: 2
+            },
+            {
+                question: "Sir C.V. Raman was awarded Nobel Prize for his work connected with which of the following phenomenon of radiation?",
+                options: ["Scattering", "Diffraction", "Interference", "Polarization"],
+                answer: 0
+            },
+            {
+                question: "One should not connect a number of electrical appliances to the same power socket because",
+                options: ["this can damage the appliances due to overloading", "this can damage the domestic wiring due to overloading", "this can damage the electrical meter", "the appliance will not get full voltage"],
+                answer: 1
+            },
+            {
+                question: "An aeroplane is flying horizontally with a velocity of 600 km/h and at a height of 1960 m. When it is vertically at a point A on the ground a bomb is released from it. The bomb strikes the ground at point B. The distance AB is",
+                options: ["1200 m", "0.33 km", "3.33 km", "33 km"],
+                answer: 2
+            },
+            {
+                question: "Electric power is measured in units of",
+                options: ["Volt", "Joule", "Watt", "Ampere"],
+                answer: 2
+            },
+            {
+                question: "The unit of electrical power is",
+                options: ["Bolt", "Watt", "Kilowatt hour", "Ampere"],
+                answer: 1
+            },
+            {
+                question: "Copper wires are generally used for electrical power transmission instead of iron wire because :",
+                options: ["Copper is cheaper than iron", "Copper is lighter than iron", "Copper is a better conductor of electricity than iron", "Copper can take higher power than iron"],
+                answer: 2
+            },
+            {
+                question: "Which of these is exhibiting kinetic energy?",
+                options: ["An archer with a flexed bow", "A person sitting on a couch while watching TV", "A space station orbiting Earth", "All of the above"],
+                answer: 2
+            },
+            {
+                question: "An object having the capability to do work is said to possess",
+                options: ["Inertia", "Force", "Pressure", "Energy"],
+                answer: 3
+            },
+            {
+                question: "In which form is the supplied heat energy stored during change in temperature of substance?",
+                options: ["Heat energy", "Kinetic energy", "Potential energy", "Both kinetic and potential energy"],
+                answer: 1
+            },
+            {
+                question: "What is another name for energy of motion?",
+                options: ["Motional energy", "Potential energy", "Kinetic energy", "Rotational energy"],
+                answer: 2
+            },
+            {
+                question: "The rate at which energy is transferred is called",
+                options: ["Power", "Watt", "Volt", "Potential"],
+                answer: 0
+            },
+            {
+                question: "An object with a mass of 22 kg moving with a velocity of 5 m/s possesses a kinetic energy of :",
+                options: ["275 J", "110 J", "2750 J", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "In which of the following processes is energy released ?",
+                options: ["Respiration", "Photosynthesis", "Ingestion", "Absorption"],
+                answer: 0
+            },
+            {
+                question: "Rate of doing work is called",
+                options: ["Capacity", "Energy", "Power", "Current"],
+                answer: 2
+            },
+            {
+                question: "The energy associated with motion is called",
+                options: ["Potential energy", "Kinetic energy", "Both A & B", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "Contact force is another name for ________",
+                options: ["Friction", "Magnetic force", "Electrostatic force", "Muscular force"],
+                answer: 3
+            },
+            {
+                question: "The rotational effect of a force on a body about an axis of rotation is described in terms of",
+                options: ["Centre of gravity", "Centripetal force", "Centrifugal force", "Moment of force"],
+                answer: 3
+            },
+            {
+                question: "Instrument used to measure the force and velocity of the wind is",
+                options: ["Ammeter", "Anemometer", "Altimeter", "Audiometer"],
+                answer: 1
+            },
+            {
+                question: "The force exerted on an object is 200 N and its mass is 100 kg. Find the acceleration of the object.",
+                options: ["2 m/s", "2 m", "2 m/sq.s", "2 s"],
+                answer: 2
+            },
+            {
+                question: "Energy per unit volume is dimensionally equal to",
+                options: ["Pressure", "Force", "Density", "Work"],
+                answer: 0
+            },
+            {
+                question: "The force exerted by a magnet is an example of ________",
+                options: ["Non-contact force", "Muscular force", "Contact force", "Electrostatic force"],
+                answer: 0
+            },
+            {
+                question: "A man standing close to the platform at a railway station experiences a pulling force towards a fast moving train because of ________ .",
+                options: ["Gravitational force between train and man", "Illusion of the man", "The centripetal force", "Pressure difference due to fast moving air in between"],
+                answer: 3
+            },
+            {
+                question: "In a particular system, the units of length, mass and time are chosen to be 10 cm, 10 g and 0.1 s respectively. The unit of force in this system will be equivalent to",
+                options: ["0.1 N", "1 N", "10 N", "100 N"],
+                answer: 0
+            },
+            {
+                question: "The unit of force is a",
+                options: ["Derived Unit", "Basic Unit", "Fundamental Unit", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "What is the SI unit of Force?",
+                options: ["Pascal", "Boyle", "Newton", "Watt"],
+                answer: 2
+            },
+            {
+                question: "Friction can be reduced by changing from",
+                options: ["Static to Dynamic", "Rolling to Sliding", "Dynamic to Static", "Sliding to Rolling"],
+                answer: 3
+            },
+            {
+                question: "Frictional force acts in",
+                options: ["The same direction as the motion", "The opposite direction of the motion", "All the directions", "Upward direction"],
+                answer: 1
+            },
+            {
+                question: "The force which makes a vehicle to stop when break is applied is called",
+                options: ["Gravitational force", "Vanderwalls force", "Frictional force", "Covalant force"],
+                answer: 2
+            },
+            {
+                question: "Friction is caused by the ________ on the two surfaces in contact.",
+                options: ["Irregularities", "Smoothness", "Densities", "Gaps"],
+                answer: 0
+            },
+            {
+                question: "The force of friction between two surfaces will increase if:",
+                options: ["A layer of lubricant is kept between the two surfaces", "The two surfaces are pressed harder", "Air gap is created between the two surfaces", "Irregularities on both the surfaces are removed"],
+                answer: 1
+            },
+            {
+                question: "Rolling friction is caused by ________",
+                options: ["Non-elastic effects", "Gravity", "Power dissipation", "Buoyancy"],
+                answer: 0
+            },
+            {
+                question: "The flow of thermal energy is called",
+                options: ["Heat", "Current", "Voltage", "Potential"],
+                answer: 0
+            },
+            {
+                question: "Who measured the velocity of light first ?",
+                options: ["Galileo", "Newton", "Romer", "Einstein"],
+                answer: 2
+            },
+            {
+                question: "Specific gravity is defined as the ratio of",
+                options: ["Density of the substance to the density of water", "Density of the substance to the density of water at 0\u00b0C", "Density of water at 4\u00b0C to the density of the substance", "Density of the substance to the density of water at 4\u00b0C"],
+                answer: 0
+            },
+            {
+                question: "The velocity of the sound is highest in",
+                options: ["Metal", "Air", "Water", "Vacuum"],
+                answer: 0
+            },
+            {
+                question: "The velocity of sound in air",
+                options: ["Decreases with increase of temperature", "Increases with decrease of temperature", "Does not depend on temperature", "Decreases with decrease of temperature"],
+                answer: 3
+            },
+            {
+                question: "Electrical Energy is the energy of",
+                options: ["Protons", "Neutrons", "Electrons", "All the above"],
+                answer: 2
+            },
+            {
+                question: "Heat energy is transferred by conduction whenever molecules",
+                options: ["Collide each other", "Means of photons", "Particles replaces there places", "All of the above"],
+                answer: 0
+            },
+            {
+                question: "Heat is transmitted from higher temperature to lower temperature through the actual motion of the molecules in",
+                options: ["Conduction", "Convection", "Radiation", "Both conduction and convection"],
+                answer: 1
+            },
+            {
+                question: "Energy travels from Sun to Earth through",
+                options: ["Conduction", "Convection", "Radiation", "Modulation"],
+                answer: 2
+            },
+            {
+                question: "The inability of a body to change its state of rest or uniform motion along a straight line is called its",
+                options: ["Momentum", "Velocity", "Acceleration", "Inertia"],
+                answer: 3
+            },
+            {
+                question: "The moment of inertia of a body does not depend upon its",
+                options: ["Axis of rotation", "Angular velocity", "Form of mass", "Distribution of mass"],
+                answer: 1
+            },
+            {
+                question: "What is the gravity of moon as compared to the Earth",
+                options: ["1/4 th of Earth", "1/5 th of Earth", "1/6 th of Earth", "1/8 th of Earth"],
+                answer: 2
+            },
+            {
+                question: "According to the Second Law of Motion, for a given force, acceleration is inversely proportional to the ________ of an object.",
+                options: ["Density", "Volume", "Force", "Mass"],
+                answer: 3
+            },
+            {
+                question: "When a constant force acts on an object with a mass of 8 kg for a duration of 3 s. it increases the object's velocity from 4 m/s to 6 m/s . What is the magnitude of the applied force?",
+                options: ["5.33 N", "4.33 N", "6.33 N", "3.33 N"],
+                answer: 0
+            },
+            {
+                question: "A body of mass 5 kg accelerates from 12 m/s to 20 m/s in 4 seconds due to the application of a force on it. Calculate the magnitude of this force (in N).",
+                options: ["40", "10", "20", "80"],
+                answer: 1
+            },
+            {
+                question: "Which conservation principle is applicable in the case of the motion of a rocket?",
+                options: ["Conservation of mass", "Conservation of charge", "Conservation of momentum", "Conservation of energy"],
+                answer: 2
+            },
+            {
+                question: "A man stands in a lift which accelerates upwards. The resultant reaction force on the floor of the lift is",
+                options: ["Greater than the weight of the man", "Less than the weight of the man", "Same as the weight of the man", "Zero"],
+                answer: 0
+            },
+            {
+                question: "The moment of inertia of a body does not depend upon",
+                options: ["The mass of the body", "The mass distribution in the body", "The angular speed of the body", "The axis of rotation of the body"],
+                answer: 2
+            },
+            {
+                question: "Newton's first law of motion gives the concept of",
+                options: ["Energy", "Work", "Momentum", "Inertia"],
+                answer: 3
+            },
+            {
+                question: "Gravitational force is maximum at which place",
+                options: ["Poles", "Tropic of cancer", "Tropic of capricorn", "Equator"],
+                answer: 0
+            },
+            {
+                question: "A metal ball and a rubber ball, both having the same mass, strike a wall normally with the same velocity. The rubber ball rebounds and the metal ball does not rebound. It can be concluded that",
+                options: ["The rubber ball suffers greater change in momentum", "The metal ball suffers greater change in momentum", "Both suffer the same change in momentum", "The initial momentum of the rubber ball is greater than that of the metal ball"],
+                answer: 0
+            },
+            {
+                question: "Rate of change of momentum is",
+                options: ["Area", "Pressure", "Force", "Velocity"],
+                answer: 2
+            },
+            {
+                question: "Which law is also called law of inertia ?",
+                options: ["Newton first law", "Newton second law", "Newton third law", "All of above"],
+                answer: 0
+            },
+            {
+                question: "Momentum is measured as the product of :",
+                options: ["Mass and inertia", "Mass and force", "Mass and velocity", "Mass and acceleration"],
+                answer: 2
+            },
+            {
+                question: "An object at rest will remain at rest and an object in motion will remain in motion until and unless it is acted upon by an external force. This is Newton's",
+                options: ["First law", "Second law", "Third law", "Fourth law"],
+                answer: 0
+            },
+            {
+                question: "What is the force of attraction between any two bodies by virtue of their masses is called?",
+                options: ["Electromagnetic Force", "Gravitational Force", "Centripetal Force", "Nuclear Force"],
+                answer: 1
+            },
+            {
+                question: "If a boy sitting in a train, which is moving at a constant velocity, throws a ball straight up into the air, the ball will",
+                options: ["Fall in front of him", "Fall behind him", "Fall into his hand", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "The unit of energy in MKS system is",
+                options: ["Joule", "Ohm", "Erg", "Volt"],
+                answer: 0
+            },
+            {
+                question: "The motion of a body that repeats itself after a regular interval of time is",
+                options: ["A periodic motion", "A simple harmonic motion", "An aperiodic motion", "An oscillatory motion"],
+                answer: 0
+            },
+            {
+                question: "Negative acceleration is in the opposite direction of:",
+                options: ["Force", "Distance", "Velocity", "Momentum"],
+                answer: 2
+            },
+            {
+                question: "If an object moves with constant velocity,",
+                options: ["It must have constant speed", "It must have constant direction", "It must have constant speed in constant direction", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "During uniform motion of an object along a straight line, its ________ remains constant with time.",
+                options: ["Acceleration", "Deceleration", "Force", "Velocity"],
+                answer: 3
+            },
+            {
+                question: "Find the acceleration (in m/s2) of a body which accelerates from 25 m/s to 30 m/s in 10 seconds",
+                options: ["5.5", "1", "11", "0.5"],
+                answer: 3
+            },
+            {
+                question: "Acceleration is",
+                options: ["Inversely proportional to force", "Inversely proportional to mass", "Directly proportional to mass", "Directly proportional to force"],
+                answer: 3
+            },
+            {
+                question: "The motion of a freely falling body is an example of ________ motion.",
+                options: ["Uniformly accelerated", "Non-uniformly accelerated", "Constant velocity", "Constant speed"],
+                answer: 0
+            },
+            {
+                question: "If velocity is constant then acceleration is what?",
+                options: ["Constant", "Increasing", "Zero", "Infinite"],
+                answer: 2
+            },
+            {
+                question: "Acceleration is the rate of change of",
+                options: ["Speed", "Velocity", "Jerk", "Jounce"],
+                answer: 1
+            },
+            {
+                question: "Rate at which velocity changes over time?",
+                options: ["Speed", "Displacement", "Acceleration", "Jerk"],
+                answer: 2
+            },
+            {
+                question: "The motion of a freely falling body is an example of ________ accelerated motion.",
+                options: ["Non-uniformly", "Uniformly", "Uniquely", "Specially"],
+                answer: 1
+            },
+            {
+                question: "A body is initially moving with a velocity of 5 m/s. It undergoes an acceleration of 2 m/s2for 4 seconds. Find the displacement (in m) of this body in these 4 seconds.",
+                options: ["4", "72", "36", "8"],
+                answer: 2
+            },
+            {
+                question: "The motion of the wheels of a bullock-cart while moving on the road is an example of",
+                options: ["Oscillatory and rotatory motion", "Oscillatory and translatory motion", "Translatory and rotatory motion", "Translatory motion only"],
+                answer: 2
+            },
+            {
+                question: "As we go from Equator to North pole the value of ''g', the acceleration due to gravity",
+                options: ["Remains the same", "Decreases", "Increases", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "For a body moving with uniform acceleration its final velocity equals ________",
+                options: ["Average velocity - initial velocity", "2 x average velocity - initial velocity", "2 x average velocity + initial velocity", "Average velocity + initial velocity"],
+                answer: 1
+            },
+            {
+                question: "A car accelerates uniformly from 18 kmph to 72 kmph in 5 s. The acceleration of the car (in m/s2) is:",
+                options: ["3", "5", "6", "7"],
+                answer: 0
+            },
+            {
+                question: "In ________ motion of a body its velocity varies with time.",
+                options: ["Uniform", "Linear", "Equilibrium", "Non-uniform"],
+                answer: 3
+            },
+            {
+                question: "When a ball is thrown vertically upwards, which of the following quantities remains constant during its motion?",
+                options: ["Energy", "Displacement", "Velocity", "Acceleration"],
+                answer: 0
+            },
+            {
+                question: "For a body moving with non-uniform velocity and uniform acceleration",
+                options: ["Displacement \u2013 Time graph is linear", "Displacement \u2013 Time graph is non-linear", "Velocity \u2013 Time graph is nonlinear", "Velocity \u2013 Time graph is linear"],
+                answer: 1
+            },
+            {
+                question: "When a body is accelerated, then the velocity will be also",
+                options: ["Increase", "Decrease", "Constant", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "During ________ motion of an object along a straight line, the velocity remains constant with time.",
+                options: ["Linear", "Translational", "Uniform", "Equilibrium"],
+                answer: 2
+            },
+            {
+                question: "What does the slope of a velocity time graph represent?",
+                options: ["Acceleration", "Distance", "Speed", "Momentum"],
+                answer: 0
+            },
+            {
+                question: "The slope of a velocity-time graph represents",
+                options: ["Acceleration", "Displacement", "Distance", "Speed"],
+                answer: 0
+            },
+            {
+                question: "Hydraulic machines work under the Principle of :",
+                options: ["Newton's Law", "Joules Law", "Pascal's Law", "Floatation Law"],
+                answer: 2
+            },
+            {
+                question: "Hydraulic brakes in automobile work on",
+                options: ["Poiseuille's principle", "Pascal's principle", "Archimedes' principle", "Bernoulli's principle"],
+                answer: 1
+            },
+            {
+                question: "Hydraulic brakes work on the principle of",
+                options: ["Thomson's law", "Newton's law", "Bernoulli's theorem", "Pascal's law"],
+                answer: 3
+            },
+            {
+                question: "The velocity of sound in moist air is more than in dry air because the moist air has",
+                options: ["Less density than dry air.", "Less pressure than dry air.", "More pressure than dry air.", "More density than dry air."],
+                answer: 0
+            },
+            {
+                question: "Which one among the following doesn't have any effect on velocity of sound ?",
+                options: ["Pressure", "Temperature", "Humidity", "Density"],
+                answer: 0
+            },
+            {
+                question: "Velocity of sound in air does not change with the change of",
+                options: ["Temperature of air", "Pressure of air", "Moisture content in air", "Wind in the direction of propagation of sound"],
+                answer: 1
+            },
+            {
+                question: "The velocity of sound is more in",
+                options: ["Water", "Air", "Steel", "Wood"],
+                answer: 2
+            },
+            {
+                question: "Velocity of sound in air does not depend on",
+                options: ["Density of air", "Temperature of air", "Pressure of air", "Humidity of air"],
+                answer: 2
+            },
+            {
+                question: "The magnitude of buoyant force depends on the ________ of the fluid.",
+                options: ["Mass", "Temperature", "Volume", "Density"],
+                answer: 3
+            },
+            {
+                question: "When a body is immersed in a liquid, the force acting on it is",
+                options: ["Upthrust", "Weight", "Mass", "Both (A) and (B)"],
+                answer: 3
+            },
+            {
+                question: "How much mechanical work must be done to completely melt 1 gram of ice at 0\u00b0C ?",
+                options: ["4.2 J", "80 J", "336 J", "2268 J"],
+                answer: 1
+            },
+            {
+                question: "The unit for measuring electric power is the",
+                options: ["Steridian", "Volts", "Watts", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "An electric iron of 750 W is used for 8 hours per day. Then the energy consumed in one day by the iron is:",
+                options: ["6 units", "600 units", "0.6 units", "60 units"],
+                answer: 0
+            },
+            {
+                question: "In a filament type light bulb most of the electric power consumed appears as",
+                options: ["Visible light", "Infra-red rays", "Ultra-violet rays", "Fluorescent light"],
+                answer: 1
+            },
+            {
+                question: "Which alternative energy source is exhaustible?",
+                options: ["Tidal energy", "Wind energy", "Solar energy", "Geothermal energy"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is a Non Renewable Resource of Energy?",
+                options: ["Wind Power", "Hydrogen Fuel", "Natural Gas", "Solar Energy"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is a renewable resource of energy?",
+                options: ["Hydrogen fuel", "Wind energy", "Solar energy", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "Which of the following uses a Non Renewable Energy Source?",
+                options: ["Wind Mill Power Plant", "Hydro Electric Plant", "Nuclear Power Plant", "Tidal Power Plant"],
+                answer: 2
+            },
+            {
+                question: "Solar cells work on the principle of",
+                options: ["Photovoltaic effect", "Photoelectric effect", "Photoconductive effect", "Photosynthesis"],
+                answer: 0
+            },
+            {
+                question: "Wind and solar energy are examples of",
+                options: ["Non renewable", "Renewable", "Unsustainable", "Limited"],
+                answer: 1
+            },
+            {
+                question: "Hydro-electric power is a:",
+                options: ["non-renewable natural resource", "A mixture of renewable and non-renewable natural resource", "Neither renewable nor non renewable resource", "Renewable natural resource"],
+                answer: 3
+            },
+            {
+                question: "Energy that is produced commercially from coal is called",
+                options: ["Light energy", "Kinetic energy", "Thermal energy", "Potential energy"],
+                answer: 2
+            },
+            {
+                question: "What is the source of energy for the water cycle?",
+                options: ["Rain water", "Sun", "Clouds", "Animals"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is a non renewable source of energy ?",
+                options: ["Biogas", "Solar", "Wind", "Coal"],
+                answer: 3
+            },
+            {
+                question: "Sources of geothermal power are",
+                options: ["Water", "Earth's heat", "Both A & B", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is not a form of Energy?",
+                options: ["Heat", "Sound", "Motion", "Pressure"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is the second largest source of global energy?",
+                options: ["Fossil fuel", "Nuclear Energy", "Renewable Energy", "None of these"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is a renewable source of energy",
+                options: ["Natural gas", "Coal", "Wind", "Oil"],
+                answer: 2
+            },
+            {
+                question: "The energy that generates wind comes from what source?",
+                options: ["Anemometers", "Solar radiation", "Ocean currents", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "Solar energy is due to",
+                options: ["Fusion reactions", "Fission reactions", "Combustion reactions", "Chemical reactions"],
+                answer: 0
+            },
+            {
+                question: "The source of the Sun's energy is the process of",
+                options: ["Photoelectric emission", "Nuclear fission", "Nuclear fusion", "Thermionic emission"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is the cleanest source of energy?",
+                options: ["Biofuel", "Fossil fuel", "Nuclear power", "Wind energy"],
+                answer: 3
+            },
+            {
+                question: "The Solar energy produced by",
+                options: ["Fusion reaction", "Fission reaction", "Combustion reaction", "None"],
+                answer: 0
+            },
+            {
+                question: "The oldest type of energy known to man is",
+                options: ["Wind power", "Solar power", "Tidal energy", "Geothermal energy"],
+                answer: 3
+            },
+            {
+                question: "The energy emitted by the Sun is due to",
+                options: ["Chemical reaction", "Nuclear fission", "Nuclear fusion", "All of the above"],
+                answer: 2
+            },
+            {
+                question: "Where does hydroelectric energy come from?",
+                options: ["Air", "Water", "Solar", "All of the above"],
+                answer: 1
+            },
+            {
+                question: "Which colour has the highest energy?",
+                options: ["Violet", "Red", "Blue", "White"],
+                answer: 0
+            },
+            {
+                question: "Which of these travels in glass with minimum velocity ?",
+                options: ["Red light", "Violet light", "Green light", "Yellow light"],
+                answer: 1
+            },
+            {
+                question: "Conversion of heat into electrical energy is achieved by using :",
+                options: ["Ammeter", "Hydrometer", "Voltmeter", "Thermocouple"],
+                answer: 3
+            },
+            {
+                question: "How much calorie of energy is released by a boiled egg ?",
+                options: ["40", "50", "60", "77"],
+                answer: 3
+            },
+            {
+                question: "A stone is dropped from the roof of a house towards the ground. The kinetic energy of the stone will be maximum:",
+                options: ["Just after it is dropped", "When it is just on the half-way", "Just before it touches the ground", "When it touches the ground"],
+                answer: 2
+            },
+            {
+                question: "A 4 kg object is moving horizontally with a speed of 5 m/s. To increase its speed to 10 m/s, the amount of net work required to be done on this object is:",
+                options: ["150 J", "100 J", "50 J", "75 J"],
+                answer: 0
+            },
+            {
+                question: "Electric Motor converts ________ energy to mechanical energy",
+                options: ["Sound", "Mechanical", "Chemical", "Electrical"],
+                answer: 3
+            },
+            {
+                question: "For a freely falling body, the sum of kinetic energy and potential energy is always",
+                options: ["Zero", "Unity", "Same", "Variable"],
+                answer: 2
+            },
+            {
+                question: "A body of 4.0 kg is lying at rest. Under the action of a constant force, it gains a speed of 5 m/s. The work done by the force will be ________",
+                options: ["50 J", "30 J", "20 J", "40 J"],
+                answer: 0
+            },
+            {
+                question: "If the velocity of a body is halved its kinetic energy ________",
+                options: ["Become 4 times", "Becomes 1/4 th", "Is also doubled", "Becomes half"],
+                answer: 1
+            },
+            {
+                question: "Solar energy is converted into chemical energy during",
+                options: ["Transpiration", "Photosynthesis", "Diffusion", "Osmosis"],
+                answer: 1
+            },
+            {
+                question: "In which of the following cases, kinetic energy is being used in performing work ?",
+                options: ["Paddling the bicycle to cover a distance", "Driving a car to cover a distance", "Wind mill grinding wheat grain", "Rowing a boat in the lake"],
+                answer: 1
+            },
+            {
+                question: "A body of mass 2 kg is thrown upward with initial velocity of 20 m/s. After 2 seconds, its kinetic energy will be : (g = 10 m/s2)",
+                options: ["0 J", "200 J", "400 J", "100 J"],
+                answer: 0
+            },
+            {
+                question: "The energy stored in a watch spring is",
+                options: ["Kinetic energy", "Potential energy", "Heat energy", "Chemical energy"],
+                answer: 1
+            },
+            {
+                question: "An object that has kinetic energy must be",
+                options: ["At an elevated position", "Falling", "At rest", "Moving"],
+                answer: 3
+            },
+            {
+                question: "A mass of 20 kg is at a height of 8 m above the ground. Then the potential energy possessed by the body is: [Given g = 9.8 m/s2]",
+                options: ["1568 J", "1568 C", "1568 W", "1568 N"],
+                answer: 0
+            },
+            {
+                question: "A person lifts luggage of 20 kg from the ground and puts it on his head 2m above the ground. Calculate the work done by him. (g = 10 )",
+                options: ["20 J", "400J", "200J", "40J"],
+                answer: 1
+            },
+            {
+                question: "Work done in a free expansion process is",
+                options: ["Minimun", "0", "Maximum", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "An object of 10 kg is moving with a speed of 2 m/s. The kinetic energy of the object is",
+                options: ["20 J", "25 J", "10 J", "40 J"],
+                answer: 0
+            },
+            {
+                question: "If both the mass and the velocity of a body is increased to twice of their magnitude, the kinetic energy will increase by",
+                options: ["2 times", "4 times", "8 times", "16 times"],
+                answer: 2
+            },
+            {
+                question: "Kinetic energy depends on",
+                options: ["The velocity or speed of the moving body.", "The mass of the moving body", "The pressure of the moving body", "Both mass and velocity of the moving body"],
+                answer: 3
+            },
+            {
+                question: "The device used to convert solar energy into electricity is",
+                options: ["Photovoltaic cell", "Daniell cell", "Electrochemical cell", "Galvanic cell"],
+                answer: 0
+            },
+            {
+                question: "In a photocell light energy is converted into",
+                options: ["Potential energy", "Chemical energy", "Heat energy", "Electrical energy"],
+                answer: 3
+            },
+            {
+                question: "A voltaic cell converts chemical energy to",
+                options: ["Heat energy", "Electrical energy", "Mechanical energy", "Light energy"],
+                answer: 1
+            },
+            {
+                question: "The work done by the string of a simple pendulum during one complete oscillation is equal to",
+                options: ["Total energy of the pendulum", "Kinetic energy of the pendulum", "Potential energy of the pendulum", "Zero"],
+                answer: 3
+            },
+            {
+                question: "Conversion of sound energy into electrical energy is done by",
+                options: ["Solar cell", "Gramophone", "Microphone", "Loudspeaker"],
+                answer: 2
+            },
+            {
+                question: "If a person moves a trolley for a distance of 10 m with a force of 50 N, then the work done is",
+                options: ["0.2 J", "5 J", "20 J", "500 J"],
+                answer: 3
+            },
+            {
+                question: "Necessary element of change in solar energy to electrical energy",
+                options: ["Berillium", "Silicon", "Tantelum", "Pure Copper"],
+                answer: 1
+            },
+            {
+                question: "In hydro power station, the motion produced in turbines is due to",
+                options: ["Flow of water", "Burning of coal", "Burning of diesel", "Production of steam"],
+                answer: 0
+            },
+            {
+                question: "The SI unit for measuring work and energy is",
+                options: ["Joule", "Watt", "Farad", "Ohm"],
+                answer: 0
+            },
+            {
+                question: "In a rechargeable cell what kind of energy is stored within the cell?",
+                options: ["Electrical energy", "Potential energy", "Chemical energy", "Kinetic energy"],
+                answer: 2
+            },
+            {
+                question: "A bullet is fired from a rifle which recoils after firing. The ratio of kinetic energy of the rifle to that of the bullet is",
+                options: ["Zero", "One", "Less than one", "More than one"],
+                answer: 0
+            },
+            {
+                question: "A person does some work of 1,000 J in 2 s. His power will be ________",
+                options: ["1000W", "25W", "500W", "50W"],
+                answer: 2
+            },
+            {
+                question: "Which results in an increase in power?",
+                options: ["Doing more work in less time.", "Doing less work in more time.", "Doing less work in less time.", "Doing more work in more time."],
+                answer: 0
+            },
+            {
+                question: "What device converts light energy to electrical energy?",
+                options: ["Photodiode", "Photovoltaic cell", "Thermocouple", "Heliostats"],
+                answer: 1
+            },
+            {
+                question: "The device which converts sound energy into electrical energy is called",
+                options: ["Amplifier", "Speaker", "Microphone", "Transmitter"],
+                answer: 2
+            },
+            {
+                question: "What is the SI unit of Power?",
+                options: ["Boyle", "Watt", "Newton", "Pascal"],
+                answer: 1
+            },
+            {
+                question: "In case of uniform circular motion, the acceleration is",
+                options: ["Variable in magnitude but constant in direction", "Constant in magnitude and directed radially inwards", "Variable in magnitude but tangential to the circle", "Zero"],
+                answer: 0
+            },
+            {
+                question: "What is the direction of torque?",
+                options: ["Perpendicular to the direction of applied force", "Same as the direction of applied force", "Opposite to the direction of applied force", "Parallel to the radius"],
+                answer: 0
+            },
+            {
+                question: "The motion of a body around a circular path is an example of",
+                options: ["Uniform velocity, variable acceleration", "Uniform speed, uniform velocity", "Uniform speed, variable velocity", "Uniform speed, variable acceleration"],
+                answer: 0
+            },
+            {
+                question: "When an unbalanced force acts on an object",
+                options: ["Causes change in motion of the object", "The speed & direction of the object will change", "Causes the object to move", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "What type of force acts on a car moving around a curve?",
+                options: ["Centrifugal force", "Cohesive force", "Centripetal force", "Gravitational force"],
+                answer: 2
+            },
+            {
+                question: "Centrifugal force increases with",
+                options: ["Temperature", "Pressure", "Acceleration", "Humidity"],
+                answer: 2
+            },
+            {
+                question: "What is the change in the angular momentum of a system as per the Law of Conservation of Angular momentum, if the total external torque acting is zero?",
+                options: ["Remains constant", "Becomes zero", "Increases exponentially", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "The force that keeps a body in a circular motion called",
+                options: ["The centripetal force", "The centrifugual force", "The frictional force", "All the above"],
+                answer: 0
+            },
+            {
+                question: "A bomb at rest explodes into a large number of tiny fragments. The total momentum of all the fragments",
+                options: ["Is zero", "Depends on the total mass of all the fragments", "Depends on the speeds of various fragments", "Is infinity"],
+                answer: 0
+            },
+            {
+                question: "Two stones of unequal masses are thrown vertically up with the same velocity. Which of the following will happen?",
+                options: ["The heavier mass will reach greater height", "The lighter mass will reach greater height", "Both will reach the same height", "Any of them may reach greater height"],
+                answer: 2
+            },
+            {
+                question: "A bullet of mass 10gm is fired with a velocity of 40 m/s from a gun of mass 8 kg. Find the recoil velocity (in m/s) of the gun.",
+                options: ["2", "0.1", "4", "0.05"],
+                answer: 3
+            },
+            {
+                question: "A ball is thrown vertically upward from the ground. It crosses a point at the height of 25 m twice at an interval of 4 seconds. The ball was thrown with the velocity of",
+                options: ["18 m/s", "25 m/s", "30 m/s", "36 m/s"],
+                answer: 2
+            },
+            {
+                question: "If lift is going up with acceleration, the apparent weight of a body is",
+                options: ["May be more or less than true weight", "More than the true weight", "Less than the true weight", "Equal to the true weight"],
+                answer: 1
+            },
+            {
+                question: "The force that generates wind is",
+                options: ["Gravity force", "Pressure gradient force", "Coriolis force", "Centrifugal force"],
+                answer: 1
+            },
+            {
+                question: "A boy sitting in a train moving with a uniform velocity drops a coin outside. A man standing outside the train will find the trajectory of the coin to be",
+                options: ["A parabola", "A circle", "A horizontal straight line", "A vertical straight line"],
+                answer: 0
+            },
+            {
+                question: "If the velocity-time graph of a particle is represented by y = mt + c, then the particle is moving with",
+                options: ["Constant speed", "Constant velocity", "Constant acceleration", "Varying acceleration"],
+                answer: 2
+            },
+            {
+                question: "The law of conservation of energy states that",
+                options: ["Energy can neither be created nor destroyed", "Energy can either be created nor destroyed", "Energy can neither be created or destroyed", "Energy can either be created or destroyed"],
+                answer: 0
+            },
+            {
+                question: "Force of impact is the force",
+                options: ["By the objects weight", "By the speed of the object", "When the objects meet", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "A rubber ball is dropped from a height of 2 metres. To what height will it rise if there is no loss of energy/velocity after rebounding ?",
+                options: ["4 metres", "3 metres", "2 metres", "1 metre"],
+                answer: 2
+            },
+            {
+                question: "Angle of friction and angle of repose are",
+                options: ["Equal to each other", "Not equal to each other", "Proportional to each other", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "If an object is thrown upwards, what will be its velocity, when it reaches its maximum height?",
+                options: ["0 m/s", "4.9 m/s", "14.7 m/s", "20 m/s"],
+                answer: 0
+            },
+            {
+                question: "During the motion of a projectile fired from the earth surface, ________",
+                options: ["Its kinetic energy remains constant", "Its momentum remains constant", "Vertical component of its velocity remains constant", "Horizontal component of its velocity remains constant"],
+                answer: 3
+            },
+            {
+                question: "What property of matter is momentum related to?",
+                options: ["Mass", "Velocity", "Both A & B", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "In uniform circular motion, the linear velocity is perpendicular to",
+                options: ["Radius", "Force", "Radius vector", "Momentum"],
+                answer: 2
+            },
+            {
+                question: "The following particles move with same kinetic energy. Which of them has maximum momentum ?",
+                options: ["Electron", "Proton", "Deutron", "Alpha Particle"],
+                answer: 3
+            },
+            {
+                question: "When the speed of car is doubled, then what will be the braking force of the car to stop it in the same distance ?",
+                options: ["Four times", "Two times", "Half", "One-fourth"],
+                answer: 0
+            },
+            {
+                question: "If a force acts upon two objects at rest, and having different masses for the same amount of time, then which one of the following will be the same for both the objects?",
+                options: ["Acceleration", "Kinetic Energy", "Velocity", "Momentum"],
+                answer: 3
+            },
+            {
+                question: "Consider the following statements :1. There is no net moment on a body which is in equilibrium.2. The momentum of a body is always conserved.3. The kinetic energy of an object is always conserved.Which of the statements given above is/are correct?",
+                options: ["1, 2 and 3", "2 and 3 only", "1 and 2 only", "1 only"],
+                answer: 2
+            },
+            {
+                question: "The rate of change of linear momentum of a body falling freely under gravity is equal to it's ________ ?",
+                options: ["Kinetic Energy", "Weight", "Potential Energy", "Impulse"],
+                answer: 1
+            },
+            {
+                question: "The velocity of falling rain drops attains a terminal value because of",
+                options: ["Surface tension", "Air current", "Upward thrust due to air", "Viscous force exerted by air"],
+                answer: 3
+            },
+            {
+                question: "A tank filled partially with a liquid is subjected to a uniform horizontal acceleration. Which of the following is true for the surface of liquid in the tank?",
+                options: ["The liquid surface falls down on the direction of motion and rises up on the back side of the tank", "The liquid surface falls down only at the center of the tank", "The surface of the liquid remains horizontal", "None"],
+                answer: 0
+            },
+            {
+                question: "A body falling through a liquid acquires a steady velocity is known as",
+                options: ["End velocity", "Touch down velocity", "Terminal velocity", "Steady state velocity"],
+                answer: 2
+            },
+            {
+                question: "Kepler's law of planetary motion states that the square of the time period is proportional to the",
+                options: ["Semi-major axis", "Square of the semi-major axis", "Cube of the semi-major axis", "Fourth power of the semi-major axis"],
+                answer: 2
+            },
+            {
+                question: "The centre of gravity of a sprinter during the race lies",
+                options: ["Ahead of his feet", "Behind his feet", "At the centre of the body", "To the left side of the body"],
+                answer: 0
+            },
+            {
+                question: "Who enunciated the laws of planetary motion?",
+                options: ["Nicolaus Copernicus", "Johannes Kepler", "Isaac Newton", "Galileo"],
+                answer: 1
+            },
+            {
+                question: "Which of the following celestial bodies contains abundant quantities of helium-3, a potential source of energy ?",
+                options: ["Earth", "Moon", "Venus", "Saturn"],
+                answer: 1
+            },
+            {
+                question: "If the distance between Sun and Earth becomes double, then the gravitational force on Earth will be",
+                options: ["Double", "Same", "Half", "One Fourth"],
+                answer: 3
+            },
+            {
+                question: "The velocity required to place a vehicle in orbit around the moon is ________ that required to place it in orbit round the earth.",
+                options: ["Less than", "Greater than", "Equal to", "Greater than or equal to"],
+                answer: 0
+            },
+            {
+                question: "Which measurement depends on gravitational force?",
+                options: ["Mass", "Weight", "Height", "All of the above"],
+                answer: 1
+            },
+            {
+                question: "What is the minimum escape velocity of rocket to be launched into space ?",
+                options: ["5 Km/Sec.", "6 Km/Sec.", "11 Km/Sec.", "15 Km/Sec."],
+                answer: 2
+            },
+            {
+                question: "The laws which govern the motion of planets are called ________",
+                options: ["Newton's Laws", "Kepler's Laws", "Avogadro's laws", "De Morgan's Laws"],
+                answer: 1
+            },
+            {
+                question: "What is the minimum velocity required for a rocket to overcome earth's gravity and travel into space?",
+                options: ["18 km/sec", "11.2 km/sec", "21 km/sec", "35 km/sec"],
+                answer: 1
+            },
+            {
+                question: "In the case of bodies falling under gravity which of the following remains constant at a given place?",
+                options: ["Kinetic energy", "Potential energy", "Acceleration", "All the above"],
+                answer: 2
+            },
+            {
+                question: "What is the escape velocity of the rocket in the earth?",
+                options: ["12.2 km/sec", "10.2 km/sec", "13.2 km/sec", "11.2 km/sec"],
+                answer: 3
+            },
+            {
+                question: "If an empty cylinder is half filled with a liquid, its center of gravity is",
+                options: ["Shifted upwards", "Shifted downwards", "Shifed neither upward nor downward", "Shifted upward or downward depending on the density of the liquid"],
+                answer: 1
+            },
+            {
+                question: "In Astrophysics, what name is given to a hypothetical hole in outer space from which stars and energy emerge?",
+                options: ["Black hole", "Ozone hole", "Asteroid belt", "White hole"],
+                answer: 3
+            },
+            {
+                question: "If there were no gravity, which of the following will not be there for a fluid?",
+                options: ["Viscosity", "Surface Tension", "Pressure", "Upward Thrust"],
+                answer: 3
+            },
+            {
+                question: "Energy in reflected light :",
+                options: ["Does not depends on the angle of incidence", "Increases with the increase in angle", "Decreases with the increase in angle of incidence", "Becomes maximum for angle of incidence equal to 45\u00b0"],
+                answer: 1
+            },
+            {
+                question: "Conservation of energy refers to the fact that",
+                options: ["If you conserve energy you will not be as tired", "Energy cannot be created or destroyed but can be converted from one form to another", "No chemical reaction is 100 percent efficient", "The entropy of the universe is always increasing"],
+                answer: 1
+            },
+            {
+                question: "________ states that internal energy is a function of state and the increase in internal energy is equal to the sum of the heat supplied to system and work done by the system.",
+                options: ["First law of thermodynamics", "Hooke's Law", "The coulomb's law", "Faraday's Law"],
+                answer: 0
+            },
+            {
+                question: "The velocity of heat radiation in vacuum is",
+                options: ["Equal to that of light", "Less than that of light", "Greater than that of light", "Equal to that of sound"],
+                answer: 0
+            },
+            {
+                question: "Which of these branches of Physics deal with heat and temperature and their relation to energy and work?",
+                options: ["Geophysics", "Mechanics", "Atomic Physics", "Thermodynamics"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is an example of simple harmonic motion?",
+                options: ["Earth spinning on its axis", "Simple pendulum motion", "Ball bouncing on floor", "Motion of a ceiling fan"],
+                answer: 1
+            },
+            {
+                question: "The average kinetic energy of the molecules of an ideal gas is directly proportional to",
+                options: ["Velocity of Molecules", "Mass of Molecules", "Absolute temperature of the gas", "Temperature of environment"],
+                answer: 2
+            },
+            {
+                question: "For accurate scientific work, temperatures are often measured by",
+                options: ["Mercury thermometers", "Alcohol thermometers", "Platinum resistance thermometers", "Thermoelectric thermometers"],
+                answer: 2
+            },
+            {
+                question: "Who among the following is credited to work for the unification of electricity, magnetism and optics field of Physics?",
+                options: ["James Clerk Maxwell", "Michael Faraday", "Haris Christian Oersted", "Isaac Newton"],
+                answer: 0
+            },
+            {
+                question: "Choose the most appropriate answer: Sir CV Raman was awarded Noble Prize for his work connected with which of the following phenomenon of radiation?",
+                options: ["Scattering", "Diffraction", "Interference", "Polarization"],
+                answer: 0
+            },
+            {
+                question: "If the phase difference between two points is 120\u00b0 for a wave with velocity of 360 m/s and frequency 500 Hz, then path difference between the two points is",
+                options: ["1 cm", "6 cm", "12 cm", "24 cm"],
+                answer: 3
+            },
+            {
+                question: "If density of oxygen is 16 times that of hydrogen, what will be their corresponding ratio of velocity of sound?",
+                options: ["4 : 1", "2 : 1", "1 : 16", "1 : 4"],
+                answer: 3
+            },
+            {
+                question: "The force that binds the neutrons and protons in a nucleus is called as:",
+                options: ["Weak Nuclear Force", "Strong Nuclear Force", "Electromagnetic Force", "Gravitational Force"],
+                answer: 1
+            },
+            {
+                question: "A wire of copper having length I and area of cross-section A is taken and a current i is flown through it. The power dissipated in the wire is P. If we take an aluminium wire having same dimensions and pass the same current through it, the power dissipated will be",
+                options: ["P", "< P", "> P", "2P"],
+                answer: 2
+            },
+            {
+                question: "Suppose voltage V is applied across a resistance R. The power dissipated in the resistance is P. Now the same voltage V is applied across a parallel combination of three equal resistors each of resistance R. Then the power dissipated in the second case will be",
+                options: ["P", "3P", "P/3", "2p/ 3"],
+                answer: 1
+            },
+            {
+                question: "In superconductors, the energy gap is due to",
+                options: ["Electron-electron interaction", "Electron-phonon interaction", "Phonon-phonon interaction", "Electron-photon intercation"],
+                answer: 1
+            },
+            {
+                question: "According to the quantum theory of light, the energy of light is carried in discrete units are called",
+                options: ["Photoelectrons", "Protons", "Electrons", "Photons"],
+                answer: 3
+            },
+            {
+                question: "The energy of a photon, whose momentum is 10 MeV/c, where c is the speed of light, is given by",
+                options: ["10 MeV", "100 MeV", "1 MeV", "0.1 MeV"],
+                answer: 0
+            },
+            {
+                question: "The energy of a photon varies directly with its",
+                options: ["Wave length", "Frequency", "Speed", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "A photon of X-ray has energy of 1 keV. A photon of visible radiation has energy of 3 eV. In this context, which one of the following statements is not correct?",
+                options: ["The wavelength of X-ray photon is less than the wavelength of visible radiation photon.", "Both the photons have different energies.", "The speeds of both the photons in vacuum are different", "The frequency of X-ray photon is higher than the frequency of visible radiation photon."],
+                answer: 2
+            },
+            {
+                question: ". . . . . . . . . exerts a force on anything that has an electric charge.",
+                options: ["Electric field", "Electrostatic force", "Inductive field", "All of the above"],
+                answer: 0
+            },
+            {
+                question: "Energy of Ultraviolet rays is great than",
+                options: ["Infrared rays", "Gamma rays", "X-rays", "Cosmic rays"],
+                answer: 0
+            },
+            {
+                question: "In a magnetic field, the direction of motion of a current carrying conductor is given by",
+                options: ["Maxwell's right hand rule", "Lenz's rule", "Flemings left hand rule", "Kirchoff's law"],
+                answer: 2
+            },
+            {
+                question: "The force between charged particles is called as:",
+                options: ["Nuclear Force", "Gravitational Force", "Centrifugal Force", "Electromagnetic Force"],
+                answer: 3
+            },
+            {
+                question: "Energy stored in the nucleus of an atom is called",
+                options: ["Nuclear energy", "Atomic energy", "Potential energy", "Kinetic energy"],
+                answer: 0
+            },
+            {
+                question: "The radiant energy having lowest energy is",
+                options: ["Gamma rays", "UV rays", "Visible light", "Microwave radiation"],
+                answer: 3
+            },
+            {
+                question: "The least penetrating power ray is",
+                options: ["Gamma rays", "Beta rays", "Alpha rays", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "The energy obtained from atoms is known as ________",
+                options: ["Solar energy", "Heat energy", "Nuclear energy", "Chemical energy"],
+                answer: 2
+            },
+            {
+                question: "What is the range of Strong Nuclear force?",
+                options: ["Infinite", "Very short Subnuclear size", "Very short Nuclear size", "None"],
+                answer: 2
+            },
+            {
+                question: "Name the process of production of energy in the Sun",
+                options: ["Nuclear fission", "Radioactivity", "Nuclear fusion", "Ionization"],
+                answer: 2
+            },
+            {
+                question: "Energy is continuously created in the sun due to:",
+                options: ["Nuclear fusion", "Nuclear fission", "Radioactivity", "Artificial radioactivity"],
+                answer: 0
+            },
+            {
+                question: "The magnifying power of an astronomical telescope can be decreased by",
+                options: ["Decreasing the focal length of the eyepiece", "Increasing the focal length of the eyepiece", "Increasing the focal length of the objective", "None of these"],
+                answer: 1
+            },
+            {
+                question: "Find the power of a convex lens if the image formed is at a distance of 25 cm from the lens when the object is placed on the other side of the lens at 12 cm from the optical centre?",
+                options: ["-4.33 diopters", "12.33 diopters", "-12.33 diopters", "4.33 diopters"],
+                answer: 1
+            },
+            {
+                question: "Find the power of a convex lens if the image formed is at a distance of 16 cm from the lens when the object is placed on the other side of the lens at 20 cm from the optical centre?",
+                options: ["-3.75 diopters", "-11.25 diopters", "3.75 diopters", "11.25 diopters"],
+                answer: 3
+            },
+            {
+                question: "Fibre optics work on the principle of",
+                options: ["Scattering of light", "Total internal absorption", "Total internal reflection", "Optical rotation"],
+                answer: 2
+            }
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.innerHTML = `<span class="text-blue-600 dark:text-blue-500 mr-2">Q${index + 1}.</span> ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                if (!option || option.trim() === '') return;
+                
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) return;
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            wrapper.appendChild(questionBlock);
+        });
+
+        // Theme sync
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synonym Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .quiz-container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .question-word {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options div {
+            margin-bottom: 10px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .options div:hover {
+            background-color: #e9e9e9;
+        }
+        .options input[type="radio"] {
+            margin-right: 10px;
+        }
+        .feedback {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .feedback.correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .feedback.incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #next-btn {
+            background-color: #28a745;
+            margin-top: 10px;
+        }
+        #next-btn:hover {
+            background-color: #1e7e34;
+        }
+        .progress {
+            margin-bottom: 15px;
+            font-size: 0.9em;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h1>Synonym Quiz</h1>
+        <div class="progress" id="progress-text"></div>
+        <div id="question-area">
+            <div class="question-word" id="question-word-display"></div>
+            <div class="options" id="options-display">
+                <!-- Options will be dynamically inserted here -->
+            </div>
+            <button id="submit-btn">Check Answer</button>
+            <div class="feedback" id="feedback-display" style="display:none;"></div>
+            <button id="next-btn" style="display:none;">Next Question</button>
+        </div>
+        <div id="results-area" style="display:none;">
+            <h2>Quiz Finished!</h2>
+            <p id="score-display"></p>
+            <button id="restart-btn">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        const quizDataSource = [ // Renamed 'questions' to 'quizDataSource' to avoid scope confusion
+            { id: 3, word: "Repose", options: ["Place", "Keep", "Rest", "Replace"], answer: "c" },
+            { id: 10, word: "Irresolute", options: ["Undecided", "Angry", "Ignorant", "Firm"], answer: "a" },
+            { id: 14, word: "Quash", options: ["Question", "Pledge", "Reject", "Slash"], answer: "c" },
+            { id: 22, word: "Surreptitiously", options: ["Calmly", "Secretly", "Suggestively", "Quietly"], answer: "b" },
+            { id: 28, word: "Impeccable", options: ["Perfect", "Fair", "Faultless", "Criminal"], answer: "c" },
+            { id: 44, word: "Accentuated", options: ["Accent", "Devalued", "Mitigated", "Sharpened"], answer: "d" },
+            { id: 48, word: "Pensive", options: ["Careless", "Thoughtful", "Penitent", "Unattached"], answer: "b" },
+            { id: 56, word: "Knave", options: ["Emperor", "Enchanter", "Soldier", "Scoundrel"], answer: "d" },
+            { id: 65, word: "Felicity", options: ["Prosperity", "Honesty", "Bliss", "Sorrow"], answer: "c" },
+            { id: 68, word: "Obstinate", options: ["Foolish", "Unyielding", "Unreasonable", "Mischievous"], answer: "b" },
+            { id: 71, word: "Impetus", options: ["Financial support", "Accelerated growth", "Retarded growth", "Driving force"], answer: "d" },
+            { id: 81, word: "Gloomy", options: ["Misty", "Morose", "Murky", "Shadowy"], answer: "b" },
+            { id: 88, word: "Peculiar", options: ["Same", "Strange", "Surprising", "Tiring"], answer: "b" },
+            { id: 91, word: "Fortitude", options: ["Composure", "Confidence", "Courage", "Produce"], answer: "c" },
+            { id: 106, word: "Refrain", options: ["Dissuade", "Desist", "Prevent", "Curb"], answer: "b" },
+            { id: 109, word: "Zealous", options: ["Ardent", "Jealous", "Furious", "Impatient"], answer: "a" },
+            { id: 111, word: "Feasible", options: ["Practical", "Rejoice", "Accentuate", "Accurate"], answer: "a" },
+            { id: 120, word: "Benevolent", options: ["Beneficial", "Kind", "Helpful", "Supportive"], answer: "b" },
+            { id: 124, word: "Cajole", options: ["Insist", "Persuade", "Direct", "Recommend"], answer: "b" },
+            { id: 133, word: "Jubilant", options: ["Brilliant", "Proud", "Ecstatic", "Gloomy"], answer: "c" },
+            { id: 147, word: "Prudent", options: ["Wise", "Cunning", "Frank", "Severe"], answer: "a" },
+            { id: 150, word: "Sporadic", options: ["Surviving", "Sweeping", "Irregular", "Persistent"], answer: "c" },
+            { id: 153, word: "Cursory", options: ["Little", "Quick", "Eager", "Tender"], answer: "b" },
+            { id: 155, word: "Clandestine", options: ["Awkward", "Inconsistent", "Secret", "Ugly"], answer: "c" },
+            { id: 157, word: "Obdurate", options: ["Angry", "Calm", "Obsessed", "Adamant"], answer: "d" },
+            { id: 172, word: "Querulous", options: ["Critical", "Curious", "Quarrelsome", "Ambiguous"], answer: "c" },
+            { id: 178, word: "Loquacious", options: ["Talkative", "Slow", "Content", "Unclear"], answer: "a" },
+            { id: 179, word: "Vindictive", options: ["Imaginative", "Accusative", "Spiteful", "Aggressive"], answer: "c" },
+            { id: 189, word: "Salient", options: ["Most important", "Salt-like taste", "Pleasing", "Satisfactory"], answer: "a" },
+            { id: 202, word: "Ephemeral", options: ["Disturbing", "Filthy", "Short-lived", "Poverty-stricken"], answer: "c" },
+            { id: 214, word: "Nebulous", options: ["Revolutionary", "Vague", "Starting", "Idiotic"], answer: "b" },
+            { id: 215, word: "Ubiquitous", options: ["Omnipresent", "Omnipotent", "Omniscient", "Affluent"], answer: "a" },
+            { id: 219, word: "Delirious", options: ["Delicious", "Pleasing", "Desperate", "Excited"], answer: "d" },
+            { id: 224, word: "Abstemious", options: ["Resistant", "Temperate", "Superstitious", "Careful"], answer: "b" },
+            { id: 240, word: "Evince", options: ["Look", "Try", "Apply", "Show"], answer: "d" },
+            { id: 242, word: "Flabbergasted", options: ["Scared", "Embarrassed", "Dumbfounded", "Humiliated"], answer: "c" },
+            { id: 249, word: "Innuendoes", options: ["Indications", "Inspiring quotes", "Witty remarks", "Insinuations"], answer: "d" },
+            { id: 256, word: "Pragmatic", options: ["Practical", "Playful", "Causal", "Clever"], answer: "a" },
+            { id: 260, word: "Soporific", options: ["Soothing", "Terrific", "Supreme", "Sleep-inducing"], answer: "d" },
+            { id: 261, word: "Vagary", options: ["Lapse of memory", "Companionship", "gang", "impulse"], answer: "d" }
+        ];
+
+        let workingQuestions = [];
+        let score = 0;
+        let currentAttemptNumber = 0; // Tracks the number of questions presented
+        let totalUniqueQuestionsCount = 0; // Stores the initial number of unique questions
+
+        const questionWordDisplay = document.getElementById('question-word-display');
+        const optionsDisplay = document.getElementById('options-display');
+        const feedbackDisplay = document.getElementById('feedback-display');
+        const submitBtn = document.getElementById('submit-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const progressText = document.getElementById('progress-text');
+        
+        const questionArea = document.getElementById('question-area');
+        const resultsArea = document.getElementById('results-area');
+        const scoreDisplay = document.getElementById('score-display');
+        const restartBtn = document.getElementById('restart-btn');
+
+        function initializeQuiz() {
+            score = 0;
+            currentAttemptNumber = 0;
+            // Create a fresh copy of questions for the current quiz session
+            // Shallow copy is fine as we only add/remove a temp property, not deeply modify objects
+            workingQuestions = quizDataSource.map(q => ({...q})); 
+            totalUniqueQuestionsCount = quizDataSource.length;
+
+            // Optional: Shuffle workingQuestions if you want variety when questions repeat
+            // shuffleArray(workingQuestions); // You would need to implement shuffleArray
+
+            questionArea.style.display = 'block';
+            resultsArea.style.display = 'none';
+            
+            loadQuestion();
+        }
+
+        // Example shuffle function (Fisher-Yates shuffle) if you want to use it
+        /*
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+        */
+
+        function loadQuestion() {
+            if (workingQuestions.length === 0) {
+                showResults();
+                return;
+            }
+
+            currentAttemptNumber++;
+            const currentQuestion = workingQuestions[0]; // Always take the first question
+
+            questionWordDisplay.textContent = `${currentQuestion.id}. ${currentQuestion.word}`;
+            progressText.textContent = `Attempt ${currentAttemptNumber} (Unique questions remaining: ${workingQuestions.length})`;
+            
+            optionsDisplay.innerHTML = ''; // Clear previous options
+            currentQuestion.options.forEach((option, index) => {
+                const optionLetter = String.fromCharCode(97 + index); // a, b, c, d
+                const div = document.createElement('div');
+                div.innerHTML = `
+                    <input type="radio" name="option" value="${optionLetter}" id="opt-${optionLetter}">
+                    <label for="opt-${optionLetter}">${optionLetter}) ${option}</label>
+                `;
+                optionsDisplay.appendChild(div);
+            });
+
+            feedbackDisplay.style.display = 'none';
+            submitBtn.style.display = 'block';
+            submitBtn.disabled = false; // Ensure submit button is enabled
+            nextBtn.style.display = 'none';
+            
+            // Ensure radio buttons are enabled
+            const radioButtons = document.querySelectorAll('input[name="option"]');
+            radioButtons.forEach(radio => radio.disabled = false);
+        }
+
+        function checkAnswer() {
+            const selectedOptionInput = document.querySelector('input[name="option"]:checked');
+            if (!selectedOptionInput) {
+                alert('Please select an answer.');
+                return;
+            }
+
+            const currentQuestion = workingQuestions[0]; // The question being answered
+            const userAnswer = selectedOptionInput.value;
+            const correctAnswer = currentQuestion.answer;
+            const correctAnswerText = currentQuestion.options[correctAnswer.charCodeAt(0) - 97];
+
+            // Add a temporary flag to the question object for the nextQuestion logic
+            currentQuestion.lastAnswerCorrect = false; 
+
+            if (userAnswer === correctAnswer) {
+                feedbackDisplay.textContent = 'Correct!';
+                feedbackDisplay.className = 'feedback correct';
+                score++;
+                currentQuestion.lastAnswerCorrect = true;
+            } else {
+                feedbackDisplay.textContent = `Incorrect. The correct answer was: ${correctAnswer.toUpperCase()}) ${correctAnswerText}`;
+                feedbackDisplay.className = 'feedback incorrect';
+            }
+
+            feedbackDisplay.style.display = 'block';
+            submitBtn.disabled = true; // Disable submit after checking to prevent multiple submissions
+            submitBtn.style.display = 'none'; 
+            nextBtn.style.display = 'block';
+            
+            // Disable radio buttons after answering
+            const radioButtons = document.querySelectorAll('input[name="option"]');
+            radioButtons.forEach(radio => radio.disabled = true);
+        }
+
+        function nextQuestion() {
+            const answeredQuestion = workingQuestions.shift(); // Remove the question from the front
+
+            if (answeredQuestion) { // Check if a question was indeed removed
+                const wasCorrect = answeredQuestion.lastAnswerCorrect;
+                delete answeredQuestion.lastAnswerCorrect; // Clean up the temporary flag
+
+                if (!wasCorrect) {
+                    workingQuestions.push(answeredQuestion); // Add it to the end of the array if incorrect
+                }
+            }
+            
+            loadQuestion(); // Load the next question or show results if workingQuestions is empty
+        }
+        
+        function showResults() {
+            questionArea.style.display = 'none';
+            resultsArea.style.display = 'block';
+            // Score is out of the total number of unique questions
+            scoreDisplay.textContent = `You scored ${score} out of ${totalUniqueQuestionsCount}.`;
+        }
+
+        function restartQuiz() {
+            initializeQuiz(); // This will reset score, questions, and load the first question
+        }
+
+        // Event Listeners
+        submitBtn.addEventListener('click', checkAnswer);
+        nextBtn.addEventListener('click', nextQuestion);
+        restartBtn.addEventListener('click', restartQuiz);
+
+        // Initial load of the quiz
+        initializeQuiz();
+    </script>
+
+</body>
+</html>

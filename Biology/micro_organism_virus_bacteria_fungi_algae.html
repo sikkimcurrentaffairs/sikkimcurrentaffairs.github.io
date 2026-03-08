@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biology - Micro-organism (Virus, Bacteria, Fungi, Algae) | Sikkim PSC Hub</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+            border-color: #bbb;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .options-list.answered .option:not(.correct):not(.incorrect) {
+            opacity: 0.7;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none;
+        }
+        .quiz-stats {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <a href="biology.html" class="back-link">&larr; Back to Biology</a>
+        <h1>Micro-organism (Virus, Bacteria, Fungi, Algae)</h1>
+        <p class="quiz-stats">46 Questions</p>
+        <!-- Questions will be dynamically inserted here by JavaScript -->
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Microorganisms are seen only with",
+                options: ["Open eye", "Naked eye · · ..(-e} Microscope", "", "None"],
+                answer: 3
+            },
+            {
+                question: "Bacteria Select the correct answer using the codes given below.",
+                options: ["1 only", "2 and 3 only", "1 and 3 only", "1, 2 and 3 (lAS 2013]"],
+                answer: 1
+            },
+            {
+                question: "Viruses are.",
+                options: ["Complete saprophytes", "Partial parasites", "Partial saprophytes (A-f Total parasite", ""],
+                answer: 2
+            },
+            {
+                question: "Genetic material of a virus is",
+                options: ["DNA", "RNA", "Either DNA or RNA", "Both DNA and RNA"],
+                answer: 0
+            },
+            {
+                question: "cteria w-as dis92_ve~t..lzy=",
+                options: ["Leeuwenhook", "Robert hook", "Louis pasture", "Robert Koch"],
+                answer: 2
+            },
+            {
+                question: "tatment which is true about bacteria",
+                options: ["All bacteria are autotrophs", "All bacteria are heterotrophs _", "Most of them are heterotrophs but some are autotrophs", "All bacteria are photosynthetic"],
+                answer: 1
+            },
+            {
+                question: "cteria_llre grouped ~e,!..Pl<lJlt b~cause",
+                options: ["They can not move They have cell wall", "", "They multiple by fission", "They are found everywhere"],
+                answer: 0
+            },
+            {
+                question: "Generally bacteria are found in the form of- a) Bacill",
+                options: ["", "Cocci", "Bacilli", "Spirilla"],
+                answer: 3
+            },
+            {
+                question: "Bacteria which are round in sh~e are called",
+                options: ["Vibrio", "Bacillus Jc) Coccus", "", "Spirilla"],
+                answer: 3
+            },
+            {
+                question: "Viruses are transmitted from one organism to another by biological vectors only. Select the correct answer using the codes given below.",
+                options: ["1 only", "2 and 3 only", "1 and 3 only", "1, 2 and 3"],
+                answer: 1
+            },
+            {
+                question: "Which one of the following_fungi is comm.on!y kn~s \'bread maul~ ? _",
+                options: ["Synehytrium", "Rhizopus", "Aspergillus", "Penicillium [MTS2014}"],
+                answer: 1
+            },
+            {
+                question: "The chameleon can look ahead with one eye and at the same time look behind with another- Which of these statements is I are correct ?",
+                options: ["Only 1", "Only 2", "Both 1 and 2", "Neither 1 nor 2 [Tr-1S I~ 2003/"],
+                answer: 3
+            },
+            {
+                question: "They can be installed in waste water treatment plants to cleanse water and produce electricity. Which statements given above is/ are correct?",
+                options: ["1 only", "Algae", "Virus", "Bacteria [SSC 2011/"],
+                answer: 1
+            },
+            {
+                question: "Species plantarum and systema natural was written one as by- • _taxonomy",
+                options: ["Angular", "Hooker", "Khurana", "Walace"],
+                answer: 3
+            },
+            {
+                question: "Basic unit of classification is- {a1 Species",
+                options: ["", "Order", "Family", "Group"],
+                answer: 2
+            },
+            {
+                question: "Brinjal plant bel!?ng to fai!Wy",
+                options: ["Cruciferi kb) Solanaceae", "", "Malvacae", "Rannculacae"],
+                answer: 0
+            },
+            {
+                question: "tanical name of mango is",
+                options: ["Mussa sapiantum", "Doccus corrota \'c\' Mangifer indica", "", "None of these"],
+                answer: 1
+            },
+            {
+                question: "Grain provid~g plant is rel~ed t<_> the family",
+                options: ["Malvacae ) Graminae", "", "Liliaceae", "Cruciferi"],
+                answer: 0
+            },
+            {
+                question: "Largest family is- Composfte",
+                options: ["", "Solanacea", "Liliacae", "Cruciferae"],
+                answer: 3
+            },
+            {
+                question: "_Botanical name 9f grass is",
+                options: ["Oryza saliva", "Triticum aestium Jc) Cynodon dectylon", "", "Saccharum officinarum"],
+                answer: 1
+            },
+            {
+                question: "Sugarcane in Malaysia /. Coffee in Brazil Select the correct answer using the code given below",
+                options: ["1 only", "2 and 3", "3 and 4 ) 1 and 4 fC:JSI 2011}", ""],
+                answer: 1
+            },
+            {
+                question: "Its timber is of great commercial value. Which of the statements given above is I are correct ?",
+                options: ["1 only", "2, 3 and 4 only", "1 and 3 only", "1, 2, 3 and 4) .AS2012]"],
+                answer: 2
+            },
+            {
+                question: "Root develop from any part of plant body ex,cept the radical- - \'\"",
+                options: ["Tap root", "Adventitious root", "Fibrous root", "Tuberous root"],
+                answer: 3
+            },
+            {
+                question: "Root found in Dahila",
+                options: ["Tuberous root", "Fusiform root", "Fasiculated root", "Conical root"],
+                answer: 2
+            },
+            {
+                question: "pimbing root are found in",
+                options: ["Ctenospora", "Trapa c) Piper betel", "", "Water chestnut"],
+                answer: 0
+            },
+            {
+                question: "Epiphytic root are found in",
+                options: ["Xerophytic plant", "Climbing plant k) Mangroove plant", "Amerbel", "Hydrophytes plant"],
+                answer: 0
+            },
+            {
+                question: "_!3.oots c!,e.velo~ from",
+                options: ["Plumule !b) Radical", "", "Stem", "Leaf"],
+                answer: 3
+            },
+            {
+                question: "Carrote is a-;-.",
+                options: ["Root", "Stem", "Fruit", "Flower"],
+                answer: 2
+            },
+            {
+                question: "Roots arises from the horizontal arialbianches of tree Banyan is called- •",
+                options: ["Hydrilla", "Rhizophora", "Napiform root- Turnip", "Respiratory root-Mangroove (J. Pnematophores are found in - ·"],
+                answer: 1
+            },
+            {
+                question: "Bird  Which of the above is I are pollinating.agent I agents ?",
+                options: ["1 and 2 only", "2 only", "1 and 3 only kdf 1, 2 and 3  • ---- -- - --- -------- --", ""],
+                answer: 1
+            },
+            {
+                question: "Bring a his a good source of Iron _,;¥ Pumpkin is a go?d source of vita~ A Which of the followmg statements given above IS I are correct?",
+                options: ["1 only 2only", "", "Both 1 and 2", "Neither 1 nor 2"],
+                answer: 3
+            },
+            {
+                question: "Fern plants lack true vascular system. Which of the statements given above is/ are correct Only 1",
+                options: ["", "Only 2", "Both 1 and 2", "Neither 1 nor 2 [NDA 2006}"],
+                answer: 3
+            },
+            {
+                question: "Osmosis Involves",
+                options: ["Cytoplasm will d ecompose", "Mineral salt will break the cell wall", "Salt water enters the cell. j.d1\' Water Comes out by exosmosis.", "bound water  A cell placed in strong salt solution will shrink because"],
+                answer: 3
+            },
+            {
+                question: "Transpiration Select the correct answer using the code given below",
+                options: ["1 and 3 only", "2 only J..e1 2 and 3 only", "", "1, 2 and 3"],
+                answer: 1
+            },
+            {
+                question: "A cell placed in strong salt solution will shr:!...\"lk because",
+                options: ["Cytoplasm will decompose", "Mineral salt will break the cell wall.", "Salt water enters the cell. ):d\'J Water comes out from cell by exosmosis.", ""],
+                answer: 0
+            },
+            {
+                question: "A cell sh£ink whenjt is_pl~d in::- )a\') Hypertonic solution",
+                options: ["", "Hypotonic solution", "Isotonic solution", "Saturated solution."],
+                answer: 2
+            },
+            {
+                question: "A cell increases in volume if the external medium is- Ja) Hypotonic",
+                options: ["", "Hypertonl~", "Isotonic", "None of these 1 r r I\' r t I i"],
+                answer: 1
+            },
+            {
+                question: "During rainy seasons door made up of wood swell up _cme..tu",
+                options: ["Diffusion /", "Osmosis 1,€) Inhibition", "", "Plasmolysis."],
+                answer: 3
+            },
+            {
+                question: "Excessive su£Ply of chemic~tilizer_o~ causes death of crop plant due tQ-- ) Exosmosis",
+                options: ["", "Endosmosis", "Imbibition", "Turgidity"],
+                answer: 3
+            },
+            {
+                question: "Water avilable i~ soil for the root of Plant is- a) Capillary Water",
+                options: ["", "Gravitat~nal Water", "Hygroscopic Water", "None of these"],
+                answer: 1
+            },
+            {
+                question: "In biological system, diffu~n of__,. the term osmosis involves the",
+                options: ["Water", "Solutes", "Energy", "Both a & b."],
+                answer: 1
+            },
+            {
+                question: "Sugar can only be produced from sugar cane as the raw material. Which of these statements are correct? a) 1 and 2",
+                options: ["", "2 and 3", "1 and 3", "1, 2 and 3"],
+                answer: 1
+            },
+            {
+                question: "Jasmine plant is propagated by layering technique. Which of the statement given above is I are correct ?",
+                options: ["1 and 2", "3 only", "1 and 3 W,.)- 1, 2 and 3", "Neither 1 nor 2  16~~ thejoll~g:.;. _.1. Camphor ~- Chicory ...s:-vanilla . Which of the ~ove is I ill_e plant product J"],
+                answer: 3
+            },
+            {
+                question: "Osmosis is a process in which the water molecules move through a semipermeable membrane from the region of their lower concentration to the region of -their higher concentration. Which of the above statements is I are correct ?",
+                options: ["1 only", "2 only ) Both 1 and 2", "", "Neither 1 nor 2"],
+                answer: 3
+            },
+            {
+                question: "Commercially used saffron represents dried stigmas from flowers. Which of the statements given above are correct ?",
+                options: ["1, 2 and 3", "1 and 3 only", "2 and 3 only ) 2 and 4 [SCRA 2012}", ""],
+                answer: 2
+            },
+            {
+                question: "The nutritive tissue in the seeds of higher plants is known as- _.",
+                options: ["endosperm", "nucellus", "hypocotyl", "embryo [SSC LDC 2013}"],
+                answer: 0
+            }
+        ];
+
+        const quizContainer = document.getElementById('quiz-container');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.textContent = `${index + 1}) ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) {
+                        return;
+                    }
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            quizContainer.appendChild(questionBlock);
+        });
+    </script>
+</body>
+</html>

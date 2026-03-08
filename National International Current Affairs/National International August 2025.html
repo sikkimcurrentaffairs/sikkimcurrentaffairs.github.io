@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>General Knowledge Quiz - August 2025</title>
+    <style>
+        :root {
+            --primary-color: #1a5276;
+            --secondary-color: #2980b9;
+            --correct-color: #27ae60;
+            --incorrect-color: #e74c3c;
+            --light-gray: #f8f9f9;
+            --dark-gray: #7f8c8d;
+            --gold-color: #f1c40f;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gold-color);
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-top: 10px;
+            font-weight: 400;
+        }
+        
+        .quiz-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .question {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: var(--primary-color);
+            line-height: 1.4;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .option {
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            background-color: white;
+            position: relative;
+            padding-left: 45px;
+        }
+        
+        .option:hover {
+            background-color: var(--light-gray);
+            border-color: var(--secondary-color);
+        }
+        
+        .option::before {
+            content: "";
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .option.selected {
+            background-color: #e1f0fa;
+            border-color: var(--secondary-color);
+            font-weight: 500;
+        }
+        
+        .option.selected::before {
+            border-color: var(--secondary-color);
+            background-color: var(--secondary-color);
+        }
+        
+        .option.correct {
+            background-color: #e8f8f0;
+            border-color: var(--correct-color);
+            color: var(--correct-color);
+        }
+        
+        .option.correct::before {
+            border-color: var(--correct-color);
+            background-color: var(--correct-color);
+        }
+        
+        .option.incorrect {
+            background-color: #fdedec;
+            border-color: var(--incorrect-color);
+            color: var(--incorrect-color);
+        }
+        
+        .option.incorrect::before {
+            border-color: var(--incorrect-color);
+        }
+        
+        .feedback {
+            margin-top: 25px;
+            padding: 18px;
+            border-radius: 8px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .correct-feedback {
+            background-color: #e8f8f0;
+            color: var(--correct-color);
+            border-left: 5px solid var(--correct-color);
+        }
+        
+        .incorrect-feedback {
+            background-color: #fdedec;
+            color: var(--incorrect-color);
+            border-left: 5px solid var(--incorrect-color);
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        button:hover {
+            background-color: #154360;
+            transform: translateY(-2px);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+        
+        .progress-container {
+            margin-bottom: 25px;
+            background-color: var(--light-gray);
+            border-radius: 20px;
+            height: 10px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+            transition: width 0.4s ease;
+        }
+        
+        .progress-text {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: var(--dark-gray);
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .result-container {
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.8s ease;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .score {
+            font-size: 72px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 30px 0;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .score::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--gold-color);
+            border-radius: 2px;
+        }
+        
+        .score-text {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .restart-btn {
+            margin-top: 30px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .restart-btn:hover {
+            background: linear-gradient(135deg, #3498db, #1a5276);
+            transform: translateY(-2px);
+        }
+        
+        .explanation {
+            margin-top: 15px;
+            font-style: italic;
+            color: var(--dark-gray);
+            line-height: 1.5;
+        }
+        
+        .performance-text {
+            font-size: 18px;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f8f9f9;
+        }
+        
+        .week-indicator {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--gold-color);
+            color: var(--primary-color);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            
+            header {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .quiz-container {
+                padding: 20px;
+            }
+
+            .week-indicator {
+                position: relative; 
+                display: block;     
+                width: fit-content; 
+                margin: 0 auto 20px auto; 
+                top: auto;          
+                right: auto;        
+                font-size: 13px;    
+                padding: 6px 12px;  
+            }
+            
+            .question {
+                font-size: 18px;
+            }
+            
+            .option {
+                padding: 12px 12px 12px 40px;
+                font-size: 15px;
+            }
+            
+            .score {
+                font-size: 60px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="../auth.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>General Knowledge Quiz</h1>
+            <div class="subtitle">Test Your Knowledge on August 2025 Current Affairs</div>
+        </header>
+        
+        <div class="progress-text">
+            <span>Question <span id="current-question">1</span> of <span id="total-questions">120</span></span>
+            <span>Score: <span id="current-score">0</span></span>
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        
+        <div class="quiz-container">
+            <div class="week-indicator" id="week-indicator">Week 1</div>
+            <div class="question" id="question-text"></div>
+            <div class="options" id="options-container"></div>
+            <div class="feedback" id="feedback"></div>
+            
+            <div class="navigation">
+                <button id="prev-btn" disabled>Previous</button>
+                <button id="next-btn">Next</button>
+            </div>
+        </div>
+        
+        <div class="result-container" id="result-container">
+            <h2>Quiz Completed!</h2>
+            <div class="score-text">Your Final Score</div>
+            <div class="score"><span id="final-score">0</span>/<span id="total-questions-final">0</span></div>
+            <div class="performance-text" id="performance-text"></div>
+            <button class="restart-btn" id="restart-btn">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Where was the world’s smallest known snake, threadsnake, rediscovered after 20 years?",
+                options: ["Barbados", "Guyana", "Colombia", "Cuba"],
+                answer: 0,
+                explanation: "The correct answer is Barbados.",
+                week: "Week 1"
+            },
+            {
+                question: "Kavach 4.0 is an automatic train protection system introduced by which organization?",
+                options: ["Bharat Heavy Electricals Limited (BHEL)", "Research Designs & Standards Organisation (RDSO)", "Defence Research and Development Organisation (DRDO)", "Ministry of Transport"],
+                answer: 1,
+                explanation: "The correct answer is Research Designs & Standards Organisation (RDSO).",
+                week: "Week 1"
+            },
+            {
+                question: "Dorjilung Hydropower Project is located in which country?",
+                options: ["Nepal", "Bhutan", "Myanmar", "Bangladesh"],
+                answer: 1,
+                explanation: "The correct answer is Bhutan.",
+                week: "Week 1"
+            },
+            {
+                question: "Which institution has launched the “Saksham Niveshak” campaign?",
+                options: ["Investor Education and Protection Fund Authority (IEPFA)", "Reserve Bank of India (RBI)", "Securities and Exchange Board of India (SEBI)", "National Bank for Agriculture and Rural Development (NABARD)"],
+                answer: 0,
+                explanation: "The correct answer is Investor Education and Protection Fund Authority (IEPFA).",
+                week: "Week 1"
+            },
+            {
+                question: "Typhoon Co-May recently hit which country?",
+                options: ["Japan", "Philippines", "China", "None of the Above"],
+                answer: 2,
+                explanation: "The correct answer is China.",
+                week: "Week 1"
+            },
+            {
+                question: "What is the name of the third ship of the Nilgiri Class (Project 17A) recently delivered to the Indian Navy?",
+                options: ["Shivalik", "Himgiri", "Shivshakti", "Kaveri"],
+                answer: 1,
+                explanation: "The correct answer is Himgiri.",
+                week: "Week 1"
+            },
+            {
+                question: "Which state has become the first in India to launch Sabbatical Leave scheme for its government employees?",
+                options: ["Assam", "Uttarakhand", "Sikkim", "Odisha"],
+                answer: 2,
+                explanation: "The correct answer is Sikkim.",
+                week: "Week 1"
+            },
+            {
+                question: "Ashtamudi Lake, that was recently seen in news, is located in which state?",
+                options: ["Kerala", "Tamil Nadu", "Maharashtra", "Odisha"],
+                answer: 0,
+                explanation: "The correct answer is Kerala.",
+                week: "Week 1"
+            },
+            {
+                question: "Nyaya Bandhu (Pro Bono Legal Service) is an initiative of which government department?",
+                options: ["Department of Legal Affairs", "Department of Justice", "Department of Administrative Reforms and Public Grievances", "Department of Personnel and Training"],
+                answer: 1,
+                explanation: "The correct answer is Department of Justice.",
+                week: "Week 1"
+            },
+            {
+                question: "Which organization has launched the women-led cooperative schemes — Swayamshakti Sahakar Yojana and Nandini Sahakar?",
+                options: ["National Cooperative Development Corporation (NCDC)", "NITI Aayog", "National Bank for Agriculture and Rural Development (NABARD)", "Ministry of Women and Child Development"],
+                answer: 0,
+                explanation: "The correct answer is National Cooperative Development Corporation (NCDC).",
+                week: "Week 1"
+            },
+            {
+                question: "BlueBird communication satellite is developed by which country?",
+                options: ["United States", "France", "China", "Russia"],
+                answer: 0,
+                explanation: "The correct answer is United States.",
+                week: "Week 2"
+            },
+            {
+                question: "Which state has the highest population of Mithun (Bos frontalis), a semi-domesticated bovine species?",
+                options: ["Nagaland", "Arunachal Pradesh", "Sikkim", "Assam"],
+                answer: 1,
+                explanation: "The correct answer is Arunachal Pradesh.",
+                week: "Week 2"
+            },
+            {
+                question: "Nahargarh Wildlife Sanctuary (NWS) is located in which state?",
+                options: ["Karnataka", "Andhra Pradesh", "Rajasthan", "Gujarat"],
+                answer: 2,
+                explanation: "The correct answer is Rajasthan.",
+                week: "Week 2"
+            },
+            {
+                question: "Who was honoured with the 43rd Lokmanya Tilak National Award 2025?",
+                options: ["Nitin Gadkari", "Rajnath Singh", "Piyush Goyal", "Amit Shah"],
+                answer: 0,
+                explanation: "The correct answer is Nitin Gadkari.",
+                week: "Week 2"
+            },
+            {
+                question: "What is the name of the nationwide initiative under which the Telangana Government rescued over 7,600 children recently?",
+                options: ["Operation Suraksha", "Operation Vijay", "Operation Chanakya", "Operation Muskaan-XI"],
+                answer: 3,
+                explanation: "The correct answer is Operation Muskaan-XI.",
+                week: "Week 2"
+            },
+            {
+                question: "HQ-16 is a Surface-to-Air Missile (SAM) system developed by which country?",
+                options: ["China", "France", "Israel", "Russia"],
+                answer: 0,
+                explanation: "The correct answer is China.",
+                week: "Week 2"
+            },
+            {
+                question: "Sawalkote Hydroelectric Power Project is located in which state/UT?",
+                options: ["Himachal Pradesh", "Jammu and Kashmir", "Uttarakhand", "Punjab"],
+                answer: 1,
+                explanation: "The correct answer is Jammu and Kashmir.",
+                week: "Week 2"
+            },
+            {
+                question: "The Central Industrial Security Force (CISF) functions under which Union Ministry?",
+                options: ["Ministry of Defence", "Ministry of External Affairs", "Ministry of Finance", "Ministry of Home Affairs"],
+                answer: 3,
+                explanation: "The correct answer is Ministry of Home Affairs.",
+                week: "Week 2"
+            },
+            {
+                question: "According to Union Health Ministry, which state has recorded the highest number of organ donations in India?",
+                options: ["Odisha", "Maharashtra", "Telangana", "Karnataka"],
+                answer: 2,
+                explanation: "The correct answer is Telangana.",
+                week: "Week 2"
+            },
+            {
+                question: "Which two institutions jointly developed a District Flood Severity Index (DFSI)?",
+                options: ["IIT Bombay and IIT Kanpur", "IIT Delhi and IIT Gandhinagar", "IIT Madras and IIT Kharagpur", "IIT Roorkee and IIT Hyderabad"],
+                answer: 1,
+                explanation: "The correct answer is IIT Delhi and IIT Gandhinagar.",
+                week: "Week 2"
+            },
+            {
+                question: "RS-28 Sarmat is an intercontinental ballistic missile developed by which country?",
+                options: ["Russia", "China", "India", "France"],
+                answer: 0,
+                explanation: "The correct answer is Russia.",
+                week: "Week 3"
+            },
+            {
+                question: "Which Indian state recently reintroduced the critically endangered Asian Giant Tortoise into a community reserve?",
+                options: ["Nagaland", "Assam", "Arunachal Pradesh", "Sikkim"],
+                answer: 0,
+                explanation: "The correct answer is Nagaland.",
+                week: "Week 3"
+            },
+            {
+                question: "Which two crops from Ladakh are part of NASA’s Crew-11 experiment on the International Space Station (ISS)?",
+                options: ["Barley and maize", "Seabuckthorn and Himalayan tartary", "Mizuna mustard and Black eyed pea", "None of the Above"],
+                answer: 1,
+                explanation: "The correct answer is Seabuckthorn and Himalayan tartary.",
+                week: "Week 3"
+            },
+            {
+                question: "Which institution has launched the India Electric Mobility Index (IEMI)?",
+                options: ["Reserve Bank of India", "Bureau of Indian Standards", "NITI Aayog", "Ministry of Electronics and Information Technology"],
+                answer: 2,
+                explanation: "The correct answer is NITI Aayog.",
+                week: "Week 3"
+            },
+            {
+                question: "Sahel region, that was recently seen in news, is located in which continent?",
+                options: ["Africa", "Europe", "Australia", "North America"],
+                answer: 0,
+                explanation: "The correct answer is Africa.",
+                week: "Week 3"
+            },
+            {
+                question: "PAHAL scheme was launched by which ministry?",
+                options: ["Ministry of Petroleum and Natural Gas", "Ministry of Science and Technology", "Ministry of Agriculture", "Ministry of Finance"],
+                answer: 0,
+                explanation: "The correct answer is Ministry of Petroleum and Natural Gas.",
+                week: "Week 3"
+            },
+            {
+                question: "LEAP-1 is the first commercial satellite mission of which Indian space-tech startup?",
+                options: ["Dhruva Space", "Agnikul", "Skyroot Aerospace", "Digantara"],
+                answer: 0,
+                explanation: "The correct answer is Dhruva Space.",
+                week: "Week 3"
+            },
+            {
+                question: "Which institute has released a report titled ‘Unlocking a $200 Billion Opportunity: Electric Vehicles in India’?",
+                options: ["NITI Aayog", "Bureau Indian Standard", "Ministry of Road, Transport and Highways", "Central Pollution Control Board (CPCB)"],
+                answer: 0,
+                explanation: "The correct answer is NITI Aayog.",
+                week: "Week 3"
+            },
+            {
+                question: "Which ministry has launched the “Haat on Wheels” initiative?",
+                options: ["Ministry of Science and Technology", "Ministry of Commerce and Industry", "Ministry of Tourism", "Ministry of Textiles"],
+                answer: 3,
+                explanation: "The correct answer is Ministry of Textiles.",
+                week: "Week 3"
+            },
+            {
+                question: "Which state government has launched Mukhyamantri Nijut Moina 2.0 scheme to boost girls’ higher education?",
+                options: ["Nagaland", "Assam", "Tripura", "Manipur"],
+                answer: 1,
+                explanation: "The correct answer is Assam.",
+                week: "Week 3"
+            },
+            {
+                question: "Smithophis leptofasciatus, that was recently seen in news, belongs to which species?",
+                options: ["Ant", "Spider", "Snake", "Frog"],
+                answer: 2,
+                explanation: "The correct answer is Snake.",
+                week: "Week 4"
+            },
+            {
+                question: "Yashoda AI literacy programme is an initiative of which organization?",
+                options: ["Employees’ Provident Fund Organisation (EPFO)", "Pension Fund Regulatory and Development Authority (PFRDA)", "Ministry of Health and Family Welfare", "National Commission for Women (NCW)"],
+                answer: 3,
+                explanation: "The correct answer is National Commission for Women (NCW).",
+                week: "Week 4"
+            },
+            {
+                question: "SIGHT scheme is a subcomponent of which national mission?",
+                options: ["National Solar Mission", "National Green Hydrogen Mission", "National Electric Mobility Mission", "National Wind Energy Mission"],
+                answer: 1,
+                explanation: "The correct answer is National Green Hydrogen Mission.",
+                week: "Week 4"
+            },
+            {
+                question: "An albino Indian flapshell turtle (Lissemys punctata) was recently spotted in which state?",
+                options: ["Gujarat", "Odisha", "Goa", "Karnataka"],
+                answer: 0,
+                explanation: "The correct answer is Gujarat.",
+                week: "Week 4"
+            },
+            {
+                question: "Mount Kilimanjaro, that was recently seen in news, is located in which country?",
+                options: ["Madagascar", "Tanzania", "Nigeria", "Rwanda"],
+                answer: 1,
+                explanation: "The correct answer is Tanzania.",
+                week: "Week 4"
+            },
+            {
+                question: "Vishnugad Pipalkoti Hydroelectric Project is located in which state?",
+                options: ["Odisha", "Uttarakhand", "Himachal Pradesh", "Madhya Pradesh"],
+                answer: 1,
+                explanation: "The correct answer is Uttarakhand.",
+                week: "Week 4"
+            },
+            {
+                question: "Which country has developed the Dark Eagle hypersonic missile system?",
+                options: ["United States", "France", "Australia", "Russia"],
+                answer: 0,
+                explanation: "The correct answer is United States.",
+                week: "Week 4"
+            },
+            {
+                question: "World Tribal Day is observed every year on which day?",
+                options: ["August 7", "August 8", "August 9", "August 10"],
+                answer: 2,
+                explanation: "The correct answer is August 9.",
+                week: "Week 4"
+            },
+            {
+                question: "Notary Portal was launched by which ministry?",
+                options: ["Ministry of Law and Justice", "Ministry of Finance", "Ministry of Commerce and Industry", "Ministry of Tribal Affairs"],
+                answer: 0,
+                explanation: "The correct answer is Ministry of Law and Justice.",
+                week: "Week 4"
+            },
+            {
+                question: "Great Barrier Reef, that was recently seen in news, is located in which country?",
+                options: ["Indonesia", "Japan", "Australia", "Malaysia"],
+                answer: 2,
+                explanation: "The correct answer is Australia.",
+                week: "Week 4"
+            },
+            {
+                question: "Where was a new plant species named Heptapleurum assamicum discovered recently?",
+                options: ["Arunachal Pradesh", "Assam", "Nagaland", "Tripura"],
+                answer: 1,
+                explanation: "The correct answer is Assam.",
+                week: "Week 5"
+            },
+            {
+                question: "National Narcotics Helpline ‘MANAS’ was launched by which ministry?",
+                options: ["Ministry of Health and Family Welfare", "Ministry of Finance", "Ministry of Home Affairs", "Ministry of Women and Child Development"],
+                answer: 2,
+                explanation: "The correct answer is Ministry of Home Affairs.",
+                week: "Week 5"
+            },
+            {
+                question: "Sea of Galilee, that was recently seen in news, is located in which country?",
+                options: ["Israel", "Russia", "France", "China"],
+                answer: 0,
+                explanation: "The correct answer is Israel.",
+                week: "Week 5"
+            },
+            {
+                question: "Which country was certified by WHO as having eliminated human African trypanosomiasis (HAT) in August 2025?",
+                options: ["Somalia", "Ethiopia", "Botswana", "Kenya"],
+                answer: 3,
+                explanation: "The correct answer is Kenya.",
+                week: "Week 5"
+            },
+            {
+                question: "What is “Parthenium” that was recently mentioned in news?",
+                options: ["Newly discovered species of Fish", "Invasive weed", "Traditional medicine", "Drought resistant crop"],
+                answer: 1,
+                explanation: "The correct answer is Invasive weed.",
+                week: "Week 5"
+            },
+            {
+                question: "Kasargodia sheebae and Pilarta vaman, that were recently seen in news, belongs to which species?",
+                options: ["Frog", "Spider", "Crab", "Fish"],
+                answer: 2,
+                explanation: "The correct answer is Crab.",
+                week: "Week 5"
+            },
+            {
+                question: "Which state government has launched the ‘Garud Drishti’ social media monitoring and cyber intelligence project?",
+                options: ["Maharashtra", "Gujarat", "Odisha", "Rajasthan"],
+                answer: 0,
+                explanation: "The correct answer is Maharashtra.",
+                week: "Week 5"
+            },
+            {
+                question: "Which state government has launched India’s first drone-based artificial rain trial?",
+                options: ["Rajasthan", "Gujarat", "Punjab", "Haryana"],
+                answer: 0,
+                explanation: "The correct answer is Rajasthan.",
+                week: "Week 5"
+            },
+            {
+                question: "What is the name of the operation launched by the Border Security Force along the Rajasthan border ahead of Independence Day?",
+                options: ["Operation Suraksha", "Operation Eagle", "Operation Vijay", "Operation Alert"],
+                answer: 3,
+                explanation: "The correct answer is Operation Alert.",
+                week: "Week 5"
+            },
+            {
+                question: "What is the theme of International Youth Day 2025?",
+                options: ["Local Youth Actions for the SDGs and Beyond", "Green Skills for Youth", "Intergenerational Solidarity", "Transforming Food Systems"],
+                answer: 0,
+                explanation: "The correct answer is Local Youth Actions for the SDGs and Beyond.",
+                week: "Week 5"
+            },
+            {
+                question: "The Tato-II Hydroelectric Project is located in which state?",
+                options: ["Arunachal Pradesh", "Assam", "Sikkim", "West Bengal"],
+                answer: 0,
+                explanation: "The correct answer is Arunachal Pradesh.",
+                week: "Week 6"
+            },
+            {
+                question: "India Semiconductor Mission (ISM) operates under which ministry?",
+                options: ["Ministry of Science and Technology", "Ministry of Electronics and Information Technology", "Ministry of Commerce and Industry", "Ministry of Heavy Industries"],
+                answer: 1,
+                explanation: "The correct answer is Ministry of Electronics and Information Technology.",
+                week: "Week 6"
+            },
+            {
+                question: "Where were the possible artefacts of the oldest known Wallacean hominids recently found?",
+                options: ["Redang Island, Malaysia", "Lakshadweep Island, India", "Sulawesi Island, Indonesia", "Siargao Island, Philippines"],
+                answer: 2,
+                explanation: "The correct answer is Sulawesi Island, Indonesia.",
+                week: "Week 6"
+            },
+            {
+                question: "Which organisation launched the BHU-NEER Portal?",
+                options: ["Central Pollution Control Board (CPCB)", "Central Ground Water Authority (CGWA)", "National Water Development Agency (NWDA)", "Ministry of Environment, Forest and Climate Change"],
+                answer: 1,
+                explanation: "The correct answer is Central Ground Water Authority (CGWA).",
+                week: "Week 6"
+            },
+            {
+                question: "Which ministry has launched the State Health Regulatory Excellence Index (SHRESTH)?",
+                options: ["Ministry of Health and Family Welfare", "Ministry of AYUSH", "Ministry of Women and Child Development", "None of the Above"],
+                answer: 0,
+                explanation: "The correct answer is Ministry of Health and Family Welfare.",
+                week: "Week 6"
+            },
+            {
+                question: "Burevestnik nuclear-powered cruise missile was developed by which country?",
+                options: ["Russia", "China", "France", "United States"],
+                answer: 0,
+                explanation: "The correct answer is Russia.",
+                week: "Week 6"
+            },
+            {
+                question: "Palamau Tiger Reserve is located in which state?",
+                options: ["Karnataka", "Kerala", "Jharkhand", "Maharashtra"],
+                answer: 2,
+                explanation: "The correct answer is Jharkhand.",
+                week: "Week 6"
+            },
+            {
+                question: "What is the name of the AI-powered tool launched by the government to generate structured minutes of Gram Sabha meetings?",
+                options: ["SabhaSaar", "SarpanchSamvaad", "eGramMision", "ViksitPanchayat"],
+                answer: 0,
+                explanation: "The correct answer is SabhaSaar.",
+                week: "Week 6"
+            },
+            {
+                question: "JP Senani Pension Scheme was launched by which state government?",
+                options: ["Gujarat", "Rajasthan", "Uttar Pradesh", "Bihar"],
+                answer: 3,
+                explanation: "The correct answer is Bihar.",
+                week: "Week 6"
+            },
+            {
+                question: "What is “Ideonella sakaiensis” that was recently seen in news?",
+                options: ["Bacterium", "Invasive weed", "Fish", "Traditional medicine"],
+                answer: 0,
+                explanation: "The correct answer is Bacterium.",
+                week: "Week 6"
+            },
+            {
+                question: "What is Australopithecus, that was in the news recently?",
+                options: ["A newly discovered species of Fish", "Traditional medicine", "A group of extinct primates", "A flowering plant"],
+                answer: 2,
+                explanation: "The correct answer is A group of extinct primates.",
+                week: "Week 7"
+            },
+            {
+                question: "PM SVANidhi Yojana was launched by which ministry?",
+                options: ["Ministry of Finance", "Ministry of Housing and Urban Affairs", "Ministry of Commerce and Industry", "Ministry of Rural Development"],
+                answer: 1,
+                explanation: "The correct answer is Ministry of Housing and Urban Affairs.",
+                week: "Week 7"
+            },
+            {
+                question: "Exercise SLINEX is a bilateral naval exercise between India and which country?",
+                options: ["Singapore", "Sri Lanka", "Australia", "Bangladesh"],
+                answer: 1,
+                explanation: "The correct answer is Sri Lanka.",
+                week: "Week 7"
+            },
+            {
+                question: "What is the name of the scheme announced by the Prime Minister on independence day to boost formal job creation?",
+                options: ["Pradhan Mantri Viksit Bharat Rozgar Yojana", "Atmanirbhar Rozgar Yojana", "Pradhan Mantri Garib Kalyan Rozgar Abhiya", "Pradhan Mantri Shram Yogi Maandhan Yojana"],
+                answer: 0,
+                explanation: "The correct answer is Pradhan Mantri Viksit Bharat Rozgar Yojana.",
+                week: "Week 7"
+            },
+            {
+                question: "Antitrisuloides catocalina, that was recently seen in news, belongs to which species?",
+                options: ["Invasive weed", "Frog", "Fish", "Moth"],
+                answer: 3,
+                explanation: "The correct answer is Moth.",
+                week: "Week 7"
+            },
+            {
+                question: "E-Jagriti platform is an initiative of which ministry?",
+                options: ["Ministry of Consumer Affairs, Food, and Public Distribution", "Ministry of Science and Technology", "Ministry of Agriculture", "Ministry of Rural Development"],
+                answer: 0,
+                explanation: "The correct answer is Ministry of Consumer Affairs, Food, and Public Distribution.",
+                week: "Week 7"
+            },
+            {
+                question: "Halman apricot, that was recently seen in news, is primarily found in which region of India?",
+                options: ["Maharashtra", "Ladakh", "Madhya Pradesh", "Karnataka"],
+                answer: 1,
+                explanation: "The correct answer is Ladakh.",
+                week: "Week 7"
+            },
+            {
+                question: "Dibru-Saikhowa National Park is located in which state?",
+                options: ["Arunachal Pradesh", "Nagaland", "Manipur", "Assam"],
+                answer: 3,
+                explanation: "The correct answer is Assam.",
+                week: "Week 7"
+            },
+            {
+                question: "The Arogyam Health and Wellness Centre in Arunachal Pradesh has been launched under which initiative of the Indian Army?",
+                options: ["Operation Maitri", "Operation Sadbhavana", "Operation Rakshak", "Operation Vijay"],
+                answer: 1,
+                explanation: "The correct answer is Operation Sadbhavana.",
+                week: "Week 7"
+            },
+            {
+                question: "Mount Elbrus, that was recently seen in news, is located in which country?",
+                options: ["India", "China", "France", "Russia"],
+                answer: 3,
+                explanation: "The correct answer is Russia.",
+                week: "Week 7"
+            },
+            {
+                question: "Udyam Sakhi Portal was launched by which ministry?",
+                options: ["Ministry of Micro, Small and Medium Enterprises", "Ministry of Finance", "Ministry of Science and Technology", "Ministry of Commerce and Industry"],
+                answer: 0,
+                explanation: "The correct answer is Ministry of Micro, Small and Medium Enterprises.",
+                week: "Week 8"
+            },
+            {
+                question: "Rubella disease, that was recently seen in news, is caused by which agent?",
+                options: ["Bacteria", "Virus", "Fungus", "Protozoa"],
+                answer: 1,
+                explanation: "The correct answer is Virus.",
+                week: "Week 8"
+            },
+            {
+                question: "Sahariya tribe is primarily found in which states?",
+                options: ["Madhya Pradesh, Rajasthan, Uttar Pradesh", "Odisha, Jharkhand and Bihar", "Telangana, Andhra Pradesh and Maharashtra", "Karnataka, Kerala and Tamil Nadu"],
+                answer: 0,
+                explanation: "The correct answer is Madhya Pradesh, Rajasthan, Uttar Pradesh.",
+                week: "Week 8"
+            },
+            {
+                question: "Where was the Sliteye Shark recently recorded for the first time?",
+                options: ["Red Sea", "Great Chagos Bank, Indian Ocean", "Bay of Bengal", "Gulf of Mexico"],
+                answer: 1,
+                explanation: "The correct answer is Great Chagos Bank, Indian Ocean.",
+                week: "Week 8"
+            },
+            {
+                question: "Palmyra palm tree, that was recently seen in news, is primarily found in which region?",
+                options: ["Tropical Africa", "South America", "Southeast Asia", "Australia"],
+                answer: 0,
+                explanation: "The correct answer is Tropical Africa.",
+                week: "Week 8"
+            },
+            {
+                question: "Vihar Lake, that was recently seen in news, is located in which city?",
+                options: ["Mumbai", "Hyderabad", "Bhopal", "Chennai"],
+                answer: 0,
+                explanation: "The correct answer is Mumbai.",
+                week: "Week 8"
+            },
+            {
+                question: "What is Anna-Chakra in the context of India’s food distribution system?",
+                options: ["A digital ration card system", "A supply chain optimisation tool under Public Distribution System", "A food subsidy transfer scheme", "A new warehouse management policy"],
+                answer: 1,
+                explanation: "The correct answer is A supply chain optimisation tool under Public Distribution System.",
+                week: "Week 8"
+            },
+            {
+                question: "Thettekad Bird Sanctuary is located in which state?",
+                options: ["Andhra Pradesh", "Karnataka", "Tamil Nadu", "Kerala"],
+                answer: 3,
+                explanation: "The correct answer is Kerala.",
+                week: "Week 8"
+            },
+            {
+                question: "Which ministry launched the Adi Karmayogi Abhiyan?",
+                options: ["Ministry of Social Justice and Empowerment", "Ministry of Rural Development", "Ministry of Home Affairs", "Ministry of Tribal Affairs"],
+                answer: 3,
+                explanation: "The correct answer is Ministry of Tribal Affairs.",
+                week: "Week 8"
+            },
+            {
+                question: "Which day is observed as ‘World Mosquito Day’ every year?",
+                options: ["August 18", "August 19", "August 20", "August 21"],
+                answer: 2,
+                explanation: "The correct answer is August 20.",
+                week: "Week 8"
+            },
+            {
+                question: "The Didayi tribe is primarily found in which state?",
+                options: ["Odisha", "Rajasthan", "Gujarat", "Karnataka"],
+                answer: 0,
+                explanation: "The correct answer is Odisha.",
+                week: "Week 9"
+            },
+            {
+                question: "Which two states are part of Exercise Samanvay Shakti 2025?",
+                options: ["Assam and Manipur", "Tripura and Nagaland", "Sikkim and Meghalaya", "Mizoram and Arunachal Pradesh"],
+                answer: 0,
+                explanation: "The correct answer is Assam and Manipur.",
+                week: "Week 9"
+            },
+            {
+                question: "Globally Important Agricultural Heritage Systems (GIAHS) is an initiative of which organization?",
+                options: ["United Nations Environment Programme (UNEP)", "United Nations Development Programme (UNDP)", "World Bank", "Food and Agriculture Organization (FAO)"],
+                answer: 3,
+                explanation: "The correct answer is Food and Agriculture Organization (FAO).",
+                week: "Week 9"
+            },
+            {
+                question: "What is “Pseudomonas aeruginosa” that was recently mentioned in news?",
+                options: ["Bacterium", "Newly discovered species of Fish", "Fungus", "Invasive weed"],
+                answer: 0,
+                explanation: "The correct answer is Bacterium.",
+                week: "Week 9"
+            },
+            {
+                question: "Agni-5 is a nuclear-capable land-based Intercontinental Ballistic Missile (ICBM) developed by which organization?",
+                options: ["Indian Space Research Organization (ISRO)", "Defence Research and Development Organisation (DRDO)", "Hindustan Aeronautics Limited (HAL)", "Bharat Dynamics Limited (BDL)"],
+                answer: 1,
+                explanation: "The correct answer is Defence Research and Development Organisation (DRDO).",
+                week: "Week 9"
+            },
+            {
+                question: "Which State has been declared India’s first fully digitally literate State?",
+                options: ["Kerala", "Karnataka", "Tamil Nadu", "Andhra Pradesh"],
+                answer: 0,
+                explanation: "The correct answer is Kerala.",
+                week: "Week 9"
+            },
+            {
+                question: "Which country has launched its military exercise titled ‘Sustainable Power 1404’?",
+                options: ["Israel", "Iran", "Russia", "China"],
+                answer: 1,
+                explanation: "The correct answer is Iran.",
+                week: "Week 9"
+            },
+            {
+                question: "Mithi River, that was recently seen in news, flows through which city?",
+                options: ["New Delhi", "Chennai", "Mumbai", "Hyderabad"],
+                answer: 2,
+                explanation: "The correct answer is Mumbai.",
+                week: "Week 9"
+            },
+            {
+                question: "Where was 18th International Olympiad on Astronomy and Astrophysics (IOAA) 2025 held?",
+                options: ["Jaipur", "Dehradun", "New Delhi", "Mumbai"],
+                answer: 3,
+                explanation: "The correct answer is Mumbai.",
+                week: "Week 9"
+            },
+            {
+                question: "National Space Day is observed every year on which day?",
+                options: ["August 21", "August 22", "August 23", "August 24"],
+                answer: 2,
+                explanation: "The correct answer is August 23.",
+                week: "Week 9"
+            },
+            {
+                question: "The Registrar General of India (RGI) works under the administrative control of which ministry?",
+                options: ["Ministry of Finance", "Ministry of Home Affairs", "Ministry of Social Justice and Empowerment", "Ministry of Women and Child Development"],
+                answer: 1,
+                explanation: "The correct answer is Ministry of Home Affairs.",
+                week: "Week 10"
+            },
+            {
+                question: "Which institution has launched the report titled “Rethinking Homestays: Navigating Policy Pathways”?",
+                options: ["NITI Aayog", "Reserve Bank of India", "Bureau of Indian Standards (BIS)", "Ministry of Finance"],
+                answer: 0,
+                explanation: "The correct answer is NITI Aayog.",
+                week: "Week 10"
+            },
+            {
+                question: "Which tiger reserve has become India’s second-biggest tiger reserve?",
+                options: ["Bandhavgarh Tiger Reserve", "Namdapha Tiger Reserve", "Corbett Tiger Reserve", "Sunderbans Tiger Reserve"],
+                answer: 3,
+                explanation: "The correct answer is Sunderbans Tiger Reserve.",
+                week: "Week 10"
+            },
+            {
+                question: "Which country has been elected as Chairman of the Executive Board of Asia-Pacific Institute for Broadcasting Development (AIBD)?",
+                options: ["China", "India", "Indonesia", "Japan"],
+                answer: 1,
+                explanation: "The correct answer is India.",
+                week: "Week 10"
+            },
+            {
+                question: "The Rampage Missile is developed by which country?",
+                options: ["China", "Israel", "Iran", "Russia"],
+                answer: 1,
+                explanation: "The correct answer is Israel.",
+                week: "Week 10"
+            },
+            {
+                question: "Exercise Maitree is a joint military drill between India and which country?",
+                options: ["Thailand", "Japan", "Australia", "Vietnam"],
+                answer: 0,
+                explanation: "The correct answer is Thailand.",
+                week: "Week 10"
+            },
+            {
+                question: "The Matua community is primarily found in which state?",
+                options: ["Sikkim", "West Bengal", "Bihar", "Odisha"],
+                answer: 1,
+                explanation: "The correct answer is West Bengal.",
+                week: "Week 10"
+            },
+            {
+                question: "What is “INS Kadmatt” that was recently seen in news?",
+                options: ["Kiev class aircraft carrier", "Torpedo launch and recovery vessel", "Stealth multi role frigate", "Stealth anti-submarine warfare corvette"],
+                answer: 3,
+                explanation: "The correct answer is Stealth anti-submarine warfare corvette.",
+                week: "Week 10"
+            },
+            {
+                question: "NAMASTE scheme is jointly implemented by which two ministries?",
+                options: ["Ministry of Health and Family Welfare & Ministry of Jal Shakti", "Ministry of Rural Development & Ministry of Labour and Employment", "Ministry of Social Justice and Empowerment & Ministry of Housing and Urban Affairs", "Ministry of Environment, Forest and Climate Change & Ministry of Skill Development"],
+                answer: 2,
+                explanation: "The correct answer is Ministry of Social Justice and Empowerment & Ministry of Housing and Urban Affairs.",
+                week: "Week 10"
+            },
+            {
+                question: "Which country has officially joined the International Big Cat Alliance (IBCA) in August 2025?",
+                options: ["Myanmar", "Sri Lanka", "Bhutan", "Nepal"],
+                answer: 3,
+                explanation: "The correct answer is Nepal.",
+                week: "Week 10"
+            },
+            {
+                question: "Where was the maiden Exercise Aarogya Setu organised by the Indian Army?",
+                options: ["Assam", "Sikkim", "Tripura", "Odisha"],
+                answer: 0,
+                explanation: "The correct answer is Assam.",
+                week: "Week 11"
+            },
+            {
+                question: "Vaquita porpoise, that was recently seen in news, is mainly found in which region?",
+                options: ["Bay of Bengal near India", "Northern part of the Gulf of California", "Mediterranean Sea", "Indian Ocean"],
+                answer: 1,
+                explanation: "The correct answer is Northern part of the Gulf of California.",
+                week: "Week 11"
+            },
+            {
+                question: "INS Udaygiri was built by which shipyard under the Project 17?",
+                options: ["Cochin Shipyard Limited", "Garden Reach Shipbuilders & Engineers (GRSE), Kolkata", "Mazagon Dock Shipbuilders Ltd. (MDL), Mumbai", "Hindustan Shipyard Limited, Visakhapatnam"],
+                answer: 2,
+                explanation: "The correct answer is Mazagon Dock Shipbuilders Ltd. (MDL), Mumbai.",
+                week: "Week 11"
+            },
+            {
+                question: "Anamalai Tiger Reserve is located in which state?",
+                options: ["Andhra Pradesh", "Kerala", "Tamil Nadu", "Karnataka"],
+                answer: 2,
+                explanation: "The correct answer is Tamil Nadu.",
+                week: "Week 11"
+            },
+            {
+                question: "National Youth Award is an initiative of which ministry?",
+                options: ["Ministry of Home Affairs", "Ministry of Science and Technology", "Ministry of Urban Development", "Ministry of Youth Affairs & Sports"],
+                answer: 3,
+                explanation: "The correct answer is Ministry of Youth Affairs & Sports.",
+                week: "Week 11"
+            },
+            {
+                question: "Vibrant Villages Programme is implemented by which ministry?",
+                options: ["Ministry of Rural Development", "Ministry of Home Affairs", "Ministry of Finance", "Ministry of Urban Development"],
+                answer: 1,
+                explanation: "The correct answer is Ministry of Home Affairs.",
+                week: "Week 11"
+            },
+            {
+                question: "Where was the first recent human case of the flesh-eating parasite, the New World screwworm, reported?",
+                options: ["Mexico", "Brazil", "United States", "Cuba"],
+                answer: 2,
+                explanation: "The correct answer is United States.",
+                week: "Week 11"
+            },
+            {
+                question: "Where was the First International Pali Conference organized?",
+                options: ["Vietnam", "Sri Lanka", "Myanmar", "Thailand"],
+                answer: 1,
+                explanation: "The correct answer is Sri Lanka.",
+                week: "Week 11"
+            },
+            {
+                question: "Which city is the venue of Indian Army Terrier Cyber Quest 2025?",
+                options: ["New Delhi", "Bengaluru", "Chennai", "Hyderabad"],
+                answer: 0,
+                explanation: "The correct answer is New Delhi.",
+                week: "Week 11"
+            },
+            {
+                question: "PM SVANidhi Yojana was launched by which ministry?",
+                options: ["Ministry of Finance", "Ministry of Social Justice and Empowerment", "Ministry of Housing and Urban Affairs", "Ministry of Urban Development"],
+                answer: 2,
+                explanation: "The correct answer is Ministry of Housing and Urban Affairs.",
+                week: "Week 11"
+            },
+            {
+                question: "Which city has reported a surge in Guillain-Barré Syndrome (GBS) in August 2025?",
+                options: ["Jerusalem", "Gaza", "Tehran", "Damascus"],
+                answer: 1,
+                explanation: "The correct answer is Gaza.",
+                week: "Week 12"
+            },
+            {
+                question: "Punatsangchhu-II Hydroelectric Project is located in which country?",
+                options: ["Bangladesh", "Nepal", "Bhutan", "Myanmar"],
+                answer: 2,
+                explanation: "The correct answer is Bhutan.",
+                week: "Week 12"
+            },
+            {
+                question: "What are the two sub-schemes under the Export Promotion Mission?",
+                options: ["Niryat Bandhu & Niryat Mitra", "Niryat Protsahan & Niryat Disha", "Niryat Sudhar & Niryat Vikas", "Niryat Margdarshan & Niryat Samarthan"],
+                answer: 1,
+                explanation: "The correct answer is Niryat Protsahan & Niryat Disha.",
+                week: "Week 12"
+            },
+            {
+                question: "Exercise Bright Star is a multilateral exercise hosted by which country?",
+                options: ["Egypt", "Russia", "Iran", "Vietnam"],
+                answer: 0,
+                explanation: "The correct answer is Egypt.",
+                week: "Week 12"
+            },
+            {
+                question: "Matsya Shakti Project is associated with which sector?",
+                options: ["Textile industry", "Solar Energy", "Horticulture", "Fisheries and Aquaculture"],
+                answer: 3,
+                explanation: "The correct answer is Fisheries and Aquaculture.",
+                week: "Week 12"
+            }
+        ];
+
+        // DOM elements
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const feedbackDiv = document.getElementById('feedback');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const currentQuestionSpan = document.getElementById('current-question');
+        const totalQuestionsSpan = document.getElementById('total-questions');
+        const currentScoreSpan = document.getElementById('current-score');
+        const progressBar = document.getElementById('progress-bar');
+        const resultContainer = document.getElementById('result-container');
+        const finalScoreSpan = document.getElementById('final-score');
+        const totalQuestionsFinalSpan = document.getElementById('total-questions-final');
+        const performanceText = document.getElementById('performance-text');
+        const restartBtn = document.getElementById('restart-btn');
+        const weekIndicator = document.getElementById('week-indicator');
+
+        // Quiz state
+        let currentQuestionIndex = 0;
+        let userAnswers = Array(quizData.length).fill(null);
+        let score = 0;
+
+        // Initialize quiz
+        function initQuiz() {
+            totalQuestionsSpan.textContent = quizData.length;
+            totalQuestionsFinalSpan.textContent = quizData.length; // Also set for result screen
+            updateProgressBar();
+            showQuestion();
+        }
+
+        // Show current question
+        function showQuestion() {
+            const question = quizData[currentQuestionIndex];
+            questionText.innerHTML = question.question; // MODIFIED to use innerHTML for <br> tags
+            weekIndicator.textContent = question.week;
+            
+            optionsContainer.innerHTML = '';
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.textContent = option;
+                optionDiv.addEventListener('click', () => selectOption(index));
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            prevBtn.disabled = currentQuestionIndex === 0;
+            nextBtn.textContent = currentQuestionIndex === quizData.length - 1 ? 'Finish' : 'Next';
+            
+            currentQuestionSpan.textContent = currentQuestionIndex + 1;
+            currentScoreSpan.textContent = score;
+            updateProgressBar();
+            
+            feedbackDiv.style.display = 'none';
+            
+            if (userAnswers[currentQuestionIndex] !== null) {
+                const selectedOptIndex = userAnswers[currentQuestionIndex];
+                const options = optionsContainer.querySelectorAll('.option');
+                if (options[selectedOptIndex]) { 
+                    options[selectedOptIndex].classList.add('selected');
+                }
+                checkAnswer(selectedOptIndex, false); 
+            } else {
+                optionsContainer.querySelectorAll('.option').forEach(opt => {
+                    opt.style.pointerEvents = 'auto';
+                });
+            }
+        }
+
+        function updateProgressBar() {
+            const progress = ((currentQuestionIndex + 1) / quizData.length) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        function selectOption(optionIndex) {
+            if (feedbackDiv.style.display === 'block' && questionText.innerHTML === quizData[currentQuestionIndex].question) { // Check innerHTML if question contains HTML
+                return; 
+            }
+
+            const isFirstAttemptForThisQuestionIndex = userAnswers[currentQuestionIndex] === null;
+            
+            if (isFirstAttemptForThisQuestionIndex) {
+                userAnswers[currentQuestionIndex] = optionIndex;
+            }
+            
+            const options = document.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            if (options[optionIndex]) {
+                options[optionIndex].classList.add('selected');
+            }
+            
+            checkAnswer(optionIndex, isFirstAttemptForThisQuestionIndex);
+        }
+
+        function checkAnswer(selectedIndex, isFirstScoringAttempt) {
+            const question = quizData[currentQuestionIndex];
+            const options = document.querySelectorAll('.option');
+            
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none'; 
+            });
+
+            if (options[question.answer]) {
+                 options[question.answer].classList.add('correct');
+            }
+            if (selectedIndex !== question.answer && options[selectedIndex]) {
+                options[selectedIndex].classList.add('incorrect');
+            }
+            
+            feedbackDiv.innerHTML = ''; 
+            if (selectedIndex === question.answer) {
+                feedbackDiv.className = 'feedback correct-feedback';
+                feedbackDiv.textContent = 'Correct!';
+                if (isFirstScoringAttempt) { 
+                    score++;
+                }
+            } else {
+                feedbackDiv.className = 'feedback incorrect-feedback';
+                const correctAnswerText = question.options[question.answer] || "N/A";
+                feedbackDiv.textContent = `Incorrect. The correct answer is: ${correctAnswerText}`;
+            }
+            currentScoreSpan.textContent = score;
+            
+            if (question.explanation) {
+                const explanation = document.createElement('div');
+                explanation.className = 'explanation';
+                explanation.textContent = question.explanation; // Explanation is kept as textContent
+                feedbackDiv.appendChild(explanation);
+            }
+            
+            feedbackDiv.style.display = 'block';
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < quizData.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+            }
+        }
+
+        function showResult() {
+            document.querySelector('.quiz-container').style.display = 'none';
+            document.querySelector('.progress-text').style.display = 'none';
+            document.querySelector('.progress-container').style.display = 'none';
+            resultContainer.style.display = 'block';
+            finalScoreSpan.textContent = score;
+            
+            const percentage = (score / quizData.length) * 100;
+            let performance = '';
+            if (percentage >= 90) {
+                performance = 'Outstanding! You have an excellent knowledge of current affairs.';
+            } else if (percentage >= 75) {
+                performance = 'Excellent! You are very well-informed about current affairs.';
+            } else if (percentage >= 50) {
+                performance = 'Good effort! You know quite a bit about current affairs.';
+            } else if (percentage >= 30) {
+                performance = 'Keep learning! Review the topics to improve.';
+            } else {
+                performance = 'A good start! Study more to enhance your knowledge of current affairs.';
+            }
+            performanceText.textContent = performance;
+            // --- Firebase Progress Tracking ---
+            (function() {
+                var quizTitle = document.title || 'Unknown Quiz';
+                var category = 'General';
+                var path = window.location.pathname;
+                if (path.indexOf('Sikkim Current Affairs') !== -1 || quizTitle.indexOf('Sikkim') !== -1) category = 'Sikkim Current Affairs';
+                else if (path.indexOf('National International') !== -1 || quizTitle.indexOf('National') !== -1) category = 'National/International CA';
+                else if (path.indexOf('Physics') !== -1 || quizTitle.indexOf('Physics') !== -1) category = 'Physics';
+                else if (path.indexOf('Polity') !== -1) category = 'Polity';
+                else if (path.indexOf('History') !== -1) category = 'History';
+                else if (path.indexOf('Economics') !== -1) category = 'Economics';
+                else if (path.indexOf('Geography') !== -1) category = 'Geography';
+                if (typeof saveQuizResult === 'function' && typeof isLoggedIn === 'function' && isLoggedIn()) {
+                    saveQuizResult(quizTitle, score, quizData.length, category);
+                }
+            })();
+        }
+
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            userAnswers = Array(quizData.length).fill(null);
+            score = 0;
+            document.querySelector('.quiz-container').style.display = 'block';
+            document.querySelector('.progress-text').style.display = 'flex'; 
+            document.querySelector('.progress-container').style.display = 'block'; 
+            resultContainer.style.display = 'none';
+            feedbackDiv.style.display = 'none';
+            currentScoreSpan.textContent = score; 
+            showQuestion();
+        }
+
+        nextBtn.addEventListener('click', nextQuestion);
+        prevBtn.addEventListener('click', prevQuestion);
+        restartBtn.addEventListener('click', restartQuiz);
+
+        initQuiz();
+    </script>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="../auth.js"></script>
+</body>
+</html>

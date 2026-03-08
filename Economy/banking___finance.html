@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banking & Finance | Sikkim PSC Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        .quiz-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        html.dark .quiz-container {
+            background: #24272c;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #0284c7;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        html.dark .question-block {
+            border-bottom: 1px solid #334155;
+        }
+        .question-text {
+            font-size: 1.15em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+        html.dark .question-text {
+            color: #f1f5f9;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option {
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            padding: 16px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            color: #475569;
+        }
+        html.dark .option {
+            background-color: #1e293b;
+            border: 2px solid #334155;
+            color: #cbd5e1;
+        }
+        .option:hover {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
+            transform: translateX(4px);
+        }
+        html.dark .option:hover {
+            background-color: #334155;
+            border-color: #475569;
+        }
+        .option.correct {
+            background-color: #dcfce7 !important;
+            border-color: #4ade80 !important;
+            color: #166534 !important;
+        }
+        html.dark .option.correct {
+            background-color: #064e3b !important;
+            border-color: #10b981 !important;
+            color: #ecfdf5 !important;
+        }
+        .option.incorrect {
+            background-color: #fee2e2 !important;
+            border-color: #f87171 !important;
+            color: #991b1b !important;
+        }
+        html.dark .option.incorrect {
+            background-color: #7f1d1d !important;
+            border-color: #ef4444 !important;
+            color: #fef2f2 !important;
+        }
+        .options-list.answered {
+            pointer-events: none;
+        }
+        .quiz-stats-badge {
+            background: #f1f5f9;
+            color: #64748b;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        html.dark .quiz-stats-badge {
+            background: #334155;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 min-h-screen p-4 sm:p-8">
+
+    <div class="quiz-container">
+        <a href="economy.html" class="back-link">&larr; Back to Economy Topics</a>
+        <h1 class="text-3xl font-bold text-amber-800 dark:text-amber-400 mb-2">Banking & Finance</h1>
+        <div class="quiz-stats-badge">26 MCQ Questions</div>
+        
+        <div id="questions-wrapper"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Open market operation is a part of:",
+                options: ["Credit Policy", "Debit Policy", "Deposit Policy", "None of these"],
+                answer: 0
+            },
+            {
+                question: "For International money transfer which Indian public sector bank has signed MoU with MoneyGram company of America?",
+                options: ["State Bank of India", "Bank of Baroda", "Punjab National Bank", "Central Bank of India"],
+                answer: 2
+            },
+            {
+                question: "The first fully Indian Bank is:",
+                options: ["Punjab National Bank", "Central Bank of India", "Canara Bank", "State Bank of India"],
+                answer: 0
+            },
+            {
+                question: "The number of finance commissions set up upto now is:",
+                options: ["13", "14", "15", "16"],
+                answer: 3
+            },
+            {
+                question: "How many Regional Rural Bank (RRBs) are working in the country till 31st March,2010?",
+                options: ["85", "81", "82", "93"],
+                answer: 2
+            },
+            {
+                question: "Reserve Bank of India will soon release plastic notes in circulation will be of :",
+                options: ["Rs 100 notes", "Rs 20 notes", "Rs 50 notes", "Rs 10 notes"],
+                answer: 3
+            },
+            {
+                question: "A proportion of the total deposits and reserves of the commercial banks that is to be kept with the Central Bank (RBI) on liquid form as a measure of control of RBI over the Commercial Banks is known as:",
+                options: ["Bank rate", "Statutory Liquidity Ratio (SLR)", "Cash Reserve Ratio (CRR)", "Mandatory deposit"],
+                answer: 2
+            },
+            {
+                question: "Inflation is measured in India on the basis of which \u2018Index\u2019?",
+                options: ["Wholesale Price Index", "Consumer Price Index for urban workers", "Consumer Price Index for agricultural workers", "National income deflation"],
+                answer: 0
+            },
+            {
+                question: "In India the first bank of limited liability managed by Indian and founded in 1881 was:",
+                options: ["Oudh commercial Bank.", "Hindustan Commercial Bank", "Punjab National Bank", "Punjab and Sind Bank"],
+                answer: 0
+            },
+            {
+                question: "The central banking functions in India are performed by theI=Central Bank of IndiaII=Reserve Bank of IndiaIII=State Bank of IndiaIV=Punjab National Bank",
+                options: ["I, II", "II", "I", "II, III"],
+                answer: 1
+            },
+            {
+                question: "Gilt-edged market means",
+                options: ["bullion market", "market of government securities", "market of guns", "market of pure metals"],
+                answer: 1
+            },
+            {
+                question: "Since independence, both development and non-development expenditures have increased; the increase in the former being a little more than in the other. Non-development expenditure involvesI=interest paymentsII=subsidiesIII=defenceIV=irrigation",
+                options: ["I, II", "I", "I, II, III", "II, III, IV"],
+                answer: 2
+            },
+            {
+                question: "Deficit financing leads to inflation in general, but it can be checked if",
+                options: ["government expenditure leads to increase in the aggregate supply in ratio of aggregate demand", "only aggregate demand is increased", "all the expenditure is denoted national debt payment only", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "If all the banks in an economy are nationalized and converted into a monopoly bank, the total deposits",
+                options: ["will decrease", "will increase", "will neither increase nor decrease", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "If the cash reserve ratio is lowered by the RBI, its impact on credit creation will be to",
+                options: ["increase it", "decrease it", "no impact", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "The first wholly Indian Bank was set up in",
+                options: ["1794", "1894", "1896", "1902"],
+                answer: 1
+            },
+            {
+                question: "In pursuance with the recommendations of Narsimham Committee, the RBI has framed new guidelines",
+                options: ["to govern entry of new private sector banks to make the banking sector more competitive", "to reduce the freedom given to banks to rationalize their existing branch network", "to setup more foreign exchange banks", "to lend more easily for industrial development"],
+                answer: 0
+            },
+            {
+                question: "Reserve Bank of India was nationalized in the year",
+                options: ["1935", "1945", "1949", "1969"],
+                answer: 2
+            },
+            {
+                question: "If the fiscal deficit of the Union Government is Rs. 75,000 crores relending to State is Rs. 25,000 crores, interest payments are Rs. 25,000 crores, what is the amount of the primary deficit?",
+                options: ["Rs. 50,000 crores", "Rs. 25,000 crores", "Rs. 1,00,000 crores", "Rs. 1,25,000 crores"],
+                answer: 0
+            },
+            {
+                question: "Fiscal  deficit in the Union Budget means",
+                options: ["the difference between current expenditure and current revenue", "net increase in Union Governments borrowings from the Reserve Bank of India", "the sum of budgetary deficit and net increase in internal and external borrowings", "the sum of monetized deficit and budgetary deficit"],
+                answer: 2
+            },
+            {
+                question: "In India, the first bank of limited liability managed by Indians and founded in 1881 was",
+                options: ["Hindustan Commercial Bank", "Oudh Commercial Bank", "Punjab National Bank", "Punjab and Sind Bank"],
+                answer: 1
+            },
+            {
+                question: "In India, inflation measured by the",
+                options: ["Wholesale Price Index number", "Consumers Price Index for urban non-manual workers", "Consumers Price Index for agricultural workers", "National Income Deflation"],
+                answer: 0
+            },
+            {
+                question: "If the RBI adopted an expansionist open market operations policy, this means that it will",
+                options: ["buy securities from non-government holders", "sell securities in the open market", "offer commercial banks more credit in the open market", "openly announce to the market that it intends to expand credit"],
+                answer: 2
+            },
+            {
+                question: "Short-term finance is usually for a period ranging up to",
+                options: ["5 months", "10 months", "12 months", "15 months"],
+                answer: 2
+            },
+            {
+                question: "In India, which one among the following formulates the fiscal policy?",
+                options: ["Planning Commission", "Ministry of Finance", "Finance Commission", "The Reserve Bank of India"],
+                answer: 1
+            },
+            {
+                question: "Since 1983, the RBI's responsibility with respect to regional rural banks was transferred to",
+                options: ["ARDC", "SBI", "NABARD", "PACs"],
+                answer: 2
+            }
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.innerHTML = `<span class="text-amber-600 dark:text-amber-500 mr-2">Q${index + 1}.</span> ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                if (!option || option.trim() === '') return;
+                
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) return;
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            wrapper.appendChild(questionBlock);
+        });
+
+        // Theme sync
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>

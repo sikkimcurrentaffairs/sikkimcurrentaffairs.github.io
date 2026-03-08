@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQs - Sikkim PSC preparation hub</title>
+
+    <script>
+        (function () {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        })();
+    </script>
+
+    <script>
+        if (typeof window.tailwind === 'undefined') { window.tailwind = {}; }
+        window.tailwind.config = { darkMode: 'class' };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="auth.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* --- SOFT DARK MODE --- */
+        html body {
+            background-color: #eef1f5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html.dark body {
+            background-color: #1a1c20 !important;
+            color: #e5e7eb;
+        }
+
+        /* Refined Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        .dark ::-webkit-scrollbar-thumb {
+            background: #475569;
+        }
+
+        .glassmorphic-header {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(238, 241, 245, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(209, 217, 230, 0.5);
+        }
+
+        html.dark .glassmorphic-header {
+            background: rgba(26, 28, 32, 0.85);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(25px);
+            animation: fadeInUpAnimation 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        @keyframes fadeInUpAnimation {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Navigation Links */
+        .nav-link {
+            position: relative;
+            font-weight: 500;
+            color: #4b5563;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #0284c7;
+        }
+
+        html.dark .nav-link {
+            color: #d1d5db;
+        }
+
+        html.dark .nav-link:hover {
+            color: #38bdf8;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #0284c7;
+            transition: width 0.3s ease;
+        }
+
+        html.dark .nav-link::after {
+            background-color: #38bdf8;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .footer-line {
+            border-top: 1px solid rgba(0, 0, 0, 0.1) !important;
+        }
+
+        html.dark .footer-line {
+            border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
+        }
+
+        /* Dropdown Styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: #eef1f5;
+            min-width: 200px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            z-index: 100;
+            padding: 0.75rem;
+            opacity: 0;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        html.dark .dropdown-content {
+            background: #24272c;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: #4b5563;
+            font-weight: 500;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(2, 132, 199, 0.05);
+            color: #0284c7;
+        }
+
+        html.dark .dropdown-item {
+            color: #d1d5db;
+        }
+
+        html.dark .dropdown-item:hover {
+            background: rgba(56, 189, 248, 0.05);
+            color: #38bdf8;
+        }
+
+        /* Logo Transition */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            position: relative;
+            height: 40px;
+        }
+
+        @media (min-width: 640px) {
+            .logo-container {
+                height: 48px;
+            }
+        }
+
+        .logo-img {
+            height: 100%;
+            width: auto;
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+
+        .logo-dark {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        html.dark .logo-light {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        html.dark .logo-dark {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Mobile Menu */
+        #mobile-menu {
+            transform: translateY(-100%);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+        }
+
+        #mobile-menu.active {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .hamburger-line {
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-open .hamburger-line-1 {
+            transform: translateY(6px) rotate(45deg);
+        }
+
+        .mobile-menu-open .hamburger-line-2 {
+            opacity: 0;
+        }
+
+        .mobile-menu-open .hamburger-line-3 {
+            transform: translateY(-6px) rotate(-45deg);
+        }
+
+        /* Neomorphic Accordion Styles */
+        .faq-item {
+            margin-bottom: 1.5rem;
+            background: #eef1f5;
+            border-radius: 20px;
+            box-shadow: 10px 10px 20px #d1d9e6, -10px -10px 20px #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        html.dark .faq-item {
+            background: #24272c;
+            box-shadow: 8px 8px 16px #16181b, -8px -8px 16px #32363d;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 1.75rem 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-align: left;
+            font-weight: 600;
+            color: #4b5563;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        html.dark .faq-question {
+            color: #e5e7eb;
+        }
+
+        .faq-question:hover {
+            color: #0284c7;
+        }
+
+        html.dark .faq-question:hover {
+            color: #38bdf8;
+        }
+
+        .faq-icon {
+            width: 1.25rem;
+            height: 1.25rem;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+            margin-left: 1rem;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+            color: #0284c7;
+        }
+
+        html.dark .faq-item.active .faq-icon {
+            color: #38bdf8;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0, 1, 0, 1);
+            padding: 0 2.5rem;
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        html.dark .faq-answer {
+            color: #94a3b8;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 1000px;
+            transition: all 0.3s cubic-bezier(1, 0, 1, 0);
+            padding-bottom: 1.75rem;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 1000px;
+            transition: all 0.3s cubic-bezier(1, 0, 1, 0);
+            padding-bottom: 1.75rem;
+        }
+
+        html.dark h1 {
+            color: #ffffff !important;
+        }
+    </style>
+</head>
+
+<body class="font-sans text-gray-900 dark:text-white antialiased">
+
+    <div class="min-h-screen flex flex-col">
+        <nav class="sticky top-0 z-50 glassmorphic-header">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <div class="flex items-center mr-10 lg:mr-16">
+                        <a href="index.html" class="logo-container" aria-label="Sikkim PSC Preparation Hub Home">
+                            <img src="logo/light theme.png" alt="Sikkim PSC Logo" class="logo-img logo-light">
+                            <img src="logo/dark theme logo.png" alt="Sikkim PSC Logo" class="logo-img logo-dark">
+                        </a>
+                    </div>
+                    <div class="hidden md:flex items-center space-x-10 lg:space-x-14">
+                        <a href="index.html" class="nav-link">Home</a>
+                        <a href="about.html" class="nav-link">About</a>
+                        <a href="notes-ai.html" class="nav-link flex items-center">
+                            <span class="text-sky-600">Notes</span>
+                            <span class="text-sky-600 dark:text-sky-400">(AI)</span>
+                            <span class="ml-1.5 flex h-2 w-2">
+                                <span
+                                    class="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-sky-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
+                            </span>
+                        </a>
+                        <a href="mocktests.html" class="nav-link">Mocktests</a>
+                        <a href="question-bank.html" class="nav-link">Question Bank</a>
+                        <div class="dropdown">
+                            <button class="nav-link flex items-center space-x-1" aria-haspopup="true">
+                                <span>More</span>
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="h-4 w-4 transition-transform duration-200" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            <div class="dropdown-content">
+                                <a href="exam-calendar.html" class="dropdown-item">Exam Calendar</a>
+                                <a href="faqs.html" class="dropdown-item">FAQs</a>
+                                <a href="blogs.html" class="dropdown-item">Blogs</a>
+                                <a href="contact.html" class="dropdown-item">Contact me</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-2 sm:space-x-4">
+                        <div class="hidden md:block" id="auth-btn-desktop">
+                            <div class="auth-loading"></div>
+                        </div>
+                        <button id="darkModeToggle" type="button" aria-label="Toggle Dark Mode"
+                            class="relative inline-flex items-center h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:focus:ring-offset-black bg-gray-300 dark:bg-sky-600"
+                            role="switch" aria-checked="false">
+                            <span class="sr-only">Toggle Dark Mode</span>
+                            <span
+                                class="toggle-knob pointer-events-none relative inline-block h-5 w-5 rounded-full bg-white shadow ring-0 transition-transform duration-300 ease-in-out">
+                                <span
+                                    class="sun-icon-animator absolute inset-0 flex h-full w-full items-center justify-center">
+                                    <svg class="h-3 w-3 text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-6.364-.386l1.591-1.591M3 12h2.25m.386-6.364l1.591 1.591" />
+                                    </svg>
+                                </span>
+                                <span
+                                    class="moon-icon-animator absolute inset-0 flex h-full w-full items-center justify-center">
+                                    <svg class="h-3 w-3 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21c1.33 0 2.597-.266 3.752-.748A9.753 9.753 0 0021.752 15.002z" />
+                                    </svg>
+                                </span>
+                            </span>
+                        </button>
+
+                        <button id="mobile-menu-button" type="button"
+                            class="md:hidden inline-flex items-center justify-center p-2 rounded-xl text-gray-500 hover:text-sky-600 hover:bg-white/50 dark:text-gray-400 dark:hover:text-sky-400 dark:hover:bg-black/20 focus:outline-none transition-all duration-300"
+                            aria-expanded="false">
+                            <span class="sr-only">Open main menu</span>
+                            <div class="w-6 h-5 relative flex flex-col justify-between">
+                                <span
+                                    class="hamburger-line hamburger-line-1 w-full h-0.5 bg-current rounded-full"></span>
+                                <span
+                                    class="hamburger-line hamburger-line-2 w-full h-0.5 bg-current rounded-full"></span>
+                                <span
+                                    class="hamburger-line hamburger-line-3 w-full h-0.5 bg-current rounded-full"></span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="mobile-menu"
+                class="md:hidden absolute w-full glassmorphic-header border-b border-white/20 shadow-xl">
+                <div class="px-4 pt-3 pb-6 space-y-4">
+                    <a href="index.html"
+                        class="block px-4 py-3 rounded-xl text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-sky-50 dark:hover:bg-sky-900/30 hover:text-sky-600 dark:hover:text-sky-400 transition-all">Home</a>
+                    <a href="about.html"
+                        class="block px-4 py-3 rounded-xl text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-sky-50 dark:hover:bg-sky-900/30 hover:text-sky-600 dark:hover:text-sky-400 transition-all">About</a>
+                    <a href="notes-ai.html"
+                        class="block px-4 py-3 rounded-xl text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-sky-50 dark:hover:bg-sky-900/30 hover:text-sky-600 dark:hover:text-sky-400 transition-all flex items-center justify-between">
+                        <span>
+                            <span class="text-sky-600">Notes</span>
+                            <span class="text-sky-600 dark:text-sky-400">(AI)</span>
+                        </span>
+                        <span
+                            class="bg-sky-100 text-sky-600 dark:bg-sky-900/50 dark:text-sky-400 text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">New</span>
+                    </a>
+                    <a href="mocktests.html"
+                        class="block px-4 py-3 rounded-xl text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-sky-50 dark:hover:bg-sky-900/30 hover:text-sky-600 dark:hover:text-sky-400 transition-all">Mocktests</a>
+                    <a href="question-bank.html"
+                        class="block px-4 py-3 rounded-xl text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-sky-50 dark:hover:bg-sky-900/30 hover:text-sky-600 dark:hover:text-sky-400 transition-all">Question
+                        Bank</a>
+
+                    <div class="pt-4 mt-2">
+                        <span
+                            class="px-4 text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">More</span>
+                        <div class="mt-2 space-y-1">
+                            <a href="exam-calendar.html"
+                                class="block px-4 py-2 text-base font-medium text-gray-600 dark:text-gray-400 hover:text-sky-600 dark:hover:text-sky-400 transition-all">Exam
+                                Calendar</a>
+                            <a href="faqs.html"
+                                class="block px-4 py-2 text-base font-medium text-gray-600 dark:text-gray-400 hover:text-sky-600 dark:hover:text-sky-400 transition-all">FAQs</a>
+                            <a href="blogs.html"
+                                class="block px-4 py-2 text-base font-medium text-gray-600 dark:text-gray-400 hover:text-sky-600 dark:hover:text-sky-400 transition-all">Blogs</a>
+                            <a href="contact.html"
+                                class="block px-4 py-2 text-base font-medium text-gray-600 dark:text-gray-400 hover:text-sky-600 dark:hover:text-sky-400 transition-all">Contact
+                                me</a>
+                        </div>
+                    </div>
+                    <div class="pt-4 mt-4 border-t border-gray-100 dark:border-gray-800" id="auth-btn-mobile">
+                        <div class="auth-loading" style="margin: 12px auto; display: block; width: 20px;"></div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <main class="flex-grow py-12 md:py-20">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 fade-in-up">
+                <div class="text-center mb-12">
+                    <h1 class="text-3xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-4 tracking-tight">
+                        Frequently Asked Questions
+                    </h1>
+                    <p class="text-gray-600 dark:text-gray-400 text-lg">
+                        Everything you need to know about preparing for SPSC exams with us.
+                    </p>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- FAQ 1 -->
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>What is the Sikkim PSC Preparation Hub?</span>
+                            <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            It's a comprehensive platform designed specifically for Sikkim Public Service Commission
+                            (SPSC) aspirants. You can find high-quality mock tests (coming soon), AI-generated
+                            personalized notes, and a
+                            vast collection of previous years' question banks to ace your exams.
+                        </div>
+                    </div>
+
+                    <!-- FAQ 2 -->
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>Are the mock tests really free to use?</span>
+                            <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            Yeah. That's the whole point. My goal is to make quality preparation accessible. All Mock
+                            tests and question banks are completely free. I will never introduce a 'premium' full-length
+                            test
+                            series in the future. Ever.
+                        </div>
+                    </div>
+
+                    <!-- FAQ 3 -->
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>How accurate/reliable are the AI-generated notes?</span>
+                            <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            These AI models are trained on official SPSC syllabi and reputable educational resources.
+                            While they provide excellent summaries and structured insights, I recommend
+                            cross-referencing with standard textbooks for critical historical facts and complex legal
+                            topics.
+                        </div>
+                    </div>
+
+                    <!-- FAQ 4 -->
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>How often is the Exam Calendar updated?</span>
+                            <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            Whenever I get time. Duh.
+                        </div>
+                    </div>
+
+                    <!-- FAQ 5 -->
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>Is this platform mobile-friendly?</span>
+                            <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            Yes. I've built this site with a "mobile-first" philosophy. Whether you're studying
+                            on a tablet or a smartphone, the neomorphic interface remains smooth and highly intuitive.
+                        </div>
+                    </div>
+
+                    <!-- FAQ 6 -->
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>What should I do if I find a bug?</span>
+                            <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            Message me. </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="py-8 text-center mt-16 sm:mt-24 footer-line">
+            <p class="text-sm text-gray-500 dark:text-gray-300">
+                © <span id="currentYear"></span> Sikkim PSC preparation hub.
+                Designed by <a href="https://www.instagram.com/nothisisdk/" target="_blank" rel="noopener noreferrer"
+                    class="font-semibold text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-500">nothisisdk</a>.
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Set Current Year
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Dark Mode Logic
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const knob = darkModeToggle.querySelector('.toggle-knob');
+        const html = document.documentElement;
+
+        function updateDarkMode(isDark) {
+            if (isDark) {
+                html.classList.add('dark');
+                knob.style.transform = 'translateX(20px)';
+                localStorage.setItem('theme', 'dark');
+                darkModeToggle.setAttribute('aria-checked', 'true');
+            } else {
+                html.classList.remove('dark');
+                knob.style.transform = 'translateX(0)';
+                localStorage.setItem('theme', 'light');
+                darkModeToggle.setAttribute('aria-checked', 'false');
+            }
+        }
+
+        darkModeToggle.addEventListener('click', () => {
+            const isDark = !html.classList.contains('dark');
+            updateDarkMode(isDark);
+        });
+
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            updateDarkMode(true);
+        } else {
+            updateDarkMode(false);
+        }
+
+        // Mobile Menu Logic
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = mobileMenu.classList.toggle('active');
+            document.body.classList.toggle('mobile-menu-open');
+            mobileMenuButton.setAttribute('aria-expanded', isOpen);
+        });
+
+        document.addEventListener('click', (e) => {
+            if (mobileMenu.classList.contains('active') && !mobileMenu.contains(e.target) && !mobileMenuButton.contains(e.target)) {
+                mobileMenu.classList.remove('active');
+                document.body.classList.remove('mobile-menu-open');
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // FAQ Accordion Logic
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+
+                // Close all other items
+                faqItems.forEach(otherItem => {
+                    otherItem.classList.remove('active');
+                });
+
+                // Toggle current item
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+    </script>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="auth.js"></script>
+</body>
+
+</html>

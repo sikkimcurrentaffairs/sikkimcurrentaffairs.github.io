@@ -1,0 +1,2551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>General Biology | Sikkim PSC Hub</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+            border-color: #bbb;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .options-list.answered .option:not(.correct):not(.incorrect) {
+            opacity: 0.7;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none;
+        }
+        .quiz-stats {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <a href="biology.html" class="back-link">&larr; Back to Biology</a>
+        <h1>General Biology</h1>
+        <p class="quiz-stats">480 Questions</p>
+        <div id="questions-wrapper"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Ordinary table salt is sodium chloride. What is baking soda?",
+                options: ["Potassium chloride", "Potassium carbonate", "Potassium hydroxide", "Sodium bicarbonate"],
+                answer: 3
+            },
+            {
+                question: "Pine, fir, spruce, cedar, larch and cypress are the famous timber-yielding plants of which several also occur widely in the hilly regions of India. All these belong to",
+                options: ["angiosperms", "gymnosperms", "monocotyledons", "dicotyledons"],
+                answer: 1
+            },
+            {
+                question: "Plants receive their nutrients mainly from",
+                options: ["chlorophyll", "atmosphere", "light", "soil"],
+                answer: 3
+            },
+            {
+                question: "Plants absorb dissolved nitrates from soil and convert them into",
+                options: ["free nitrogen", "urea", "ammonia", "proteins"],
+                answer: 0
+            },
+            {
+                question: "One of the following is not a function of bones.",
+                options: ["Place for muscle attachment", "Protection of vital organs", "Secretion of hormones for calcium regulation in blood and bones", "Production of blood corpuscles"],
+                answer: 2
+            },
+            {
+                question: "Plants absorb most part of water needed by them through their",
+                options: ["embryonic zone", "growing point", "root hairs", "zone of elongation"],
+                answer: 2
+            },
+            {
+                question: "Photo-oxidation is",
+                options: ["photorespiration", "photolysis", "light and oxygen induced breakdown", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "Most highly intelligent mammals are",
+                options: ["whales", "dolphins", "elephants", "kangaroos"],
+                answer: 1
+            },
+            {
+                question: "Prokaryotic cells lack",
+                options: ["nucleolus", "nuclear membrane", "membrane bound by organelles", "All of these"],
+                answer: 3
+            },
+            {
+                question: "Other than spreading malaria, anopheles mosquitoes are also vectors of",
+                options: ["dengue fever", "filariasis", "encephalitis", "yellow fever"],
+                answer: 1
+            },
+            {
+                question: "Plants that grow in saline water are called",
+                options: ["halophytes", "hydrophytes", "mesophytes", "thallophytes"],
+                answer: 0
+            },
+            {
+                question: "Placenta is the structure formed",
+                options: ["by the union of foetal and uterine tissue", "by foetus only", "by fusion of germ layers", "None of these"],
+                answer: 0
+            },
+            {
+                question: "Neurospora is used as genetic material because",
+                options: ["it has short life cycle of 10 days", "the product of single meiosis can be easily analysed", "meiotic products are linearly arranged in the form of ordered tetrads", "is a diploid fungus"],
+                answer: 0
+            },
+            {
+                question: "Potato is a modified form (outgrowth) of:",
+                options: ["root", "stem", "fruit", "leaf"],
+                answer: 1
+            },
+            {
+                question: "Of the following taxonomic categories which is the most inclusive (i.e. is the highest in hierarchy)?",
+                options: ["Order", "Subspecies", "Class", "Genus"],
+                answer: 2
+            },
+            {
+                question: "Myopia is connected with",
+                options: ["ears", "eyes", "lungs", "None of these"],
+                answer: 1
+            },
+            {
+                question: "Most of the red, blue and purple colours of plants are due to a pigment called",
+                options: ["anthocyanin", "carotene", "chlorophyll", "xanthophylls"],
+                answer: 0
+            },
+            {
+                question: "Plants developing in dry conditions are",
+                options: ["xerophytes", "mesophytes", "lithophytes", "hydrophytes"],
+                answer: 0
+            },
+            {
+                question: "Plants growing on sand are called as",
+                options: ["chasmophytes", "oxylophytes", "lithophytes", "psammophytes"],
+                answer: 3
+            },
+            {
+                question: "Our skin, when exposed to excess sunlight, becomes dark. This is because of our skin pigments called",
+                options: ["flavoxanthin", "melanin", "carotene", "Xanthophyll"],
+                answer: 1
+            },
+            {
+                question: "Ramapithecus and Cro-Magnon man are considered",
+                options: ["ancestors of modern man", "ancestors of monkey", "ancestors of lion", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "Plants wilt due to excess of",
+                options: ["transpiration", "photosynthesis", "absorption", "None of these"],
+                answer: 0
+            },
+            {
+                question: "Monotremes are unique mammals because they",
+                options: ["posses hair", "give birth to live young", "secret milk in a pouch", "lay eggs"],
+                answer: 3
+            },
+            {
+                question: "Radical vascular bundles are those in which",
+                options: ["xylem is surrounded by phloem", "phloem is surrounded by xylem", "xylem and phloem occur on the same radius", "xylem and phloem occur on the different radii"],
+                answer: 3
+            },
+            {
+                question: "Osmosis is the flow of solution from higher concentration to a solution of lower concentration through a semi permeable membrane. What is incorrect in this statement?",
+                options: ["Exact concentration of solution is not given", "Character of semi permeable membrane is not given", "The flow of solution is not possible through semi permeable membrane", "All are incorrect"],
+                answer: 2
+            },
+            {
+                question: "On which of the following plants did Gregor Mendal perform his classical experiment?",
+                options: ["Gram", "Maize", "Pea", "Wheat"],
+                answer: 2
+            },
+            {
+                question: "Pigmentation of skin is due to",
+                options: ["lymphocytes", "monocytes", "leucocytes", "melanocytes"],
+                answer: 3
+            },
+            {
+                question: "Norepinephrine increases",
+                options: ["respiration", "urine production", "saliva production", "blood pressure"],
+                answer: 3
+            },
+            {
+                question: "Radioactivity is a phenomenon of the spontaneous emission of",
+                options: ["protons (alpha particles)", "electrons (beta particles)", "gamma rays (short wave electromagnetic waves)", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "Organic Substances which, in very small amounts, control growth and development called",
+                options: ["vitamins", "hormones", "enzymes", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "Our major foods, fibres, spices, fruits and beverage crops are",
+                options: ["flowering plants", "gymnosperms plants", "pteridophytes", "bryophytes"],
+                answer: 0
+            },
+            {
+                question: "Movements due to light are shown by",
+                options: ["flowering plants", "lower plants", "all land plants", "all the plants"],
+                answer: 0
+            },
+            {
+                question: "Radish is a",
+                options: ["bulb", "conn", "modified root", "tuber"],
+                answer: 2
+            },
+            {
+                question: "Rain water helps to increase the ____ to some extent.",
+                options: ["phosphorous contents", "nitrogen contents", "calcium contents", "potash contents"],
+                answer: 2
+            },
+            {
+                question: "Plants are killed in winter by frost",
+                options: ["because of desiccation and mechanical damage to the tissues", "because no photosynthesis takes place at such low temperature", "because respiration ceases at such low temperature", "because there is no transpiration"],
+                answer: 0
+            },
+            {
+                question: "One of the following is most suitable for study of mutations",
+                options: ["Haploids", "Diploids", "Tetraploids", "Polyploid"],
+                answer: 0
+            },
+            {
+                question: "Pulses are a good source of",
+                options: ["carbohydrates", "fats", "proteins", "vitamins"],
+                answer: 2
+            },
+            {
+                question: "Nymph is the name of young one of",
+                options: ["butterfly", "beetle", "housefly", "cockroach"],
+                answer: 3
+            },
+            {
+                question: "One day you wake with a sore throat and a runny nose. Your doctor takes a swab from your throat, sends it to a lab, and telephones you the next day to say that antibiotic will not help you get better. Which of the following is the most likely reason for the doctor\'s statement?",
+                options: ["Having waited a day, it is too late to take an antibiotic", "You need an antiseptic, not an antibiotic", "You need to be vaccinated instead of taking an antibiotic", "You are infected by a virus"],
+                answer: 3
+            },
+            {
+                question: "Plants that grow under average temperature and moisture are called:",
+                options: ["halophytes", "hydrophytes", "mesophytes", "xerophytes"],
+                answer: 2
+            },
+            {
+                question: "Oxyreductases, transferases, hydrolases, lyases, isomerases and ligases are all classes of",
+                options: ["hormones", "enzymes", "proteins", "vitamins"],
+                answer: 1
+            },
+            {
+                question: "Nitrogen is fixed in ecosystems in ways stated below. Which one of the statements below is false?",
+                options: ["By cyanobacteria", "By electrical discharges in the atmosphere", "By industrially synthesised fertilizer", "By denitrification"],
+                answer: 3
+            },
+            {
+                question: "Mycobacterium lepraecauses leprosy,Corynebacterium diphtheriacauses diphtheria andVibrio commacauses",
+                options: ["tetanus", "influenza", "cholera", "typhoid"],
+                answer: 2
+            },
+            {
+                question: "Reflex actions are controlled by :",
+                options: ["The cells", "The Spinal Chord", "The Brain", "The Nerves"],
+                answer: 1
+            },
+            {
+                question: "The study of structures of organisms, their cells and their organelles at molecular level is known as",
+                options: ["Molecular biology", "Environmental biology", "Microbiology", "Cell biology"],
+                answer: 0
+            },
+            {
+                question: "It is a heredity material and contains the genetic information which is passed on from one generation to another.",
+                options: ["RNA", "DNA", "Chromosomes", "Carbohydrates"],
+                answer: 1
+            },
+            {
+                question: "Haemoglobin is an important component of",
+                options: ["RBC", "WBC", "Platletes", "Cytoplasm"],
+                answer: 0
+            },
+            {
+                question: "The sound lub-dub lub-dub is produced by",
+                options: ["Liver", "Kidney", "Heart", "Lung"],
+                answer: 2
+            },
+            {
+                question: "What is the average Life span of RBC?",
+                options: ["120 days", "99 days", "101 days", "111 days"],
+                answer: 0
+            },
+            {
+                question: "Which statement about capillaries is correct?",
+                options: ["Their walls are covered with cilia", "They warm and humidify inhaled air", "Their walls are only one cell thick", "They move mucus through the lungs"],
+                answer: 2
+            },
+            {
+                question: "The main function of hemoglobin is",
+                options: ["Carries Oxygen", "Control Blood Pressure", "Produce hormones", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "The colour of Hemoglobin is",
+                options: ["Red", "Yellow", "White", "Colorless"],
+                answer: 0
+            },
+            {
+                question: "Agro forestry is",
+                options: ["Growing tree for forest", "Growing tree after cutting crop", "Growing of tree with cultivation of crop in the same field", "None of these"],
+                answer: 2
+            },
+            {
+                question: "Agrostology is the study of",
+                options: ["Seed of oil", "Crop", "Grass", "Fruits"],
+                answer: 2
+            },
+            {
+                question: "Biogeographical regions are also called",
+                options: ["Zones", "Epoch", "Realms", "Era"],
+                answer: 2
+            },
+            {
+                question: "Sleeping sickness in man is caused by the organism",
+                options: ["Plasmodium", "Entamoeba", "Giardia", "Trypanosoma"],
+                answer: 3
+            },
+            {
+                question: "Asthma is caused due to",
+                options: ["Infection of trachea", "Infection of lung", "Bleeding into pleural cavity", "Spasm in bronchial muscles"],
+                answer: 3
+            },
+            {
+                question: "Cancer is caused by",
+                options: ["Loss of immunity of cells", "Uncontrolled meiosis", "Uncontrolled mitosis", "Rupturing of cells"],
+                answer: 2
+            },
+            {
+                question: "Polio is caused by",
+                options: ["Bacteria", "Virus", "Fungus", "Protozoa"],
+                answer: 1
+            },
+            {
+                question: "Anopheles mosquito carries Plasmodium which causes malaria in",
+                options: ["Humans", "Animals", "Sparrows", "All of the above"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is an Abiotic factor?",
+                options: ["Plants", "Water", "Consumers", "Animals"],
+                answer: 1
+            },
+            {
+                question: "Study of parasitic organism is called",
+                options: ["Parazology", "Parasitology", "Both a and b", "None of these"],
+                answer: 1
+            },
+            {
+                question: "The study of relation of animals and plants to their surroundings is called ________",
+                options: ["Ecology", "Ethrology", "Genealogy", "Iconology"],
+                answer: 0
+            },
+            {
+                question: "Amarbel is an example of",
+                options: ["Parasite", "Host", "Autotroph", "Saprotroph"],
+                answer: 0
+            },
+            {
+                question: "When we consume the goat or sheep beef then we are",
+                options: ["Primary consumer", "Secondary consumer", "Tertiary consumer", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is an Autotroph?",
+                options: ["Fish", "Algae", "Butterfly", "Mushroom"],
+                answer: 1
+            },
+            {
+                question: "The energy in most ecosystems comes from",
+                options: ["Water", "Carbon dioxide", "Sun", "Soil"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is an example of parasitism?",
+                options: ["Leeches consume blood of their host", "Ticks that live on dogs", "Aphid insects eat the sap of the host plant", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is responsible for Vermicomposting?",
+                options: ["Fungus", "Worms", "Bacteria", "Birds"],
+                answer: 1
+            },
+            {
+                question: "Secondary consumers are eaten by larger",
+                options: ["Fast animal", "Animal in the third trophic level", "Herbivorous animal", "Predator"],
+                answer: 3
+            },
+            {
+                question: "Some of the conifers in our northern areas include",
+                options: ["Pines", "Abies", "Cedrus", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "Which statement describes decomposers?",
+                options: ["Decomposers are insignificant organisms in the ecosystem and can be absent in some ecosystems", "Decomposers can produce their own source of energy and can sometimes act as primary producers", "Decomposers are those organisms that recycle matter in the ecosystem", "All the above"],
+                answer: 2
+            },
+            {
+                question: "Nitrogen Fixation is carried out primarily by",
+                options: ["Plants", "Humans", "Consumers", "Bacteria"],
+                answer: 3
+            },
+            {
+                question: "Grassland with scattered tree is known as",
+                options: ["Savanna", "Deciduous Forests", "Evergreen Forests", "Tropical Rain Forests"],
+                answer: 0
+            },
+            {
+                question: "Dr. Birbal Sahni; a famous Indian botanist is concerned with ________ studies.",
+                options: ["Algal", "Fossil", "Bryophytic", "Fungal"],
+                answer: 1
+            },
+            {
+                question: "Plants which grow on saline soils are known as",
+                options: ["Xerophytes", "Hydrophytes", "Halophytes", "Succulents"],
+                answer: 2
+            },
+            {
+                question: "Which of the following organisms fix nitrogen in aquatic ecosystems?",
+                options: ["Fungi", "Chemoautotrophs", "Cyanobacteria", "Phytoplankton"],
+                answer: 2
+            },
+            {
+                question: "Which ecological pyramid can never be inverted",
+                options: ["Pyramid of number", "Pyramid of size", "Pyramid of energy", "Pyramid of biomass"],
+                answer: 2
+            },
+            {
+                question: "Which of the following systems in man is affected by the bite of cobra ?",
+                options: ["Digestive", "Nervous", "Excretory", "Circulatory"],
+                answer: 1
+            },
+            {
+                question: "Which cells secrete hormones?",
+                options: ["Tissue cells", "Museles cells", "Respiratory", "Glands"],
+                answer: 3
+            },
+            {
+                question: "Which one of the following crops would be preferred for sowing in order to enrich soil with nitrogen?",
+                options: ["Wheat", "Mustard", "Sunflower", "Gram"],
+                answer: 3
+            },
+            {
+                question: "Censor mechanism of dispersal of seeds is found in",
+                options: ["Pea", "Poppy", "Cotton", "Maize"],
+                answer: 1
+            },
+            {
+                question: "In Pedology we study about",
+                options: ["Disease", "Pollution", "Soil", "Rockes"],
+                answer: 2
+            },
+            {
+                question: "Biological control is to check growth of",
+                options: ["Plants", "Animals", "Weeds", "One pest by another"],
+                answer: 3
+            },
+            {
+                question: "The biofertilizer used or the paddy crops is",
+                options: ["Blue-green algae", "Rhizobium species", "Fungal root fungal", "Azetobactor species"],
+                answer: 0
+            },
+            {
+                question: "Branch of agriculture concerned with the production of crops is",
+                options: ["Agrotology", "Agronomy", "Agrostology", "Anthropology"],
+                answer: 1
+            },
+            {
+                question: "Nitrogenous Food is",
+                options: ["Proteins", "Carbohydrates", "Salts", "Lipids"],
+                answer: 0
+            },
+            {
+                question: "Which of the following crops would be preffered for sowing in order to enrich the soil with nitrogen?",
+                options: ["Wheat", "Mustard", "Sunflower", "Gram"],
+                answer: 3
+            },
+            {
+                question: "The temperature danger zone for food is",
+                options: ["5 - 63 deg", "Above 45 deg", "Below 15 deg", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "Golden rice has the highest quantity of",
+                options: ["Vitamin A", "Vitamin B", "Vitamin C", "Vitamin K"],
+                answer: 0
+            },
+            {
+                question: "Who discovered the insecticidal properties of DDT?",
+                options: ["Othmanzedicer", "R.H. Painter", "Paul Muller", "Rachel Carson"],
+                answer: 2
+            },
+            {
+                question: "________ reproduces by binary fission.",
+                options: ["Amoeba", "Liverfiuke", "Plasmodium", "Planaria"],
+                answer: 0
+            },
+            {
+                question: "Among the many substances manufactured commercially by means of ________ are acetic acid, acetone, butanol, lactic acid and several vitamins.",
+                options: ["Viruses", "Bacteria", "Fungi", "Yeast"],
+                answer: 1
+            },
+            {
+                question: "Amoeba belongs to the phylum",
+                options: ["Protozoa", "Annelida", "Porifera", "Platyhelminthes"],
+                answer: 0
+            },
+            {
+                question: "Dried milk dried meat are examples of preservation by",
+                options: ["Pasteurization", "Dehydration", "Strerilization", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "Which of the following micro-organism causes diseases like polio and chicken pox?",
+                options: ["Bacteria", "Protozoa", "Algae", "Virus"],
+                answer: 3
+            },
+            {
+                question: "What kingdom does Amoeba belong to",
+                options: ["Plantae", "Protista", "Monera", "Prokaryotae"],
+                answer: 1
+            },
+            {
+                question: "Cyanobacteria are also known as",
+                options: ["Autotrophic bacteria", "Blue Green Algae", "Red Brown Algae", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "Branch of biology which deals with the study processing and preservation of food is called",
+                options: ["Food technology", "Food biotechnology", "Food preservation", "None of these"],
+                answer: 0
+            },
+            {
+                question: "The litmus paper utilized in the chemical laboratories is made of :",
+                options: ["Fern", "Algae", "Lichen", "Fungi"],
+                answer: 2
+            },
+            {
+                question: "They have also proved extremely useful in our quest of knowledge of outer space.",
+                options: ["Bacteria", "Fungi", "Yeasts", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "Chemicals like ________ may be added to different foods or fruits to prevent or retard the growth microorganisms.",
+                options: ["Potasium", "Calcium", "Potassium metabisulphite", "Sulphur"],
+                answer: 2
+            },
+            {
+                question: "Eutrophication is the result of",
+                options: ["Bryophytes", "Algae and aquatic plants", "Gymnosperm", "Pteridophytes"],
+                answer: 1
+            },
+            {
+                question: "It is commonly found in the bottom tidal pools?",
+                options: ["Spirogyra", "Ulva", "Stiogeoclonium", "Chlamydomonas"],
+                answer: 1
+            },
+            {
+                question: "The horizonatally growing hyphae of Rhizopus are called",
+                options: ["Rhizoids", "Stolons", "Sporangiophores", "Holdfast"],
+                answer: 1
+            },
+            {
+                question: "Amoeba moves in water with the help of locomotory organs called",
+                options: ["Setae", "Tube feet", "Pseudopodia", "Flame cell"],
+                answer: 2
+            },
+            {
+                question: "Kelps are obtained from",
+                options: ["Algae", "Marine algae", "Fresh water algae", "Lichens"],
+                answer: 1
+            },
+            {
+                question: "Example of a single celled organism.",
+                options: ["Algae", "Amoeba", "Paramaecium", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "Chlamydomonas prefers water rich in",
+                options: ["Ammonic compounds", "Uric acid compounds", "Sulphur compounds", "Urea compounds"],
+                answer: 0
+            },
+            {
+                question: "Nuclear membrane is absent in",
+                options: ["Volvox", "Penicillium", "Agaricus", "Nostoc"],
+                answer: 3
+            },
+            {
+                question: "Microscopic organism which passively float on the surface of water is called",
+                options: ["Phytoplanktons", "Zooplanktons", "Both (a) and (b) both", "None to these"],
+                answer: 2
+            },
+            {
+                question: "The ability to fix atmospheric nitrogen is found in the",
+                options: ["Leaves of some crop plants", "Some marine red algae", "Some blue-green algae", "Cholera"],
+                answer: 2
+            },
+            {
+                question: "\'Pond silk\' is the common name of",
+                options: ["Spongilla", "Chlorella", "Selaginella", "Spirogyra"],
+                answer: 3
+            },
+            {
+                question: "Potato blight is caused by",
+                options: ["Penicillium", "Meningitis", "Smut", "Ringworm"],
+                answer: 2
+            },
+            {
+                question: "Pickles, candies, jams and breads are preserved by the much of adding",
+                options: ["Preservattives", "Enzymes", "Minerals", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "Heterocysts, specialised for nitrogen fixation, occur in certain",
+                options: ["Red brown algae", "Blue green algae", "Ferns", "Mosses"],
+                answer: 1
+            },
+            {
+                question: "The number pyrenoids in Chlamydomonas is",
+                options: ["1", "2", "3", "4"],
+                answer: 0
+            },
+            {
+                question: "Commercial agar is obtained from",
+                options: ["Chlorella", "Gracilaria", "Parphyro", "Volvox"],
+                answer: 1
+            },
+            {
+                question: "Red snow causing alga is",
+                options: ["Chamydomonas nivalis", "Chlamydomonas reinhardtii", "Chlamydomonas debaryanum", "Chalmydomonas media"],
+                answer: 0
+            },
+            {
+                question: "They are probably the simplest and the smallest living organisms possessing cellular organisation.",
+                options: ["Viruses", "Fungi", "Mosses", "Bacteria"],
+                answer: 3
+            },
+            {
+                question: "Which of the following does not have any enzymes in its cells?",
+                options: ["Algae", "Virus", "Lichen", "Bacteria"],
+                answer: 1
+            },
+            {
+                question: "The individual chain of cells or filament in the colony of Nostoc is known as",
+                options: ["Trichome", "Heterocyst", "Hormogonia", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "Under the ideal environmental conditions bacterial cells divide at the rate of division per twenty",
+                options: ["Second", "Minutes", "Hours", "Days"],
+                answer: 1
+            },
+            {
+                question: "The study of microorganisms is termed as",
+                options: ["Evolution", "Microbiology", "Zoology", "Palaeontology"],
+                answer: 1
+            },
+            {
+                question: "Entamoeba Histolytica is a",
+                options: ["Virus", "Protozoan", "Fungus", "Bacteria"],
+                answer: 1
+            },
+            {
+                question: "Amoeba belongs to which group",
+                options: ["Protozoa", "Bacteria", "Fungi", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "Late blight of potato is caused by",
+                options: ["Alternia solanii", "Phytophthora infestans", "Albugo candida", "Fusarium"],
+                answer: 1
+            },
+            {
+                question: "Amoeba proteus was discovered by",
+                options: ["Gerald Durrell", "William Bullock", "Johann Rösel von Rosenhof", "Paul Émile de Puydt"],
+                answer: 2
+            },
+            {
+                question: "In N2- fixation process, nitrite is converted to nitrate by",
+                options: ["Nitrobacter", "Azotobacter", "Nitosomonas", "Azospirillum"],
+                answer: 0
+            },
+            {
+                question: "Green mould is common name for",
+                options: ["Neurospora", "Mucor", "Penicillium", "Saccharomyces"],
+                answer: 2
+            },
+            {
+                question: "Volvox colonies are found in",
+                options: ["Freshwater ponds", "Salt lakes", "Seawater", "Spring"],
+                answer: 0
+            },
+            {
+                question: "All of the following are true of neurons except that",
+                options: ["They conduct a nervous impulse", "They are a very specialized form of connective tissue", "Thay are separated from one another by synapses", "When mature, they lose ability to divide"],
+                answer: 1
+            },
+            {
+                question: "Synapse gap is present between which of the following?",
+                options: ["Two neurons", "Brain and Spinal Cord", "Two Kidneys", "None of these"],
+                answer: 0
+            },
+            {
+                question: "The total number of pairs of Peripheral nerves in man are",
+                options: ["41", "42", "43", "44"],
+                answer: 2
+            },
+            {
+                question: "Medulla oblongata is a part of which of the following?",
+                options: ["Heart", "Brain", "Lungs", "Stomach"],
+                answer: 1
+            },
+            {
+                question: "Acetylcholine is",
+                options: ["Toxin", "Vitamin", "Enzyme", "Chemical transmitter"],
+                answer: 3
+            },
+            {
+                question: "The pair of spinal nerves in man are",
+                options: ["30", "31", "32", "33"],
+                answer: 1
+            },
+            {
+                question: "Centre of reflex action",
+                options: ["Cerebrum", "Cerebellum", "Spinal cord", "Nerve cell"],
+                answer: 2
+            },
+            {
+                question: "Cerebro spinal fluid protects",
+                options: ["Heart", "Brain", "Liver", "Kidney"],
+                answer: 1
+            },
+            {
+                question: "Cerebrum is related to",
+                options: ["Liver", "Heart", "Brain", "Kidney"],
+                answer: 2
+            },
+            {
+                question: "What is the first thing that alcohol effects?",
+                options: ["Judgement", "Speech", "Vision", "Balance"],
+                answer: 0
+            },
+            {
+                question: "The functional connection between two neurons is a",
+                options: ["Axon", "Synapse", "Neuroglia", "Dendrites"],
+                answer: 1
+            },
+            {
+                question: "The functional unit of the nervous system is the",
+                options: ["Nephrons", "Axons", "Neurons", "All of the above"],
+                answer: 2
+            },
+            {
+                question: "Reflex actions are controlled by",
+                options: ["The Spinal Chord", "The Nerves", "The cells", "The Brain"],
+                answer: 0
+            },
+            {
+                question: "Which part of Nervous system controls involuntary actions?",
+                options: ["Medulla oblongata", "Cerebellum", "Hypothalamus", "Spinal cord"],
+                answer: 0
+            },
+            {
+                question: "What does the central nervous system consists of?",
+                options: ["Brain", "Spinal cord", "Nerves", "All the above"],
+                answer: 3
+            },
+            {
+                question: "How many pair of nerves arises from vertebral column?",
+                options: ["12 pair", "13 pair", "31 pair", "33 pair"],
+                answer: 2
+            },
+            {
+                question: "Asexual reproduction differs from sexual reproduction in that in asexual reproduction, ________",
+                options: ["The new organisms are genetically identical to the parent", "The gametes are produced in reproduction", "The nuclei of gametes fuse", "The offspring shows variations"],
+                answer: 0
+            },
+            {
+                question: "Where the mature sperm are produced?",
+                options: ["Scrotum", "Vas deferens", "Prostate gland", "Testes"],
+                answer: 3
+            },
+            {
+                question: "During rainy season wooden doors are difficult to open or closure because of ?",
+                options: ["Imbibition", "Plasmolysis", "Diffusion", "Osmosis"],
+                answer: 0
+            },
+            {
+                question: "Which statement concerning the diagnosis of ADHD is true?",
+                options: ["Boys are more likely to be diagnosed with ADHD than girls", "Most children \"outgrow\" symptoms of ADHD", "About 20 percent of school-age children are diagnosed with ADHD", "Racial minority status is a good predictor of being diagnosed with ADHD"],
+                answer: 0
+            },
+            {
+                question: "According to Erikson, the goal of adolescence is to",
+                options: ["Independent identity", "Explore who they are", "Both a & b", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "Lichens are the best indicator of",
+                options: ["Air pollution", "Water pollution", "Soil pollution", "Noise pollution"],
+                answer: 0
+            },
+            {
+                question: "Which one of the following processes takes place in lakes during eutrophication?",
+                options: ["Rapid destruction of algal growth", "Excessive availability of dissolved oxygen", "Loss of dissolved nutrients from water", "Excessive entry of nutrient into water"],
+                answer: 3
+            },
+            {
+                question: "Who of the following is known as the Father of Biology?",
+                options: ["Darwin", "Lamarck", "Aristotle", "Theophrastus"],
+                answer: 2
+            },
+            {
+                question: "Which is called the factory of ribosomes?",
+                options: ["Nucleus", "Nucleous", "Vacuole", "Endoplasmic Reticulum"],
+                answer: 1
+            },
+            {
+                question: "Chromosomes are present",
+                options: ["Inside the nucleus", "Inside the cytoplasm", "Inside the ribosomes", "Inside the endoplasmic reticulum"],
+                answer: 0
+            },
+            {
+                question: "The great contribution of Schwan was",
+                options: ["what he saw", "how interpreted what he saw", "cell theory", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "Membrane bound organelles are not found in the cells of",
+                options: ["Eukaryotes", "Prokaryotes", "Both A & B", "Nokaryotes"],
+                answer: 1
+            },
+            {
+                question: "The study of structure and functions of cells is termed as",
+                options: ["Genetics", "Ecology", "Embrylogy", "Cell Biology"],
+                answer: 3
+            },
+            {
+                question: "Who is known as father of Biology?",
+                options: ["Aristotle", "Drawin", "Lamark", "Purkenja"],
+                answer: 0
+            },
+            {
+                question: "Who is known as father of Biology",
+                options: ["Aristotle", "Darwin", "Lamark", "Linneus"],
+                answer: 0
+            },
+            {
+                question: "Biologists mainly deal with matters relating to",
+                options: ["Living part of nature", "Non living things influencing living things", "How life works", "All three a b and c"],
+                answer: 3
+            },
+            {
+                question: "Which is the basic structural as well as functional unit for all organisms?",
+                options: ["Tissue", "Cell", "Gland", "Atom"],
+                answer: 1
+            },
+            {
+                question: "The term biology is derived from the language",
+                options: ["French", "Latin", "Purthgali", "Greek"],
+                answer: 3
+            },
+            {
+                question: "Physical basis of life is",
+                options: ["Cytoplasm", "Neucleoplasm", "Protoplasm", "Haloplasm"],
+                answer: 2
+            },
+            {
+                question: "The science related with the study of living is",
+                options: ["Physics", "Chemistry", "Biology", "Mathematic"],
+                answer: 2
+            },
+            {
+                question: "Ribosomes are produced in the",
+                options: ["Nucleus", "Vacuole", "Endoplasmic Reticulum", "Cytoplasm"],
+                answer: 0
+            },
+            {
+                question: "In 1610, who made microscope and used it to observe very small animals?",
+                options: ["Robert Hooke", "Galileo", "Aristotle", "Laveran"],
+                answer: 1
+            },
+            {
+                question: "The scientific study of livings is called",
+                options: ["Zoology", "Anotomy", "Ecology", "Biology"],
+                answer: 3
+            },
+            {
+                question: "They are present in the underground parts of the plants and stored food.",
+                options: ["Leucoplasts", "Chromoplasts", "Chloroplasts", "Lysosomes"],
+                answer: 0
+            },
+            {
+                question: "Which of the following are known as the suicide bags of cells?",
+                options: ["Lysosomes", "Golgi bodies", "Nucleoli", "Ribosomes"],
+                answer: 0
+            },
+            {
+                question: "Which feature do prokaryotic and eukaryotic cells share?",
+                options: ["Nucleus", "DNA", "Nuclear membrane", "Membrane bound Organelles"],
+                answer: 1
+            },
+            {
+                question: "The smallest unit that is capable of carrying out life functions is known as",
+                options: ["Tissue", "Cell", "Blood", "DNA"],
+                answer: 1
+            },
+            {
+                question: "Which one is the first organelle to be discovered?",
+                options: ["Chloroplast", "Nucleus", "Vacuole", "Lysosome"],
+                answer: 1
+            },
+            {
+                question: "In which year, Schwann and Schleiden suggested that cells were the basic unit of life",
+                options: ["1832", "1839", "1849", "1852"],
+                answer: 1
+            },
+            {
+                question: "Where does most digestion take place?",
+                options: ["Stomach", "Large intestine", "Small intestine", "Mouth"],
+                answer: 2
+            },
+            {
+                question: "Both food and air travel through the",
+                options: ["Pharynx", "Trachea", "Larynx", "Alveolus"],
+                answer: 0
+            },
+            {
+                question: "Most of the digestion occur in which part of alimentary canal of man",
+                options: ["Pancreas", "Small intestine", "Large intestine", "Stomach"],
+                answer: 1
+            },
+            {
+                question: "Man has ________ pairs of salivary glands.",
+                options: ["3", "4", "6", "8"],
+                answer: 0
+            },
+            {
+                question: "All enzymes are",
+                options: ["Alkaloids", "Proteins", "Carbohydrates", "Lipids"],
+                answer: 1
+            },
+            {
+                question: "How many teeth in man comes out twice?",
+                options: ["4", "12", "20", "28"],
+                answer: 2
+            },
+            {
+                question: "Appetite is triggered by",
+                options: ["Stomach enzymes", "Pancreatic enzymes", "Physiological drive", "Environmental cues such as the smell or taste of food"],
+                answer: 3
+            },
+            {
+                question: "Where are the taste receptors located?",
+                options: ["Epiglottis", "Upper esophagus", "Tip of the tongue", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "Digestion starts in man from",
+                options: ["Rectum", "Stomach", "Mouth", "Intestine"],
+                answer: 2
+            },
+            {
+                question: "Digestion of starch in mouth takes place by",
+                options: ["Amylase", "Ptyline", "Pepsin", "Lipase"],
+                answer: 1
+            },
+            {
+                question: "What prevents food from entering the windpipe?",
+                options: ["Epiglottis", "Pharynx", "Trachea", "Larynx"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is true of enzymes?",
+                options: ["Enzymes lowers the activation energy for the chemical reaction", "Enzymes speed up the rate of a chemical reaction", "Both A & B", "Neither A nor B"],
+                answer: 2
+            },
+            {
+                question: "The substances, which assist enzymes act, are called",
+                options: ["Diastase", "Substrates", "Co-enzymes", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "Biological catalysis in living organisms are known as",
+                options: ["Hormones", "Vitamins", "Steroids", "Enzymes"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is not a function of saliva?",
+                options: ["Contains fluoride to harden the tooth enamel", "Moistens food and helps stick it together to make it easier to swallow", "Begins the chemical breakdown of starches", "Helps clean the mouth"],
+                answer: 0
+            },
+            {
+                question: "Which organ has finger like outgrowths which are called as Villi (Singular Villus)?",
+                options: ["Large Intestine", "Bladder", "Small Intestine", "Stomach"],
+                answer: 2
+            },
+            {
+                question: "Which among the following is used to treat indigestion?",
+                options: ["Antacid", "Antiseptic", "Analgesic", "Antibiotic"],
+                answer: 0
+            },
+            {
+                question: "Pepsin is a",
+                options: ["Hormone", "Enzyme", "Vitamin", "Mineral"],
+                answer: 1
+            },
+            {
+                question: "Most absorption of nutrients occurs in the",
+                options: ["Stomach", "Liver", "Large intestine", "Small intestine"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is not the part of digestive system ?",
+                options: ["Liver", "Gall bladder", "Cornea", "Intestine"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is necessary for digestion of food?",
+                options: ["Air", "Water", "Enzyme", "Mineral"],
+                answer: 2
+            },
+            {
+                question: "Where are Enzymes found?",
+                options: ["Food", "Human body", "Medicines", "None"],
+                answer: 1
+            },
+            {
+                question: "Enzymes are important because they",
+                options: ["Maintain cell shape", "Transfer genetic information", "Contain water", "Speeds up chemical reactions"],
+                answer: 3
+            },
+            {
+                question: "Colon and rectum is a part of",
+                options: ["Small Intestine", "Large Intestine", "Stomach", "Ureter"],
+                answer: 1
+            },
+            {
+                question: "The teeth lacking in herbivorous animals is",
+                options: ["Molar", "Canine", "Incissor", "Premolar"],
+                answer: 3
+            },
+            {
+                question: "Alimentary canal runs from mouth to",
+                options: ["Stomach", "Small Intestine", "Large Intestine", "Anus"],
+                answer: 3
+            },
+            {
+                question: "Which one is the longest part of the alimentary canal?",
+                options: ["Oseophagus", "Large Intestine", "Small Intestine", "Stomach"],
+                answer: 2
+            },
+            {
+                question: "Which cells are destroyed in AIDS?",
+                options: ["Monocytes", "Neutrophils", "Lymphocytes", "R.B.C"],
+                answer: 2
+            },
+            {
+                question: "Malaria is more common in",
+                options: ["Tropical areas", "Southern areas", "Eastern areas", "All over the word"],
+                answer: 0
+            },
+            {
+                question: "Pathology is the branch of science which deal with the study of",
+                options: ["Nature of disease", "Development of disease", "Control of disease", "All of them"],
+                answer: 3
+            },
+            {
+                question: "As an infant, the ability to produce antibodies is",
+                options: ["About 80% of that of an adult", "Nonexistent", "Limited", "The same as an adult"],
+                answer: 2
+            },
+            {
+                question: "AIDS is caused by the organisms which are",
+                options: ["Bacteria", "Fungi", "Viruses (HIV)", "ProtoZoa"],
+                answer: 2
+            },
+            {
+                question: "Innate immune system defenses include",
+                options: ["Phagocytosis", "B cells", "Plasma cells", "T cells"],
+                answer: 0
+            },
+            {
+                question: "A vehicle borne transmitted diseases are",
+                options: ["Plague and Malaria", "Chicken Pox and Tetanus", "Mumps and Common cold", "Eye infection and influenza"],
+                answer: 0
+            },
+            {
+                question: "Plasmodium is a",
+                options: ["Symbiont", "Parasite", "Saprophyte", "All of the above"],
+                answer: 1
+            },
+            {
+                question: "Main function of antibodies is against",
+                options: ["Unfavourable environment", "During deficiency of nutrient", "infection", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "The interferons are",
+                options: ["Antiviral proteins", "Antibiotic proteins", "Antigen proteins", "All of these"],
+                answer: 0
+            },
+            {
+                question: "Who gave the term \"Antibiotics\"?",
+                options: ["Darwin", "Woodruff", "Flemming", "Selman Waksman"],
+                answer: 3
+            },
+            {
+                question: "In man which organisms cause abscesses on the skin of arms or legs?",
+                options: ["Ascaris", "Bacteria", "Suinea worm", "Ring worm"],
+                answer: 2
+            },
+            {
+                question: "It is stiff rod of special cells surrounded by connective tissue present in the mid-dorsal region and appears in the embryos of all chordates.",
+                options: ["Placenta", "Notochord", "Cranianta", "Ligule"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is cold blooded?",
+                options: ["Fish", "Frog", "Lizard", "All of these"],
+                answer: 3
+            },
+            {
+                question: "Higher vascular plants are also called",
+                options: ["Flowering plants", "Ferns", "Seed plants", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "A genus can best be defined as",
+                options: ["A taxon composed of one or more species and a classification level lying below family", "A taxon composed of families", "The most specific taxon", "A taxon comprised of classes"],
+                answer: 0
+            },
+            {
+                question: "Azolla is a",
+                options: ["Algae", "Fungi", "Bryophyta", "Aqueous fern"],
+                answer: 3
+            },
+            {
+                question: "Bamboo is classified as",
+                options: ["Tree", "Grass", "Shrub", "Herb"],
+                answer: 1
+            },
+            {
+                question: "Bios means",
+                options: ["Study", "Life", "Fact", "True"],
+                answer: 1
+            },
+            {
+                question: "All insects have how many parts of legs?",
+                options: ["2", "3", "4", "6"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is true of annelids?",
+                options: ["They have an open circulatory system", "They have a nerve net", "They perform gas exchange across their skin", "They have pseudocoeloms"],
+                answer: 2
+            },
+            {
+                question: "Which of the following has the largest number of chromosomes?",
+                options: ["Human beings", "Pteridophytes", "Elephants", "Bryophytes"],
+                answer: 1
+            },
+            {
+                question: "What do eukaryotic cells have that prokaryotic cells do not?",
+                options: ["Nucleus", "Cytoplasm", "Ribosomes", "DNA"],
+                answer: 0
+            },
+            {
+                question: "The sea horse belongs to the class of",
+                options: ["Fishes", "Mammals", "Reptiles", "Mollusc"],
+                answer: 0
+            },
+            {
+                question: "They are considered to be the most primitive and are surely the first of the vertebrates.",
+                options: ["Frogs", "Reptiles", "Amphibinas", "Jawless fishes"],
+                answer: 3
+            },
+            {
+                question: "They are extremely diverse group of organisms.",
+                options: ["Mosses", "Algae", "Angiosperms", "Fungi"],
+                answer: 3
+            },
+            {
+                question: "The scientific study of plants is termed as",
+                options: ["Zoology", "Botany", "Ecology", "Taxonomoy"],
+                answer: 1
+            },
+            {
+                question: "Lobsters belong to which one of the following classes of organisms?",
+                options: ["Arachnids", "Crustaceans", "Insects", "Myriopods"],
+                answer: 1
+            },
+            {
+                question: "Which one of the following is not a chordate?",
+                options: ["Starfish", "Dolphin", "Shark", "Snake"],
+                answer: 0
+            },
+            {
+                question: "Carica papaya is the scientific name of ________ .",
+                options: ["Peepal", "Papaya", "Tamarind", "Drumstick"],
+                answer: 1
+            },
+            {
+                question: "Psidium guajava is the scientific name of ________ .",
+                options: ["Guava", "Mango", "Bamboo", "Jack fruit"],
+                answer: 0
+            },
+            {
+                question: "Grevillea Robusta is the scientific name of ________ .",
+                options: ["Peepal", "Teak", "Silver Oak", "Jack fruit"],
+                answer: 2
+            },
+            {
+                question: "Artocarpus integra is the scientific name of ________ .",
+                options: ["Guava", "Pineapple", "Silver Oak", "Jack fruit"],
+                answer: 3
+            },
+            {
+                question: "What is scientific name of \"Cotton\" ?",
+                options: ["Azadhirachta Indica", "Phaseolies auicus", "Gossypium Herbaceum", "Ficus Benghalensis"],
+                answer: 2
+            },
+            {
+                question: "Which structure is specific to eukaryotic cells?",
+                options: ["Nucleus", "DNA", "Cytoplasm", "Cell membrane"],
+                answer: 0
+            },
+            {
+                question: "Which of these statements is true of the kingdom protista?",
+                options: ["All are unicellular", "All are hetertrophic", "All are autotrophic", "All are eukaryotic"],
+                answer: 3
+            },
+            {
+                question: "Study of internal structure of organism is called",
+                options: ["Morphology", "Anatomy", "Histology", "Cytology"],
+                answer: 1
+            },
+            {
+                question: "Biology is the scientific study of",
+                options: ["Plants", "Animals", "Bacteria", "Living organisms"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is a fresh water sponge?",
+                options: ["Sycon", "Euspongia", "Spongilla", "Pleurobrachia"],
+                answer: 2
+            },
+            {
+                question: "The kingdom Protista is primarily made up of organisms that are",
+                options: ["Eukaryotic and multicellular", "Prokaryotic and multicellular", "Prokaryotic and single-celled", "Eukaryotic and single-celled"],
+                answer: 3
+            },
+            {
+                question: "Marsupial Kangaroo is",
+                options: ["Viviparous", "Oviparous", "Ovoviviparous", "A distinct category"],
+                answer: 0
+            },
+            {
+                question: "Branch of biology which deals with the study of identification, nomenclature and classification of organisms is",
+                options: ["Exobiology", "Ecology", "Taxonomy", "Toxicology"],
+                answer: 2
+            },
+            {
+                question: "Octopus belongs to the phylum",
+                options: ["Mollusca", "Cnidaria", "Echinodermata", "Chordata"],
+                answer: 0
+            },
+            {
+                question: "Octopus is",
+                options: ["An arthropod", "An echionoderm", "A hemichordate", "A mollusc"],
+                answer: 3
+            },
+            {
+                question: "In coelenterates mesoderm gives rise to",
+                options: ["Digestive System", "Neverous System", "Circulatory System", "Lining of the gut"],
+                answer: 2
+            },
+            {
+                question: "It is the study of internal organs of organisms.",
+                options: ["Anatomy", "Physiology", "Morphology", "Cell Biology"],
+                answer: 0
+            },
+            {
+                question: "The non-vascular land plants are included in the group called",
+                options: ["Thallophyta", "Bryophyta", "Tracheophyta", "Pteridophyta"],
+                answer: 1
+            },
+            {
+                question: "Who is called the Father of Taxonomy?",
+                options: ["Aristotle", "Carolus Linnaeus", "Theophrastus", "Lamarck"],
+                answer: 1
+            },
+            {
+                question: "Spiders belong to the phylum",
+                options: ["Mollusca", "Annelida", "Cnidaria", "Arthropoda"],
+                answer: 3
+            },
+            {
+                question: "Sponges belong to the phylum",
+                options: ["Protozoa", "Annelida", "Porifera", "Cnidaria"],
+                answer: 2
+            },
+            {
+                question: "Study of butterfly is",
+                options: ["Ichthyology", "Neonatology", "Lapidopterology", "Polynalogy"],
+                answer: 2
+            },
+            {
+                question: "The term biology was first coined by",
+                options: ["Aristotle", "Darwin", "Lamark", "Lamark and Treviranus"],
+                answer: 3
+            },
+            {
+                question: "The tallest moss in the world is",
+                options: ["Funaira", "Dawsonia", "Marchantia", "Sporophyte"],
+                answer: 1
+            },
+            {
+                question: "Animals/organisms floating on the surface of water are",
+                options: ["Plankton", "Pelagic", "Benthon", "Neritic"],
+                answer: 0
+            },
+            {
+                question: "Capitulum is also given another name",
+                options: ["Branch", "Head", "Tail", "Caktin"],
+                answer: 1
+            },
+            {
+                question: "________ being a higher category, is the assemblage of families which exhibit a few similar characters.",
+                options: ["Order", "Species", "Genus", "Class"],
+                answer: 0
+            },
+            {
+                question: "Subphylum vertebrata is also known as",
+                options: ["Pisces", "Craniata", "Aves", "Amphibia"],
+                answer: 1
+            },
+            {
+                question: "Biological classification of plants and animals was first proposed by",
+                options: ["Aristotle", "Plato", "Linnaeus", "Whittaker"],
+                answer: 0
+            },
+            {
+                question: "The plants which live in soil, but depends on water for reproduction is known as",
+                options: ["Algae", "Pteridophytes", "Bryophytes", "Angiosperms"],
+                answer: 2
+            },
+            {
+                question: "Who is known as the father of Taxonomy?",
+                options: ["Galen", "Darwin", "Lamarck", "Carolus Linnaeus"],
+                answer: 3
+            },
+            {
+                question: "Bat can fly in dark because they",
+                options: ["Have strong wings", "Have sharp eyes", "Produce ultrasonic wave", "Are nocturnal"],
+                answer: 2
+            },
+            {
+                question: "The term \"taxon\" is first used by",
+                options: ["Francesco Cetti", "Adolf Meyer-Abich", "Nathan Cobb", "Gregor Mendel"],
+                answer: 1
+            },
+            {
+                question: "Which of the following animals shows radial symmetry?",
+                options: ["Frog", "Pila", "Star Fish", "Fish"],
+                answer: 2
+            },
+            {
+                question: "Who introduced the \"binomial nomenclature\" to name organisms?",
+                options: ["C. Darwin", "G. Mendel", "E. Mayer", "C. Linnaeus"],
+                answer: 3
+            },
+            {
+                question: "Aestivation is seen in",
+                options: ["Amphibians", "Chimpanzee", "Salmon", "Squirrels"],
+                answer: 0
+            },
+            {
+                question: "Jellyfish belongs to which phylum?",
+                options: ["Porifera", "Cnidaria", "Nematoda", "Mollusca"],
+                answer: 1
+            },
+            {
+                question: "Which group of animals was the first to evolve to fly?",
+                options: ["Reptiles", "Mammals", "Insects", "Birds"],
+                answer: 2
+            },
+            {
+                question: "Which one is the basic unit of classification?",
+                options: ["Division", "Family", "Class", "Species"],
+                answer: 3
+            },
+            {
+                question: "Which one of the following phylum is characterised by absence of true coelom?",
+                options: ["Nematoda", "Echinodermata", "Mollusca", "Annelida"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is true about bryophytes?",
+                options: ["They are thalloid", "They contain chloroplast", "They posses archegonia", "All of these"],
+                answer: 3
+            },
+            {
+                question: "In birds, some of the vertebrae are fused to form",
+                options: ["Keel", "Furcula", "Syncytium", "Synsacrum"],
+                answer: 3
+            },
+            {
+                question: "They play a central role in the making of dairy products such as butter, cheese, yogurt etc.",
+                options: ["Viruses", "Fungi", "Bacteria", "Algae"],
+                answer: 2
+            },
+            {
+                question: "The bacterium which reduces the fertility of soil is",
+                options: ["Nitrosomonas sp", "Azotobacter sp", "Nitrobacter sp", "Bacillus dentificans"],
+                answer: 3
+            },
+            {
+                question: "They are used in the retting of flax and hemp.",
+                options: ["Viruses", "Bacteria", "Fungi", "Mosses"],
+                answer: 1
+            },
+            {
+                question: "Yeast used in making bread is a",
+                options: ["Fungus", "Bacteria", "Seed", "Plant"],
+                answer: 0
+            },
+            {
+                question: "Nitrogen fixation process in the soil is done by",
+                options: ["Virus", "Bacteria", "Fungi", "Protoza"],
+                answer: 1
+            },
+            {
+                question: "The group of pistils or carpels is collectively spoken off as a",
+                options: ["Androecium", "Gynoecium", "Callyx", "Corolla"],
+                answer: 1
+            },
+            {
+                question: "All sepals collectively constitute a structure termed as",
+                options: ["Calyx", "Corolla", "Gynaecium", "Androecium"],
+                answer: 0
+            },
+            {
+                question: "An expanded basal portion of carpel is called as",
+                options: ["Stigma", "Ovary", "Style", "Pollen tube"],
+                answer: 1
+            },
+            {
+                question: "Taken together the petals constitute",
+                options: ["Calyx", "Corolla", "Gynaecium", "Androecium"],
+                answer: 1
+            },
+            {
+                question: "Ophthalmology is the branch of science in which we study about",
+                options: ["Nose", "Tongue", "Eye", "Ear"],
+                answer: 2
+            },
+            {
+                question: "At which stage in its life cycle does the silkworm yield the fiber of commercial use?",
+                options: ["Larva", "Egg", "Pupa", "Imago"],
+                answer: 2
+            },
+            {
+                question: "In which of the following stages of silkworm, silk is secreted",
+                options: ["Larva", "Pupa", "Egg", "Adult"],
+                answer: 1
+            },
+            {
+                question: "Total number of bones found in child",
+                options: ["200", "206", "300", "306"],
+                answer: 2
+            },
+            {
+                question: "Number of bones found in skull is",
+                options: ["8", "30", "32", "34"],
+                answer: 0
+            },
+            {
+                question: "Pair of ribs found in man",
+                options: ["12", "10", "14", "11"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is not a form of Monosaccharide Sugar?",
+                options: ["Galactose", "Glucose", "Fructose", "Maltose"],
+                answer: 3
+            },
+            {
+                question: "In Carbohydrates the ratio of hydrogen to oxygen is",
+                options: ["2:1", "1:3", "2:4", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "The story of vitamins dates back to",
+                options: ["15th century", "16th century", "17th century", "18th century"],
+                answer: 3
+            },
+            {
+                question: "Organisms that feed on the excreta of other organisms are called",
+                options: ["Autotrophs", "Heterotrophs", "Coprophagous", "Saprotrophs"],
+                answer: 2
+            },
+            {
+                question: "Cellulose is a",
+                options: ["Mineral", "Protein", "Fat", "Carbohydrate"],
+                answer: 3
+            },
+            {
+                question: "The kilo calories of energy released from one gram of fats is",
+                options: ["5.49", "4.59", "9.45", "9.54"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is not a function of proteins?",
+                options: ["Build tissues such as bone and muscle", "Help to fight disease", "Nail formation", "Store and transmit heredity"],
+                answer: 3
+            },
+            {
+                question: "Organisms which synthesise their own food are called",
+                options: ["Autotrophs", "Heterotrophs", "Auxotrophs", "Saprotrophs"],
+                answer: 0
+            },
+            {
+                question: "Biological complete proteins are found in",
+                options: ["Potato, Onion, Carrot", "Apple, Egg, Wheat", "Rice, Meat, Butter", "Meat, Milk, Egg"],
+                answer: 3
+            },
+            {
+                question: "Which one of the following is a rich source of iron?",
+                options: ["Carrot", "Pea", "Rice", "Spinach"],
+                answer: 3
+            },
+            {
+                question: "Organisms need nutrients in order to",
+                options: ["Breaking down food", "Utilize chemical compounds", "Recycling", "None"],
+                answer: 0
+            },
+            {
+                question: "Sugar is a component of which of the following?",
+                options: ["Lipids", "Nucleic acids", "Carbohydrates", "Both B & C"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following vitamins is known as the anti sterile factor?",
+                options: ["Ascorbic acid", "Riboflavin", "Niacin", "Retinol"],
+                answer: 1
+            },
+            {
+                question: "They are organic compounds consisting of carbon, hydrogen and oxygen present in all living organisms.",
+                options: ["Proteins", "Carbohydrates", "Fats", "Minerals"],
+                answer: 1
+            },
+            {
+                question: "The energy released by 1 gram of glucose is",
+                options: ["6 kcal", "4 kcal", "5 kcal", "3kcal"],
+                answer: 1
+            },
+            {
+                question: "Among the given nutrients, milk is a poor source of",
+                options: ["Calcium", "Protein", "Carbohydrate", "Vitamin C"],
+                answer: 3
+            },
+            {
+                question: "Vitamins are",
+                options: ["Macro Nutrients", "Micro nutrients", "Essential Amino acids", "Non essential Amino acids"],
+                answer: 1
+            },
+            {
+                question: "Which of the following vitamins are water soluble?",
+                options: ["Vitamin A & Vitamin B", "Vitamin B & Vitamin C", "Vitamin C & Vitamin D", "Vitamin A & Vitamin K"],
+                answer: 1
+            },
+            {
+                question: "Lathyrism is caused by excess consumption of ________",
+                options: ["Khesari Dal", "Mustard oil", "Mushrooms", "Polished rice"],
+                answer: 0
+            },
+            {
+                question: "Most of the enzymes are",
+                options: ["Fats", "Carbohydrates", "Proteins", "Minerals"],
+                answer: 2
+            },
+            {
+                question: "In plants, which of the following cells are used to store surplus food?",
+                options: ["Chlorenchymatous cells", "Parenchymatous cells", "Sclerenchymatous cells", "Golgi bodies"],
+                answer: 1
+            },
+            {
+                question: "Study of tissue culture is useful for",
+                options: ["Non-living", "Plant", "Air", "Water"],
+                answer: 1
+            },
+            {
+                question: "What is the name of a group of similar cells performing a specific function?",
+                options: ["Tissue", "Organ", "Organ system", "Cellular organization"],
+                answer: 0
+            },
+            {
+                question: "In plants which one of the following tissues is dead ?",
+                options: ["Parenchyma", "Collenchyma", "Sclerenchyma", "Phloem"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following is modification of parenchyma?",
+                options: ["Fibres found in phloem", "Tracheids", "Vessel", "Chlorenchyma"],
+                answer: 3
+            },
+            {
+                question: "Cells which takes part in secondary growth are named as",
+                options: ["Phloem", "Xylem", "Cambium", "Medullary ray"],
+                answer: 2
+            },
+            {
+                question: "Which type of permanent tissue helps the aquatic plants to float?",
+                options: ["Aerenchyma", "Collenchyma", "Sclerenchyma", "No option is correct"],
+                answer: 0
+            },
+            {
+                question: "Tracheids are conducting cells of which tissue?",
+                options: ["Xylem", "Phloem", "Cambium", "None of these"],
+                answer: 0
+            },
+            {
+                question: "The water and mineral salts are transported to the various organs by which of the following?",
+                options: ["Xylem", "Phloem", "Cortex", "Cambium"],
+                answer: 0
+            },
+            {
+                question: "The food material prepared in the plants is transported to the various organs by which of the following?",
+                options: ["Xylem", "Phloem", "Cortex", "Cambium"],
+                answer: 1
+            },
+            {
+                question: "Cells with similar markers stick together and function as",
+                options: ["Organs", "Tissues", "Systems", "Organisms"],
+                answer: 1
+            },
+            {
+                question: "The major constituent of connective tissue is",
+                options: ["Lipid", "Carbohydrate", "Cholesterol", "Collagen"],
+                answer: 3
+            },
+            {
+                question: "Detail study of internal organs at level of tissue with the help of microscope is called",
+                options: ["Histology", "Anatomy", "Ecology", "Taxonomy"],
+                answer: 0
+            },
+            {
+                question: "Smooth muscles are likely to be found in",
+                options: ["Muscles of legs", "Muscles of arms", "Stomach", "Heart"],
+                answer: 2
+            },
+            {
+                question: "The camel\'s hump is composed of a tissue which provides water when oxidized. It is",
+                options: ["Skeletal tissue", "Areolar tissue", "Adipose tissue", "Muscular tissue"],
+                answer: 2
+            },
+            {
+                question: "Which among the following is not a connective tissue?",
+                options: ["Blood", "Bone", "Skin", "Cartilage"],
+                answer: 2
+            },
+            {
+                question: "The transport of organic substances in plants is through",
+                options: ["Xylem", "Phloem", "Fibers", "Wood"],
+                answer: 1
+            },
+            {
+                question: "The layer of cells between endodermis and vascular bundles is called",
+                options: ["Hypodermis", "Cortex", "Pith", "Pericycle"],
+                answer: 0
+            },
+            {
+                question: "Gymnosperms are characterized by the",
+                options: ["Absence of seeds", "Presence of flowers", "Presence of seeds in cones", "Absence of vascular tissues"],
+                answer: 1
+            },
+            {
+                question: "Fusion of two gametes is called",
+                options: ["Fertilization", "Development", "Regeneration", "Pollination"],
+                answer: 0
+            },
+            {
+                question: "Ornithology is the study of",
+                options: ["Mammal", "Birds", "Fishes", "Bat"],
+                answer: 1
+            },
+            {
+                question: "Which of the following may cause the breakdown of pyruvate into lactic acid in our muscles?",
+                options: ["Lack of water", "Lack of Oxygen", "Lack of carbon dioxide", "Lack of nitrogen"],
+                answer: 1
+            },
+            {
+                question: "What compound directly provides energy for cellular work?",
+                options: ["ATP", "ADP", "NADP", "NADH"],
+                answer: 0
+            },
+            {
+                question: "The outer membrane that covers the lungs",
+                options: ["Dura mater", "Pleura", "Pia mater", "Myelin sheath"],
+                answer: 1
+            },
+            {
+                question: "The process in which energy stored in carbohydrates is released",
+                options: ["Photosynthesis", "Respiration", "Reproduction", "Excretion"],
+                answer: 1
+            },
+            {
+                question: "What is the purpose of the mucus in your nose?",
+                options: ["Protects lungs", "Clear air passage", "Protects nose", "All of the above"],
+                answer: 0
+            },
+            {
+                question: "Precentage of CO2found in exhaled air is",
+                options: ["0.04", "0.08", "0.12", "0.16"],
+                answer: 0
+            },
+            {
+                question: "Muscles get tired when there is shortfall of ________ .",
+                options: ["Lactic acid", "Na+ ions", "ATP", "Sulphates"],
+                answer: 2
+            },
+            {
+                question: "The molecule that is the main source of ATP synthesis",
+                options: ["Glucose", "Triglycerides", "Proteins", "Cholesterol"],
+                answer: 0
+            },
+            {
+                question: "Lungs are covered by",
+                options: ["Pericardium", "Pleura", "Peritoneum", "Meninges"],
+                answer: 1
+            },
+            {
+                question: "Accumulation of which one of the following leads to cramp?",
+                options: ["Lactic acid", "Ethanol", "Pyruvic acid", "Glucose"],
+                answer: 0
+            },
+            {
+                question: "At the time of inspiration the diaphragm",
+                options: ["Expand", "Contract", "Relaxed", "Does not under any change"],
+                answer: 1
+            },
+            {
+                question: "Rate of breathing in a minute by man is",
+                options: ["16-18", "20-25", "11-15", "70-72"],
+                answer: 0
+            },
+            {
+                question: "The C shape of the tracheal cartilage is important because",
+                options: ["Divide the nasal cavity", "Allows for expansion or contraction of the trachea", "Provide a surface for the sense of smell", "All of the above"],
+                answer: 1
+            },
+            {
+                question: "Complete oxidation of sucrose in presence of oxygen into CO2, water and energy is called",
+                options: ["Aerobic respiration", "Anaerobic respiration", "Glycolysis", "Hydrolysis"],
+                answer: 0
+            },
+            {
+                question: "When the diaphragm and external intercostal muscles contract,",
+                options: ["The volume of the thorax decreases", "The volume of the lungs decreases", "The volume of the thorax increases", "The lungs shrink"],
+                answer: 2
+            },
+            {
+                question: "The organs protected by the thoracic cage include the",
+                options: ["Lungs", "Heart", "Both a & b", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "By complete oxidation of glucose number of ATP molecule formed is",
+                options: ["2", "28", "38", "48"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is the cellular respiratory centre?",
+                options: ["Nucleus", "Mitochondria", "Ribosome", "Golgi body"],
+                answer: 1
+            },
+            {
+                question: "The site in ovule where funicle is attached",
+                options: ["Nucellus", "Chalaza", "Raphe", "Hilum"],
+                answer: 3
+            },
+            {
+                question: "The seeds which contain abundant glyoxysomes are",
+                options: ["Dry seeds", "Germinating seeds", "Wet seeds", "Shrunken seeds"],
+                answer: 1
+            },
+            {
+                question: "Skin is an example of what type of tissue?",
+                options: ["Epithelial", "Connective", "Nervous", "All of the above"],
+                answer: 0
+            },
+            {
+                question: "They form the material which forms skins, muscles, hair and nails in animals.",
+                options: ["Protein", "Carbohydrates", "Fats", "Vitamins"],
+                answer: 0
+            },
+            {
+                question: "Branch of science which deals with the study of skin of man is called",
+                options: ["Physiology", "Anatomy", "Biochemistry", "Dermatology"],
+                answer: 3
+            },
+            {
+                question: "Pressure, pain, and temperature receptors in the skin are",
+                options: ["Exteroceptors", "Proprioceptors", "Interoceptors", "Mechanoreceptors"],
+                answer: 0
+            },
+            {
+                question: "Goosebumps are caused by contractions of the",
+                options: ["Muscles", "Nerves", "Bones", "All of the above"],
+                answer: 0
+            },
+            {
+                question: "Lacrymal glands are situated in the",
+                options: ["Palms", "Stomach", "Buccal cavity", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "A/An ________ tissue is formed beneath the skin and between internal organs.",
+                options: ["Epithelial", "Nervous", "Muscular", "Adipose"],
+                answer: 3
+            },
+            {
+                question: "Study of process of ageing",
+                options: ["Genocology", "Geronotology", "Ontogeny", "None of these"],
+                answer: 1
+            },
+            {
+                question: "Sweating is important",
+                options: ["For improvement of normal health", "To open the pore of skin", "To control the temperature of body", "To excret the smell of body"],
+                answer: 2
+            },
+            {
+                question: "The outermost layer of skin is",
+                options: ["Epidermis", "Dermis", "Tissues", "Hypodermis"],
+                answer: 0
+            },
+            {
+                question: "The phenomenon of summer sleep by animals is called",
+                options: ["Hibernation", "Aestivation", "Laziness", "Lethargy"],
+                answer: 1
+            },
+            {
+                question: "Cold blooded animals are known as",
+                options: ["Homiotherms", "Eurytherms", "Endotherms", "Poikilotherms"],
+                answer: 3
+            },
+            {
+                question: "Potato is a",
+                options: ["Root", "Stem", "Bud", "Fruit"],
+                answer: 1
+            },
+            {
+                question: "The \"eyes\" of potato tubers are",
+                options: ["Shoot buds", "Flower buds", "Root buds", "Axillary buds"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is responsible for transport of food and other substances in plants?",
+                options: ["Xylem", "Phloem", "Chloroplast", "None of these"],
+                answer: 1
+            },
+            {
+                question: "Salts and sugars works to preserve foods by creating a",
+                options: ["Hypertonic environment", "Lower pH", "Depletion of nutrients", "Lower osmotic pressure"],
+                answer: 0
+            },
+            {
+                question: "Which one among the following Indian scientist proposed a theory for long distance transport of water in plants?",
+                options: ["J.C. Bose", "Birbal Sahni", "P. Maheshwari", "N.S. Parihar"],
+                answer: 3
+            },
+            {
+                question: "Oxygen crosses a plasma membrane by",
+                options: ["Osmosis", "Evaporation", "Concatenation", "Diffusion"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is true of osmosis?",
+                options: ["It is a type of diffusion", "Movement is against water\'s concentration gradient", "Requires energy", "All of the above"],
+                answer: 0
+            },
+            {
+                question: "The process of evaporation occurs from",
+                options: ["Root", "Stem", "Leaf", "Entire \'plants\' surface"],
+                answer: 2
+            },
+            {
+                question: "Which process requires cellular energy?",
+                options: ["Passive transport", "Active transport", "Both A & B", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "In cross section each centriole consists of a cylindrical array of how many microtubules?",
+                options: ["9", "8", "7", "6"],
+                answer: 0
+            },
+            {
+                question: "Which event occurs during interphase?",
+                options: ["Centrioles appear", "Spindle fibers begin to form", "The cell grows", "Centromeres divide"],
+                answer: 2
+            },
+            {
+                question: "How does a Unicellular Organism reproduce?",
+                options: ["Cell division", "Cell reproduction", "Cell synthesis", "Fragmentation"],
+                answer: 0
+            },
+            {
+                question: "Healing of wounds is dependent upon the ________ division of underlying cells.",
+                options: ["Meiosis", "Mitotic", "Budding", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "It is formed by a repeating nucleosome units, which are closely attached to each other to a continuous fibre.",
+                options: ["Chromatin", "Centromere", "Chromosome", "DNA"],
+                answer: 0
+            },
+            {
+                question: "During which phase centromeres divide and chromatids separate into chromosomes?",
+                options: ["Prophase", "Metaphase", "Telophase", "Anaphase"],
+                answer: 3
+            },
+            {
+                question: "Which division provides a means of transmitting unchange information to the daughter cells?",
+                options: ["Mitosis", "Meiosis", "Binary fission", "Fragmention"],
+                answer: 0
+            },
+            {
+                question: "A multicellular organism grows by ________ .",
+                options: ["Cell addition", "Cell explosion", "Cell implosion", "Cell division"],
+                answer: 3
+            },
+            {
+                question: "Nucleoli are present during",
+                options: ["Prophase", "Anaphase", "Interphase", "Prometaphase"],
+                answer: 2
+            },
+            {
+                question: "Gametes are produced by the process of",
+                options: ["Mitosis", "Meiosis", "Both A & B", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "Synapsis occurs during",
+                options: ["Mitosis", "Meiosis", "Both A & B", "None"],
+                answer: 1
+            },
+            {
+                question: "It is a process which converts a single-celled zygote into a great number of cells, which then differentiate into tissues.",
+                options: ["Mitosis", "Meiosis", "Fractionation", "Regenration"],
+                answer: 0
+            },
+            {
+                question: "Which division is responsible for the continuity of hereditary information?",
+                options: ["Mitosis", "Meiosis", "Regeneration", "All of the above"],
+                answer: 0
+            },
+            {
+                question: "The type of division which occurs in somatic cells is known as",
+                options: ["Mitosis", "Meiosis", "Binary Fission", "Regeration"],
+                answer: 0
+            },
+            {
+                question: "Of the following, which is the most fundamental generalization in biology?",
+                options: ["Microbiology", "Microscope", "Cell theory", "Discovery of Cell"],
+                answer: 2
+            },
+            {
+                question: "Membrane bound pigment containing bodies present in the cells are called as",
+                options: ["Chloroplasts", "Plasmids", "Plastids", "Lipids"],
+                answer: 2
+            },
+            {
+                question: "What is the study of cells called?",
+                options: ["Cellogysm", "Cytology", "Cell Biology", "Both B & C"],
+                answer: 3
+            },
+            {
+                question: "Closely stacked flattened sacs (plants only) is called",
+                options: ["Vacuoles", "Lysosomes", "Golgi apparatus", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "The function of nucleolus is the synthesis of",
+                options: ["DNA", "M-RNA", "R-RNA", "T-RNA"],
+                answer: 2
+            },
+            {
+                question: "Biological membranes are composed of",
+                options: ["Phospholipids", "Proteins", "Carbohydrate groups", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "They are double membrane structures that are commonly oval or disc shaped.",
+                options: ["Ribosomes", "Lysosomes", "Nucleus", "Golgi bodies"],
+                answer: 0
+            },
+            {
+                question: "Ribosomes are produced in",
+                options: ["Nucleolus", "Plasmid", "Mitochondria", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "The subcellular organelle not bound by a single membrane is",
+                options: ["Golgi apparatus", "Endoplasmic Reticulum", "Mitochondria", "Lysosomes"],
+                answer: 3
+            },
+            {
+                question: "Which one is not found in the composition of plasma membrane?",
+                options: ["Minerals", "Phospholipids", "Carbohydrates", "Proteins"],
+                answer: 0
+            },
+            {
+                question: "Which of the following organelles contain enzymes that have digestive action?",
+                options: ["Plastids", "Lysosomes", "Ribosomes", "Polysomes"],
+                answer: 1
+            },
+            {
+                question: "Carbon monoxide has ________ greater affinity for haemoglobin as compared to oxygen.",
+                options: ["1000 times", "210 times", "20 times", "2 times"],
+                answer: 1
+            },
+            {
+                question: "Which statement best describes arteries?",
+                options: ["They have thin walls and transport blood away from the heart", "They have thick walls and transport blood toward the heart", "They have thin walls and transport blood toward the heart", "They have thick walls and transport blood away from the heart"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is true about veins?",
+                options: ["Veins carry blood away from the heart, while arteries carry blood to the heart", "Veins are more muscular than arteries", "Veins have valves; arteries do not", "Veins have a smaller diameter lumen than arteries"],
+                answer: 2
+            },
+            {
+                question: "Which of the following serve as antibodies?",
+                options: ["Proteins", "Lipids", "Carbohydrates", "Nucleic acids"],
+                answer: 0
+            },
+            {
+                question: "The word histology is related with",
+                options: ["Hepatology", "Hematalogy", "Histology", "None of these"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following statements regarding haemoglobin is correct?",
+                options: ["Haemoglobin present in RBC can carry only oxygen but not carbon dioxide", "Haemoglobin of RBC can carry both oxygen and carbon dioxide", "Haemoglobin of RBC can carry only carbon dioxide", "Haemoglobin is only used for blood clotting and not for carrying gases"],
+                answer: 1
+            },
+            {
+                question: "The valve present between left auricle and left ventricle is",
+                options: ["Mitral", "Tricuspid", "Semilunar", "Pulmonary"],
+                answer: 0
+            },
+            {
+                question: "Function of haemoglobin is",
+                options: ["To transport oxygen", "Destruction of bacteria", "To check the loss of blood", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "Function of pace maker is",
+                options: ["To regulate the formation of urine", "To regulate the process of digestion", "To initiate heart beat", "To start the process of respiration"],
+                answer: 2
+            },
+            {
+                question: "Karl Landsteiner discovered",
+                options: ["Blood corpuscles", "Blood groups", "Blood vessels", "Proteins in Blood"],
+                answer: 1
+            },
+            {
+                question: "Systolic and diastolic pressure in a healthy man is",
+                options: ["120 mm and 80 mm", "201 mm and 110 mm", "90 mm and 60 mm", "85 mm and 55 mm"],
+                answer: 0
+            },
+            {
+                question: "Which of the following cells produce antibodies?",
+                options: ["Plasma cells", "Monocytes", "Mast cells", "Neutrophils"],
+                answer: 0
+            },
+            {
+                question: "Metal present in Haemoglobin",
+                options: ["Copper", "Iron", "Mangnese", "Zinc"],
+                answer: 1
+            },
+            {
+                question: "Which one among the following statements is correct?",
+                options: ["All arteries carry oxygenated blood", "All veins carry oxygenated blood", "Except the pulmonary artery, all other arteries carry oxygenated blood", "Except the pulmonary vein, all other veins carry oxygenated blood"],
+                answer: 2
+            },
+            {
+                question: "Pace maker is related with",
+                options: ["Kidney", "Brain", "Lung", "Heart"],
+                answer: 3
+            },
+            {
+                question: "We get pulse rate from",
+                options: ["Vein", "Artery", "Skin", "Nerve"],
+                answer: 1
+            },
+            {
+                question: "Which of the following are involved directly in pulmonary circulation?",
+                options: ["Left ventricle, aorta, and inferior vena cava", "Right atrium, aorta, and left ventricle", "Superior vena cava, right atrium, and left ventricle", "Right ventricle, pulmonary artery, and left atrium"],
+                answer: 3
+            },
+            {
+                question: "Rh factor is discovered by",
+                options: ["Landsteiner", "Weiner", "Landsteiner and Weiner", "Leuen hook"],
+                answer: 2
+            },
+            {
+                question: "Rh factor is related with",
+                options: ["Bear", "Monkey", "Man", "Cat"],
+                answer: 1
+            },
+            {
+                question: "Which letter indicates systolic pressure?",
+                options: ["I", "B", "C", "A"],
+                answer: 3
+            },
+            {
+                question: "Platelet is also known as",
+                options: ["Leucocytes", "Erythrocytes", "Thrombocytes", "Phagocytosis"],
+                answer: 2
+            },
+            {
+                question: "Antibodies are produced by",
+                options: ["Lymphocytes", "Plasma cells", "RBCs", "T-cells"],
+                answer: 1
+            },
+            {
+                question: "Cortisol is secreted by",
+                options: ["Thyroid gland", "Pituitary gland", "Adrenal gland", "Parathyroid gland"],
+                answer: 2
+            },
+            {
+                question: "Enzymes are produced by",
+                options: ["Endocrine glands", "Exocrine glands", "Liver", "Spleen"],
+                answer: 1
+            },
+            {
+                question: "Female reproductive hormones is",
+                options: ["Estrogen", "Progestron", "Relaxin", "All of these"],
+                answer: 3
+            },
+            {
+                question: "Which of the following hormones contains Iodine?",
+                options: ["Thyroxine", "Testosterone", "Insulin", "Adrenaline"],
+                answer: 0
+            },
+            {
+                question: "Different forms of genes are called",
+                options: ["Genomes", "Allele", "Genotypes", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "Fruitfly has",
+                options: ["4 chromosomes", "6 chromosomes", "8 chromosomes", "10 chromosomes"],
+                answer: 2
+            },
+            {
+                question: "What base does guanine pair with?",
+                options: ["Adenine", "Thymine", "Uracil", "Cytosine"],
+                answer: 3
+            },
+            {
+                question: "The principle of dominance states that",
+                options: ["Some alleles are dominant, while others are recessive", "All alleles are recessive", "All alleles are dominant", "Alleles are neither dominant nor recessive"],
+                answer: 0
+            },
+            {
+                question: "It is the study of hereditary characters transmitted from parents to offspring.",
+                options: ["Genetics", "Evolution", "Embryology", "Molecular Biology"],
+                answer: 0
+            },
+            {
+                question: "The inherited traits of an organism are controlled by",
+                options: ["DNA", "Enzymes", "Nucleotides", "RNA"],
+                answer: 0
+            },
+            {
+                question: "Which chromosomes are identical to each other on the basis of their morphology, position of centromere and other characteristics?",
+                options: ["Autosome chromosomes", "Sex chromosomes", "Heterozygous chromosomes", "Homologous chromosomes"],
+                answer: 3
+            },
+            {
+                question: "Which is the correct pair of inherited chromosomes for the child to be a girl?",
+                options: ["X from father and Y from mother", "Y from father and X from mother", "Y from father and Y from mother", "X from father and X from mother"],
+                answer: 3
+            },
+            {
+                question: "It is composed of two polynucleotide chains which are coiled around each other in the form of a double helix.",
+                options: ["DNA", "RNA", "Fats", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "What is the unit of heredity?",
+                options: ["Cell", "Blood", "Gene", "All of the above"],
+                answer: 2
+            },
+            {
+                question: "Who discovered genetic material?",
+                options: ["Crick and Watson", "Avery Mclood", "Friedrich Griffith", "Federik Meischer"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is not true about colour blindness?",
+                options: ["Colour blind people learn to rely on shapes, patterns, and positions of signs and signals", "Red-green colour blindness is the most common type of colour blindness", "A colour blind person cannot see any colours", "For some people, it might be difficult to recognize colours of traffic lights and signs"],
+                answer: 2
+            },
+            {
+                question: "Which systems comprise the nervous system?",
+                options: ["Central nervous system", "Peripheral nervous system", "Both A & B", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "The peripheral nervous system consists of",
+                options: ["Nerves from eyes to CNS", "Nerves from ears to CNS", "Nerves from skin to CNS", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "The basic unit of the nervous system is the",
+                options: ["Lymphs", "Nephrons", "Nerves", "Neurons"],
+                answer: 3
+            },
+            {
+                question: "The smallest structural and functional unit of nervous system is",
+                options: ["Centron", "Dendron", "Axon", "Neuron"],
+                answer: 3
+            },
+            {
+                question: "Compared to land, the open oceans",
+                options: ["Are rich in silica and iron", "Are nutrient-poor environments", "Contain unlimited nitrogen", "Are nutrient-rich environments"],
+                answer: 1
+            },
+            {
+                question: "Melvin calvin got Noble Prize for his studies on",
+                options: ["Light reaction", "Plant hormones", "Carbon fixation", "Photons"],
+                answer: 2
+            },
+            {
+                question: "Kyoto Protocol is associated with",
+                options: ["Species conservation", "Climate change", "Wetland Conservation", "Medicinal plants"],
+                answer: 1
+            },
+            {
+                question: "Through nitrogen fixation process nitrogen in the atmosphere is converted into",
+                options: ["Ammonium", "Hydroxide", "Nitrate", "Chlorite"],
+                answer: 0
+            },
+            {
+                question: "Maximum fixation of solar energy is done by",
+                options: ["Fungi", "Protozoa", "Bacteria", "Green plants"],
+                answer: 3
+            },
+            {
+                question: "One of the following cannot be performed by animals.",
+                options: ["Respiration", "Photosynthesis", "Reproduction", "Digestion"],
+                answer: 1
+            },
+            {
+                question: "Green pigment is called",
+                options: ["Chlorophyll", "Xanthophyll", "Carotene", "Phycobillin"],
+                answer: 0
+            },
+            {
+                question: "Food wrapped in news paper is likely to get contaminated by",
+                options: ["Magnesium", "Alluminium", "Lead", "Copper"],
+                answer: 2
+            },
+            {
+                question: "What is full form of BOD?",
+                options: ["Biological Oxygen Deficit", "Biological Oxygen Difference", "Biological Oxygen Demand", "Biological Oxygen Distribution"],
+                answer: 2
+            },
+            {
+                question: "In female a small portion oviduct is removed and cut end is ligated by surgical operation is called",
+                options: ["Vasectomy", "Tubectomy", "Neurotomy", "Psycotomy"],
+                answer: 1
+            },
+            {
+                question: "Oral pills of birth control prevent",
+                options: ["Ovulation", "Fertilization", "Pregnency", "Entery of sperm in uterus"],
+                answer: 0
+            },
+            {
+                question: "Surgical procedure in which a small portion of sperm duct is removed and cut end ligated in male is called",
+                options: ["Vasectomy", "Tubectomy", "Neurotomy", "Psycotomy"],
+                answer: 0
+            },
+            {
+                question: "Which of the following serves as a nutritive tissue for the growing embryo?",
+                options: ["Ovule", "Zygote", "Ovary", "Endosperm"],
+                answer: 3
+            },
+            {
+                question: "Finger like ends of the fallopian tubes are called",
+                options: ["Fimbriae", "Cysts", "Papillae", "Labia"],
+                answer: 0
+            },
+            {
+                question: "In test tube baby",
+                options: ["Fertilization of ova and development takes place in test tube", "Fertilization of ova takes place in test tube which development of embryo occur in uterus", "Fertilization takes place in uterus while development takes place in test tube", "Development of ova take place in test tube without fertilization"],
+                answer: 1
+            },
+            {
+                question: "Study of female reproductive system is",
+                options: ["Gerontology", "Gastroenterology", "Gyneocology", "None of these"],
+                answer: 2
+            },
+            {
+                question: "Which among the following is/are female hormones?(i) Estrogen(ii) Progesterone(iii) Testosterone",
+                options: ["(i) and (iii)", "(i) and (ii)", "(ii) and (iii)", "Only (iii)"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is a work done by the placenta tissue in humans?",
+                options: ["Support the embryo", "Removes waste matter from the embryo and provide nutrition to the embryo", "Provide nutrition to the embryo", "Remove waste matter from the embryo"],
+                answer: 1
+            },
+            {
+                question: "Corpus luteum is associated with",
+                options: ["Liver", "Brain", "Kidney", "Ovary"],
+                answer: 3
+            },
+            {
+                question: "Snakes receive sound vibrations by",
+                options: ["Tympanum", "Body", "Internal ear", "Earth"],
+                answer: 1
+            },
+            {
+                question: "A man with colour blindness will see red as",
+                options: ["Green", "Red", "Orange", "Yellow"],
+                answer: 0
+            },
+            {
+                question: "Study of nose and alfactory organs is called",
+                options: ["Radiology", "Rhinology", "Radiography", "None of these"],
+                answer: 1
+            },
+            {
+                question: "The size of the pupil is controlled by the",
+                options: ["Retina", "Iris", "Cornea", "Lens"],
+                answer: 1
+            },
+            {
+                question: "Damage to hearing is caused by sounds which exceed",
+                options: ["70 decibles", "80 decibles", "100 decibles", "120 decibles"],
+                answer: 3
+            },
+            {
+                question: "Receptors for hearing are located in the",
+                options: ["Vestibule", "Tympanic membrane", "Semicircular canals", "Cochlea"],
+                answer: 3
+            },
+            {
+                question: "A colour blind person has difficulty in distinguishing which of the two colours?",
+                options: ["Green & Red", "White & Red", "Blue & Red", "Red & Black"],
+                answer: 0
+            },
+            {
+                question: "Glomerulus and Bowman\'s capsule constitute",
+                options: ["Blood vessels", "Malpighian body", "Green gland", "Malpighian tubule"],
+                answer: 3
+            },
+            {
+                question: "The kidneys are stimulated to produce renin",
+                options: ["When the pH of the urine decreases", "When the specific gravity of urine rises above 1.10", "When the peritubular capillaries are dilated", "By a decrease in the blood pressure"],
+                answer: 3
+            },
+            {
+                question: "Dialysis is used to perform the function of",
+                options: ["Lung", "Heart", "Liver", "Kidney"],
+                answer: 3
+            },
+            {
+                question: "Islets of Langerhans are present in",
+                options: ["Kidney", "Liver", "Pancreas", "Trachea"],
+                answer: 2
+            },
+            {
+                question: "The renal corpuscle is made up of",
+                options: ["Bowman\'s capsule", "Glomerulus", "Both A & B", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "Main nitrogenous product formed in man is",
+                options: ["Urea", "Ammonia", "Uric acid", "Ammonium nitrate"],
+                answer: 0
+            },
+            {
+                question: "Loop of henle is related with",
+                options: ["Excretory system", "Reproductive system", "Urinogenital system", "Nervous system"],
+                answer: 0
+            },
+            {
+                question: "Nephrology is the study of",
+                options: ["Lung", "Kidney", "Heart", "Brain"],
+                answer: 1
+            },
+            {
+                question: "The organs of the urinary system are",
+                options: ["Kidney", "Urinary bladder", "Ureter", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "Which one is located at the rear of the abdominal cavity?",
+                options: ["Liver", "Kidneys", "Heart", "Pancreas"],
+                answer: 1
+            },
+            {
+                question: "Urea is transported through",
+                options: ["RBCs", "WBCs", "Blood Plasma", "All of above"],
+                answer: 2
+            },
+            {
+                question: "The main function of Henle\'s loop is",
+                options: ["Passage of urine", "Filtration of blood", "Formation of urine", "Conservation of water"],
+                answer: 3
+            },
+            {
+                question: "They protect plants from water loss and abrasive damage.",
+                options: ["Leaves", "Waxes", "Minerals", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "The suitable conditions in which the rate of evaporation occurs more fastly are",
+                options: ["Low speed of wind", "High humidity", "Low humidity and high temperature", "Excess amount of water in the soil"],
+                answer: 2
+            },
+            {
+                question: "In plants, exchange of gases takes place through",
+                options: ["Stomata", "Palisade tissue", "Spongy tissue", "Mid rib"],
+                answer: 0
+            },
+            {
+                question: "Release of water from plants as water droplets is known as",
+                options: ["Root pressure", "Transpiration", "Osmotic pressure", "Guttation"],
+                answer: 3
+            }
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.textContent = `${index + 1}) ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) {
+                        return;
+                    }
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            wrapper.appendChild(questionBlock);
+        });
+    </script>
+</body>
+</html>

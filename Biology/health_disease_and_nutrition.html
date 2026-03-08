@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biology - Health, Disease and Nutrition | Sikkim PSC Hub</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+            border-color: #bbb;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .options-list.answered .option:not(.correct):not(.incorrect) {
+            opacity: 0.7;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none;
+        }
+        .quiz-stats {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <a href="biology.html" class="back-link">&larr; Back to Biology</a>
+        <h1>Health, Disease and Nutrition</h1>
+        <p class="quiz-stats">123 Questions</p>
+        <!-- Questions will be dynamically inserted here by JavaScript -->
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Of the fo~d marks in medical history given below, which o~was the first to take place- ·",
+                options: ["Organ transplant", "By pass surgery", "Test tube body (}i) Plastic surgery [IAS(Pre)1996}", ""],
+                answer: 2
+            },
+            {
+                question: "Living organisms require at least 27 elements of which, _15 are metals. Among these, those required in major • guantities, includ_e",
+                options: ["Potassium, maganese, molybdenum and calcium", "Potassium, molybdenum, copper and calcium {e) Potassium, sodium, magnesium and calcium", "", "Sodium, magnesium, copper and manganees"],
+                answer: 0
+            },
+            {
+                question: "Match List-I with List-IT and select the correct answer by using the code given below- List-1 A. Vitamin B. Enzyme C. Harmone D. Protein Code: A",
+                options: ["1 \"\"\"\' 2", "", "2", "1 B 2 1 1 2 Lis t- Il"],
+                answer: 2
+            },
+            {
+                question: "Assertion A : Human diet should compulsorily contain glycine, serine and tryosin. Reasons R : Essential amino acid can not be synthesized in human body.",
+                options: ["Both A and Rare true and R is the correct explantion of A.", "Both A and R are true but R is not the correct explanation of A", "A is true but R is false (d.J.-A is false but R is true", ""],
+                answer: 0
+            },
+            {
+                question: "By mosquitoes and other .blood sucking insects _ 4. Across the placenta",
+                options: ["1, 2 and 3 are correct", "", "1, 3 and 4 are correct 1, 2 and 4 are correct", "1 and 3 are correct \""],
+                answer: 0
+            },
+            {
+                question: "People ~rinking water from a shallow hand pump_a! e likely to suffer fro~ of follow!!_lg disease except",
+                options: ["Cholera", "Typhoid", "Jaundice Fluorosis [lAS (Pre) 1996}", ""],
+                answer: 1
+            },
+            {
+                question: "Blood cells Code: A B c D",
+                options: ["5 3 2 1 Jb) 5 4 2 1", "", "4 3 5 1", "5 4 1 2 [lAS (Pre) 1997}"],
+                answer: 0
+            },
+            {
+                question: "Vomating and neck pain are two of the symptoms of meningococcal meningitis . Which of statement given above is/ are correct?",
+                options: ["1 only 41;>) 2 only", "", "Both 1 and 2", "Neither 1 nor 2"],
+                answer: 2
+            },
+            {
+                question: "Which of the following_elements are present....i!:L2JJ prate~- · h Carbon / A:? Hydrogen 3:-\" Oxygen (\' (.,.. 0 ,.......V. Nitrogen Code-- V",
+                options: ["2 & 3", "1, 2 and 4 (od\') 1, 2, 3 and 4 {lAS (Pre) 1995]", "1,3 and 4", ""],
+                answer: 0
+            },
+            {
+                question: "Imbalanced nutrition Select the correct answer by code",
+                options: ["2 alone", "2 & 3", "1 & 3 IP1 1, 2 & 3", ""],
+                answer: 0
+            },
+            {
+                question: "d~:erotein and carbohydrate other element of nutritional \'value found in milk, include",
+                options: ["Calcium, Potassium ana iron - M Calcium & Potassium", "", "Potassium ·& iron", "Calcium & iron"],
+                answer: 0
+            },
+            {
+                question: "Fat present below the skin surface in our body act as a barrier against- _, ) Loss of heat from body",
+                options: ["", "Loss of essential body fluid", "Loss of salt from body", "Entry of harmful micro-organisms from the environment. [lAS (Pre) 1996}"],
+                answer: 2
+            },
+            {
+                question: "_What is the average _gs content in~~ milk? kti\') 7.2 %",
+                options: ["", "4.5 r,", "9.0 %", "10.0 %"],
+                answer: 2
+            },
+            {
+                question: "The major com_ponent of honey is- W Glucose·",
+                options: ["30 gram", "37 gram", "40 gram k61 46 gram", ""],
+                answer: 2
+            },
+            {
+                question: "Which one of the following statements regarding starch and cellulose is not correct",
+                options: ["Both of them are of plant origin", "Both of them are polymer k!f\' Both of them give colour with iodine", "", "Both of them are made up of glucose molecules"],
+                answer: 1
+            },
+            {
+                question: "Consumption of fish~ considered to be healthy compa~d to flesh of other animals because fish contain- W Polyunsaturated fatty acids",
+                options: ["", "Saturated fatty acid", "Essential vitamins", "More carbohydrate and proteins"],
+                answer: 1
+            },
+            {
+                question: "Assertion",
+                options: ["Both A and Rare individually true and Ris the correct explanation of A (\'b) Both A and Rare individually true but R is not the correct explanation of A", "", "A is true but R is false", "A is false but R is true [lAS (Pre) 2003}"],
+                answer: 2
+            },
+            {
+                question: "Which of the following statement is not correct?- jp) Milk contains none of the B-vitamins",
+                options: ["", "Vitamin A (retinol) deficiency leads to dry and scaly skin", "One of the symptom of scurvy is pain in the joints", "Vitamin B1 (thiamine) deficiency can lead to heart failure [lAS (Pre) 1993}"],
+                answer: 3
+            },
+            {
+                question: "Assertion",
+                options: ["BothAandRareindividuallytrueandRisthecorrect explanation of A", "Both A and Rare individually true but R is not the correct explanation of A ).e-) A is true but R is false", "", "A is false but R is true"],
+                answer: 1
+            },
+            {
+                question: "Almost 50% of human beings have Rh+ blood while the remaining have Rh- blood. Which of the statement(s) given above is/ are correct?",
+                options: ["1 only", "2 only", "Both 1 and 2 Neither 1 nor 2 [lAS (Pre) 2006}", ""],
+                answer: 2
+            },
+            {
+                question: "Where is the national inst:i.tyte of ~utrition located?",
+                options: ["Beng~ -- ,kb1 Hyderabad •", "", "Mysore", "Pune [CDS 2008}"],
+                answer: 2
+            },
+            {
+                question: "Whichofthefollowingpartofbloodcarryoutthefunctign 2!.QQ£1.y defence.{",
+                options: ["Red blood cells ftr) White blood cell", "", "Platelets", "Haemoglobins [CDS 2008}"],
+                answer: 2
+            },
+            {
+                question: "Which one .Qj the following is ~ot an insect borne aisease=- ];a) Beriberi",
+                options: ["", "Kala azar", "Malaria", "Plague [CDS 2008} atch List- 1 with List-11 and select the correct answer using the codes given below the lists- List- ! (Disease) List-II (Part of human body) A Conjunctivitis"],
+                answer: 3
+            },
+            {
+                question: "Essential for Red blood cell formation Code: A B c D",
+                options: ["2 1 5 4 M 3 4 2 5", "", "3 2 4 1", "2 1 3 5 [CDS 2008}"],
+                answer: 0
+            },
+            {
+                question: "Tuberculosis 4:-- Hepatitis A Select the correct answer using the code given below",
+                options: ["1& 2", "1&3 ) 1&4", "", "2&4 [CDS 2007}"],
+                answer: 0
+            },
+            {
+                question: "Who discovered_!llt;_polio_yaccins?",
+                options: ["Louis Pasteur", "Konrad Zuse", "Eli Whitnecy (dj Jones Salk [CDS 2007}", ""],
+                answer: 0
+            },
+            {
+                question: "What may cause a persons~s ear...!Q_g;et hurt duljv~e­ r landing oi an aircraft? _La.) Stretching of the tympanic",
+                options: ["", "Damage to the middle ear ossicles", "Vibration in the bony labyrinths of the inner ear", "Increased impulses to the cochlea"],
+                answer: 2
+            },
+            {
+                question: "Viral hepatitis Cholera 5-. Typhoid fever _ 4. Amoebiasis Select the answer using code given below",
+                options: ["1 and 2 only", "1, 2 and 3", "1 and 4 only (.a1 2, 3 and 4", ""],
+                answer: 1
+            },
+            {
+                question: "Q~ccineAgive~~children to immunize the~­ _2g~i~t-:- ,earoiptheria, whooping cough and tetanus",
+                options: ["", "Diptheria, whooping cough and tuberculosis", "Diarrhoea, whooping cough and typhoid", "Diarrhoea, polio and tetanus"],
+                answer: 1
+            },
+            {
+                question: "Which of the following vitamin is essential for the coagulatio~ of_blood?",
+                options: ["Vitamin A", "Vitamin B12", "Vitamin K", "Vitamin D"],
+                answer: 3
+            },
+            {
+                question: "Deficiency of which of the following causes xeroph- ffielmta",
+                options: ["Vitamin B3", "Vitamin B12 W VitaminA", "", "Vitamin C [CDS 2006}"],
+                answer: 0
+            },
+            {
+                question: "):Yhich one of the following disease is caus~ough the wound or mjun: .... or s.mface_ of unsterilized su::gical. instruments? wKala-azar",
+                options: ["BothAandRareindividuallytrueandRisthecorrect explanation of A Lr", "Both A and Rare individually true but R is not correct explanation of A", "A is true but R is false (d~ A is false but R is true", ""],
+                answer: 0
+            },
+            {
+                question: "After dia_gt}O§is of di§~ irt a person, the doct~ ad vi§l:s the patient @n!]J.d ffili~cid tabler.- ,.he ~on is suffering trom - \"\'",
+                options: ["\"osteo~s- ) anaemia", "", "goitre", "protein-energy malnutrition [NDA (1)2014}"],
+                answer: 2
+            },
+            {
+                question: "Dro12.sy: is a disease ~ed due_tq_ad:!!-teration in",
+                options: ["Ghee", "Turmeric powder k r Mustard oil", "", "Arhar Dal"],
+                answer: 3
+            },
+            {
+                question: "Vitamin C is required to make use of calcium absorbed from the intestine. Select the correct answer using the code given below.",
+                options: ["1 and 2 1 and 3", "", "2 and 4", "1 and 4"],
+                answer: 2
+            },
+            {
+                question: "The normal blood pressure of human beings is in the ,_.J:QUge.o£..",
+                options: ["110/75 mm", "140/80 mm ,? 120/80 mm", "", "110/70 mm"],
+                answer: 0
+            },
+            {
+                question: "Who djsmrered that ma].W~..,Ysed by a particular _cy,p~mo.sq.uito ? J:cr) Ronald Ross",
+                options: ["", "Henri Becquerel", "Wilhelm Roentgen", "Louis Pasteur"],
+                answer: 2
+            },
+            {
+                question: "Bird flu is a disease that affects humanhei.o,g&.and.s.pr.eaQ.s tfuough",
+                options: ["Sheep", "", "Silkworm (b-) Poultry", "Mealwom  Match corre(;tly the infsctious-agertts giveni!J. List-I with the diseases causE:.P by them given in List-11 : r List-1 List-li A Bacterium"],
+                answer: 2
+            },
+            {
+                question: "Ringworm Codes·: A B c D",
+                options: ["3 1 2 4", "4 2 3 1", "1 2 4 3 fo) 2 4 1 3", ""],
+                answer: 2
+            },
+            {
+                question: "The vitamin which is water soluble and gener:ally \'\"excretec:Lin._u;ine is",
+                options: ["vitamin A ,.", "vitamin C", "vitamin D", "vitamin E"],
+                answer: 1
+            },
+            {
+                question: "Which one among the following may be correctly inferred if the statement \'Some patients with hypertension can be effectively treated with Amlodipine\' is true ?",
+                options: ["It is false that no patients with hypertension can be effectively treated with Amlodipine (b~ It is false that all patients with hypertension can be effectively treated with Amlodipine", "", "It is true that all patients with hypertension can be effectively treated with Amlodipine", "It is false that some patients with hypertension can be effectively treated with Amlodipine"],
+                answer: 3
+            },
+            {
+                question: "The wounds of face bleed profusely because W Of its riCh vascularity",
+                options: ["", "It is close to heart", "Its skin is soft", "Due to fast contraction of facial muscle  82~ci:Lone of the followmg pa~s of dise~s~ and neture is I are corre_g].y matched :?"],
+                answer: 3
+            },
+            {
+                question: "Nosocomial infectip.n.is",
+                options: ["acquired from \'nose\' of humans", "acquired from nasal cavity of animals M hospital acquired", "", "an endemic disease"],
+                answer: 3
+            },
+            {
+                question: "NewDelhi Code: A. B C D",
+                options: ["2 3 1 4 Jlfi 4 1 3 2", "", "4 3 1 2", "2 1 3 4"],
+                answer: 2
+            },
+            {
+                question: "ch one of..the following disease is caused by bacter~a ?",
+                options: ["Chicken pox", "Poliomyelitis", "Influenza Tuberculosis", ""],
+                answer: 1
+            },
+            {
+                question: "Which one of _!!:te following glands in human body _eruarg\"? due_to g~t~;_?",
+                options: ["Adrenal cortex", "Adrenal medulla", "Pituitary Thyroid", ""],
+                answer: 0
+            },
+            {
+                question: "Vibrio Code: A B C D",
+                options: ["3 1 2 4", "3 2 1 4", "4 1 2 3 4 2 1 3", ""],
+                answer: 2
+            },
+            {
+                question: "Carbon Select the correct answer using the code given below. (at 1 and 2 only",
+                options: ["", "1 only", "1, 2 and 3", "4  r l I I I Biology • Match List-I with List-IT and choose the correct .response.;. List-I List- II List-I List-II A. Vitamin B1"],
+                answer: 2
+            },
+            {
+                question: "Riboflavin Codes: A B c D",
+                options: ["3 4 1 2 1f;) 4 1 2 3", "", "1 2 3 4", "2 3 4 1"],
+                answer: 2
+            },
+            {
+                question: "Pellagia Cod~:A B C D",
+                options: ["estimate the volume of blood pumped by the heart per minute", "detect changes in the electrical impulses in the heart during its contraction and relaxation", "determine the changes in the sound pattern during opening and closure of valves", "compare the sound waves resulting from vibration produced by cardiac muscles during pumping of heart"],
+                answer: 2
+            },
+            {
+                question: "Heart Answer the above question using codes- Code- A B C D",
+                options: ["1 2 3 4 (i7J1 3 4 2- 1", "", "1 4 3 1", "4 3 2 1 [UPPCS 2007}"],
+                answer: 2
+            },
+            {
+                question: "Syphilis Select the correct answer using code given below",
+                options: ["1, 2, 3 and 4 (bY 1, 3 and 4 only", "", "1 and 2 only", "2, 3 and 4 only"],
+                answer: 2
+            },
+            {
+                question: "Hair oils and cosmetics Select the correct answer using the codes given below",
+                options: ["1, 2 and 3 only", "1 and 3 only", "2 and 4 only 1, 2, 3 and 4 [/AS 2012} y~ s", ""],
+                answer: 2
+            },
+            {
+                question: "Gregor Johann Mendel is famous for",
+                options: ["Cell theory", "Mutation principle", "Law of heredity", "Heredity of acquired characters"],
+                answer: 2
+            },
+            {
+                question: "Three law of heredity given by Mendal relate",
+                options: ["Lamarck", "Darwin", "Segregation, Indendent assortments and dominance", "Segregation, Independent assortments and gene linkage"],
+                answer: 2
+            },
+            {
+                question: "Mendal select pea plant for his experiment because",
+                options: ["They are cheaper", "These are easily avilable", "These are of great economic importance", "They have contrasting fraits"],
+                answer: 3
+            },
+            {
+                question: "An exception to Mendel\'s principles/ Mendel did not include in his discoveries.",
+                options: ["Dominance", "Purity of gametes", "Linkage", "Independent assortment"],
+                answer: 2
+            },
+            {
+                question: "Mendel\'s law were rediscovered by",
+                options: ["Correns", "Tshermak", "Deveries", "All of these"],
+                answer: 3
+            },
+            {
+                question: "Mendel\'s second law is the law of",
+                options: ["Independent assortment", "Segregation", "Dominance", "Polygenic inheritance"],
+                answer: 1
+            },
+            {
+                question: "Which one is exception to Mendel\'s principle of dominance ?",
+                options: ["Wild pea", "Mirablius", "Garden pea", "Maize"],
+                answer: 1
+            },
+            {
+                question: "Mendel\'s law of independent assortment is based on F2 ratio of",
+                options: ["1 : 2: 1", "9: 3: 3: 1", "2 : 1", "3 : 1"],
+                answer: 1
+            },
+            {
+                question: "Genes are situated on",
+                options: ["Chromosome", "Mitochondria", "Plastids", "Ribosomes"],
+                answer: 0
+            },
+            {
+                question: "In humans, height shows a lot of variation. It is an example of",
+                options: ["Multiple alloles", "Pleiotropic inheritance", "Polygenic inheritance", "Pseudoalleles"],
+                answer: 2
+            },
+            {
+                question: "Gene located at the same locus but having different expression are",
+                options: ["Multiple alleles", "Oncogenes", "Polygenes", "Codominants"],
+                answer: 0
+            },
+            {
+                question: "Monohybrid ratio of Mendal\'s cross is",
+                options: ["9: 3: 3: 1", "3: 1", "1 : 1", "2 : 1"],
+                answer: 1
+            },
+            {
+                question: "Who got noble prize for artificial synthesis of DNA.",
+                options: ["M. Calvin", "Khorana", "Tatum", "Kornberg"],
+                answer: 3
+            },
+            {
+                question: "One gene one enzyme theory is given by",
+                options: ["Watson and Crick", "Hergovind Khurana", "Beadle and Tatum", "Morgan"],
+                answer: 2
+            },
+            {
+                question: "Mendel\'s law apply only when",
+                options: ["Characters are linked", "Parents are pure breeding", "F1 monohybrid ratio shows two type of individuals", "First pair of contrasting characters is dependent upon other pairs"],
+                answer: 1
+            },
+            {
+                question: "Human beings have",
+                options: ["23 pairs of chromosomes", "24pairofchromosomes", "25 pairs of chromosomes", "26pairofchromosomes"],
+                answer: 0
+            },
+            {
+                question: "Sex chromosome in human male are named",
+                options: ["XX", "XO", "XY", "None of these"],
+                answer: 2
+            },
+            {
+                question: "Chromosomes are best seen in",
+                options: ["Interphase", "Prophase", "Metaphase", "Telophase"],
+                answer: 2
+            },
+            {
+                question: "Genetic material found in cell is",
+                options: ["DNA", "RNA", "Protein", "Carbohydrate"],
+                answer: 0
+            },
+            {
+                question: "Artificial gene synthesis was first done in laboratory by",
+                options: ["Millar", "Khurana", "D. Veries", "Kelvin[ 43th BPSC( 1999}"],
+                answer: 1
+            },
+            {
+                question: "Transmission of characters from one generation to next iscalled",
+                options: ["Evolution", "Heredity", "Genetics", "Mutation"],
+                answer: 1
+            },
+            {
+                question: "All offspring of a parents are not similar due to",
+                options: ["Variation", "Variation in environment", "Both a and b", "None of these"],
+                answer: 2
+            },
+            {
+                question: "Deploid number of chromosome in man is",
+                options: ["23", "24", "46", "Indefinite number"],
+                answer: 0
+            },
+            {
+                question: "A child is male when",
+                options: ["Child have XXYY chromosome", "Child have YY chromosome", "Child have XY chromosomes", "Child have XX Chromo"],
+                answer: 2
+            },
+            {
+                question: "Who is responsible for the sex determination of a child",
+                options: ["Father", "Mother", "Both mother and father", "None of these"],
+                answer: 0
+            },
+            {
+                question: "Number of autosomes in hwnan sperm",
+                options: ["20 pairs", "21 pairs", "22 pairs", "23 pairs"],
+                answer: 2
+            },
+            {
+                question: "By which combination of chromosome a child will be male",
+                options: ["X from male and X from female", "X from male and Y from female", "Y from male and X from female", "Y from male andY from female {MPl\'SC 2004-2005]"],
+                answer: 2
+            },
+            {
+                question: "Which one of following is a sex linked disease",
+                options: ["Leprosy", "Tuberculosis", "Colour blindness", "Leukamea"],
+                answer: 2
+            },
+            {
+                question: "In the context of genetic disorders, consider the following- A women suffer from colour blindness while her husband does not suffer from it. They have a son and a daughter. In this context, which one of the following statements is most probably correct ?",
+                options: ["Both children suffer from colour blindness", "Daughter suffer from colour blindness while son does not suffer from it", "Both children do not suffer from colour blindness", "Son suffers from colour blindness while daughter does not suffer from it. [lAS (Pre) 2009}"],
+                answer: 3
+            },
+            {
+                question: "A colour blind person cannot distinguish",
+                options: ["Black and yellow", "Red and green", "Yellow and white", "Green and blue"],
+                answer: 1
+            },
+            {
+                question: "Colour-blindness is related with a defect in",
+                options: ["Rod cells", "Cone cells", "Eye muscles", "All of these"],
+                answer: 1
+            },
+            {
+                question: "For a colour blind person red colour appear as",
+                options: ["Yellow", "Blue", "Green", "Voilet [SSC Section officer 2008}"],
+                answer: 2
+            },
+            {
+                question: "Genetic identity of human male is known by",
+                options: ["Nucleolus", "Cell organelles", "Autosomes", "Sex chromosomes"],
+                answer: 3
+            },
+            {
+                question: "Daughter born to heemophiliac father and normal mother could be",
+                options: ["Normal", "Carrier", "Haemphilac", "All of these"],
+                answer: 1
+            },
+            {
+                question: "Genes located on mitochondrial DNA",
+                options: ["Generally show maternal inheritance", "Are always inherited from male parent", "Show hipa rental inheritance", "Are not inherited like the nuclear gene."],
+                answer: 0
+            },
+            {
+                question: "Haemophilia is due to",
+                options: ["Dominant autosomal genes", "Recessive autosomal genes", "Recessive sex linked genes", "Dominant sex linked gene"],
+                answer: 2
+            },
+            {
+                question: "Nucleoside is",
+                options: ["Nitrogenous base + Sugar", "Nitrogenous base+ Sugar+ Phosphate", "Sugar+ Pohosphate", "Nitrogenous base+ Phosphate"],
+                answer: 0
+            },
+            {
+                question: "Synthesis of DNA is called",
+                options: ["Replication", "Transcription", "Termination", "Amination"],
+                answer: 0
+            },
+            {
+                question: "Genetic code is a",
+                options: ["Singlet", "Doublet", "Triplet", "None of these"],
+                answer: 2
+            },
+            {
+                question: "Experimental evidence to show that the genetic code is a triplet code was provided by",
+                options: ["George Gamow", "Watson & Crick", "Nirenbery and Mathaei", "None of these"],
+                answer: 2
+            },
+            {
+                question: "In genetic dictionary there are 64 codons as",
+                options: ["64 amino acids are to be coded", "64 types oft RNA are present", "There are 44 nonsense codons and 20 sense codons", "Genetic code is triplet"],
+                answer: 3
+            },
+            {
+                question: "The process of transfer of genetic information from DNA to RNA or formation of RNA from DNA is",
+                options: ["Transversion", "Transcription", "Translation", "Translocation"],
+                answer: 1
+            },
+            {
+                question: "Circular DNA is present in",
+                options: ["E.R and Ribosomes", "Ribosomes and chloroplasts", "Ribosomes and mitochondria", "M~tochondria and chloroplasts"],
+                answer: 3
+            },
+            {
+                question: "Nucleic acids are made of",
+                options: ["Nucleotides", "Nucleosides", "Amino acids", "Protein"],
+                answer: 0
+            },
+            {
+                question: "Coded infomation in nucleic acid depend upon",
+                options: ["Arrangement of nucleotides", "Position of nucleotides", "Number of nucleotides", "All the above"],
+                answer: 0
+            },
+            {
+                question: "Nucleotide base present in DNA and not RNA is",
+                options: ["Hexose", "Ribose ,", "Thymine", "\' Glucose ,>J-·"],
+                answer: 2
+            },
+            {
+                question: "Cretinism ia human disorder which is due to the under secretion of",
+                options: ["Purines", "Adenine and thymine", "Cistron, muton and recone", "Adenine f 0"],
+                answer: 2
+            },
+            {
+                question: "Process in which part of a DNA bacterial cell is transferred to another through virus is",
+                options: ["Reproduction", "Conjugation", "Transduction", "Transformation"],
+                answer: 2
+            },
+            {
+                question: "Nucleic acid occur in",
+                options: ["Viruses", "Bacteria", "Mammal", "All form of life"],
+                answer: 3
+            },
+            {
+                question: "Smallest part of DNA that undergoes recombination is",
+                options: ["Muton", "Cistron", "Replicon", "Recon"],
+                answer: 3
+            },
+            {
+                question: "DNA strand have",
+                options: ["Quaternary structure", "Same polarity", "Antiparallel polarity", "Disulphid bond"],
+                answer: 2
+            },
+            {
+                question: "TtWw Which of these make-ups is I are correct ?",
+                options: ["1 and 2 only", "2 and 3 only", "4 only", "3 only"],
+                answer: 2
+            },
+            {
+                question: "Which one is correctly matched",
+                options: ["Down syndrome- 44 autosome + XO", "Klinfelter\'s syndrome - 44 autosomes + XXY", "Erythroblastosis foetalis- X linked", "Colour blindness- Y linked"],
+                answer: 1
+            },
+            {
+                question: "Gene is",
+                options: ["Particular DNA segment which determines heredity of a particular trait", "Half DNA segment of somatic cells", "Whole DNA", "Half DNA segment"],
+                answer: 0
+            },
+            {
+                question: "Find out the mismatched",
+                options: ["Klinefelter\'s syndrome - XO", "Haemophilia - Sex linked", "Down\'s syndrome- Autosomal aneuploidy", "Turner\'s syndrome- female with retarted sexual development"],
+                answer: 0
+            },
+            {
+                question: "Branch of biology which deal with the study of heredity",
+                options: ["Cytology", "Evolution", "Genetics (ci) Phisology", ""],
+                answer: 2
+            },
+            {
+                question: "Dyer and painter Code",
+                options: ["2 alone", "1, 2 and 3", "1, 2 and 4", "1, 3 and 4"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following techniques can be used to establish the paternity of a child ?",
+                options: ["Protein analysis", "Quantitative analysis of DNA", "Chromosom counting", "DNA finger printing"],
+                answer: 3
+            },
+            {
+                question: "De Vries Codes: A B c D",
+                options: ["3 4 1 2", "4 3 1 2", "4 3 2 1", "3 4 2 1 {lAS (Pre) 1998]"],
+                answer: 2
+            },
+            {
+                question: "Haemophilia is a genetic disorder which lead to",
+                options: ["Decrease in haemoglobine level", "Rheumatic heart disease", "Decrease in WBC", "Non-clotting of blood {lAS (Pre) 1998]"],
+                answer: 3
+            },
+            {
+                question: "Assertion",
+                options: ["Both A and Rare true and R is the correct explanation of A.", "Both A and R is true but R is not a correct explanation of A", "A is true but R is false", "A is false but R is true {lAS (Pre) 1999]"],
+                answer: 1
+            },
+            {
+                question: "Assertion",
+                options: ["Both A and Rare true and R is the correct explanation of A.", "BothAandR are true butRisnotacorrectexplanation of A", "A is true but R is false", "A is false but R is true {lAS (Pre) 1999]"],
+                answer: 3
+            },
+            {
+                question: "Which one of the following genetic d~sease is sex-linked?",
+                options: ["Royal haemophilia", "Tay-sachs disease", "Cystic fibrosis", "Hypertension"],
+                answer: 0
+            },
+            {
+                question: "Assertion",
+                options: ["Both A and Rare true and R is the correct explanation of A.", "Both A and R is true but R is not a correct explanation of A", "A is true but R is false", "A is false but R is true {lAS (Pre) 2000]"],
+                answer: 3
+            },
+            {
+                question: "Assertion",
+                options: ["Both A and Rare true and R is the correct explanation of A.", "Both A and R is true but R is not a correct explanation of A", "A is true but R is false", "A is false but R is true {lAS (Pre) 2000]"],
+                answer: 0
+            },
+            {
+                question: "Insect resistant cotton plant have been genetically engineered by inserting a gene from a",
+                options: ["Virus", "Bacterium", "Insect", "Plant [IAS(Pre)2000}"],
+                answer: 1
+            },
+            {
+                question: "When one gene controls two or more different characters simultaneously, the phenomena is called",
+                options: ["Apomixis", "Pleiotropy", "Palyploidy", "Palyteny"],
+                answer: 1
+            },
+            {
+                question: "Hybridoma technology is a new biotechnological approach for commercial production of",
+                options: ["Monoclonal antibodies", "Interferon", "Antibiotics", "Alcohol [IAS(Pre)2000}"],
+                answer: 0
+            },
+            {
+                question: "Morgan code Select the correct answer using codes Codes: A B C D",
+                options: ["4 3 2 1", "3 4 1 5", "4 3 1 5", "3 4 2 1 [lAS (Pre)2001}"],
+                answer: 2
+            },
+            {
+                question: "It is possible to develop disease resistant animal breeds Which of the statements given above is/ are correct ?",
+                options: ["1 and 2 only", "2 only", "1 and 3 only", "1, 2 & 3 [CSAT 2011}"],
+                answer: 0
+            }
+        ];
+
+        const quizContainer = document.getElementById('quiz-container');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.textContent = `${index + 1}) ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) {
+                        return;
+                    }
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            quizContainer.appendChild(questionBlock);
+        });
+    </script>
+</body>
+</html>

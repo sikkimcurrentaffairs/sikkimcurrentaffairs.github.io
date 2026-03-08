@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Others | Sikkim PSC Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        .quiz-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        html.dark .quiz-container {
+            background: #24272c;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #0284c7;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        html.dark .question-block {
+            border-bottom: 1px solid #334155;
+        }
+        .question-text {
+            font-size: 1.15em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+        html.dark .question-text {
+            color: #f1f5f9;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option {
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            padding: 16px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            color: #475569;
+        }
+        html.dark .option {
+            background-color: #1e293b;
+            border: 2px solid #334155;
+            color: #cbd5e1;
+        }
+        .option:hover {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
+            transform: translateX(4px);
+        }
+        html.dark .option:hover {
+            background-color: #334155;
+            border-color: #475569;
+        }
+        .option.correct {
+            background-color: #dcfce7 !important;
+            border-color: #4ade80 !important;
+            color: #166534 !important;
+        }
+        html.dark .option.correct {
+            background-color: #064e3b !important;
+            border-color: #10b981 !important;
+            color: #ecfdf5 !important;
+        }
+        .option.incorrect {
+            background-color: #fee2e2 !important;
+            border-color: #f87171 !important;
+            color: #991b1b !important;
+        }
+        html.dark .option.incorrect {
+            background-color: #7f1d1d !important;
+            border-color: #ef4444 !important;
+            color: #fef2f2 !important;
+        }
+        .options-list.answered {
+            pointer-events: none;
+        }
+        .quiz-stats-badge {
+            background: #f1f5f9;
+            color: #64748b;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        html.dark .quiz-stats-badge {
+            background: #334155;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 min-h-screen p-4 sm:p-8">
+
+    <div class="quiz-container">
+        <a href="economy.html" class="back-link">&larr; Back to Economy Topics</a>
+        <h1 class="text-3xl font-bold text-amber-800 dark:text-amber-400 mb-2">Others</h1>
+        <div class="quiz-stats-badge">109 MCQ Questions</div>
+        
+        <div id="questions-wrapper"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Aam Admi Bima Yojana was launched on:",
+                options: ["November 14, 2011", "March 5, 2009", "March 10, 2008", "October 2, 2007"],
+                answer: 3
+            },
+            {
+                question: "Who gave the call for Evergreen Revolution?",
+                options: ["M. S. Swaminathan", "Verghese Kurien", "Tribhuvandas Patel", "H. M. Dalaya"],
+                answer: 0
+            },
+            {
+                question: "The Mid Day Meal scheme was launched on",
+                options: ["August 15, 2000", "August 15, 1992", "August 15, 1995", "August 15, 2001"],
+                answer: 2
+            },
+            {
+                question: "Who is responsible for establishing and maintaining astound and efficient accounting and financial reporting system in India?",
+                options: ["The Comptroller General of Accounts", "NITI Ayog", "RBI", "None of these"],
+                answer: 0
+            },
+            {
+                question: "With which country did India\u2019s comprehensive Economic partnership Agreement come into effect on August 1, 2011?",
+                options: ["South Korea", "China", "Taiwan", "Japan"],
+                answer: 3
+            },
+            {
+                question: "National food for Work programme aimed at intensifying the generation of supplementary wage employment was launched in:",
+                options: ["October 2004", "September 2003", "November 2004", "January 2004"],
+                answer: 2
+            },
+            {
+                question: "The Money Order system in India was introduced in the year :",
+                options: ["1999", "1880", "1882", "1904"],
+                answer: 1
+            },
+            {
+                question: "In the world in terms of Railway Network system India ranks:",
+                options: ["second", "first", "fourth", "third"],
+                answer: 2
+            },
+            {
+                question: "In India the term Black Revolution is associated with:",
+                options: ["Self-dependence in the production of coal", "Nurturing the Black Soil", "Self-dependence in the production of petroleum crude oil", "Self-dependence in the production of balck corp"],
+                answer: 2
+            },
+            {
+                question: "National Rural Health mission was launched in:",
+                options: ["October 2005", "August 2005", "April 2005", "July 2005"],
+                answer: 2
+            },
+            {
+                question: "Laadli Laxmi Yojana has been launched for supporting girls of all religions and caste up to their marriage by:",
+                options: ["Uttar Pradesh government", "Madhya Pradesh government", "Haryana", "none of the above"],
+                answer: 1
+            },
+            {
+                question: "Government has merged Annapurna Scheme with:",
+                options: ["National Old Age Pension Scheme", "Ujjwala", "IRDP", "None of these"],
+                answer: 0
+            },
+            {
+                question: "National Electricity Policy envisages elimination of power shortage by 2012 through addition of:",
+                options: ["50000 Megawatt", "75000 Megawatt", "100000 Megawatt.", "125000 Megawatt"],
+                answer: 2
+            },
+            {
+                question: "Meera Seth committee was related to:",
+                options: ["Development of Handlooms", "sex discrimination at work place", "female foeticide", "Banking sector"],
+                answer: 0
+            },
+            {
+                question: "National Income estimates in India is prepared by:",
+                options: ["Planning Commission", "Reserve Bank Of India", "Central Statistical Organisation (CSO)", "Indian Statistical Institute"],
+                answer: 2
+            },
+            {
+                question: "Earn While you Learn scheme has been launched by:",
+                options: ["Ministry of Tourism", "Ministry of Youth", "Both A and B", "None of these"],
+                answer: 0
+            },
+            {
+                question: "The main rubber producing state in the country is:",
+                options: ["Kerala", "Tamil Nadu", "Karnataka", "Hyderabad"],
+                answer: 0
+            },
+            {
+                question: "At present, the number of nationalized banks are:",
+                options: ["19", "17", "15", "12"],
+                answer: 3
+            },
+            {
+                question: "The first Apparel Park in India has been established in:",
+                options: ["Punalur (Kerala)", "Tirupur  (Tamil Nadu)", "Both A and B", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "Unit Trust of India (UTI) was bifurcated (into UTI-I and UTI-II) in:",
+                options: ["the year 2005", "the year 2000", "the year 2003", "the year 2001"],
+                answer: 2
+            },
+            {
+                question: "In India Yellow revolution is associated with:",
+                options: ["production of tea", "production of oil seeds.", "production of flower", "production of paddy"],
+                answer: 1
+            },
+            {
+                question: "The programme which was launched in 1974-75 with the main objectives of improving the utilization of created irrigation potential is:",
+                options: ["Command Area Development (CAD)", "Cordial Area Development", "Copper Area Development", "Cop Authority Development"],
+                answer: 0
+            },
+            {
+                question: "Indian state with highest road length is:",
+                options: ["Maharashtra", "Uttar Pradesh", "Rajasthan", "Andhra Pradesh"],
+                answer: 0
+            },
+            {
+                question: "The total number of national highways in the country is:",
+                options: ["328", "528", "228", "499"],
+                answer: 0
+            },
+            {
+                question: "Unit Trust of India (UTI) was established in:",
+                options: ["1964", "1904", "1968", "1970"],
+                answer: 0
+            },
+            {
+                question: "When personal direct taxes are subtracted from personal income the obtained value is called:",
+                options: ["Gross Domestic Product (GDP)", "National Income", "Gross National Product (GNP)", "Personal Income"],
+                answer: 2
+            },
+            {
+                question: "As per the Prime Minister\u2019s Economic Advisory Council (PMEAC) Economic Outlook 2011-12, Indian economy is expected to expand by:",
+                options: ["8.2% in 2011-12", "8.0% in 2011-12", "8.5% in 2011-12", "7.8% in 2011-12"],
+                answer: 1
+            },
+            {
+                question: "The Ex-Officio Secretary of National Development Council is:",
+                options: ["Secretary of Finance Ministry", "General Secretary of Lok Sabha", "Secretary of Planning Commission", "Vice Chairman of Planning Commission"],
+                answer: 2
+            },
+            {
+                question: "The largest producer of Coffee in the country is:",
+                options: ["Kerala", "Tamil Nadu", "Andhra Pradesh", "Karnataka"],
+                answer: 3
+            },
+            {
+                question: "The national food for work programme was launched in:",
+                options: ["November 2004", "April 2003", "May 2002", "April 2000"],
+                answer: 0
+            },
+            {
+                question: "In Global Hunger Index (GHI) India has been ranked at:",
+                options: ["96th place among 119 developing countries", "102nd place among 117 developing countries", "105th place among 117 developing countries", "109th place among 117 developing countries"],
+                answer: 1
+            },
+            {
+                question: "In coal production, India ranks in the world:",
+                options: ["Third", "First", "Second", "Fourth"],
+                answer: 2
+            },
+            {
+                question: "In April 1980 how many banks were nationalized?",
+                options: ["six banks", "eight banks", "five banks", "nine banks"],
+                answer: 0
+            },
+            {
+                question: "Meera Seth committee was associated with:",
+                options: ["the development of handloom industry.", "sex discrimination at work place", "female foeticide", "banking sector"],
+                answer: 0
+            },
+            {
+                question: "Where was first gold refinery established?",
+                options: ["Ahmedabad (Gujarat)", "Shirpur (Maharashtra)", "Bangalore (Karnataka)", "Mumbai (Maharashtra)"],
+                answer: 1
+            },
+            {
+                question: "Green Banking channel has been launched by:",
+                options: ["Punjab National Bank", "State Bank of India", "Reserve Bank of India", "Bank of Baroda"],
+                answer: 1
+            },
+            {
+                question: "Which state of India ranks first in milk production as per the data of the year 2009-10?",
+                options: ["Bihar", "Jharkhand", "Uttar Pradesh", "West Bengal"],
+                answer: 2
+            },
+            {
+                question: "Navaratna Status is concerned with:",
+                options: ["Public Sector Companies", "Private Sector Companies", "Both A and B", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "What was the central theme of the Chipko Movement started by Sunderlal Bahuguna in 1973?",
+                options: ["Conservation of Forests", "Conservation of river water", "Protection of birds", "Protection of cheetals"],
+                answer: 0
+            },
+            {
+                question: "In India, the state which has the largest forest cover is:",
+                options: ["Madhya Pradesh", "Arunachal Pradesh", "Chattisgarh", "Odisha"],
+                answer: 0
+            },
+            {
+                question: "The Indian state which was the first to release state level Human Development Report in 1995 was:",
+                options: ["Madhya Pradesh", "Maharashtra", "Kerala", "Tamil Nadu"],
+                answer: 0
+            },
+            {
+                question: "With the objective of  opening the insurance sector for private participation the Insurance Regulatory and Development Authority Act (IRDA) was passed in:",
+                options: ["the year 2005", "the year 1999", "the year 1998", "the year 1990"],
+                answer: 1
+            },
+            {
+                question: "The share of road transport in total transportation of the country is:",
+                options: ["60%", "70%", "75%", "80%"],
+                answer: 3
+            },
+            {
+                question: "Project \u2018Sankalp\u2019 is associated with the elimination of:",
+                options: ["Polio", "AIDS/HIV", "Both A and B", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "In India, the second largest provider of employment after agriculture is:",
+                options: ["Textile Sector", "Chemical Sector", "Iron and Steel Sector", "Telecommunication sector"],
+                answer: 0
+            },
+            {
+                question: "In the World, in the production of cotton, India ranks:",
+                options: ["Second", "First", "Third", "Fourth"],
+                answer: 0
+            },
+            {
+                question: "The concept of zero-based budgeting was given by:",
+                options: ["Peter A. Payer.", "Peter drucker", "Jagdish bhagwati", "None of these"],
+                answer: 0
+            },
+            {
+                question: "Who is the author of the book Man and Economics?",
+                options: ["Myron Scholes", "Robert Mundel", "Rudi Dornbusch", "George Akerlof"],
+                answer: 1
+            },
+            {
+                question: "What is the objective of \u2018Sangam Yojna 1996\u2019?",
+                options: ["To make Sangam region of Allahabad more attractive for tourists", "To make Ganga water pollution free", "To increase the welfare of the disabled", "To unite, various groups of Hindus"],
+                answer: 2
+            },
+            {
+                question: "The Twenty Point programme (TPP) conceived with the objective of improving quality of life of people was first initiated in:",
+                options: ["2006", "1986", "1982", "1975"],
+                answer: 3
+            },
+            {
+                question: "Excess of Total Expenditure over total Receipts is :",
+                options: ["Deficit Budget", "Surplus Budget", "Balanced Budget", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "Which company has started a rural marketing network called e-Chaupals?",
+                options: ["ITC", "Dabur", "Procor and Gamble", "Hindustan liver"],
+                answer: 0
+            },
+            {
+                question: "The first multi\u2013purpose river valley project of independent India is:",
+                options: ["Bhakra-Nangal", "Damodar", "Hirakud", "Nagarjunasagar"],
+                answer: 1
+            },
+            {
+                question: "Rice, Millet (Jawar-Bajra ), Maize and cotton is the group which belongs to:",
+                options: ["Rabi crop", "Kharif crop", "Both A and B", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "Development expenditure of the Central government does not include",
+                options: ["defence expenditure", "expenditure on economic services", "expenditure on social and community services", "grant to states"],
+                answer: 0
+            },
+            {
+                question: "ICICI is the name of a",
+                options: ["chemical industry", "bureau", "corporation", "financial institution"],
+                answer: 3
+            },
+            {
+                question: "Devaluation of a currency means",
+                options: ["fall in exchange value of a country by market forces", "reduction in external value/exchange value of currency by the government", "reduction in currency value due to wear and tear", "all of the above"],
+                answer: 1
+            },
+            {
+                question: "In the second nationalization of commercial banks, ___ banks were nationalized.",
+                options: ["4", "5", "6", "8"],
+                answer: 2
+            },
+            {
+                question: "Depreciation means",
+                options: ["closure of a plant due to lock out", "closure of a plant due to labour trouble", "loss of equipment over time due to wear and tear", "destruction of a plant in a fire accident"],
+                answer: 2
+            },
+            {
+                question: "India changed over to the decimal system of coinage in",
+                options: ["April 1995", "April 1957", "April 1958", "April 1959"],
+                answer: 1
+            },
+            {
+                question: "The association of the rupee with pound sterling as the intervention currency was broken in",
+                options: ["1990", "1991", "1992", "1993"],
+                answer: 2
+            },
+            {
+                question: "On which one of the following is the benefits received principle of taxation to achieve optimality bases?",
+                options: ["Marginal benefit received", "Total benefit received", "Average benefit received", "Ability to pay for the benefit"],
+                answer: 3
+            },
+            {
+                question: "One of the reasons for India's occupational structure remaining more or less the same over the years has been that",
+                options: ["investment pattern has been directed towards capital intensive industries", "productivity in agriculture has been high enough to induce people to stay with agriculture", "ceiling on land holdings have enabled more people to own land and hence their preference to stay wit", "people are largely unaware of the significance of transition from agriculture to industry for econom"],
+                answer: 0
+            },
+            {
+                question: "Gross domestic capital formation is defined as",
+                options: ["flow of expenditure devoted to increased or maintaining of the capital stock", "expenditure incurred on physical assets only", "production exceeding demand", "net addition to stock after depreciation"],
+                answer: 3
+            },
+            {
+                question: "On July 12, 1982, the ARDC was merged into",
+                options: ["RBI", "NABARD", "EXIM Bank", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "Which of the following items would not appear in a company's balance sheet?",
+                options: ["Value of stocks of raw materials held", "Total issued capital", "Revenue from sales of the company's products", "Cash held at the bank"],
+                answer: 2
+            },
+            {
+                question: "The currency convertibility concept in its original form originated in",
+                options: ["Wells Agreement", "Bretton Woods Agreement", "Taylors Agreement", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "In the state of India, the State Financial Corporation have given assistance mainly to develop",
+                options: ["agricultural farms", "cottage industry", "large-scale industries", "medium and small-scale industries"],
+                answer: 3
+            },
+            {
+                question: "The central co-operative banks are in direct touch with",
+                options: ["farmers", "state co-operative banks", "land development banks", "central government"],
+                answer: 1
+            },
+            {
+                question: "States earn maximum revenue through",
+                options: ["land revenue", "custom revenue", "commercial taxes", "excise duties on intoxicants"],
+                answer: 2
+            },
+            {
+                question: "Our financial system has provided for the transfer of resources from the centre to the states; the important means of resource transfers are",
+                options: ["tax sharing", "grant-in-aids", "loans", "All the above"],
+                answer: 3
+            },
+            {
+                question: "Debenture holders of a company are its",
+                options: ["shareholders", "creditors", "debtors", "directors"],
+                answer: 1
+            },
+            {
+                question: "Excise duty is a tax levied on the",
+                options: ["import of goods", "export of goods", "production of goods", "sale of goods"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is the first Indian private company to sign an accord with Government of Myanmar for oil exploration in two offshore blocks in that country?",
+                options: ["Reliance Energy", "Essar Oil", "GAIL", "ONGC"],
+                answer: 1
+            },
+            {
+                question: "Non Tax revenues can be increased by improving the working of the",
+                options: ["State Road Transport Corporations", "electricity boards", "commercial irrigation projects", "All of the above"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is not viewed as a national debt?",
+                options: ["Provident Fund", "Life Insurance Policies", "National Saving Certificate", "Long-term Government Bonds"],
+                answer: 2
+            },
+            {
+                question: "The condition of indirect taxes in the country's revenue is approximately",
+                options: ["70 percent", "75 percent", "80 percent", "86 percent"],
+                answer: 3
+            },
+            {
+                question: "Deficit financing means that the government borrows money from the",
+                options: ["RBI", "local bodies", "big businessmen", "IMF"],
+                answer: 0
+            },
+            {
+                question: "Revenue of the state governments are raised from the following sources, except",
+                options: ["entertainment tax", "expenditure tax", "agricultural income tax", "land revenue"],
+                answer: 2
+            },
+            {
+                question: "Since the inception of the co-operative movement, rural credits has been",
+                options: ["institutionalized", "rationalized", "cheapened", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "If an economy is equilibrium at the point where plans to save and to invest are equal, then government expenditure must be",
+                options: ["zero", "equal to government income", "larger than government income", "negative"],
+                answer: 1
+            },
+            {
+                question: "The co-operative credit societies have a",
+                options: ["two-tier structure", "three-tier structure", "four-tier structure", "five-tier structure"],
+                answer: 1
+            },
+            {
+                question: "Regional rural banksI=have limited area of operationII=have free access to liberal refinance facilities from NABARDIII=are required to lend only to weaker sections",
+                options: ["I, III", "II, III", "I, II, III", "I, II"],
+                answer: 3
+            },
+            {
+                question: "The Board of Industrial and Financial Reconstruction (BIFR) came into existence in",
+                options: ["1984", "1986", "1987", "1989"],
+                answer: 2
+            },
+            {
+                question: "The current price index (base 1960) is nearly 330. This means that",
+                options: ["all items cost 3-3 times more than what they did in 1960", "the prices of certain selected items have gone up to 3-3 times", "weighted means of prices of certain item has increased 3-3 times", "gold price has gone up 3-3 times"],
+                answer: 2
+            },
+            {
+                question: "Notes on which denomination has the portrait of Mahatma Gandhi printed on them?",
+                options: ["1000 rupee", "500 rupee", "100 rupee", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "Devaluation of currency will be more beneficial if",
+                options: ["prices of domestic goods remain constant", "prices of exports remain constant", "prices of imports remains constant", "prices of exports rise proportionately"],
+                answer: 1
+            },
+            {
+                question: "Of the gross tax revenue of the Union Government the indirect taxes account for nearly",
+                options: ["70 per cent", "75 percent", "65 percent", "60 percent"],
+                answer: 2
+            },
+            {
+                question: "The banks are required to maintain a certain ratio between their cash in the hand and total assets. This is called",
+                options: ["Statutory Bank Ratio (SBR)", "Statutory Liquid Ratio (SLR)", "Central Bank Reserve (CBR)", "Central Liquid Reserve (CLR)"],
+                answer: 1
+            },
+            {
+                question: "In India, rural incomes are generally lower than the urban incomes, which of the following reasons account for this?I=A large number of farmers are illiterate and know little about scientific agricultureII=Prices of primary products are lower than those of manufactured productsIII=Investment in agriculture has been low when compared to investment in industry",
+                options: ["I, II, III", "I, II", "I, III", "II, III"],
+                answer: 0
+            },
+            {
+                question: "National Agricultural Insurance Scheme replacing Comprehensive Crop Insurance Scheme was introduced in the year",
+                options: ["1997", "1998", "1999", "2000"],
+                answer: 2
+            },
+            {
+                question: "How many banks were nationalized in 1969?",
+                options: ["16", "14", "15", "20"],
+                answer: 1
+            },
+            {
+                question: "The annual yield from which of the following Union Government taxes is the highest?",
+                options: ["Custom duties", "Corporation tax and income tax", "Inheritance tax, wealth tax, interest tax and gift tax", "Excise duties"],
+                answer: 3
+            },
+            {
+                question: "The average rate of domestic savings (gross) for the Indian economy is currently estimated to be in the range of",
+                options: ["15 to 20 percent", "20 to 25 percent", "25 to 30 percent", "30 to 35 percent"],
+                answer: 1
+            },
+            {
+                question: "Subsidies mean",
+                options: ["payment by government for purchase of goods and services", "payment made by business enterprises to factors of production", "payment made by companies to shareholders", "payment made by the government to business enterprises, without buying any goods and services"],
+                answer: 3
+            },
+            {
+                question: "National expenditure includes",
+                options: ["consumption expenditure", "investment expenditure", "government expenditure", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "Resurgent India bonds were issued in US dollar, Pound Sterling and",
+                options: ["Japanese Yen", "Deutsche Mark", "Euro", "French Franc"],
+                answer: 1
+            },
+            {
+                question: "The apex body for formulating plans and coordinating research work in agriculture and allied fields is",
+                options: ["State Trading Corporation", "Regional Rural Banks", "National Bank for Agriculture and Rural Development (NABARD)", "Indian Council of Agricultural Research"],
+                answer: 3
+            },
+            {
+                question: "Redistribution polices geared to reduce economic inequalities include",
+                options: ["progressive tax policies", "land reforms", "rural development policies", "All the above"],
+                answer: 3
+            },
+            {
+                question: "The budget deficit means",
+                options: ["the excess of total expenditure, including loans, net of lending over revenue receipts", "difference between revenue receipts and revenue expenditure", "difference between all receipts and all the expenditure", "fiscal deficit less interest payments"],
+                answer: 2
+            },
+            {
+                question: "If utensils worth Rs 1000 are produced with copper worth Rs 500, wages paid are Rs 100, other material purchased is worth Rs 100 and depreciation of machinery is zero, then what is the value added in process?",
+                options: ["Rs 1000", "Rs 500", "Rs 400", "Rs 300"],
+                answer: 3
+            },
+            {
+                question: "Paper currency first started in India in",
+                options: ["1861", "1542", "1601", "1880"],
+                answer: 0
+            },
+            {
+                question: "The ARDC is now a branch of the",
+                options: ["RBI", "NABARD", "IDBI", "SDBI"],
+                answer: 1
+            },
+            {
+                question: "Devaluation of currency leads to",
+                options: ["fall in domestic prices", "increase in domestic prices", "no impact on domestic prices", "erratic fluctuations in domestic prices"],
+                answer: 1
+            },
+            {
+                question: "Deficit financing implies",
+                options: ["printing new currency notes", "replacing new currency with worn out currency", "public expenditure in excess of public revenue", "public revenue in excess of public expenditure"],
+                answer: 2
+            },
+            {
+                question: "In which of the following sequences the change in quantity of money leads to change in price level in the Keynesian models?",
+                options: ["Change in quantity of money - change in investment - change in employment and output - change in rate of interest - change in price level", "Change in quantity of money - change in employment and output - change in investment - change in the rate of interest - change in price level", "Change in quantity of money - change in investment - change in rate of interest - change in employment and output - change in price level", "Change in quantity of money - change in rate of interest - change in investment - change in employment and output - change in price level"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is not a part of machinery that settles industrial disputes?",
+                options: ["Wage Court", "Works Committee", "Conciliation officers", "Board of Conciliation"],
+                answer: 0
+            },
+            {
+                question: "One rupee currency note in India bears the signature of-",
+                options: ["The president of India", "Finance minister of India", "Governor (RBI)", "Finance secretary of Government of India"],
+                answer: 3
+            },
+            {
+                question: "Ten rupee notes contain the signature of:",
+                options: ["Finance Secretary, GOI", "Chairman, SBI", "Governor, RBI", "Finance Minister , GOI"],
+                answer: 2
+            }
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.innerHTML = `<span class="text-amber-600 dark:text-amber-500 mr-2">Q${index + 1}.</span> ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                if (!option || option.trim() === '') return;
+                
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) return;
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            wrapper.appendChild(questionBlock);
+        });
+
+        // Theme sync
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>

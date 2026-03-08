@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sikkim GK Quiz</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+            border-color: #bbb;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .options-list.answered .option:not(.correct):not(.incorrect) {
+            opacity: 0.7;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none; /* Disables further clicks */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <h1>Sikkim General Knowledge Quiz</h1>
+        <!-- Questions will be dynamically inserted here by JavaScript -->
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Temi Tea Garden in Sikkim was established in which year?",
+                options: ["1961", "1969", "1965", "1971"],
+                answer: 1
+            },
+            {
+                question: "Which mountain sits on the border between the North Indian State of Sikkim and Bhutan?",
+                options: ["Kangphu Kang", "Kula Kangri", "Gipmochi", "Black mountain"],
+                answer: 2
+            },
+            {
+                question: "From which glacier does the Teesta River originate?",
+                options: ["Baltoro glacier", "Pindari glacier", "Pahunri glacier", "Milam glacier"],
+                answer: 2
+            },
+            {
+                question: "Temi Tea Garden of Sikkim has adopted guidelines issued by the Institute of Marketology (IMO) of which country to produce organic tea?",
+                options: ["Switzerland", "Poland", "England", "Canada"],
+                answer: 0
+            },
+            {
+                question: "Find the correct number of subjects included in the Union, State and Concurrent Lists?",
+                options: ["Union List - 97, State List - 61, Concurrent List – 47", "Union List - 95, State List - 66, Concurrent List - 45", "Union List - 93, State List - 62, Concurrent List - 40", "Union List – 98, State List - 60, Concurrent List – 42"],
+                answer: 3
+            },
+            {
+                question: "This Amendment also known as the 'Mini Constitution' of India -",
+                options: ["7th Amendment", "42nd Amendment", "44th Amendment", "74th Amendment"],
+                answer: 1
+            },
+            {
+                question: "How many members are there in the UN Human Rights Council?",
+                options: ["48", "57", "47", "35"],
+                answer: 2
+            },
+            {
+                question: "Nokrek Biosphere Reserve is located in which of the following states?",
+                options: ["Assam", "Meghalaya", "Manipur", "Tripura"],
+                answer: 1
+            },
+            {
+                question: "Where is the Head Quarters of United Nations Organisation located?",
+                options: ["Geneva", "New York", "Brussels", "Paris"],
+                answer: 1
+            },
+            {
+                question: "The number of wards under Gangtok Municipal Corporation and Namchi Municipal Council are __ and __ respectively.",
+                options: ["14, 6", "10, 5", "19, 7", "12, 8"],
+                answer: 2
+            },
+            {
+                question: "Governor's Cup Badminton Tournament was started in Sikkim in which year?",
+                options: ["2019", "2021", "2022", "2018"],
+                answer: 1
+            },
+            {
+                question: "Which schedule of Indian constitution mentions about the division of power between the union and the states?",
+                options: ["6th schedule", "7th schedule", "8th schedule", "9th schedule"],
+                answer: 1
+            },
+            {
+                question: "Name the folk wind instrument made of bamboo found in Sikkim?",
+                options: ["Khomok", "Panthong Palit", "Sarangi", "Ektara"],
+                answer: 1
+            },
+            {
+                question: "‘Maenam Wild Life Sanctuary’ is situated in Namchi, in South Sikkim. What is the literal meaning of ‘Maenam’?",
+                options: ["Treasure house of medicines", "Heaven for wild life", "Peaceful nature", "Nature's paradise"],
+                answer: 0
+            },
+            {
+                question: "“Chu Faat” dance is a folk dance of which community in Sikkim?",
+                options: ["Lepcha", "Bhutia", "Nepali", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "Lhabab Dhuechen is a festival to symbolize/observe which event?",
+                options: ["The birth of Lord Buddha", "The Nirvana of Lord Buddha", "The Pari-Nirvana of Lord Buddha", "The descent of Lord Buddha from heaven"],
+                answer: 3
+            },
+            {
+                question: "An organic crop must be grown on land free from prohibited pesticides for how many years to be eligible for an Organic Certificate?",
+                options: ["One", "Two", "Three", "Four"],
+                answer: 2
+            },
+            {
+                question: "Which is the highest civilian award in Sikkim?",
+                options: ["Sikkim Ratna", "Jewel of Sikkim", "Gem of Sikkim", "Sewa Samman"],
+                answer: 0
+            },
+            {
+                question: "Sikkim Police was born in the year?",
+                options: ["1910", "1886", "1899", "1897"],
+                answer: 3
+            },
+            {
+                question: "When did Sikkim attain the Nirmal state status with 100% sanitation cover?",
+                options: ["10th January 2008", "8th December 2008", "8th January 2009", "8th December 2009"],
+                answer: 1
+            },
+            {
+                question: "Dress regulations & Finger print section in the Sikkim Police Department was first introduced by whom?",
+                options: ["Shri S. Dutta Chowdhury", "Shri Mohinder Singh", "Shri. H.C. Dutta", "Shri. S. K. Anand"],
+                answer: 3
+            },
+            {
+                question: "Who led the British India delegation to Sikkim in 1884 to explore a trade route with Tibet?",
+                options: ["Claude White", "Longfellow", "Colman Macaulay", "Younghusband"],
+                answer: 2
+            },
+            {
+                question: "Who became the third Chief Minister of Sikkim, serving the shortest term in the state's history (May 11-24, 1984)?",
+                options: ["N. B. Bhandari", "B. B. Goorung", "Kazi Lendup Dorji", "B.B. Lal"],
+                answer: 1
+            },
+            {
+                question: "Where was the first Chogyal of Sikkim crowned and consecrated?",
+                options: ["Gangtok", "Yuksom", "Tumlong", "Kabi-Lungchok"],
+                answer: 1
+            },
+            {
+                question: "Which musical instrument made of an iron piece is played by keeping it between the teeth?",
+                options: ["Binayo", "Murchunga", "Udung", "Sarangi"],
+                answer: 1
+            },
+            {
+                question: "Name the Chogyal who married the Limbu Raja's daughter.",
+                options: ["Tensung Namgyal", "Chakdor Namgyal", "Phuntsok Namgyal", "Tsudphud Namgyal"],
+                answer: 0
+            },
+            {
+                question: "Which Chogyal shifted the capital of Sikkim from Tumlong to Gangtok in 1894?",
+                options: ["Thutob Namgyal", "Tashi Namgyal", "Tsudphud Namgyal", "Sidekeong Namgyal"],
+                answer: 0
+            },
+            {
+                question: "Sikkim Public Service Commission was established in which year?",
+                options: ["1977", "1978", "1980", "1981"],
+                answer: 1
+            },
+            {
+                question: "The first Population Census of Sikkim was done in which year?",
+                options: ["1861", "1871", "1881", "1891"],
+                answer: 3
+            },
+            {
+                question: "When did Sikkim cede Darjeeling to the British?",
+                options: ["1757", "1805", "1835", "1857"],
+                answer: 2
+            },
+            {
+                question: "Singba Rhododendron Sanctuary is located in:",
+                options: ["Yumthang", "Varsey", "Rabongla", "Near Tsomgo Lake"],
+                answer: 0
+            },
+            {
+                question: "Who is the author of 'Butterflies of Sikkim Himalaya and their Natural History'?",
+                options: ["Meena Haribal", "Satyajit Ray", "J Hooker", "Topdhan Rai and Lalit Kr. Rai"],
+                answer: 0
+            }
+        ];
+
+        const quizContainer = document.getElementById('quiz-container');
+
+        quizData.forEach((item, index) => {
+            // Create the main container for the question
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            // Create and add the question text
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.textContent = `${index + 1}) ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            // Create the options list
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+            
+            // Create and add each option
+            item.options.forEach((option, optionIndex) => {
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    // Prevent re-answering
+                    if (optionsList.classList.contains('answered')) {
+                        return;
+                    }
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+                    
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        // Highlight the correct answer
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+                
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            quizContainer.appendChild(questionBlock);
+        });
+
+    </script>
+</body>
+</html>

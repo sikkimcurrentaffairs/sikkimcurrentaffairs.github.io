@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sikkim GK Quiz</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+            border-color: #bbb;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .options-list.answered .option:not(.correct):not(.incorrect) {
+            opacity: 0.7;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none; /* Disables further clicks */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <h1>Sikkim General Knowledge Quiz</h1>
+        <!-- Questions will be dynamically inserted here by JavaScript -->
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "In which part of Sikkim, the Chhodu system was operational?",
+                options: ["Lachen", "Lachung", "Dzongu", "Gangtok"],
+                answer: 2
+            },
+            {
+                question: "Name the Panchayat Act that had abolished the Chhodu System of Dzongu.",
+                options: ["Sikkim Panchayat Act 1948", "Sikkim Panchayat Act 1965", "Sikkim Panchayat Act 1982", "Sikkim Panchayat Act 1993"],
+                answer: 1
+            },
+            {
+                question: "What is the name of the traditional panchayat operational in Lachen and Lachung?",
+                options: ["Chhodu System", "Gram Sabha", "Zilla Parishad", "Dzumsa System"],
+                answer: 3
+            },
+            {
+                question: "Who is the head of Dzumsa?",
+                options: ["Gyapon", "Sarpanch", "Pipon", "Mukhia"],
+                answer: 2
+            },
+            {
+                question: "Beside Pipon, who is another important officer of Dzumsa?",
+                options: ["Gyapon", "Panchayat Sachiv", "Ward Member", "Zilla Adhyaksh"],
+                answer: 0
+            },
+            {
+                question: "In which year the first panchayat election was held?",
+                options: ["1947", "1950", "1951", "1955"],
+                answer: 2
+            },
+            {
+                question: "When were the second and third panchayat elections held before the merger to India?",
+                options: ["1955 and 1958", "1960 and 1963", "1966 and 1969", "1970 and 1972"],
+                answer: 2
+            },
+            {
+                question: "The reservation of seats to women, SC, and ST in panchayats was provided by.",
+                options: ["Sikkim Panchayat Act 1982", "Sikkim Panchayat Act 1993", "Sikkim Panchayat (Amendment) Act 1995", "Sikkim Panchayat (Amendment) Act 2007"],
+                answer: 1
+            },
+            {
+                question: "What percentage of seats was reserved for women by SPA 1993?",
+                options: ["25 per cent", "30 per cent", "33 per cent", "40 per cent"],
+                answer: 2
+            },
+            {
+                question: "Name the Panchayat Act which extended reservation to OBCs in Sikkim.",
+                options: ["Sikkim Panchayat Act 1993", "Sikkim Panchayat (Amendment) Act 1995", "Sikkim Panchayat (Amendment) Act 1997", "Sikkim Panchayat (Amendment) Act 2005"],
+                answer: 1
+            },
+            {
+                question: "Which Panchayat Act allowed the open participation of Political party in Panchayat election?",
+                options: ["Sikkim Panchayat (Amendment) Act 1995", "Sikkim Panchayat (Amendment) Act 1997", "Sikkim Panchayat (Amendment) Act 2005", "Sikkim Panchayat (Amendment) Act 2007"],
+                answer: 1
+            },
+            {
+                question: "When was the first time the party-based panchayat election held in Sikkim?",
+                options: ["1993", "1995", "1997", "2002"],
+                answer: 2
+            },
+            {
+                question: "What is the quorum of Gram Sabha meeting in Sikkim?",
+                options: ["1/3 of total members", "1/4 of total members", "1/10 of total members", "1/2 of total members"],
+                answer: 2
+            },
+            {
+                question: "What is the quorum of Ward Sabha meeting in Sikkim?",
+                options: ["1/3 of total members", "1/4 of total members", "1/10 of total members", "1/5 of total members"],
+                answer: 1
+            },
+            {
+                question: "Which Panchayat Act has raised the reservation of seats for women from 33 to 40 per cent?",
+                options: ["Sikkim Panchayat (Amendment) Act 1997", "Sikkim Panchayat (Amendment) Act 2005", "Sikkim Panchayat (Amendment) Act 2007", "Sikkim Panchayat (Amendment) Act 2012"],
+                answer: 2
+            },
+            {
+                question: "Which Panchayat Act has allowed the Limbu and Tamang communities to contest the panchayat election from ST reserved seats?",
+                options: ["Sikkim Panchayat (Amendment) Act 1995", "Sikkim Panchayat (Amendment) Act 2005", "Sikkim Panchayat (Amendment) Act 2007", "Sikkim Panchayat (Amendment) Act 2012"],
+                answer: 2
+            },
+           
+            {
+                question: "Which district of Sikkim has the highest number of GPU?",
+                options: ["East District", "West District", "North District", "South District"],
+                answer: 1
+            },
+            {
+                question: "When was the Block Administrative Centre (BAC) in Sikkim set up?",
+                options: ["2002", "2004", "2006", "2008"],
+                answer: 2
+            },
+            {
+                question: "Presently, how many BACs are there in Sikkim?",
+                options: ["25", "34", "35", "40"],
+                answer: 1
+            },
+            {
+                question: "Name the first organized political party of Sikkim.",
+                options: ["Sikkim National Congress", "Sikkim Praja Mandal", "Sikkim State Congress", "Sikkim Janta Parishad"],
+                answer: 2
+            },
+            {
+                question: "In which year the Sikkim State Congress was formed?",
+                options: ["1945", "1947", "1950", "1952"],
+                answer: 1
+            },
+            {
+                question: "The Sikkim State Congress was formed by merging three political organizations. Give the name of the organizations?",
+                options: ["Praja Sudharak Samaj, Praja Sammelan and Praja Mandal", "Sikkim National Party, Praja Sammelan and Praja Mandal", "Praja Sudharak Samaj, Swatantra Dal and Praja Mandal", "Praja Sudharak Samaj, Praja Sammelan and Sikkim National Party"],
+                answer: 0
+            },
+            {
+                question: "Who were the founders of Praja Sudharak Samaj?",
+                options: ["Kazi Lhendup Dorji & Gobardhan Pradhan", "Tashi Tsering & Sonam Tsering", "Dhan Bahadur Tewari & R.C. Poudyal", "N.B. Bhandari & Sonam Tsering"],
+                answer: 1
+            },
+            {
+                question: "Name the founders of Praja Sammelan.",
+                options: ["Tashi Tsering & Sonam Tsering", "Kazi Lhendup Dorji & N.B. Khatiwada", "Gobardhan Pradhan & Dhan Bahadur Tewari", "L.B. Basnet & R.C. Poudyal"],
+                answer: 2
+            },
+            {
+                question: "Who were the founders of Praja Mandal?",
+                options: ["Kazi Lhendup Dorji Khangsarpa", "Tashi Tsering", "N.B. Bhandari", "L.B. Basnet"],
+                answer: 0
+            },
+            {
+                question: "Who was the President of Sikkim State Congress?",
+                options: ["Kazi Lhendup Dorji Khangsarpa", "Sonam Tsering", "Gobardhan Pradhan", "Tashi Tsering"],
+                answer: 3
+            },
+            {
+                question: "Who was the President of Swatantra Dal?",
+                options: ["Tashi Tsering", "Namgay Tshering", "L.B. Basnet", "Kazi Lhendup Dorji Khangsarpa"],
+                answer: 1
+            },
+            {
+                question: "In which year the Scheduled Caste League was formed?",
+                options: ["1955", "1958", "1960", "1962"],
+                answer: 1
+            },
+            {
+                question: "Who was the President of Sikkim National Congress?",
+                options: ["N.B. Bhandari", "L.B. Basnet", "Kazi Lhendup Dorji Khangsarpa", "R.C. Poudyal"],
+                answer: 2
+            },
+            {
+                question: "Who was the founder of Sikkim Independent Front?",
+                options: ["Mrs. Ruth Karthak Lepchani", "L.B. Basnet", "N.B. Bhandari", "Kazi Lhendup Dorji Khangsarpa"],
+                answer: 0
+            },
+            {
+                question: "In which year the Sikkim Congress merged with Indian National Congress?",
+                options: ["October 1972", "February 1973", "December 1975", "March 1977"],
+                answer: 2
+            },
+            {
+                question: "Who was the founder of Sikkim Janta Parishad?",
+                options: ["R.C. Poudyal", "L.B. Basnet", "Kazi Lhendup Dorji Khangsarpa", "N.B. Bhandari"],
+                answer: 3
+            },
+            {
+                question: "Who was the founder of Sikkim Congress (Revolutionary) party?",
+                options: ["N.B. Bhandari", "R.C. Poudyal", "L.B. Basnet", "N.B. Khatiwada"],
+                answer: 1
+            },
+            {
+                question: "Who was the President of Sikkim United Council?",
+                options: ["Kazi Lhendup Dorji Khangsarpa", "N.B. Bhandari", "R.C. Poudyal", "L.B. Basnet"],
+                answer: 0
+            },
+            {
+                question: "Who was the founder of the Gorkha League?",
+                options: ["L.B. Basnet", "R.C. Poudyal", "N.B. Khatiwada", "N.B. Bhandari"],
+                answer: 2
+            }
+        ];
+
+        const quizContainer = document.getElementById('quiz-container');
+
+        quizData.forEach((item, index) => {
+            // Create the main container for the question
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            // Create and add the question text
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.textContent = `${index + 1}) ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            // Create the options list
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+            
+            // Create and add each option
+            item.options.forEach((option, optionIndex) => {
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    // Prevent re-answering
+                    if (optionsList.classList.contains('answered')) {
+                        return;
+                    }
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+                    
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        // Highlight the correct answer
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+                
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            quizContainer.appendChild(questionBlock);
+        });
+
+    </script>
+</body>
+</html>

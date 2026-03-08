@@ -1,0 +1,3512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Others | Sikkim PSC Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        .quiz-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        html.dark .quiz-container {
+            background: #24272c;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #0284c7;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        html.dark .question-block {
+            border-bottom: 1px solid #334155;
+        }
+        .question-text {
+            font-size: 1.15em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+        html.dark .question-text {
+            color: #f1f5f9;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option {
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            padding: 16px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            color: #475569;
+        }
+        html.dark .option {
+            background-color: #1e293b;
+            border: 2px solid #334155;
+            color: #cbd5e1;
+        }
+        .option:hover {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
+            transform: translateX(4px);
+        }
+        html.dark .option:hover {
+            background-color: #334155;
+            border-color: #475569;
+        }
+        .option.correct {
+            background-color: #dcfce7 !important;
+            border-color: #4ade80 !important;
+            color: #166534 !important;
+        }
+        html.dark .option.correct {
+            background-color: #064e3b !important;
+            border-color: #10b981 !important;
+            color: #ecfdf5 !important;
+        }
+        .option.incorrect {
+            background-color: #fee2e2 !important;
+            border-color: #f87171 !important;
+            color: #991b1b !important;
+        }
+        html.dark .option.incorrect {
+            background-color: #7f1d1d !important;
+            border-color: #ef4444 !important;
+            color: #fef2f2 !important;
+        }
+        .options-list.answered {
+            pointer-events: none;
+        }
+        .quiz-stats-badge {
+            background: #f1f5f9;
+            color: #64748b;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        html.dark .quiz-stats-badge {
+            background: #334155;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 min-h-screen p-4 sm:p-8">
+
+    <div class="quiz-container">
+        <a href="physics.html" class="back-link">&larr; Back to Physics Topics</a>
+        <h1 class="text-3xl font-bold text-blue-800 dark:text-blue-400 mb-2">Others</h1>
+        <div class="quiz-stats-badge">662 MCQ Questions</div>
+        
+        <div id="questions-wrapper"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Radiocarbon is produced in the atmosphere as a result of",
+                options: ["Collision between fast neutrons and nitrogen nuclei present in the atmosphere.", "Action of ultraviolet light from the sun on atmospheric oxygen.", "Action of solar radiations particularly cosmic rays on carbon dioxide present in the atmosphere.", "Lightning discharge in atmosphere."],
+                answer: 0
+            },
+            {
+                question: "It is easier to roll a stone up a sloping road than to lift it vertical upwards because",
+                options: ["Work done in rolling is more than in lifting.", "Work done in lifting the stone is equal to rolling it.", "Work done in both is same but the rate of doing work is less in rolling.", "Work done in rolling a stone is less than in lifting it."],
+                answer: 3
+            },
+            {
+                question: "The absorption of ink by blotting paper involves:",
+                options: ["Viscosity of ink", "Capillary action phenomenon", "Diffusion of ink through the blotting", "Siphon action"],
+                answer: 1
+            },
+            {
+                question: "Mirage is due to:",
+                options: ["Unequal heating of different parts of the atmosphere", "Magnetic disturbances in the atmosphere", "Depletion of ozone layer in the atmosphere", "Equal heating of different parts of the atmosphere"],
+                answer: 0
+            },
+            {
+                question: "Stars appears to move from east to west because",
+                options: ["All stars move from east to west", "The earth rotates from west to east", "The earth rotates from east to west", "The background of the stars moves from west to east"],
+                answer: 1
+            },
+            {
+                question: "Planets do not twinkle because",
+                options: ["They emit light of a constant intensity", "Their distance from the earth does not  change with time", "They are very far away from the earth resulting in decrease in intensity of light", "They are nearer to earth and hence we receive a greater amount of light."],
+                answer: 3
+            },
+            {
+                question: "Metals are good conductors of electricity because:",
+                options: ["They contain free electrons.", "The atoms are lightly packed.", "They have high melting point.", "All of the above."],
+                answer: 0
+            },
+            {
+                question: "Let a thin capillary tube be replaced with another tube of insufficient length then, we find water",
+                options: ["will overflow", "will not rise", "depressed", "change its meniscus"],
+                answer: 1
+            },
+            {
+                question: "Rectifiers are used to convert:",
+                options: ["Direct current to Alternating current", "Alternating current to Direct current", "High voltage to low voltage", "Low voltage to high voltage"],
+                answer: 1
+            },
+            {
+                question: "It is more difficult to walk on a sandy road than on a concrete road because",
+                options: ["sand is soft and concreter is hard.", "the friction between sand and feet is less than that between concrete and feet.", "the friction between sand and feet is more than that between concrete and feet.", "the sand is grainy but concrete is smooth."],
+                answer: 1
+            },
+            {
+                question: "On a rainy day, small oil films on water show brilliant colours. This is due to",
+                options: ["dispersion", "interference", "diffraction", "polarization"],
+                answer: 1
+            },
+            {
+                question: "Materials for rain-proof coats and tents owe their water-proof properties to",
+                options: ["surface tension", "viscosity", "specific gravity", "elasticity"],
+                answer: 0
+            },
+            {
+                question: "RADAR is used for:",
+                options: ["locating submerged submarines.", "receiving a signals in a radio receiver.", "locating geostationary satellites.", "detecting and locating the position of objects such as Aeroplanes."],
+                answer: 3
+            },
+            {
+                question: "On a clean glass plate a drop of water spreads to form a thin layer whereas a drop of mercury remains almost spherical because:",
+                options: ["mercury is a metal.", "density of mercury is greater than that of water.", "cohesion of mercury is greater than its adhesion with glass.", "cohesion of water is greater than its adhesion with glass."],
+                answer: 2
+            },
+            {
+                question: "Stars twinkle because",
+                options: ["the intensity of light emitted by them changes with time.", "the distance of the stars from the earth changes with time.", "the refractive index of the different layers of the earth's atmosphere changes continuously.", "None of these"],
+                answer: 2
+            },
+            {
+                question: "It takes much longer to cook food in the hills than in the plains, because",
+                options: ["in the hills the atmospheric pressure is lower than that in the plains and therefore water boils at a temperature lower than 100oC causing an increase in cooking time", "due to low atmospheric pressure on the hills, the water boils at a temperature higher than 100oC and therefore water takes longer to boil", "in the hills the atmospheric density is low and therefore a lot of heat is lost to the atmosphere", "in the hills the humidity is high and therefore a lot of heat is absorbed by the atmosphere leaving very little heat for cooking"],
+                answer: 0
+            },
+            {
+                question: "Of the following natural phenomena, tell which one known in Sanskrit as 'deer's thirst'?",
+                options: ["Rainbow", "Earthshine", "Halo", "Mirage"],
+                answer: 3
+            },
+            {
+                question: "Inside an aeroplane, flying at a high altitude,",
+                options: ["the pressure is the same as that outside.", "normal atmospheric pressure is maintained by the use of air pumps.", "the pressure inside is less than the pressure outside.", "normal humidity and partial vacuum are maintained."],
+                answer: 1
+            },
+            {
+                question: "One thousand microns is equal to",
+                options: ["10-3m", "10-6m", "10-9m", "10-12m"],
+                answer: 0
+            },
+            {
+                question: "Oil raise up the wick in a lamp. The principle involves",
+                options: ["the diffusion of oil through the wick", "the liquid state of oil", "capillary action phenomenon", "volatility of oil"],
+                answer: 2
+            },
+            {
+                question: "Superconductors are substances which",
+                options: ["conduct electricity at low temperature", "offer high resistance to the flow of current", "offer no resistance to the flow of electricity", "conduct electricity at high temperatures"],
+                answer: 2
+            },
+            {
+                question: "Railway tracks are banked on curves",
+                options: ["necessary centrifugal force may be obtained from the horizontal component weight of the train", "to avoid frictional force between the tracks and wheels", "necessary centripetal force may be obtained from the horizontal component of the weight of the train", "the train may not fly off in the opposite direction"],
+                answer: 2
+            },
+            {
+                question: "Radio telescopes are better than optical telescopes because",
+                options: ["they can detect faint galaxies which no optical telescope can", "they can work even in cloudy conditions", "they can work during the day and night", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "Mercury is commonly used as a thermometric fluid rather than water because",
+                options: ["specific heat of mercury is less than water", "specific heat of mercury is more than water", "mercury has greater visibility than water", "density of mercury is more than the water"],
+                answer: 2
+            },
+            {
+                question: "Optical  fibre works on the",
+                options: ["principle of refraction", "total internal reflection", "scattering", "interference"],
+                answer: 1
+            },
+            {
+                question: "Supersonic plane fly with the speed",
+                options: ["less than the speed of sound", "of sound", "greater than the speed of sound", "of light"],
+                answer: 2
+            },
+            {
+                question: "Mach number is used in connection with the speed of",
+                options: ["sound", "aircraft", "spacecraft", "ships"],
+                answer: 1
+            },
+            {
+                question: "On a stationary sail boat, air is blown from a fan attached to the boat. The boat",
+                options: ["moves in opposite direction in which the air is blown", "does not move", "moves in the same direction in which air blows", "spins around"],
+                answer: 1
+            },
+            {
+                question: "Rainbow is due to",
+                options: ["absorption of sunlight in minute water droplets", "diffusion of sunlight through water droplets", "ionisation of water deposits", "refraction and reflection of sunlight by water droplets"],
+                answer: 3
+            },
+            {
+                question: "ML2T-2is the dimensional formula for",
+                options: ["moment of inertia", "pressure", "elasticity", "couple acting on a body"],
+                answer: 3
+            },
+            {
+                question: "Isotopes of an element contain",
+                options: ["the same number of protons but different number of neutrons", "the same number of neutrons but different number of protons", "equal number of protons and electrons", "equal number of nucleons"],
+                answer: 0
+            },
+            {
+                question: "One watt-hour is equivalent to",
+                options: ["6.3 x 103J", "6.3 x 10-7J", "3.6 x 103J", "3.6 x 10-3J"],
+                answer: 2
+            },
+            {
+                question: "In which of the following industries is mica as a raw material?",
+                options: ["Cement", "Glass and Pottery", "Iron and Steel", "Electrical"],
+                answer: 3
+            },
+            {
+                question: "Radiocarbon dating technique is used to estimate the age of",
+                options: ["rocks", "monuments", "soil", "fossils"],
+                answer: 3
+            },
+            {
+                question: "Large astronomical telescopes always use as objective",
+                options: ["lens", "mirror", "combinations of lenses", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "Natural radioactivity was discovered by",
+                options: ["Marie Curie", "Ernest Rutherfor", "Henri Becquerel", "Enrico Fermi"],
+                answer: 2
+            },
+            {
+                question: "Planets are",
+                options: ["luminous heavenly bodies revolving around a star", "non-luminous heavenly bodies", "luminous heavenly bodies that twinkle", "luminous heavenly bodies that do not twinkle"],
+                answer: 1
+            },
+            {
+                question: "One nanometer is equal to",
+                options: ["10-6m", "10-8m", "10-9m", "10-5m"],
+                answer: 2
+            },
+            {
+                question: "It is easier to roll a barrel full of coal tar than to pull it because",
+                options: ["the full weight of the barrel comes into play when it is pulled", "the rolling friction is much less than the sliding friction", "more surface area of the barrel is in contact with the road when it is pulled", "coal tar is a liquid and it flows in the barrel when it is rolled"],
+                answer: 1
+            },
+            {
+                question: "Minimum number of unequal vectors which can give zero resultant are",
+                options: ["two", "three", "four", "more than four"],
+                answer: 1
+            },
+            {
+                question: "Rain is falling vertically downwards. To a man running east-wards, the rain will appear to be coming from",
+                options: ["east", "west", "northeast", "southeast"],
+                answer: 0
+            },
+            {
+                question: "A Fuse wire is characterised by",
+                options: ["High resistance and low melting point", "High resistance and high melting point", "Low resistance and high melting point", "Low resistance and low melting point"],
+                answer: 0
+            },
+            {
+                question: "When the main switch of the house is put off it disconnects the",
+                options: ["Live wire only", "Live wire and the earth wire", "Live wire and the neutral wire", "Earth wire and the neutral wire"],
+                answer: 2
+            },
+            {
+                question: "What is the value of 1 kW = ?",
+                options: ["1000 W", "10 W", "100 W", "10000 W"],
+                answer: 0
+            },
+            {
+                question: "Working of safety fuses depends upon1. magnetic effect of the current2. chemical effect of the current3. magnitude of the current4. heating effect of the currentSelect the correct answer using the code given below.",
+                options: ["1, 2, 3 and 4", "1, 2 and 3 only", "3 and 4 only", "4 only"],
+                answer: 2
+            },
+            {
+                question: "During thunderstorm you are travelling in a car. To protect yourself from the lightning you will have to",
+                options: ["Remain in the car", "Get out of the car and lie flat in the ground", "Abandon the car and take shelter under a nearby tree", "Touch the nearest electric pole"],
+                answer: 0
+            },
+            {
+                question: "Safety fuse wire used in domestic electrical appliances is made of metal of low",
+                options: ["Resistance", "Melting point", "Specific gravity", "Conductance"],
+                answer: 1
+            },
+            {
+                question: "The earth-wire of a cable is connected to",
+                options: ["The outer metallic body of the appliance", "The fuse of the appliance", "The filament of the appliance", "Short circuitry of the appliance"],
+                answer: 1
+            },
+            {
+                question: "Lightning is caused due to",
+                options: ["Electric power", "Electric discharge", "Electric leak", "Electric pressure"],
+                answer: 1
+            },
+            {
+                question: "Lightning is produced when",
+                options: ["Similar charges of electricity rush towards each other and then get repelled", "Clouds strike against impurities in air and the friction burns up these impurities", "Strong opposite charges in different clouds break down the resistance offered by the intervening air", "Water vapour produces electricity in the clouds"],
+                answer: 2
+            },
+            {
+                question: "The metal used to make lightning conductors is",
+                options: ["Iron", "Aluminium", "Copper", "Zinc"],
+                answer: 2
+            },
+            {
+                question: "One Kilowatt hour is equal to -",
+                options: ["3.6 Mega Joule", "3.8 Mega Joule", "3.2 Mega Joule", "4.0 Mega Joule"],
+                answer: 0
+            },
+            {
+                question: "Materials that usually are good conductors of electricity?",
+                options: ["Aluminium", "Lead", "Nickel", "Wood"],
+                answer: 0
+            },
+            {
+                question: "The metal whose electrical conductivity is more, is",
+                options: ["Copper", "Aluminium", "Silver", "Lead"],
+                answer: 2
+            },
+            {
+                question: "Fuse wire is made of an alloy of",
+                options: ["Tin and Lead", "Tin and Copper", "Lead and Copper", "Copper and Silver"],
+                answer: 0
+            },
+            {
+                question: "The nature of fuse wire is",
+                options: ["High resistance and low melting point.", "High resistance and high melting point.", "Low resistance and high melting point.", "Low resistance and low melting point."],
+                answer: 0
+            },
+            {
+                question: "The wall of a dam is broader at the base",
+                options: ["Because streamlining is required", "To withstand pressure that increases with depth", "To withstand pressure that increases in a horizontal plane", "To withstand pressure that is increased with atmospheric pressure"],
+                answer: 1
+            },
+            {
+                question: "The spokes used in the wheel of a bicycle increase its",
+                options: ["Moment of inertia", "Velocity", "Acceleration", "Momentum"],
+                answer: 0
+            },
+            {
+                question: "It is difficult to cook rice",
+                options: ["At the top of a mountain", "At the sea level", "Under a mine", "Same anywhere"],
+                answer: 0
+            },
+            {
+                question: "To open a door easily, the handle should be fixed",
+                options: ["Near the hinges", "Away from mid-point opposite to hinges", "In the middle", "None of these"],
+                answer: 3
+            },
+            {
+                question: "One bar is equal to",
+                options: ["103Pa", "106Pa", "105Pa", "104Pa"],
+                answer: 2
+            },
+            {
+                question: "The weakest of all fundamental forces is",
+                options: ["Gravitational force", "Electrostatic force", "Magnetic force", "Nuclear force"],
+                answer: 0
+            },
+            {
+                question: "It is more difficult to walk on ice than on a concrete road because",
+                options: ["There is very little friction between the ice and feet pressing it", "Ice is soft when compared to concrete", "There is more friction between the ice and feer", "None of these"],
+                answer: 0
+            },
+            {
+                question: "A ball rolling along the ground gradually slows down and finally comes to rest is due to ________",
+                options: ["Friction", "Magnetic force", "Electrostatic force", "Muscular force"],
+                answer: 0
+            },
+            {
+                question: "Vehicle tyres are inflated properly",
+                options: ["To ensure smooth running.", "To allow the vehicle to take more load.", "To avoid skidding and to minimise friction", "To go fast and save fuel."],
+                answer: 2
+            },
+            {
+                question: "Ball bearings are used in cycles, scooters etc to",
+                options: ["Increase the friction between the wheel and the axle", "Reduce the friction between the wheel and the axle", "Reduce the friction between ground and the whee", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "In a railway track, two rails are joined end to end with a gap in between them because",
+                options: ["Steel can be saved", "Accidents due to contraction in winter can be avoided", "Air-gaps are necessary for bearing the weight of running train", "Accidents due to expansion in summer can be avoided"],
+                answer: 3
+            },
+            {
+                question: "Air coolers are more suitable for",
+                options: ["Hot and humid climate", "Hot and dry climate", "Cool and humid climate", "Cool and dry climate"],
+                answer: 1
+            },
+            {
+                question: "We feel cool when we sit near the fan, this is because",
+                options: ["Fan gives cool air.", "Fan cools surrounding air.", "Air vapourises the sweat on our body.", "We feel cool when air touches the body."],
+                answer: 2
+            },
+            {
+                question: "When hot-water is sprinkled on a hotter glass tumbler, it breaks because",
+                options: ["Glass suddenly expands", "Glass suddenly contracts", "Water evaporates", "Glass reacts chemically with water"],
+                answer: 1
+            },
+            {
+                question: "A gap is left between two rails of a railway track to accommodate...... of the metal.",
+                options: ["Areal expansion", "Volume expansion", "Linear expansion", "Apparent expansion"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is arranged in order of decreasing conductivity?",
+                options: ["Copper, Aluminium, Steel, Silver", "Aluminium, Silver, Copper, Steel", "Copper, Silver, Aluminium, Steel", "Silver, Copper, Aluminium, Steel"],
+                answer: 3
+            },
+            {
+                question: "Every hot object emits ________",
+                options: ["X\u2013rays", "Visible light", "Infrared rays", "Ultraviolet rays"],
+                answer: 2
+            },
+            {
+                question: "Mud houses are cooler in summers and warmer in winters as compared to brick houses because",
+                options: ["Mud is a good conductor", "Mud is a bad conductor", "Mud is a poor insulator", "Evaporation of water causes cooling in summers and sunlight coming through holes causes warming in winters"],
+                answer: 1
+            },
+            {
+                question: "During hot weather, the fan produces a feeling of comfort. This is because",
+                options: ["Fan supplies cool air", "Fan cools the air", "Our perspiration eva-porates rapidly", "Conductivity of air increases"],
+                answer: 2
+            },
+            {
+                question: "Formation of shadows can be explained by",
+                options: ["Rectilinear propagation of light", "Reflection", "Refraction", "Total internal reflection"],
+                answer: 0
+            },
+            {
+                question: "Which is an example of Phototropism?",
+                options: ["Roots of a plant following water", "Plant bending toward the light", "Roots growing into the soil", "A venus flytrap capturing a fly"],
+                answer: 1
+            },
+            {
+                question: "Eclipses occur due to which optical phenomena?",
+                options: ["Reflection", "Refraction", "Rectilinear propagation", "Diffraction"],
+                answer: 2
+            },
+            {
+                question: "When a bottle of scent is kept open in a corner of a room its odour is felt in all parts of the room. This is due to the phenomenon of :",
+                options: ["Evaporation", "Vaporisation", "Diffusion", "Sublimation"],
+                answer: 2
+            },
+            {
+                question: "Vegetables are cooked in lesser time by adding a pinch of salt while cooking because",
+                options: ["Boiling point of water increases", "Latent heat of vaporization of water decreases", "Latent heat of vaporization of water increases", "Boiling point of water decreases"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is not an aerosol?",
+                options: ["Mud", "Dust", "Smoke", "Fog"],
+                answer: 0
+            },
+            {
+                question: "Solids have definite shapes.This is because",
+                options: ["The forces of cohesion of the molecules within are very much less in them", "The forces of cohesion are very large", "The forces of adhesion are large", "The forces of adhesion are less"],
+                answer: 1
+            },
+            {
+                question: "When heated from 0 to 100oC volume of a given mass of water will :",
+                options: ["Increase gradually", "Decrease gradually", "Increase and then will decrease", "Decrease and then will increase"],
+                answer: 3
+            },
+            {
+                question: "When a bottle of perfume is opened in one corner of a room the smell spreads soon throughout the room. This is an example of",
+                options: ["Surface tension", "Capillarity", "Viscosity", "Diffusion"],
+                answer: 3
+            },
+            {
+                question: "The cause for the Tsunami, as deduced by the seismologists, is",
+                options: ["Gravitational pull of the moon", "Low pressure trough in the ocean", "Deformation of sea floor and vertical displacement of water", "Sudden change in the monsoon wind"],
+                answer: 2
+            },
+            {
+                question: "Which statement best describes an igneous intrusion?",
+                options: ["Igneous intrusion for when ice crystals splash into lava", "Magma is injected into surrounding rock forming an igneous intrusive", "Magma is exported to an open area and forms iron", "Magma explodes to the surface and forms a smooth outer layer of rock"],
+                answer: 1
+            },
+            {
+                question: "Which is a common first indicator of an approaching thunderstorm?",
+                options: ["Too hot", "Heavy wind", "A buildup of dark clouds", "Lightning"],
+                answer: 2
+            },
+            {
+                question: "Lightning heats the surrounding air to",
+                options: ["300 deg Cent", "3000 deg Cent", "30000 deg Cent", "300000 deg Cent"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is not an intrusive igneous body?",
+                options: ["Stock", "Dike", "Stope", "Batholith"],
+                answer: 2
+            },
+            {
+                question: "The instrument for measuring intensity of earthquakes is called",
+                options: ["Ediograph", "Pantagraph", "Ergograph", "Seismograph"],
+                answer: 3
+            },
+            {
+                question: "An instrument that records earthquakes is",
+                options: ["Ergograph", "Ediograph", "Thermograph", "Seismograph"],
+                answer: 3
+            },
+            {
+                question: "What is the full form of \"RADAR\" ?",
+                options: ["Radio Detecting and Ranging", "Region Device and Ranging", "Radio Detect and Rangs", "Radio Device and Ranging"],
+                answer: 0
+            },
+            {
+                question: "What apparatus is used to locate a submerged object?",
+                options: ["Radar", "Sonar", "Quasar", "Pulsar"],
+                answer: 1
+            },
+            {
+                question: "A decibel is",
+                options: ["A musical instrument", "The wavelength of noise", "A musical note", "A measure of sound level"],
+                answer: 3
+            },
+            {
+                question: "Acceptable noise level for human ear",
+                options: ["> 85 db", "= 85 db", "< 85 db", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "Decibel is a term connected with :",
+                options: ["Air", "Water", "Sound", "Soil"],
+                answer: 2
+            },
+            {
+                question: "Compressions and Rarefactions are characteristic of",
+                options: ["Longitudinal waves", "Transverse waves", "Both A & B", "Neither of A & B"],
+                answer: 0
+            },
+            {
+                question: "Noise is measured in",
+                options: ["Watt", "REM", "Centigrade", "Decibel"],
+                answer: 3
+            },
+            {
+                question: "Instrument used to study the behaviour of a vibrating string is :",
+                options: ["Barometer", "Hydrometer", "Hygrometer", "Sonometer"],
+                answer: 3
+            },
+            {
+                question: "The intensity ratio of waves is 25 : 9. What is the ratio of their amplitudes?",
+                options: ["50 : 18", "25 : 9", "3 : 5", "5 : 3"],
+                answer: 3
+            },
+            {
+                question: "Quality of a musical note depends on",
+                options: ["Fundamental frequency", "Amplitude of the wave", "Harmonics present", "Velocity of sound in the medium"],
+                answer: 2
+            },
+            {
+                question: "The colours of stars depend on their",
+                options: ["Temperature", "Distance", "Radius", "Atmospheric pressure"],
+                answer: 0
+            },
+            {
+                question: "Materials that allow electricity to flow are called",
+                options: ["Insulators", "Conductors", "Electron flows", "Stimulators"],
+                answer: 1
+            },
+            {
+                question: "The fundamental scientific principle in the operation of battery is",
+                options: ["Acid-base interaction", "Dialysis", "Dissociation of electrolytes", "Oxidation-reduction"],
+                answer: 2
+            },
+            {
+                question: "Electrical burns occur principally because of",
+                options: ["Radiation pulses of the electricity", "The heat generated by the flow of electrical current through the body", "The high energy of electrons", "All of the above"],
+                answer: 1
+            },
+            {
+                question: "Fish and other aquatic creatures can live inside a deep frozen pond because",
+                options: ["Fish are cold-blooded animals", "Ice is a bad conductor of heat", "There will always be water just beneath the ice level", "They can adapt themselves to live in ice"],
+                answer: 2
+            },
+            {
+                question: "Lakes freeze in cold countries in winter, leaving the water underneath at",
+                options: ["0\u00b0C", "0\u00b0F", "4\u00b0C", "4\u00b0F"],
+                answer: 2
+            },
+            {
+                question: "A small gap is left at the joints of rails in a railway track to",
+                options: ["Avoid the tracks being distorted due to seasonal temperature variation", "Avoid the heating of tracks to high temperature", "Control the speed of train", "Keep the rails equidistant"],
+                answer: 0
+            },
+            {
+                question: "Pipelines in cold countries often burst in winter, because",
+                options: ["Water freezes and expands in its volume", "Temperature of ice is less than that of water", "Pipelines contract in their volume", "Pipelines expand due to freezing"],
+                answer: 0
+            },
+            {
+                question: "In severe winter, in cold countries water pipes burst because",
+                options: ["Water expands on freezing", "Contraction of water pipes", "High atmospheric pressure", "Combined effect of all the above three"],
+                answer: 0
+            },
+            {
+                question: "Railway tracks are banked on curves so that",
+                options: ["Necessary centrifugal force may be obtained from the horizontal component of the weight of the train", "No frictional force may be produced between the tracks and the wheels of the train", "Necessary centripetal force may be obtained from the horizontal component of the weight of the train", "The train may not fall down inwards"],
+                answer: 2
+            },
+            {
+                question: "Thermocouple consists of",
+                options: ["Two dissimilar metals", "Two similar metals", "Metal and a semiconductor", "Metal and an insulator"],
+                answer: 0
+            },
+            {
+                question: "Why does ice covered in sawdust not melt quickly ?",
+                options: ["Sawdust does not allow the air to touch the ice", "The water is absorbed by sawdust", "Sawdust is a bad conductor of heat", "Sawdust is good conductor of heat"],
+                answer: 2
+            },
+            {
+                question: "Ice is packed in saw dust because",
+                options: ["Saw dust will not get melted easily.", "Saw dust is poor conductor of heat.", "Saw dust is a good conductor of heat.", "Saw dust does not stick to the ice."],
+                answer: 1
+            },
+            {
+                question: "In general, which is the cause of a sea breeze?",
+                options: ["Pressure", "Specific heat", "Heat", "All the above"],
+                answer: 1
+            },
+            {
+                question: "Outside of cooking utensils are generally left black from below because",
+                options: ["It is difficult to clean daily.", "Black surface is a good conductor of heat.", "Black surface is a poor conductor of heat.", "Black surface is a good absorber of heat."],
+                answer: 3
+            },
+            {
+                question: "A white and smooth surface is",
+                options: ["Good absorber and good reflector of heat", "Bad absorber and good reflector of heat", "Good absorber and bad reflector of heat", "Bad absorber and bad reflector of heat"],
+                answer: 1
+            },
+            {
+                question: "The atmosphere is heated mainly by",
+                options: ["Insolation", "Conduction", "Radiation", "Convection"],
+                answer: 2
+            },
+            {
+                question: "Woollen cloth protects the body from cold because",
+                options: ["It is a good conductor of heat", "It is a poor conductor of heat", "External heat rays enter into the body through the woollen cloth", "It reflects heat"],
+                answer: 1
+            },
+            {
+                question: "Hot water is poured simultaneously in four metallic tumblers painted outside with different paints. After some time the water will be found to have cooled most in the tumbler painted.",
+                options: ["Rough white", "Rough black", "Shining white", "Shining black"],
+                answer: 1
+            },
+            {
+                question: "Hot water is poured simultaneously in four metallic tumblers painted outside with different points. After some time the water will be found to have cooled most in the tumbler painted.",
+                options: ["Rough white", "Rough black", "Shining white", "Shining black"],
+                answer: 1
+            },
+            {
+                question: "Which of the following criterion is used for any metal to be used as a cooking material ?",
+                options: ["More specific heat", "More thermal conductivity", "Less thermal conductivity", "Less electrical conductivity"],
+                answer: 1
+            },
+            {
+                question: "Ocean currents are an example of",
+                options: ["Convection", "Conduction", "Insulation", "Radiation"],
+                answer: 0
+            },
+            {
+                question: "Ventilators are provided near the ceiling of the room because",
+                options: ["The exhaled warmer air rises up and goes out", "These provide cross ventilation in the room", "These provide some sunlight in the room", "These do not look nice in the lower part"],
+                answer: 1
+            },
+            {
+                question: "Wollen clothes keep the body warm because",
+                options: ["Wool increases the temperature of the body", "Wool is a bad conductor", "Wool absorbs radiant heat from outer objects", "Wool rejects heat from the outer objects"],
+                answer: 1
+            },
+            {
+                question: "Plants are dried up in winter due to frost because",
+                options: ["Evaporation does not take place", "Photosynthesis does not take place at such low temperature", "Respiration does not take place at low temperature", "There is mechanical loss of tissues and drought condition prevails"],
+                answer: 3
+            },
+            {
+                question: "In general, which is the cause of a land breeze?",
+                options: ["Pressure", "Heat", "Temperature", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "A black body can absorb radiations of :",
+                options: ["Lower wavelengths only", "Intermediate wavelengths only", "Higher wavelengths only", "All wavelengths"],
+                answer: 3
+            },
+            {
+                question: "A stone floor feels cold to the bare feet but a carpet on the same floor feels warm. This is because",
+                options: ["The floor and carpet are at different temperatures", "The stone conveys the heat away from the feet more rapidly than the carpet", "The carpet is a better conductor of heat than the stone", "The human body maintains a constant temperature"],
+                answer: 1
+            },
+            {
+                question: "Global warming is expected to result in",
+                options: ["Increase in level of sea", "Change in crop pattern", "Change in coast line", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "Why two thin shirts can keep us warmer than a single thick shirt in winter ?",
+                options: ["Two thin shirts become thicker so prevent transmission of heat", "Air layer between two shirts works as good conductor", "Air layer between two shirts behaves like insulating media", "No radiation of heat takes place"],
+                answer: 2
+            },
+            {
+                question: "When a ring of metal is heated what happens to its hole ?",
+                options: ["Expands", "Contracts", "It expands or contracts according to its diameter", "It expands or contracts according to its coefficient of expansion"],
+                answer: 0
+            },
+            {
+                question: "The earth is a",
+                options: ["Good reflector of heat", "Non-absorber of heat", "Good absorber and good radiator of heat", "Bad absorber and bad radiator of heat"],
+                answer: 2
+            },
+            {
+                question: "The word ''insolation' means",
+                options: ["Matters which insulate", "Incoming solar radiation", "Insoluble matters", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "When does land breeze occur?",
+                options: ["Fall", "Winter", "Both A & B", "Hot summer"],
+                answer: 2
+            },
+            {
+                question: "The cooling by a desert Cooler is based on:",
+                options: ["Hot air replacement", "Air dehydration", "Evaporative Cooling", "Air Rehydration"],
+                answer: 2
+            },
+            {
+                question: "When a bullet is fired from a gun",
+                options: ["The gun moves forward", "The gun jumps up", "The gun does not move", "The gun recoils with the same momentum as the bullet"],
+                answer: 3
+            },
+            {
+                question: "An athlete runs before long jump to get advantage on",
+                options: ["Inertia of motion", "Frictional force", "Moment of a force", "Principle of moments"],
+                answer: 0
+            },
+            {
+                question: "When a card placed over a tumbler is flicked with the finger, the coin placed over it falls in the tumbler.",
+                options: ["Law of conservation of energy", "Newton's third law of motion", "Law of Inertia", "Law of conservation of momentum"],
+                answer: 2
+            },
+            {
+                question: "Why does a cannon recoil after firing ?",
+                options: ["Conservation of energy", "Backward thrust of gases produced", "Newton's third law of motion", "Newton's first law of motion"],
+                answer: 2
+            },
+            {
+                question: "An object at rest may have",
+                options: ["Momentum", "Potential energy", "Velocity", "Kinetic energy"],
+                answer: 1
+            },
+            {
+                question: "Rocket works on the principle of",
+                options: ["Newton's Third Law", "Newton's First Law", "Newton's Second Law", "Archimedes Principle"],
+                answer: 0
+            },
+            {
+                question: "A passenger standing in a bus is thrown outward when the bus takes a sudden turn. This happens due to",
+                options: ["Outward pull on him", "Inertia of motion", "Change in momentum", "Change in acceleration"],
+                answer: 1
+            },
+            {
+                question: "When a running car stops suddenly, the passengers tends to lean forward because of:",
+                options: ["Centrifugal force", "Inertia of rest", "Inertia of motion", "Gravitational force"],
+                answer: 2
+            },
+            {
+                question: "Who defined the law of gravitation ?",
+                options: ["Newton", "Archimedes", "Galileo", "Faraday"],
+                answer: 0
+            },
+            {
+                question: "It is difficult to fix a nail on a freely suspended wooden frame. Which law supports this statement?",
+                options: ["Law of inertia", "Newton's second law", "Newton's third law", "Pascal's law"],
+                answer: 2
+            },
+            {
+                question: "In the Earth, the weight of a body is maximum at the",
+                options: ["North Pole", "South Pole", "Equator", "Surface"],
+                answer: 3
+            },
+            {
+                question: "A person is hurt on kicking a stone due to",
+                options: ["Inertia", "Velocity", "Reaction", "Momentum"],
+                answer: 2
+            },
+            {
+                question: "When a body falls from an aeroplane, there is increase in its",
+                options: ["Kinetic energy", "Mass", "Acceleration", "Potential energy"],
+                answer: 2
+            },
+            {
+                question: "Which of the following never occurs singly in nature?",
+                options: ["Inertia", "Momentum", "Force", "Velocity"],
+                answer: 2
+            },
+            {
+                question: "For every action, there is an equal and opposite reaction, is Newton's",
+                options: ["First law", "Second law", "Third law", "Fourth law"],
+                answer: 2
+            },
+            {
+                question: "A boy sitting in an open car moving with the constant speed throws a ball straight up into the air. The ball falls",
+                options: ["Behind him", "In front of him", "Into his hand", "By his side"],
+                answer: 0
+            },
+            {
+                question: "While catching a ball, a player pulls down his hands to lower the\u2013",
+                options: ["Force", "Momentum", "Impulse", "Catching time"],
+                answer: 1
+            },
+            {
+                question: "Two stones of different masses are dropped simultaneously from the top of a building",
+                options: ["Smaller stone reaches the ground earlier", "Larger stone reaches the ground earlier", "Both the stones reach the ground at the same time", "Depends on the composition of the stone"],
+                answer: 2
+            },
+            {
+                question: "A man jumping out of a moving train is thrown",
+                options: ["Forward", "Backward", "Sideways", "None of these"],
+                answer: 0
+            },
+            {
+                question: "Magnetic keepers are used to protect magnets from :",
+                options: ["Earth's magnetic field", "Effect of other magnets", "Self-demagnetization", "Demagnetization due to heating"],
+                answer: 2
+            },
+            {
+                question: "Which among the following is the fundamental quantity ?",
+                options: ["Volume", "Time", "Velocity", "Force"],
+                answer: 1
+            },
+            {
+                question: "A bucket of water is hung from a spring balance. A piece of iron is suspended in the water without touching the sides or touching the bottom of the bucket. The reading of the spring balance",
+                options: ["Will increase", "Will decrease", "Does not change", "Varies with the increase of depth of the immersion of the iron piece"],
+                answer: 0
+            },
+            {
+                question: "1 amu is equivalent to",
+                options: ["1 eV", "931 eV", "931 KeV", "931 MeV"],
+                answer: 3
+            },
+            {
+                question: "1 m/s equals ________ km/hr",
+                options: ["5/16", "16/5", "18/5", "5/18"],
+                answer: 2
+            },
+            {
+                question: "The time period of a seconds pendulum is",
+                options: ["1 second", "2 seconds", "0.5 second", "1.5 second"],
+                answer: 1
+            },
+            {
+                question: "One billionth of a second is called",
+                options: ["Microsecond", "Picoseconds", "Millisecond", "Nanosecond"],
+                answer: 3
+            },
+            {
+                question: "Which one of the following is the value of one nanometer?",
+                options: ["10-7cm", "10-6cm", "10-4cm", "10-3cm"],
+                answer: 0
+            },
+            {
+                question: "If the length of a simple pendulum is halved then its period of oscillation is",
+                options: ["Doubled", "Halved", "Increased by a factor 2", "Decreased by a factor 2"],
+                answer: 3
+            },
+            {
+                question: "One nanometer is equal to ________ meters.",
+                options: ["10 raised to the power (-3)", "10 raised to the power (-6)", "10 raised to the power (-9)", "10 raised to the power (-12)"],
+                answer: 2
+            },
+            {
+                question: "The Length of the Day is determined in",
+                options: ["Length of the hours", "Length of the year", "Astronomical units", "Solar terms"],
+                answer: 2
+            },
+            {
+                question: "Which of the following pairs of physical quantities have the same dimensions?",
+                options: ["Force and Power", "Work and Power", "Work and Energy", "Momentum and Power"],
+                answer: 2
+            },
+            {
+                question: "A tennis ball machine serves a ball vertically into the air from a height of 2 feet, with an initial speed of 110 feet per second. After how many seconds does the ball attain its maximum height?",
+                options: ["2.87 sec", "3.44 sec", "4.65 sec", "5.41 sec"],
+                answer: 1
+            },
+            {
+                question: "Who is the first person to define speed",
+                options: ["Galileo", "Newton", "Kepler", "Ptolemy"],
+                answer: 0
+            },
+            {
+                question: "For an object, the state of rest is considered to be the state of ________ speed.",
+                options: ["Increasing", "Decrease", "Inverse", "Zero"],
+                answer: 3
+            },
+            {
+                question: "Formula for distance is",
+                options: ["Speed x time", "Time / speed", "Speed x acceleration", "Velocity / speed"],
+                answer: 0
+            },
+            {
+                question: "Which among the following is false about displacement?",
+                options: ["It can be positive, negative or zero", "Displacement is never greater than Distance", "Its SI unit is meter", "It is always positive"],
+                answer: 3
+            },
+            {
+                question: "Speed in a given direction is called",
+                options: ["Velocity", "Torque", "Acceleration", "Displacement"],
+                answer: 0
+            },
+            {
+                question: "Rate of change of displacement is known as ________",
+                options: ["Acceleration", "Velocity", "Speed", "Distance"],
+                answer: 1
+            },
+            {
+                question: "A man standing on a edge of a cliff throws a stone vertically upwards with a certain speed. He then throws another stone downwards with the same speed. Find the ratio of the speeds of the two stones when they hit the ground.",
+                options: ["1 : 1", "1 : 2", "1 : 4", "Cannot be found from the given information."],
+                answer: 0
+            },
+            {
+                question: "Weight of a body is maximum at the:",
+                options: ["Equator", "Pole", "Subtropics", "Tropics"],
+                answer: 1
+            },
+            {
+                question: "The atmospheric air is held to the Earth by :",
+                options: ["Gravity", "Winds", "Clouds", "Rotation of the Earth"],
+                answer: 0
+            },
+            {
+                question: "A parachute descends slowly whereas a stone dropped from the same height falls rapidly, because",
+                options: ["Stone is heavier than parachute", "Special mechanisms are present in parachute", "A parachute has a larger surface area and air resistance is more", "None of these"],
+                answer: 2
+            },
+            {
+                question: "Why does bleeding occur through the nose in high mountainous regions ?",
+                options: ["The pressure of blood in capillaries is greater than the outside pressure", "The pressure at high altitudes is greater than that on the plains", "The blood pressure of a person increases at high altitudes", "The blood pressure fluctuates and finally decreases drastically"],
+                answer: 2
+            },
+            {
+                question: "Which of the following instruments is used to measure humidity ?",
+                options: ["Kata Thermometer", "Anemometer", "Sling Psychrometer", "Clinical Thermometer"],
+                answer: 2
+            },
+            {
+                question: "Anemometer is an instrument meant for measuring ________",
+                options: ["Velocity", "Air masses", "Wind speed", "Temperature"],
+                answer: 2
+            },
+            {
+                question: "A fountain pen works on the principle of",
+                options: ["Flow of liquids from higher to lower potential", "Capillary action", "Bernoulli's principle", "Viscosity of liquids"],
+                answer: 1
+            },
+            {
+                question: "A barometer is kept inside a bell jar. Air is slowly pumped out of the jar.",
+                options: ["The mercury level starts rising", "The mercury level starts falling", "The mercury level does not change", "The bell jar breaks up"],
+                answer: 0
+            },
+            {
+                question: "Alcohol is more volatile than water because ________ is lower than water.",
+                options: ["Its boiling point", "Its density", "Its viscosity", "Its surface tension"],
+                answer: 0
+            },
+            {
+                question: "A manometer is used to measure",
+                options: ["Earthquake", "Pressure", "Temperature", "Density"],
+                answer: 1
+            },
+            {
+                question: "Anemometer is used to measure",
+                options: ["Wind direction", "Wind velocity", "Pressure gradient", "Wind speed and time"],
+                answer: 1
+            },
+            {
+                question: "The instrument used to measure the speed of the wind is",
+                options: ["Altimeter", "Anemometer", "Chronometer", "Dosimeter"],
+                answer: 1
+            },
+            {
+                question: "When the barometer reading dips suddenly, it is an indication of",
+                options: ["Hot weather", "Calm weather", "Storm", "Dry weather"],
+                answer: 2
+            },
+            {
+                question: "On which principle does the hydraulic lift works?",
+                options: ["Newton's law", "Pascal's law", "Archimedes's law", "Joule's law"],
+                answer: 1
+            },
+            {
+                question: "Why do birds not have respiratory trouble at the time of flying at high altitude ?",
+                options: ["Their lungs are very large", "They fly inactively", "They have extra air sacs", "They use less oxygen"],
+                answer: 2
+            },
+            {
+                question: "When a barometer reading suddenly recedes, it indicates that climate\u2013",
+                options: ["Will be very warm", "Will be extremely stormy", "Will remain cold", "Incessant rain for at least 48"],
+                answer: 1
+            },
+            {
+                question: "If a barometric reading is falling, this usually indicates what",
+                options: ["Increasing pressure", "Decreasing pressure", "No pressure", "None"],
+                answer: 1
+            },
+            {
+                question: "Reading of a barometer going down is an indication of",
+                options: ["Storm", "Rainfall", "Snow", "Intense heat"],
+                answer: 1
+            },
+            {
+                question: "Increased wind speed is accompanied by a reduced air ________",
+                options: ["Humidity", "Pressure", "Density", "Aridity"],
+                answer: 1
+            },
+            {
+                question: "Middle latitude cyclones are fueled by?",
+                options: ["Air high in the atmosphere", "Polar continental air masses", "Energy from falling precipitation", "All of the above"],
+                answer: 0
+            },
+            {
+                question: "Skating on ice is possible because",
+                options: ["The surface of ice is smooth", "Ice is cold", "The pressure on the ice due to skate melts the ice by lowering its melting point forming a thin film of water", "The pressure on the ice due to skate raises its melting point"],
+                answer: 2
+            },
+            {
+                question: "Why is it difficult to breathe at higher altitudes?",
+                options: ["Due to low air pressure", "Due to low temperature", "Due to ozone", "Due to high humidity"],
+                answer: 0
+            },
+            {
+                question: "The Hydraulic Break works on the principle of ________ .",
+                options: ["Pascal's Law", "Boyle's law", "Coulomb's law", "Bernouli's law"],
+                answer: 0
+            },
+            {
+                question: "What principle/law explains the working of the hydraulic brakes in automobiles ?",
+                options: ["Bernoulli's law", "Posieulle's principle", "Pascal's law", "Archimedes' principle"],
+                answer: 2
+            },
+            {
+                question: "Air moves from the region where the air ________",
+                options: ["Humidity is high to the region where the humidity is low", "Pressure is low to the region where the pressure is high", "Pressure is high to the region where the pressure is low", "Humidity is low to the region where the humidity is high"],
+                answer: 2
+            },
+            {
+                question: "The hydraulic brakes used in automobiles is a direct application of :",
+                options: ["Archimedes' principle", "Toricellian law", "Bernoulli's theorem", "Pascal's law"],
+                answer: 3
+            },
+            {
+                question: "For which of the following game, players must have the knowledge of Pascal's law?",
+                options: ["Climbing", "Paragliding", "Rafting", "Scuba diving"],
+                answer: 3
+            },
+            {
+                question: "Which process allows water to enter the atmosphere?",
+                options: ["Transpiration", "Respiration", "Condensation", "Evaporation"],
+                answer: 3
+            },
+            {
+                question: "When two similar sources vibrate with slightly different frequencies, a regular rise and fall occurs in the loudness of tone. This phenomenon is known as",
+                options: ["Doppler effect", "Beats", "Resonance", "Echo"],
+                answer: 1
+            },
+            {
+                question: "Permissible noise level at Residential area during night time is :",
+                options: ["45 dB (A)", "55 dB (A)", "75 dB (A)", "80 dB (A)"],
+                answer: 0
+            },
+            {
+                question: "Which waves cannot be transmitted through vacuum?",
+                options: ["Electromagnetic", "Light", "Sound", "Heat"],
+                answer: 2
+            },
+            {
+                question: "Submerged objects can be located using",
+                options: ["Radar", "Sonar", "Quasar", "Pulsar"],
+                answer: 1
+            },
+            {
+                question: "Echo is heard due to",
+                options: ["Refraction", "Scattering", "Reflection", "Interference"],
+                answer: 2
+            },
+            {
+                question: "A person standing on a railway platform listens to the whistles of arriving and departing trains. The whistle heard is",
+                options: ["The same in both cases in all respects", "Of higher intensity when train arrives", "Of higher pitch when train arrives", "Of higher pitch when train departs"],
+                answer: 2
+            },
+            {
+                question: "Echolocation is an adaptation bats use to",
+                options: ["Locate flowering plants", "Hunt insects in flight", "Find warm places for hibernation", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "Bats can sense obstacles because they produce",
+                options: ["Supersonic sound waves", "Ultrasonic sound waves", "Infrasonic sound waves", "Micro sound waves"],
+                answer: 1
+            },
+            {
+                question: "What is the minimum distance (in metres) required to hear an echo?",
+                options: ["10", "13", "17", "21"],
+                answer: 2
+            },
+            {
+                question: "The bats can fly in the dark because",
+                options: ["They can see the objects in darkness", "They have weak legs and are likely to be attacked by predators", "They generate flashes of light", "They generate ultrasonic sound waves"],
+                answer: 3
+            },
+            {
+                question: "The device used for locating submerged objects under sea is.",
+                options: ["Sonar", "Radar", "Laser", "Maser"],
+                answer: 0
+            },
+            {
+                question: "In mirrors the back surface is coated with a thin layer of :",
+                options: ["Mercury", "Silver", "Red oxide", "Silver nitrate"],
+                answer: 1
+            },
+            {
+                question: "The snow on the mountains does not melt all at once when it is heated by the sun because:",
+                options: ["It becomes very hard", "It reflects most of the heat from the sun", "It has a low specific heat capacity", "It has a high latent heat of fusion"],
+                answer: 1
+            },
+            {
+                question: "Cloudy nights are warmer compared to clear cloudless nights, because clouds mainly",
+                options: ["Absorb heat from the atmosphere send it towards earth", "Prevent cold waves from the sky descending on earth", "Reflect back the heat given by earth", "Produce heat and radiate it toward earth"],
+                answer: 2
+            },
+            {
+                question: "A mirage occurs because of",
+                options: ["Reflection by hot ground", "Total internal reflection by layers of air", "Interference of light", "Diffraction of light"],
+                answer: 1
+            },
+            {
+                question: "Optical fibres are based on the phenomenon of",
+                options: ["Interference", "Dispersion", "Diffraction", "Total Internal Reflection"],
+                answer: 3
+            },
+            {
+                question: "The angle between the ________ and the incident ray is called the angle of incidence.",
+                options: ["Surface", "Normal", "Tangent", "Reflected ray"],
+                answer: 1
+            },
+            {
+                question: "A periscope works by the principle of",
+                options: ["Total internal reflection", "Refraction", "Diffraction", "Reflection"],
+                answer: 0
+            },
+            {
+                question: "A periscope works on the principle of",
+                options: ["Refraction", "Total internal reflection", "Diffraction", "Reflection"],
+                answer: 1
+            },
+            {
+                question: "Optical Fibre technology works on which of these principles of Physics?",
+                options: ["Bernoulli's Principle", "Newton's law of Motion", "Total internal reflection of Light", "Photoelectric effect"],
+                answer: 2
+            },
+            {
+                question: "What is the reason for formation of Mirage in desert?",
+                options: ["Refraction of light", "Reflection of light", "Total internal reflection of light", "Both Refraction and Total internal reflection of light"],
+                answer: 3
+            },
+            {
+                question: "Which one of the following reflects back more sunlight as compared to other three?",
+                options: ["Sand desert", "Land covered with fresh snow", "Prairie land", "Paddy crop land"],
+                answer: 1
+            },
+            {
+                question: "The phenomenon which causes mirage is",
+                options: ["Interference", "Diffraction", "Polarisation", "Total internal reflection"],
+                answer: 3
+            },
+            {
+                question: "The type of mirrors used in the headlamp of cars is",
+                options: ["Parabolic concave", "Plane", "Spherical convex", "Cylindrical concave"],
+                answer: 0
+            },
+            {
+                question: "What changes will happen to a bowl of ice and water kept at exactly zero degree Celsius ?",
+                options: ["All ice will melt", "All water will become ice", "No change will happen", "Only some ice will melt"],
+                answer: 2
+            },
+            {
+                question: "0\u00b0K is equivalent to",
+                options: ["273\u00b0C", "\u2013 273\u00b0C", "0\u00b0C", "100\u00b0C"],
+                answer: 1
+            },
+            {
+                question: "Absolute Zero is defined as",
+                options: ["The temperature at which all molecular motion ceases", "At which water boils at 298K", "At which liquid Helium boils", "At which the volume becomes zero"],
+                answer: 0
+            },
+            {
+                question: "On the Kelvin scale, the melting point of ice is",
+                options: ["373K", "100K", "273K", "0 K"],
+                answer: 2
+            },
+            {
+                question: "Earliest thermometer was developed by",
+                options: ["Celsius", "Fahrenheit", "Kelvin", "Galileo"],
+                answer: 3
+            },
+            {
+                question: "Ice cubes are added to a glass of pure water and a glass of pure alcohol. The ice would be",
+                options: ["At a higher level in water", "At a higher level in alcohol", "At the same level in both", "Floating in alcohol and sinking in water"],
+                answer: 0
+            },
+            {
+                question: "A piece of ice is floating in water kept in a beaker. When all the ice melts the level of water will",
+                options: ["First rise and then fall", "Fall", "Remain the same", "Rise"],
+                answer: 2
+            },
+            {
+                question: "Purity of a metal can be determined with the help of",
+                options: ["Pascal's law", "Boyle's law", "Archimedes principle", "Conservation of mass principle"],
+                answer: 2
+            },
+            {
+                question: "When a steel ball is placed on the surface of mercury, it does not sink because",
+                options: ["Of the surface tension of mercury", "Mercury is a semisolid", "Of the high viscosity of mercury", "The density of mercury is greater than that of steel"],
+                answer: 3
+            },
+            {
+                question: "Clouds float in the atmosphere because of their",
+                options: ["Low pressure", "Low density", "Low viscosity", "Low temperature"],
+                answer: 1
+            },
+            {
+                question: "When a ship enters the sea from a river",
+                options: ["It rises a little", "It sinks a little", "It remains at the same level", "It rises or sinks depending on the material it is made of"],
+                answer: 0
+            },
+            {
+                question: "The apparent weight of a man in a lift is less the real weight when :",
+                options: ["The lift is going up with an acceleration", "The lift is going down with uniform speed", "The lift is going up with uniform speed", "The lift is going down with an acceleration"],
+                answer: 3
+            },
+            {
+                question: "A balloon filled with hydrogen will",
+                options: ["Continue going upwards uninterrupted", "Reach a particular height and remain floating", "Burst after reaching some height", "Reach a particular height and start coming down"],
+                answer: 1
+            },
+            {
+                question: "A hydrogen balloon floats up because of",
+                options: ["Air pressure decreases with decrease in height", "Air pressure decreases with decrease in weight", "Weight of the balloon is less than the weight of air displaced by it.", "The pressure inside the balloon is more than the pressure outside it"],
+                answer: 2
+            },
+            {
+                question: "A boat will submerge when it displaces water equal to its own:",
+                options: ["Volume", "Weight", "Surface area", "Density"],
+                answer: 1
+            },
+            {
+                question: "What is the principle of a ''Life Jacket\"?",
+                options: ["It provides oxygen to a drowning person", "It increases the volume of the person to keep him afloat", "It decreases the volume of the person to keep him afloat", "The person can sit on it like a raft"],
+                answer: 1
+            },
+            {
+                question: "When a piece of stone is immersed in water, it displaces water of equal",
+                options: ["Density", "Specific gravity", "Mass", "Volume"],
+                answer: 2
+            },
+            {
+                question: "It is easier for a man to swim in sea water, than in river water because",
+                options: ["The density of sea water is lesser than the density of river water", "The density of sea water is more than the density of river water", "The sea is-deeper than the river", "The sea is wider than the river"],
+                answer: 1
+            },
+            {
+                question: "A piece of wood is held under water. The upthrust on it will be:",
+                options: ["Equal to the weight of the wood", "Less than weight of the wood", "More than weight of the wood", "Zero"],
+                answer: 1
+            },
+            {
+                question: "An egg sinks in soft water but floats in a concentrated solution of salt because",
+                options: ["Egg absorbs salt from the solution and expands", "Albumin dissolves in salt solution and egg becomes lighter", "The density of salt solution exceeds the density of eggs", "Water has high surface tension"],
+                answer: 2
+            },
+            {
+                question: "When a ship enters the sea from a river what will be the effect?",
+                options: ["It lowers", "It sways", "It rises a little", "It jolts"],
+                answer: 2
+            },
+            {
+                question: "A fresh egg when placed in salt water will",
+                options: ["Sink and go to the bottom", "Sink but will not go to the bottom", "Float", "Burst"],
+                answer: 2
+            },
+            {
+                question: "Which of the following produces more severe burns ?",
+                options: ["Boiling water", "Hot water", "Steam", "Melting iceberg"],
+                answer: 2
+            },
+            {
+                question: "Water is not suitable as a calorimetric substance because it :",
+                options: ["Has high specific heat", "Is a good conductor", "Has high boiling point", "Low latent heat of vapourization"],
+                answer: 0
+            },
+            {
+                question: "Water is used in car radiator because of its",
+                options: ["Low density", "Easy availability", "High specific heat capacity", "Low boiling point"],
+                answer: 2
+            },
+            {
+                question: "Water pipes in hilly areas often burst on a cold frosty night, because",
+                options: ["The material of which pipes are made contracts due to cold and so breaks", "Water in the pipes freezes and on freezing water expands, so pipes break", "Frost makes the pipes rusty, so they break", "None of these"],
+                answer: 1
+            },
+            {
+                question: "Q = mcdT refers to",
+                options: ["Enthalpy formula", "Heat Transfer formula", "Specific Heat formula", "Heat of Vaporization"],
+                answer: 2
+            },
+            {
+                question: "Steam at 100\u00b0C causes more severe burns than water at 100\u00b0C because",
+                options: ["Steam has no specific heat capacity", "Steam has latent heat of vaporisation", "Water has no specific heat capacity", "Water has latent heat of fusion"],
+                answer: 1
+            },
+            {
+                question: "Which elements are malleable and good conductors of electricity?",
+                options: ["Tin and silver", "Iodine and silver", "Tin and xenon", "Iodine and xenon"],
+                answer: 0
+            },
+            {
+                question: "1 WH =",
+                options: ["360 joules", "36000 joules", "3600 joules", "36 joules"],
+                answer: 2
+            },
+            {
+                question: "After long periods of use, a grey spot develops on the inside of a bulb. This is because",
+                options: ["The tungsten filament evaporates and collects there", "The heat of the bulb scorches the glass at the top", "Dust inside the bulb condenses on the top", "Glass undergoes a change due to the heat"],
+                answer: 2
+            },
+            {
+                question: "The composition of electrician solder is",
+                options: ["Lead-37%, tin-63%", "Iron-37%, tin-63%", "Lead-37%, Steel-63%", "Steel-37%, copper-63%"],
+                answer: 0
+            },
+            {
+                question: "Electricity is transmitted over long distances",
+                options: ["It is fast", "There is less wastage of energy", "It is safer", "It is cheaper"],
+                answer: 1
+            },
+            {
+                question: "Flemings ''Left hand Rule\" is associated with the effect of",
+                options: ["Electric field on current", "Magnetic field on magnet", "Electric field on magnet", "Magnetic Field on current"],
+                answer: 3
+            },
+            {
+                question: "Electromagnet is constructed with which of the following ?",
+                options: ["Steel", "Soft Iron", "Aluminium", "Nickel"],
+                answer: 1
+            },
+            {
+                question: "When number of turns in a coil is trippled, without any change in the length of coil, its self inductance becomes?",
+                options: ["Nine times", "Three times", "Six times", "One\u2013third"],
+                answer: 0
+            },
+            {
+                question: "Fleming's right hand rule is used to find the direction of the",
+                options: ["Alternate current", "Direct current", "Induced current", "Actual current"],
+                answer: 2
+            },
+            {
+                question: "In order to make an electromagnet you need a",
+                options: ["Dry cell batteries", "Thin coated copper wire", "Iron nail", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is not a part of a CRT ?",
+                options: ["Phosphor screen", "Shadow mask", "Electron gun", "Gas plasma"],
+                answer: 3
+            },
+            {
+                question: "Slip rings are usually made of",
+                options: ["Aluminium", "Copper", "Phosphor Bronze", "Carbon"],
+                answer: 2
+            },
+            {
+                question: "The safest hammers are those with heads that are",
+                options: ["Cast steel and chiseled", "Alloy and drop-forged steel", "Welded and alloyed", "Chiseled and drop forged"],
+                answer: 1
+            },
+            {
+                question: "The function of ball bearings in a wheel is :",
+                options: ["To increase friction", "To convert kinetic friction into rolling friction", "To convert static friction into kinetic friction", "Just for convenience"],
+                answer: 1
+            },
+            {
+                question: "Gear finishing operation is called",
+                options: ["Burnishing", "Hobbing", "Shaping", "Milling"],
+                answer: 0
+            },
+            {
+                question: "A wheel-barrow is an example of",
+                options: ["Class III lever", "Pulley system", "Class I lever", "Class II lever"],
+                answer: 3
+            },
+            {
+                question: "A single fixed pulley is used to draw water from a well because",
+                options: ["Efficiency is 100%", "Velocity ratio is low", "Mechanical advantage is high", "Force is applied in a convenient direction"],
+                answer: 3
+            },
+            {
+                question: "A fixture is defined as a device which",
+                options: ["Is used to check the accuracy of workpiece", "Holds and locates a workpiece and guides and controls one or more cutting tools", "Holds and locates a workpiece during an inspection or for a manufacturing operation", "All of the above"],
+                answer: 1
+            },
+            {
+                question: "What type of simple machine is an axe?",
+                options: ["Lever", "Wedge", "Both A & B", "The screw"],
+                answer: 2
+            },
+            {
+                question: "While ascending a hill, the driver of the vehicle keeps the gear ratio",
+                options: ["Equal to 1", "Less than 1", "Greater than 1", "Either equal to or greater than 1"],
+                answer: 3
+            },
+            {
+                question: "The size of gear is usually specified by",
+                options: ["Pitch circle diameter", "Diametral pitch", "Pressure angle", "Circular pitch"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is a compound machine?",
+                options: ["Screw", "Knife", "Bicycle", "Ramp"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is an example for cantilever beam?",
+                options: ["Diving board", "Bridge", "See-saw", "Common balance"],
+                answer: 1
+            },
+            {
+                question: "A machine powered by rotating blades is a",
+                options: ["Fumerole", "Turbines", "Solar panel", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "Second and third class levers are differentiated by",
+                options: ["The location of the load", "The location of the fulcrum", "The presence of multiple loads", "The type of fulcrum present"],
+                answer: 0
+            },
+            {
+                question: "Which of these is true of all simple machines?",
+                options: ["These make work easier", "Work input > work output", "Both A & B", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "Which of these is not a simple machine?",
+                options: ["A pair of scissors", "A lever", "A ramp", "The pulley"],
+                answer: 0
+            },
+            {
+                question: "The plastic material commonly used for making gear wheels is",
+                options: ["Polyesters", "Nylons", "Bakelit", "Polystyrene"],
+                answer: 1
+            },
+            {
+                question: "The reason for a swimming pool to appear less deep than the actual depth is",
+                options: ["Refraction", "Light scattering", "Reflection", "Interference"],
+                answer: 0
+            },
+            {
+                question: "The sparkling of a diamond is due to",
+                options: ["Total internal reflection of light", "Interference of light", "Polarisation of light", "Refraction of light"],
+                answer: 0
+            },
+            {
+                question: "Stars in the sky appear to twinkle due to",
+                options: ["A series of refractions", "A series of reflections", "A surface tension phenomenon", "Multiple diminishing brightness"],
+                answer: 0
+            },
+            {
+                question: "What is the reason for twinkling of stars ?",
+                options: ["Dispersion of light", "Total internal reflection", "Atmospheric reflection", "Atmospheric refraction"],
+                answer: 3
+            },
+            {
+                question: "The basic reason for the extraordinary sparkle of suitably cut diamond is that",
+                options: ["It has well defined cleavage planes", "It has a very high transparency", "It has a very high refractive index", "It is very hard"],
+                answer: 2
+            },
+            {
+                question: "Refractive Index of glass with respect to water is",
+                options: ["4/3", "9/8", "2/3", "8/9"],
+                answer: 1
+            },
+            {
+                question: "The absolute refractive index of any medium is always:",
+                options: ["More than one", "0", "1", "Less than one"],
+                answer: 0
+            },
+            {
+                question: "'Mirage' is an example of",
+                options: ["Refraction of light only", "Total internal reflection of light only", "Refraction and total internal reflection of light", "Dispersion of light only"],
+                answer: 2
+            },
+            {
+                question: "A water tank appears shallower when it is viewed from top due to",
+                options: ["Rectilinear propagation of light", "Reflection", "Total internal reflection", "Refraction"],
+                answer: 3
+            },
+            {
+                question: "The refractive index of a transparent medium is maximum for",
+                options: ["Red light", "Violet light", "Yellow light", "Green light"],
+                answer: 1
+            },
+            {
+                question: "Why does water tank appear shallower when viewed from the top?",
+                options: ["Due to reflection", "Due to refraction", "Due to diffraction", "Due to total internal reflection"],
+                answer: 1
+            },
+            {
+                question: "Which one of the following processes is responsible for the glittering of air bubble rising through water?",
+                options: ["Reflection of light", "Refraction of light", "Total internal reflection of light", "Scattering of light"],
+                answer: 2
+            },
+            {
+                question: "The increasing order of the refractive index of certain materials is (left to right) ________",
+                options: ["Rocksalt, Benzene, Kerosene, Ice", "Rock Salt, Ice, Benzene, Kerosene", "Ice, Kerosene, Benzene, Rock Salt", "Kerosene, Ice, Benzene, Rock Salt"],
+                answer: 2
+            },
+            {
+                question: "Which color deviates least when passing through a Prism",
+                options: ["Blue", "Green", "Yellow", "Red"],
+                answer: 3
+            },
+            {
+                question: "Which color deviates highest when passing through a Prism",
+                options: ["Indigo", "Green", "Violet", "Orange"],
+                answer: 2
+            },
+            {
+                question: "A pond of water appears less deep due to",
+                options: ["Reflection", "Diffraction", "Refraction", "Polarisation"],
+                answer: 2
+            },
+            {
+                question: "What is refractive index ?",
+                options: ["It is defined as the ratio of speed of light in the medium to the speed of light in vacuum.", "It is defined as the product of speed of light in medium and in vacuum.", "It is defined as the ratio of speed of light in vacuum to the speed of light in the medium.", "None of above"],
+                answer: 2
+            },
+            {
+                question: "Time of exposure required for taking photograph of an object depends upon the",
+                options: ["Brightness of the object", "Skill of photographer", "Proximity of object", "Size of the object"],
+                answer: 0
+            },
+            {
+                question: "Which one of the following determines the sharpness of image in a camera ?",
+                options: ["The aperture", "The exposure time", "The focal length of the lens", "Size of the camera"],
+                answer: 0
+            },
+            {
+                question: "The part of the eye having the largest refractive index is :",
+                options: ["Cornea", "Aqueous humor", "Lens", "Vitreous humor"],
+                answer: 2
+            },
+            {
+                question: "Vehicles use ________ to see the objects coming from behind.",
+                options: ["Concave lens", "Convex lens", "Convex mirror", "Concave mirror"],
+                answer: 2
+            },
+            {
+                question: "Electrostatic precipitator is used to control the pollution of",
+                options: ["Air", "Water", "Noise", "Thermal"],
+                answer: 0
+            },
+            {
+                question: "Land is considered a resource because it",
+                options: ["Is used to produce things", "Requires labor to be useful", "Is always available to use", "Costs little or nothing to use"],
+                answer: 0
+            },
+            {
+                question: "Which resource is both renewable and inexpensive?",
+                options: ["Sunlight", "Coal", "Gold", "Minerals"],
+                answer: 0
+            },
+            {
+                question: "Hot springs are heated geothermally by underlying",
+                options: ["Water", "Magma", "Mitula", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "Red is used as an emergency or danger signal as",
+                options: ["It is a striking colour", "Its wavelength is the longest", "It is scattered", "It has very high energy"],
+                answer: 1
+            },
+            {
+                question: "The blue colour of water in the sea is due to",
+                options: ["Absorption of other colours except blue by water molecules", "Scattering of blue light by water molecules", "Reflection of blue light by impurities in sea water", "Reflection of blue sky by sea water"],
+                answer: 0
+            },
+            {
+                question: "The colour of the ocean appears to be blue because the sunlight falling on it is",
+                options: ["Reflected", "Refracted", "Diffracted", "Scattered"],
+                answer: 3
+            },
+            {
+                question: "Which of the following statements is true when we see ''rainbow' ?",
+                options: ["We face sun and raindrops", "The Sun remains behind us and we face raindrops", "In light rainfall, we face Sun", "The sky remains clear and the sun is at lower position in the sky"],
+                answer: 1
+            },
+            {
+                question: "A thin oil film on a water surface appears coloured because of",
+                options: ["Reflection", "Interference", "Diffraction", "Polarization"],
+                answer: 1
+            },
+            {
+                question: "The blue colour of sky is due to",
+                options: ["Reflection of sunlight", "Refraction of sunlight", "Scattering of shorter wavelengths of sunlight in the atmosphere", "Scattering of longer wavelengths of sunlight in the atmosphere"],
+                answer: 2
+            },
+            {
+                question: "The sky appears blue because of",
+                options: ["Atmospheric water vapour", "Scattering of light", "Reflection on sea water", "Emision of blue wavelength by the sun"],
+                answer: 1
+            },
+            {
+                question: "What colour does blue and yellow make?",
+                options: ["Green", "Black", "Red", "White"],
+                answer: 0
+            },
+            {
+                question: "Mist is caused by",
+                options: ["Dry ice", "Ice at low temperature", "Water vapour at low temperature", "Carbon-monoxide in solid form"],
+                answer: 2
+            },
+            {
+                question: "Which colour is the complementary colour of yellow ?",
+                options: ["Blue", "Green", "Orange", "Red"],
+                answer: 0
+            },
+            {
+                question: "When the Sun is near the horizon during the morning or evening, it appears reddish. The phenomenon that is responsible for this observation is",
+                options: ["Reflection of light", "Refraction of light", "Dispersion of light", "Scattering of light"],
+                answer: 3
+            },
+            {
+                question: "Which combination of colour is the most convenient during day and night time ?",
+                options: ["Organe and blue", "White and black", "Yellow and blue", "Red and green"],
+                answer: 3
+            },
+            {
+                question: "The colour of sky appears blue due to",
+                options: ["Reflection", "Refraction", "Scattering of shorter wave lengths", "Dispersion"],
+                answer: 2
+            },
+            {
+                question: "Sun appears red in colour at sunrise and sunset due to",
+                options: ["The fact that sun emits only red colour at that time", "Red light having longer wave length scatters away", "That sun comes out of the mountains", "That all other colours scatter away except red"],
+                answer: 3
+            },
+            {
+                question: "Total number of colours exists in sunlight",
+                options: ["5", "7", "9", "10"],
+                answer: 1
+            },
+            {
+                question: "Rainbows are produced when sunlight :",
+                options: ["Incident on rain drops hanging in the atmosphere is dispersed after suffering refraction", "Incident on rain drops hanging in the atmosphere is dispersed after suffering refraction and internal reflection.", "Incident on raindrops hanging in the atmosphere is dispresed after suffering reflection.", "None of the given statements is correct."],
+                answer: 1
+            },
+            {
+                question: "Why does the sea appear blue in colour?",
+                options: ["Reflection of the sun light from water surface", "Interference of the sun light from water surface", "Scattering of the sunlight by water molecules", "Refraction of the sun light"],
+                answer: 2
+            },
+            {
+                question: "The sky appears blue because",
+                options: ["All colours interfere to produce blue", "In white light, the blue component dominates", "The atmosphere scatters blue colour more than the others", "It is actually blue"],
+                answer: 2
+            },
+            {
+                question: "During washing of clothes, we use indigo due to its",
+                options: ["Better cleaning action", "Proper pigmental composition", "High glorious nature", "Very low cost"],
+                answer: 1
+            },
+            {
+                question: "Which one of the following is responsible for the working of Newton's colour disc experiment ?",
+                options: ["Formation of pure spectra", "Formation of impure spectra", "Persistence of vision", "Principle of complementary colour"],
+                answer: 2
+            },
+            {
+                question: "An object which absorbs all colours and reflects none appears:",
+                options: ["White", "Grey", "Blue", "Black"],
+                answer: 3
+            },
+            {
+                question: "Microphone is a device which transforms the",
+                options: ["Sound signal into current signal", "Current signal into sound signal", "Sound signal into light signal", "Light signal into sound signal"],
+                answer: 0
+            },
+            {
+                question: "Gasoline is useful in cars because it has",
+                options: ["Chemical potential energy", "Electrical potential energy", "Gravitational potential energy", "Kinetic energy"],
+                answer: 0
+            },
+            {
+                question: "1 Joule is Equal to",
+                options: ["10^3 ergs", "10^6 ergs", "10^7 ergs", "10^5 ergs"],
+                answer: 2
+            },
+            {
+                question: "A dynamo is a device which",
+                options: ["Creates mechanical energy", "Creates electrical energy", "Converts mechanical energy into electrical energy", "Converts electrical energy into mechanical energy"],
+                answer: 2
+            },
+            {
+                question: "A dynamo is used to convert",
+                options: ["Mechanical energy into electrical energy", "Electrical energy into mechanical energy", "Electrical energy into magnetic energy", "Magnetic energy into mechanical energy"],
+                answer: 0
+            },
+            {
+                question: "Dynamo is a device for converting",
+                options: ["Heat energy into electrical energy", "Mechanical energy into electrical energy", "Magnetic energy into electrical energy", "Chemical energy into electrical energy"],
+                answer: 1
+            },
+            {
+                question: "For which one of the following does the centre of mass lie outside the body?",
+                options: ["A fountain pen", "A cricket ball", "A ring", "A book"],
+                answer: 2
+            },
+            {
+                question: "When a pail of water is swung in a vertical circle, the water does not fall out at the top of the loop when the speed is",
+                options: ["Below a certain minimum value irrespective of amount of water in the pail", "Above a certain minimum value irrespective of amount of water in the pail", "Above a certain minimum value depending on amount of water in the pail", "Below a certain minimum value depending on amount of water in the pail"],
+                answer: 1
+            },
+            {
+                question: "Fat can be seperated from milk in a cream seperator because of :",
+                options: ["Cohesive Force", "Gravitational Force", "Centripetal Force", "Centrifugal Force"],
+                answer: 3
+            },
+            {
+                question: "What should a person on a freely rotating turn table do to decrease his (angular) speed ?",
+                options: ["Bring his hands together", "Raise his hands up", "Spread his hands outwards", "Sit down with raised hands"],
+                answer: 2
+            },
+            {
+                question: "A sphere rolls down on two inclined planes of different angles but same height, it does so",
+                options: ["In the same time", "With the same speed", "In the same time with the same speed", "In the same time with the same kinetic energy"],
+                answer: 1
+            },
+            {
+                question: "If a body moves with a constant speed in a circle",
+                options: ["No work is done on it", "No force acts on it", "No acceleration is produced in it", "Its velocity remains constant"],
+                answer: 3
+            },
+            {
+                question: "A disk and a sphere of same radius but different masses roll on two inclined planes of the same altitude and length. Which one of the two objects gets to the bottom of the plane first ?",
+                options: ["Depends on their masses", "Sphere", "Disk", "Both reach at the same time"],
+                answer: 1
+            },
+            {
+                question: "The washing machine works on the principle of",
+                options: ["Dialysis", "Diffusion", "Reverse osmosis", "Centrifugation"],
+                answer: 3
+            },
+            {
+                question: "Damp clothes are dried in spin dryers by the action of",
+                options: ["Centripetal forces", "Centrifugal forces", "Central forces", "Non central forces"],
+                answer: 1
+            },
+            {
+                question: "When all the forces and torques are balanced in a mechanical body it is said to be in",
+                options: ["Equilibrium", "Static", "Buoyancy", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "The minimum number of forces to keep a particle in equilibrium is",
+                options: ["1", "2", "3", "4"],
+                answer: 1
+            },
+            {
+                question: "When milk is churned, the cream separates from it due to:",
+                options: ["Frictional force", "Centrifugal force", "Gravitational force", "Viscous forces"],
+                answer: 1
+            },
+            {
+                question: "When the milk is churned vigorously the cream from it is separated out due to",
+                options: ["Centripetal force", "Gravitational force", "Frictional force", "Centrifugal force"],
+                answer: 3
+            },
+            {
+                question: "A man stands on the pan of a balance holding a fish in his right hand and bucket of water in his left hand. If he transfers the fish into the bucket, the total weight on the pan",
+                options: ["Increases", "Decreases", "Remains the same", "First increases and then decreases"],
+                answer: 2
+            },
+            {
+                question: "A boy is swinging a ball attached to a string in a horizontal circle. If the string snaps",
+                options: ["The ball will travel towards the center of the circle and fall down", "It will continue to travel along a tangent to the circle at the point the ball was at the time of snapping and finally fall down", "It will fall down at the same place where the string breaks", "None of these"],
+                answer: 1
+            },
+            {
+                question: "A body moving in a circular path with a constant speed has a",
+                options: ["Constant velocity", "Constant acceleration", "Constant kinetic energy", "Constant displacement"],
+                answer: 2
+            },
+            {
+                question: "The point where total mass of a body is supposed to be concentrated is known as",
+                options: ["Dead centre", "Centre of mass", "Centre of gravity", "Centre of motion"],
+                answer: 1
+            },
+            {
+                question: "The angle in which a cricket ball should be hit to travel maximum horizontal distance is :",
+                options: ["60\u00b0 with horizontal", "45\u00b0 with horizontal", "30\u00b0 with horizontal", "15\u00b0 with horizontal"],
+                answer: 1
+            },
+            {
+                question: "It is easier to carry two buckets of water in one hand each, than to carry only one in one hand because",
+                options: ["Weights of buckets are balanced", "Centre of gravity falls within the body", "Centre of gravity and centre of equilibrium fall within the feet", "Resultant weight of buckets is zero"],
+                answer: 2
+            },
+            {
+                question: "The working of a rocket is based on the principle of:",
+                options: ["Conservation of momentum", "Conservation of mass", "Conservation of energy", "Conservation of angular momentum"],
+                answer: 0
+            },
+            {
+                question: "A man standing at the top of a tower has two spheres A and B. He drops sphere A downwards and throws sphere B horizontally at the same time. Which of the following is correct ?",
+                options: ["Both the spheres will reach the ground simultaneously.", "A will reach the ground first.", "B will reach the ground first.", "The question is incomplete because the masses of the spheres are not given."],
+                answer: 0
+            },
+            {
+                question: "An object covers distance which is directly proportional to the square of the time. Its accelaration is",
+                options: ["Increasing", "Decreasing", "Zero", "Constant"],
+                answer: 3
+            },
+            {
+                question: "Rain drops fall from great height. Which among the following statements is true regarding it?",
+                options: ["They fall with that ultimate velocity, which are different for different droplets", "They fall with same ultimate velocity", "Their velocity increases and they fall with different velocity on the earth", "Their velocity increases and they fall with same velocity on the earth"],
+                answer: 0
+            },
+            {
+                question: "A particle dropped from the top of a tower uniformly falls on ground at a distance which is equal to the height of tower. Which of the following paths will be traversed by the particle ?",
+                options: ["Circle", "Parabolic", "Great circle", "Hyper\u2013parabolic"],
+                answer: 1
+            },
+            {
+                question: "A particle is thrown vertically upward. When it reaches the highest point, it has",
+                options: ["A downward acceleration", "An upward acceleration", "A downward velocity", "A horizontal velocity"],
+                answer: 0
+            },
+            {
+                question: "The quantity that is not conserved in an inelastic collision is",
+                options: ["Momentum", "Kinetic Energy", "Total Energy", "All of these"],
+                answer: 1
+            },
+            {
+                question: "Velocitation is the tendency to",
+                options: ["Be traveling at a speed that is faster than perceived", "Be traveling at a speed that is slower than perceived", "Both A & B", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "Which one of the following is applicable to collision-coalescence process of precipitation?",
+                options: ["Clouds which do not extend beyond the freezing level", "Clouds which extend beyond the freezing level", "All types of clouds", "Cirrocumulus cloud"],
+                answer: 0
+            },
+            {
+                question: "A hunter on the ground wishes to shoot a bird on a tree at a distance with his rifle. He has to point the rifle",
+                options: ["At the lower elevation than the bird", "At a higher elevation than the bird", "In the same direction as the bird", "Vertically upwards"],
+                answer: 1
+            },
+            {
+                question: "A piece of paper and a cricket ball are dropped from the same height. Under which of the following conditions do both reach the surface simultaneously ?",
+                options: ["They must have the same volume", "They must have the same density", "They must have the same mass", "They must be dropped in vacuum"],
+                answer: 3
+            },
+            {
+                question: "The term ''Higgs Boson' is associated with",
+                options: ["Nano Technology", "Oncology", "God Particle", "Stem Cell Research"],
+                answer: 2
+            },
+            {
+                question: "A cyclist leans inwards when he is negotiating a curve so that",
+                options: ["He may increase his speed", "His weight may be reduced", "Necessary centripetal force may be available from the horizontal component of the normal reaction due to the track to maintain the curved motion.", "No frictional force may be produced between the wheels and the axle"],
+                answer: 2
+            },
+            {
+                question: "Knot is a measure of",
+                options: ["The speed of ship", "The curvature of spherical objects", "Solar radiation", "Intensity of earthquake shock"],
+                answer: 0
+            },
+            {
+                question: "A pilot has to release the bomb to hit a target",
+                options: ["Right above the target", "Beyond the target", "Before the target", "None of these"],
+                answer: 2
+            },
+            {
+                question: "What is the other name of Galileo's law of falling bodies?",
+                options: ["Law of motion", "Newton's first law", "Newton's second law", "Newton's third law"],
+                answer: 1
+            },
+            {
+                question: "Skids occur when the brakes are applied so hard that the front or rear wheels lose traction are called as",
+                options: ["Cornering", "Blowout", "Power", "Braking"],
+                answer: 3
+            },
+            {
+                question: "The swing of a spinning cricket ball in air can be explained on the basis of",
+                options: ["Sudden change in wind direction.", "Buoyancy of air.", "Turbulence caused by wind.", "Bernoulli's theorem."],
+                answer: 2
+            },
+            {
+                question: "Flywheel is an important part of a steam engine because it :",
+                options: ["Accelerates the speed of the engine", "Helps the engine in keeping the speed uniform", "Decreases the moment of inertia", "Gives strength to the engine"],
+                answer: 1
+            },
+            {
+                question: "Should cars have bumpers that collapse under impact?",
+                options: ["Yes, since the offending car should get damaged and pay for the mistake", "No, since it would be very expensive to get the car repaired", "No, since the colliding car would then ram into the occupants and kill them", "Yes, since they help to absorb the impact of a collision and keep the occupants safe"],
+                answer: 3
+            },
+            {
+                question: "The odometer guage indicates",
+                options: ["The distance travelled by a vehicle", "The depth of the ocean", "Pitch length", "Frequency of the wave"],
+                answer: 0
+            },
+            {
+                question: "A capillary tube is partially dipped vertically in a vessel containing water. Due to capillarity water rises in the tube. The height of water rise in the tube can be increased by",
+                options: ["Decreasing the radius of the capillary tube", "Increasing the radius of the capillary tube", "Increasing the height of water in the vessel", "None of these"],
+                answer: 0
+            },
+            {
+                question: "Oil rises up the wick in a lamp because",
+                options: ["Oil is very light", "Of the diffusion of oil through the wick", "Of the surface tension phenomenon", "Of the capillary action phenomenon"],
+                answer: 3
+            },
+            {
+                question: "An ice block with a piece of lead embeded in it floats in water. If ice melts the water level",
+                options: ["Rises", "Falls", "Remains same", "Falls first and then rises"],
+                answer: 1
+            },
+            {
+                question: "A bottle of sodalime is grasped by the neck and swung briskly in a vertical circle, Near which portion of the bottle do the bubbles collect?",
+                options: ["Near the bottom", "In the middle of the bottom", "Near the neck", "Bubbles remain distributed uniformly"],
+                answer: 2
+            },
+            {
+                question: "Rain drops acquire spherical shape due to",
+                options: ["Viscosity", "Surface tension", "Friction", "Elasticity"],
+                answer: 1
+            },
+            {
+                question: "The fact that two large ships travelling on close parallel courses in the same direction tend to move towards each other can be explained by",
+                options: ["Bernoulli's principle", "Magnetic properties of the ship's material", "Newton's third law of motion", "Earth's gravitational force"],
+                answer: 0
+            },
+            {
+                question: "If an ordinary glass tube and a glass capillary tube are both dipped in a beaker of water, water rises in",
+                options: ["Both", "Only the glass tube", "Only the capillary tube", "Neither"],
+                answer: 0
+            },
+            {
+                question: "A boat loaded with rocks floats in the middle of a swimming pool. A man in the boat throws the rocks overboard. The level of water in the pool will",
+                options: ["Increase", "Decrease", "Remains the same", "First decrease and then increase"],
+                answer: 1
+            },
+            {
+                question: "The oil in the wick of an oil lamp rises up due to:",
+                options: ["Capillary action", "Low viscosity of oil", "Gravitational force", "Pressure difference"],
+                answer: 0
+            },
+            {
+                question: "Fog is an example of",
+                options: ["Gas dispersed in gas", "Liquid dispersed in gas", "Solid dispersed in gas", "Solid dispersed in liquid"],
+                answer: 1
+            },
+            {
+                question: "If the diameter of a capillary is doubled, then the rise of water in it will be",
+                options: ["Two times", "Half", "Four times", "No change"],
+                answer: 1
+            },
+            {
+                question: "A needle or a pin floats on the surface of water because of",
+                options: ["Surface tension", "Surface energy", "Viscosity", "Adhesive force"],
+                answer: 0
+            },
+            {
+                question: "Soap bubble attains spherical shape due to ________",
+                options: ["Inertia", "Pressure", "Surface tension", "Viscosity"],
+                answer: 2
+            },
+            {
+                question: "Water drops cannot stick to the oily surface due to",
+                options: ["Lack of adhesive force", "Surface tension", "Cannot mix each other", "Water is lighter than oil"],
+                answer: 1
+            },
+            {
+                question: "Water from soil enters into the root hairs owing to :",
+                options: ["Atmospheric pressure", "Capillary pressure", "Root pressure", "Osmotic pressure"],
+                answer: 1
+            },
+            {
+                question: "A small drop of oil spreads over water because :",
+                options: ["Oil has a higher surface tension", "Water has a higher surface tension", "Oil has a higher viscosity", "Water has a higher viscosity"],
+                answer: 1
+            },
+            {
+                question: "Two rods, one of copper and other of steel, experience the same upthrust when placed in water.Thus, both have",
+                options: ["Equal volume", "Equal weight", "Equal density", "Equal mass"],
+                answer: 0
+            },
+            {
+                question: "If ice floating on water in a vessel melts, the water level in the vessel ________ .",
+                options: ["Increases", "Does not change", "First increases before decreasing", "Decreases"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is not a property of heavy water ?",
+                options: ["Boiling point of heavy water is lower than that or ordinary water", "Density of heavy water is higher than that of ordinary water", "Freezing point of heavy water is higher than that of ordinary water", "It produces corrosion"],
+                answer: 0
+            },
+            {
+                question: "Which of the following liquids is most viscous?",
+                options: ["Oil", "Milk", "Water", "Petrol"],
+                answer: 0
+            },
+            {
+                question: "Small bubbles are perfectly spherical because of",
+                options: ["Gravity", "Pressure", "Viscosity", "Surface tension"],
+                answer: 3
+            },
+            {
+                question: "Pitot tube is used to measure",
+                options: ["Static pressure", "Velocity at stagnation point", "Stagnation pressure", "Dynamic pressure"],
+                answer: 2
+            },
+            {
+                question: "A spherical ball made of steel when dropped in mercury container",
+                options: ["Sink in mercury", "Will be on the surface of mercury", "Will be partly immersed mercury", "Will dissolve in mercury"],
+                answer: 1
+            },
+            {
+                question: "A falling drop of rain water acquires the spherical shape due to",
+                options: ["Viscosity", "Surface Tension", "Atmospheric pressure", "Gravitational force"],
+                answer: 1
+            },
+            {
+                question: "Why the needle of iron swims on water surface when it is kept gently ?",
+                options: ["It will remain under the water, when it will displace more water than its weight", "The density of needle is less than that of water", "Due to surface tension", "Due to its shape"],
+                answer: 2
+            },
+            {
+                question: "Rise of oil a wick is due to",
+                options: ["Density of the oil", "Viscosity of the oil", "Surface tension of the oil", "Pressure of the oil"],
+                answer: 2
+            },
+            {
+                question: "Bubbles of air rise up through liquids due to",
+                options: ["Surface tension and adherence", "Viscosity and buoyancy", "Air current over the liquid and buoyancy", "Up thrust and surface tension"],
+                answer: 1
+            },
+            {
+                question: "An oil drop spreads over water because",
+                options: ["Oil is lighter than water", "Oil is more viscous", "Oil does not mix with water", "water has a higher surface tension"],
+                answer: 3
+            },
+            {
+                question: "Rotameter is used to measure",
+                options: ["Vortex flow", "Density of fluids", "Velocity of fluid in pipes", "Flow of fluids"],
+                answer: 3
+            },
+            {
+                question: "Sprayer functions on",
+                options: ["Bernouli's principle", "Archemede's principle", "Pascal's law", "Floatation principle"],
+                answer: 0
+            },
+            {
+                question: "The lift of an aeroplane is caused by",
+                options: ["Law of gravitation", "Theorem of continuity", "Pascel's law", "Bernouli's theorem"],
+                answer: 3
+            },
+            {
+                question: "Which of the following instrument is used to measure Soil Water Tension?",
+                options: ["Photometer", "Pyrometer", "Psychrometer", "Tensiometer"],
+                answer: 3
+            },
+            {
+                question: "Blotting paper absorbs ink due to",
+                options: ["Capillary action phenomenon", "Diffusion of ink through the blotting", "Siphon action", "Viscosity of ink"],
+                answer: 0
+            },
+            {
+                question: "Ball pen functions on the principle of :",
+                options: ["Viscosity", "Boyle's Law", "Gravitational force", "Surface tension"],
+                answer: 3
+            },
+            {
+                question: "Pieces of camphor placed on water move about rapidly. This is because of",
+                options: ["Diffusion", "Viscosity", "Surface tension", "Capillarity"],
+                answer: 2
+            },
+            {
+                question: "The hair of shaving brush clings together when removed from water due to",
+                options: ["Surface tension", "Viscosity", "Elasticity", "Friction"],
+                answer: 0
+            },
+            {
+                question: "An aircraft can perform aerobatic manoeuvres in a vertical loop because of",
+                options: ["Gravity", "Centripetal force", "Weight", "Centrifugal force"],
+                answer: 0
+            },
+            {
+                question: "Which one is not a part of Kepler's Law?",
+                options: ["Law of orbits", "Law of areas", "Law of speed", "Law of periods"],
+                answer: 2
+            },
+            {
+                question: "The tidal waves on sea is mainly due to",
+                options: ["Gravitational Effect of Moon on Earth", "Gravitational Effect of Sun on Earth", "Gravitational Effect of Earth on Moon", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "The time period of a pendulum when taken to the Moon would:",
+                options: ["Remain the same", "Decrease", "Become zero", "Increase"],
+                answer: 3
+            },
+            {
+                question: "\"God Particle\" is",
+                options: ["Neutrino", "Higgs Boson", "Meson", "Positron"],
+                answer: 1
+            },
+            {
+                question: "Which is evidence that supports the dynamo theory?",
+                options: ["Earth's outer core contains liquid that conducts electricity", "Earth's core contains a large amount of iron", "Granite and basalt conduct electricity", "Convection occurs in Earth's inner core"],
+                answer: 1
+            },
+            {
+                question: "A person can jump higher on the moon's surface than on the earth because :",
+                options: ["The moon's surface is rough", "The acceleration due to gravity in moon is smaller than that on the earth.", "The moon is cooler than earth", "The moon has no atmosphere"],
+                answer: 1
+            },
+            {
+                question: "The instrument used to see the distant objects on the Earth is",
+                options: ["Terrestrial telescope", "Astronomical telescope", "Compound microscope", "Simple microscope"],
+                answer: 0
+            },
+            {
+                question: "By how many times are the Electrostatic forces stronger than the Gravitational Forces for a fixed distance?",
+                options: ["102", "1036", "1012", "2"],
+                answer: 1
+            },
+            {
+                question: "Which is the point from where an azimuth originates?",
+                options: ["South", "North", "East", "West"],
+                answer: 1
+            },
+            {
+                question: "The weight of a body acts through the centre of",
+                options: ["Gravity", "Mass", "Both (A) and (B)", "Buoyancy"],
+                answer: 0
+            },
+            {
+                question: "If the spinning speed of the earth is increased then the weight of body at the equator",
+                options: ["Increases", "Decreases", "Same", "Double"],
+                answer: 1
+            },
+            {
+                question: "The different colours of different stars are due to the variation of",
+                options: ["Temperature", "Pressure", "Density", "Radiation from them"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is correct about the properties of Gravitational Forces?",
+                options: ["They are the strongest forces in nature", "They observe inverse square law", "Both a and b", "None"],
+                answer: 1
+            },
+            {
+                question: "In the absence of the earth's atmosphere, sky would appear",
+                options: ["Blue", "Deep red", "White", "Black"],
+                answer: 3
+            },
+            {
+                question: "We always see the same face of the moon, because",
+                options: ["It is smaller than the earth", "It revolves on its axis in adirection opposite to that ofthe earth", "It takes equal time for revolution around the earth and rotation on its own axis", "It rotates at the same speed as the earth around the sun"],
+                answer: 2
+            },
+            {
+                question: "The fact that the planets move around the Sun, not in circles but in ellipses, was first demonstrated by",
+                options: ["Galileo", "Martin Luther", "Johannes Kepler", "Copernicus"],
+                answer: 2
+            },
+            {
+                question: "Stars are held together by",
+                options: ["Gravitational forces", "Electrical forces", "Ionic forces", "Magnetic forces"],
+                answer: 0
+            },
+            {
+                question: "The minimum number of geostationary satellites needed for uninterrupted global coverage is :",
+                options: ["3", "2", "4", "1"],
+                answer: 0
+            },
+            {
+                question: "The Law of Kepler is related with which among the following ?",
+                options: ["Planetary Motion", "Law of Conservation of energy", "Law of Gravitation", "None"],
+                answer: 0
+            },
+            {
+                question: "The term ''equinox' means",
+                options: ["The path which the Earthtakes around the Sun", "The axis of the Earth around which it rotates", "When the day and night are of equal duration", "The time when the Sun seems to be going round and round in the sky in the Arctic but does not go below the horizon"],
+                answer: 2
+            },
+            {
+                question: "If the earth suddenly stop rotating, the value of \"g\" will be",
+                options: ["Same", "Increase", "Decrease", "Become Zero"],
+                answer: 1
+            },
+            {
+                question: "The three famous law of Kepler is related to",
+                options: ["Optics", "Speed", "Oscillations", "Planetary Motion"],
+                answer: 3
+            },
+            {
+                question: "Number of lattices in the orthorhombic system is",
+                options: ["4", "5", "7", "8"],
+                answer: 2
+            },
+            {
+                question: "The term ''Isoneph' indicates the lines of equal",
+                options: ["Cloudiness", "Salinity", "Rainfall", "Pressure"],
+                answer: 0
+            },
+            {
+                question: "Which of the following principle is used to produce ''low-temperatures' ?",
+                options: ["Super conductivity", "Joule-Kelvin effect", "Thermo-electric effect", "Adiabatic demagnetisation"],
+                answer: 3
+            },
+            {
+                question: "The first law of thermodynamics is simply the case of",
+                options: ["Charle's law", "Newton's law of cooling", "The law of heat exchange", "The law of conservation of energy"],
+                answer: 3
+            },
+            {
+                question: "The commonly used coolant in refrigerators is",
+                options: ["Ammonia", "Nitrogen", "Freon", "Oxygen"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following is not a feature of Indifference Curve?",
+                options: ["They do not intersect each other", "They slope downwards to the right", "They are parallel to each other", "They are concave to each other"],
+                answer: 3
+            },
+            {
+                question: "Refrigeration is a process which",
+                options: ["Kills bacteria", "Slows down the bacterial growth", "Inactivates the bacteria", "Plasmolyses the bacteria"],
+                answer: 1
+            },
+            {
+                question: "Blowing Air with open pipe is an example of :",
+                options: ["Isothermal process", "Isochroric process", "Isobaric process", "Adiabatic process"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is not reversible?",
+                options: ["Joule effect", "Peltier effect", "Seebeck effect", "Thomson effect"],
+                answer: 0
+            },
+            {
+                question: "Which phase change is an example of an exothermic process?",
+                options: ["Liquid to Solid", "Gas to Solid", "Gas to Liquid", "All the above"],
+                answer: 3
+            },
+            {
+                question: "In a refrigerator, the cooling system should always be",
+                options: ["At the top", "At the bottom", "At the middle", "Can be anywhere"],
+                answer: 1
+            },
+            {
+                question: "In a refrigerator what produces the cooling ?",
+                options: ["The ice which deposits on the freezer", "The sudden expansion of a compressed gas", "The evaporation of a volatile liquid", "None of these"],
+                answer: 3
+            },
+            {
+                question: "A cycle tyre bursts suddenly. This represents an :",
+                options: ["Isothermal process", "Adiabatic process", "Isochoric process", "Isoboric process"],
+                answer: 1
+            },
+            {
+                question: "Which has the lowest albedo?",
+                options: ["Dark surfaces", "Light surfaces", "Both A & B", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "Which one of the following is a non-dimensional quantity?",
+                options: ["Gas constant", "Strain", "Co-efficient of viscocity", "Plank's constant"],
+                answer: 1
+            },
+            {
+                question: "The recoiling of gun is an example of which of the following?",
+                options: ["Law of Conservation of Angular Momentum", "Law of Conservation of Linear Momentum", "Conversion of Kinetic Energy to Potential Energy", "Law of Conservation of Energy"],
+                answer: 1
+            },
+            {
+                question: "The dimensional formula for universal gravitational constant is",
+                options: ["M1L3T2", "ML2T\u20132", "M\u20132", "M\u20131L3T\u20132"],
+                answer: 3
+            },
+            {
+                question: "Which one of the following physical quantities has the same dimensions as that of Planck's constant?",
+                options: ["Linear momentum", "Angular momentum", "Force", "Potential energy"],
+                answer: 1
+            },
+            {
+                question: "Period of oscillation of 3 cm microwaves in seconds is",
+                options: ["1 \u00d7 1010", "1 \u00d7 10\u201310", "0.01", "0.001"],
+                answer: 1
+            },
+            {
+                question: "A system exhibiting S.H.M. must possess",
+                options: ["Elasticity as well as inertia", "Elasticity, inertia and an external force", "Elasticity only", "Inertia only"],
+                answer: 0
+            },
+            {
+                question: "Boyle's law is a relationship between",
+                options: ["Pressure and volume", "Volume and temperature", "Volume and density", "Pressure and temperature"],
+                answer: 0
+            },
+            {
+                question: "The oil in the wick of lamp rises due to",
+                options: ["Pressure difference", "Pheonomenon of capillarity", "Low viscosity of oil", "Force of cohesion"],
+                answer: 1
+            },
+            {
+                question: "Shock-absorbers are usually made of steel as it :",
+                options: ["Is not brittle", "Has lower elasticity", "Has higher elasticity", "Has no ductile property"],
+                answer: 2
+            },
+            {
+                question: "The dimensional formula ML\u20131T\u20132corresponds to",
+                options: ["Modulus of elasticity", "Viscosity", "Moment of a force", "Thrust"],
+                answer: 0
+            },
+            {
+                question: "Amount of water vapour (gaseous) in a given volume of air (cubic metre) is known as:",
+                options: ["Mixing ratio", "Relative humidity", "Absolute humidity", "Specific humidity"],
+                answer: 2
+            },
+            {
+                question: "The spring constant of a spring depends on its",
+                options: ["Length only", "Material only", "Length and its diameter", "Thickness, its diameter and its material"],
+                answer: 3
+            },
+            {
+                question: "Steel is more elastic than rubber because it :",
+                options: ["Requires larger deforming force", "Is never deformed", "Is deformed very easily", "Is harder than rubber"],
+                answer: 0
+            },
+            {
+                question: "Water will not be vapourised if",
+                options: ["The temperature is 0\u00b0C", "The humidity is 0%", "The humidity is 100%", "The temperature is 100\u00b0C"],
+                answer: 2
+            },
+            {
+                question: "Relative humidity is expressed as",
+                options: ["Grams", "Kilograms", "Percentage", "Ratio"],
+                answer: 2
+            },
+            {
+                question: "Bolometer is used to measure",
+                options: ["Frequency", "Temperature", "Velocity", "Wavelength"],
+                answer: 1
+            },
+            {
+                question: "Boyle's law relates to",
+                options: ["Kinetic Theory of Gases", "Viscosity of Liquids", "Elasticity of Solids", "Plasticity of Solids"],
+                answer: 0
+            },
+            {
+                question: "Charles's law is based on",
+                options: ["Solid", "Liquid", "Gas", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "The ''Greenhouse effect' is mainly due to increase in atmospheric",
+                options: ["Ozone", "Nitrogen", "Sulphur dioxide", "Carbon dioxide"],
+                answer: 3
+            },
+            {
+                question: "Thermohaline circulation is mainly due to",
+                options: ["Cold, dense ocean water sinking and warmer water replacing it", "Winds causing circulation of ocean water", "Warmer, less dense water sinking in the ocean and cold water replacing it", "Warm water being added to the ocean due to industial waste"],
+                answer: 0
+            },
+            {
+                question: "Which of the following device is used to measure humidity?",
+                options: ["Hydrometer", "Hygrometer", "Psycho Meter", "Anemometer"],
+                answer: 1
+            },
+            {
+                question: "The primary agent of contact metamorphism is",
+                options: ["Temperature", "Pressure", "Weathering", "Flowing water"],
+                answer: 0
+            },
+            {
+                question: "In heating frozen foods in sealed pouches in a microwaves, why do you first poke holes in the pouch?",
+                options: ["To prevent the steam pressure from bursting open the pouch", "To allow the heat to get into the food through the hole", "To allow the microwaves to get into the food through the holes", "To allow the aroma of the food to come out through the holes"],
+                answer: 0
+            },
+            {
+                question: "When two ice cubes are pressed together, they join to form one cube. Which one of the following helps to hold them together?",
+                options: ["Hydrogen bond formation", "Vander waals forces", "Covalent attraction", "Dipole interaction"],
+                answer: 0
+            },
+            {
+                question: "The instrument that measures and records the relative humidity of air is",
+                options: ["Hydrometer", "Hygrometer", "Lactometer", "Barometer"],
+                answer: 1
+            },
+            {
+                question: "If there is a circular hole in a metal plate, what happens to the radius of the hole when the plate is heated?",
+                options: ["Increases", "Decreases", "Unchanged", "Depends upon the metal"],
+                answer: 0
+            },
+            {
+                question: "The value of coefficient of restitution in perfectly elastic collision is",
+                options: ["0", "0.5", "1", "2"],
+                answer: 2
+            },
+            {
+                question: "Liquids and gases never show",
+                options: ["Diamagnetic property", "Paramagnetic property", "Ferromagnetic property", "Electromagnetic property"],
+                answer: 2
+            },
+            {
+                question: "A circular plate, a cube and a sphere, all made up of same material and having the samemass, are heated to 300\u00b0C and left in a room. Which of them will have the slowest rate of cooling?",
+                options: ["Circular plate", "Cube", "Sphere", "All will cool at the same rate"],
+                answer: 2
+            },
+            {
+                question: "The humidity of the air depends upon",
+                options: ["Weather", "Temperature", "Location", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "In a freezer ice cubes will be formed more quickly in trays made of",
+                options: ["Rubber", "Plastic", "Aluminium", "Wood"],
+                answer: 2
+            },
+            {
+                question: "The ''four stroke petrol engine' is based on",
+                options: ["Carnot-cycle", "Otto-cycle", "Diesel-cycle", "Boyle's-cycle"],
+                answer: 1
+            },
+            {
+                question: "The spring balance works on the principle of ________ .",
+                options: ["Boyle's Law", "Hooke's Law", "Bernoulli's principle", "Pascal's Law"],
+                answer: 1
+            },
+            {
+                question: "A metal plate with a circular hole at the centre is heated. What will happen to the area of the hole ?",
+                options: ["Increase", "Dacrease", "Remain constant", "Will increase first and then dcrease"],
+                answer: 0
+            },
+            {
+                question: "Air is said to be saturated when",
+                options: ["Its pressure is minimum", "It contains the maximum content of water vapour", "Its thickness is maximum", "It blows over the barren land"],
+                answer: 1
+            },
+            {
+                question: "What factors contribute to global winds?",
+                options: ["Coriolis Effect", "Convection Cells", "Uneven warming of the earth by the sun", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "A spring is an example of which of these",
+                options: ["Newton's 3rd law", "Hooke's law", "Newton's 1st law", "Conservation of mass law"],
+                answer: 1
+            },
+            {
+                question: "A copper disc has a hole. If the disc is heated, the size of the hole",
+                options: ["Increases", "Decreases", "No change", "First increases and than decreases"],
+                answer: 0
+            },
+            {
+                question: "Tensional forces normally cause which one of the following?",
+                options: ["Normal faults", "Strike-slip faults", "Thrust faults", "Reverse faults"],
+                answer: 0
+            },
+            {
+                question: "Amount of water vapour in the atmosphere is measured in terms of",
+                options: ["Humidity", "Droplets", "Smog", "All of the above"],
+                answer: 0
+            },
+            {
+                question: "The modulus of elasticity for mild steel is approximately equal to",
+                options: ["210 kN/mm2", "100 kN/mm2", "80 kN/mm2", "10 kN/mm2"],
+                answer: 0
+            },
+            {
+                question: "The Hooke's law is valid for",
+                options: ["Only proportional region of the stress strain curve", "Entire stress strain curve", "Entire elastic region of the stress strain curve", "Elastic as well as plastic region of the stress strain curve"],
+                answer: 0
+            },
+            {
+                question: "The modulus of rigidity is the ratio of",
+                options: ["Longitudinal stress to longitudinal strain", "Volume stress to volume strain", "Shearing stress to shearing strain", "Tensile stress to tensile strain"],
+                answer: 2
+            },
+            {
+                question: "The flux commonly used in brazing is",
+                options: ["Ammonium chloride", "Borax", "Zinc chloride", "Resin plus alcohol"],
+                answer: 1
+            },
+            {
+                question: "How many laws of physics are there?",
+                options: ["5", "4", "3", "2"],
+                answer: 1
+            },
+            {
+                question: "Which physicists is the writer of the book 'A Brief History of Time'?",
+                options: ["Isaac Newton", "Hans Bethe", "Albert Einstein", "Stephen Hawking"],
+                answer: 3
+            },
+            {
+                question: "On which day 'National Science Day' is celebrated in India ?",
+                options: ["February 23", "February 25", "February 26", "February 28"],
+                answer: 3
+            },
+            {
+                question: "The word \"Physics\" comes from the Greek word",
+                options: ["Phiji", "Fusis", "Phusik", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "Which of the following events occurred first ?",
+                options: ["Albert Einstein propounded the General Theory of Relativity", "Max Planck unveiled the Quantum Theory", "Marconi first tranmitted a wireless signal", "Madame Marie Curie became the first woman Nobel Prize winner"],
+                answer: 1
+            },
+            {
+                question: "What is the range of masses involved in the study of Physics?",
+                options: ["10-19kg to 1038kg", "10-30kg to 1055kg", "10-30kg to 1030kg", "10-19kg to 1055kg"],
+                answer: 1
+            },
+            {
+                question: "Which of the following scientific discoveries was made by C.V. Raman?",
+                options: ["Inelastic scattering of light by molecules", "Super Conductivity", "Controlled nuclear fission", "Cyclotron"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is/are part of the Classical Physics?",
+                options: ["Optics", "Thermodynamics", "Both a and b", "None"],
+                answer: 2
+            },
+            {
+                question: "General purpose utility gloves are",
+                options: ["For surgeries", "For cleaning procedures", "For handling tubes", "All of the above"],
+                answer: 1
+            },
+            {
+                question: "Which of the following occurred first ?",
+                options: ["Albert Einstein propounded the General Theory of Relativity", "Max Planck unveiled the Quantum Theory", "Guglielmo Marconi sent out the first wireless signals", "Wright Brothers successfully flew an aircraft"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is not a valid conservation law of classical physics?",
+                options: ["Law of conservation of energy", "Law of conservation of current", "Law of conservation of angular momentum", "Law of conservation of charge"],
+                answer: 1
+            },
+            {
+                question: "Who among the following gave the Uncertainty principle?",
+                options: ["R.A Milkman", "Ernset Rutherford", "S.N Bose", "Werner Heisenberg"],
+                answer: 3
+            },
+            {
+                question: "The capacity of a water heater is measured in",
+                options: ["Gallons", "Litres", "Metres", "Both A & B"],
+                answer: 3
+            },
+            {
+                question: "How many bottles of water is a gallon?",
+                options: ["16", "8", "4", "2"],
+                answer: 1
+            },
+            {
+                question: "1 Micron is equal to",
+                options: ["10\u20139m", "10\u201312m", "10\u20136m", "10\u201315m"],
+                answer: 2
+            },
+            {
+                question: "A micron is equal to",
+                options: ["0.1 mm", "0.01 mm", "0.001 mm", "0.0001 mm"],
+                answer: 2
+            },
+            {
+                question: "Depth of ocean is measured by",
+                options: ["Animometer", "Aerometer", "Siesmometer", "Fathometer"],
+                answer: 3
+            },
+            {
+                question: "Analog synthesis refers to a technology based on",
+                options: ["Placing brief digital recordings of live sounds under the control of a synthesizer keyboard.", "Interfacing synthesizer equipment.", "Representing data in terms of measurable physical quantities.", "Representing physical quantities as numbers."],
+                answer: 2
+            },
+            {
+                question: "Pycnometer is an instrument used to measure the",
+                options: ["Density", "Intensity of solar radiation", "Intensity of earthquake", "High temperatures"],
+                answer: 0
+            },
+            {
+                question: "Which of the following are used for accurately measuring very small time intervals ?",
+                options: ["Pulsars", "Quartz clocks", "Atomic clocks", "White dwarfs"],
+                answer: 2
+            },
+            {
+                question: "Radian is used to measure",
+                options: ["Temperature", "Intensity of Flame", "Angle", "Solid Angle"],
+                answer: 2
+            },
+            {
+                question: "Which physical quantity is measured in 'siemens'?",
+                options: ["Electric potential", "Electrical conductance", "Magnetic flux", "Refractive index"],
+                answer: 1
+            },
+            {
+                question: "Hydroscope is an instrument that shows changes in:",
+                options: ["Sound under water", "Atmospheric humidity", "Density of liquid", "None of these"],
+                answer: 3
+            },
+            {
+                question: "Stress can be defined as ________ quantity.",
+                options: ["Scalar", "Vector", "Phasor", "Tensor"],
+                answer: 3
+            },
+            {
+                question: "In spherical polar coordinates (l, q, a), q denotes the polar angle around z-axis and a denotes the azimuthal angle raised from x-axis . Then the y-component of P is given by",
+                options: ["Psinq sina", "Psinq cosa", "Pcosq sina", "Pcosq cosa"],
+                answer: 0
+            },
+            {
+                question: "Two vectors are said to be equal if",
+                options: ["Only their magnitudes are same", "Only their directions are same", "Both magnitude and direction are same", "Magnitudes are same but directions are opposite"],
+                answer: 2
+            },
+            {
+                question: "These waves cannot be transmitted through vacuum.",
+                options: ["Light", "Sound", "Heat", "Electromagnetic"],
+                answer: 1
+            },
+            {
+                question: "The component used for tuning a radio is basically a variable",
+                options: ["Resisto", "Condenser", "Inductor", "Transformer"],
+                answer: 1
+            },
+            {
+                question: "Longitudinal waves cannot travel through",
+                options: ["Vacuum", "Solid", "Liquid", "Gas"],
+                answer: 0
+            },
+            {
+                question: "Flight Recorder is technically called :",
+                options: ["Dark box", "Blind box", "Black box", "Altitude meter"],
+                answer: 2
+            },
+            {
+                question: "A gradual increase in loudness is known as",
+                options: ["Crescendo", "Timbre", "Fortissimo", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "When a stone is thrown in the calm water of a pond the waves produced on the surface of water in the pond are",
+                options: ["Longitudinal", "Transverse", "Both longitudinal and transverse", "Waves are not produced"],
+                answer: 1
+            },
+            {
+                question: "In AC circuits, AC meters measure",
+                options: ["Mean values", "Rms values", "Peak values", "Mean square values"],
+                answer: 1
+            },
+            {
+                question: "Speed regulation of synchronous motor is",
+                options: ["1%", "25%", "Zero", "0.5%"],
+                answer: 2
+            },
+            {
+                question: "Which compressor is usually used in AC?",
+                options: ["Centrifugal", "Rotary", "Reciprocating", "Axial"],
+                answer: 2
+            },
+            {
+                question: "Electrons carry a",
+                options: ["Positive Charge", "Negative Charge", "Variable Charge", "Neutral Charge"],
+                answer: 1
+            },
+            {
+                question: "An atom with more neutrons than protons is called",
+                options: ["Compound", "Element", "Isotope", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "Who was the first scientist to discover Electrons?",
+                options: ["Albert Einstein", "Isaac Newton", "J.C. Bose", "J.J Thompson"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is preferred for accelerating electrons?",
+                options: ["Betatron", "Cyclotron", "Synchrotron", "Van de Graft Generator"],
+                answer: 0
+            },
+            {
+                question: "Why does'nt the hydrogen atom emit X-rays?",
+                options: ["It is very small in size", "It has only one electron", "Its energy levels are very close to each other", "It is highly electropositive"],
+                answer: 2
+            },
+            {
+                question: "What is a neuron ?",
+                options: ["Basic unit of energy", "Particle released during radioactivity", "The anti-particle of neutron", "Basic unit of nervous system"],
+                answer: 3
+            },
+            {
+                question: "Sending a frame to a group of stations is known as",
+                options: ["Single casting", "Spreading", "Multicasting", "Casting"],
+                answer: 2
+            },
+            {
+                question: "What is the full form of ''AM' regarding radio broadcasting?",
+                options: ["Amplitude Movement", "Anywhere Movement", "Amplitude Matching", "Amplitude Modulation"],
+                answer: 3
+            },
+            {
+                question: "Radio waves sent out by a radio stations are reflected by",
+                options: ["Troposphere", "Stratosphere", "Mesosphere", "Ionosphere"],
+                answer: 3
+            },
+            {
+                question: "Bandwidth is the",
+                options: ["A measure of the width of a range of frequencies", "The rate of data transfer", "Both a & b", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "Negative feedback in amplifiers",
+                options: ["Increases bandwidth and decreases noise", "Decreases bandwidth and decreases noise", "Increases bandwidth and increases noise", "Decreases bandwidth and increases noise"],
+                answer: 0
+            },
+            {
+                question: "The sharpness of a television image is termed as its",
+                options: ["Clarity", "Colour", "Resolution", "Graphics"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is the fastest communication channel?",
+                options: ["Microwave", "Optical fiber", "Radio wave", "All are operating at nearly the same propagation speed"],
+                answer: 0
+            },
+            {
+                question: "In an optical fibre the signal is transmitted",
+                options: ["In a straight line path", "In a curved path", "Due to total internal reflection", "Due to refraction"],
+                answer: 2
+            },
+            {
+                question: "The Capacity of a communication channel is measured in",
+                options: ["Band rate", "Band width", "Data flow", "Bit capacity"],
+                answer: 1
+            },
+            {
+                question: "Which among the following waves is used for communication by artificial satellites ?",
+                options: ["Micro waves", "Radio waves", "A. M.", "Frequency of 1016 series"],
+                answer: 0
+            },
+            {
+                question: "Modem is used mostly for ?",
+                options: ["A modern empty memory modules", "Connecting to internet", "Mostly for file system", "All the above"],
+                answer: 1
+            },
+            {
+                question: "Choose the most appropriate answer: In which atmospheric layer are the communication satellites located?",
+                options: ["Stratosphere", "Ionosphere", "Troposphere", "Mesosphere"],
+                answer: 1
+            },
+            {
+                question: "Waves that are required for long distance wireless communication are",
+                options: ["Infrared rays", "Ultraviolet rays", "Radio waves", "Microwaves"],
+                answer: 2
+            },
+            {
+                question: "A television channel is characterised by",
+                options: ["Frequency of transmitted signal", "Velocity of transmitted signal", "Physical dimension of television screen", "Size of picture tube"],
+                answer: 0
+            },
+            {
+                question: "Positive feedback is used in",
+                options: ["Amplifiers", "Rectifiers", "Oscillators", "None of these"],
+                answer: 2
+            },
+            {
+                question: "The waveform of a certain signal can be studied by",
+                options: ["Spectrometer", "Cathode ray oscilloscope", "P \u2013 n junction diode", "Sonometer"],
+                answer: 3
+            },
+            {
+                question: "The GPS device in an automobile uses which communication channel?",
+                options: ["Satellite", "Microwave", "Radio frequency", "Infrared"],
+                answer: 0
+            },
+            {
+                question: "In a optical fibre cable, the signal is propagated along the",
+                options: ["Inner Core", "Cladding", "Both core and cladding", "Surface and cladding"],
+                answer: 0
+            },
+            {
+                question: "The audio signals of TV are",
+                options: ["Amplitude modulated", "Frequency modulated", "Unmodulated", "Velocity modulated"],
+                answer: 1
+            },
+            {
+                question: "In radio-communication, the signals emitted by transmitting antenna are reflected on",
+                options: ["Stratosphere", "Ozonosphere", "Ionosphere", "Troposphere"],
+                answer: 2
+            },
+            {
+                question: "Quality of transmission depends upon",
+                options: ["Nature of signal only", "Nature of medium only", "Both (A) and (B)", "Neither A nor B"],
+                answer: 2
+            },
+            {
+                question: "A multimeter is used to measure",
+                options: ["Current", "Voltage", "Resistance", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "Which of the following was the first theory of superconductivity?",
+                options: ["Ginzburg Landau theory", "London theory", "Resonating valence bond theory", "Quantum field theory"],
+                answer: 1
+            },
+            {
+                question: "Carbon Arc lamps are commonly used in",
+                options: ["Cinema projectors", "Photography", "Vehicles", "Domestic lighting"],
+                answer: 0
+            },
+            {
+                question: "Super conductors are substances that",
+                options: ["Offer minimum resistance to flow of electric current", "Conduct electricity at low temperature", "Conduct electricity at high temperature", "Offer high resistance to the flow of electric current"],
+                answer: 0
+            },
+            {
+                question: "A galvanometer can be converted to a voltmeter by connecting",
+                options: ["A high resistance in parallel", "A high resistance in series", "A low resistance in series", "A low resistance in parallel"],
+                answer: 1
+            },
+            {
+                question: "A dynamometer wattmeter can be used for",
+                options: ["Only Direct Current", "Only Active Current", "Both A & B", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "Kirchhoff's laws are applicable to",
+                options: ["D.C. circuits only", "A.C. circuits only", "D.C. and A.C. circuits both", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "The device which converts AC to DC is",
+                options: ["Oscillator", "Amplifier", "Rectifier", "None of these"],
+                answer: 2
+            },
+            {
+                question: "The working of the quartz crystal in the watch is based on the",
+                options: ["Piezo - electric Effect", "Edison Effect", "Photoelectric Effect", "Johnson Effect"],
+                answer: 0
+            },
+            {
+                question: "The purpose of choke in a fluorescent lamp is :",
+                options: ["To increase the current flow", "To decrease the current flow", "To decrease the resistance", "Ro decrease the voltage momentarily"],
+                answer: 1
+            },
+            {
+                question: "Superconductors are those elements",
+                options: ["Whose conductivity is intermediate between metals and insulators", "Whose resistance falls almost to zero at very low temperatures", "Which turn into insulators at very low temperatures", "Which conduct electricity only at super-high temperatures"],
+                answer: 1
+            },
+            {
+                question: "A device used for converting a.c. into d.c. is called",
+                options: ["Transformer", "Rectifier", "Induction coil", "Dynamo"],
+                answer: 1
+            },
+            {
+                question: "A potentiometer wire is 100 cm long and a constant potential difference is maintained across it. Two cells are connected in series first to support one another and then in opposite direction. The balance points are obtained at 50 cm and 10 cm from the positive end of the wire in the two cases. The ratio of the emf's is :",
+                options: ["3:4", "5:4", "5:1", "3:2"],
+                answer: 3
+            },
+            {
+                question: "A galvanometer can be converted into a voltmeter by connecting with it a",
+                options: ["High resistance in parallel", "Low resistance on parallel", "High resistance on series", "Low resistance in series"],
+                answer: 2
+            },
+            {
+                question: "Which of the following supports particle nature of photons ?",
+                options: ["Diffraction", "Polarization", "Photoelectric effect", "Interference"],
+                answer: 2
+            },
+            {
+                question: "The reverse effect of X\u2013ray emission is",
+                options: ["Raman effect", "Compton effect", "Zeeman effect", "Photoelectric"],
+                answer: 3
+            },
+            {
+                question: "The term photon refers to",
+                options: ["Light ray", "Sub atomic particle", "Radiation", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "The strength of an electromagnet can be increased by",
+                options: ["Increasing the length of the coiled wire", "Increasing current supply", "Increasing the number of turns", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "When a vehicle passes, TV reception gets distorted. This is because",
+                options: ["Metal reflects radiowaves", "Spark plug creates electromagnetic disturbances", "Vehicle pollution affects the performance of the TV components", "Modern vehicles use electroignition system"],
+                answer: 1
+            },
+            {
+                question: "Planck's constant has the dimensions of :",
+                options: ["Energy", "Linear momentum", "Angular momentum", "Force"],
+                answer: 2
+            },
+            {
+                question: "Ozone layer above the surface of Earth provides a shield against",
+                options: ["X-rays", "Ultra-violet rays", "Gamma rays", "Infra-red rays"],
+                answer: 1
+            },
+            {
+                question: "Coolis tube is used to produce",
+                options: ["Radio waves", "Micro waves", "X-rays", "Gama rays"],
+                answer: 2
+            },
+            {
+                question: "Who among the following discovered X-rays?",
+                options: ["Marie Curie", "J.J Thomson", "W.C Roentgen", "James Chadwick"],
+                answer: 2
+            },
+            {
+                question: "Ozone layer in the outer atmosphere helps us in",
+                options: ["Reflecting radio waves and makes radio communication possible", "Regulating the temperature of atmosphere", "Absorbing cosmic ray particles", "Absorbing UV radiations"],
+                answer: 3
+            },
+            {
+                question: "The waves used in sonography are",
+                options: ["Micro waves", "Infra-red waves", "Sound waves", "Ultrasonic waves"],
+                answer: 3
+            },
+            {
+                question: "In the remote control of television, electromagnetic waves used are",
+                options: ["Ultraviolet", "Microwave", "Radiowave", "Infrared"],
+                answer: 3
+            },
+            {
+                question: "Which one of the following is not a property of electromagnetic waves?",
+                options: ["Electromagnetic waves do not show interference and diffraction.", "Oscillating electric field and magnetic field are perpendicular to each other.", "Electromagnetic waves are transverse waves", "Electromagnetic waves do not require a medium to propagate."],
+                answer: 0
+            },
+            {
+                question: "Remote-sensing device has an inbuilt source of",
+                options: ["X-ray", "G-ray", "Ultraviolet ray", "Infrared ray"],
+                answer: 3
+            },
+            {
+                question: "Green house effect is the heating up of the Earth's atmosphere which is due to",
+                options: ["The ultraviolet rays", "G-rays", "The infra-red rays", "X-rays"],
+                answer: 2
+            },
+            {
+                question: "Night photography and photopraphy in mist and fog are possible using",
+                options: ["Ultra-violet radiation", "Infra-red radiation", "Microwave radiation", "Gamma radiation"],
+                answer: 1
+            },
+            {
+                question: "A car parked in the sun with its windows closed gets terribly hot inside. This is due to",
+                options: ["The heat emitted by the engine", "The greenhouse effect", "The good conducting power of the metal body", "The double layered wind shield"],
+                answer: 1
+            },
+            {
+                question: "To measure the speed of an approaching car a police officer shines",
+                options: ["Light waves on it", "Microwaves on it", "Radio waves on it", "Ultra high frequency waves on it"],
+                answer: 2
+            },
+            {
+                question: "If the wavelengths corresponding to ultraviolet, visible and infrared radiations are given as lUV, lVIS and lIR respectively, then which of the following gives the correct relationship among these wavelengths?",
+                options: ["LUV < lIR < lVIS", "LUV > lVIS > lIR", "LUV > lIR > lVIS", "LUV < lVIS < lIR"],
+                answer: 3
+            },
+            {
+                question: "Forged documents are detected by",
+                options: ["Ultraviolet rays", "Infra-red rays", "Beta rays", "Gamma rays"],
+                answer: 0
+            },
+            {
+                question: "In a vacuum, all electromagnetic waves have the same",
+                options: ["Velocity", "Wavelenth", "Frequency", "All the above"],
+                answer: 0
+            },
+            {
+                question: "Ultra violet radiations of the Sun do not reach the earth because, earth's atmosphere is surrounded by",
+                options: ["Carbon dioxide", "Ammonia", "Chlorine", "Ozone"],
+                answer: 3
+            },
+            {
+                question: "Electromagnetic waves are transverse in nature is evident by",
+                options: ["Reflection", "Polarisation", "Interference", "Diffraction"],
+                answer: 1
+            },
+            {
+                question: "In the atmosphere ultraviolet rays are absorbed by",
+                options: ["Oxygen", "Nitrogen", "Ozone", "Helium"],
+                answer: 0
+            },
+            {
+                question: "Which layer of the earth's atmosphere reflect back the radio waves to the earth's surface ?",
+                options: ["Ionosphere", "Stratosphere", "Mesosphere", "Exosphere"],
+                answer: 0
+            },
+            {
+                question: "Where are mesons found ?",
+                options: ["Cosmic rays", "X-rays", "Gamma rays", "Laser beam"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is not true about X-rays?",
+                options: ["Have low penetrating power", "Travel with the speed of light", "Can be reflected or refracted", "Can affect photographic plates"],
+                answer: 0
+            },
+            {
+                question: "X\u2013rays are",
+                options: ["Positively charged particles", "Negatively charged particles", "Neutral particles", "None of these"],
+                answer: 2
+            },
+            {
+                question: "X-rays region lies between",
+                options: ["Ultraviolet and visible region", "Visible and infra-red region", "Gamma-rays and ultraviolet region", "Short radio waves and long radio waves"],
+                answer: 2
+            },
+            {
+                question: "In the absence of ozone layer, which rays will enter into atmosphere?",
+                options: ["Infrared", "Visible", "Ultraviolet", "X-rays"],
+                answer: 2
+            },
+            {
+                question: "In MRI machine, which one of the following is used?",
+                options: ["Sound wave", "X-ray", "Ultra-sound wave", "Magnetic wave"],
+                answer: 3
+            },
+            {
+                question: "Tape recorder should not be kept near one of the following things :",
+                options: ["Clock", "Magnet", "Electrical switchboard", "Radio"],
+                answer: 1
+            },
+            {
+                question: "A photostat machine works on",
+                options: ["Electromagnetic image making", "Electrostatic image making", "Magnetic image making", "Thermal image making"],
+                answer: 1
+            },
+            {
+                question: "On which of the following techniques photostate machine works ?",
+                options: ["Magnetic Image\u2014Making", "Thermal Image\u2014Making", "Electrostatic Image\u2014Making", "Electromagnetic Image\u2014 Making"],
+                answer: 2
+            },
+            {
+                question: "Which of the following group of elements are diamagnetic?",
+                options: ["Argon, copper, silver", "Hydrogen, argon, copper", "Oxygen, copper, silver", "Hydrogen, oxygen, Argon"],
+                answer: 0
+            },
+            {
+                question: "In the process of magnetisation of a bar",
+                options: ["The entire bulk of the bar gets magnetised", "Only the surface of the bar gets magnetised", "Only the ends of the bar get magnetised", "Only some parts of the outer layers of the bar get magnetised"],
+                answer: 0
+            },
+            {
+                question: "Magnetic domains normally occur in",
+                options: ["Copper", "Silver", "Iron", "All of the above"],
+                answer: 2
+            },
+            {
+                question: "Magnetism in materials is due to",
+                options: ["Electrons at rest", "Circular motion of electrons", "Protons at rest", "All neutrons at rest"],
+                answer: 1
+            },
+            {
+                question: "The method of magnetisation is:",
+                options: ["Hammering a magnet", "Heating a magnet", "Passing direct current through it", "Passing alternating current through it"],
+                answer: 0
+            },
+            {
+                question: "Magnetic keepers are pieces of",
+                options: ["Nickel", "Cobalt", "Steel", "Soft iron"],
+                answer: 3
+            },
+            {
+                question: "The domain theory of magnetism applies to",
+                options: ["Aluminium", "Copper", "Silver", "Cobalt"],
+                answer: 3
+            },
+            {
+                question: "The paramagnetic theory of magnetism applies to",
+                options: ["Nickel", "Mercury", "Iron", "Platinum"],
+                answer: 3
+            },
+            {
+                question: "Where should a boat compass be mounted?",
+                options: ["Near magnet", "Near iron", "Away from electrical wiring", "All the above"],
+                answer: 2
+            },
+            {
+                question: "Which of the following properties is found only in ferromagnetic materials ?",
+                options: ["Susceptibility independent of temperature", "Point in a particular direction", "Hysteresis", "Attracting a magnetic substance"],
+                answer: 2
+            },
+            {
+                question: "Choose the most appropriate answer: Natural radioactivity was discovered by",
+                options: ["Marie Curie", "Earnest Rutherford", "Henry Bacquerel", "Enrico Fermi"],
+                answer: 2
+            },
+            {
+                question: "After removing two electrons from helium atom it become?",
+                options: ["UV rays", "Alpha particle", "Gama particle", "X rays"],
+                answer: 1
+            },
+            {
+                question: "An atom bomb based upon the principle of ________",
+                options: ["Nuclear fission", "Nuclear fussion", "Controlled chain reaction", "None of these"],
+                answer: 0
+            },
+            {
+                question: "Radioactivity is due to",
+                options: ["Unstable nucleus", "Stable nucleus", "Stable electronic configuration", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "The mass defect is the result of what action occurring?",
+                options: ["Mass being converted to energy when protons and neutrons bind together in a nucleus", "Protons and electrons being attracted to each other", "Energy being converted into moles of atoms when neutrons break apart protons", "Mass being converted to energy when protons and neutrons break apart in a nucleus"],
+                answer: 0
+            },
+            {
+                question: "The optical phenomenon that is primarily responsible for the observation of rainbow on a rainy day is",
+                options: ["Diffraction", "Interference", "Dispersion", "Reflection"],
+                answer: 2
+            },
+            {
+                question: "A colour-blind person cannot",
+                options: ["See distant objects", "See black colour", "Distinguish between certain colours", "Have persistence of vision"],
+                answer: 2
+            },
+            {
+                question: "Magnifying Glass is basically a",
+                options: ["Plano-concave lens", "Concave lens", "Convex lens", "Cylindrical lens"],
+                answer: 2
+            },
+            {
+                question: "A microscope used in pathological laboratories forms",
+                options: ["Magnified, virtual, erect image", "Diminished, real and erect image", "Magnified, virtual and inverted image", "Diminished, virtual and erect image"],
+                answer: 2
+            },
+            {
+                question: "The atmospheric layer reflecting radio waves is called",
+                options: ["Ozonosphere", "Ionosphere", "Stratosphere", "Mesosphere"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is optical illusion?",
+                options: ["Rainbow", "Earthshine", "Halo", "Mirage"],
+                answer: 3
+            },
+            {
+                question: "Holography is a technique of",
+                options: ["Recording a permanent, sharp two diimensional black and white or multicolour photograph", "Recording a permanent three dimensional multicolour photograph", "Recording a permanent three dimensional black and white photograph", "Recording a permanent three dimensional photograph of a given single colour or a multicolour"],
+                answer: 3
+            },
+            {
+                question: "Optical fiber works on the principle of",
+                options: ["Scattering", "Interference", "Total internal reflection", "Refraction"],
+                answer: 2
+            },
+            {
+                question: "In a Cinema hall, the distance between the projector and the screen is increased by 2%. Then the intensity of illumination on the screen is",
+                options: ["Decreased by 2%", "Decreased by 4%", "Increased by 2%", "Increased by 4%"],
+                answer: 1
+            },
+            {
+                question: "A simple microscope consists of :",
+                options: ["A short focus convex lens", "A long focus convex lens", "A short focus concave lens", "A long focus concave lens"],
+                answer: 0
+            },
+            {
+                question: "Person who is colourblind cannot distinguish between",
+                options: ["Black and yellow", "Red and green", "Yellow and white", "Green and blue"],
+                answer: 1
+            },
+            {
+                question: "Fiber optics cable used in communication, works on the principle of",
+                options: ["Regular reflection of light", "Diffuse reflection of light", "Refraction of light", "Total internal reflection of light"],
+                answer: 3
+            },
+            {
+                question: "The final image in a simple microscope is",
+                options: ["Real, diminished and inverted", "Real, magnified and erect", "Virtual, magnified and erect", "Virtual, diminished and erect"],
+                answer: 2
+            },
+            {
+                question: "Which microscope is often used to view metal surfaces?",
+                options: ["Optical microscopes", "Scanning tunneling microscopes", "Electron microscopes", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "Which of the following cannot be used for making lenses?",
+                options: ["Plastic", "Soil", "Glass", "Water"],
+                answer: 1
+            },
+            {
+                question: "The illuminating powers of two sources are compared by",
+                options: ["A spectrometer", "A photometer", "A polarimeter", "A fluxmeter"],
+                answer: 1
+            },
+            {
+                question: "Rainbow is seen after rain because of hanging molecules of water which act as",
+                options: ["Lenses", "Mirrors", "Prisms", "Slabs"],
+                answer: 1
+            },
+            {
+                question: "The information of brilliant colors in a thin soap film is a consequence of the phenomena of",
+                options: ["Polarization and interference", "Diffraction and dispersion", "Multiple refraction and dispersion", "Multiple reflection and interference"],
+                answer: 3
+            },
+            {
+                question: "Purpose of an optical filter is to",
+                options: ["Reflect lights of different colours", "Dispense light into component colours", "Refract light of different colours", "Transmit or absorb light of different colours"],
+                answer: 3
+            },
+            {
+                question: "Parabolic mirrors are used in",
+                options: ["Car headlights", "Driving mirrors", "Dentists mirros", "Shaving mirros"],
+                answer: 0
+            },
+            {
+                question: "The redness in atmosphere at Sunrise and Sunset is due to :",
+                options: ["Refraction of light", "Reflection of light", "Dispersion of light", "Scattering of light"],
+                answer: 3
+            },
+            {
+                question: "The sky appears blue due to",
+                options: ["Rayleigh scattering", "Mie scattering", "Back scattering", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "What is a compound microscope?",
+                options: ["A microscope that has one lens.", "A microscope that has two sets of lenses : an occular lens and an eyepiece.", "A microscope whose lenses are concave.", "A microscope whose lenses are convex."],
+                answer: 1
+            },
+            {
+                question: "Which one of the following is used for sun glasses ?",
+                options: ["Pyrex glass", "Flint glass", "Crooks glass", "Crystal glass"],
+                answer: 2
+            },
+            {
+                question: "Instrument for measuring blueness of the sky or ocean is called ________",
+                options: ["Bathymeter", "Ceraunograph", "Cyanometer", "Barometer"],
+                answer: 2
+            },
+            {
+                question: "Photosynthesis takes place faster in",
+                options: ["Darkness", "Red light", "White light", "Yellow light"],
+                answer: 2
+            },
+            {
+                question: "In a bipolar junction transistor",
+                options: ["All the three regions (the emitter, the base and the collector) have equal concentrations of impurity", "The emitter has the least concentration of impurity", "The collector has the least concentration of impurity", "The base has the least concentration of impurity"],
+                answer: 3
+            },
+            {
+                question: "When a piece of pure silicon is doped with aluminium, then",
+                options: ["The conductivity of the doped silicon piece will remain the same", "The doped silicon piece will become n-type", "The doped silicon piece will become p-type", "The resistivity of the doped silicon piece will increase"],
+                answer: 2
+            },
+            {
+                question: "When two semiconductors of p and n-type are brought in contact, they form p-n junction which acts like a/an",
+                options: ["Conductor", "Oscillator", "Rectifier", "Amplifier"],
+                answer: 2
+            },
+            {
+                question: "Which one among the following components is used as an amplifying device?",
+                options: ["Transformer", "Diode", "Capacitor", "Transistor"],
+                answer: 3
+            },
+            {
+                question: "Which of the following features of a tunnel diode is its drawback?",
+                options: ["Extremely high frequency response", "Very wide temperature range of operations", "Instability due to negative resistance", "Very low power consumptions"],
+                answer: 2
+            },
+            {
+                question: "The material used in the fabrication of a transistor is",
+                options: ["Aluminium", "Copper", "Silicon", "Silver"],
+                answer: 2
+            },
+            {
+                question: "For which Diode is used ?",
+                options: ["Modulation", "Oscillation", "Amplification", "Purification"],
+                answer: 3
+            },
+            {
+                question: "The complete form of 'IC' in electronics is",
+                options: ["Internal circuit", "Independent circuit", "Integrated circuit", "Inbuilt circuit"],
+                answer: 2
+            },
+            {
+                question: "For which one of the following, ''Diodes\" are generally used for?",
+                options: ["Rectification", "Amplification", "Modulation", "Filtration"],
+                answer: 0
+            },
+            {
+                question: "The width of depletion layer of a P-N junction",
+                options: ["Decreases with light doping", "Increases with heavy doping", "Is independent of applied voltage", "Is increased under reverse bias"],
+                answer: 3
+            },
+            {
+                question: "The impurity atoms with which silicon should be doped to make p-type semiconductors are",
+                options: ["Phosphorus", "Antimony", "Boron", "Germanium"],
+                answer: 2
+            },
+            {
+                question: "A NOT gate can be implemented by:",
+                options: ["A single diode", "Two diodes", "A single resistor", "A single transistor"],
+                answer: 3
+            },
+            {
+                question: "Where is a transistor most likely to be found ?",
+                options: ["Wrist watch", "Fuse", "Hearing aid", "Fluorescent lamp"],
+                answer: 2
+            },
+            {
+                question: "Universal gates are",
+                options: ["AND and OR", "OR and NOT", "NAND and NOR", "AND and XOR"],
+                answer: 2
+            },
+            {
+                question: "Golden view of sea shell is due to",
+                options: ["Diffraction", "Dispersion", "Polarization", "Reflection"],
+                answer: 2
+            },
+            {
+                question: "Which of the following waves cannot be polarised?",
+                options: ["Radio", "Ultra violet", "Infrared", "Ultrasonic"],
+                answer: 3
+            },
+            {
+                question: "Lamberts law is related to",
+                options: ["Reflection", "Refraction", "Interference", "Illumination"],
+                answer: 3
+            },
+            {
+                question: "Which of these waves can be polarized ?",
+                options: ["Sound waves in air", "Longitudinal waves on a string", "Transverse waves on a string", "Light waves"],
+                answer: 3
+            },
+            {
+                question: "The scientist who first sent electromagnetic waves to distant places is",
+                options: ["James Clerk Maxwell", "Heinrich Hertz", "Thomas Alva Edison", "John Logie Baird"],
+                answer: 2
+            }
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.innerHTML = `<span class="text-blue-600 dark:text-blue-500 mr-2">Q${index + 1}.</span> ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                if (!option || option.trim() === '') return;
+                
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) return;
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            wrapper.appendChild(questionBlock);
+        });
+
+        // Theme sync
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>

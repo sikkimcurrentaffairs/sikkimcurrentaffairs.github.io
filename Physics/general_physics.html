@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>General Physics | Sikkim PSC Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        .quiz-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        html.dark .quiz-container {
+            background: #24272c;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #0284c7;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        html.dark .question-block {
+            border-bottom: 1px solid #334155;
+        }
+        .question-text {
+            font-size: 1.15em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+        html.dark .question-text {
+            color: #f1f5f9;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option {
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            padding: 16px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            color: #475569;
+        }
+        html.dark .option {
+            background-color: #1e293b;
+            border: 2px solid #334155;
+            color: #cbd5e1;
+        }
+        .option:hover {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
+            transform: translateX(4px);
+        }
+        html.dark .option:hover {
+            background-color: #334155;
+            border-color: #475569;
+        }
+        .option.correct {
+            background-color: #dcfce7 !important;
+            border-color: #4ade80 !important;
+            color: #166534 !important;
+        }
+        html.dark .option.correct {
+            background-color: #064e3b !important;
+            border-color: #10b981 !important;
+            color: #ecfdf5 !important;
+        }
+        .option.incorrect {
+            background-color: #fee2e2 !important;
+            border-color: #f87171 !important;
+            color: #991b1b !important;
+        }
+        html.dark .option.incorrect {
+            background-color: #7f1d1d !important;
+            border-color: #ef4444 !important;
+            color: #fef2f2 !important;
+        }
+        .options-list.answered {
+            pointer-events: none;
+        }
+        .quiz-stats-badge {
+            background: #f1f5f9;
+            color: #64748b;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        html.dark .quiz-stats-badge {
+            background: #334155;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 min-h-screen p-4 sm:p-8">
+
+    <div class="quiz-container">
+        <a href="physics.html" class="back-link">&larr; Back to Physics Topics</a>
+        <h1 class="text-3xl font-bold text-blue-800 dark:text-blue-400 mb-2">General Physics</h1>
+        <div class="quiz-stats-badge">99 MCQ Questions</div>
+        
+        <div id="questions-wrapper"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Pa(Pascal) is the unit for",
+                options: ["Thrust", "Pressure", "Frequency", "Conductivity"],
+                answer: 1
+            },
+            {
+                question: "Out of the following pairs, choose the pair in which the physical quantities do not have identical dimension?",
+                options: ["Pressure and Young's modules", "Planck's constant and Angular momentum", "Impulse and moment of force", "Force and rate of change of linear momentum"],
+                answer: 2
+            },
+            {
+                question: "Pick out the scalar quantity",
+                options: ["Force", "Pressure", "Velocity", "Acceleration"],
+                answer: 1
+            },
+            {
+                question: "Lux is the SI unit of",
+                options: ["intensity of illumination", "luminous efficiency", "luminous flux", "luminous intensity"],
+                answer: 0
+            },
+            {
+                question: "Out of the following pairs, which one does not have identical dimension?",
+                options: ["Moment of inertia and moment of a force", "Work and Torque", "Angular momentum and Planck's constant", "Impulse and Momentum"],
+                answer: 0
+            },
+            {
+                question: "Identify the vector quantity from the following",
+                options: ["Heat", "Angular momentum", "Time", "Work"],
+                answer: 1
+            },
+            {
+                question: "Kilowatt-hour is the unit of :",
+                options: ["Energy", "Power", "Force", "Momentum"],
+                answer: 0
+            },
+            {
+                question: "When pressure is increased the melting point of ice",
+                options: ["Increases", "Does not change", "Decreases", "Depends on the impurities in the ice"],
+                answer: 2
+            },
+            {
+                question: "The wall of a dam is made thicker at the bottom than at the top because the pressure exerted by the water on the wall",
+                options: ["Depends on the thickness of the wall", "Increases with height of the wall", "Increases with depth of the wall", "Depends on the area of the wall"],
+                answer: 2
+            },
+            {
+                question: "It is easy to burst a gas-filled balloon with a needle than with a nail. It is because",
+                options: ["Nail is more longer than needle.", "Nail exerts more pressure than needle on the balloon.", "Needle exerts more pressure than nail on the balloon.", "Gas is reactive with the needle."],
+                answer: 2
+            },
+            {
+                question: "Pressure Cooker cooks faster because",
+                options: ["Boiling point decreases with rise of pressure", "It cooks the food at low pressure", "Higher temperature is attained for cooking", "The material of the cooker is a good conductor"],
+                answer: 2
+            },
+            {
+                question: "Atmospheric pressure exerted on earth is due to",
+                options: ["Gravitational pull", "Rotation of earth", "Revolution of earth", "Uneven heating of earth"],
+                answer: 0
+            },
+            {
+                question: "What measures Air pressure?",
+                options: ["Barkometer", "Bolometer", "Spectrometer", "Barometer"],
+                answer: 3
+            },
+            {
+                question: "The rice is cooked more quickly in a pressure cooker because",
+                options: ["It is covered.", "Less quantity of water is used.", "None of these", "Water boils at a higher temperature under pressure."],
+                answer: 3
+            },
+            {
+                question: "When hot liquid is poured into a thick glass tumbler, it cracks because glass :",
+                options: ["Is a bad conductor of heat so only inner surface expands", "Has high temperature coefficient of expansion", "Has a very low specific heat", "Has low temperature coefficient of expansion"],
+                answer: 0
+            },
+            {
+                question: "'Therm' is the unit of",
+                options: ["Power", "Heat", "Light", "Distance"],
+                answer: 1
+            },
+            {
+                question: "What is the process of conversion of solid state directly to gaseous state called?",
+                options: ["Evaporation", "Condensation", "Sublimation", "Distillation"],
+                answer: 2
+            },
+            {
+                question: "The amount of matter in a ball of steel is its :",
+                options: ["Weight", "Mass", "Density", "Volume"],
+                answer: 1
+            },
+            {
+                question: "Which of the following laws validates the statement that matter can neither be created nor destroyed ?",
+                options: ["Law of conservation of energy", "Le Chatelier's Principle", "Law of conservation of mass", "Law of osmosis"],
+                answer: 2
+            },
+            {
+                question: "The density of water is 1 g/cc. This is strictly valid at",
+                options: ["0\u00b0C", "4\u00b0C", "25\u00b0C", "100\u00b0C"],
+                answer: 1
+            },
+            {
+                question: "Decibel is the unit used for",
+                options: ["Speed of light", "Intensity of heat", "Intensity of sound", "Radio wave frequency"],
+                answer: 2
+            },
+            {
+                question: "The unit of noise pollution (level) is :",
+                options: ["Decibel", "Decimal", "Ppm", "None of these"],
+                answer: 0
+            },
+            {
+                question: "Hertz is a unit for measuring",
+                options: ["Intensity of waves", "Frequency of waves", "Wavelength", "Clarity of waves"],
+                answer: 1
+            },
+            {
+                question: "Hertz is the SI unit of",
+                options: ["Weight", "Power", "Pressure", "Frequency"],
+                answer: 3
+            },
+            {
+                question: "As water is cooled from 4 deg C to 0 deg C, its density",
+                options: ["Increases", "Decreases", "Remains same", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "The density of a gas is maximum at",
+                options: ["Low temperature, low pressure", "Low temperature, high pressure", "High temperature, low pressure", "High temperature, high pressure"],
+                answer: 1
+            },
+            {
+                question: "The density of the liquid when heated",
+                options: ["Decreases", "Increases", "Does not change", "May increase of decrease depending on pressure"],
+                answer: 0
+            },
+            {
+                question: "Water has maximum density at",
+                options: ["100\u00b0C", "0\u00b0C", "4\u00b0C", "273\u00b0C"],
+                answer: 2
+            },
+            {
+                question: "When water freezes its density",
+                options: ["Decreases", "Becomes Zero", "Remains constant", "Increases"],
+                answer: 0
+            },
+            {
+                question: "Parsec is the unit of",
+                options: ["Distance", "Time", "Intensity of light", "Magnetic line"],
+                answer: 0
+            },
+            {
+                question: "What is the fundamental unit of amount of a substance?",
+                options: ["Mole", "Candela", "Kelvin", "Meter"],
+                answer: 0
+            },
+            {
+                question: "Scalar Quantities are",
+                options: ["Physical quantities which have magnitude only and no direction", "Physical quantities which have no magnitude only and only direction", "Physical quantities which have magnitude only and direction", "Physical quantities which have no magnitude and no direction"],
+                answer: 0
+            },
+            {
+                question: "The pressure of a fluid varies with depth h as P = PQ+pgh, where p is the fluid density. This expression is associated with",
+                options: ["Pascal's law", "Newton's law", "Bernoulli's principle", "Archimedes' principle"],
+                answer: 0
+            },
+            {
+                question: "Air pressure is measured in which of the following units?",
+                options: ["Steridian", "Kg/mts", "Newton", "Pascal"],
+                answer: 3
+            },
+            {
+                question: "The sudden fall of atmospheric pressure indicates",
+                options: ["Fair weather", "Storm", "Rain", "Cold weather"],
+                answer: 1
+            },
+            {
+                question: "A storm is predicted if atmospheric pressure",
+                options: ["Rises suddenly", "Rises gradually", "Falls suddenly", "Falls gradually"],
+                answer: 2
+            },
+            {
+                question: "When a barometer is rising air pressure is",
+                options: ["Increasing", "Decreasing", "Constant", "Zero"],
+                answer: 0
+            },
+            {
+                question: "The pressure exerted by a 760 mm column of mercury at 0\u00b0C is known as",
+                options: ["1 pascal", "1 atmosphere", "1 bar", "1 poise"],
+                answer: 0
+            },
+            {
+                question: "A vacuum cleaner works on the principle of pressure difference. On the moon it will",
+                options: ["Work as efficiently as on the earth", "Not work at all", "Work with reduced efficiency", "Work with increased efficiency"],
+                answer: 1
+            },
+            {
+                question: "If we want to calculate the pressure of a liquid at the bottom of a vessel, the quantity which is not required to determine it, is",
+                options: ["Height of the liquid column", "Surface area of the bottom of the vessel", "Density of the liquid", "Acceleration due to gravity at the bottom of the vessel"],
+                answer: 1
+            },
+            {
+                question: "Air pressure is usually highest when the air is",
+                options: ["Warm and moist", "Cool and dry", "Warm and dry", "Cool and moist"],
+                answer: 3
+            },
+            {
+                question: "Megahertz is a measurement of",
+                options: ["Frequency", "Speed", "Wavelength", "Capacity"],
+                answer: 0
+            },
+            {
+                question: "In very cold countries alcohol is used as a thermometric liquid because",
+                options: ["Alcohol is a poor conductor of heat", "Alcohol can be coloured for its level to be seen easily", "Its freezing point is very low", "It will not stick to the glass tube"],
+                answer: 2
+            },
+            {
+                question: "A gas thermometer is more sensitive than a liquid thermometer because a gas :",
+                options: ["Is lighter than liquid", "Expands more than a liquid", "Is easy to obtain", "Does not change state easily"],
+                answer: 1
+            },
+            {
+                question: "A solid needle placed horizontally on the surface of the water floats due to",
+                options: ["Capillary action", "Water pressure", "Surface tension of water", "Viscosity of water"],
+                answer: 2
+            },
+            {
+                question: "Buoyancy depends on",
+                options: ["The mass of the liquid displaced", "The mass of the body", "The depth to which the body is immersed", "The shaped of the body"],
+                answer: 0
+            },
+            {
+                question: "Two identical solid pieces, one of gold and other of silver, when immersed completely in water exhibit equal weights. When weighed in air (given that density of gold is greater than that of silver)",
+                options: ["The gold piece will weigh more", "The silver piece will weigh more", "Both silver and gold pieces weigh equal", "Weighing will depend on their masses"],
+                answer: 1
+            },
+            {
+                question: "Dioptre is the unit of",
+                options: ["Power of a lens", "Focal length of a lens", "Light intensity", "Sound intensity"],
+                answer: 0
+            },
+            {
+                question: "The dimension of which of the following is the same as that of impulse ?",
+                options: ["Volume", "Momentum", "Torque", "Change in the rate of momentum"],
+                answer: 1
+            },
+            {
+                question: "The dimension MLT\u20132corresponds to",
+                options: ["Force", "Work done", "Acceleration", "Velocity"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is a result of Surface tension ?",
+                options: ["Gravitational pull", "Viscosity", "Capillary action", "Radiation"],
+                answer: 2
+            },
+            {
+                question: "A liquid disturbed by stirring comes to rest due to",
+                options: ["Density", "Surface tension", "Viscosity", "Centripetal force"],
+                answer: 2
+            },
+            {
+                question: "The surface tension of water on adding detergent to it",
+                options: ["Increases", "Decreases", "No change", "Becomes zero"],
+                answer: 1
+            },
+            {
+                question: "Which liquid is the most viscous?",
+                options: ["Water", "Diesel", "Milk", "Oil"],
+                answer: 3
+            },
+            {
+                question: "Surface tension in a liquid is due to :",
+                options: ["Adhesive force betweenmolecules", "Cohesive force between molecules", "Gravitational force between molecules", "Electrical force between molecules."],
+                answer: 1
+            },
+            {
+                question: "Which of these liquids has the highest viscosity?",
+                options: ["Milk", "Syrup", "Pineapple juice", "Water"],
+                answer: 1
+            },
+            {
+                question: "Which of the following liquids has the least density ?",
+                options: ["Fresh water", "Salt water", "Petrol", "Mercury"],
+                answer: 2
+            },
+            {
+                question: "Which one is the unit of surface tension of a liquid",
+                options: ["Newton /m2", "Electron volt /cm2", "Joule/ mm", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "If cream is removed from milk, its density",
+                options: ["Increases", "Decreases", "Remains the same", "May increase or decrease"],
+                answer: 0
+            },
+            {
+                question: "A drop of liquid assumes spherical shape because:",
+                options: ["Intermolecular forces are strong in liquids", "A sphere has the least surface area for a given volume", "A sphere has the largest surface area for a given volume", "Inter molecular forces are weak in liquids"],
+                answer: 1
+            },
+            {
+                question: "Name the process by which bubbles from liquid are formed?",
+                options: ["Effervescence", "Surface Tension", "Surface Energy", "Degasification"],
+                answer: 0
+            },
+            {
+                question: "When a detergent is added to pure water, its surface tension",
+                options: ["Increases", "Decreases", "Remains constant", "Becomes infinite"],
+                answer: 1
+            },
+            {
+                question: "What is unit of Viscosity ?",
+                options: ["Coulomb", "Newton second per square meter", "Watt per meter per degree celcius", "Joule per kilogram per Kelvin"],
+                answer: 1
+            },
+            {
+                question: "The large collection of stars, dust and gas held together by gravitational attraction between components is known as",
+                options: ["Cluster", "Atmosphere", "Galaxy", "Sun Family"],
+                answer: 2
+            },
+            {
+                question: "Which planet has the lowest density?",
+                options: ["Earth", "Jupiter", "Saturn", "Neptune"],
+                answer: 2
+            },
+            {
+                question: "The dimension of Planck constant equals to that of",
+                options: ["Energy", "Momentum", "Angular momentum", "Power"],
+                answer: 2
+            },
+            {
+                question: "Which law relates to the ideal gas law?",
+                options: ["P1T1 = P2T2", "P1/V1 = P2/V2", "P1V1 = P2V2", "T1/V1 = T2/V2"],
+                answer: 2
+            },
+            {
+                question: "A solid ball of metal has a spherical cavity inside it. When the ball is heated the volume of the cavity will",
+                options: ["Increase", "Decrease", "Remain unaffected", "Have its shape changed"],
+                answer: 0
+            },
+            {
+                question: "An ideal gas cannot be",
+                options: ["Liquified", "Solidified", "Both A & B", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "Super cooling stands for cooling of a liquid :",
+                options: ["At freezing point", "Below freezing point", "At melting point", "Above melting point"],
+                answer: 1
+            },
+            {
+                question: "Which set of conditions represents the easiest way to liquify a gas ?",
+                options: ["Low temperature and high pressure", "High temperature and low pressure", "Low temperature and low pressure", "High temperature and high pressure"],
+                answer: 0
+            },
+            {
+                question: "The combined gas law relates which of the following?",
+                options: ["Volume & Temperature", "Temperature & Pressure", "Volume & Pressure", "Volume, Temperature & Pressure"],
+                answer: 3
+            },
+            {
+                question: "A real gas can act as an ideal gas in",
+                options: ["High pressure and low temperature", "Low pressure and high temperature", "High pressure and high temperature", "Low pressure and low temperature"],
+                answer: 1
+            },
+            {
+                question: "Supercooling is cooling of liquid ________",
+                options: ["Below melting point", "Below freezing point", "At melting point", "Above melting point"],
+                answer: 1
+            },
+            {
+                question: "Which measurement describes the pressure of a gas?",
+                options: ["450 mm Hg", "315 K", "251 g/cub.cm", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "For an ideal gas, which one of the following statements does not hold true?",
+                options: ["The speed of all gas molecules is same", "The kinetic energies of all gas molecules are not same", "The potential energy of the gas molecules is zero", "There is no interactive force between the molecules."],
+                answer: 0
+            },
+            {
+                question: "The transport phenomenon occurs only in ________ state of a gas and is ________",
+                options: ["Non-equilibrium, irreversible", "Non-equilibrium, reversible", "Equilibrium, irreversible", "Equilibrium, reversible"],
+                answer: 2
+            },
+            {
+                question: "Gas thermometers are more sensitive than the liquid thermometers because the gases",
+                options: ["Have large coefficient of expansion", "Are lighter", "Have low specific heat", "Have high,specific heat"],
+                answer: 0
+            },
+            {
+                question: "What happens to a liquid, when the vapour pressure equals the atmospheric pressure?",
+                options: ["The liquid cools", "The liquid boils", "No change", "The liquid evaporates"],
+                answer: 1
+            },
+            {
+                question: "What is the unit of the physical quantity \"Jerk\"?",
+                options: ["Meter second", "Meter per second cube", "Meter per second square", "Meter per second"],
+                answer: 1
+            },
+            {
+                question: "What is the unit of relative density?",
+                options: ["Kg/m", "Kg/m2", "Kg/m3", "It has no unit"],
+                answer: 3
+            },
+            {
+                question: "'Parsec' is the unit measurement of",
+                options: ["Density of stars", "Astronomical distance", "Brightness of heavenly bodies", "Orbital velocity of giant stars"],
+                answer: 1
+            },
+            {
+                question: "'Farad' is the unit of :",
+                options: ["Capacitance", "Inductance", "Resistance", "Conductance"],
+                answer: 0
+            },
+            {
+                question: "Which of the following have the same unit ?",
+                options: ["Work and power", "Torque and moment of inertia", "Work and torque", "Torque and angular momentum"],
+                answer: 2
+            },
+            {
+                question: "Kilohertz is a unit which measures",
+                options: ["Electromagnetic radio wave frequencies", "Electric resistance", "Power used by a current of one ampere", "Voltage"],
+                answer: 0
+            },
+            {
+                question: "What is the unit of the physical quantity \"Inductance\"?",
+                options: ["Weber", "Farad", "Henry", "Tesla"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is the unit of Astronomical Distance ?",
+                options: ["Metre/sec", "Sec", "Para/sec", "Parsec"],
+                answer: 3
+            },
+            {
+                question: "What is unit of Astronomical distance ?",
+                options: ["Light year", "Angstrom", "Weber", "Lux"],
+                answer: 0
+            },
+            {
+                question: "The SI unit of luminous emittance is :",
+                options: ["Lux", "Candela", "Lumen", "Lumen second"],
+                answer: 0
+            },
+            {
+                question: "The unit of measurement of noise is",
+                options: ["Decibel", "Hertz", "Amplifier", "Acoustics"],
+                answer: 0
+            },
+            {
+                question: "Unit of impedance is ________",
+                options: ["Ohm", "Henry", "Tesla", "Hertz"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is a vector quantity?",
+                options: ["Area", "Power", "Electric Current", "Energy"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is not a vector quantity?",
+                options: ["Acceleration", "Density", "Displacement", "Impulse"],
+                answer: 1
+            },
+            {
+                question: "Matter waves are",
+                options: ["De Broglie waves", "Electromagnetic waves", "Transverse waves", "Longitudinal waves"],
+                answer: 0
+            },
+            {
+                question: "Erg cross Sec is the unit of",
+                options: ["Angular momentum", "Linear Momentum", "Planck's constant", "Energy"],
+                answer: 2
+            },
+            {
+                question: "Electrical Pressure is also called",
+                options: ["Current", "Voltage", "Resistance", "Power"],
+                answer: 1
+            },
+            {
+                question: "The unit of Planck's constant is",
+                options: ["Js", "Js\u20132", "J/s", "Js2"],
+                answer: 0
+            },
+            {
+                question: "The unit of magnetic permeability is",
+                options: ["Henry/meter", "Henry", "Weber", "Weber/meter"],
+                answer: 0
+            },
+            {
+                question: "Tesla is a unit of magnetic :",
+                options: ["Flux", "Induction", "Moment", "Field"],
+                answer: 3
+            }
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.innerHTML = `<span class="text-blue-600 dark:text-blue-500 mr-2">Q${index + 1}.</span> ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                if (!option || option.trim() === '') return;
+                
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) return;
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            wrapper.appendChild(questionBlock);
+        });
+
+        // Theme sync
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>

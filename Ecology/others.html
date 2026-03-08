@@ -1,0 +1,2787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Others | Sikkim PSC Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        .quiz-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        html.dark .quiz-container {
+            background: #24272c;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #0284c7;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        html.dark .question-block {
+            border-bottom: 1px solid #334155;
+        }
+        .question-text {
+            font-size: 1.15em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+        html.dark .question-text {
+            color: #f1f5f9;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option {
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            padding: 16px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            color: #475569;
+        }
+        html.dark .option {
+            background-color: #1e293b;
+            border: 2px solid #334155;
+            color: #cbd5e1;
+        }
+        .option:hover {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
+            transform: translateX(4px);
+        }
+        html.dark .option:hover {
+            background-color: #334155;
+            border-color: #475569;
+        }
+        .option.correct {
+            background-color: #dcfce7 !important;
+            border-color: #4ade80 !important;
+            color: #166534 !important;
+        }
+        html.dark .option.correct {
+            background-color: #064e3b !important;
+            border-color: #10b981 !important;
+            color: #ecfdf5 !important;
+        }
+        .option.incorrect {
+            background-color: #fee2e2 !important;
+            border-color: #f87171 !important;
+            color: #991b1b !important;
+        }
+        html.dark .option.incorrect {
+            background-color: #7f1d1d !important;
+            border-color: #ef4444 !important;
+            color: #fef2f2 !important;
+        }
+        .options-list.answered {
+            pointer-events: none;
+        }
+        .quiz-stats-badge {
+            background: #f1f5f9;
+            color: #64748b;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        html.dark .quiz-stats-badge {
+            background: #334155;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 min-h-screen p-4 sm:p-8">
+
+    <div class="quiz-container">
+        <a href="ecology.html" class="back-link">&larr; Back to Ecology Topics</a>
+        <h1 class="text-3xl font-bold text-green-800 dark:text-green-400 mb-2">Others</h1>
+        <div class="quiz-stats-badge">517 MCQ Questions</div>
+        
+        <div id="questions-wrapper"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "What is the cause of the Exxon Valdez?",
+                options: ["Oil Tanker which sank in 1989 along the coast of Alaska and marine life seriously affected.", "a plane which crashed and caused death of human life", "a ship which wrecked on the coast of India", "none of these."],
+                answer: 0
+            },
+            {
+                question: "At what time of day is the relative humidity normally at a minimum?",
+                options: ["When the air temperature is highest", "Just before sunrise", "About midnight", "When the air temperature is lowest"],
+                answer: 0
+            },
+            {
+                question: "The blueness of the sky is mainly due to:",
+                options: ["The scattering of sunlight by air molecules", "The presence of water vapor", "Absorption of blue light by the air", "Emission of blue light by the atmosphere"],
+                answer: 0
+            },
+            {
+                question: "The gradual physiological adjustment to slowly changing new environmental conditions is known as",
+                options: ["Selection", "Introduction", "Acclimatization", "Quarantine"],
+                answer: 2
+            },
+            {
+                question: "Salinization is ___________.",
+                options: ["Accumulation of salts in water", "Accumulation of salts in soil", "Accumulation of salts in body", "Accumulation of salts in animals"],
+                answer: 1
+            },
+            {
+                question: "Acid deposition causes",
+                options: ["the greenhouse effect to lessen", "lakes and forests to die", "acid indigestion in humans", "all the above are correct"],
+                answer: 1
+            },
+            {
+                question: "Melanornia (skin cancer) is associated with",
+                options: ["ozone accumulation", "ozone depletion", "acid rain", "allergens"],
+                answer: 1
+            },
+            {
+                question: "When oil and gas resources are burnt they kill many forests and lakes by",
+                options: ["deforestation", "water pollution", "acid rain", "forest fire"],
+                answer: 2
+            },
+            {
+                question: "What is hibernation and aestivation?",
+                options: ["Thermal adaptation shown by animals", "wind adaptation shown by animals", "adaptation of animals to escape from predators", "none"],
+                answer: 0
+            },
+            {
+                question: "Fog that most often forms as warm rain falls into a cold layer of surface air is called:",
+                options: ["Radiation fog", "Evaporation (mixing) fog", "Advection fog", "Upslope fog"],
+                answer: 1
+            },
+            {
+                question: "Fine organic or inorganic particles suspended in air is called",
+                options: ["particulate pollutant", "gaseous pollutant", "aerosol", "none of these"],
+                answer: 2
+            },
+            {
+                question: "CFCs are used as",
+                options: ["refrigerants", "insulators", "aerosol propellants", "all the above"],
+                answer: 3
+            },
+            {
+                question: "A term biotype means",
+                options: ["all individuals having same phenotype", "all individuals having same genotype", "all individual with different phenotype", "all individuals with different genotype"],
+                answer: 1
+            },
+            {
+                question: "Radiations are harmful as it",
+                options: ["causes skin cancer", "causes anemia", "alters body tissues", "is unstable"],
+                answer: 0
+            },
+            {
+                question: "In middle latitudes, which cloud will have the lowest base?",
+                options: ["Cirrostratus", "Stratocumulus", "Altocumulus", "Cirrus"],
+                answer: 1
+            },
+            {
+                question: "Which association below is not correct?",
+                options: ["Cumulus congestus - anvil top", "Cumulus - fair weather cumulus", "Altocumulus castellanus - resemble \"little castles\"", "Stratus fractus - scud"],
+                answer: 0
+            },
+            {
+                question: "The wind direction is:",
+                options: ["The direction from which the wind is blowing", "The direction to which the wind is blowing", "Always directly from high toward low pressure", "Always directly from low toward high pressure"],
+                answer: 0
+            },
+            {
+                question: "Barnacles growing on the back of whale is an example for",
+                options: ["mutualism", "parasitism", "amensalism", "commensalism"],
+                answer: 3
+            },
+            {
+                question: "Pencillium does not swallow the growth of bacterium Staphylococcus. This sort of relationship is called",
+                options: ["commensalism", "predation", "amensalism", "mutualism"],
+                answer: 2
+            },
+            {
+                question: "Basidiospores are considered to be a major source of",
+                options: ["airborne allergens", "water borne allergens", "animal faeces", "bioweapon"],
+                answer: 0
+            },
+            {
+                question: "Pollutants that are introduced into the environment by human activity are called as",
+                options: ["qualitative pollutants", "quantitative pollutants", "anthropogenic pollutants", "all of these"],
+                answer: 2
+            },
+            {
+                question: "When clouds are viewed near the horizon, the individual cloud elements usually:",
+                options: ["Appear closer together than is actually the case", "Appear farther apart than is actually the case", "Appear lighter in color than is actually the case", "Appear to have more vertical development than is actually the case"],
+                answer: 0
+            },
+            {
+                question: "Which sea is referred to as an oceanic desert?",
+                options: ["Red Sea", "Sargasso Sea", "Arabian Sea", "Sea of Japan"],
+                answer: 1
+            },
+            {
+                question: "At night, low clouds:",
+                options: ["Enhance the atmospheric greenhouse effect", "Weaken the atmospheric greenhouse effect", "Are often caused by the atmospheric greenhouse effect", "Have no effect on the atmospheric greenhouse effect"],
+                answer: 0
+            },
+            {
+                question: "Harmful trace metals in fly ash:",
+                options: ["antimony", "cadmium", "arsenic", "all of the above"],
+                answer: 3
+            },
+            {
+                question: "_________ ecosystems are maintained artificially by man.",
+                options: ["Man-made", "Marine", "Artificial", "Brackish"],
+                answer: 0
+            },
+            {
+                question: "Cement factory labourers are prone to",
+                options: ["leukemia", "bone marrow disease", "asbestosis", "cytosilicosis"],
+                answer: 3
+            },
+            {
+                question: "In India, tropical evergreen forests occur in",
+                options: ["Himachal Pradesh", "Madhya Pradesh", "Assam", "Tamil Nadu"],
+                answer: 2
+            },
+            {
+                question: "The state which constituted green bench",
+                options: ["Kerala", "Tamilnadu", "Assam", "Madhya Pradesh"],
+                answer: 1
+            },
+            {
+                question: "The one-horned Rhinoceros is now restricted to which state?",
+                options: ["Maharashtra", "Gujarat", "Assam", "Uttar Pradesh"],
+                answer: 2
+            },
+            {
+                question: "Where are the days and nights of equal length all year long?",
+                options: ["At 66.5o", "Nowhere", "At 23.5o", "At the Equator"],
+                answer: 3
+            },
+            {
+                question: "During the winter solstice in the Northern Hemisphere:",
+                options: ["Astronomical winter begins in the Northern Hemisphere", "The noon sun is overhead at 23.5o S latitude", "At middle latitudes in the Northern Hemisphere, this marks the longest night of the year", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "The largest annual ranges of temperatures are found:",
+                options: ["At polar latitudes over land", "At polar latitudes over water", "At middle latitudes near large bodies of water", "At the Equator"],
+                answer: 0
+            },
+            {
+                question: "The time of day when the relative humidity reaches a maximum value is usually",
+                options: ["At the time when the air temperature is highest", "In the middle of the afternoon", "At the time when the air temperature is lowest", "Just before sunrise"],
+                answer: 2
+            },
+            {
+                question: "In the northern hemisphere, the number of hours of daylight begin to shorten after the",
+                options: ["Spring equinox", "Summer solstice", "Autumn equinox", "Winter solstice"],
+                answer: 1
+            },
+            {
+                question: "The first protected area in India is ____________",
+                options: ["Silent valley", "Corbett National Park", "Bandipur sanctuary", "Nagar-Hole"],
+                answer: 1
+            },
+            {
+                question: "Centre of Modern nuclear technology in India",
+                options: ["CRAS", "SARC", "BARC", "None of these"],
+                answer: 2
+            },
+            {
+                question: "The north-facing side of a hill in a mountainous region in the US tends to:",
+                options: ["Receive less sunlight during a year than the south-facing side", "Grow a variety of trees that are typically observed at higher elevation", "Be a better location for a ski run than the south-facing side", "Have snow on the ground for a longer period of time in winter compared to the south-facing side"],
+                answer: 0
+            },
+            {
+                question: "What scale is useful to record the force of wind ?",
+                options: ["Decibel", "Richter", "Beau fort", "Fajita"],
+                answer: 2
+            },
+            {
+                question: "Organisms which are predominantly found living on, in or near bed sediments of rivers or lakes are known as",
+                options: ["nektonic", "neuston", "benthic", "planktonic"],
+                answer: 2
+            },
+            {
+                question: "Unleaded petrol contains  __________ which are known as carcinogenic compounds",
+                options: ["nitrates", "sulphates", "benzene", "phosphates"],
+                answer: 2
+            },
+            {
+                question: "The controversial dam across the river Narmada?",
+                options: ["Sardar Sarovar", "Hirakud", "Bhakranangal", "Sutlej."],
+                answer: 0
+            },
+            {
+                question: "The place where the worst nuclear disaster took place?",
+                options: ["Washington", "Chernobyl", "Bhopal", "Japan"],
+                answer: 1
+            },
+            {
+                question: "The phenomenon of accumulation of non-biodegradable pesticides in human beings",
+                options: ["Biomagnification", "Bioaccumulation", "Biodegradation", "Bioremediation"],
+                answer: 0
+            },
+            {
+                question: "Trichodermaharzianum has proved a useful microorganism for",
+                options: ["reclamation of wastelands", "bioremediation of contaminated soils", "biological control of soil-borne plant pathogens", "gene transfer in higher plants"],
+                answer: 1
+            },
+            {
+                question: "The occurrence of pesticides like DDT in higher trophic levels is termed as",
+                options: ["bioremediation", "biomagnification", "biological enhancement", "biopollution"],
+                answer: 1
+            },
+            {
+                question: "The study of food chains and food webs is observed in the phenomenon known as",
+                options: ["biological chain", "ecosystem", "biological magnification", "energy flow"],
+                answer: 1
+            },
+            {
+                question: "BOD stands for",
+                options: ["Biological Oxygen Decrease", "Biotic Oxygen Demand", "Biological Oxygen Demand", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "Which book written by Rachel Carson resulted in banning DDT in USA?",
+                options: ["Silent spring", "The environmentalism", "Biomagnification", "Food chain"],
+                answer: 0
+            },
+            {
+                question: "Any unfavorable alteration of the environment may be called as",
+                options: ["eutrophication", "environmental pollution", "biomagnigication", "bioaccumulation"],
+                answer: 1
+            },
+            {
+                question: "In a population, unrestricted reproductive capacity is called as",
+                options: ["carrying capacity", "biotic potential", "birth rate", "fertility rate"],
+                answer: 1
+            },
+            {
+                question: "_________ is the study that deals with the interaction of organisms with their environment.",
+                options: ["Etiology", "Ecology", "Botany", "Biology"],
+                answer: 1
+            },
+            {
+                question: "What is an Incinerator?",
+                options: ["Furnace used for burning solid waste", "Furnace used for treating liquid waste", "Both a & b", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "The aurora is produced by:",
+                options: ["Reflections of sunlight by polar ice fields", "Fast-moving charged particles colliding with air molecules", "Burning oxygen caused by the intense sunlight at high altitude", "The combination of molecular and atomic oxygen to form ozone"],
+                answer: 1
+            },
+            {
+                question: "Black Buck is a",
+                options: ["Goat", "Deer", "Butterfly", "Bird"],
+                answer: 1
+            },
+            {
+                question: "Towering cumulus (cumulus congestus) would refer to which of the clouds sketched below?",
+                options: ["a", "b", "c", "none"],
+                answer: 1
+            },
+            {
+                question: "The Native Place of Redwood trees?",
+                options: ["Australia", "Amazon", "California", "Thailand"],
+                answer: 2
+            },
+            {
+                question: "Evaporation is a _________ process.",
+                options: ["Cooling", "Heating", "Can't tell - it depends on the temperature", "Both a and c"],
+                answer: 1
+            },
+            {
+                question: "Which country contains about 50% of the world's coal resources?",
+                options: ["United States", "China", "Canada", "The former Soviet Union"],
+                answer: 3
+            },
+            {
+                question: "What is Carcinogen?",
+                options: ["Drugs for curing infectious disease", "Drugs used for curing cancer", "Cancer causing agent", "Food colourants"],
+                answer: 2
+            },
+            {
+                question: "Which of the following green house gases trap more heat?",
+                options: ["Methane", "Nitrous oxide", "Carbon dioxide", "Trifluoro methyl sulphurpentafluoride"],
+                answer: 3
+            },
+            {
+                question: "Animals that feed only on plants are called",
+                options: ["detritivores", "herbivores", "carnivores", "omnivores"],
+                answer: 1
+            },
+            {
+                question: "The inherent ability of organisms to reproduce and multiply is called",
+                options: ["C value", "biotic potential", "carrying capacity", "K value"],
+                answer: 1
+            },
+            {
+                question: "The true statement about \"green house effect\" is that it is",
+                options: ["caused by combination of many gases", "caused by CO2", "caused only by CO2, CFC, CH4and NO2gases", "None of these"],
+                answer: 2
+            },
+            {
+                question: "UV radiations is injurious to plants because it",
+                options: ["break phosphate bonds", "increases respiration", "causes dehydration", "causes genetic changes"],
+                answer: 3
+            },
+            {
+                question: "_________ is the regulatory authority of quality in India.",
+                options: ["CPCB", "PCBC", "CBCP", "CPBC"],
+                answer: 0
+            },
+            {
+                question: "Pick out the potent green house gas",
+                options: ["CO2", "N2O", "CH4", "O3"],
+                answer: 2
+            },
+            {
+                question: "Major consumer of wood from forest is ___________",
+                options: ["Thermal Power Plant", "Paper Industry", "Chemistry Industry", "none"],
+                answer: 1
+            },
+            {
+                question: "_________ is the 12th Mega Biodiverse Country in the world.",
+                options: ["India", "America", "China", "Sri Lanka"],
+                answer: 0
+            },
+            {
+                question: "Which plants die after flowering?",
+                options: ["Lotus", "Bamboo", "Chrysanthemum", "Butea"],
+                answer: 1
+            },
+            {
+                question: "The intermediate developmental stages in the ecological succession is called",
+                options: ["sere", "ecesis", "climax", "nudation"],
+                answer: 0
+            },
+            {
+                question: "The final stable community in an ecological succession is called the",
+                options: ["final community", "ultimate community", "climax community", "seral community"],
+                answer: 2
+            },
+            {
+                question: "Heavy dust can cause",
+                options: ["leaf blights", "opening of stomata", "closure of stomata", "browning of leaves"],
+                answer: 2
+            },
+            {
+                question: "_________ element had guided the earlier navigators to keep them on right path.",
+                options: ["Magnetite", "Carbon", "Coal", "Uranium"],
+                answer: 0
+            },
+            {
+                question: "Which one is true?",
+                options: ["symbiosis when neither population affects each other", "symbiosis when the interaction is useful to both the populations", "commensalism when none of the interacting populations affect each other", "commensalism when the interaction is useful to both the populations"],
+                answer: 1
+            },
+            {
+                question: "A population is a group of",
+                options: ["individuals in a species", "species in a community", "communities in an ecosystem", "individuals in a family"],
+                answer: 0
+            },
+            {
+                question: "Rising air cools by this process:",
+                options: ["Expansion", "Evaporation", "Compression", "Condensation"],
+                answer: 0
+            },
+            {
+                question: "Sinking air warms by this process:",
+                options: ["Compression", "Expansion", "Condensation", "Friction"],
+                answer: 0
+            },
+            {
+                question: "The horizontal transport of any atmospheric property by the wind is called:",
+                options: ["Advection", "Radiation", "Conduction", "Latent heat"],
+                answer: 0
+            },
+            {
+                question: "Perspiration cools the body by",
+                options: ["Advective heat transfer", "Radiative heat transfer", "Conductive heat transfet", "Latent heat transfer"],
+                answer: 3
+            },
+            {
+                question: "The forests which occur in law rain fall area is",
+                options: ["Evergreen forests", "Deciduous forests", "Coniferous forest", "all the above"],
+                answer: 1
+            },
+            {
+                question: "Forests grow in high rain fall areas are",
+                options: ["ever green forests", "temperate forests", "conifers", "Tundra"],
+                answer: 0
+            },
+            {
+                question: "Earth summit of Rio de Janeiro (1992) resulted in",
+                options: ["Compilation of Red list", "Establishment of biosphere reserves", "Conservation of biodiversity", "IUCN"],
+                answer: 2
+            },
+            {
+                question: "Photosynthesis is found in",
+                options: ["Producers", "Decomposers", "Consumers", "Scavengers"],
+                answer: 0
+            },
+            {
+                question: "Organisms which depend on Producers for nutrition are called",
+                options: ["Autotrophs", "Saprophytes", "Consumers", "Xerophytes"],
+                answer: 2
+            },
+            {
+                question: "Phytoplankton are",
+                options: ["Producers of forest", "Producers of lakes", "Consumers of Ocean", "Omnivores"],
+                answer: 1
+            },
+            {
+                question: "On a clear, calm, night, the ground and air above cool mainly by this process:",
+                options: ["Evaporation", "Reflection", "Convection", "Conduction"],
+                answer: 0
+            },
+            {
+                question: "What is desertification?",
+                options: ["Conversion of forests into desert", "Conversion of croplands into desert", "Conversion of grassland into desert", "all of the above"],
+                answer: 3
+            },
+            {
+                question: "This is used as a guide to planting and for determining the approximate date for harvesting crops:",
+                options: ["Growing degree-days", "Heating degree-days", "Cooling degree-days", "Mean annual temperature"],
+                answer: 0
+            },
+            {
+                question: "In the middle latitudes of the Northern Hemisphere, surface winds tend to blow ____ and ____ around an area of surface low pressure.",
+                options: ["Clockwise; inward", "Clockwise; outward", "Counterclockwise; inward", "Counterclockwise; outward"],
+                answer: 2
+            },
+            {
+                question: "Hot spots are regions of high",
+                options: ["rarity", "endemism", "critically endangered population", "diversity"],
+                answer: 1
+            },
+            {
+                question: "Largest reptile in the world",
+                options: ["Dragon", "Anaconda", "Crocodile", "Python"],
+                answer: 1
+            },
+            {
+                question: "A dim, \"watery\" sun visible through a gray sheet-like cloud layer is often a good indication of ____ clouds.",
+                options: ["Stratocumulus", "Cirrostratus", "Cumulonimbus", "Altostratus"],
+                answer: 3
+            },
+            {
+                question: "During the course of a year, the sun will disappear from view near the North Pole on what date?",
+                options: ["June 21", "September 23", "December 23", "January 1"],
+                answer: 1
+            },
+            {
+                question: "_______ trees shed their leaves during winter and hot summer.",
+                options: ["ever green", "coniferous", "deciduous", "Shola"],
+                answer: 2
+            },
+            {
+                question: "Average total rainfall is 100 - 150 cm in  __________ , located in Australia, South America and Africa.",
+                options: ["tropical savannas", "chaparrals", "deciduous forest", "temperate forest"],
+                answer: 1
+            },
+            {
+                question: "Which one is nature's cleaner?",
+                options: ["Consumers", "Producers", "Decomposers and Scavengers", "Symbionts"],
+                answer: 2
+            },
+            {
+                question: "Green House effect is caused by",
+                options: ["Increase in CO2", "Increase in O2", "Decrease in O2", "Decrease in CO2"],
+                answer: 0
+            },
+            {
+                question: "Industrial melanism is an example of",
+                options: ["protective resemblance with the surrounding", "drug resistance", "defensive adaptation of skin against UV radiations", "darkening of skin due to industries"],
+                answer: 3
+            },
+            {
+                question: "Extensive planting of trees to increase forest cover is called",
+                options: ["Afforestation", "Agroforestry", "Deforestation", "Social forestry"],
+                answer: 0
+            },
+            {
+                question: "The crack marked on a glacier due to splitting of ice is called",
+                options: ["watershed", "crevasses", "delta", "glacier"],
+                answer: 1
+            },
+            {
+                question: "The conversion of ammonia to nitrate is known as ________",
+                options: ["ammonification", "nitrification", "denitrification", "all of these"],
+                answer: 1
+            },
+            {
+                question: "Which of the following provides a measure of the average speed of air molecules?",
+                options: ["Pressure", "Temperature", "Density", "Heat"],
+                answer: 1
+            },
+            {
+                question: "Carbon sequestration is a strategy used to control",
+                options: ["pollution", "population explosion", "desertification", "global warming"],
+                answer: 3
+            },
+            {
+                question: "Wild life is continuously decreasing. What is the main reason of this?",
+                options: ["Predation", "Cutting down of forest", "Destruction of habitat", "Hunting"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is mainly responsible for the extinction of wild life",
+                options: ["Pollution of air and water", "Hunting of flesh", "Destruction of Habitats", "All of these"],
+                answer: 3
+            },
+            {
+                question: "Rain during November is more acidic than monsoon rain due to",
+                options: ["dissolved CO2", "dissolved SO2", "dissolved NO2", "none of the above."],
+                answer: 1
+            },
+            {
+                question: "The formula for exponential population growth is",
+                options: ["dN/dt = rN", "dt/dN = rN", "dN/rN = dt", "rN/dN = dt"],
+                answer: 0
+            },
+            {
+                question: "The processes of condensation and freezing:",
+                options: ["Both release sensible heat into the environment", "Both absorb sensible heat from the environment", "Do not affect the temperature of their surroundings", "Do not involve energy transport"],
+                answer: 0
+            },
+            {
+                question: "_________ is the most inhuman of social crimes.",
+                options: ["Rape", "Kidnap", "Dowry death", "Robbery"],
+                answer: 2
+            },
+            {
+                question: "The word Biophilia was coined by",
+                options: ["Dr. Hackel", "Dr.Johanssen", "Dr. Benjamine", "E O Wilson"],
+                answer: 3
+            },
+            {
+                question: "The formula of growth rate for population in given time is",
+                options: ["dt/dN=rN", "dt/rN=dN", "dt/rN=dt", "dN/dt=rN"],
+                answer: 3
+            },
+            {
+                question: "Temperate forests occur in India in",
+                options: ["Indo-gangetic plains", "Himalayas", "Eastern India", "Southern peninsula"],
+                answer: 1
+            },
+            {
+                question: "The unfavourable alteration of environment due to human activities is termed as",
+                options: ["ecological disturbance", "catastrophe", "ecological degradation", "pollution"],
+                answer: 3
+            },
+            {
+                question: "The complex network of interconnected food chains is called ___________",
+                options: ["Trophic level", "Food web", "Ecological pyramid", "Ecology chain"],
+                answer: 1
+            },
+            {
+                question: "Autecology deals with",
+                options: ["Ecology of species", "Ecology of many species", "Ecology of community", "All the above"],
+                answer: 0
+            },
+            {
+                question: "Synecology deals with",
+                options: ["Ecology of many species", "Ecology of many populations", "Ecology of community", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "What is deep ecology?",
+                options: ["Protecting nature for its own sake", "Ecology of deep sea", "Ecology of forest", "Ecology of caves"],
+                answer: 0
+            },
+            {
+                question: "________ is the degradation of land in arid, semi-arid and dry sub-humid areas.",
+                options: ["Land fertility", "Desertification", "Ecosystem", "Vegetation"],
+                answer: 1
+            },
+            {
+                question: "When the two ecosystems overlap each other, the area is called",
+                options: ["Habitat", "Niche", "Ecotone", "Ecotype"],
+                answer: 2
+            },
+            {
+                question: "The term \"Eco\" implies",
+                options: ["Environment", "Ecotone", "Ecotourism", "Soil"],
+                answer: 0
+            },
+            {
+                question: "Germ Layer includes",
+                options: ["mesoderm layer", "ectoderm, mesoderm, endoderm", "ectoderm", "endoderm"],
+                answer: 1
+            },
+            {
+                question: "Maximum deposition of DDT will occur in",
+                options: ["phytoplankton", "crab", "eel", "sea gull"],
+                answer: 3
+            },
+            {
+                question: "World's most problematic aquatic weed is",
+                options: ["azolla", "wolffia", "eichornia", "trapa"],
+                answer: 2
+            },
+            {
+                question: "Torrey Canyon is famous for",
+                options: ["Gulf of War", "Industries", "Electric Potential", "Oil spillage"],
+                answer: 3
+            },
+            {
+                question: "Most of the natural gas used in the United States is consumed by",
+                options: ["industry", "residential use", "electrical utilities", "transportation"],
+                answer: 1
+            },
+            {
+                question: "Chemical reactions triggered by ________ transforms the organic material into hydrocarbons.",
+                options: ["solar energy", "hydroelectric", "elevated temperatures", "decomposition"],
+                answer: 2
+            },
+            {
+                question: "Sunlight that bounces off a surface is said to be ________ from the surface.",
+                options: ["Radiated", "Absorbed", "Emitted", "Reflected"],
+                answer: 3
+            },
+            {
+                question: "If we uncover half of the forest, covering of the earth, what crisis will be produced at most and at first?",
+                options: ["Some species will be extincted", "Population and ecological imbalance will rise up", "Energy crisis will occur", "Rest half forests will maintain this imbalance"],
+                answer: 0
+            },
+            {
+                question: "An example of one way ecological cycle is",
+                options: ["carbon dioxide cycle", "water cycle", "energy cycle", "oxygen cycle"],
+                answer: 2
+            },
+            {
+                question: "The organic matter produced by the photosynthetic activity of green plants is called as",
+                options: ["light energy", "cellular process", "energy flow", "primary productivity"],
+                answer: 3
+            },
+            {
+                question: "The head quarter of IUCN is located in",
+                options: ["Paris", "Switzerland", "England", "Germany"],
+                answer: 1
+            },
+            {
+                question: "The resources that are derived from bio-mass of living organisms are called ________  resources.",
+                options: ["renewable", "non-renewable", "environmental", "natural"],
+                answer: 0
+            },
+            {
+                question: "Public awareness of environment creates ___________",
+                options: ["Environment protection", "Environment degradation", "Environmental improvement", "Environmental cultivation"],
+                answer: 0
+            },
+            {
+                question: "Two opposite forces operate in the growth and development of every population. One of them is related to the ability to reproduce at a given rate. The force opposite to it is called",
+                options: ["fecundity", "mortality", "environmental resistances", "biotic control"],
+                answer: 1
+            },
+            {
+                question: "_________ is an integration of several subjects that include both science and social studies.",
+                options: ["sociology", "physiology", "environmental studies", "anatomy"],
+                answer: 2
+            },
+            {
+                question: "The Primary Consumers are also called as",
+                options: ["Herbivores", "Carnivores", "Enzymes", "None of these"],
+                answer: 0
+            },
+            {
+                question: "Which tree is known as Coral tree?",
+                options: ["Quercus", "Dipterocarps", "Erythrina", "Zizypus"],
+                answer: 2
+            },
+            {
+                question: "The components of LPG are _____________",
+                options: ["Methane & Hexane", "Propane & Butane", "Ethane & Methane", "Propane & Ethane"],
+                answer: 1
+            },
+            {
+                question: "Biogas is composed of",
+                options: ["methane, carbon dioxide, nitrogen and hydrogen", "carbon dioxide, nitrogen and hydrogen", "ethane, carbon dioxide, nitrogen and hydrogen", "methane, carbon dioxide, nitrogen and sulphur"],
+                answer: 0
+            },
+            {
+                question: "_________ mixed with diesel reduces carbon monoxide emissions up to 50%.",
+                options: ["Methanol", "Alcohol", "Ethanol", "Phenol"],
+                answer: 2
+            },
+            {
+                question: "Fungi is/are",
+                options: ["single-celled prokaryotes", "Phototrophic eukaryotes", "Eukaryotes single-celled and primitive multi-celled organisms", "heterotrophic eukaryotes"],
+                answer: 3
+            },
+            {
+                question: "Algal bloom results in",
+                options: ["Global warming", "Salination", "Eutrophication", "Biomagnification"],
+                answer: 2
+            },
+            {
+                question: "The resources that can be replaced by natural ecological cycle is called",
+                options: ["Renewable", "non-renewable", "exhaustible", "natural"],
+                answer: 0
+            },
+            {
+                question: "The portion of the earth and its environment which can support life is known as _________",
+                options: ["Crust", "Biosphere", "Exosphere", "atmosphere"],
+                answer: 1
+            },
+            {
+                question: "Zoos are examples for",
+                options: ["In-situ conservation", "in-vivo conservation", "ex-situ conservation", "exvivo conservation"],
+                answer: 2
+            },
+            {
+                question: "Red sea is an example of a ________  structure.",
+                options: ["Folded", "lava", "Faulted", "residual"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is not an indicative biological trait for the trait of ecology?",
+                options: ["Fish reproductive strategy", "Habitat", "Feeding behavior", "Fish stream size preference"],
+                answer: 0
+            },
+            {
+                question: "Green revolution is associated with _________",
+                options: ["sericulture", "agriculture", "fish culture", "silviculture"],
+                answer: 1
+            },
+            {
+                question: "________ is the natural phenomenon, caused by an unlimited and unprecedented rainfall.",
+                options: ["Soil erosion", "Cyclone", "Floods", "Heightening"],
+                answer: 2
+            },
+            {
+                question: "_________ is an important factor that aggravates the effect of drought.",
+                options: ["Deforestation", "Soil Erosion", "Floods", "Acid Rain"],
+                answer: 0
+            },
+            {
+                question: "Which statement(s) below is/are correct?",
+                options: ["Valleys are more susceptible to radiation fog than hill tops", "Without the summer fog along the coast of California, redwoods would not grow well there", "Fog can be composed of ice crystals", "All of the above are correct"],
+                answer: 3
+            },
+            {
+                question: "Which of the following statements is/are correct?",
+                options: ["The largest concentration of condensation nuclei are usually observed near the Earth", "Wet haze restricts visibility more than dry haze", "Fog is actually a cloud resting on the ground", "With the same water vapor content, fog that forms in dirty air is usually thicker than fog that forms in cleaner air"],
+                answer: 0
+            },
+            {
+                question: "The pioneers in xerach succession is the",
+                options: ["crustose lichen", "mosses", "foliose lichen", "shrubs"],
+                answer: 0
+            },
+            {
+                question: "When number of food chains is interlocked this is called",
+                options: ["food link", "food chain", "food web", "pyramid"],
+                answer: 2
+            },
+            {
+                question: "The pyramid of numbers is inverted in the case of",
+                options: ["parasitic food chain", "Grassland ecosystem", "Forest ecosystem", "lake ecosystem"],
+                answer: 0
+            },
+            {
+                question: "What is deforestation?",
+                options: ["Product of forest", "destruction of forest", "Forest Protection", "None"],
+                answer: 1
+            },
+            {
+                question: "Lions are found in",
+                options: ["Western Ghats", "Corbett National Park", "Forests of Madhya Pradesh", "Gir forests"],
+                answer: 3
+            },
+            {
+                question: "Favorable morphological and physiological response to a change in environment is called",
+                options: ["Preadaptation", "Ecotyping", "Formation of ecophenes", "Acclimatisation"],
+                answer: 3
+            },
+            {
+                question: "Which among the following is related to the word Mesoderm ?",
+                options: ["Anatomically advanced animals having all three germ layers", "No membrane-bound organelles, no peptidoglycan in cell walls, introns", "Forms blood and bone (leads to complex internal organs)", "Binomial system of classification"],
+                answer: 2
+            },
+            {
+                question: "Plantation produces around  __________ percentage of industrial woods.",
+                options: ["twenty", "thirty", "forty", "fifty"],
+                answer: 2
+            },
+            {
+                question: "__________ is derived recently from living organisms and their metabolic products.",
+                options: ["Biofuel", "Biomass", "Fossil fuel", "Gobar gas"],
+                answer: 0
+            },
+            {
+                question: "The nation whose government is promoting large families because of an aging population and low fertility rate is",
+                options: ["the United States", "India", "France", "China"],
+                answer: 2
+            },
+            {
+                question: "The pyramid of biomass is inverted in",
+                options: ["forest ecosystem", "grassland ecosystem", "fresh water ecosystem", "tundra"],
+                answer: 2
+            },
+            {
+                question: "Bears are usually hunted and killed for their",
+                options: ["Teeth", "Skin", "Gall bladder", "Nails"],
+                answer: 1
+            },
+            {
+                question: "All the genes of a population is called",
+                options: ["gene pool", "genome", "gene bunch", "gene population"],
+                answer: 0
+            },
+            {
+                question: "Organisms having the potential for interbreeding and producing fertile offspring is called",
+                options: ["Class", "Order", "Genus", "Species"],
+                answer: 3
+            },
+            {
+                question: "Expand GIS",
+                options: ["Geographical Information System", "Geographical Information Source", "Geological Information System", "Geological Index System"],
+                answer: 0
+            },
+            {
+                question: "A slow moving river of solid ice is called",
+                options: ["delta", "watershed", "glacier", "crevasses"],
+                answer: 2
+            },
+            {
+                question: "_________ is the phenomenon where the earth retains heat.",
+                options: ["Air pollution", "Green house effect", "Global effect", "Land pollution"],
+                answer: 1
+            },
+            {
+                question: "Natural gas that was formed from ancient prehistoric forests is called",
+                options: ["Fossil fuels", "petroleum", "Gobar gas", "LPG"],
+                answer: 0
+            },
+            {
+                question: "Pick out the world's rarest monkey.",
+                options: ["Baboon", "Common Marmoset", "Golden langur", "Gibbon"],
+                answer: 2
+            },
+            {
+                question: "The formation of  __________ is the most characteristic feature in upper course of a river",
+                options: ["landslide", "canyons", "gorges", "waterfalls"],
+                answer: 3
+            },
+            {
+                question: "Which among the following is mobile in nature?",
+                options: ["Primary productivity", "Secondary productivity", "GPP", "NPP"],
+                answer: 1
+            },
+            {
+                question: "Infection of HIV is usually detected by which test",
+                options: ["Elisa test", "Hybridization", "Gram staining", "None"],
+                answer: 0
+            },
+            {
+                question: "The dramatic increase in agricultural production that have been made possible by high yield miracle crops are called the",
+                options: ["biotechnical revolution", "bioeconomic revolution", "green house effect", "green revolution"],
+                answer: 3
+            },
+            {
+                question: "What is meant by GM foods?",
+                options: ["Growth modified foods", "Genetically modified food", "Growth marked foods", "Good mobility food"],
+                answer: 1
+            },
+            {
+                question: "Which of the following gas is present at a very high concentration in our environment?",
+                options: ["O2", "CO2", "H2", "N2"],
+                answer: 3
+            },
+            {
+                question: "_________ refers to the phenomenon in that the organisms are exclusively restricted to a given area.",
+                options: ["Ecosystem", "Endemism", "Habitat", "Food web"],
+                answer: 1
+            },
+            {
+                question: "Organ affected by pneumonia",
+                options: ["Liver", "Kidney", "Heart", "Lungs"],
+                answer: 3
+            },
+            {
+                question: "This is used as an index for fuel consumption:",
+                options: ["Growing degree-days", "Consumer price index", "Heating degree-days", "Mean annual temperature"],
+                answer: 2
+            },
+            {
+                question: "The most abundant gas emitted from volcanoes is:",
+                options: ["Nitrogen", "Sulfur dioxide", "Helium", "Carbon dioxide"],
+                answer: 0
+            },
+            {
+                question: "The animal which consumes decaying organic matter is _________",
+                options: ["Carnivore", "Detritivore", "Herbivore", "Producers"],
+                answer: 1
+            },
+            {
+                question: "Which one of the following environmental pollutants has the problem of biomagnifications?",
+                options: ["SO2", "NO3", "Hg fungicides", "O3and CO2"],
+                answer: 2
+            },
+            {
+                question: "Bell-shaped polygonal pyramid indicates",
+                options: ["low percentage of young individuals", "moderate percentage of young individuals", "high percentage of young individuals", "low percentage of old individuals"],
+                answer: 1
+            },
+            {
+                question: "The Gulf Coast states are more humid in summer than the coastal areas of Southern California mainly because of the:",
+                options: ["Higher air temperature in the Gulf States", "Lower air temperature in Southern California", "Higher water temperature in the Gulf of Mexico", "Low relative humidity of the air over the Pacific Ocean"],
+                answer: 2
+            },
+            {
+                question: "A river with high BOD value is",
+                options: ["highly polluted", "highly clean", "highly productive", "none of these"],
+                answer: 0
+            },
+            {
+                question: "The maintenance of relatively constant internal environment is called",
+                options: ["Homeostasis", "Exotherms", "Homeobox", "Endotherms"],
+                answer: 0
+            },
+            {
+                question: "The only ape found in India",
+                options: ["Gorilla", "Chimpanzee", "Hoolock gibbon", "Oranguttan"],
+                answer: 2
+            },
+            {
+                question: "Hypothermia is most common in:",
+                options: ["Hot, humid weather", "Cold, wet weather", "Hot, dry weather", "Cold, dry weather"],
+                answer: 1
+            },
+            {
+                question: "The earth is tilted at an angle of 23.5owith respect to the plane of its orbit around the sun. If the amount of tilt were increased to 40o, we would expect in middle latitudes:",
+                options: ["Hotter summers and colder winters than at present", "Cooler summers and milder winters than at present", "Hotter summers and milder winters than at present", "Cooler summers and colder winters than at present"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is correctly matched?",
+                options: ["Butterfly - Camouflage", "Garden lizard -Mimicry", "House lizard -Autotomy", "None of these"],
+                answer: 2
+            },
+            {
+                question: "Flora is the  __________ life occurring in a particular region or time",
+                options: ["plant", "animal", "human", "microbial"],
+                answer: 0
+            },
+            {
+                question: "Non-biodegradable pollutants are created by",
+                options: ["nature", "excessive use of resources", "humans", "natural disasters"],
+                answer: 2
+            },
+            {
+                question: "Respiratory roots are known as",
+                options: ["velamen", "pneumatophores", "hydathodes", "prop roots"],
+                answer: 1
+            },
+            {
+                question: "The conversion of a pond to a climax forest community is an example of",
+                options: ["xerarch succession", "mesarch succession", "hydrarch succession", "all of these"],
+                answer: 2
+            },
+            {
+                question: "All of the following are advantages of dams except",
+                options: ["flood control", "recreation", "hydroelectric power", "enhancing natural spawning patterns of fish"],
+                answer: 3
+            },
+            {
+                question: "The combustion of waste in the absence of Oxygen is called",
+                options: ["Haemolysis", "Pyrolysis", "Hydrolysis", "None"],
+                answer: 1
+            },
+            {
+                question: "Atmospheric humidity is measured by",
+                options: ["Auxanometer", "Photometer", "Hygrometer", "none"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is the poorest conductor of heat?",
+                options: ["Still air", "Water", "Ice", "Snow"],
+                answer: 0
+            },
+            {
+                question: "Mullaperiyar dam is in the district?",
+                options: ["Thrissur", "Pathanamthitta", "Idukki", "Alappuzha"],
+                answer: 2
+            },
+            {
+                question: "Mulching helps in",
+                options: ["soil fertility", "moisture conservation", "improvements soil structure", "soil sterility"],
+                answer: 1
+            },
+            {
+                question: "In most areas, the warmest time of the day about 5 feet above the ground occurs:",
+                options: ["Around noon", "In the afternoon between 3 and 5 PM", "In the early evening after 6 PM", "Just before the sun sets"],
+                answer: 1
+            },
+            {
+                question: "In meteorology, the word insolation refers to:",
+                options: ["A well-constructed, energy-efficient home", "The solar constant", "Incoming solar radiation", "An increase in solar output"],
+                answer: 2
+            },
+            {
+                question: "In ecological succession from pioneer to climax community, the biomass shall",
+                options: ["decrease", "no relation", "increase and then decrease", "increase continuously"],
+                answer: 3
+            },
+            {
+                question: "If very cold air is brought indoors and warmed with no change in its moisture content, the saturation vapor pressure of this air will______ and the relative humidity of this air will_____ .",
+                options: ["Increase, increase", "Decrease, decrease", "Increase, decrease", "Decrease, increase"],
+                answer: 2
+            },
+            {
+                question: "Which of the following helps to explain why even though northern latitudes experience 24 hours of sunlight on June 22, they are not warmer than latitudes further south?",
+                options: ["Solar energy is spread over a larger area in northern latitudes", "Some of the sun's energy is reflected by snow and ice in the northern latitudes", "Increased cloud cover reflects solar energy in the northern latitudes", "Solar energy is used to melt frozen soil in the northern latitudes"],
+                answer: 0
+            },
+            {
+                question: "The world's biggest GHG emitter is",
+                options: ["China", "USA", "India", "South Africa"],
+                answer: 0
+            },
+            {
+                question: "Where was the Stockholm conference on Human Environment held?",
+                options: ["Sweden", "Austria", "India", "Greece"],
+                answer: 0
+            },
+            {
+                question: "One third of the global cases of Tuberculosis is in",
+                options: ["Britain", "Sweden", "India", "China"],
+                answer: 2
+            },
+            {
+                question: "The biggest award for environmental activities in India is given in the name of an individual. In whose name is it constituted?",
+                options: ["Lal Bahadur Shasthri", "Morarji Desai", "Indira Gandhi", "Kamaraj"],
+                answer: 2
+            },
+            {
+                question: "Which of the following has a wavelength shorter than that of violet light?",
+                options: ["Green light", "Blue light", "Infrared radiation", "Red light"],
+                answer: 0
+            },
+            {
+                question: "The earth's atmospheric window is in the:",
+                options: ["Ultraviolet region", "Visible region", "Infrared region", "Polar regions"],
+                answer: 2
+            },
+            {
+                question: "High biological oxygen demand indicates:",
+                options: ["absence of microbial pollution", "moderate microbial pollution", "intense level of microbial pollution", "all of these"],
+                answer: 2
+            },
+            {
+                question: "Environmental education should be in _______ approach.",
+                options: ["interdependent", "interpreting", "interdisciplinary", "balanced"],
+                answer: 2
+            },
+            {
+                question: "A high density of elephant population in an area can result in",
+                options: ["mutualism", "Intraspecific competition", "Interspecific competition", "Predation on one another"],
+                answer: 1
+            },
+            {
+                question: "The order of basic processes involved in succession is",
+                options: ["Nudation->Invasion-> competition and co action->reaction>stabilization", "Nudation->stabilization-> competition and co action->Invasion>reaction", "Invasion-> Nudation->competition and co action->Reaction>stabilization", "Invasion->stabilization-> competition and co action->Reaction>nudation"],
+                answer: 0
+            },
+            {
+                question: "The main atmospheric layer near the surface of earth is",
+                options: ["troposphere", "mesophere", "ionosphere", "stratosphere"],
+                answer: 0
+            },
+            {
+                question: "Blue revolution is associated with",
+                options: ["Agriculture", "Iron and steel", "Irrigation", "Fishing"],
+                answer: 3
+            },
+            {
+                question: "When a liquid thermometer is held in direct sunlight,",
+                options: ["It will accurately measure the air temperature", "It will measure a much higher temperature than that of the air", "It will measure a much lower temperature than that of the air", "It will measure the temperature of the sun rather than the air"],
+                answer: 1
+            },
+            {
+                question: "Human population growth curve is a:",
+                options: ["S shaped curve", "parabola curve", "J shaped curve", "zig zag curve"],
+                answer: 2
+            },
+            {
+                question: "_______ tree is known as \"flame of the forest\"?",
+                options: ["Zizyphus", "Butea monosperma", "Jackfruit", "Pongamea"],
+                answer: 1
+            },
+            {
+                question: "From which language did the word Tsunami originate?",
+                options: ["Chinese", "Korean", "Japanese", "Malayan"],
+                answer: 2
+            },
+            {
+                question: "Noise is measured using sound meter and the unit is",
+                options: ["hertz", "decibel", "joule", "sound"],
+                answer: 1
+            },
+            {
+                question: "The concept of ecological pyramid was first proposed by",
+                options: ["E.P. Odum", "A.G. Tansley", "Juday", "Charles Elton"],
+                answer: 3
+            },
+            {
+                question: "When it is January and winter in the Northern Hemisphere, it is ______and ________in the Southern Hemisphere.",
+                options: ["January and summer", "January and winter", "July and winter", "July and summer"],
+                answer: 0
+            },
+            {
+                question: "The World Wetlands Day is celebrated on ________",
+                options: ["February 02", "February 28", "June 05", "March 21"],
+                answer: 0
+            },
+            {
+                question: "On which date was the Stockholm Conference on Human Environment held?",
+                options: ["July 6th 1974", "Aug 8th 1976", "June 5th 1972", "Dec 12th 1990"],
+                answer: 2
+            },
+            {
+                question: "Asiatic lion is found only in _______",
+                options: ["Gir Forest", "Manas", "Kasiranga", "Sundarbans"],
+                answer: 0
+            },
+            {
+                question: "Which state proposed a ban on all types of polythene packing for the first time in India?",
+                options: ["Himachal Pradesh", "Madhya Pradesh", "Kerala", "Karnataka"],
+                answer: 0
+            },
+            {
+                question: "Salim Ali Centre for Ornithology and Natural history is located at ______",
+                options: ["Pune", "Hyderabad", "Kerala", "Coimbatore"],
+                answer: 3
+            },
+            {
+                question: "Zoological Survey of India is at",
+                options: ["Delhi", "Mumbai", "Kolkata", "Chennai"],
+                answer: 2
+            },
+            {
+                question: "Green Revolution in India was initiated by __________",
+                options: ["M.S. Swaminathan", "Sunderlal Bahuguna", "Kurien", "Medha Patkar"],
+                answer: 0
+            },
+            {
+                question: "The only known breeding colony of the greater and lesser Flamingos in our country is seen in _______ desert.",
+                options: ["The Great Rann of Kutch", "The Thar", "Ladakh", "Atacama"],
+                answer: 0
+            },
+            {
+                question: "An example of lotic system",
+                options: ["Pond", "River", "Lake", "Reservoir"],
+                answer: 1
+            },
+            {
+                question: "Which of the processes is used to dispose the radioactive wastes?",
+                options: ["ground storage", "ocean disposal", "landfills", "vary based on activity"],
+                answer: 3
+            },
+            {
+                question: "What is Plankton?",
+                options: ["Microscopic floating organisms - Plants and animals.", "bottom dwelling aquatic organisms", "large plants in water", "none"],
+                answer: 0
+            },
+            {
+                question: "Heat transferred outward from the surface of the moon can take place by:",
+                options: ["Convection", "Conduction", "Latent heat", "Radiation"],
+                answer: 3
+            },
+            {
+                question: "Molten rock deep inside the earth is called",
+                options: ["core", "valcano", "lava", "magma"],
+                answer: 3
+            },
+            {
+                question: "Pangolins feed on",
+                options: ["ants", "fruits", "leaves", "roots"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is the best indicator of SO2pollution.",
+                options: ["bryophyte", "pteridophyte", "lichen", "algae"],
+                answer: 2
+            },
+            {
+                question: "The term \"latent\" means:",
+                options: ["Late", "Hot", "Light", "Hidden"],
+                answer: 3
+            },
+            {
+                question: "What is Bagasse? What is it used for?",
+                options: ["Sugar cane waste --used as to make paper", "Biogas -- used as fuel", "Liquid waste --used as fertilizer", "Vermi compost - used as fertilizer"],
+                answer: 0
+            },
+            {
+                question: "The slow rate of decomposition of fallen logs in nature is due to their",
+                options: ["poor nitrogen content", "low moisture content", "low cellulose content", "anaerobic environment around them"],
+                answer: 1
+            },
+            {
+                question: "A high Biological Oxygen Demand (BOD) indicates that:",
+                options: ["water is pure", "absence of microbial action", "Low level of microbial pollution", "High level of microbial pollution"],
+                answer: 3
+            },
+            {
+                question: "Thorn-forests are found in the _______ regions.",
+                options: ["semi-arid", "high rain fall areas", "low temperature", "frozen areas"],
+                answer: 0
+            },
+            {
+                question: "Green plants are absent in deep sea. Why?",
+                options: ["Light is absent", "High pressure", "Low temperature", "Great depth"],
+                answer: 0
+            },
+            {
+                question: "Euro II standard refers to _________",
+                options: ["Lowering sulfur content in fuel", "Increasing sulfur content in fuel", "Lowering carbon content in fuel", "increasing carbon content in fuel"],
+                answer: 2
+            },
+            {
+                question: "When human body is infected by infection  __________ type of cells are activated to defend the body.",
+                options: ["erythrocytes", "leukocytes", "lymphocytes", "monocytes"],
+                answer: 2
+            },
+            {
+                question: "Who among the following is commonly called \"Bird Man of India\"?",
+                options: ["Salim Ali", "M.S. Swaminathan", "M.C. Mehta", "Raphel Emerson"],
+                answer: 0
+            },
+            {
+                question: "The movement \"Pani Panjayath\" was initiated to conserve waters in the drought prone areas of _______state.",
+                options: ["Tamilnadu", "Rajasthan", "Maharashtra", "Karnataka"],
+                answer: 2
+            },
+            {
+                question: "MAB program stands for",
+                options: ["Man and biotechnology", "Material and biology", "Man and Biology", "Man and Biosphere"],
+                answer: 3
+            },
+            {
+                question: "MAB stands for",
+                options: ["Man and biosphere", "Man, antibiotics and bacteria", "Man and biotic community", "Mayer, Anderson and Bisby"],
+                answer: 0
+            },
+            {
+                question: "Vermi-composting is a natural method of",
+                options: ["Producing compost manure", "Producing worms", "Managing waste it creates", "Destroying worms"],
+                answer: 0
+            },
+            {
+                question: "National Maritime Day of India is celebrated on ______________",
+                options: ["October 16", "April 05", "March 21", "May 22"],
+                answer: 1
+            },
+            {
+                question: "At the North Pole the sun will rise above the horizon on ____ and set below the horizon on ____.",
+                options: ["June 22; September 23", "September 23; December 22", "March 21; September 23", "June 22; December 22"],
+                answer: 2
+            },
+            {
+                question: "Minamata disease is caused by",
+                options: ["Air Pollution", "Water Pollution", "Marine Pollution", "All of these"],
+                answer: 2
+            },
+            {
+                question: "Official date of Earth Day is on _________",
+                options: ["April 22", "March 21", "May 22", "June 05"],
+                answer: 0
+            },
+            {
+                question: "Name the disease caused by mercury poisoning in Japan",
+                options: ["Itai itai", "Xeroderma pigmentosum", "Measles", "Minamata disease"],
+                answer: 3
+            },
+            {
+                question: "The Chipko movement is started by",
+                options: ["Engler", "Sunderlal Bahuguna", "Medha Padkar", "None of these"],
+                answer: 1
+            },
+            {
+                question: "Leader of \"Narmada Bachao Andolan\"",
+                options: ["Vandana Siva", "Medha Patkar", "Menaka Gandhi", "Mayilamma"],
+                answer: 1
+            },
+            {
+                question: "Who wrote the book \"Violence of Green Revolution\"",
+                options: ["Vandana Siva", "Sheela Dikshit", "Menaka Gandhi", "Arundhathi Roy"],
+                answer: 0
+            },
+            {
+                question: "Ozonosphere seen in",
+                options: ["ionosphere", "thermosphere", "mesophere", "stratosphere"],
+                answer: 3
+            },
+            {
+                question: "Plants adapted to open, sunny habitats are",
+                options: ["Sciophytes", "Heliophytes", "Mesophytes", "Epiphytes"],
+                answer: 1
+            },
+            {
+                question: "Almost all of the earth's weather occurs in the:",
+                options: ["Exosphere", "Stratosphere", "Mesosphere", "Thermosphere"],
+                answer: 0
+            },
+            {
+                question: "The cause of Bhopal disaster is",
+                options: ["Methyl Alcohol", "Methyl Carbonate", "Methyl Isocyanate", "Methyl Sulphate"],
+                answer: 2
+            },
+            {
+                question: "At which city might you be able to observe cirrus clouds at an altitude of 3,000 m (10,000 feet) above the surface?",
+                options: ["Barrow, Alaska", "Honolulu, Hawaii", "Miami, Florida", "Chicago, Illinois"],
+                answer: 0
+            },
+            {
+                question: "The study of minerals is called",
+                options: ["geology", "mineralogy", "mining science", "metallurgy"],
+                answer: 1
+            },
+            {
+                question: "MoEF means",
+                options: ["Ministry of Forest and Energy", "Ministry of Environment and Forests", "Ministry of Fuel and Energy", "Management of Environment and Forestry"],
+                answer: 1
+            },
+            {
+                question: "Which of the following will increase in a rising parcel of air?",
+                options: ["Saturation vapor pressure", "Relative humidity", "Mixing ratio", "Air temperature"],
+                answer: 1
+            },
+            {
+                question: "The intensity of earthquake is measured in ____________",
+                options: ["Beaufort scale", "Richter scale", "Mohs scale", "Joules"],
+                answer: 1
+            },
+            {
+                question: "The most widely used pesticides function by disrupting",
+                options: ["neurological cellular function", "endocrine function", "molecular events", "renal function"],
+                answer: 0
+            },
+            {
+                question: "Diversity of organisms include three Domains such as",
+                options: ["bacteria, archae, eukarya", "binomial system of classification", "monera, protista, fungi, plantae, animalia", "membrane bound organelles, no peptidoglycan in cell walls, introns"],
+                answer: 0
+            },
+            {
+                question: "What do you call the rain that contains chemical waste and cause damage to plants and animals?",
+                options: ["Smog", "Acid rain", "Monsoon rain", "Seasonal rain"],
+                answer: 1
+            },
+            {
+                question: "In July, at middle latitudes in the Northern Hemisphere, the day is ____ long and is ____ with each passing day.",
+                options: ["Less than 12 hours; getting longer", "Less than 12 hours; getting shorter", "More than 12 hours; getting longer", "More than 12 hours; getting shorter"],
+                answer: 3
+            },
+            {
+                question: "The effect of interspecific competition on niches is to make them",
+                options: ["larger", "smaller", "more triangular", "change location"],
+                answer: 1
+            },
+            {
+                question: "The carrying capacity of a population is determined by its",
+                options: ["population growth rate", "natality", "mortality", "limiting resources"],
+                answer: 3
+            },
+            {
+                question: "The order of succession in a lithosere or xerosere is",
+                options: ["Foliose lichen stage->Crustose lichen stage->moss stage->herb stage>shrub stage->forest stage (climax community)", "Crustose lichen stage->Foilose lichen stage->moss stage->herb stage>shrub stage->forest stage (climax community)", "Moss stage ->Foilose lichen stage-> Crustose lichen stage ->herb stage->shrub stage->forest stage (climax community)", "Crustose lichen stage->Foilose lichen stage->moss stage-> ->shrub stage-> herb stage->forest stage (climax community)"],
+                answer: 1
+            },
+            {
+                question: "Salmonellosis is a disease related to consumption of",
+                options: ["Chicken", "Eggs", "Mutton", "Fish"],
+                answer: 3
+            },
+            {
+                question: "An association between two individuals or populations where both are benefitted and where neither can survive without the other is",
+                options: ["competition", "commensalism", "mutualism", "protocoperation"],
+                answer: 2
+            },
+            {
+                question: "The relationship between nitrogen fixing bacteria and leguminous plants is an example for",
+                options: ["Parasitism", "Predation", "Mutualism", "Commensalism"],
+                answer: 2
+            },
+            {
+                question: "The green house gases, otherwise called radioactively active gases includes",
+                options: ["Carbon dioxide", "CH4", "N2O", "All of these"],
+                answer: 3
+            },
+            {
+                question: "Birth rate is called",
+                options: ["mortality", "vital index", "natality", "viability"],
+                answer: 2
+            },
+            {
+                question: "Death rate of the population",
+                options: ["Mortality", "Viability", "Natality", "Vitality"],
+                answer: 0
+            },
+            {
+                question: "Animals and plants are best protected in",
+                options: ["Zoos", "Botanical Gardens", "National Parks", "Sanctuaries"],
+                answer: 2
+            },
+            {
+                question: "Abbreviation for NGO is",
+                options: ["non-governmental office", "national-geographical organization", "national-governmental organization", "non-governmental organization"],
+                answer: 3
+            },
+            {
+                question: "A human population is small, there is a greater chance of :",
+                options: ["gene flow", "genetic drift", "natural selection", "mutation"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is least likely to contain an oil trap?",
+                options: ["an anticline", "fault", "natural stratigraphy", "syncline"],
+                answer: 3
+            },
+            {
+                question: "During the winter in the Northern Hemisphere, the \"land of the midnight sun\" would be found:",
+                options: ["At high latitudes", "At middle latitudes", "Near the equator", "In the desert southwest"],
+                answer: 0
+            },
+            {
+                question: "\"Earth provides enough to satisfy every man's need, but not for every man's greed\" words by",
+                options: ["Tagore", "Gandhiji", "Nehru", "None"],
+                answer: 1
+            },
+            {
+                question: "Endoderm forms",
+                options: ["blood and bone", "respiratory system", "nervous system", "viscera and digestive system"],
+                answer: 3
+            },
+            {
+                question: "Which phytoplankton exists at the size of 60 micro metre?",
+                options: ["Nanoplankton", "Ultraplankton", "Net plankton", "Picoplankton"],
+                answer: 0
+            },
+            {
+                question: "Cigarette smoking exposes one to __________",
+                options: ["Sulphur dioxide", "Carbon dioxide", "Nitrogen peroxide", "Carbon monoxide"],
+                answer: 3
+            },
+            {
+                question: "Exponential growth occurs when there is",
+                options: ["A great environmental resistance", "No environmental resistance", "No biotic potential", "A fixed carrying capacity"],
+                answer: 1
+            },
+            {
+                question: "Many wild plant and animals are on the verge of extinction due to",
+                options: ["Habitat destruction", "Climatic changes", "Non availability of food", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "Most harmful environmental pollutants are",
+                options: ["natural nutrients in excess", "human organic wastes", "non-biodegradable chemicals", "waste animal feed"],
+                answer: 2
+            },
+            {
+                question: "The destruction of the forest areas by man made efforts is called",
+                options: ["Afforestation", "Deforestation", "Non-forestation", "Bio forestation"],
+                answer: 1
+            },
+            {
+                question: "Nitrogen fixing blue green algae is",
+                options: ["Clostridium", "Rhizobium", "Nostoc", "Nitrosomonas"],
+                answer: 2
+            },
+            {
+                question: "Area X represents",
+                options: ["coal", "solar", "nuclear", "oil"],
+                answer: 0
+            },
+            {
+                question: "__________ was developed after World War II.",
+                options: ["Wind energy", "Solar energy", "Nuclear power", "Thermal power"],
+                answer: 2
+            },
+            {
+                question: "The term \"Nuclear winter\" is associated with",
+                options: ["Nuclear War", "Nuclear disarmament", "Nuclear weapon testing", "After effect of a nuclear explosion"],
+                answer: 3
+            },
+            {
+                question: "What is \"Black Lung\"?",
+                options: ["Occupational Hazard to the miners", "Occupational Hazard to navigators", "Occupational Hazard to pesticide applicators", "None of these"],
+                answer: 0
+            },
+            {
+                question: "A permeable rock that contains hydrocarbon fluids and gases is called a/an",
+                options: ["Oil trap", "Source bed", "Oil reservoir", "None of these"],
+                answer: 2
+            },
+            {
+                question: "In an oil trap formed by an anticline, __________ accumulates on top, __________ in the middle, and  __________  at the bottom.",
+                options: ["natural gas, oil, groundwater", "ground water, oil, natural gas", "oil, groundwater, natural gas", "oil, natural gas, ground water"],
+                answer: 0
+            },
+            {
+                question: "Macroconsumers include",
+                options: ["Herbivores", "Carnivores", "Omnivores", "All the above"],
+                answer: 3
+            },
+            {
+                question: "Thermal belts are usually found",
+                options: ["On valley floors", "On hillsides", "On mountain tops", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "The term \"normal\" refers to weather data averaged over:",
+                options: ["At least a day", "Several months", "One year", "Thirty years"],
+                answer: 3
+            },
+            {
+                question: "At any given time, ______ of the earth is illuminated by the sun.",
+                options: ["One-fourth", "One-third", "One-half", "Two-thirds"],
+                answer: 2
+            },
+            {
+                question: "Trophic levels are formed by",
+                options: ["Only plants", "only animals", "Only carnivorous", "Organisms linked in food chain"],
+                answer: 3
+            },
+            {
+                question: "The drug morphine is extracted from _______ plant.",
+                options: ["Cocoa", "Belladonna", "Opium Poppy", "Tannin"],
+                answer: 2
+            },
+            {
+                question: "Producers are otherwise known as",
+                options: ["Organisms", "Manufacturers", "Organic compounds", "Autotrophs"],
+                answer: 3
+            },
+            {
+                question: "Decomposers are otherwise called as",
+                options: ["Detritivores", "Primary consumers", "Organic matter", "Secondary consumers"],
+                answer: 0
+            },
+            {
+                question: "The response of predator to prey and vice-versa, over ten of thousands of years, produces physical and behavioral changes in a process called",
+                options: ["Co-evolution", "Evolution", "Origin", "Development"],
+                answer: 0
+            },
+            {
+                question: "The most important reason why summers in the Southern Hemisphere are not warmer than summers in the Northern Hemisphere is that:",
+                options: ["The earth is closer to the sun in January", "The earth is farther from the sun in July", "Over 80% of the Southern Hemisphere is covered with water", "The sun's energy is less intense in the Southern Hemisphere"],
+                answer: 2
+            },
+            {
+                question: "The limitating factor in temperate and boreal forest is",
+                options: ["Nutrients", "Frost", "Oxygen", "Sunlight"],
+                answer: 3
+            },
+            {
+                question: "Gas released during photosynthesis is",
+                options: ["Methane", "Nitrogen", "Oxygen", "Carbon dioxide"],
+                answer: 2
+            },
+            {
+                question: "In a volume of air near the earth's surface, ____ occupies 78 percent and ____ nearly 21 percent.",
+                options: ["Nitrogen, oxygen", "Hydrogen, oxygen", "Oxygen, hydrogen", "Nitrogen, water vapor"],
+                answer: 0
+            },
+            {
+                question: "Plants which grow in shade are called",
+                options: ["Sciophytes", "Heliophytes", "Oxylophytes", "Epiphytes"],
+                answer: 0
+            },
+            {
+                question: "Plants which grow in light are called",
+                options: ["Sciophytes", "Heliophytes", "Oxylophytes", "Epiphytes"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is not a green house gas?",
+                options: ["Carbon dioxide", "Methane", "Ozone", "SF6"],
+                answer: 3
+            },
+            {
+                question: "The combination of nitrogen oxides and hydrocarbons in the presence of the sunlight causes",
+                options: ["Global warming", "Smog", "Ozone hole in the atmosphere", "Acid rain"],
+                answer: 1
+            },
+            {
+                question: "The Residential and Commercial wastes mainly consist of:",
+                options: ["Food wastes", "Card board", "Packaging materials", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "What is the only continent on earth where Giraffes live in the wild?",
+                options: ["Africa", "India", "Pakisthan", "Srilanka"],
+                answer: 0
+            },
+            {
+                question: "Grassland of USA is referred to as",
+                options: ["Prairies", "Steppes", "Pampas", "Veldts"],
+                answer: 0
+            },
+            {
+                question: "Mycorrhiza represents",
+                options: ["Symbiotic association between a fungus and liverworts", "Parasitic association between a fungus and an alga", "Parasitic association between a fungus and roots of plants", "Symbiotic association between a fungus and roots of higher plants"],
+                answer: 3
+            },
+            {
+                question: "Which of the following interactions will not promote co evolution?",
+                options: ["Commensalism", "Mutualism", "Parasitism", "Interspecific competition"],
+                answer: 0
+            },
+            {
+                question: "Earth summit was held in",
+                options: ["Stockholm in 1972", "Rio de Jeneiro in 1992", "Paris in 1992", "New York in 1972"],
+                answer: 1
+            },
+            {
+                question: "The unit of measurement of intensity of sound is in _________",
+                options: ["Decibels", "Lux", "Parsec", "Candela"],
+                answer: 0
+            },
+            {
+                question: "Which of the following spatial units is the largest in terms of scale?",
+                options: ["River segments", "Mesohabitats", "Patches", "River reaches"],
+                answer: 0
+            },
+            {
+                question: "Natural earthquakes are caused by __________",
+                options: ["Earth's crust", "Deep seas", "Peak mountains", "Forests"],
+                answer: 0
+            },
+            {
+                question: "Eutrophication results from",
+                options: ["Agricultural and sewage water", "Vehicle exhaust", "Pesticides", "Industrial effluents"],
+                answer: 0
+            },
+            {
+                question: "The presence of which is necessary for photosynthesis",
+                options: ["Chloroform", "Chlorophyll", "Phosphorus", "Polymer"],
+                answer: 1
+            },
+            {
+                question: "All food chains starts with  __________ and ends with decay.",
+                options: ["Environment", "Organisms", "Photosynthesis", "Fungi"],
+                answer: 2
+            },
+            {
+                question: "Meteorology is considered a branch of:",
+                options: ["Mineralogical sciences", "Phenology", "Phrenology", "Atmospheric sciences"],
+                answer: 3
+            },
+            {
+                question: "Study of inter-relationship between organisms and their environment is",
+                options: ["Ecology", "Ecosystem", "Phytogeography", "Ethology"],
+                answer: 0
+            },
+            {
+                question: "The order of succession in a hydrosere is",
+                options: ["Rooted aquatic plants-> phytoplankton->Free floating stage->Reed swamp stage->Sedge Meadow stage-> wood land stage-> Climax forest", "Rooted aquatic plants-> phytoplankton->Free floating stage-> Sedge Meadow stage-> Reed swamp stage-> wood land stage-> Climax forest", "phytoplankton->Rooted aquatic plants->Free floating stage->Reed swamp stage-> wood land stage-> Sedge Meadow stage-> Climax forest", "phytoplankton->Rooted aquatic plants->Free floating stage->Reed swamp stage->Sedge Meadow stage-> wood land stage-> Climax forest"],
+                answer: 3
+            },
+            {
+                question: "Good urban planning is essential for  __________ land use.",
+                options: ["Rational", "Irrational", "Planned", "Unplanned"],
+                answer: 0
+            },
+            {
+                question: "The major reservoir of carbon is",
+                options: ["The atmosphere", "Ocean Bed", "Plant and animals", "Rock"],
+                answer: 1
+            },
+            {
+                question: "Causative organisms of Malaria",
+                options: ["Bacteria", "Fungus", "Plasmodium", "Virus"],
+                answer: 2
+            },
+            {
+                question: "Example for a bio-degradable polymer is",
+                options: ["Polyethylene", "Polypropylene", "Poly lactic acid", "Polyester"],
+                answer: 2
+            },
+            {
+                question: "The European Union has a permanent ban on the use of  __________ in toys.",
+                options: ["Phthalates", "Clay", "Polycarbonate", "Bisphenol"],
+                answer: 0
+            },
+            {
+                question: "A biodegradable plastic developed by Biopak Corporation Australia",
+                options: ["Biopol", "Pet", "Polyester", "PVC"],
+                answer: 0
+            },
+            {
+                question: "The expansion on PQLI is",
+                options: ["Physical quality of life index", "Population quotient of life in India", "Poor quality of life in India", "Poverty, quality of life in India"],
+                answer: 0
+            },
+            {
+                question: "The unit of pressure most commonly found on a surface weather map is:",
+                options: ["Inches of mercury (Hg)", "Millibars or hectopascals", "Pounds per square inch", "Millimeters of mercury (Hg)"],
+                answer: 1
+            },
+            {
+                question: "When both partners are affected negatively the nature of interaction is",
+                options: ["commensalism", "competition", "predation", "amensalism"],
+                answer: 1
+            },
+            {
+                question: "The formation of a climax community from an abandoned farm land is a an example of",
+                options: ["Autogenic succession", "Allogenic succession", "Primary succession", "Secondary succession"],
+                answer: 3
+            },
+            {
+                question: "Which of the following zones in a lake suffers from lack of light and therefore limited photosynthesis is able to take place?",
+                options: ["Pelagic", "Littoral", "Profundal", "Euphotic"],
+                answer: 2
+            },
+            {
+                question: "_________ is mixed with petrol for being used in automobiles.",
+                options: ["Gasohol", "Methanol", "Propanol", "Ethanol"],
+                answer: 3
+            },
+            {
+                question: "The Anthrax disease is caused by",
+                options: ["Virus", "Bacteria", "Protozoa", "Helminthes"],
+                answer: 1
+            },
+            {
+                question: "Bio gas generation is mainly based on the principle of",
+                options: ["Fermentation", "Biodegradation", "Purification", "Sedimentation"],
+                answer: 1
+            },
+            {
+                question: "Which of the following ecological pyramid is always upright?",
+                options: ["Pyramid of energy", "Pyramid of number", "Pyramid of biomass", "None of these"],
+                answer: 0
+            },
+            {
+                question: "\"Silent Spring\" is a well known book written by",
+                options: ["John Miller", "Charles Darwin", "Rachel Carson", "Aldoleopold"],
+                answer: 2
+            },
+            {
+                question: "The book silent spring was written by",
+                options: ["Madhav Gadgil", "Anil Agarwal", "Rachel Carson", "E.O.Wilson"],
+                answer: 2
+            },
+            {
+                question: "The cold feeling that you experience after leaving a swimming pool on a hot, dry, summer day represents heat transfer by:",
+                options: ["Conduction", "Convection", "Radiation", "Latent heat"],
+                answer: 3
+            },
+            {
+                question: "The transfer of heat by molecule-to-molecule contact:",
+                options: ["Conduction", "Convection", "Radiation", "Ultrasonic"],
+                answer: 0
+            },
+            {
+                question: "The transfer of heat by molecule-to-molecule contact is:",
+                options: ["Conduction", "Convection", "Radiation", "Ultrasonic"],
+                answer: 0
+            },
+            {
+                question: "All are physical pollutants except",
+                options: ["heat", "sound", "radiations", "soot"],
+                answer: 3
+            },
+            {
+                question: "Superbugs are",
+                options: ["Synthetic bug", "Bacteria", "Radio nucleotide", "Industries"],
+                answer: 1
+            },
+            {
+                question: "Acid is an example of _____________",
+                options: ["Corrosive waste", "Infectious waste", "Radioactive waste", "Ignitable waste"],
+                answer: 0
+            },
+            {
+                question: "Rainfall is measured by an instrument known as",
+                options: ["Seismograph", "Lactometer", "Rain gauge", "Nanometer"],
+                answer: 2
+            },
+            {
+                question: "Wild life protection act was formulated during the period of ______",
+                options: ["Mrs. Indira Gandhi", "Lal Bahadur Shasthri", "Rajiv Gandhi", "Morarji Desai"],
+                answer: 0
+            },
+            {
+                question: "Who had stated in the Stockholm Conference in 1972 that poverty was the greatest polluter?",
+                options: ["Indira Gandhi", "Mahatma Gandhi", "Rajiv Gandhi", "Jawaharlal Nehru"],
+                answer: 0
+            },
+            {
+                question: "_______ is a cold desert in India.",
+                options: ["Thar", "Ladakh", "Ran of Kutch", "Bhopal"],
+                answer: 1
+            },
+            {
+                question: "Dodo is",
+                options: ["Endangered", "Critically endangered", "Rare", "Extinct"],
+                answer: 3
+            },
+            {
+                question: "Blue whale is placed under",
+                options: ["Endangered", "Critically endangered", "Rare", "Extinct"],
+                answer: 0
+            },
+            {
+                question: "The effects of radioactive pollutants depends upon",
+                options: ["Rate of diffusion", "Energy releasing capacity", "Rate of deposition of the contaminant", "All of these"],
+                answer: 3
+            },
+            {
+                question: "Ecology deals with the study of:",
+                options: ["Living beings", "Living and non living components", "Reciprocal relationship between living and non living components", "Environment"],
+                answer: 2
+            },
+            {
+                question: "How do red and blue light differ?",
+                options: ["Blue light has a higher speed of propagation.", "The wavelength of red light is longer.", "Red light has a higher intensity.", "Red and blue light have different directions of polarization."],
+                answer: 1
+            },
+            {
+                question: "Incineration of Municipal waste involves",
+                options: ["Oxidation", "Deduction", "Redox action", "Disintegration"],
+                answer: 0
+            },
+            {
+                question: "The 3 R principle in waste management involves",
+                options: ["Reduce, Regain, Reuse", "Reduce, Reuse, Recycle", "Reduce, Reform, Reset", "Reduce, Retain, Regain"],
+                answer: 1
+            },
+            {
+                question: "Lead poisoning",
+                options: ["reduces O2carrying capacity of hemoglobin in blood", "increases O2carrying capacity of hemoglobin in blood", "reduces O2carrying capacity of myoglobin in muscles", "increases O2 carrying capacity of myoglobin in muscles"],
+                answer: 0
+            },
+            {
+                question: "The method of simultaneous integration of trees with agricultural crops is called",
+                options: ["Agro forestry", "Deforestation", "Reforestation", "Combined culture"],
+                answer: 0
+            },
+            {
+                question: "Utilisation of natural resources in moderate manner to remaining something for the next generation is termed as",
+                options: ["Resettlement", "Sustainable development", "Rehabilitation", "Mutual development"],
+                answer: 1
+            },
+            {
+                question: "Herpetology is a branch of Science which deals with",
+                options: ["Aves", "Mammals", "Reptiles", "Fishes"],
+                answer: 2
+            },
+            {
+                question: "The amount of oil that may become available for use is called oil",
+                options: ["Reserves", "Reservoirs", "Resources", "Traps"],
+                answer: 2
+            },
+            {
+                question: "What is the name of the action plan for sustainable development in the Twenty first century framed in the Rio Declaration on Environment & Development (1992)?",
+                options: ["Action 21", "Agenda 21", "Rio 21", "Declaration 21"],
+                answer: 1
+            },
+            {
+                question: "________ is diffused into the ground by gravitational force.",
+                options: ["Rain water", "Ocean", "River water", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "Which is the world's most deadliest snake?",
+                options: ["Black mamba", "Spitting cobra", "Russel viper", "Anaconda"],
+                answer: 0
+            },
+            {
+                question: "Which of the following rock types would most likely be the best oil reservoir?",
+                options: ["Granite", "Shale", "Sandstone", "Salt"],
+                answer: 2
+            },
+            {
+                question: "Sulphur bacteria are examples of",
+                options: ["Carnivores", "Heterotrophs", "Saprophytes", "Autotrophs"],
+                answer: 3
+            },
+            {
+                question: "Autotrophs are ______________",
+                options: ["Consumers", "Herbivores", "Saprophytes", "Producers"],
+                answer: 3
+            },
+            {
+                question: "North American grassland are called",
+                options: ["Pampas", "Prairies", "Savannah", "None"],
+                answer: 1
+            },
+            {
+                question: "African grasslands are called",
+                options: ["Prairies", "Pampas", "Savannah", "None"],
+                answer: 2
+            },
+            {
+                question: "A Hawk that eats a frog is a",
+                options: ["Producer", "Primary Consumer", "Secondary Consumer", "Tertiary Consumer"],
+                answer: 3
+            },
+            {
+                question: "Herbivores are also called as",
+                options: ["Producers", "Primary consumers", "Secondary consumers", "Tertiary consumers"],
+                answer: 1
+            },
+            {
+                question: "The worst nuclear accident happened to date is occurred at",
+                options: ["Chernobyl in 1986", "Three Mile Power Plant in 1979", "Sellafield in 1957", "Fukushima in 2011"],
+                answer: 0
+            },
+            {
+                question: "The development of a bare area without any life form is called",
+                options: ["Nudation", "Ecesis", "Sere", "Reaction"],
+                answer: 0
+            },
+            {
+                question: "_________ is a long term pattern of weather at a particular area.",
+                options: ["Raising sun", "Climate", "Setting sun", "Rainbow"],
+                answer: 1
+            },
+            {
+                question: "World's first Teak Forest was planted in 1842 in Kerala. Identify the place.",
+                options: ["Wayanad", "Nilambur", "Silent Valley", "Nelliyampathy"],
+                answer: 1
+            },
+            {
+                question: "Pottery workers are at high risk of  __________ lung disease.",
+                options: ["Asbestosis", "Asthma", "Silicosis", "Bronchitis"],
+                answer: 2
+            },
+            {
+                question: "The darkening of the skin due to arsenic poisoning is called",
+                options: ["Black syndrome", "Diffuse melanosis", "Skin scaling", "None of these"],
+                answer: 1
+            },
+            {
+                question: "A change of one degree on the Celsius scale is ____ a change of one degree on the Fahrenheit scale.",
+                options: ["Equal to", "Larger than", "Smaller than", "Is in the opposite direction of"],
+                answer: 1
+            },
+            {
+                question: "Condensation nuclei may be:",
+                options: ["Particles of dust", "Nitric acid particles", "Smoke from forest fires", "Salt from the ocean"],
+                answer: 0
+            },
+            {
+                question: "_______ is an example of \"bottom feeders\".",
+                options: ["Cat fish", "Frog", "Snake", "Tadpole"],
+                answer: 0
+            },
+            {
+                question: "Moisture in the air is known as",
+                options: ["Water", "Fog", "Snow", "Humidity"],
+                answer: 3
+            },
+            {
+                question: "Nitrogen oxide and hydrocarbons released by automobiles interact to form",
+                options: ["CO", "PAN", "SO2", "Aerosol"],
+                answer: 1
+            },
+            {
+                question: "The Expansion of SPCA",
+                options: ["Society for the Protection of Common Animals", "Society for the Prevention of Cruelty to Animals", "Society for the Prohibition of Cruelty to Animals", "None"],
+                answer: 1
+            },
+            {
+                question: "Deforestation generally decreases",
+                options: ["Global Warming", "Drought", "Soil erosion", "Rainfall"],
+                answer: 3
+            },
+            {
+                question: "What is Canopy?",
+                options: ["Uppermost level of the forest", "Ground level of the forest", "Soil in forest", "Climbers on trees"],
+                answer: 0
+            },
+            {
+                question: "Boron, Zinc and Manganese are usually referred to as",
+                options: ["Micronutrients", "Macronutrients", "Soil Vitamins", "MBZ nutrients"],
+                answer: 0
+            },
+            {
+                question: "Charged particles from the sun that travel through space at high speeds are called:",
+                options: ["Radiation", "The aurora", "Solar wind", "Solar flares"],
+                answer: 2
+            },
+            {
+                question: "A set of organisms that resemble one another in appearance and behaviour is called a _____________",
+                options: ["Exons", "Prions", "Species", "Guilds"],
+                answer: 2
+            },
+            {
+                question: "Which of the following will decrease in a rising parcel of air?",
+                options: ["Relative humidity", "Absolute humidity", "Specific humidity", "All of the above"],
+                answer: 1
+            },
+            {
+                question: "The pyramid of numbers in a single tree is",
+                options: ["Upright", "Inverted", "Spindle shaped", "None of these"],
+                answer: 2
+            },
+            {
+                question: "Fog that forms off the coast of Newfoundland is mainly a form of:",
+                options: ["Advection fog", "Frontal fog", "Steam fog", "Radiation fog"],
+                answer: 0
+            },
+            {
+                question: "The capacity to do work is termed as",
+                options: ["Power", "Force", "Strength", "Energy"],
+                answer: 3
+            },
+            {
+                question: "Which of the radioactive material is largely associated with bone cancer",
+                options: ["Radium-226", "Thorium-232", "Strontium-90", "Iodine"],
+                answer: 2
+            },
+            {
+                question: "What is Pedology?",
+                options: ["Study of water", "Study of air", "Study of soil", "none"],
+                answer: 2
+            },
+            {
+                question: "What is Dendrology?",
+                options: ["Study of Plants", "Study of Butterflies", "Study of Trees", "None of these"],
+                answer: 2
+            },
+            {
+                question: "In which of the following the maximum plant diversity is found",
+                options: ["Tropical evergreen forests", "Tropical moist deciduous forests", "Sub tropical mountain forests", "Temperate moist forests"],
+                answer: 0
+            },
+            {
+                question: "Soap and detergents are the source of organic pollutants like:",
+                options: ["Glycerol", "Polyphosphates", "Sulphonated hydrocarbons", "All of these"],
+                answer: 3
+            },
+            {
+                question: "All are primary pollutants except",
+                options: ["Ammonia", "Peroxyacetyl Nitrate (PAN)", "Sulfur dioxide", "Hydrogen sulfide"],
+                answer: 1
+            },
+            {
+                question: "Chipko movement is a public agitation that occurred in",
+                options: ["Mansbal area in Kashmir", "Silent valley in Kerala", "Sundarban area in Bengal", "Tehri Garhwal area of Uttar Pradesh"],
+                answer: 3
+            },
+            {
+                question: "Who coined the slogan of Chipko Movement \"Ecology is Permanent economy\".",
+                options: ["Jawaharlal Nehru", "Salim Ali", "Sunderlal Bahuguna", "Rachel Carson"],
+                answer: 2
+            },
+            {
+                question: "The first tropic level refers to",
+                options: ["all herbivores", "all green plants", "sunlight", "all animals"],
+                answer: 1
+            },
+            {
+                question: "Abyssal zone in ocean has",
+                options: ["no sunlight but contains decomposers and consumers", "no sunlight but contain producers", "sunlight and decomposers", "sunlight and producers"],
+                answer: 0
+            },
+            {
+                question: "Oil derived from coal, oil shales or tar sands is called",
+                options: ["natural gas", "biomass", "syncrude", "none of the above"],
+                answer: 0
+            },
+            {
+                question: "Which of the following region has maximum diversity?",
+                options: ["mangrooves", "temperate rainforest", "taiga", "coral reefs"],
+                answer: 3
+            },
+            {
+                question: "The wind-chill factor:",
+                options: ["Relates body heat loss with wind to an equivalent temperature with no wind", "Indicates the temperature at which water freezes on exposed skin", "Takes into account humidity and air temperature in expressing the current air temperature", "Tells farmers when to protect crops from a freeze"],
+                answer: 0
+            },
+            {
+                question: "Abundant source of inonazite sands are found on the sea shores of",
+                options: ["Maharashtra", "West Bengal", "Tamil Nadu", "Kerala"],
+                answer: 3
+            },
+            {
+                question: "Concept of ecological pyramids was proposed by",
+                options: ["Odum", "Clements", "Tansley", "Charles Elton"],
+                answer: 3
+            },
+            {
+                question: "_________ is a practice of clearing and burning the forest area for cultivation of crops for 3-4 years and shifting.",
+                options: ["Jhum cultivation", "Horticulture", "Taungya cultivation", "Agrisilviculture"],
+                answer: 0
+            },
+            {
+                question: "Growing agricultural crops between rows of planted trees is known as",
+                options: ["Social forestry", "Jhum", "Taungya system", "Agroforestry"],
+                answer: 2
+            },
+            {
+                question: "The cutting down of trees and setting them on fire and raising crops on the resulting ash is called:",
+                options: ["Pyrolysis", "Jhum", "Taungya system", "Shift cultivation"],
+                answer: 1
+            },
+            {
+                question: "_____________ is the poisonous gas leaked during Bhopal gas tragedy",
+                options: ["MIC", "PVC", "Teflon", "Hydrogen Sulphide"],
+                answer: 0
+            },
+            {
+                question: "The amount of force exerted over an area of surface is called:",
+                options: ["Density", "Weight", "Temperature", "Pressure"],
+                answer: 3
+            },
+            {
+                question: "Sedimentation is a",
+                options: ["Primary water treatment", "Secondary water treatment", "Tertiary water treatment", "Final process"],
+                answer: 0
+            },
+            {
+                question: "Black lung disease is associated with",
+                options: ["Farmers", "Coal miners", "Textile industry workers", "Sweepers"],
+                answer: 1
+            },
+            {
+                question: "What are rodenticides?",
+                options: ["That kill fishes", "That kill insects", "That kill rats", "That kill crocos"],
+                answer: 2
+            },
+            {
+                question: "When the air is saturated, which of the following statements is not correct?",
+                options: ["The air temperature equals the wet-bulb temperature", "The relative humidity is 100 percent", "The air temperature equals the dew point temperature", "An increase in temperature will cause condensation to occur"],
+                answer: 3
+            },
+            {
+                question: "Meteorology is the study of:",
+                options: ["Landforms", "The oceans", "The atmosphere", "Outer space"],
+                answer: 2
+            },
+            {
+                question: "Killing of animals disturbs",
+                options: ["Good for eco system", "Good for man", "The balance of nature", "None"],
+                answer: 2
+            },
+            {
+                question: "A biomass pyramid is important because it illustrates",
+                options: ["How energy flows through a food web", "The number of species in each tropic level", "The biomass of all organisms at each tropic level in a system", "The number of tropic levels in a system"],
+                answer: 3
+            },
+            {
+                question: "Low clouds retard surface cooling at night better than clear skies because:",
+                options: ["The clouds absorb and radiate infrared energy back to earth", "The water droplets in the clouds reflect infrared energy back to earth", "The clouds start convection currents between them", "The clouds are better conductors of heat than is the clear night air"],
+                answer: 0
+            },
+            {
+                question: "The main reason(s) for warm summers in northern middle latitudes is that:",
+                options: ["The earth is closer to the sun in summer", "The sun is higher in the sky and we receive more direct solar radiation", "The days are longer", "All of the above"],
+                answer: 0
+            },
+            {
+                question: "During an equinox:",
+                options: ["The days and nights are of equal length except at the poles", "At noon the sun is overhead at the equator", "The earth is not tilted toward nor away from the sun", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "All the statements are correct regarding ecological succession except",
+                options: ["It is a random process", "Species diversity increases as succession proceeds", "The food chain relationships becomes more complex", "The role of decomposers becomes more and more important"],
+                answer: 0
+            },
+            {
+                question: "Our seasons are caused by:",
+                options: ["The changing distance between the earth and the sun", "The angle at which sunlight reaches the earth", "The length of the daylight hours", "All of the above"],
+                answer: 0
+            },
+            {
+                question: "In the food relationship where the lion eats the wild beast, and the wild beast eats plants",
+                options: ["The lion is the prey and the wilde beast is the predator", "The lion is the predator and the wilde beast is the prey", "The lion is the primary consumer and the wilde beast is the secondary consumer", "The lion is the secondary consumer and the wilde beast is the primary consumer"],
+                answer: 3
+            },
+            {
+                question: "Two-thirds of the world's known oil reserves are located in",
+                options: ["Siberia", "Gulf of mexico and caribbean", "The middle east", "Indonesia"],
+                answer: 2
+            },
+            {
+                question: "Which of the following regarding ecological pyramids is not correct?",
+                options: ["In most ecosystems, the pyramid of numbers and biomass are up right", "In tree dominated ecosystem the pyramid of numbers is inverted", "The pyramid of energy expresses mainly the rate of food production", "In deep water ecosystem, the pyramid of biomass is upright"],
+                answer: 0
+            },
+            {
+                question: "Which of the following statement is incorrect regarding ecological pyramids",
+                options: ["The pyramid of energy is inverted in ocean ecosystem", "The pyramid of biomass is inverted in aquatic ecosystem", "The pyramid of numbers is upright in grass land ecosystem", "The pyramid of biomass is upright in grass land ecosystem"],
+                answer: 0
+            },
+            {
+                question: "Which of the following statements is not correct?",
+                options: ["The length of human hair changes as the relative humidity changes.", "During the winter, low relative humidity can irritate the mucus membranes in the nose and throat.", "The relative humidity is a measure of the air's actual water vapor content.", "A change in the air temperature can change the relative humidity."],
+                answer: 2
+            },
+            {
+                question: "Ecology is",
+                options: ["The science that studies the evolution of life,", "Integrates both social and natural sciences to help us understand how the earth works,", "The study of the relationships between organisms and their environment", "The study of the environment in the absence of humans"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is false?",
+                options: ["Quantity of biomass in a trophic level at a particular period is called as standing crop", "The energy content in a trophic level is determined is determined by considering a few individuals of a species in that trophic level.", "The succession that occurs in newly cooled lava is called primary succession", "Rate of succession is faster in secondary succession"],
+                answer: 1
+            },
+            {
+                question: "Frost typically forms on the inside of a windowpane (rather than the outside) because:",
+                options: ["The inside of the pane is colder than the outside", "There is more water vapor touching the inside of the pane", "There is less water vapor touching the inside of the pane", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "Aquatic life is damaged by",
+                options: ["Sound pollution", "Air Pollution", "Thermal pollution", "All of these"],
+                answer: 2
+            },
+            {
+                question: "The top layer of the lake is called as",
+                options: ["Thermocline", "Epilimnion", "Thermonion", "Hypolimnion"],
+                answer: 1
+            },
+            {
+                question: "The atmospheric layer in which we live is called the:",
+                options: ["Troposphere", "Stratosphere", "Thermosphere", "Ionosphere"],
+                answer: 0
+            },
+            {
+                question: "The hottest atmospheric layer is the:",
+                options: ["Stratosphere", "Mesosphere", "Thermosphere", "Troposphere"],
+                answer: 2
+            },
+            {
+                question: "What is oil slick?",
+                options: ["Boiled oil", "Cooled oil", "Thin film of oil in sea water", "Oil in deep sea"],
+                answer: 2
+            },
+            {
+                question: "The concept that 'population tends to increase geometrically while food supply increases arithmetically' was put forward by",
+                options: ["Adam Smith", "Charles Darwin", "Thomas Malthus", "Stuart Mill"],
+                answer: 2
+            },
+            {
+                question: "About ____ of the meteorologists and atmospheric scientists in the United States work in the field of weather forecasting.",
+                options: ["One-tenth", "One-half", "Three-quarters", "Nine-tenths"],
+                answer: 1
+            },
+            {
+                question: "What is \"temporary threshold shift\"?",
+                options: ["Hearing loss due to excessive noise", "Noise that is untolerable", "Tolerable noise", "inaudible noise"],
+                answer: 0
+            },
+            {
+                question: "In an average year, more people die from this than from any other natural disaster.",
+                options: ["Lightning", "Earthquakes", "Tornadoes", "Flash floods and flooding"],
+                answer: 3
+            },
+            {
+                question: "Gharial is a",
+                options: ["Crocodile", "Cobra", "Tortoise", "Frog"],
+                answer: 0
+            },
+            {
+                question: "Animal dung is  __________ waste.",
+                options: ["Biodegradable", "Non biodegradable", "Toxic", "Hazardous"],
+                answer: 0
+            },
+            {
+                question: "Which of the following projects contribute to displacement?",
+                options: ["Dam projects", "Urban infrastructure projects", "Transportation projects", "All the above"],
+                answer: 3
+            },
+            {
+                question: "_______ is a marine tortoise which shows the unique phenomenon \"arribada\".",
+                options: ["Olive Ridley", "Star Tortoise", "Travancore Tortoise", "A & C"],
+                answer: 0
+            },
+            {
+                question: "Which chemical was responsible for Bhopal gas tragedy?",
+                options: ["Methyl Isocyanate", "Benzene Hexa Chloride", "Tri Nitro Toluene", "B & C"],
+                answer: 0
+            },
+            {
+                question: "Complex interlinked food chains are called",
+                options: ["Food Web", "Food net work", "Trophiclevels", "Food pyramid"],
+                answer: 0
+            },
+            {
+                question: "_________ layer is very near to earth",
+                options: ["Stratosphere", "Mesosphere", "Troposphere", "Thermosphere"],
+                answer: 2
+            },
+            {
+                question: "The word Tsunami is derived from two Japanese words",
+                options: ["Tsu(big) and nami(flow)", "Tsu(harbour) and nami(wave)", "Tsu(big wave) and nami(wave)", "None of these"],
+                answer: 1
+            },
+            {
+                question: "The proper order from shortest to longest wavelength is:",
+                options: ["Visible, infrared, ultraviolet", "Infrared, visible, ultraviolet", "Ultraviolet, visible, infrared", "Visible, ultraviolet, infrared"],
+                answer: 2
+            },
+            {
+                question: "Noise is _______________",
+                options: ["Huge sound", "Sound of vehicles", "Undesirable and unwanted sound", "Sound of crackers"],
+                answer: 2
+            },
+            {
+                question: "What is UNCED?",
+                options: ["United Nations Conference on Education,", "United Nations Conference on Environmental Day", "United Nations Conference on Environment and Development", "None of these"],
+                answer: 2
+            },
+            {
+                question: "What is the official name of IUCN?",
+                options: ["World Wide Fund for Nature", "International Union for Conservation of Nature and Natural Resources", "United Nations Environment Programme", "United Nations Educational, Scientific and Cultural Organization"],
+                answer: 1
+            },
+            {
+                question: "What is the most important factor for the success of animal population?",
+                options: ["Natality", "Adaptability", "Unlimited food", "Inter species activity"],
+                answer: 1
+            },
+            {
+                question: "Coral reefs in India can be seen in",
+                options: ["Himalayan region", "Andaman and Nicobar Islands", "Uttarpradesh", "Maharashtra"],
+                answer: 1
+            },
+            {
+                question: "Minute particles and liquid droplets are collectively called",
+                options: ["Convection current", "Ozone", "UV radiation", "Aerosols"],
+                answer: 3
+            },
+            {
+                question: "Non-lonizing radiations with specific biological effects are",
+                options: ["Gamma rays", "Beta-rays", "UV radiations", "X-rays"],
+                answer: 2
+            },
+            {
+                question: "In the Northern Hemisphere, this day has the fewest hours of daylight:",
+                options: ["Summer solstice", "Winter solstice", "Vernal equinox", "Autumnal equinox"],
+                answer: 1
+            },
+            {
+                question: "Slip erosion is also known as",
+                options: ["landslide", "Earthquake", "Volcano", "Floads"],
+                answer: 0
+            },
+            {
+                question: "Thermal belts are:",
+                options: ["Pockets of warm air resting on a valley during the afternoon", "Pockets of cold air resting on a valley floor at night", "Warmer hillsides that are less likely to experience freezing conditions", "Cold, below-freezing air found at the top of a mountain"],
+                answer: 2
+            },
+            {
+                question: "The term \"Biocoenosis\" was proposed by",
+                options: ["Transley", "Carl Mobius", "Warming", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "_________ is a mixture of 50 - 90% of methane",
+                options: ["Natural gas", "Air", "Water", "Bio diesel"],
+                answer: 0
+            },
+            {
+                question: "The source of atmospheric oxygen is",
+                options: ["Nitrogen cycle", "Green Plants", "Water", "Carbon Cycle"],
+                answer: 1
+            },
+            {
+                question: "India is primary centre of domestication of",
+                options: ["Sheep", "Goat", "Water Buffalo", "Elephants"],
+                answer: 2
+            },
+            {
+                question: "Which is an example for sedimentary biogeochemical cycle",
+                options: ["Oxygen cycle", "Nitrogen cycle", "Water cycle", "Phosphorus cycle"],
+                answer: 3
+            },
+            {
+                question: "Frost forms when:",
+                options: ["Objects on the ground cool below the dew point temperature.", "The dew point is 32oF or below.", "Water vapor changes into ice without first becoming a liquid.", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "A narrow valley with steep sides is known as",
+                options: ["Gorge", "Canyon", "Waterfall", "Landslide"],
+                answer: 0
+            },
+            {
+                question: "_________ is a source of all minerals.",
+                options: ["air", "water", "wildlife", "soil"],
+                answer: 3
+            },
+            {
+                question: "IUCN is also called as",
+                options: ["Man and Biosphere program", "World Conservation Union", "World Conservation Consortium", "World Wide Conservation Union"],
+                answer: 1
+            },
+            {
+                question: "5th June is observed as",
+                options: ["World forest day", "World environment day", "World wildlife day", "World population day"],
+                answer: 1
+            },
+            {
+                question: "If you want to keep an object cool while exposed to direct sunlight,",
+                options: ["Put it inside a brown paper bag", "Wrap it in black paper", "Wrap it in aluminum foil with the shiny side facing inward", "Wrap it in aluminum foil with the shiny side facing outward"],
+                answer: 3
+            },
+            {
+                question: "Succession initiated on large sand deposits or deserts is called",
+                options: ["Hydrosere", "Psammosere", "Xerosere", "Oxylosere"],
+                answer: 1
+            },
+            {
+                question: "The famous Minamata disease in Japan is due to the accumulation of____________in fishes.",
+                options: ["Cadmium", "Mercury", "Zinc", "Lead"],
+                answer: 1
+            },
+            {
+                question: "A red shirt",
+                options: ["Selectively absorbs red wave lengths of visible light and scatters the rest", "Selectively scatters red wave lengths of visible light and absorbs the rest", "Both A and B", "None of these"],
+                answer: 1
+            },
+            {
+                question: "The total number of major languages in India are",
+                options: ["18", "17", "16", "15"],
+                answer: 2
+            },
+            {
+                question: "The first oil well was drilled in the United States in",
+                options: ["1829", "1859", "1929", "1959"],
+                answer: 1
+            },
+            {
+                question: "The first Environmental Law in India was enacted in",
+                options: ["1947", "1950", "1972", "1982"],
+                answer: 1
+            },
+            {
+                question: "Thickness of plastic cover permissible to use",
+                options: ["50 Microns", "20 Microns", "100 Microns", "10 Microns"],
+                answer: 2
+            },
+            {
+                question: "The deadliest Tsunami in recorded history took place on",
+                options: ["26-Dec-2004", "26-Dec-2000", "15-Nov-1990", "15-Dec-1999"],
+                answer: 0
+            },
+            {
+                question: "Environmental Protection Act was introduced in the year",
+                options: ["1986", "1988", "1972", "1989"],
+                answer: 0
+            },
+            {
+                question: "Ganga Action Plan in India was launched in the year _________",
+                options: ["1988", "1986", "1980", "1978"],
+                answer: 1
+            },
+            {
+                question: "The first global environmental protection treaty \"The Montreal Protocol\" was signed on September 26 in",
+                options: ["1985", "1990", "1981", "1987"],
+                answer: 3
+            },
+            {
+                question: "In which year was \"Project Tiger\" launched?",
+                options: ["1973", "1964", "1998", "1970"],
+                answer: 0
+            },
+            {
+                question: "World Forest day is celebrated on",
+                options: ["21st March", "5th June", "1st Dec", "7th June"],
+                answer: 0
+            },
+            {
+                question: "Which latitude belt best describes the middle latitudes?",
+                options: ["20oto 80o", "10oto 35o", "20oto 35o", "40oto 70o"],
+                answer: 0
+            },
+            {
+                question: "At middle latitudes, the base of an altostratus or altocumulus cloud would generally be found between:",
+                options: ["200 and 6,500 feet", "6,500 and 23,000 feet", "23,000 and 43,000 feet", "Above 43,000 feet"],
+                answer: 1
+            },
+            {
+                question: "Percentage of forest area recommended by the the national forest policy for plains is",
+                options: ["33%", "67%", "30%", "10%"],
+                answer: 0
+            },
+            {
+                question: "Commonly used radioactive isotopes in scientific research",
+                options: ["14 C", "125 I", "32 P", "all of these"],
+                answer: 3
+            },
+            {
+                question: "Much of Tibet lies at altitudes over 18,000 feet where the pressure is about 500 mb. At such altitudes, the Tibetans are above roughly:",
+                options: ["10% of the air molecules in the atmosphere", "25% of the air molecules in the atmosphere", "50% of the air molecules in the atmosphere", "75% of the air molecules in the atmosphere"],
+                answer: 2
+            },
+            {
+                question: "Mobile combustion accounts",
+                options: ["10-20% of air pollution", "40-50% of air pollution", "50-60 % of air pollution", "5-10 % of air pollution"],
+                answer: 2
+            },
+            {
+                question: "The range of normal human hearing is in the range of",
+                options: ["10 Hz to 80 Hz", "50 Hz to 80 Hz", "50Hz to 15000 Hz", "15000 Hz and above"],
+                answer: 2
+            },
+            {
+                question: "The ocean covers ________ percentage of Earth's surface.",
+                options: ["51%", "61%", "71%", "91%"],
+                answer: 2
+            },
+            {
+                question: "The mean of annual rainfall in India is",
+                options: ["110 mm", "110 cm", "85 cm", "110 m"],
+                answer: 1
+            },
+            {
+                question: "Where cold surface air replaces warm air, the boundary separating the different bodies of air is:",
+                options: ["A parallel of latitude", "A tornado", "A cold front", "A warm front"],
+                answer: 2
+            },
+            {
+                question: "What is meant by root zone process?",
+                options: ["A control measure to prevent water pollution", "A process by which roots of plants are spread on the ground", "A control measure to prevent soil pollution", "None of these"],
+                answer: 2
+            },
+            {
+                question: "All oil traps contain",
+                options: ["an impermeable layer", "an anticline", "a fault", "syncline"],
+                answer: 0
+            },
+            {
+                question: "In the northern hemisphere, north-facing hillsides have a _______ growing season than south-facing hillsides.",
+                options: ["Shorter", "Longer", "Up", "Down"],
+                answer: 0
+            },
+            {
+                question: "Heat waves are generally considered to be little more than a nuisance and are not responsible for considerable loss of life.",
+                options: ["True", "False", "", ""],
+                answer: 1
+            },
+            {
+                question: "Fog is a major hazard to aviation.",
+                options: ["True", "False", "", ""],
+                answer: 0
+            },
+            {
+                question: "Suppose two unsaturated air masses mix horizontally. The resulting mixture cannot possibly be saturated.",
+                options: ["True", "False", "", ""],
+                answer: 1
+            },
+            {
+                question: "To protect fruit trees from frost, it is important to keep the air as still as possible.",
+                options: ["True", "False", "", ""],
+                answer: 1
+            },
+            {
+                question: "The relative humidity is often near 100 percent in the Polar Regions.",
+                options: ["True", "False", "", ""],
+                answer: 0
+            },
+            {
+                question: "Stratus clouds are typically puffy and form by convection.",
+                options: ["True", "False", "", ""],
+                answer: 1
+            }
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.innerHTML = `<span class="text-green-600 dark:text-green-500 mr-2">Q${index + 1}.</span> ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                if (!option || option.trim() === '') return;
+                
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) return;
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            wrapper.appendChild(questionBlock);
+        });
+
+        // Theme sync
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>French Revolution - Gemini Style Quiz</title>
+    <style>
+        /* Modern Reset & Variables */
+        :root {
+            --bg-color: #f0f4f9;
+            --card-bg: #ffffff;
+            --text-main: #1f1f1f;
+            --text-secondary: #444746;
+            --accent-blue: #0b57d0; /* Gemini Blue */
+            --accent-light: #d3e3fd;
+            --success: #146c2e;
+            --success-bg: #c4eed0;
+            --error: #a50e0e;
+            --error-bg: #f9dedc;
+            --btn-hover: #f2f2f2;
+            --font-family: 'Google Sans', Roboto, Arial, sans-serif;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Card Container */
+        .quiz-card {
+            background: var(--card-bg);
+            width: 100%;
+            max-width: 700px;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02), 0 10px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .badge {
+            background: linear-gradient(135deg, #4285f4, #9b72cb); /* Gemini Gradient */
+            color: white;
+            padding: 6px 12px;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .score-display {
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        /* Progress Bar */
+        .progress-track {
+            background: #e3e3e3;
+            height: 6px;
+            border-radius: 10px;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .progress-fill {
+            background: var(--accent-blue);
+            height: 100%;
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        /* Question */
+        .question-text {
+            font-size: 1.5rem;
+            line-height: 1.4;
+            color: var(--text-main);
+            margin: 10px 0 20px 0;
+            font-weight: 400;
+        }
+
+        /* Options */
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-btn {
+            background: white;
+            border: 1px solid #747775;
+            color: var(--text-main);
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-size: 1rem;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: var(--font-family);
+            position: relative;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            background-color: var(--btn-hover);
+            border-color: var(--text-main);
+        }
+
+        .option-btn:disabled {
+            cursor: default;
+            opacity: 0.8;
+            border-color: #e3e3e3;
+        }
+
+        /* Correct/Incorrect States */
+        .option-btn.correct {
+            background-color: var(--success-bg);
+            border-color: var(--success-bg);
+            color: var(--success);
+            font-weight: 500;
+        }
+        
+        .option-btn.correct::after {
+            content: "✓";
+            position: absolute;
+            right: 20px;
+            font-weight: bold;
+        }
+
+        .option-btn.incorrect {
+            background-color: var(--error-bg);
+            border-color: var(--error-bg);
+            color: var(--error);
+        }
+        
+        .option-btn.incorrect::after {
+            content: "✕";
+            position: absolute;
+            right: 20px;
+            font-weight: bold;
+        }
+
+        /* Feedback / Explanation */
+        .feedback-box {
+            background: #f8fafd;
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 10px;
+            display: none; /* Hidden by default */
+            animation: slideDown 0.3s ease-out;
+            border-left: 4px solid var(--accent-blue);
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent-blue);
+            margin-bottom: 8px;
+        }
+
+        .feedback-text {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Next Button */
+        .controls {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+            height: 50px; /* Prevent layout shift */
+        }
+
+        .btn-next {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 100px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: none;
+            transition: background 0.2s;
+            font-family: var(--font-family);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .btn-next:hover {
+            background: #0842a0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+
+        /* Result Screen */
+        .result-view {
+            text-align: center;
+            display: none;
+            padding: 20px 0;
+        }
+
+        .result-title {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #4285f4, #9b72cb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .final-score {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin: 20px 0;
+        }
+
+        .restart-btn {
+            background: white;
+            border: 1px solid #747775;
+            color: var(--text-main);
+            padding: 12px 24px;
+            border-radius: 100px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.2s;
+        }
+
+        .restart-btn:hover {
+            background: #f2f2f2;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .quiz-card {
+                padding: 20px;
+                border-radius: 0;
+                height: 100vh;
+                max-width: 100%;
+            }
+            body {
+                padding: 0;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="quiz-card">
+        <!-- Header -->
+        <div class="header">
+            <span class="badge">✨ AI Quiz</span>
+            <span class="score-display" id="score-tracker">Score: 0</span>
+        </div>
+
+        <!-- Progress -->
+        <div class="progress-track">
+            <div class="progress-fill" id="progress-fill"></div>
+        </div>
+
+        <!-- Content Area -->
+        <div id="quiz-interface">
+            <h2 class="question-text" id="question-text">Loading...</h2>
+            
+            <div class="options-grid" id="options-container">
+                <!-- Options injected via JS -->
+            </div>
+
+            <div class="feedback-box" id="feedback-box">
+                <div class="feedback-label">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                    </svg>
+                    Explanation
+                </div>
+                <p class="feedback-text" id="explanation-text"></p>
+            </div>
+
+            <div class="controls">
+                <button class="btn-next" id="next-btn">Next Question</button>
+            </div>
+        </div>
+
+        <!-- Result Area -->
+        <div class="result-view" id="result-view">
+            <h1 class="result-title">Quiz Complete!</h1>
+            <p style="color: #444746;">You scored</p>
+            <div class="final-score" id="final-score-number">0%</div>
+            <p id="final-message" style="margin-bottom: 30px; line-height: 1.6;"></p>
+            <button class="restart-btn" id="restart-btn">Start New Quiz</button>
+        </div>
+    </div>
+
+<script>
+    // --- 1. Data Definitions ---
+    // Contains all 30 questions generated from the PDF
+    const quizData = [
+        {
+            q: "On which date was the Bastille stormed?",
+            options: ["5 May 1789", "20 June 1789", "14 July 1789", "4 August 1789"],
+            a: 2, // Index of correct answer
+            e: "On the morning of 14 July 1789, the city of Paris was in a state of alarm, leading to the storming of the fortress-prison, the Bastille."
+        },
+        {
+            q: "Who became the King of France in 1774?",
+            options: ["Louis XIV", "Louis XV", "Louis XVI", "Napoleon Bonaparte"],
+            a: 2,
+            e: "In 1774, Louis XVI of the Bourbon family of kings ascended the throne of France."
+        },
+        {
+            q: "Which estate in French society was the only one to pay taxes?",
+            options: ["First Estate", "Second Estate", "Third Estate", "All Estates"],
+            a: 2,
+            e: "French society was divided into three estates. The text confirms that 'only members of the third estate paid taxes.' The clergy and nobility were exempt."
+        },
+        {
+            q: "What was the 'Tithe'?",
+            options: ["Tax paid to the state", "Tax levied by the Church (1/10th of produce)", "Unit of currency", "Tax on salt"],
+            a: 1,
+            e: "Tithe was a tax levied by the church, comprising one-tenth of the agricultural produce."
+        },
+        {
+            q: "What was the 'Taille'?",
+            options: ["Indirect tax on salt", "Tax levied by the church", "Direct tax paid to the state", "Feudal due"],
+            a: 2,
+            e: "The text distinguishes between Tithes (church tax) and Taille, which was a 'direct tax' paid to the state."
+        },
+        {
+            q: "Which war added more than a billion livres to the French debt under Louis XVI?",
+            options: ["Seven Years War", "War of Spanish Succession", "American War of Independence", "Napoleonic Wars"],
+            a: 2,
+            e: "Under Louis XVI, France helped the thirteen American colonies gain independence from Britain, which added more than a billion livres to the debt."
+        },
+        {
+            q: "Who wrote the book 'Two Treatises of Government'?",
+            options: ["Jean Jacques Rousseau", "John Locke", "Montesquieu", "Mirabeau"],
+            a: 1,
+            e: "In his Two Treatises of Government, Locke sought to refute the doctrine of the divine and absolute right of the monarch."
+        },
+        {
+            q: "In which book did Montesquieu propose a division of power within the government?",
+            options: ["The Social Contract", "Two Treatises of Government", "The Spirit of the Laws", "What is the Third Estate?"],
+            a: 2,
+            e: "Montesquieu proposed a division of power between the legislative, executive, and judiciary in 'The Spirit of the Laws'."
+        },
+        {
+            q: "What was the 'Subsistence Crisis'?",
+            options: ["Political deadlock", "Extreme situation where basic livelihood is endangered", "Crisis caused by the King's execution", "Religious conflict"],
+            a: 1,
+            e: "Defined in the 'New words' section, a subsistence crisis occurred frequently in the Old Regime when production could not keep pace with demand."
+        },
+        {
+            q: "Who led the representatives of the Third Estate at the Tennis Court Oath?",
+            options: ["Robespierre and Danton", "Mirabeau and Abbé Sieyès", "Louis XVI and Marie Antoinette", "Rousseau and Locke"],
+            a: 1,
+            e: "On 20 June, the Third Estate declared themselves a National Assembly led by Mirabeau (a noble) and Abbé Sieyès (a priest)."
+        },
+        {
+            q: "Who wrote the influential pamphlet called 'What is the Third Estate'?",
+            options: ["Mirabeau", "Abbé Sieyès", "Rousseau", "Marat"],
+            a: 1,
+            e: "The text explicitly states that Abbé Sieyès wrote the influential pamphlet 'What is the Third Estate?'."
+        },
+        {
+            q: "Under the Constitution of 1791, who were considered 'Active Citizens'?",
+            options: ["All men/women above 25", "Men above 25 paying tax equal to 3 days wages", "All men who owned property", "Members of the National Assembly"],
+            a: 1,
+            e: "Only men above 25 years who paid taxes equal to at least 3 days of a labourer’s wage were given the status of active citizens."
+        },
+        {
+            q: "Which of the following was NOT a natural right according to the Declaration of Rights of Man?",
+            options: ["Right to life", "Freedom of speech", "Equality before law", "Right to divine rule"],
+            a: 3,
+            e: "The Declaration established rights like life, freedom of speech, and equality. 'Divine rule' was what the revolution fought against."
+        },
+        {
+            q: "What did the political symbol of 'The broken chain' stand for?",
+            options: ["Strength lies in unity", "The act of becoming free", "Royal power", "Eternity"],
+            a: 1,
+            e: "Chains were used to fetter slaves, so a broken chain symbolizes the act of becoming free."
+        },
+        {
+            q: "What did the 'Bundle of rods or fasces' symbolize?",
+            options: ["Royal power", "Knowledge", "Strength lies in unity", "Eternity"],
+            a: 2,
+            e: "One rod can be easily broken, but not an entire bundle. Strength lies in unity."
+        },
+        {
+            q: "Which song became the national anthem of France?",
+            options: ["The Red Flag", "The Marseillaise", "God Save the King", "Liberty Forever"],
+            a: 1,
+            e: "Composed by Roget de L’Isle, it was sung by volunteers from Marseilles marching into Paris and became the national anthem."
+        },
+        {
+            q: "The members of the Jacobin Club were known as:",
+            options: ["The Nobility", "The Clergy", "Sans-culottes", "The Directory"],
+            a: 2,
+            e: "Jacobins wore long striped trousers to distinguish themselves from nobles who wore knee breeches, hence 'sans-culottes' (without knee breeches)."
+        },
+        {
+            q: "Who was the leader of the Jacobin Club?",
+            options: ["Napoleon Bonaparte", "Maximilian Robespierre", "Georges Danton", "Abbé Sieyès"],
+            a: 1,
+            e: "The text identifies Maximilian Robespierre as the leader of the Jacobin club."
+        },
+        {
+            q: "When was France declared a Republic?",
+            options: ["14 July 1789", "21 September 1792", "21 January 1793", "4 August 1789"],
+            a: 1,
+            e: "The newly elected assembly (the Convention) abolished the monarchy and declared France a republic on 21 September 1792."
+        },
+        {
+            q: "The period from 1793 to 1794 is referred to as:",
+            options: ["The Golden Age", "The Age of Enlightenment", "The Reign of Terror", "The Directory Rule"],
+            a: 2,
+            e: "Robespierre followed a policy of severe control and punishment during this period, earning it the name 'Reign of Terror'."
+        },
+        {
+            q: "What device was used to behead people during the Reign of Terror?",
+            options: ["The Gallows", "The Electric Chair", "The Guillotine", "The Sword"],
+            a: 2,
+            e: "It was a device consisting of two poles and a blade, named after Dr. Guillotin."
+        },
+        {
+            q: "Who wrote the 'Declaration of the Rights of Woman and Citizen'?",
+            options: ["Marie Antoinette", "Olympe de Gouges", "Nanine Vallain", "Robespierre"],
+            a: 1,
+            e: "In 1791, Olympe de Gouges wrote this declaration to protest the exclusion of women from the rights granted to men."
+        },
+        {
+            q: "When did women in France finally win the right to vote?",
+            options: ["1791", "1848", "1900", "1946"],
+            a: 3,
+            e: "The text states, 'It was finally in 1946 that women in France won the right to vote.'"
+        },
+        {
+            q: "Which French ports owed their prosperity to the slave trade?",
+            options: ["Paris and Marseilles", "Bordeaux and Nantes", "Lyon and Versailles", "Bastille and Concorde"],
+            a: 1,
+            e: "Port cities like Bordeaux and Nantes owed their economic prosperity to the flourishing slave trade."
+        },
+        {
+            q: "When was slavery finally abolished in the French colonies?",
+            options: ["1789", "1794", "1815", "1848"],
+            a: 3,
+            e: "While the Convention abolished it in 1794, Napoleon reintroduced it. It was finally abolished in 1848."
+        },
+        {
+            q: "In which year did Napoleon Bonaparte crown himself Emperor of France?",
+            options: ["1799", "1804", "1815", "1821"],
+            a: 1,
+            e: "The 'Conclusion' section states that in 1804, Napoleon Bonaparte crowned himself Emperor."
+        },
+        {
+            q: "Where was Napoleon finally defeated in 1815?",
+            options: ["Versailles", "Waterloo", "Berlin", "Austria"],
+            a: 1,
+            e: "The text states, 'He was finally defeated at Waterloo in 1815.'"
+        },
+        {
+            q: "Which Indian individuals are mentioned as responding to the ideas of revolutionary France?",
+            options: ["Gandhi and Nehru", "Tipu Sultan and Rammohan Roy", "Akbar and Shivaji", "Bhagat Singh and Bose"],
+            a: 1,
+            e: "The Conclusion mentions Tipu Sultan and Rammohan Roy as individuals who responded to ideas from revolutionary France."
+        },
+        {
+            q: "What was the 'Old Regime'?",
+            options: ["The rule of Napoleon", "Society/institutions of France before 1789", "Period after Reign of Terror", "Government in exile"],
+            a: 1,
+            e: "The text explicitly defines the term Old Regime as describing the society and institutions of France before 1789."
+        },
+        {
+            q: "What did the 'Red Phrygian cap' symbolize?",
+            options: ["Royal power", "Cap worn by a slave upon becoming free", "Power of the church", "National colors"],
+            a: 1,
+            e: "In the 'Reading political symbols' section, the Red Phrygian cap is identified as the cap worn by a slave upon becoming free."
+        }
+    ];
+
+    // --- 2. State Management ---
+    let currentIdx = 0;
+    let score = 0;
+    
+    // --- 3. DOM Elements ---
+    const ui = {
+        quiz: document.getElementById('quiz-interface'),
+        results: document.getElementById('result-view'),
+        question: document.getElementById('question-text'),
+        options: document.getElementById('options-container'),
+        feedbackBox: document.getElementById('feedback-box'),
+        explanation: document.getElementById('explanation-text'),
+        nextBtn: document.getElementById('next-btn'),
+        score: document.getElementById('score-tracker'),
+        progress: document.getElementById('progress-fill'),
+        finalScore: document.getElementById('final-score-number'),
+        finalMsg: document.getElementById('final-message'),
+        restart: document.getElementById('restart-btn')
+    };
+
+    // --- 4. Logic Functions ---
+
+    function initQuiz() {
+        currentIdx = 0;
+        score = 0;
+        ui.results.style.display = 'none';
+        ui.quiz.style.display = 'block';
+        ui.score.innerText = 'Score: 0';
+        renderQuestion();
+    }
+
+    function renderQuestion() {
+        const data = quizData[currentIdx];
+        
+        // Reset UI
+        ui.question.innerText = `${currentIdx + 1}. ${data.q}`;
+        ui.options.innerHTML = '';
+        ui.feedbackBox.style.display = 'none';
+        ui.nextBtn.style.display = 'none';
+        
+        // Update Progress
+        const percent = ((currentIdx) / quizData.length) * 100;
+        ui.progress.style.width = `${percent}%`;
+
+        // Create Options
+        data.options.forEach((opt, index) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = opt;
+            btn.onclick = () => handleAnswer(index, btn, data.a, data.e);
+            ui.options.appendChild(btn);
+        });
+    }
+
+    function handleAnswer(selectedIndex, btnElement, correctIndex, explanation) {
+        // Prevent multiple clicks
+        const allBtns = document.querySelectorAll('.option-btn');
+        allBtns.forEach(b => b.disabled = true);
+
+        const isCorrect = selectedIndex === correctIndex;
+
+        if (isCorrect) {
+            btnElement.classList.add('correct');
+            score++;
+            ui.score.innerText = `Score: ${score}`;
+        } else {
+            btnElement.classList.add('incorrect');
+            // Highlight the correct one
+            allBtns[correctIndex].classList.add('correct');
+        }
+
+        // Show Feedback
+        ui.explanation.innerText = explanation;
+        ui.feedbackBox.style.display = 'block';
+        ui.nextBtn.style.display = 'block';
+        
+        // Auto scroll to bottom
+        ui.nextBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function nextQuestion() {
+        currentIdx++;
+        if (currentIdx < quizData.length) {
+            renderQuestion();
+        } else {
+            endQuiz();
+        }
+    }
+
+    function endQuiz() {
+        ui.quiz.style.display = 'none';
+        ui.results.style.display = 'block';
+        ui.progress.style.width = '100%';
+
+        const percentage = Math.round((score / quizData.length) * 100);
+        ui.finalScore.innerText = `${percentage}%`;
+
+        let msg = "";
+        if (percentage >= 90) msg = "Excellent! You are a master of the French Revolution.";
+        else if (percentage >= 70) msg = "Great job! You have a solid understanding of the history.";
+        else if (percentage >= 50) msg = "Good effort. Review the text to sharpen your knowledge.";
+        else msg = "Keep learning! The French Revolution is a complex topic.";
+        
+        ui.finalMsg.innerText = msg;
+    }
+
+    // --- 5. Event Listeners ---
+    ui.nextBtn.addEventListener('click', nextQuestion);
+    ui.restart.addEventListener('click', initQuiz);
+
+    // --- 6. Start ---
+    initQuiz();
+
+</script>
+
+</body>
+</html>

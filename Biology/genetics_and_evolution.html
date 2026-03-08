@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biology - Genetics and Evolution | Sikkim PSC Hub</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+            border-color: #bbb;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .options-list.answered .option:not(.correct):not(.incorrect) {
+            opacity: 0.7;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none;
+        }
+        .quiz-stats {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <a href="biology.html" class="back-link">&larr; Back to Biology</a>
+        <h1>Genetics and Evolution</h1>
+        <p class="quiz-stats">37 Questions</p>
+        <!-- Questions will be dynamically inserted here by JavaScript -->
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "A true species in mauritius failed to reproduce because of the extinction of a fruit eating bird. Which one of the following w as that bird ?",
+                options: ["Dove", "Dodo", "Condor", "Skua [lAS (Pre) 1998}"],
+                answer: 1
+            },
+            {
+                question: "Among living organisms, which one of the following is the most responsible factor for bringing about the origin of a new species ?",
+                options: ["Isolation", "Mutation", "Natural selection", "Sexual reproduction"],
+                answer: 0
+            },
+            {
+                question: "With reference to the evolution of living organism, which one of the following sequance is correct",
+                options: ["Octopus- Dolphin- Shark", "Pangolin- Tortoise- Hawk", "Salamander- Python- Kangaroo", "Frog- Crab- Prawn [lAS (Pre) 2009}"],
+                answer: 2
+            },
+            {
+                question: "The most accepted theory of origin of life is",
+                options: ["Theory of spontaneous generation", "Oparin - Haldane theory", "Theory of special creation", "Theory of eternity of life"],
+                answer: 1
+            },
+            {
+                question: "Life appeared first",
+                options: ["Soil", "Air", "Water", "Air and water both"],
+                answer: 2
+            },
+            {
+                question: "There is no life on moon because of absence of",
+                options: ["Water", "Oxygen", "Nitrogen", "Hydrogen"],
+                answer: 0
+            },
+            {
+                question: "Evolutionary development of a species can be best studied by",
+                options: ["DNA analysis", "Finding age by carbon dating", "Studying fossils of this species", "All of above"],
+                answer: 2
+            },
+            {
+                question: "Human evolution is originated in",
+                options: ["Africa", "Jawa", "France", "China"],
+                answer: 0
+            },
+            {
+                question: "Which of the following organs",
+                options: ["Wing of butterfly, wing of a bird, and wing of bat", "Fore limb of frog, wing of birds, and fore limb of rabbit", "Thorocic leg of cokroach, hind leg of a frog and fore limb of rabbit", "Wing of a bird, wing of a bat and wing of a flying lizard."],
+                answer: 1
+            },
+            {
+                question: "Homologous organs are",
+                options: ["Dissimilar origin and dissimiar structure", "Dissimilar origin but similar function", "Similar origin with similar or dissimilar function", "Similar origin with dissimilar function"],
+                answer: 2
+            },
+            {
+                question: "Fossilization can occur where",
+                options: ["Animals are buried by natural process", "Animals are destroyed by scavengers", "Animals are eaten by predators", "Animals are destroyed by environmental condition"],
+                answer: 0
+            },
+            {
+                question: "\'Ontogeny repeats phylogeny\' is the brief definition of",
+                options: ["Mutation theory", "Biogenetic law", "Darwinism", "Abiogenesis"],
+                answer: 1
+            },
+            {
+                question: "Russian scientist who proposed the theory of origin of lifewas",
+                options: ["Oparin", "Haldane", "Miller", "Fox"],
+                answer: 0
+            },
+            {
+                question: "Earth originated in the past period of about",
+                options: ["4.5 billion years", "8.0 billion years", "3 billion years", "1 billion year"],
+                answer: 0
+            },
+            {
+                question: "The scientist associated with formulation of modern theory of origin of life and having written origin of life was",
+                options: ["Oparin", "Huxley", "Lamark", "Darwin"],
+                answer: 0
+            },
+            {
+                question: "Tusks of elephant are",
+                options: ["Cannines", "Upper incisors", "Molar", "Lower incisors"],
+                answer: 3
+            },
+            {
+                question: "Lamarck\'s theory of evalution is also called",
+                options: ["Survival of the fittest", "Special creation theory", "Inheritance of acquired characters", "None of these"],
+                answer: 2
+            },
+            {
+                question: "Who published the book \'Origin of species by natural selection in 1859\' ?",
+                options: ["Lamarck", "Darwin", "Wallace", "Oparin [SSC 2013}"],
+                answer: 1
+            },
+            {
+                question: "The concept of survival of the fittest as advanced by",
+                options: ["Charles Lyell", "Charles Darwin", "Herbert Spencer", "Alfred Russel Wallace"],
+                answer: 2
+            },
+            {
+                question: "Natural selection really means",
+                options: ["Struggle for existance", "Differential reproduction", "Survival of the fittest", "Elimination of the unfit"],
+                answer: 1
+            },
+            {
+                question: "Analogous organs are",
+                options: ["Similar in structure", "Similar in function", "Similar in structure and function both", "Organ are nonfunction"],
+                answer: 1
+            },
+            {
+                question: "Homologous organ are",
+                options: ["Similar in structure", "Similar in function", "Similar in both structure and function", "Disimillar in structure"],
+                answer: 0
+            },
+            {
+                question: "Most important theory of general biology was proposed by",
+                options: ["Mendal and Morgan", "Beadle and tatum", "Watson and Crick", "Darwin and Wallace"],
+                answer: 3
+            },
+            {
+                question: "Lamarekism fail to explain",
+                options: ["Degenerate eyes of cave inhabiting animals", "Long neck and fore limbs of Giraffe", "Lack of limbs in snakes", "Medicare ability of nobel laureate\'s children"],
+                answer: 3
+            },
+            {
+                question: "Which one of fallowing is a vestigeal organ in man ?",
+                options: ["Muscles ear lobe", "Teeth", "Illeum", "Ear lobe"],
+                answer: 0
+            },
+            {
+                question: "From the evolutionary point of view, which one among the following is the most primitive animal?",
+                options: ["Dolpin", "Otter", "Turtle", "Walrus"],
+                answer: 2
+            },
+            {
+                question: "Chose the correct sequeance during formation of chemicals on early earth",
+                options: ["Cromagnon man", "Australopithecus", "Java-opeman", "Peking man"],
+                answer: 1
+            },
+            {
+                question: "Homo sapien directly evolved from",
+                options: ["Perking man", "Java man", "Neanderthal", "Austrolopithecus"],
+                answer: 0
+            },
+            {
+                question: "Which of the following book is most accepted world wide?",
+                options: ["Philosophic zodogique", "Origin of life", "Origin of species", "Mutation and origin of species"],
+                answer: 2
+            },
+            {
+                question: "Early atmosphere contained methane and other hydrocarbons they have been now replaced by",
+                options: ["Nitrogen", "Oxygen", "Carbon dioxide", "Hydrogen"],
+                answer: 2
+            },
+            {
+                question: "Evolutionary history of an organism is known as",
+                options: ["Ontogeny", "Phylogeny", "Ancestry", "Paleontology"],
+                answer: 1
+            },
+            {
+                question: "Industrial melanism is an example of",
+                options: ["Drug resistance", "Darkeing of skins due to smoke from industries", "Protective resemblance with the surroundings", "Defensive adaptation of skin against ultraviolet radiations"],
+                answer: 2
+            },
+            {
+                question: "Which f the following features is closely related specialy with the evolution of human?",
+                options: ["Loss of tail", "Binocular vision", "Flat nails", "Shortening of jaws"],
+                answer: 0
+            },
+            {
+                question: "Convergent evoluton is illustrated by",
+                options: ["Rat and dog", "Bacterium and protozoa", "Star fish and cuttlefish", "Dog fish and whales"],
+                answer: 3
+            },
+            {
+                question: "Gene pool is",
+                options: ["Genotype of individuals of a population", "Different genes of all dividuals of a species", "Pool of artificially synthesised genes", "Gene of a genome"],
+                answer: 1
+            },
+            {
+                question: "Geographic and reproductive isolation bring about",
+                options: ["Extinction", "Ovar production", "Speiciation", "Competition"],
+                answer: 2
+            },
+            {
+                question: "Presence of gill in the tadpole of frog indicates that",
+                options: ["Fish evolved from frog llike ancestor", "Frogs will have gills in future", "Frogs evolved from gilled ancestor", "Fishes were amphibious in the past"],
+                answer: 2
+            }
+        ];
+
+        const quizContainer = document.getElementById('quiz-container');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.textContent = `${index + 1}) ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) {
+                        return;
+                    }
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            quizContainer.appendChild(questionBlock);
+        });
+    </script>
+</body>
+</html>

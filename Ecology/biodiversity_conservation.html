@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biodiversity & Conservation | Sikkim PSC Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        .quiz-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        html.dark .quiz-container {
+            background: #24272c;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #0284c7;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        html.dark .question-block {
+            border-bottom: 1px solid #334155;
+        }
+        .question-text {
+            font-size: 1.15em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+        html.dark .question-text {
+            color: #f1f5f9;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option {
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            padding: 16px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            color: #475569;
+        }
+        html.dark .option {
+            background-color: #1e293b;
+            border: 2px solid #334155;
+            color: #cbd5e1;
+        }
+        .option:hover {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
+            transform: translateX(4px);
+        }
+        html.dark .option:hover {
+            background-color: #334155;
+            border-color: #475569;
+        }
+        .option.correct {
+            background-color: #dcfce7 !important;
+            border-color: #4ade80 !important;
+            color: #166534 !important;
+        }
+        html.dark .option.correct {
+            background-color: #064e3b !important;
+            border-color: #10b981 !important;
+            color: #ecfdf5 !important;
+        }
+        .option.incorrect {
+            background-color: #fee2e2 !important;
+            border-color: #f87171 !important;
+            color: #991b1b !important;
+        }
+        html.dark .option.incorrect {
+            background-color: #7f1d1d !important;
+            border-color: #ef4444 !important;
+            color: #fef2f2 !important;
+        }
+        .options-list.answered {
+            pointer-events: none;
+        }
+        .quiz-stats-badge {
+            background: #f1f5f9;
+            color: #64748b;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        html.dark .quiz-stats-badge {
+            background: #334155;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 min-h-screen p-4 sm:p-8">
+
+    <div class="quiz-container">
+        <a href="ecology.html" class="back-link">&larr; Back to Ecology Topics</a>
+        <h1 class="text-3xl font-bold text-green-800 dark:text-green-400 mb-2">Biodiversity & Conservation</h1>
+        <div class="quiz-stats-badge">49 MCQ Questions</div>
+        
+        <div id="questions-wrapper"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Ramsar Convention refers to the conservation of ____________",
+                options: ["Deserts", "Wetlands", "Agriculture lands,", "Forest land"],
+                answer: 1
+            },
+            {
+                question: "The Salim Ali Bird sanctuary is located at",
+                options: ["Pondicherry,", "Thattekad,", "Anakkatti", "Kalakkad"],
+                answer: 1
+            },
+            {
+                question: "The species that flower are called",
+                options: ["gymnosperms", "bryophytes", "angiosperms", "algae"],
+                answer: 2
+            },
+            {
+                question: "All species on earth together with their environments collectively comprise",
+                options: ["lithosphere", "hydrosphere", "atmosphere", "biosphere"],
+                answer: 3
+            },
+            {
+                question: "Snow leopard is found in which National Park?",
+                options: ["Kaziranga", "The Great Himalayan", "Bharatpur", "Nagarhole"],
+                answer: 1
+            },
+            {
+                question: "Which group of vertebrates comprises the highest number of endangered species?",
+                options: ["Mammals", "Fishes", "Birds", "Reptiles"],
+                answer: 0
+            },
+            {
+                question: "What is meant by ex-situ conservation?",
+                options: ["Conservation of a species by protecting its habitat along with all other species living there", "Conservation of forest eco system", "Conservation of a species outside its natural habitat", "Conservation of plants"],
+                answer: 2
+            },
+            {
+                question: "National Park associated with rhinoceros is",
+                options: ["Kaziranga", "Ranthambore", "Corbett", "Valley of flowers"],
+                answer: 0
+            },
+            {
+                question: "Endemic species are",
+                options: ["rare species", "species localised in a specific region", "cosmopolitan in distribution", "critically endangered species"],
+                answer: 1
+            },
+            {
+                question: "The movement \"Beej Bachao Andolan\" was aimed for the conservation of _______",
+                options: ["trees", "shrubs", "crops", "coconut"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is an extinct species?",
+                options: ["Tiger", "Lion", "Dodo", "Ostrich"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is a biodiversity hot spots in India?",
+                options: ["Western Ghats", "Nandadevi", "Eastern Ghats", "Aravalli"],
+                answer: 0
+            },
+            {
+                question: "Red data book contains data of",
+                options: ["all plant species", "all animal species", "economically important species", "threatened species"],
+                answer: 3
+            },
+            {
+                question: "A group of individuals of a plant or animal species, inhabiting a given area is called",
+                options: ["Biome", "Population", "Ecosystem", "Community"],
+                answer: 1
+            },
+            {
+                question: "Eravikulam National Park conserves",
+                options: ["Lion tailed macaque", "Tiger", "Elephant", "Nilgiri Tahr"],
+                answer: 3
+            },
+            {
+                question: "Flag ship species of Choolannur sanctuary",
+                options: ["Tiger", "Peacock", "Elephant", "Rhino"],
+                answer: 1
+            },
+            {
+                question: "When is the World Wildlife week ?",
+                options: ["First week of September", "Last week of September", "First week of October", "Last week of October"],
+                answer: 2
+            },
+            {
+                question: "Viable material of endangered species can be preserved by",
+                options: ["Gene bank", "Gene library", "Gene pool", "Herbarium"],
+                answer: 0
+            },
+            {
+                question: "Ecotype is a type of species in which environmentally induced variations are",
+                options: ["Temporary", "Genetically fixed", "Genetically not related", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "Ex situ conservation includes",
+                options: ["Zoo", "Botanic garden", "Germplasm bank", "all of the above"],
+                answer: 3
+            },
+            {
+                question: "First National Park in India",
+                options: ["Jim Corbett National Park", "Bandipur National Park", "Gir National Park", "Sunderbans National Park"],
+                answer: 0
+            },
+            {
+                question: "What is the major cause of diminishing wildlife number?",
+                options: ["Felling of trees", "Cannibalism", "Habitat destruction", "Paucity of drinking water"],
+                answer: 2
+            },
+            {
+                question: "The first national park of Kerala",
+                options: ["Aralam", "Kottayam", "Idukki", "Iravikulam"],
+                answer: 3
+            },
+            {
+                question: "The most important human activity, leading to the extinction of wildlife, is",
+                options: ["Pollution of wildlife, is", "Hunting for valuable wildlife products", "Introduction of alien species", "Alternation and destruction of the natural habitats"],
+                answer: 3
+            },
+            {
+                question: "The process of successful establishment of the species in a new area is called",
+                options: ["sere", "climax", "invasion", "ecesis"],
+                answer: 3
+            },
+            {
+                question: "The Red Data book which lists endangered species is maintained by",
+                options: ["UNO", "WHO", "IUCN", "WWF"],
+                answer: 2
+            },
+            {
+                question: "_______ species is known as Azadirachta Indica.",
+                options: ["Neem", "Mango", "Jackfruit", "Banana"],
+                answer: 0
+            },
+            {
+                question: "Point Calimere sanctuary is situated in which state?",
+                options: ["Tamil Nadu", "Kerala", "Karnataka", "Gujarat"],
+                answer: 0
+            },
+            {
+                question: "In which Indian state is Corbett National park located",
+                options: ["Madya Pradesh", "Uttarakhand", "Kerala", "Tamilnadu"],
+                answer: 1
+            },
+            {
+                question: "Red Data Book Provides data on",
+                options: ["Red flowered plants", "Red colored fishes", "Lists of plants and animals", "Endangered plants and animals"],
+                answer: 3
+            },
+            {
+                question: "Name the endangered animal which is protected in Rajamalai National Park",
+                options: ["Chital", "Black buck", "Nilgiri Tahr", "None"],
+                answer: 2
+            },
+            {
+                question: "The most important reason for decrease in biodiversity is",
+                options: ["Habitat pollution", "Introduction of exotic species", "Over-exploitation", "Habitat destruction"],
+                answer: 3
+            },
+            {
+                question: "____________ is one of the most endangered species of Indian birds",
+                options: ["Bee eater", "Paradise fly catcher", "Owl", "The great Indian bustard"],
+                answer: 3
+            },
+            {
+                question: "The species of plants that play a vital role in controlling the relative abundance of other species in a community are called",
+                options: ["Edge species", "Link species", "Pioneer species", "Successional species"],
+                answer: 0
+            },
+            {
+                question: "The phenomenon of occurrence of additional species found in the ecotone or transitional zone between adjoining ecosystems is known as _________",
+                options: ["Edge effect", "Root effect", "Raman effect", "Coolidge effect"],
+                answer: 0
+            },
+            {
+                question: "What is edge species?",
+                options: ["The species which occur abundantly in the ecotone", "Species on the verge of extinction", "Rare species", "Endemic species"],
+                answer: 0
+            },
+            {
+                question: "Biodiversity",
+                options: ["Increases towards the equator", "Decreases towards the equator", "Remains same throughout the planet", "Has no effect on change in latitude"],
+                answer: 0
+            },
+            {
+                question: "Species that occur in different geographical regions separated by special barrier are:",
+                options: ["Allopatric", "Sympatric", "Sibling", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "The crucial species that determine the ability of large number of other species is termed as _________ species.",
+                options: ["Important", "Crucial", "Significant", "Keystone"],
+                answer: 3
+            },
+            {
+                question: "The area to which a species is biologically adapted to live is known as ________",
+                options: ["Niche", "Habitat", "Succession", "Community"],
+                answer: 1
+            },
+            {
+                question: "Approximately, 50% of total world species are present on",
+                options: ["Tropical rain forest", "Temperate rain forest", "Temperate deciduous forest", "Coral reefs"],
+                answer: 0
+            },
+            {
+                question: "World wildlife week is observed during",
+                options: ["First week of October", "Last week of October", "Third week of October", "First week of September"],
+                answer: 0
+            },
+            {
+                question: "What is the animal symbol of W. W. F (World Wildlife Fund) ?",
+                options: ["Red Panda", "Giant Panda", "Tiger", "Kangaroo"],
+                answer: 1
+            },
+            {
+                question: "IUCN (The International Union For Conservation Of Nature And Natural Resources) headquarters is at",
+                options: ["Gland, Switzerland", "Paris, France", "Vienna, Austria", "NewYork, USA"],
+                answer: 0
+            },
+            {
+                question: "Some species of plants and animals are extremely rare and may occur only at a few locations are called",
+                options: ["Endemic", "Endangered", "Vulnerable", "Threatened"],
+                answer: 1
+            },
+            {
+                question: "All are insitu conservation efforts except",
+                options: ["National parks", "Sanctuaries", "Zoo", "biosphere reserves"],
+                answer: 2
+            },
+            {
+                question: "_________ is an on-site conservation method.",
+                options: ["National parks", "Forests", "Zoo", "Parks"],
+                answer: 0
+            },
+            {
+                question: "In which year Silent Valley was declared as National Park?",
+                options: ["1988", "1982", "1984", "1981"],
+                answer: 2
+            },
+            {
+                question: "The Indian Parliament passed the Biodiversity Bill in the year_________",
+                options: ["2000", "2005", "2002", "2007"],
+                answer: 2
+            }
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.innerHTML = `<span class="text-green-600 dark:text-green-500 mr-2">Q${index + 1}.</span> ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                if (!option || option.trim() === '') return;
+                
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) return;
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            wrapper.appendChild(questionBlock);
+        });
+
+        // Theme sync
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>

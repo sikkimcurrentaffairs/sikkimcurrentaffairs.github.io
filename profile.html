@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dashboard - Sikkim PSC Preparation Hub</title>
+    <script>
+        (function () {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        })();
+    </script>
+    <script>
+        if (typeof window.tailwind === 'undefined') { window.tailwind = {}; }
+        window.tailwind.config = { darkMode: 'class' };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="auth.css">
+
+    <style>
+        /* --- BASE --- */
+        html body {
+            background-color: #eef1f5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        html.dark body {
+            background-color: #1a1c20 !important;
+            color: #e5e7eb;
+        }
+
+        .hero-title-word {
+            color: #4c4c4c !important;
+        }
+
+        html.dark .hero-title-word {
+            color: #ffffff !important;
+        }
+
+        html.dark .dark-force-white {
+            color: #ffffff !important;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        .dark ::-webkit-scrollbar-thumb {
+            background: #475569;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .glassmorphic-header {
+            background: rgba(238, 241, 245, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(209, 217, 230, 0.5);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html.dark .glassmorphic-header {
+            background: rgba(26, 28, 32, 0.85);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Dropdown Styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: #eef1f5;
+            min-width: 200px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            z-index: 100;
+            padding: 0.75rem;
+            opacity: 0;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        html.dark .dropdown-content {
+            background: #24272c;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: #4b5563;
+            font-weight: 500;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(2, 132, 199, 0.05);
+            color: #0284c7;
+        }
+
+        html.dark .dropdown-item {
+            color: #d1d5db;
+        }
+
+        html.dark .dropdown-item:hover {
+            background: rgba(56, 189, 248, 0.05);
+            color: #38bdf8;
+        }
+
+        .nav-link {
+            position: relative;
+            font-weight: 500;
+            color: #4b5563;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #0284c7;
+        }
+
+        html.dark .nav-link {
+            color: #d1d5db;
+        }
+
+        html.dark .nav-link:hover {
+            color: #38bdf8;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #0284c7;
+            transition: width 0.3s ease;
+        }
+
+        html.dark .nav-link::after {
+            background-color: #38bdf8;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(25px);
+            animation: fadeInUpAnimation 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        @keyframes fadeInUpAnimation {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .delay-100 {
+            animation-delay: 0.1s;
+        }
+
+        .delay-200 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-300 {
+            animation-delay: 0.3s;
+        }
+
+        .delay-400 {
+            animation-delay: 0.4s;
+        }
+
+        /* Logo */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            position: relative;
+            height: 40px;
+        }
+
+        @media (min-width: 640px) {
+            .logo-container {
+                height: 48px;
+            }
+        }
+
+        .logo-img {
+            height: 100%;
+            width: auto;
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+
+        .logo-dark {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        html.dark .logo-light {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        html.dark .logo-dark {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Dark mode toggle */
+        .sun-icon-animator,
+        .moon-icon-animator {
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+
+        .sun-icon-animator {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+        }
+
+        html.dark .sun-icon-animator {
+            opacity: 0;
+            transform: scale(0.5) rotate(-90deg);
+        }
+
+        .moon-icon-animator {
+            opacity: 0;
+            transform: scale(0.5) rotate(90deg);
+        }
+
+        html.dark .moon-icon-animator {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+        }
+
+        .knob-at-start {
+            transform: translateX(0px);
+        }
+
+        .knob-at-end {
+            transform: translateX(1.25rem);
+        }
+
+        /* Mobile Menu */
+        #mobile-menu {
+            transform: translateY(-100%);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+        }
+
+        #mobile-menu.active {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .hamburger-line {
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-open .hamburger-line-1 {
+            transform: translateY(6px) rotate(45deg);
+        }
+
+        .mobile-menu-open .hamburger-line-2 {
+            opacity: 0;
+        }
+
+        .mobile-menu-open .hamburger-line-3 {
+            transform: translateY(-6px) rotate(-45deg);
+        }
+
+        .footer-line {
+            border-top: 1px solid rgba(0, 0, 0, 0.1) !important;
+        }
+
+        html.dark .footer-line {
+            border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
+        }
+
+        /* === PROFILE PAGE SPECIFIC === */
+        .profile-hero {
+            background: #eef1f5;
+            border-radius: 32px;
+            box-shadow: 20px 20px 60px #d1d9e6, -20px -20px 60px #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        html.dark .profile-hero {
+            background: #24272c;
+            box-shadow: 20px 20px 60px #16181b, -20px -20px 60px #32363d;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .profile-avatar-large {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 8px 8px 16px #d1d9e6, -8px -8px 16px #ffffff;
+        }
+
+        html.dark .profile-avatar-large {
+            box-shadow: 8px 8px 16px #16181b, -8px -8px 16px #32363d;
+        }
+
+        .stat-card {
+            background: #eef1f5;
+            border-radius: 24px;
+            box-shadow: 10px 10px 20px #d1d9e6, -10px -10px 20px #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 24px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 14px 14px 28px #d1d9e6, -14px -14px 28px #ffffff;
+        }
+
+        html.dark .stat-card {
+            background: #24272c;
+            box-shadow: 10px 10px 20px #16181b, -10px -10px 20px #32363d;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        html.dark .stat-card:hover {
+            box-shadow: 14px 14px 28px #16181b, -14px -14px 28px #32363d;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #0284c7, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 4px;
+        }
+
+        html.dark .stat-label {
+            color: #9ca3af;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
+        .stat-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .activity-card {
+            background: #eef1f5;
+            border-radius: 24px;
+            box-shadow: 10px 10px 20px #d1d9e6, -10px -10px 20px #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 28px;
+        }
+
+        html.dark .activity-card {
+            background: #24272c;
+            box-shadow: 10px 10px 20px #16181b, -10px -10px 20px #32363d;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .activity-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        html.dark .activity-item {
+            border-bottom-color: rgba(255, 255, 255, 0.04);
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .activity-item:first-child {
+            padding-top: 0;
+        }
+
+        .activity-score {
+            font-weight: 700;
+            font-size: 0.95rem;
+            padding: 4px 12px;
+            border-radius: 8px;
+            white-space: nowrap;
+        }
+
+        .score-high {
+            background: rgba(34, 197, 94, 0.1);
+            color: #16a34a;
+        }
+
+        .score-medium {
+            background: rgba(234, 179, 8, 0.1);
+            color: #ca8a04;
+        }
+
+        .score-low {
+            background: rgba(239, 68, 68, 0.1);
+            color: #dc2626;
+        }
+
+        html.dark .score-high {
+            background: rgba(34, 197, 94, 0.15);
+            color: #4ade80;
+        }
+
+        html.dark .score-medium {
+            background: rgba(234, 179, 8, 0.15);
+            color: #fbbf24;
+        }
+
+        html.dark .score-low {
+            background: rgba(239, 68, 68, 0.15);
+            color: #f87171;
+        }
+
+        /* Login required screen */
+        .login-required {
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .login-required-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            color: #9ca3af;
+        }
+
+        /* Streak fire animation */
+        .streak-fire {
+            display: inline-block;
+            animation: fireWiggle 1s ease-in-out infinite;
+        }
+
+        @keyframes fireWiggle {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #9ca3af;
+        }
+
+        .empty-state svg {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 12px;
+            opacity: 0.5;
+        }
+        /* === DELETE ACCOUNT MODAL === */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+        .modal-dialog {
+            background: #eef1f5;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            max-width: 440px;
+            width: 90%;
+            padding: 32px;
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+            opacity: 0;
+        }
+        .modal-overlay.active .modal-dialog {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+        html.dark .modal-dialog {
+            background: #24272c;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .modal-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background: rgba(239, 68, 68, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+        .modal-icon svg {
+            width: 28px;
+            height: 28px;
+            color: #ef4444;
+        }
+        html.dark .modal-icon {
+            background: rgba(239, 68, 68, 0.15);
+        }
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 8px;
+            color: #1f2937;
+        }
+        html.dark .modal-title {
+            color: #f3f4f6;
+        }
+        .modal-desc {
+            font-size: 0.875rem;
+            color: #6b7280;
+            text-align: center;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+        html.dark .modal-desc {
+            color: #9ca3af;
+        }
+        .modal-input-group {
+            margin-bottom: 24px;
+        }
+        .modal-input-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+        html.dark .modal-input-group label {
+            color: #9ca3af;
+        }
+        .modal-input-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 2px solid rgba(0, 0, 0, 0.08);
+            background: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-align: center;
+            color: #1f2937;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            box-sizing: border-box;
+        }
+        .modal-input-group input:focus {
+            border-color: #ef4444;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+        }
+        html.dark .modal-input-group input {
+            background: rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.1);
+            color: #f3f4f6;
+        }
+        html.dark .modal-input-group input:focus {
+            border-color: #f87171;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+        }
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+        }
+        .modal-btn {
+            flex: 1;
+            padding: 12px 20px;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .modal-btn-cancel {
+            background: rgba(0, 0, 0, 0.05);
+            color: #6b7280;
+        }
+        .modal-btn-cancel:hover {
+            background: rgba(0, 0, 0, 0.1);
+            color: #374151;
+        }
+        html.dark .modal-btn-cancel {
+            background: rgba(255, 255, 255, 0.08);
+            color: #9ca3af;
+        }
+        html.dark .modal-btn-cancel:hover {
+            background: rgba(255, 255, 255, 0.12);
+            color: #d1d5db;
+        }
+        .modal-btn-danger {
+            background: #ef4444;
+            color: white;
+            box-shadow: none;
+        }
+        .modal-btn-danger:hover {
+            background: #dc2626;
+        }
+        .modal-btn-danger:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        .modal-status {
+            text-align: center;
+            padding: 16px 0;
+            display: none;
+        }
+        .modal-status.active {
+            display: block;
+        }
+        .modal-spinner {
+            width: 32px;
+            height: 32px;
+            border: 3px solid rgba(239, 68, 68, 0.2);
+            border-top-color: #ef4444;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            margin: 0 auto 12px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+
+<body class="font-sans text-gray-900 dark:text-white antialiased">
+
+    <div class="min-h-screen flex flex-col">
+        <nav class="sticky top-0 z-50 glassmorphic-header">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <div class="flex items-center mr-10 lg:mr-16">
+                        <a href="index.html" class="logo-container" aria-label="Sikkim PSC Preparation Hub Home">
+                            <img src="logo/light theme.png" alt="Sikkim PSC Logo" class="logo-img logo-light">
+                            <img src="logo/dark theme logo.png" alt="Sikkim PSC Logo" class="logo-img logo-dark">
+                        </a>
+                    </div>
+                    <div class="hidden md:flex items-center space-x-10 lg:space-x-14">
+                        <a href="index.html" class="nav-link">Home</a>
+                        <a href="about.html" class="nav-link">About</a>
+                        <a href="notes-ai.html" class="nav-link flex items-center">
+                            <span class="text-sky-600">Notes</span>
+                            <span class="text-sky-600 dark:text-sky-400">(AI)</span>
+                            <span class="ml-1.5 flex h-2 w-2">
+                                <span
+                                    class="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-sky-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
+                            </span>
+                        </a>
+                        <a href="mocktests.html" class="nav-link">Mocktests</a>
+                        <a href="question-bank.html" class="nav-link">Question Bank</a>
+                        <div class="dropdown">
+                            <button class="nav-link flex items-center space-x-1">
+                                <span>More</span>
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="h-4 w-4 transition-transform duration-200" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            <div class="dropdown-content">
+                                <a href="exam-calendar.html" class="dropdown-item">Exam Calendar</a>
+                                <a href="faqs.html" class="dropdown-item">FAQs</a>
+                                <a href="blogs.html" class="dropdown-item">Blogs</a>
+                                <a href="contact.html" class="dropdown-item">Contact me</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-2 sm:space-x-4">
+                        <div class="hidden md:block" id="auth-btn-desktop">
+                            <div class="auth-loading"></div>
+                        </div>
+                        <button id="darkModeToggle" type="button" aria-label="Toggle Dark Mode"
+                            class="relative inline-flex items-center h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:focus:ring-offset-black bg-gray-300 dark:bg-sky-600"
+                            role="switch" aria-checked="false">
+                            <span class="sr-only">Toggle Dark Mode</span>
+                            <span
+                                class="toggle-knob pointer-events-none relative inline-block h-5 w-5 rounded-full bg-white shadow ring-0 transition-transform duration-300 ease-in-out">
+                                <span
+                                    class="sun-icon-animator absolute inset-0 flex h-full w-full items-center justify-center">
+                                    <svg class="h-3 w-3 text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-6.364-.386l1.591-1.591M3 12h2.25m.386-6.364l1.591 1.591" />
+                                    </svg>
+                                </span>
+                                <span
+                                    class="moon-icon-animator absolute inset-0 flex h-full w-full items-center justify-center">
+                                    <svg class="h-3 w-3 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21c1.33 0 2.597-.266 3.752-.748A9.753 9.753 0 0021.752 15.002z" />
+                                    </svg>
+                                </span>
+                            </span>
+                        </button>
+
+                        <button id="mobile-menu-button" type="button"
+                            class="md:hidden inline-flex items-center justify-center p-2 rounded-xl text-gray-500 hover:text-sky-600 hover:bg-white/50 dark:text-gray-400 dark:hover:text-sky-400 dark:hover:bg-black/20 focus:outline-none transition-all duration-300"
+                            aria-expanded="false">
+                            <span class="sr-only">Open main menu</span>
+                            <div class="w-6 h-5 relative flex flex-col justify-between">
+                                <span
+                                    class="hamburger-line hamburger-line-1 w-full h-0.5 bg-current rounded-full"></span>
+                                <span
+                                    class="hamburger-line hamburger-line-2 w-full h-0.5 bg-current rounded-full"></span>
+                                <span
+                                    class="hamburger-line hamburger-line-3 w-full h-0.5 bg-current rounded-full"></span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="mobile-menu"
+                class="md:hidden absolute w-full glassmorphic-header border-b border-white/20 shadow-xl">
+                <div class="px-4 pt-3 pb-6 space-y-4">
+                    <a href="index.html"
+                        class="block px-4 py-3 rounded-xl text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-sky-50 dark:hover:bg-sky-900/30 hover:text-sky-600 dark:hover:text-sky-400 transition-all">Home</a>
+                    <a href="about.html"
+                        class="block px-4 py-3 rounded-xl text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-sky-50 dark:hover:bg-sky-900/30 hover:text-sky-600 dark:hover:text-sky-400 transition-all">About</a>
+                    <a href="notes-ai.html"
+                        class="block px-4 py-3 rounded-xl text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-sky-50 dark:hover:bg-sky-900/30 hover:text-sky-600 dark:hover:text-sky-400 transition-all flex items-center justify-between">
+                        Notes(AI)
+                        <span
+                            class="bg-sky-100 text-sky-600 dark:bg-sky-900/50 dark:text-sky-400 text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">New</span>
+                    </a>
+                    <a href="mocktests.html"
+                        class="block px-4 py-3 rounded-xl text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-sky-50 dark:hover:bg-sky-900/30 hover:text-sky-600 dark:hover:text-sky-400 transition-all">Mocktests</a>
+                    <a href="question-bank.html"
+                        class="block px-4 py-3 rounded-xl text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-sky-50 dark:hover:bg-sky-900/30 hover:text-sky-600 dark:hover:text-sky-400 transition-all">Question
+                        Bank</a>
+
+                    <div class="pt-4 mt-2">
+                        <span
+                            class="px-4 text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">More</span>
+                        <div class="mt-2 space-y-1">
+                            <a href="exam-calendar.html"
+                                class="block px-4 py-2 text-base font-medium text-gray-600 dark:text-gray-400 hover:text-sky-600 dark:hover:text-sky-400 transition-all">Exam
+                                Calendar</a>
+                            <a href="faqs.html"
+                                class="block px-4 py-2 text-base font-medium text-gray-600 dark:text-gray-400 hover:text-sky-600 dark:hover:text-sky-400 transition-all">FAQs</a>
+                            <a href="blogs.html"
+                                class="block px-4 py-2 text-base font-medium text-gray-600 dark:text-gray-400 hover:text-sky-600 dark:hover:text-sky-400 transition-all">Blogs</a>
+                            <a href="contact.html"
+                                class="block px-4 py-2 text-base font-medium text-gray-600 dark:text-gray-400 hover:text-sky-600 dark:hover:text-sky-400 transition-all">Contact
+                                me</a>
+                        </div>
+                    </div>
+                    <div class="pt-4 mt-4 border-t border-gray-100 dark:border-gray-800" id="auth-btn-mobile">
+                        <div class="auth-loading" style="margin: 12px auto; display: block; width: 20px;"></div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- MAIN CONTENT -->
+        <main class="flex-grow max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 w-full">
+
+            <!-- Login Required Screen (shown when not logged in) -->
+            <div id="login-required-screen" class="login-required fade-in-up" style="display:none;">
+                <svg class="login-required-icon" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                </svg>
+                <h2 class="text-3xl font-extrabold mb-4">
+                    <span class="hero-title-word">Sign in to view your</span> <span
+                        class="text-sky-600">Dashboard</span>
+                </h2>
+                <p class="text-gray-500 dark:text-gray-400 max-w-md mx-auto mb-8">
+                    Track your quiz scores, flashcard progress, study streaks, and more — all in one place.
+                </p>
+                <button onclick="signInWithGoogle()"
+                    class="inline-flex items-center gap-2 px-8 py-3 bg-sky-600 text-white font-bold rounded-xl hover:bg-sky-700 transition-all shadow-lg shadow-sky-600/20">
+                    <svg class="google-icon" viewBox="0 0 24 24" style="width:20px;height:20px">
+                        <path fill="#fff"
+                            d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" />
+                        <path fill="#fff"
+                            d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                        <path fill="#fff"
+                            d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                        <path fill="#fff"
+                            d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+                    </svg>
+                    Sign in with Google
+                </button>
+            </div>
+
+            <!-- Dashboard Content (shown when logged in) -->
+            <div id="dashboard-content" style="display:none;">
+
+                <!-- Profile Hero -->
+                <div class="profile-hero p-8 sm:p-10 mb-10 fade-in-up">
+                    <div class="flex flex-col sm:flex-row items-center gap-6">
+                        <img id="profile-photo" src="" alt="Profile"
+                            class="profile-avatar-large" referrerpolicy="no-referrer">
+                        <div class="text-center sm:text-left">
+                            <h1 class="text-2xl sm:text-3xl font-extrabold mb-1">
+                                <span class="hero-title-word" id="profile-name">User</span>
+                            </h1>
+                            <p class="text-gray-500 dark:text-gray-400 text-sm" id="profile-email"></p>
+                            <p class="text-sky-600 dark:text-sky-400 text-xs font-semibold mt-2" id="profile-member-since">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 mb-10">
+                    <div class="stat-card fade-in-up delay-100">
+                        <div class="stat-icon bg-sky-100 dark:bg-sky-900/30">
+                            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#0284c7">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" />
+                            </svg>
+                        </div>
+                        <div class="stat-value" id="stat-quizzes">0</div>
+                        <div class="stat-label">Quizzes Taken</div>
+                    </div>
+                    <div class="stat-card fade-in-up delay-200">
+                        <div class="stat-icon bg-emerald-100 dark:bg-emerald-900/30">
+                            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#059669">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
+                            </svg>
+                        </div>
+                        <div class="stat-value" id="stat-accuracy">0%</div>
+                        <div class="stat-label">Avg. Accuracy</div>
+                    </div>
+                    <div class="stat-card fade-in-up delay-300">
+                        <div class="stat-icon bg-violet-100 dark:bg-violet-900/30">
+                            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#7c3aed">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M3.75 9.776c.112-.017.227-.026.344-.026h15.812c.117 0 .232.009.344.026m-16.5 0a2.25 2.25 0 00-1.883 2.542l.857 6a2.25 2.25 0 002.227 1.932H19.05a2.25 2.25 0 002.227-1.932l.857-6a2.25 2.25 0 00-1.883-2.542m-16.5 0V6A2.25 2.25 0 016 3.75h3.879a1.5 1.5 0 011.06.44l2.122 2.12a1.5 1.5 0 001.06.44H18A2.25 2.25 0 0120.25 9v.776" />
+                            </svg>
+                        </div>
+                        <div class="stat-value" id="stat-flashcards">0</div>
+                        <div class="stat-label">Flashcards Reviewed</div>
+                    </div>
+                    <div class="stat-card fade-in-up delay-400">
+                        <div class="stat-icon bg-amber-100 dark:bg-amber-900/30">
+                            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#d97706">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z" />
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-2.133-1A3.75 3.75 0 0012 18z" />
+                            </svg>
+                        </div>
+                        <div class="stat-value" id="stat-streak">
+                            <span class="streak-fire">🔥</span> <span id="streak-number">0</span>
+                        </div>
+                        <div class="stat-label">Day Streak</div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="activity-card fade-in-up delay-200 mb-10">
+                    <h2 class="text-xl font-bold mb-6">
+                        <span class="hero-title-word">Recent</span> <span class="text-sky-600">Activity</span>
+                    </h2>
+                    <div id="recent-activity">
+                        <div class="empty-state">
+                            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <p class="font-medium">No activity yet</p>
+                            <p class="text-sm mt-1">Complete a quiz to see your results here!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reset Statistics -->
+                <div class="activity-card fade-in-up delay-300">
+                    <h2 class="text-xl font-bold mb-4">
+                        <span class="hero-title-word">Manage</span> <span class="text-sky-600">Data</span>
+                    </h2>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mb-6">Reset all your quiz scores, flashcard progress, and study streak to start fresh.</p>
+                    <button id="reset-stats-btn" onclick="confirmResetStats()"
+                        class="inline-flex items-center gap-2 px-6 py-3 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 font-semibold rounded-xl border border-red-200 dark:border-red-800/50 hover:bg-red-100 dark:hover:bg-red-900/40 transition-all">
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182M2.985 19.644l3.181-3.182" />
+                        </svg>
+                        Reset All Statistics
+                    </button>
+
+
+                    <div class="mt-6 pt-6" style="border-top: 1px solid rgba(0,0,0,0.04);">
+                        <button type="button" id="delete-account-btn" onclick="confirmDeleteAccount()" style="background:none;border:none;padding:0;cursor:pointer;text-decoration:underline;font:inherit" class="text-sm text-gray-400 dark:text-gray-500 hover:text-sky-600 dark:hover:text-sky-400 transition-colors">Delete my account</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="py-8 text-center mt-16 sm:mt-24 footer-line">
+            <p class="text-sm text-gray-500 dark:text-gray-200">
+                © <span id="currentYear"></span> Sikkim PSC preparation hub.
+                Designed by <a href="https://www.instagram.com/nothisisdk/" target="_blank" rel="noopener noreferrer"
+                    class="font-semibold text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-500">nothisisdk</a>.
+            </p>
+        </footer>
+    </div>
+
+    <!-- Reset Stats Modal -->
+    <div class="modal-overlay" id="resetModal">
+        <div class="modal-dialog">
+            <div id="resetStep1">
+                <div class="modal-icon" style="background: rgba(234, 179, 8, 0.1);">
+                    <svg style="color: #ca8a04;" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182M2.985 19.644l3.181-3.182" />
+                    </svg>
+                </div>
+                <div class="modal-title">Reset ALL Statistics?</div>
+                <p class="modal-desc">This will delete all quiz scores, flashcard progress, and your study streak. This action cannot be undone.</p>
+                <div class="modal-actions">
+                    <button type="button" class="modal-btn modal-btn-cancel" onclick="closeResetModal()">Cancel</button>
+                    <button type="button" class="modal-btn" style="background:#ca8a04;color:white;" onclick="executeResetStats()">Reset Data</button>
+                </div>
+            </div>
+            <!-- Resetting status -->
+            <div id="resetStep2" style="display:none">
+                <div class="modal-spinner" style="border-color: rgba(234, 179, 8, 0.2); border-top-color: #ca8a04;"></div>
+                <div class="modal-title">Resetting your data...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Account Modal -->
+    <div class="modal-overlay" id="deleteModal">
+        <div class="modal-dialog">
+            <!-- Step 1: Warning -->
+            <div id="deleteStep1">
+                <div class="modal-icon">
+                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+                    </svg>
+                </div>
+                <div class="modal-title">Delete your account?</div>
+                <p class="modal-desc">This will permanently delete your account and all your data including quiz scores, flashcard progress, and study streak. This action cannot be undone.</p>
+                <div class="modal-actions">
+                    <button type="button" class="modal-btn modal-btn-cancel" onclick="closeDeleteModal()">Cancel</button>
+                    <button type="button" class="modal-btn modal-btn-danger" onclick="showDeleteStep2()">Continue</button>
+                </div>
+            </div>
+            <!-- Step 2: Confirm by typing DELETE -->
+            <div id="deleteStep2" style="display:none">
+                <div class="modal-icon">
+                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+                    </svg>
+                </div>
+                <div class="modal-title">Confirm deletion</div>
+                <p class="modal-desc">Type <strong style="color:#ef4444;letter-spacing:0.1em">DELETE</strong> below to confirm you want to permanently delete your account.</p>
+                <div class="modal-input-group">
+                    <input type="text" id="deleteConfirmInput" placeholder="Type DELETE here" autocomplete="off" spellcheck="false">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="modal-btn modal-btn-cancel" onclick="closeDeleteModal()">Cancel</button>
+                    <button type="button" class="modal-btn modal-btn-danger" id="deleteConfirmBtn" disabled onclick="executeDeleteAccount()">Delete my account</button>
+                </div>
+            </div>
+            <!-- Deleting status -->
+            <div id="deleteStep3" style="display:none">
+                <div class="modal-spinner"></div>
+                <div class="modal-title">Deleting your account...</div>
+                <p class="modal-desc">Please wait while we remove your data. Do not close this page.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="auth.js"></script>
+
+    <script>
+        // Set Current Year
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Dark Mode Logic
+        const darkModeToggle = document.getElementById('darkModeToggle'), html = document.documentElement, knob = darkModeToggle.querySelector('.toggle-knob');
+        const updateDarkMode = t => { if (t === 'dark') { html.classList.add('dark'); knob.classList.add('knob-at-end'); knob.classList.remove('knob-at-start'); localStorage.setItem('theme', 'dark') } else { html.classList.remove('dark'); knob.classList.add('knob-at-start'); knob.classList.remove('knob-at-end'); localStorage.setItem('theme', 'light') } };
+
+        darkModeToggle.addEventListener('click', () => { const isDark = !html.classList.contains('dark'); updateDarkMode(isDark ? 'dark' : 'light') });
+        updateDarkMode(html.classList.contains('dark') ? 'dark' : 'light');
+
+        // Mobile Menu Logic
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = mobileMenu.classList.toggle('active');
+            document.body.classList.toggle('mobile-menu-open');
+            mobileMenuButton.setAttribute('aria-expanded', isOpen);
+        });
+
+        document.addEventListener('click', (e) => {
+            if (mobileMenu.classList.contains('active') && !mobileMenu.contains(e.target) && !mobileMenuButton.contains(e.target)) {
+                mobileMenu.classList.remove('active');
+                document.body.classList.remove('mobile-menu-open');
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768 && mobileMenu.classList.contains('active')) {
+                mobileMenu.classList.remove('active');
+                document.body.classList.remove('mobile-menu-open');
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // === Dashboard Logic ===
+        window.addEventListener('authStateChanged', async function (e) {
+            const user = e.detail.user;
+            const loginScreen = document.getElementById('login-required-screen');
+            const dashboardContent = document.getElementById('dashboard-content');
+
+            if (user) {
+                loginScreen.style.display = 'none';
+                dashboardContent.style.display = 'block';
+                await loadDashboard(user);
+            } else {
+                loginScreen.style.display = 'block';
+                dashboardContent.style.display = 'none';
+            }
+        });
+
+        async function loadDashboard(user) {
+            // Set profile info
+            document.getElementById('profile-photo').src = user.photoURL || '';
+            document.getElementById('profile-name').textContent = user.displayName || 'User';
+            document.getElementById('profile-email').textContent = user.email || '';
+
+            // Load stats
+            const stats = await getUserStats();
+            if (stats) {
+                document.getElementById('stat-quizzes').textContent = stats.stats?.totalQuizzes || 0;
+                document.getElementById('stat-flashcards').textContent = stats.stats?.flashcardsReviewed || 0;
+                document.getElementById('streak-number').textContent = stats.stats?.studyStreak || 0;
+
+                const totalQ = stats.stats?.totalQuestions || 0;
+                const totalC = stats.stats?.totalCorrect || 0;
+                const accuracy = totalQ > 0 ? Math.round((totalC / totalQ) * 100) : 0;
+                document.getElementById('stat-accuracy').textContent = accuracy + '%';
+
+                if (stats.createdAt) {
+                    const created = stats.createdAt.toDate ? stats.createdAt.toDate() : new Date(stats.createdAt);
+                    document.getElementById('profile-member-since').textContent = 'Member since ' + created.toLocaleDateString('en-IN', { year: 'numeric', month: 'long' });
+                }
+            }
+
+            // Load recent quizzes
+            const recentQuizzes = await getRecentQuizzes(10);
+            const activityDiv = document.getElementById('recent-activity');
+
+            if (recentQuizzes.length > 0) {
+                activityDiv.innerHTML = recentQuizzes.map(q => {
+                    const pct = q.percentage || 0;
+                    const scoreClass = pct >= 75 ? 'score-high' : pct >= 50 ? 'score-medium' : 'score-low';
+                    const date = q.completedAt?.toDate ? q.completedAt.toDate().toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }) : '';
+                    return `
+                        <div class="activity-item">
+                            <div>
+                                <div class="font-semibold text-sm">${q.quizName || 'Quiz'}</div>
+                                <div class="text-xs text-gray-400 mt-0.5">${q.category || ''} · ${date}</div>
+                            </div>
+                            <div class="activity-score ${scoreClass}">${q.score}/${q.totalQuestions} (${pct}%)</div>
+                        </div>
+                    `;
+                }).join('');
+            } else {
+                activityDiv.innerHTML = `
+                    <div class="empty-state">
+                        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <p class="font-medium">No activity yet</p>
+                        <p class="text-sm mt-1">Complete a quiz to see your results here!</p>
+                    </div>
+                `;
+            }
+        }
+
+        // === Reset Stats Modal Logic ===
+        function confirmResetStats() {
+            var modal = document.getElementById('resetModal');
+            document.getElementById('resetStep1').style.display = 'block';
+            document.getElementById('resetStep2').style.display = 'none';
+            modal.classList.add('active');
+        }
+
+        function closeResetModal() {
+            document.getElementById('resetModal').classList.remove('active');
+        }
+
+        document.getElementById('resetModal').addEventListener('click', function(e) {
+            if (e.target === this) closeResetModal();
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeResetModal();
+        });
+
+        async function executeResetStats() {
+            document.getElementById('resetStep1').style.display = 'none';
+            document.getElementById('resetStep2').style.display = 'block';
+            
+            const btn = document.getElementById('reset-stats-btn');
+            btn.disabled = true;
+            btn.innerHTML = 'Resetting...';
+
+            const success = await resetUserStats();
+            
+            if (success) {
+                // Reload dashboard with fresh data
+                const user = getCurrentUser();
+                if (user) await loadDashboard(user);
+                closeResetModal();
+            } else {
+                closeResetModal();
+                showAuthToast('Failed to reset statistics. Please try again.');
+            }
+            
+            btn.disabled = false;
+            btn.innerHTML = `<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182M2.985 19.644l3.181-3.182" /></svg> Reset All Statistics`;
+        }
+
+        // === Delete Account Modal Logic ===
+        function confirmDeleteAccount() {
+            var modal = document.getElementById('deleteModal');
+            document.getElementById('deleteStep1').style.display = 'block';
+            document.getElementById('deleteStep2').style.display = 'none';
+            document.getElementById('deleteStep3').style.display = 'none';
+            var input = document.getElementById('deleteConfirmInput');
+            input.value = '';
+            document.getElementById('deleteConfirmBtn').disabled = true;
+            modal.classList.add('active');
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').classList.remove('active');
+        }
+
+        function showDeleteStep2() {
+            document.getElementById('deleteStep1').style.display = 'none';
+            document.getElementById('deleteStep2').style.display = 'block';
+            document.getElementById('deleteConfirmInput').focus();
+        }
+
+        // Enable/disable the delete button based on input
+        document.getElementById('deleteConfirmInput').addEventListener('input', function() {
+            document.getElementById('deleteConfirmBtn').disabled = this.value.trim() !== 'DELETE';
+        });
+
+        // Allow Enter key to submit
+        document.getElementById('deleteConfirmInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && this.value.trim() === 'DELETE') {
+                executeDeleteAccount();
+            }
+        });
+
+        // Close modal on Escape or overlay click
+        document.getElementById('deleteModal').addEventListener('click', function(e) {
+            if (e.target === this) closeDeleteModal();
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeDeleteModal();
+        });
+
+        async function executeDeleteAccount() {
+            document.getElementById('deleteStep2').style.display = 'none';
+            document.getElementById('deleteStep3').style.display = 'block';
+            try {
+                var success = await deleteUserAccount();
+                if (success) {
+                    document.querySelector('#deleteStep3 .modal-title').textContent = 'Account deleted';
+                    document.querySelector('#deleteStep3 .modal-desc').textContent = 'Your account has been permanently deleted. Redirecting...';
+                    document.querySelector('#deleteStep3 .modal-spinner').style.display = 'none';
+                    setTimeout(function() { window.location.href = 'index.html'; }, 1500);
+                } else {
+                    closeDeleteModal();
+                    showAuthToast('Failed to delete account. Please sign out, sign back in, and try again.');
+                }
+            } catch (err) {
+                closeDeleteModal();
+                showAuthToast('Error: ' + err.message);
+            }
+        }
+    </script>
+</body>
+
+</html>

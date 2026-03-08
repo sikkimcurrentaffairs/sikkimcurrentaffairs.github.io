@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elections Quiz · Civics</title>
+    <style>
+        :root {
+            --primary-color: #1a5276;
+            --secondary-color: #2980b9;
+            --correct-color: #27ae60;
+            --incorrect-color: #e74c3c;
+            --light-gray: #f8f9f9;
+            --dark-gray: #7f8c8d;
+            --gold-color: #f1c40f;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gold-color);
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-top: 10px;
+            font-weight: 400;
+        }
+        
+        .quiz-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .question {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: var(--primary-color);
+            line-height: 1.4;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .option {
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            background-color: white;
+            position: relative;
+            padding-left: 45px;
+        }
+        
+        .option:hover {
+            background-color: var(--light-gray);
+            border-color: var(--secondary-color);
+        }
+        
+        .option::before {
+            content: "";
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .option.selected {
+            background-color: #e1f0fa;
+            border-color: var(--secondary-color);
+            font-weight: 500;
+        }
+        
+        .option.selected::before {
+            border-color: var(--secondary-color);
+            background-color: var(--secondary-color);
+        }
+        
+        .option.correct {
+            background-color: #e8f8f0;
+            border-color: var(--correct-color);
+            color: var(--correct-color);
+        }
+        
+        .option.correct::before {
+            border-color: var(--correct-color);
+            background-color: var(--correct-color);
+        }
+        
+        .option.incorrect {
+            background-color: #fdedec;
+            border-color: var(--incorrect-color);
+            color: var(--incorrect-color);
+        }
+        
+        .option.incorrect::before {
+            border-color: var(--incorrect-color);
+        }
+        
+        .feedback {
+            margin-top: 25px;
+            padding: 18px;
+            border-radius: 8px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .correct-feedback {
+            background-color: #e8f8f0;
+            color: var(--correct-color);
+            border-left: 5px solid var(--correct-color);
+        }
+        
+        .incorrect-feedback {
+            background-color: #fdedec;
+            color: var(--incorrect-color);
+            border-left: 5px solid var(--incorrect-color);
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        button:hover {
+            background-color: #154360;
+            transform: translateY(-2px);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+        
+        .progress-container {
+            margin-bottom: 25px;
+            background-color: var(--light-gray);
+            border-radius: 20px;
+            height: 10px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+            transition: width 0.4s ease;
+        }
+        
+        .progress-text {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: var(--dark-gray);
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .result-container {
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.8s ease;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .score {
+            font-size: 72px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 30px 0;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .score::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--gold-color);
+            border-radius: 2px;
+        }
+        
+        .score-text {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .restart-btn {
+            margin-top: 30px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .restart-btn:hover {
+            background: linear-gradient(135deg, #3498db, #1a5276);
+            transform: translateY(-2px);
+        }
+        
+        .explanation {
+            margin-top: 15px;
+            font-style: italic;
+            color: var(--dark-gray);
+            line-height: 1.5;
+        }
+        
+        .performance-text {
+            font-size: 18px;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f8f9f9;
+        }
+        
+        .week-indicator {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--gold-color);
+            color: var(--primary-color);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            
+            header {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .quiz-container {
+                padding: 20px;
+            }
+
+            .week-indicator {
+                position: relative; 
+                display: block;     
+                width: fit-content; 
+                margin: 0 auto 20px auto; 
+                top: auto;          
+                right: auto;        
+                font-size: 13px;    
+                padding: 6px 12px;  
+            }
+            
+            .question {
+                font-size: 18px;
+            }
+            
+            .option {
+                padding: 12px 12px 12px 40px;
+                font-size: 15px;
+            }
+            
+            .score {
+                font-size: 60px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="../../../../auth.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Indian Elections Quiz</h1>
+            <div class="subtitle">Test your knowledge on democracy, elections & electoral politics</div>
+        </header>
+        
+        <div class="progress-text">
+            <span>Question <span id="current-question">1</span> of <span id="total-questions">44</span></span>
+            <span>Score: <span id="current-score">0</span></span>
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        
+        <div class="quiz-container">
+            <div class="week-indicator" id="week-indicator">Elections</div>
+            <div class="question" id="question-text"></div>
+            <div class="options" id="options-container"></div>
+            <div class="feedback" id="feedback"></div>
+            
+            <div class="navigation">
+                <button id="prev-btn" disabled>Previous</button>
+                <button id="next-btn">Next</button>
+            </div>
+        </div>
+        
+        <div class="result-container" id="result-container">
+            <h2>Quiz Completed!</h2>
+            <div class="score-text">Your Final Score</div>
+            <div class="score"><span id="final-score">0</span>/<span id="total-questions-final">44</span></div>
+            <div class="performance-text" id="performance-text"></div>
+            <button class="restart-btn" id="restart-btn">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        const quizData = [
+            // Questions from mcq.txt – all week set to "Elections"
+            {
+                question: "According to the chapter, what is the most common form of democracy in modern times?",
+                options: [
+                    "Direct governance by the people on all matters",
+                    "Rule by a selected group of wise elders",
+                    "People governing through their elected representatives",
+                    "Governance through military leaders"
+                ],
+                answer: 2,
+                explanation: "The overview states, \"The most common form of democracy in our times is for the people to govern through their representatives.\"",
+                week: "Elections"
+            },
+            {
+                question: "In the Haryana Assembly election story of 1987, what was the key promise made by Chaudhary Devi Lal's party, Lok Dal?",
+                options: [
+                    "To build new highways and expressways",
+                    "To waive the loans of farmers and small businessmen",
+                    "To provide free electricity to all households",
+                    "To make Haryana a separate country"
+                ],
+                answer: 1,
+                explanation: "The text mentions, \"He promised that this would be the first action of his government... waiving the outstanding loans of small farmers, agricultural labourers and small businessmen.\"",
+                week: "Elections"
+            },
+            {
+                question: "How many seats out of 90 did the Lok Dal and its allies win in the 1987 Haryana Assembly election?",
+                options: ["60", "5", "90", "76"],
+                answer: 3,
+                explanation: "The passage states, \"Lok Dal and its partners won 76 out of 90 seats in the State Assembly.\"",
+                week: "Elections"
+            },
+            {
+                question: "Which of the following is NOT a reason why elections are considered essential in a representative democracy?",
+                options: [
+                    "To provide a mechanism for people to choose their representatives.",
+                    "To allow people to change representatives if they wish to do so at regular intervals.",
+                    "To ensure that the representatives rule according to the wishes of the people.",
+                    "To select the most educated and knowledgeable people as rulers without public choice."
+                ],
+                answer: 3,
+                explanation: "The chapter argues that a system without elections, based solely on age or knowledge, cannot be democratic as it lacks a mechanism for people to express their choice or dissatisfaction.",
+                week: "Elections"
+            },
+            {
+                question: "What is the minimum condition of a democratic election mentioned in the chapter?",
+                options: [
+                    "Everyone should have one vote and every vote should have equal value.",
+                    "Elections should be held only when the ruling party decides.",
+                    "Only candidates from major political parties should be allowed to contest.",
+                    "The candidate preferred by the ruling party should get elected."
+                ],
+                answer: 0,
+                explanation: "The first condition in the list of minimum conditions is: \"First, everyone should be able to choose. This means that everyone should have one vote and every vote should have equal value.\"",
+                week: "Elections"
+            },
+            {
+                question: "Which of these is presented as a demerit of political competition in the chapter?",
+                options: [
+                    "It forces political parties to serve the people.",
+                    "It creates a sense of disunity and 'factionalism' in every locality.",
+                    "It provides incentives for leaders to work for the people.",
+                    "It allows people to punish leaders who do not work for them."
+                ],
+                answer: 1,
+                explanation: "The text clearly states, \"Clearly, an electoral competition has many demerits. It creates a sense of disunity and 'factionalism' in every locality.\"",
+                week: "Elections"
+            },
+            {
+                question: "According to the chapter, how does electoral competition act as an incentive for political parties, similar to how a market works?",
+                options: [
+                    "By encouraging parties to form alliances with each other.",
+                    "By forcing them to serve the people to win again, even if their only motive is to be in power.",
+                    "By allowing them to raise unlimited funds for their campaigns.",
+                    "By guaranteeing they will stay in power for a full term."
+                ],
+                answer: 1,
+                explanation: "The text compares it to a shopkeeper who must serve customers well to make a profit, stating, \"Similarly, political competition... finally helps to force political parties and leaders to serve the people.\"",
+                week: "Elections"
+            },
+            {
+                question: "What is a 'general election' in the Indian context?",
+                options: [
+                    "An election held only for one constituency to fill a casual vacancy.",
+                    "Elections held for the Lok Sabha or Vidhan Sabha in all constituencies at the same time, usually every five years.",
+                    "An election where only government officials can vote.",
+                    "An election conducted by a non-governmental organization."
+                ],
+                answer: 1,
+                explanation: "The text defines it as, \"Elections are held in all constituencies at the same time, either on the same day or within a few days. This is called a general election.\"",
+                week: "Elections"
+            },
+            {
+                question: "For how many constituencies are elections held in India for the Lok Sabha?",
+                options: ["90", "543", "84", "47"],
+                answer: 1,
+                explanation: "The text states, \"For Lok Sabha elections, the country is divided into 543 constituencies.\"",
+                week: "Elections"
+            },
+            {
+                question: "What is the primary principle behind dividing the country into electoral constituencies?",
+                options: [
+                    "To ensure every village gets a representative.",
+                    "To make sure that every vote has roughly equal value by having each constituency have a roughly equal population.",
+                    "To allow each state to have the same number of representatives.",
+                    "To make it easier for political parties to campaign."
+                ],
+                answer: 1,
+                explanation: "The text explains, \"One of the features of a democratic election is that every vote should have equal value. That is why our Constitution requires that each constituency should have a roughly equal population living within it.\"",
+                week: "Elections"
+            },
+            {
+                question: "What is the purpose of 'reserved constituencies' in India?",
+                options: [
+                    "To reserve seats for the most educated people in society.",
+                    "To ensure that the ruling party always gets a majority.",
+                    "To ensure the representation of weaker sections like Scheduled Castes and Scheduled Tribes in the legislature.",
+                    "To set aside constituencies for women candidates only."
+                ],
+                answer: 2,
+                explanation: "The text mentions that the Constitution makers created reserved constituencies so that weaker sections are not deprived of a voice in Parliament and Assemblies.",
+                week: "Elections"
+            },
+            {
+                question: "In a constituency reserved for Scheduled Tribes (ST), who can stand for election?",
+                options: [
+                    "Any candidate from any caste or tribe.",
+                    "Only a candidate who belongs to the Scheduled Castes.",
+                    "Only a candidate who belongs to the Scheduled Tribes.",
+                    "Only a candidate from a national party."
+                ],
+                answer: 2,
+                explanation: "The chapter clearly states, \"Similarly only those belonging to the Scheduled Tribes can contest an election from a constituency reserved for ST.\"",
+                week: "Elections"
+            },
+            {
+                question: "As per the Nari Shakti Vandan Adhinivyam, 2023, what provision has been made for women in the Parliament and Legislative Assemblies?",
+                options: [
+                    "Women are not allowed to vote.",
+                    "One-third of the seats are reserved for women.",
+                    "All seats are reserved for women.",
+                    "Women can only contest from constituencies reserved for SCs and STs."
+                ],
+                answer: 1,
+                explanation: "The text mentions, \"Do you know, like in Panchayats, one-third of the seats in Parliament and Legislative Assemblies have also been reserved for women as per Nari Shakti Vandan Adhinivyam, 2023.\"",
+                week: "Elections"
+            },
+            {
+                question: "What is the official name for the 'Voters' List'?",
+                options: ["Electoral Register", "Electoral Roll", "Citizen's Directory", "Election Manifesto"],
+                answer: 1,
+                explanation: "The text states, \"This list is officially called the Electoral Roll and is commonly known as the Voters' List.\"",
+                week: "Elections"
+            },
+            {
+                question: "What is the minimum age for voting in India?",
+                options: ["21 years", "25 years", "18 years", "30 years"],
+                answer: 2,
+                explanation: "The chapter mentions, \"In our country, all the citizens aged 18 years and above can vote in an election.\"",
+                week: "Elections"
+            },
+            {
+                question: "What is the minimum age required to become a candidate in an election?",
+                options: ["18 years", "21 years", "25 years", "30 years"],
+                answer: 2,
+                explanation: "The text clarifies, \"The only difference is that in order to be a candidate the minimum age is 25 years, while it is only 18 years for being a voter.\"",
+                week: "Elections"
+            },
+            {
+                question: "On the direction of the Supreme Court, what legal declaration must every candidate make?",
+                options: [
+                    "Their favorite film and actor.",
+                    "Details of criminal cases pending, assets and liabilities, and educational qualifications.",
+                    "The list of promises they cannot keep.",
+                    "The names of their family members who will also contest elections."
+                ],
+                answer: 1,
+                explanation: "The chapter lists these three details that every candidate has to make public as per the Supreme Court's direction.",
+                week: "Elections"
+            },
+            {
+                question: "Why is there no educational qualification for being an MLA or MP, according to the chapter?",
+                options: [
+                    "Because educated people do not make good leaders.",
+                    "Because it would go against the spirit of democracy by depriving a majority of citizens the right to contest.",
+                    "Because the Constitution forgot to include it.",
+                    "Because the Election Commission does not want it."
+                ],
+                answer: 1,
+                explanation: "The text argues that making a graduate degree compulsory would make over 90% of citizens ineligible, which is undemocratic.",
+                week: "Elections"
+            },
+            {
+                question: "What is the main purpose of an election campaign?",
+                options: [
+                    "To give people a chance to hear filmstars perform.",
+                    "To provide a free and open discussion about who is a better representative and which party will make a better government.",
+                    "To allow the government to show its power.",
+                    "To distribute free goods to the voters."
+                ],
+                answer: 1,
+                explanation: "The text states, \"The main purpose of election is to give people a chance to choose... Therefore it is necessary to have a free and open discussion... This is what happens during election campaigns.\"",
+                week: "Elections"
+            },
+            {
+                question: "Which party gave the slogan \"Garibi Hatao\" (Remove poverty) in the 1971 Lok Sabha elections?",
+                options: ["Janata Party", "Telugu Desam Party", "Left Front", "Congress party led by Indira Gandhi"],
+                answer: 3,
+                explanation: "The text mentions, \"The Congress party led by Indira Gandhi gave the slogan of Garibi Hatao (Remove poverty) in the Lok Sabha elections of 1971.\"",
+                week: "Elections"
+            },
+            {
+                question: "According to Indian election law, what is the limit on campaign spending in a constituency for a Lok Sabha election?",
+                options: ["₹10 lakh", "₹25 lakh", "₹50 lakh", "₹1 crore"],
+                answer: 1,
+                explanation: "The text specifies the limit as \"Spend more than ₹25 lakh in a constituency for a Lok Sabha election.\"",
+                week: "Elections"
+            },
+            {
+                question: "What is the 'Model Code of Conduct'?",
+                options: [
+                    "A law passed by the Parliament.",
+                    "An agreement among political parties to follow certain guidelines during election campaigns.",
+                    "A set of instructions for voters on how to vote.",
+                    "A document that candidates must submit with their nomination."
+                ],
+                answer: 1,
+                explanation: "The text says, \"all the political parties in our country have agreed to a Model Code of Conduct for election campaigns.\"",
+                week: "Elections"
+            },
+            {
+                question: "What is used in India to record votes in modern elections?",
+                options: ["Ballot papers", "Punched cards", "Electronic Voting Machines (EVM)", "A show of hands"],
+                answer: 2,
+                explanation: "The text mentions, \"Nowadays electronic voting machines (EVM) are used to record votes.\"",
+                week: "Elections"
+            },
+            {
+                question: "Who appoints the Chief Election Commissioner (CEC) of India?",
+                options: ["The Prime Minister of India", "The Chief Justice of India", "The President of India", "The Leader of the Opposition"],
+                answer: 2,
+                explanation: "The text states, \"Election Commissioner (CEC) is appointed by the President of India.\"",
+                week: "Elections"
+            },
+            {
+                question: "Once appointed, the Chief Election Commissioner is answerable to whom?",
+                options: ["The President of India", "The Prime Minister of India", "The government", "The Constitution, and is independent of the government"],
+                answer: 3,
+                explanation: "The text highlights that the CEC is not answerable to the President or the government and is virtually impossible to remove, indicating independence.",
+                week: "Elections"
+            },
+            {
+                question: "What action can the Election Commission take if it finds that polling was not fair in a particular booth?",
+                options: [
+                    "Declare all candidates from that booth as winners.",
+                    "Order a re-poll in that booth.",
+                    "Arrest the voters of that booth.",
+                    "Nothing, the result from that booth is final."
+                ],
+                answer: 1,
+                explanation: "The chapter states, \"When election officials come to the opinion that polling was not fair in some booths or even an entire constituency, they order a repoll.\"",
+                week: "Elections"
+            },
+            {
+                question: "What does 'voter turnout' mean?",
+                options: [
+                    "The number of candidates contesting in an election.",
+                    "The percentage of eligible voters who actually cast their vote.",
+                    "The number of votes a winning candidate gets.",
+                    "The number of people who turn up for election rallies."
+                ],
+                answer: 1,
+                explanation: "The text defines, \"Turnout indicates the per cent of eligible voters who actually cast their vote.\"",
+                week: "Elections"
+            },
+            {
+                question: "How does the voter turnout in India compare to trends in Western democracies like the US?",
+                options: [
+                    "In India, the poor and illiterate vote in larger proportion, unlike in the US.",
+                    "Voter turnout is declining in India but increasing in the US.",
+                    "In the US, the poor vote more than the rich.",
+                    "Only rich people vote in India."
+                ],
+                answer: 0,
+                explanation: "The text mentions that in India, the poor and underprivileged vote in larger proportion, which is in contrast to the USA where poor people and minorities vote much less.",
+                week: "Elections"
+            },
+            {
+                question: "What is a key indicator that elections in India are free and fair, based on the outcome?",
+                options: [
+                    "The ruling party never loses an election.",
+                    "The ruling party routinely loses elections at both the national and state level.",
+                    "Candidates with criminal connections always win.",
+                    "Only one party contests all elections."
+                ],
+                answer: 1,
+                explanation: "The text points out that \"The ruling parties routinely lose elections in India both at the national and state level\" as proof of free and fair elections.",
+                week: "Elections"
+            },
+            {
+                question: "Which of the following is identified as a challenge to free and fair elections in India?",
+                options: [
+                    "The Election Commission has too much power.",
+                    "Voter turnout is too high.",
+                    "Candidates with criminal connections have been able to secure tickets from major parties.",
+                    "All losing parties accept the verdict immediately without question."
+                ],
+                answer: 2,
+                explanation: "The chapter lists \"candidates with criminal connection have been able to push others out of the electoral race\" as one of the major challenges.",
+                week: "Elections"
+            },
+            {
+                question: "The story of Devi Lal in Haryana at the beginning of the chapter illustrates which point about elections?",
+                options: [
+                    "Elections do not lead to any change in policy.",
+                    "The Governor always chooses the Chief Minister.",
+                    "Elections can lead to changes in the policy of the government, as the loan waiver was implemented.",
+                    "People are always happy with the ruling party."
+                ],
+                answer: 2,
+                explanation: "The story shows that the newly elected government immediately fulfilled its promise, demonstrating how elections can lead to policy changes.",
+                week: "Elections"
+            },
+            {
+                question: "The system of 'reserved constituencies' for SCs and STs was created because the Constitution makers believed that:",
+                options: [
+                    "These communities are not interested in politics.",
+                    "In an open electoral competition, these weaker sections may not stand a good chance to get elected.",
+                    "These communities should only vote and not contest.",
+                    "It would make the election process faster."
+                ],
+                answer: 1,
+                explanation: "The text explains that the makers were worried that weaker sections might not have the resources and influence to win in an open competition.",
+                week: "Elections"
+            },
+            {
+                question: "What is a 'by-election'?",
+                options: [
+                    "An election held for all constituencies at the same time.",
+                    "An election held only for one constituency to fill a vacancy caused by the death or resignation of a member.",
+                    "An election conducted by a private company.",
+                    "The second round of voting in a constituency."
+                ],
+                answer: 1,
+                explanation: "The text defines it as, \"Sometimes election is held only for one constituency to fill the vacancy caused by death or resignation of a member. This is called a by-election.\"",
+                week: "Elections"
+            },
+            {
+                question: "The 'Election Photo Identity Card (EPIC)' is:",
+                options: [
+                    "Compulsory for voting.",
+                    "Not yet compulsory, and other proofs like a ration card can also be shown.",
+                    "Only for candidates.",
+                    "A document needed to file a nomination."
+                ],
+                answer: 1,
+                explanation: "The text states, \"But the card is not yet compulsory for voting. For voting, the voters can show many other proofs of identity like the ration card or the driving licence.\"",
+                week: "Elections"
+            },
+            {
+                question: "Which slogan was used by the Janata Party in the 1977 Lok Sabha elections?",
+                options: ["Garibi Hatao", "Land to the Tiller", "Save Democracy", "Protect the Self-Respect of the Telugus"],
+                answer: 2,
+                explanation: "The text mentions, \"'Save Democracy' was the slogan given by Janata Party... in the Lok Sabha election held in 1977.\"",
+                week: "Elections"
+            },
+            {
+                question: "If a candidate spends more than the legal limit in a constituency, what can happen?",
+                options: [
+                    "The candidate is given a warning.",
+                    "The candidate has to pay a simple fine.",
+                    "Their election can be rejected by the court even after they have been declared elected.",
+                    "Nothing, as it is a common practice."
+                ],
+                answer: 2,
+                explanation: "The chapter warns, \"If they do so, their election can be rejected by the court even after they have been declared elected.\"",
+                week: "Elections"
+            },
+            {
+                question: "What information is typically found in the Electoral Roll?",
+                options: [
+                    "The names of the contesting candidates.",
+                    "The election manifesto of each party.",
+                    "The serial number, name, age, and sex of each eligible voter in a polling area.",
+                    "The budget of the Election Commission."
+                ],
+                answer: 2,
+                explanation: "The sample Electoral Roll provided in the text includes details like Name, Father's Name, House No., Age, and Sex.",
+                week: "Elections"
+            },
+            {
+                question: "Why are party agents allowed to sit inside polling booths?",
+                options: [
+                    "To help voters cast their vote.",
+                    "To campaign for their candidate on the last day.",
+                    "To ensure that the voting takes place in a fair way.",
+                    "To count the votes as they are cast."
+                ],
+                answer: 2,
+                explanation: "The text mentions, \"An agent of each candidate is allowed to sit inside the polling booth and ensure that the voting takes place in a fair way.\"",
+                week: "Elections"
+            },
+            {
+                question: "The phrase \"one vote one value\" is directly linked to which principle?",
+                options: [
+                    "Universal adult franchise, where everyone has an equal right to vote.",
+                    "The system of reserved constituencies.",
+                    "The Model Code of Conduct.",
+                    "The high cost of elections."
+                ],
+                answer: 0,
+                explanation: "The principle of universal adult franchise means everyone should have one vote and each vote should have equal value.",
+                week: "Elections"
+            },
+            {
+                question: "What does the outcome of Indian elections, where about half of sitting MPs or MLAs lose, suggest?",
+                options: [
+                    "Indian voters are not intelligent.",
+                    "Elections are not competitive.",
+                    "The electoral competition is real and the voters have a genuine choice to reject incumbents.",
+                    "The Election Commission is biased against the ruling party."
+                ],
+                answer: 2,
+                explanation: "This fact is used in the chapter to demonstrate the free and fair nature of Indian elections, where no one is guaranteed to win.",
+                week: "Elections"
+            },
+            {
+                question: "According to the chapter, who is denied the right to vote in rare situations?",
+                options: [
+                    "People who are poor",
+                    "People who are illiterate",
+                    "Some criminals and persons with unsound mind",
+                    "People who do not have a PAN card"
+                ],
+                answer: 2,
+                explanation: "The text states, \"Some criminals and persons with unsound mind can be denied the right to vote, but only in rare situations.\"",
+                week: "Elections"
+            },
+            {
+                question: "The main purpose of the 'security deposit' that a candidate has to give is likely:",
+                options: [
+                    "To fund the Election Commission's expenses.",
+                    "To ensure that only serious candidates contest the election.",
+                    "To be used for development work in the constituency.",
+                    "To be given to the winning candidate."
+                ],
+                answer: 1,
+                explanation: "While not explicitly stated in this excerpt, the purpose of a security deposit in elections is generally to ensure that only candidates with a genuine intention contest, and it is forfeited if they fail to secure a minimum number of votes.",
+                week: "Elections"
+            },
+            {
+                question: "When the Chief Minister of a defeated party says, \"I respect the people's verdict,\" it shows:",
+                options: [
+                    "The weakness of the electoral system.",
+                    "The acceptance of election outcomes, a hallmark of democracy.",
+                    "That the Chief Minister is a good loser.",
+                    "That the elections were not fair."
+                ],
+                answer: 1,
+                explanation: "The chapter lists \"acceptance of election outcome\" as a test for free and fair elections, where the defeated party accepts the verdict as the people's will.",
+                week: "Elections"
+            },
+            {
+                question: "The chapter suggests that deeper issues in elections, like the influence of money and criminal connections, are:",
+                options: [
+                    "Problems unique to India.",
+                    "Easily solved by the Election Commission.",
+                    "A matter of concern for those who believe in democracy, and exist in many established democracies.",
+                    "Not really problems at all."
+                ],
+                answer: 2,
+                explanation: "The text mentions, \"These challenges exist not just in India but also in many established democracies. These deeper issues are a matter of concern for those who believe in democracy.\"",
+                week: "Elections"
+            }
+        ];
+
+        // DOM elements
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const feedbackDiv = document.getElementById('feedback');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const currentQuestionSpan = document.getElementById('current-question');
+        const totalQuestionsSpan = document.getElementById('total-questions');
+        const currentScoreSpan = document.getElementById('current-score');
+        const progressBar = document.getElementById('progress-bar');
+        const resultContainer = document.getElementById('result-container');
+        const finalScoreSpan = document.getElementById('final-score');
+        const totalQuestionsFinalSpan = document.getElementById('total-questions-final');
+        const performanceText = document.getElementById('performance-text');
+        const restartBtn = document.getElementById('restart-btn');
+        const weekIndicator = document.getElementById('week-indicator');
+
+        // Quiz state
+        let currentQuestionIndex = 0;
+        let userAnswers = Array(quizData.length).fill(null);
+        let score = 0;
+
+        // Initialize quiz
+        function initQuiz() {
+            totalQuestionsSpan.textContent = quizData.length;
+            totalQuestionsFinalSpan.textContent = quizData.length; // Also set for result screen
+            updateProgressBar();
+            showQuestion();
+        }
+
+        // Show current question
+        function showQuestion() {
+            const question = quizData[currentQuestionIndex];
+            questionText.innerHTML = question.question; // MODIFIED to use innerHTML for <br> tags
+            weekIndicator.textContent = question.week;
+            
+            optionsContainer.innerHTML = '';
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.textContent = option;
+                optionDiv.addEventListener('click', () => selectOption(index));
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            prevBtn.disabled = currentQuestionIndex === 0;
+            nextBtn.textContent = currentQuestionIndex === quizData.length - 1 ? 'Finish' : 'Next';
+            
+            currentQuestionSpan.textContent = currentQuestionIndex + 1;
+            currentScoreSpan.textContent = score;
+            updateProgressBar();
+            
+            feedbackDiv.style.display = 'none';
+            
+            if (userAnswers[currentQuestionIndex] !== null) {
+                const selectedOptIndex = userAnswers[currentQuestionIndex];
+                const options = optionsContainer.querySelectorAll('.option');
+                if (options[selectedOptIndex]) { 
+                    options[selectedOptIndex].classList.add('selected');
+                }
+                checkAnswer(selectedOptIndex, false); 
+            } else {
+                optionsContainer.querySelectorAll('.option').forEach(opt => {
+                    opt.style.pointerEvents = 'auto';
+                });
+            }
+        }
+
+        function updateProgressBar() {
+            const progress = ((currentQuestionIndex + 1) / quizData.length) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        function selectOption(optionIndex) {
+            if (feedbackDiv.style.display === 'block' && questionText.innerHTML === quizData[currentQuestionIndex].question) { // Check innerHTML if question contains HTML
+                return; 
+            }
+
+            const isFirstAttemptForThisQuestionIndex = userAnswers[currentQuestionIndex] === null;
+            
+            if (isFirstAttemptForThisQuestionIndex) {
+                userAnswers[currentQuestionIndex] = optionIndex;
+            }
+            
+            const options = document.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            if (options[optionIndex]) {
+                options[optionIndex].classList.add('selected');
+            }
+            
+            checkAnswer(optionIndex, isFirstAttemptForThisQuestionIndex);
+        }
+
+        function checkAnswer(selectedIndex, isFirstScoringAttempt) {
+            const question = quizData[currentQuestionIndex];
+            const options = document.querySelectorAll('.option');
+            
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none'; 
+            });
+
+            if (options[question.answer]) {
+                 options[question.answer].classList.add('correct');
+            }
+            if (selectedIndex !== question.answer && options[selectedIndex]) {
+                options[selectedIndex].classList.add('incorrect');
+            }
+            
+            feedbackDiv.innerHTML = ''; 
+            if (selectedIndex === question.answer) {
+                feedbackDiv.className = 'feedback correct-feedback';
+                feedbackDiv.textContent = 'Correct!';
+                if (isFirstScoringAttempt) { 
+                    score++;
+                }
+            } else {
+                feedbackDiv.className = 'feedback incorrect-feedback';
+                const correctAnswerText = question.options[question.answer] || "N/A";
+                feedbackDiv.textContent = `Incorrect. The correct answer is: ${correctAnswerText}`;
+            }
+            currentScoreSpan.textContent = score;
+            
+            if (question.explanation) {
+                const explanation = document.createElement('div');
+                explanation.className = 'explanation';
+                explanation.textContent = question.explanation; // Explanation is kept as textContent
+                feedbackDiv.appendChild(explanation);
+            }
+            
+            feedbackDiv.style.display = 'block';
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < quizData.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+            }
+        }
+
+        function showResult() {
+            document.querySelector('.quiz-container').style.display = 'none';
+            document.querySelector('.progress-text').style.display = 'none';
+            document.querySelector('.progress-container').style.display = 'none';
+            resultContainer.style.display = 'block';
+            finalScoreSpan.textContent = score;
+            
+            const percentage = (score / quizData.length) * 100;
+            let performance = '';
+            if (percentage >= 90) {
+                performance = 'Outstanding! You have an excellent knowledge of elections and democracy.';
+            } else if (percentage >= 75) {
+                performance = 'Excellent! You are very well-informed about electoral politics.';
+            } else if (percentage >= 50) {
+                performance = 'Good effort! You know quite a bit about Indian elections.';
+            } else if (percentage >= 30) {
+                performance = 'Keep learning! Review the chapter to improve.';
+            } else {
+                performance = 'A good start! Study more to enhance your knowledge.';
+            }
+            performanceText.textContent = performance;
+            // --- Firebase Progress Tracking ---
+            (function() {
+                var quizTitle = document.title || 'Unknown Quiz';
+                var category = 'General';
+                var path = window.location.pathname;
+                if (path.indexOf('Sikkim Current Affairs') !== -1 || quizTitle.indexOf('Sikkim') !== -1) category = 'Sikkim Current Affairs';
+                else if (path.indexOf('National International') !== -1 || quizTitle.indexOf('National') !== -1) category = 'National/International CA';
+                else if (path.indexOf('Physics') !== -1 || quizTitle.indexOf('Physics') !== -1) category = 'Physics';
+                else if (path.indexOf('Polity') !== -1) category = 'Polity';
+                else if (path.indexOf('History') !== -1) category = 'History';
+                else if (path.indexOf('Economics') !== -1) category = 'Economics';
+                else if (path.indexOf('Geography') !== -1) category = 'Geography';
+                if (typeof saveQuizResult === 'function' && typeof isLoggedIn === 'function' && isLoggedIn()) {
+                    saveQuizResult(quizTitle, score, quizData.length, category);
+                }
+            })();
+        }
+
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            userAnswers = Array(quizData.length).fill(null);
+            score = 0;
+            document.querySelector('.quiz-container').style.display = 'block';
+            document.querySelector('.progress-text').style.display = 'flex'; 
+            document.querySelector('.progress-container').style.display = 'block'; 
+            resultContainer.style.display = 'none';
+            feedbackDiv.style.display = 'none';
+            currentScoreSpan.textContent = score; 
+            showQuestion();
+        }
+
+        nextBtn.addEventListener('click', nextQuestion);
+        prevBtn.addEventListener('click', prevQuestion);
+        restartBtn.addEventListener('click', restartQuiz);
+
+        initQuiz();
+    </script>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="../../../../auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pollution & Control | Sikkim PSC Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        .quiz-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        html.dark .quiz-container {
+            background: #24272c;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #0284c7;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        html.dark .question-block {
+            border-bottom: 1px solid #334155;
+        }
+        .question-text {
+            font-size: 1.15em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+        html.dark .question-text {
+            color: #f1f5f9;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option {
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            padding: 16px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            color: #475569;
+        }
+        html.dark .option {
+            background-color: #1e293b;
+            border: 2px solid #334155;
+            color: #cbd5e1;
+        }
+        .option:hover {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
+            transform: translateX(4px);
+        }
+        html.dark .option:hover {
+            background-color: #334155;
+            border-color: #475569;
+        }
+        .option.correct {
+            background-color: #dcfce7 !important;
+            border-color: #4ade80 !important;
+            color: #166534 !important;
+        }
+        html.dark .option.correct {
+            background-color: #064e3b !important;
+            border-color: #10b981 !important;
+            color: #ecfdf5 !important;
+        }
+        .option.incorrect {
+            background-color: #fee2e2 !important;
+            border-color: #f87171 !important;
+            color: #991b1b !important;
+        }
+        html.dark .option.incorrect {
+            background-color: #7f1d1d !important;
+            border-color: #ef4444 !important;
+            color: #fef2f2 !important;
+        }
+        .options-list.answered {
+            pointer-events: none;
+        }
+        .quiz-stats-badge {
+            background: #f1f5f9;
+            color: #64748b;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        html.dark .quiz-stats-badge {
+            background: #334155;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 min-h-screen p-4 sm:p-8">
+
+    <div class="quiz-container">
+        <a href="ecology.html" class="back-link">&larr; Back to Ecology Topics</a>
+        <h1 class="text-3xl font-bold text-green-800 dark:text-green-400 mb-2">Pollution & Control</h1>
+        <div class="quiz-stats-badge">70 MCQ Questions</div>
+        
+        <div id="questions-wrapper"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "The atmospheric greenhouse effect is produced mainly by the:",
+                options: ["Absorption and re-emission of visible light by the atmosphere", "Absorption and re-emission of ultraviolet radiation by the atmosphere", "Absorption and re-emission of infrared radiation by the atmosphere", "Absorption and re-emission of visible light by clouds"],
+                answer: 2
+            },
+            {
+                question: "Soil pollution is caused by",
+                options: ["Aerosol", "Ozone", "Acid rain", "PAN"],
+                answer: 2
+            },
+            {
+                question: "Fatal degenerative lung disease caused by particulate asbestos is referred to as",
+                options: ["asbestosis", "asthma", "allergy", "sinusitis"],
+                answer: 0
+            },
+            {
+                question: "Particulate pollutants are",
+                options: ["are small solid particles and liquid droplets", "liquid droplets in atmosphere", "are small solid particles released into the atmosphere", "all of these"],
+                answer: 0
+            },
+            {
+                question: "Air pollution can be of",
+                options: ["natural origin", "artificial or man made origin", "both a and b", "b only"],
+                answer: 2
+            },
+            {
+                question: "Disease aggravated by air pollution is",
+                options: ["cholera", "rheumatism", "bronchitis", "haemophilia"],
+                answer: 2
+            },
+            {
+                question: "The Term Smog was introduced in 1905 by",
+                options: ["Des Voeux", "Hult", "Canon", "Le Chatelier"],
+                answer: 0
+            },
+            {
+                question: "Atmospheric ozone layer which protect us from UV-B and C is getting depleted most by addition of",
+                options: ["chlorofluorocarbon", "carbon monoxide", "carbon dioxide", "sulpur dioxide"],
+                answer: 0
+            },
+            {
+                question: "Acid rain mainly result from",
+                options: ["Sulfur dioxide", "Carbon dioxide", "Carbon monoxide", "Ammonia"],
+                answer: 0
+            },
+            {
+                question: "The effect of ozone depletion include",
+                options: ["UV light reaches the earth", "affect the climate", "cause skin cancer", "all the above"],
+                answer: 3
+            },
+            {
+                question: "The pollutant that causes hole in the ozone layer is",
+                options: ["SF6", "nitrousoxide", "CFCs", "PFCs"],
+                answer: 2
+            },
+            {
+                question: "Ozone depletion is mostly caused by",
+                options: ["CO2", "CCL", "CFCs", "CO"],
+                answer: 2
+            },
+            {
+                question: "Example of primary pollutant",
+                options: ["SO2", "NO2", "CO", "hydrocarbons"],
+                answer: 3
+            },
+            {
+                question: "In a photochemical smog, which gas is an eye and mucous membrane irritant?",
+                options: ["SO2", "O3", "CO2", "N2O"],
+                answer: 3
+            },
+            {
+                question: "A great deal of indoor air pollution comes from",
+                options: ["sludge", "carbon monoxide", "cooking", "carpets and furniture"],
+                answer: 3
+            },
+            {
+                question: "Which one of the following problems is not created by noise pollution?",
+                options: ["Diarrhoea", "Hypertension", "Deafness", "Irritation"],
+                answer: 0
+            },
+            {
+                question: "Air pollution is severe in",
+                options: ["Cities", "Industrialised areas", "Densely populated areas", "all of these"],
+                answer: 3
+            },
+            {
+                question: "Major cause of Ozone depletion is due to which chemical?",
+                options: ["ChloroFluoroCarbons", "Polyphenols", "Dioxins", "Rayon"],
+                answer: 0
+            },
+            {
+                question: "_________ is the first country to have phased out the CFCs and HCFCs which are responsible for the depletion of the ozone layer.",
+                options: ["Denmark", "Germany", "France", "Spain"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is the major cause of pollution?",
+                options: ["plants", "man", "fungi", "hydrocarbon gases"],
+                answer: 3
+            },
+            {
+                question: "Ozone depletion in the stratosphere will cause",
+                options: ["increased incidence of skin cancer", "forest tires", "global warming", "none of these"],
+                answer: 0
+            },
+            {
+                question: "Which functional feeding groups are involved in the process of in-stream physical breakdown of coarse material into fine particulate organic matter?",
+                options: ["Collector filterers", "Shredders", "Grazers", "Collector gatherers"],
+                answer: 1
+            },
+            {
+                question: "\"Ozone Hole\" is a _____________",
+                options: ["Hole in the atmosphere", "Destruction of ozone layer", "Hole in the hydrosphere", "Hole in the troposphere"],
+                answer: 1
+            },
+            {
+                question: "The indoor pollutant radon which is a radioactive gas causes",
+                options: ["lung cancer", "anemia", "hormone disorder", "cardiac arrest"],
+                answer: 0
+            },
+            {
+                question: "Air pollution is likely to be most severe",
+                options: ["in the interior of continents", "near the center of an anticyclone", "in the summer", "when the atmosphere is turbulent"],
+                answer: 1
+            },
+            {
+                question: "Ozone hole was first discovered in",
+                options: ["Africa", "Antarctica", "India", "Europe"],
+                answer: 1
+            },
+            {
+                question: "Water pollution is due to",
+                options: ["agricultural discharges", "sewage and other wastes", "industrial effluents", "all of the above"],
+                answer: 3
+            },
+            {
+                question: "Carbon monoxide is a pollutant because it",
+                options: ["reacts with 02", "reacts with haemoglobin", "inhibits glycolysis", "inactivates nervous system A"],
+                answer: 1
+            },
+            {
+                question: "Low level ozone is referred to as  __________ ozone.",
+                options: ["tropospheric", "stratospheric", "ionosperic", "exospheric"],
+                answer: 0
+            },
+            {
+                question: "The source of aerosol in upper atmosphere is",
+                options: ["sea currents", "petroleum based industries", "jet planes", "ruminants"],
+                answer: 2
+            },
+            {
+                question: "The legally binding international agreement to reduce Greenhouse gases by 5% 2012 is _________",
+                options: ["Vienna convention", "Montreal Protocol", "Kyoto Protocol", "Ozone Protocol"],
+                answer: 2
+            },
+            {
+                question: "Oil spills are a source of pollution for",
+                options: ["water", "land and water", "land and air", "air and noise"],
+                answer: 1
+            },
+            {
+                question: "A smog that occurs due to low temperature and has reducing environment is",
+                options: ["los angeles smog", "photochemical smog", "london smog", "greenland smog"],
+                answer: 2
+            },
+            {
+                question: "Increased surface UV leads to increased  __________ ozone",
+                options: ["tropospheric", "stratospheric", "lonospheric", "exospheric"],
+                answer: 0
+            },
+            {
+                question: "Photochemical smog is called",
+                options: ["Tokyo smog", "London smog", "Los Angeles smog", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "Carbon monoxide is a pollutant because",
+                options: ["it reacts with O2", "it inhibits glycolysis", "makes nervous system inactive", "reacts with haemoglobin"],
+                answer: 3
+            },
+            {
+                question: "The planet with a strong greenhouse effect, whose surface temperature averages 480oC (900oF) is:",
+                options: ["Earth", "Venus", "Mars", "Pluto"],
+                answer: 1
+            },
+            {
+                question: "Ozone layer is present in",
+                options: ["Troposphere", "Stratosphere", "Mesosphere", "Ionosphere"],
+                answer: 1
+            },
+            {
+                question: "Ozone Umbrella is located in which layer of atmosphere",
+                options: ["Troposphere", "Stratosphere", "Mesosphere", "Ionosphere"],
+                answer: 1
+            },
+            {
+                question: "One greenhouse gas contributes 14% to total global warming and another contributes 6%. These are respectively identified as",
+                options: ["N2O and CO2", "CFCs and N2O", "Methane and CO2", "Methane and CFCs"],
+                answer: 1
+            },
+            {
+                question: "CFC releases a chemical which is harmful to ozone is",
+                options: ["chlorine", "fluorine", "N2O", "SO2"],
+                answer: 0
+            },
+            {
+                question: "Of the gases listed below, which is not believed to be responsible for enhancing the earth's greenhouse effect?",
+                options: ["Chlorofluorocarbons (CFCs)", "Molecular oxygen (O2)", "Nitrous oxide (N2O)", "Carbon dioxide (CO2)"],
+                answer: 1
+            },
+            {
+                question: "The thickness of ozone layer is measured in",
+                options: ["Mm", "Du", "Nm", "Hg"],
+                answer: 1
+            },
+            {
+                question: "Man made sources of radiation pollution are:",
+                options: ["mining", "explosion of nuclear weapons", "nuclear fuels and preparation of radioactive isotopes", "all of these"],
+                answer: 3
+            },
+            {
+                question: "Which of the following group of gases cause photochemical smog?",
+                options: ["Ozone, PAN and CO", "HC, NO and PAN", "O2, PAN, and NO2", "O3, PAN and NO2"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is a secondary pollutant",
+                options: ["CO2", "CO", "O3", "SO2"],
+                answer: 2
+            },
+            {
+                question: "The supersonic jets cause pollution by the thinning of",
+                options: ["CO2layer", "SO2layer", "O3layer", "O2layer"],
+                answer: 2
+            },
+            {
+                question: "The pollution which does not persistent harm to life supporting system is",
+                options: ["Noise pollution", "Radiation pollution", "Organochlorine pollution", "All of these"],
+                answer: 0
+            },
+            {
+                question: "Acid rain contains",
+                options: ["Sulphuric acid", "Hydrochloric acid", "Oxalic acid", "Acetic acid"],
+                answer: 0
+            },
+            {
+                question: "The ozone at ground level is primarily from  __________ precursors.",
+                options: ["Fossil fuel", "CFCs", "Oxygen", "Methane"],
+                answer: 0
+            },
+            {
+                question: "What is the man-made greenhouse gas known as?",
+                options: ["Carbon dioxide", "HFC", "Ozone", "Water Vapour"],
+                answer: 1
+            },
+            {
+                question: "The gas responsible for the greenhouse effect on Venus is:",
+                options: ["Carbon dioxide (CO2)", "Oxygen (O2)", "Ozone (O3)", "Nitrogen (N2)"],
+                answer: 0
+            },
+            {
+                question: "Which of the following gases are mainly responsible for the atmospheric greenhouse effect in the earth's atmosphere?",
+                options: ["Oxygen and nitrogen", "Nitrogen and carbon dioxide", "Ozone and oxygen", "Water vapor and carbon dioxide"],
+                answer: 3
+            },
+            {
+                question: "The historical monument that is affected by acid rain is",
+                options: ["Taj Mahal", "Pyramid of Egypt", "Pisa Tower", "Golden Temple"],
+                answer: 0
+            },
+            {
+                question: "Example for a physical pollutant",
+                options: ["Water", "Air", "Radiation", "Plant"],
+                answer: 2
+            },
+            {
+                question: "World Ozone day is",
+                options: ["March 16", "June 5", "September 16", "November 16"],
+                answer: 2
+            },
+            {
+                question: "\"Smog\" is a mixture of",
+                options: ["Smoke and Fog", "Snow and Fog", "Snow and Dust", "Sulphur Dioxide and Fog"],
+                answer: 0
+            },
+            {
+                question: "The major pollutant from automobile exhaust is",
+                options: ["NO", "CO", "SO2", "Soot"],
+                answer: 1
+            },
+            {
+                question: "All are particulate pollutants except",
+                options: ["Dust", "Ozone", "Soot", "Smoke"],
+                answer: 1
+            },
+            {
+                question: "Which one of the following is not a primary pollutant?",
+                options: ["Particulate matter", "Carbon monoxide", "Sulpuric acid", "Nitrogen oxides"],
+                answer: 2
+            },
+            {
+                question: "Without the atmospheric greenhouse effect, the average surface temperature would be:",
+                options: ["Higher than at present", "Lower than at present", "The same as it is now", "Much more variable than it is now"],
+                answer: 1
+            },
+            {
+                question: "Harnessing of nuclear energy often causes ________  pollution",
+                options: ["Air", "Water", "Thermal", "Noise"],
+                answer: 2
+            },
+            {
+                question: "Minamata disease was caused by pollution of water by",
+                options: ["Mercury", "Lead", "Tin", "Methyl iso cyanate"],
+                answer: 0
+            },
+            {
+                question: "DDT is a ______________ pollutant",
+                options: ["Biodegradable", "Non biodegradable", "Un-biodegradable", "Naturally degradable"],
+                answer: 1
+            },
+            {
+                question: "Carbon dioxide is called greenhouse gas because it is",
+                options: ["Transparent to sunlight but traps heat", "Transparent to heat but traps sunlight", "Used in green-house to increase plant growth", "Transparent to both sunlight and heat"],
+                answer: 0
+            },
+            {
+                question: "Which of the following type of pollution can cause the outbreak of jaundice",
+                options: ["Air", "Thermal", "Water", "Land"],
+                answer: 2
+            },
+            {
+                question: "The most abundant greenhouse gas in the earth's atmosphere:",
+                options: ["Carbon dioxide (CO2)", "Nitrous oxide (N2O)", "Water vapour (H2O)", "Methane (CH4)"],
+                answer: 2
+            },
+            {
+                question: "Hippocrates mentioned air pollution in  __________ BC.",
+                options: ["400", "500", "620", "354"],
+                answer: 0
+            },
+            {
+                question: "One atom of chlorine can destroy over  __________ molecules of ozone.",
+                options: ["100000", "10000", "25000", "1000"],
+                answer: 0
+            },
+            {
+                question: "The horizontal extent of the ozone hole can sometimes exceed the size of the Antarctic continent.",
+                options: ["True", "False", "", ""],
+                answer: 0
+            }
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.innerHTML = `<span class="text-green-600 dark:text-green-500 mr-2">Q${index + 1}.</span> ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                if (!option || option.trim() === '') return;
+                
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) return;
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            wrapper.appendChild(questionBlock);
+        });
+
+        // Theme sync
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>

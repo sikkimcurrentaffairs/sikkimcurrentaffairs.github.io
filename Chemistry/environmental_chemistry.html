@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Environmental Chemistry | Sikkim PSC Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        .quiz-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        html.dark .quiz-container {
+            background: #24272c;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #0284c7;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        html.dark .question-block {
+            border-bottom: 1px solid #334155;
+        }
+        .question-text {
+            font-size: 1.15em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+        html.dark .question-text {
+            color: #f1f5f9;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option {
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            padding: 16px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            color: #475569;
+        }
+        html.dark .option {
+            background-color: #1e293b;
+            border: 2px solid #334155;
+            color: #cbd5e1;
+        }
+        .option:hover {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
+            transform: translateX(4px);
+        }
+        html.dark .option:hover {
+            background-color: #334155;
+            border-color: #475569;
+        }
+        .option.correct {
+            background-color: #dcfce7 !important;
+            border-color: #4ade80 !important;
+            color: #166534 !important;
+        }
+        html.dark .option.correct {
+            background-color: #064e3b !important;
+            border-color: #10b981 !important;
+            color: #ecfdf5 !important;
+        }
+        .option.incorrect {
+            background-color: #fee2e2 !important;
+            border-color: #f87171 !important;
+            color: #991b1b !important;
+        }
+        html.dark .option.incorrect {
+            background-color: #7f1d1d !important;
+            border-color: #ef4444 !important;
+            color: #fef2f2 !important;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none;
+        }
+        .quiz-stats-badge {
+            background: #f1f5f9;
+            color: #64748b;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        html.dark .quiz-stats-badge {
+            background: #334155;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 min-h-screen p-4 sm:p-8">
+
+    <div class="quiz-container">
+        <a href="chemistry.html" class="back-link">&larr; Back to Chemistry Topics</a>
+        <h1 class="text-3xl font-bold text-sky-800 dark:text-sky-400 mb-2">Environmental Chemistry</h1>
+        <div class="quiz-stats-badge">63 MCQ Questions</div>
+        
+        <div id="questions-wrapper"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Which of the following phenomenon is considered responsible for Global Warming?",
+                options: ["Greenhouse effect", "Fire in coal mines", "Dry farming", "Monsoon"],
+                answer: 0
+            },
+            {
+                question: "Ozone layer of atmosphere absorbs:",
+                options: ["Ultraviolet rays", "Infra-red rays", "All radiations of Light", "Cosmic rays."],
+                answer: 0
+            },
+            {
+                question: "Man dies in the atmosphere of CO, because it",
+                options: ["Dries up the blood", "Combines with O2present in the body", "Reduces the organic matter of tissues", "Combines with the haemoglobin of blood, thereby making the later incapable of absorbing O2"],
+                answer: 3
+            },
+            {
+                question: "It is dangerous to leave the car engine running in a closed garage, because it may cause serious pollution due to poisoning by emission of",
+                options: ["CO2", "CO", "Unburnt petrol", "SO2"],
+                answer: 1
+            },
+            {
+                question: "Acid rain is caused due to pollution of atmosphere by",
+                options: ["Oxides of carbon and nitrogen", "Oxides of nitrogen and sulphur", "Oxides of nitrogen and phosphorous", "None of these"],
+                answer: 1
+            },
+            {
+                question: "What are the components responsible for acid rain?",
+                options: ["Nitrogen monoxide (NO) and Carbon monoxide (CO)", "Sulphur dioxide (SO2) and Nitrogen oxides (NOx)", "Carbon dioxide (CO2) and Carbon monoxide (CO)", "Oxides of carbon (COx) and Oxides of nitrogen (NOx)"],
+                answer: 1
+            },
+            {
+                question: "Higher concentration of nitrogen dioxide in atmosphere air causes",
+                options: ["Cancer", "Bronchitis", "Asphyxiation", "Corrosion"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is a man-made source of air pollution ?",
+                options: ["Automobile exhaust", "Forest fire", "Bacterial action in soil and swamp areas", "All of the above"],
+                answer: 0
+            },
+            {
+                question: "Oxide of sulphur present in the atmosphere are washed down by rains to cause :",
+                options: ["Depletion of fossil fuel reserves", "Eutrophication in lakes", "Lowering of pH of soil", "Industrial smog formation"],
+                answer: 2
+            },
+            {
+                question: "Supersonic jet causes pollution by thinning of",
+                options: ["O3layer", "O4layer", "SO2layer", "CO2layer"],
+                answer: 0
+            },
+            {
+                question: "The pollutant responsible for ozone holes is ________",
+                options: ["CO2", "SO2", "CO", "CFC"],
+                answer: 3
+            },
+            {
+                question: "A powerful eye irritant present in smog is",
+                options: ["Nitric oxide", "Sulphur dioxide", "Peroxyacetyl nitrate", "Carbon dioxide"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is not a natural source of air pollution ?",
+                options: ["Volcanic eruptions and lightening discharge", "Biological decay of vegetable matter", "Photochemical oxidation of organic number", "None of the above"],
+                answer: 3
+            },
+            {
+                question: "CNG used in automobiles to check pollution, mainly consists of",
+                options: ["CH4", "CO2", "N2", "H2"],
+                answer: 0
+            },
+            {
+                question: "Smog is",
+                options: ["Nothing but black smoke", "A combination of smoke and fog", "A liquid particle resulting from vapour condensation", "A solid particle, e.g., fllyash"],
+                answer: 1
+            },
+            {
+                question: "The acid rain destroys vegetations because it contains",
+                options: ["Nitric acid", "Ozone", "Carbon monoxide", "Sulphuric acid"],
+                answer: 3
+            },
+            {
+                question: "The smog is essentially caused by the presence of",
+                options: ["O3and N2", "O2and N2", "Oxides of N and S", "O2and O3"],
+                answer: 2
+            },
+            {
+                question: "The depletion in Ozone layer is caused by ________ .",
+                options: ["Nitrous oxide", "Carbon dioxide", "Chlorofluorocarbons", "Methane"],
+                answer: 2
+            },
+            {
+                question: "The most abundant element in the earth\u2019s atmosphere is",
+                options: ["Argon", "Nitrogen", "Oxygen", "Krypton"],
+                answer: 1
+            },
+            {
+                question: "Hydrogen is not found in atmosphere because",
+                options: ["It is highly inflammable", "It is the lightest gas", "It is absorbed by plants", "It immediately combines with oxygen to form water"],
+                answer: 1
+            },
+            {
+                question: "What is the maximum Water Vapour content in the atmosphere?",
+                options: ["2 to 3 per cent", "3 to 4 per cent", "4 to 5 per cent", "5 to 6 per cent"],
+                answer: 1
+            },
+            {
+                question: "Formation of ozone hole is maximum over",
+                options: ["Africa", "India", "Antarctica", "Europe"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following is not a cause for present global warming and climate change ?",
+                options: ["CFC emission", "Carbon dioxide emission", "Deforestation", "Methane emission"],
+                answer: 2
+            },
+            {
+                question: "Which of the following chemical materials is responsible for the depletion of ozone layer in the atmosphere ?",
+                options: ["Nitrous oxide", "Carbon dioxide", "Chlorofluorocarbon", "Sulphur dioxide"],
+                answer: 2
+            },
+            {
+                question: "Greenhouse effect is caused by",
+                options: ["Nitrogen", "Carbon dioxide", "Carbon monoxide", "Nitrogen dioxide"],
+                answer: 1
+            },
+            {
+                question: "The lowest layer of earth's atmosphere is",
+                options: ["Troposphere", "Stratosphere", "Mesosphere", "Ionosphere"],
+                answer: 0
+            },
+            {
+                question: "Depletion of ozone layer causes",
+                options: ["Blood cancer", "Lung cancer", "Skin cancer", "Breast cancer"],
+                answer: 2
+            },
+            {
+                question: "The greenhouse effect is caused by the higher level of which gas in the atmosphere ?",
+                options: ["Carbon monoxide", "Carbon dioxide", "Nitrous oxide", "Sulphur dioxide"],
+                answer: 1
+            },
+            {
+                question: "Global warming may result in",
+                options: ["Flood", "Cyclone", "Decrease in forest productivity", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "Acid rain is caused by the pollution of environment by",
+                options: ["Carbon monoxide and Carbon dioxide", "Ozone and Carbon dioxide", "Nitrous oxide and Sulphur dioxide", "Carbon dioxide and Nitrogen"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following statement is correct ?Ozone is found in the earth's atmosphere mostly between",
+                options: ["5 and 10 km", "10 and 20 km", "20 and 50 km", "50 and 100 km"],
+                answer: 2
+            },
+            {
+                question: "The source of energy that causes the least global warming is",
+                options: ["Coal", "Geothermal energy", "Natural Gas", "Petroleum"],
+                answer: 1
+            },
+            {
+                question: "Which of the following fuels causes minimum environmental pollution?",
+                options: ["Diesel", "Kerosene", "Hydrogen", "Coal"],
+                answer: 2
+            },
+            {
+                question: "The water pollution in river is measured by the dissolved amount of",
+                options: ["Chlorine", "Ozone", "Nitrogen", "Oxygen"],
+                answer: 3
+            },
+            {
+                question: "Many people died in London in 1952 as result of air pollution producing",
+                options: ["Mist", "Fog", "Smog", "Sleet"],
+                answer: 2
+            },
+            {
+                question: "Chernobyl disaster is the result of pollution by",
+                options: ["Oil spill", "Acid rain", "Carbon dioxide", "Radioactive waste"],
+                answer: 3
+            },
+            {
+                question: "Acid rain is caused by",
+                options: ["SO2and particulates", "NO2and particulates", "CO2and CFCs", "SO2and NO2"],
+                answer: 3
+            },
+            {
+                question: "Which of the following caused radioactive pollution along the coast of Kerala ?",
+                options: ["Plutonium", "Zinc", "Thorium", "Radium"],
+                answer: 2
+            },
+            {
+                question: "The most common cause of pollution of air is",
+                options: ["Carbon dioxide", "Carbon monoxide", "Sulphur dioxide", "Smoke"],
+                answer: 2
+            },
+            {
+                question: "'Acid rain' is caused due to air pollution by",
+                options: ["Carbon dioxide", "Carbon monoxide", "Methane", "Nitrous oxide and sulphur dioxide"],
+                answer: 3
+            },
+            {
+                question: "Main source of lead pollution is from",
+                options: ["Sewage", "Leaded gasoline", "Tobacco", "Insecticides"],
+                answer: 1
+            },
+            {
+                question: "Sulphur dioxide level in the atmosphere can be reduced by using",
+                options: ["More efficient car engines", "Catalytic converters in industry", "Static electricity to attract it in factory chimneys", "Low - sulphur fuels"],
+                answer: 3
+            },
+            {
+                question: "Global warming is mainly due to accumulation of",
+                options: ["Oxides of nitrogen", "Oxides of sulphur", "Carbon dioxide", "Carbon monoxide"],
+                answer: 2
+            },
+            {
+                question: "The 'solid waste' is also known as",
+                options: ["Sedge", "Toxic waste", "Sludge", "Scrubber"],
+                answer: 2
+            },
+            {
+                question: "London smog is found in",
+                options: ["Summer during day time", "Summer during morning time", "Winter during morning time", "Winter during day time"],
+                answer: 2
+            },
+            {
+                question: "Photo chemical smog is a resultant of the reaction among",
+                options: ["High concentration of NO2, O3, and CO in the evening", "CO, CO2and NO2at low temperature", "CO, O2and peroxy acetyl nitrate in the presence of Sunlight", "NO2, O3and peroxy acetyl nitrate in the presence of Sunlight"],
+                answer: 3
+            },
+            {
+                question: "Which of the following chemicals is responsible for depletion of ozone layer in the atmosphere?",
+                options: ["Chlorofluorocarbons", "Nitrous oxide", "Sulphur dioxide", "Carbon dioxide"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is a method/process of disposing of solid waste which cannot be reused or recycled ?",
+                options: ["Landfills", "Incineration", "Pyrolysis and Gasification", "All the above"],
+                answer: 3
+            },
+            {
+                question: "The least preferred technique in the disposal of Municipal Solid Waste is",
+                options: ["Incineration", "Composting", "Land filling", "Bricketting"],
+                answer: 3
+            },
+            {
+                question: "The depletion of ozone layer is due to",
+                options: ["Chlorofluorocarbons", "Carbon dioxide", "Sulphur dioxide", "Ethane"],
+                answer: 0
+            },
+            {
+                question: "Ozone depletion in the atmosphere is mainly caused by",
+                options: ["Sulphur dioxide", "Nitrogen dioxide", "Hydrogen sulphide", "Chlorofluorocarbon"],
+                answer: 3
+            },
+            {
+                question: "Ozone depletion in the stratosphere is mainly caused by",
+                options: ["SO2", "NO2", "NO", "Chlorofluorocarbons"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is ozone depleting pesticide ?",
+                options: ["D.D.T.", "Benzene", "Methyl bromide", "Ethylene ozonide"],
+                answer: 2
+            },
+            {
+                question: "Coating of solid waste with impervious material is known as",
+                options: ["Encapsulation", "Chemical fixation", "Landfill", "Capping"],
+                answer: 0
+            },
+            {
+                question: "Which one is not a primary greenhouse gases in the Earth's atmosphere?",
+                options: ["Carbon dioxide", "Methane", "Nitrogen", "Ozone"],
+                answer: 2
+            },
+            {
+                question: "Ozone layer in the upper parts of the atmosphere serves as a protective shield against harmful",
+                options: ["Solar ultraviolet radiation", "Solar infrared radiation", "CO2in the air", "SO2in the air"],
+                answer: 0
+            },
+            {
+                question: "Acid rain is caused due to emission of which of the following into the atmosphere ?",
+                options: ["Oxides of nitrogen and sulphur", "Carbon dioxide and carbon monoxide", "Ozone and carbon dioxide", "Carbon monoxide and nitrogen"],
+                answer: 0
+            },
+            {
+                question: "The depletion of Ozone layer is mainly due to",
+                options: ["Volcanic eruptions", "Aviation fuels", "Radioactive rays", "Chlorofluorocarbons"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is the main nitrogenous waste in humans ?",
+                options: ["Ammonia", "Urea", "Uric Acid", "Ammonium Nitrate"],
+                answer: 2
+            },
+            {
+                question: "In upper layer of atmosphere ozone is formed by",
+                options: ["The action of ultraviolet rays on oxygen", "The combination of oxygen molecules", "Subjecting oxygen to high pressure", "The action of nitrogen on oxygen in atmosphere"],
+                answer: 0
+            },
+            {
+                question: "Ozone consists of",
+                options: ["Oxygen only", "Oxygen and Nitrogen", "Hydrogen and Carbon", "Oxygen and Carbon"],
+                answer: 0
+            },
+            {
+                question: "Ozone layer is present in",
+                options: ["Troposphere", "Ionosphere", "Stratosphere", "Exosphere"],
+                answer: 2
+            },
+            {
+                question: "The presence of ozone in the stratosphere is responsible for",
+                options: ["Increasing the average global temperature in recent years", "Higher rate of photosynthesis", "Checking the penetration of ultraviolet rays to the earth", "Supplying oxygen for people travelling in jets"],
+                answer: 2
+            }
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.innerHTML = `<span class="text-sky-600 dark:text-sky-500 mr-2">Q${index + 1}.</span> ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                if (!option || option.trim() === '') return;
+                
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) return;
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            wrapper.appendChild(questionBlock);
+        });
+
+        // Theme sync
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>

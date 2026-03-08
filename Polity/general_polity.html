@@ -1,0 +1,2096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>General Polity | Sikkim PSC Hub</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+            border-color: #bbb;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .options-list.answered .option:not(.correct):not(.incorrect) {
+            opacity: 0.7;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none;
+        }
+        .quiz-stats {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <a href="indian_polity.html" class="back-link">&larr; Back to Indian Polity</a>
+        <h1>General Polity</h1>
+        <p class="quiz-stats">389 Questions</p>
+        <div id="questions-wrapper"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "The correct chronological order of the formation of Haryana, Sikkim, Arunanchal Pradesh and Nagaland as full states of Indian Union is :",
+                options: ["Haryana-Sikkim-Arunachal Pardesh-Nagaland", "Nagaland-Arunachal  Pradesh- Haryana-Sikkim", "Nagaland-Haryana-Arunachal Pradesh-Sikkim", "Nagaland-Haryana-Sikkim-Arunachal  Pradesh"],
+                answer: 3
+            },
+            {
+                question: "The first Backward Class commission was appointed in 1953 under the chairmanship of :",
+                options: ["Deepak Katole", "S.K.Kharventhan", "Kaka  Kalelkar", "Shakeel-uz-Zaman Ansari"],
+                answer: 2
+            },
+            {
+                question: "The Comptroller and Auditor General of India can be removed from office in like manner and on like grounds as :",
+                options: ["High Court  Judge", "Prime Minister", "Supreme Court  Judge", "None of Above"],
+                answer: 2
+            },
+            {
+                question: "A procedure whereby a proposed legislation is referred to the electorates for settlement by their direct votes is called :",
+                options: ["Referendum", "Repatriation", "Representative democracy", "Republic"],
+                answer: 0
+            },
+            {
+                question: "Sikkim was made the full fledged state of Union of India by :",
+                options: ["The 35th constitutional Amendment Act (1975).", "The 37th constitutional Amendment Act (1975).", "The 38th constitutional Amendment Act (1975).", "The 36th constitutional Amendment Act (1975)."],
+                answer: 3
+            },
+            {
+                question: "Fazl Ali Commission appointed in December 1953 to consider the question of state reorganization accepted :",
+                options: ["Prohibition of discrimination on grounds of religion, race, caste, sex or place of birth", "Equality of opportunity in matters of public employment", "Language as the basis of reorganization of states", "None of Above"],
+                answer: 2
+            },
+            {
+                question: "The states of Manipur, Tripura and Meghalaya were formed in :",
+                options: ["The year 1972.", "The year 1975.", "The year 1976", "The year 1977."],
+                answer: 0
+            },
+            {
+                question: "When was the second Backward Class Commission under the Chairmanship of B.P. Mandal appointed ?",
+                options: ["The year 1953", "The year 1967", "The year 1979", "The year 1990"],
+                answer: 2
+            },
+            {
+                question: "When was reservation of 27% government jobs for other Backward Classes declared for the first time in Independent India?",
+                options: ["In the year 1990", "In the year 1988", "In the year 1985", "In the year 1982"],
+                answer: 0
+            },
+            {
+                question: "The highest law officer in the state is :",
+                options: ["Attorney General", "Advocate General", "Additional General", "None of Above."],
+                answer: 1
+            },
+            {
+                question: "Right to Life and Liberty is ensured under:",
+                options: ["Article 12 of the constitution of India.", "Article 17of the constitution of India.", "Article 15 of the constitution of India.", "Article 21 of the constitution of India."],
+                answer: 3
+            },
+            {
+                question: "The state Reorganization commission was appointed in 1953 under the chairmanship of :",
+                options: ["Fazl Ali", "Kelkar", "Mondal", "Zakir Husain"],
+                answer: 0
+            },
+            {
+                question: "India is a republic, that means:",
+                options: ["The head of state in India is indirectly elected for life time.", "The head of state in India is directly elected for a fixed period.", "The head of state in India is indirectly elected for a fixed period.", "The head of state in India is directly elected for life time."],
+                answer: 2
+            },
+            {
+                question: "The right to property was deleted from the list of fundamental rights by",
+                options: ["42nd constitutional Act", "43rd constitutional Act", "44th constitutional Act", "47th constitutional Act"],
+                answer: 2
+            },
+            {
+                question: "The Linguistic Provinces commission appointed under the chairmanship of S.K. Dhar in 1948 recommended the reorganization of states on the basis of",
+                options: ["Demographic convenience rather than linguistic factor.", "Religious convenience rather than linguistic factor.", "Administrative convenience rather than linguistic factor.", "None of these"],
+                answer: 2
+            },
+            {
+                question: "The state which is neutral in matter of religion and dies not uphold any particular region as the state religion is called",
+                options: ["Independent state", "Democratic state", "Secular state", "None of these"],
+                answer: 2
+            },
+            {
+                question: "The Union Executive consists of",
+                options: ["The President, and  the Council of Ministers", "The Prime Minister", "Attorney General of India", "All of above"],
+                answer: 3
+            },
+            {
+                question: "The provisions of financial emergency have been laid down in:",
+                options: ["Article 351", "Article 360", "Article 377", "Article 370"],
+                answer: 1
+            },
+            {
+                question: "The write which literally means \u2018by what authority or warrant\u2019 and is issued by the court to enquire the legality of a claim of a person to public office is called",
+                options: ["Ad hoc", "Quo Warranto", "Statute", "Sub judice"],
+                answer: 1
+            },
+            {
+                question: "The concept of martial law has been borrowed in India from",
+                options: ["Government of India Act, 1935", "US Constitution", "Canadian Constitution", "The English Common Law"],
+                answer: 3
+            },
+            {
+                question: "Prohibitation of traffic in human being and forced labour is laid down in:",
+                options: ["Article 23", "Article 33", "Article 63", "Article 83"],
+                answer: 0
+            },
+            {
+                question: "The Directive Principles of State Policy are enshrined in",
+                options: ["Part V of the Constitution", "Part VI of the Constitution", "Part III of the Constitution", "Part IV of the Constitution"],
+                answer: 3
+            },
+            {
+                question: "By which act a nation wince network to provide free and competent legal  aid to the poor and to organize lok adalats for promoting equal justice has been established",
+                options: ["The Legal Services Authorities Act (1987)", "The Protection of Civil Rights Act, 1955", "Prevention of Atrocities Act, 1989", "None of these"],
+                answer: 0
+            },
+            {
+                question: "The Protection of Civil Rights Act 1955 and Schedules Castes and Scheduled Tribes (Prevention of Atrocities) Act, 1989 have been enacted to protect",
+                options: ["Scheduled Tribes from Social Injustice and Exploitation", "Scheduled Castes from Social Injustice and Exploitation", "Both (A) and (B)", "None of these"],
+                answer: 2
+            },
+            {
+                question: "The law which aims at protecting the monuments, places and objects of national importance is",
+                options: ["Save and protect monuments act", "Protection Remains Act", "The Ancient and Historical Monument and Archaeological Sites and Remains Act", "None of these"],
+                answer: 2
+            },
+            {
+                question: "In  1987, three new States of Mizoram, Arunachal Pradesh and Goa came into being as",
+                options: ["The  24rd ,  25th,  and 26th  states of the Indian Union", "The !7th, 18th and 19th  states of the Indian Union", "The  23rd ,  24th,  and 25th  states of the Indian Union", "The  25rd ,  26th,  and 27th  states of the Indian Union"],
+                answer: 2
+            },
+            {
+                question: "The committee which was appointed to identify the creamy layer among the OBCs was :",
+                options: ["M K Lodha Commitee", "Sardar Swaran Singh Committee", "Ram Nandan Committee", "None of these"],
+                answer: 2
+            },
+            {
+                question: "Articles 17 abolishes:",
+                options: ["untouchability", "discrimination", "equality", "titles"],
+                answer: 0
+            },
+            {
+                question: "The suppression of Immoral Traffic in women and Girls Act was passed in :",
+                options: ["The year 1950", "The year 1958", "The year 1956", "The year 1962"],
+                answer: 2
+            },
+            {
+                question: "Dr. B. R. Ambedkar described Directive Principles of state Policy as :",
+                options: ["heart of the constitution", "novel  features of the constitution", "conscience of the constitution", "backbone of the constitution"],
+                answer: 1
+            },
+            {
+                question: "The Unlawful  Activities  (Prevention) Act was passed in :",
+                options: ["The year 1968", "The year 1970", "The year 1969", "The year 1967"],
+                answer: 3
+            },
+            {
+                question: "Cultural and Educational Rights are enshrines in:",
+                options: ["Article 15", "Article 29-30", "Article 18", "Article 14"],
+                answer: 1
+            },
+            {
+                question: "The right to equal opportunity for all citizens in matter of public employment has been enshrined in :",
+                options: ["Article 16", "Article 17", "Article 18", "Article 19"],
+                answer: 0
+            },
+            {
+                question: "The provision of suspension of Fundamental Rights  is borrowed from :",
+                options: ["Weimer Constitution of Germany.", "Australian constitution", "American constitution", "Canadian constitution"],
+                answer: 0
+            },
+            {
+                question: "The Indian National Congress adopted a resolution to establish a socialistic pattern of society in :",
+                options: ["Avadi session in 1955.", "Bombay Session of 1953", "Calcutta session of 1957", "Nagpur session of 1959"],
+                answer: 0
+            },
+            {
+                question: "In order to put a check on terrorist activities in India, Terrorist and Disruptive Activities (Prevention) Act (TADA) was passed in :",
+                options: ["1985", "1989", "1995", "1998"],
+                answer: 0
+            },
+            {
+                question: "The provision to separate the judiciary from the executive  in the public services of the state has been given in :",
+                options: ["Fundamental Rights", "Fundamental Duties", "Directive Principles of State Policy", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "The highest law officer in India is:",
+                options: ["Advocate General", "Additional General", "Attorney General", "None of these"],
+                answer: 2
+            },
+            {
+                question: "The number of High Courts in India is :",
+                options: ["21", "22", "25", "24"],
+                answer: 2
+            },
+            {
+                question: "Right of minorities to establish and administer educational institutions is enshrined in :",
+                options: ["Article 22", "Article 20", "Article 29", "Article 30"],
+                answer: 3
+            },
+            {
+                question: "The Archaeological Survey of India is an attached office of the Department/Ministry of :",
+                options: ["Culture", "Tourism", "Science and Technology", "Human Resource Development"],
+                answer: 0
+            },
+            {
+                question: "The District Judges are appointed by :",
+                options: ["The President of India", "The Governor in Consultation with the High Courts", "The Chief Justice of respective high courts", "The Chief Justice of India"],
+                answer: 1
+            },
+            {
+                question: "Who wrote in 'Hind Swaraj- Our leaders are divided into two parties: the moderates and the extremists. These may be considered as the slow party and the impatient party. Some call the Moderates the timid party and the extremists the bold party.'",
+                options: ["J. Joshi", "Mahatma Gandhi.", "Barendra Ghosh", "Pandit Jawahar Lal Neharu"],
+                answer: 1
+            },
+            {
+                question: "Participatory Notes are associated with:",
+                options: ["Consolidated Fund of India", "Foreign Institutional Investors", "United Nations Development Programme", "Kyoto Protocol"],
+                answer: 1
+            },
+            {
+                question: "The power to decide an election petition is vested in the",
+                options: ["Parliament", "Supreme Court", "High courts", "Election Commission"],
+                answer: 2
+            },
+            {
+                question: "The minimum age of the voter in India is",
+                options: ["15 years", "18 years", "21 years", "25 years"],
+                answer: 1
+            },
+            {
+                question: "The members of a State Commission can be removed by the",
+                options: ["governor on a report by the Supreme Court", "governor on a resolution passed by Parliament", "president on a report by the Supreme Court", "president on a resolution passed by Parliament"],
+                answer: 2
+            },
+            {
+                question: "The pre-requisite for the enforcement of directive principles of the state policy is",
+                options: ["an effective, hones government", "socialist government", "active opposition", "adequate resources"],
+                answer: 3
+            },
+            {
+                question: "The powers to legislate with respect to any matter not enumerated in any of the three lists are mentioned as residuary powers. Which of the following is empowered to determine finally as to whether or not a particular matter falls in this category?",
+                options: ["Lok Sabha", "Judiciary", "Rajya Sabha", "Parliament"],
+                answer: 1
+            },
+            {
+                question: "The members of the parliamentary committee",
+                options: ["are appointed by the president in consultation with the prime minister", "are appointed by the president on the recommendation of the speaker", "are taken from various groups and parties in Parliament in proportion to their respective strength", "both (b) and (c)"],
+                answer: 2
+            },
+            {
+                question: "The phrase 'bicameral legislature' means",
+                options: ["a single assembly", "an elected legislature", "a legislature consisting of a lower and an upper chamber", "parliamentary system of government"],
+                answer: 2
+            },
+            {
+                question: "The nature of the anti-imperialist struggle was",
+                options: ["always peaceful and constitutional", "initially constitutional and by large non-violent", "based on continuous armed resistance", "largely supported by foreign powers"],
+                answer: 1
+            },
+            {
+                question: "The phrase 'procedure established by the law' means",
+                options: ["the judges in India cannot question the fairness or validity of a law, provided it is within the limits of the constitution", "judges in India can question the fairness or validity of an undue law even if it is within the limits of the constitution", "judges in India can declare a law invalid simply because in their opinion the law is not due or is unjust", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "The national anthem was written by",
+                options: ["Bankim Chandra Chatterjee", "Rabindranath Tagore", "Sarat Chandra Chatterjee", "Aurobindo Ghosh"],
+                answer: 1
+            },
+            {
+                question: "The member of a State Public Service Commission can be removed on the ground of misbehavior only after an enquiry has been conducted by the",
+                options: ["Supreme Court of India", "High Court of the state", "committee appointed by the president", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "The Muslim League as a political party was founded in",
+                options: ["1906", "1909", "1915", "1919"],
+                answer: 0
+            },
+            {
+                question: "Mainstream Nationalism in India",
+                options: ["was characterized by Chauvinism", "aimed at restoration of the Hindu state", "had national socialism as its ultimate goal", "aimed at emancipation from colonial rule"],
+                answer: 3
+            },
+            {
+                question: "The objective of the Morley-Minto Reforms was",
+                options: ["extension of provincial assemblies", "to give more powers to local government", "to abolish the post of secretary of the state for India", "to establish diarchy in provinces"],
+                answer: 0
+            },
+            {
+                question: "The members of the state legislative assemblies are elected for a period of",
+                options: ["2 years", "6 years", "5 years", "3 years"],
+                answer: 2
+            },
+            {
+                question: "The new committee system constitutes an improvement over the earlier committee system in so far as",
+                options: ["it assures representation to all the political parties in proportion to their strength in the Parlia", "it enables the Parliament to examine the grants of all the ministries and departments in detail", "it enables the Parliament to accept the demands of various ministries without scrutiny", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "The members of the State Public Service Commission are appointed by the",
+                options: ["chief minister", "chief justice", "governor", "vice-president"],
+                answer: 2
+            },
+            {
+                question: "The Number of Spokes in the CHAKRA in Indian National flag is:",
+                options: ["20", "33", "24", "40"],
+                answer: 2
+            },
+            {
+                question: "In which year was the Capital of India moved from Calcutta to Delhi?",
+                options: ["1910", "1911", "1912", "1913"],
+                answer: 1
+            },
+            {
+                question: "The Chief Election Commissioner of India holds office for a period of-",
+                options: ["six years", "during the pleasure of the President", "for five years or till the age of 60 years, whichever is earlier", "for six years or till the age of 65 years, whichever is earlier"],
+                answer: 3
+            },
+            {
+                question: "In ______ government each adult citizen must have one vote and each vote must have one value-",
+                options: ["Democratic", "Autocratic", "Monarchic", "Authoritarian"],
+                answer: 0
+            },
+            {
+                question: "Who was the leader of Russia at the time of signing of The Indo-Soviet Treaty of Peace, Friendship and Cooperation-",
+                options: ["Nikita Khrushchev", "Leonid Brezhnev", "Yuri Andropov", "Mikhail gorbachev"],
+                answer: 1
+            },
+            {
+                question: "Bureaucarcy performs-",
+                options: ["Only Administrative Acts", "Only Judicial Acts", "Only Legislative Acts", "Administrative, Quasi-Judicial and Quasi-Legislative\nActs"],
+                answer: 3
+            },
+            {
+                question: "Who has propounded term \"Rainbow Coalition\" originated from politics and policies-",
+                options: ["Pranav Mukharji", "Barack Obama", "Mitt Romney", "A.B.Vajpayee"],
+                answer: 1
+            },
+            {
+                question: "Who said that \"I don't accept a politics without religion\"-",
+                options: ["Jawahar Lal Nehru", "Mahatma Gandhi", "Vinoba Bhave", "Jaiprakash Narayan"],
+                answer: 1
+            },
+            {
+                question: "To whom, \"The Union Public Service Commission presents its report\"-",
+                options: ["President", "Parliament", "Lok Sabha", "Rajya Sabha"],
+                answer: 0
+            },
+            {
+                question: "What is the full form of the Indian Political Party, \"AITC\"?",
+                options: ["All India Trinamool Congress", "All India Telugu Congress", "All India Telugu Communist", "All India Trinamool Communist"],
+                answer: 0
+            },
+            {
+                question: "All India Trinamool Congress was founded in the year-",
+                options: ["1925", "1955", "1984", "1998"],
+                answer: 3
+            },
+            {
+                question: "Which of the following statement(s) is/are CORRECT?I. In federal government, power is distributed among the legislature, executive and\njudiciary.II. Due to political competition in a democracy, social divisions get reflected in politics.III. Communal politics is based on the belief that one religion is superior to that of others.",
+                options: ["I and II", "I, II and III", "I and III", "II and III"],
+                answer: 1
+            },
+            {
+                question: "English is the official language of-",
+                options: ["Chhattisgarh", "Meghalaya", "Assam", "Goa"],
+                answer: 1
+            },
+            {
+                question: "Who among the following gave the concept of 'Distributive Justice'?",
+                options: ["Aristotle", "Plato", "Hegel", "Ritchie"],
+                answer: 0
+            },
+            {
+                question: "\"Person, who do not live in any state is either a Saint or an Animal\" whose statement is this-",
+                options: ["Montesquieu", "Angles", "Sophists", "Aristotle"],
+                answer: 3
+            },
+            {
+                question: "Who was the first Chief Election Commissioner of India?",
+                options: ["Morarji Desai", "Sukurnar Sen", "Sardar Patel", "V.S Ramadevi"],
+                answer: 1
+            },
+            {
+                question: "On which principle, the General Indian Election is based on-",
+                options: ["Proportional Representation", "Regional Representation", "Executive Representation", "General Representation"],
+                answer: 1
+            },
+            {
+                question: "The National Political Party is one which has attained 6% of total vote in-",
+                options: ["Two or more states", "Capital", "Four or more states", "All states"],
+                answer: 2
+            },
+            {
+                question: "How many percent votes should a party get to be registered as a National Party-",
+                options: ["1%", "3%", "6%", "7%"],
+                answer: 2
+            },
+            {
+                question: "Who does the financial distribution of the resources between Centre and States-",
+                options: ["Planning Commission", "Interstate Council", "Finance Commission", "Finance Minister"],
+                answer: 2
+            },
+            {
+                question: "On the recommendations of which of the followings, the Grants-in-aid is provided to States by Centre-",
+                options: ["Planning Commission", "Finance Minister", "Finance Commission", "National Development Council"],
+                answer: 2
+            },
+            {
+                question: "Any member of Union Public Service Commission can be removed by-",
+                options: ["President", "Prime Minister", "Chief Justice of Supreme Court", "Chairman of UPSC"],
+                answer: 0
+            },
+            {
+                question: "To be a voter in India, what is the minimum qualifying age?",
+                options: ["24 Years", "22 Years", "20 Years", "18 Years"],
+                answer: 3
+            },
+            {
+                question: "The term of members of Union Public Service Commission is-",
+                options: ["3 years or upto the age of 58", "5 years or up to the age of 60", "6 years or upto the age of 65", "6 years"],
+                answer: 2
+            },
+            {
+                question: "Is a form of government in which the rulers are elected by the people-",
+                options: ["Autocratic", "Monarchic", "Democratic", "Authoritarian"],
+                answer: 2
+            },
+            {
+                question: "Bahujan Samaj Party was founded in-",
+                options: ["1925", "1955", "1984", "2001"],
+                answer: 2
+            },
+            {
+                question: "What is the full form of the Indian Political Party \"BSP\"?",
+                options: ["Bharatiya Samaj Party", "Bahujan Samaj Party", "Bharatiya Sangh Party", "Bahujan Sangh Party"],
+                answer: 1
+            },
+            {
+                question: "The ballot papers were used firstly in-",
+                options: ["Ancient Greece", "England", "Australia", "USA"],
+                answer: 0
+            },
+            {
+                question: "National Democratic Alliance was founded in?",
+                options: ["1951", "1998", "2004", "1980"],
+                answer: 1
+            },
+            {
+                question: "M' in BIMARU stands for which state?",
+                options: ["Maharashtra", "Manipur", "Madhya Pradesh", "Mizoram"],
+                answer: 2
+            },
+            {
+                question: "Who said political science as \"Metrology\"-",
+                options: ["Blunashi", "Bryce", "Bodin", "Bachil"],
+                answer: 1
+            },
+            {
+                question: "What is the term of office of Chief Election Commissioner of India?",
+                options: ["five years", "Six years", "Five years or 60 years of age", "Six years or 65 years of age"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is CORRECT about coalition form of government?",
+                options: ["Sharing of power at different levels", "Sharing of power by different social groups", "Sharing of power by two or more political parties", "None of these"],
+                answer: 2
+            },
+            {
+                question: "Communist Party of India was founded in-",
+                options: ["1835", "1885", "1925", "1964"],
+                answer: 2
+            },
+            {
+                question: "What is the full form of the Indian Political Party, \"CPI\"?",
+                options: ["Common Party of India", "Commonly Party of India", "Communist Party of India", "Community Party of India"],
+                answer: 2
+            },
+            {
+                question: "What is the full form of the Indian Political Party \"CPIM\"?",
+                options: ["Common Party of India (Marxist)", "Common Party of India (Movement)", "Communist Party of India (Movement)", "Communist Party of India (Marxist)"],
+                answer: 3
+            },
+            {
+                question: "Which of the following statement is true about\n\"Community Government\"?I. This government is elected by people belonging to one language community.II. This government has the power regarding cultural, educational and language related issues.",
+                options: ["Both I and II", "Only I", "Only II", "Neither I nor II"],
+                answer: 0
+            },
+            {
+                question: "What is a voluntary uion of sovereign and independent states called?",
+                options: ["Federation", "Unitary state", "Confederation", "None of these"],
+                answer: 2
+            },
+            {
+                question: "What kind of right is \"Right to vote\"-",
+                options: ["Human right", "Civil right", "Natural right", "Political right"],
+                answer: 3
+            },
+            {
+                question: "Constitutional Majestic means-",
+                options: ["Constitution defined by the king", "Drafting of constitution by the king", "Election of king by the people", "Use of power by king under the ambit of\nconstitution"],
+                answer: 3
+            },
+            {
+                question: "Coup is-",
+                options: ["Sudden overthrow of a government illegally", "A system of rules that takes effect when a\nmilitary authority takes control of normal\nadministration and justice", "Territory under the immediate political\ncontrol of another state", "All options are correct"],
+                answer: 0
+            },
+            {
+                question: "Which of the following language was given the status of \"Classical language\" by the central government-",
+                options: ["Gujarati", "Tamil", "Marathi", "Bengali"],
+                answer: 1
+            },
+            {
+                question: "Who among the following supports customary rights?",
+                options: ["Ritchie", "Plato", "Locke", "Heller"],
+                answer: 0
+            },
+            {
+                question: "What is meant by 'defection'?",
+                options: ["Changing party after winning election", "Changing party before winning election", "Changing party after losing election", "Changing party before losing election"],
+                answer: 0
+            },
+            {
+                question: "Which are the two forms of Democracy-",
+                options: ["Parliamentary and Presidential", "Direct and Indirect", "Monarchical and Republican", "Parliamentary and King"],
+                answer: 1
+            },
+            {
+                question: "A government rules within limits set by constitutional law and citizen right-",
+                options: ["Autocratic", "Democratic", "Monarchic", "Authoritarian"],
+                answer: 1
+            },
+            {
+                question: "____ goverment is better than other forms of government because it allows us to correct its own mistake.",
+                options: ["Democratic", "Monarchic", "Authoritarian", "Autocratic"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is permanent organization-",
+                options: ["Family", "Political party", "Red cross", "Plato"],
+                answer: 0
+            },
+            {
+                question: "What is the meaning of Fascism in respect to state-",
+                options: ["State is in control of the king", "State is a matter of exploitation by a group of\npeople", "State grows the concept of individualism", "Nation state is a uninterrupted dominance"],
+                answer: 0
+            },
+            {
+                question: "The faith of Fascism formulates the principle of-",
+                options: ["Dictatorship", "Utilitarianism", "Democracy", "Totalitarianism"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is not a branch of federal form of government?",
+                options: ["Judiciary", "Executive", "Legislative", "Media"],
+                answer: 3
+            },
+            {
+                question: "_____is an institutional mechanism to accommodate two sets of polities  one at the regional level and the other at the national level.",
+                options: ["Feudalism", "Democracy", "Federalism", "Aristocracy"],
+                answer: 2
+            },
+            {
+                question: "Which form of government believes in giving equal rights and opportunities for women and men?",
+                options: ["Feminist", "Secularist", "Castiest", "Communalist"],
+                answer: 0
+            },
+            {
+                question: "In which year was the First Five Year Plan launched in India?",
+                options: ["1921", "1931", "1941", "1951"],
+                answer: 3
+            },
+            {
+                question: "What is the Example of Direct Democracy in India-",
+                options: ["District Panchayat", "Nagar Panchayat", "Gram Sabha", "Kshetra Panchayat"],
+                answer: 2
+            },
+            {
+                question: "Who is the father of Idealism-",
+                options: ["Plato", "Hegal", "Berkeley", "Grein"],
+                answer: 0
+            },
+            {
+                question: "Who advocated the Nazism in Germany-",
+                options: ["Fedrick William 4th", "William 3rd", "Adolf Hitler", "Wismark"],
+                answer: 2
+            },
+            {
+                question: "The new official language of United Nations is-",
+                options: ["Chinese", "Spanish", "Russian", "Arabic"],
+                answer: 3
+            },
+            {
+                question: "In which country, there is federal government-",
+                options: ["Ghina", "USA", "Cuba", "Belgium"],
+                answer: 1
+            },
+            {
+                question: "In which form of government the rulers are elected by the people?",
+                options: ["Autocratic", "Democratic", "Martial law", "Aristocratic"],
+                answer: 1
+            },
+            {
+                question: "In a ____ government, the final decision making power must rest with those elected by the people.",
+                options: ["Authoritarian", "Autocratic", "Monarchic", "Democratic"],
+                answer: 3
+            },
+            {
+                question: "In which of the following country, the judges of federal court are appointed by two houses of Federal Legislature-",
+                options: ["Switzerland", "Germany", "Canada", "1 and 2 both"],
+                answer: 3
+            },
+            {
+                question: "Which was the first non-communist country to recognize communist China in 1950?",
+                options: ["Pakistan", "India", "Sri Lanka", "Nepal"],
+                answer: 1
+            },
+            {
+                question: "Which of the following recommended three language formula-",
+                options: ["Raj Committee", "Rajamannar Committee", "Dutta Committee", "Kothari Commission"],
+                answer: 3
+            },
+            {
+                question: "In which year, there was dominance of one party in India-",
+                options: ["1971", "1977", "1962", "1967"],
+                answer: 1
+            },
+            {
+                question: "Since Independence, India has been ruled by the Indian National Congress for how many years?",
+                options: ["18", "26", "39", "49"],
+                answer: 3
+            },
+            {
+                question: "The states of India are demanding more autonomy than centre in the areas of-",
+                options: ["Legislative", "Administrative", "Financial", "All of these"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is not a good argument in favour of democracy?1. Democracy enhances the dignity of citizensII. Democracies are more prosperous than othersIII. Democracies resolve conflicts in a better way",
+                options: ["I and II", "Only III", "Only II", "II and III"],
+                answer: 2
+            },
+            {
+                question: "Who said 'The God, who gave us life, gave us the liberty at the same time'?",
+                options: ["Marx", "Plato", "Jefferson", "Locke"],
+                answer: 2
+            },
+            {
+                question: "Who is the father of 'Utilitarian School of Thought'?",
+                options: ["Hegel", "Bentham", "James Mill", "Locke"],
+                answer: 1
+            },
+            {
+                question: "As per John Locke, an English philosopher and physician, which is Dot a Natural Right?",
+                options: ["Liberty", "Equality", "Property", "Right to Vote"],
+                answer: 3
+            },
+            {
+                question: "Who was the second Chief Election Commissioner of India-",
+                options: ["Sukumar Sen", "S.P.Sen Verma", "K.V.K.Sundaram", "T.Swaminathan"],
+                answer: 2
+            },
+            {
+                question: "Which was the first state in India to conduct the Election during delimitation-",
+                options: ["Tamilnadu", "Andhra Pradesh", "Kerala", "Karnataka"],
+                answer: 3
+            },
+            {
+                question: "_______ recommended change in the structure and working of BCCI.",
+                options: ["Lodha committee", "Parekh committee", "Sena committee", "Akhil committee"],
+                answer: 0
+            },
+            {
+                question: "Malayalam is the official language of-",
+                options: ["Puducherry", "Lakshadweep", "Daman and Diu", "Delhi"],
+                answer: 1
+            },
+            {
+                question: "Malayalam is the offcial language of-",
+                options: ["Haryana", "Jharkhand", "Kerala", "Uttarakhand"],
+                answer: 2
+            },
+            {
+                question: "Marathi is the official language of-",
+                options: ["Chandigarh", "Dadra and Nagar Haveli", "Daman and Diu", "Delhi"],
+                answer: 1
+            },
+            {
+                question: "Konkani is the official language of -",
+                options: ["Chandigarh", "Dadra and Nagar Haveli", "Daman and Diu", "Delhi"],
+                answer: 2
+            },
+            {
+                question: "According to United Nations, which is not a right under Child Rights-",
+                options: ["Clean drinking water", "Better life style", "Education", "Marriage"],
+                answer: 3
+            },
+            {
+                question: "Martial law is-",
+                options: ["Sudden overthrow of a government illegally", "A system of rules that takes effect when a\nmilitary authority takes control of normal\nadministration of justice", "Territory under the immediate political\ncontrol of another state", "None of these"],
+                answer: 1
+            },
+            {
+                question: "A system of rules that takes effect when a military authority takes control of the normal administration of justice is called as-",
+                options: ["Coup", "Strike", "Martial law", "Political prisoner"],
+                answer: 2
+            },
+            {
+                question: "\"The soul of India lives in villages\" whose statement is this-",
+                options: ["Vinobha Bhave", "Jay Prakash Narayan", "Jawahr Lal Nehru", "Mahatma Gandhi"],
+                answer: 3
+            },
+            {
+                question: "What is the name of two chambers of Swiss federal chambers-",
+                options: ["Senate and House of representatives", "House of Lords and House of Commons", "National Council and Council of States", "None of these"],
+                answer: 2
+            },
+            {
+                question: "Nationalist Congress Party was founded in-",
+                options: ["1925", "1955", "1984", "1999"],
+                answer: 3
+            },
+            {
+                question: "What is the full form of the Indian Political Party \"NCP\"?",
+                options: ["Nationalist Congress Party", "National Congress Party", "National Communist Party", "Nationalist Communist Party"],
+                answer: 0
+            },
+            {
+                question: "What occurs under direct democracy in Switzerland-",
+                options: ["Natural growth", "Disorganized growth", "Artificial growth", "None of these"],
+                answer: 0
+            },
+            {
+                question: "Who was in favour of a democracy without parties-",
+                options: ["Jay Prakash Narayan", "Bhupendra Nath Dutta", "M.N.Roy", "Jawaharlal Nehru"],
+                answer: 0
+            },
+            {
+                question: "\"Oh! Disrespectable democracy! I love you\" whose statement is this-",
+                options: ["G.B.Shaw", "Carpentar", "Lord Bryce", "Appa Dorai"],
+                answer: 0
+            },
+            {
+                question: "In which of the following system, few rules over all-",
+                options: ["Plutocracy", "Oligarchy", "Autocracy", "Democracy"],
+                answer: 1
+            },
+            {
+                question: "The form of power structure in which power effectively rests with a faction of persons or families is called-",
+                options: ["Tyranny", "Fascism", "Oligarchy", "Plutocracy"],
+                answer: 2
+            },
+            {
+                question: "Which type of government is based on free and fair election where those currently in power have a fair chance of losing?",
+                options: ["Democratic", "Autocratic", "Monarchic", "Authoritarian"],
+                answer: 0
+            },
+            {
+                question: "What is the meaning of ordinary law-",
+                options: ["Law made by High Court", "Law made by common people", "Law made by Supreme Court", "Law made and enforced by government"],
+                answer: 3
+            },
+            {
+                question: "Which among the following describes Public Interest group?",
+                options: ["Organizations that promote interest of\nparticular section of group", "Organisation that promote common interest", "A Struggle launched for resolution of a social\nproblem", "Organisation that mobilizes people with a\nview to win political power"],
+                answer: 1
+            },
+            {
+                question: "Which of the following body was not set up by constitutional provisions-",
+                options: ["Finance Commission", "Planning Commission", "Union Public Service Commission", "Election Commission"],
+                answer: 1
+            },
+            {
+                question: "Who said this \"Good citizen makes good state and bad citizen makes bad state\"-",
+                options: ["Plato", "Rousseau", "Aristotle", "Laski"],
+                answer: 0
+            },
+            {
+                question: "What is multiple voting system-",
+                options: ["Every citizen votes three different votes", "Only high officials vote for more than once", "Candidates vote more than one", "Registered voter votes once and other special\neligible voters vote more than once"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is a Political right-",
+                options: ["Right to work", "Right to education", "Right to expression", "Right to vote"],
+                answer: 3
+            },
+            {
+                question: "In which country political theory of 'Fascism' started?",
+                options: ["Japan", "Italy", "Russia", "China"],
+                answer: 1
+            },
+            {
+                question: "Who said \"Adolf Hitler is Germany and Getmany is Adolf Hitler. He who is committed to Hitler is committed to Germany\"-",
+                options: ["R.Hess", "Mussolini", "Hitler", "Communist international"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is necessary for the development of Democratic Institutions-",
+                options: ["Agricultural Economy", "Single-Party System", "Armed Forces", "Respect to Individual Rights"],
+                answer: 3
+            },
+            {
+                question: "What is the meaning of 'Right to Vote'-",
+                options: ["To pass such laws which can punish people", "Right to vote to elect a representative in\nelection", "Right to vote rich", "Right to vote poor only"],
+                answer: 1
+            },
+            {
+                question: "\"Liberty consists in obedience to the general will\" whose statement is this-",
+                options: ["Hobbs", "Rousseau", "Green", "Laski"],
+                answer: 1
+            },
+            {
+                question: "Whose statement is this \"Man is born free but always in shackles\"-",
+                options: ["Locke", "Rousseau", "Bentham", "Robert mill"],
+                answer: 1
+            },
+            {
+                question: "Which of the following countries is governed by a King-",
+                options: ["Afghanistan", "Iran", "Iraq", "Saudi Arabia"],
+                answer: 3
+            },
+            {
+                question: "Which of the following sections of Indian penal code is related with lesbian gay bisexual community (LGST)-",
+                options: ["377", "376", "370", "None of these"],
+                answer: 0
+            },
+            {
+                question: "When power is shared among different organs of government, then it known as-",
+                options: ["Community Government", "Separation of powers", "Coalition Government", "Amalgamation of powers"],
+                answer: 1
+            },
+            {
+                question: "When did Sri Lank, ganed its independence?",
+                options: ["4 February, 1948", "16 March, 1962", "26 March, 1972", "15 February, 1938"],
+                answer: 0
+            },
+            {
+                question: "\"Man is a social animal\" whose statement is this-",
+                options: ["Plato", "Aristotle", "Rousseau", "Laski"],
+                answer: 1
+            },
+            {
+                question: "Telugu is the official language of -",
+                options: ["Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar"],
+                answer: 0
+            },
+            {
+                question: "CTBT denotes-",
+                options: ["Arms control measures", "Drug control measures", "Financial control measures", "Trade control and regulation"],
+                answer: 0
+            },
+            {
+                question: "Under which ministry, Central Pollution Control Bureau werks-",
+                options: ["Health and family welfare", "Oil and petroleum", "Social welfare", "Environment and forest"],
+                answer: 3
+            },
+            {
+                question: "Which of the following resist Liberty and Freedom-",
+                options: ["Centralization", "Decentralization", "Privatization", "Nationalization"],
+                answer: 0
+            },
+            {
+                question: "Which of the country has single-party system-",
+                options: ["Mongolia", "Spain", "Chile", "China"],
+                answer: 3
+            },
+            {
+                question: "Who supported the concept of \"Public desire\"-",
+                options: ["Hume", "Hegal", "Kant", "Rousseau"],
+                answer: 3
+            },
+            {
+                question: "The decision on procedural matters in United Nations will be taken by  positive votes-",
+                options: ["11", "10", "8", "9"],
+                answer: 3
+            },
+            {
+                question: "Which of the following law is in favour of the betterment of women-",
+                options: ["Equal pay act", "Protection of civil rights act", "Human trafficking (prevention) act", "None of these"],
+                answer: 2
+            },
+            {
+                question: "The total number of judges in International Court of Justice are-",
+                options: ["11", "15", "18", "7"],
+                answer: 1
+            },
+            {
+                question: "The main cause of growth of communalism in India is-",
+                options: ["Economic and Educational backwardness of\nminority groups", "Political awareness", "Social inequalities", "Ban on communalistic organizations"],
+                answer: 0
+            },
+            {
+                question: "To which the Mandal commission report is related-",
+                options: ["Other backward classes", "Scheduled tribes", "Minority", "Scheduled castes"],
+                answer: 0
+            },
+            {
+                question: "What is the main objective of Marxism?",
+                options: ["Dictatorship", "Stateless society", "To establish strong centre", "Protection of weaker sections"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is not correctly matched-",
+                options: ["Hindu marriage Act - 1955", "Medical termination of Pregnancy Act - 1971", "Domestic violence on Women Act - 1990", "Violence against Women Act - 1995"],
+                answer: 2
+            },
+            {
+                question: "In which of the following, there is possibility of Arbitrary Rule-",
+                options: ["Single-party system", "Two-party system", "Multi-party system", "Two and multi-party system"],
+                answer: 0
+            },
+            {
+                question: "Who has been assigned with the responsibility of world peace and security by the member of United Nation Organization-",
+                options: ["General Council", "Economic and Social Council", "Security Council", "International Court of Justice"],
+                answer: 2
+            },
+            {
+                question: "\"Shimla Pact\" between India and Pakistan is in-",
+                options: ["1972", "2001", "1965", "1971"],
+                answer: 0
+            },
+            {
+                question: "The success of Democracy depends on-",
+                options: ["The right to oppose", "Right to unity", "Right to individual liberty", "Right to property"],
+                answer: 0
+            },
+            {
+                question: "When was National Commission for Minorities established-",
+                options: ["1980", "1989", "1990", "1992"],
+                answer: 3
+            },
+            {
+                question: "In which form of government priests rule in the name of God?",
+                options: ["Fascism", "Monarchy", "Theocracy", "Oligarchy"],
+                answer: 2
+            },
+            {
+                question: "In which of the following state matter, centre can formulate any law with prior discussion with the state-",
+                options: ["Assam", "Rajasthan", "Jammu and Kashmir", "Kerala"],
+                answer: 2
+            },
+            {
+                question: "How can a new All India Service be introduced-",
+                options: ["By doing Amendment in the Constitution", "By Legislative Command", "By passing a Resolution under Article-312", "By Law"],
+                answer: 2
+            },
+            {
+                question: "Who appoints the members of Union Public Service Commission-",
+                options: ["Law Minister", "President", "Prime Minister", "Chief Justice"],
+                answer: 1
+            },
+            {
+                question: "United Progressive Alliance was founded in?",
+                options: ["1951", "19987", "2004", "1980"],
+                answer: 2
+            },
+            {
+                question: "Union public service commission ______ employees of All India Services-",
+                options: ["Suspends", "Elects", "Selects", "Appoints"],
+                answer: 2
+            },
+            {
+                question: "Urdu is the official language of-",
+                options: ["Andhra Pradesh", "Arunachal Pradesh", "West Bengal", "Jammu & Kashmir"],
+                answer: 3
+            },
+            {
+                question: "The discussion on any matter of urgent public importance, presented by any member of house is known as-",
+                options: ["Adjoumment motion", "Confidence motion", "Censure motion", "None of these"],
+                answer: 0
+            },
+            {
+                question: "In India, no government expenditure can be made without approval of -",
+                options: ["Parliament", "Prime Minister", "President", "Supreme court"],
+                answer: 0
+            },
+            {
+                question: "Who is the custodian of Consolidated Fund of India-",
+                options: ["Executive", "Judiciary", "Legislature", "Civil officers"],
+                answer: 2
+            },
+            {
+                question: "Bicameral Legislature means-",
+                options: ["Primary and secondary legislature", "Lower and Upper Chamber", "Lok Adalats and Courts", "Elected as well as selected members"],
+                answer: 1
+            },
+            {
+                question: "Which one of the following Committees is described as the twin sister of the Estimates Committee?",
+                options: ["Public Accounts Committee", "Committee on Public Undertakings", "Departmental Standing Committee", "Privilege Committee"],
+                answer: 0
+            },
+            {
+                question: "The committee which Examines the audit report of Comptroller and Auditor General of India, is-",
+                options: ["Estimates committee", "Consultative committee", "Public Accounts Committee", "None of these"],
+                answer: 2
+            },
+            {
+                question: "The number of parliamentary seats (Jok Sabha) of Gujarat is-",
+                options: ["10", "26", "28", "48"],
+                answer: 1
+            },
+            {
+                question: "Which of the following parliamentary constituency is the largest in terms of area-",
+                options: ["Barmer (Rajasthan)", "Arunachal West (Arunachal Pradesh)", "Laddakh (Jammu and Kashmir)", "Uttaranchal East (Uttaranchal)"],
+                answer: 2
+            },
+            {
+                question: "The main duty of the legislature is-",
+                options: ["Central administration", "Enforcement of law", "Execution of judicial matters", "Execution of laws"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is not correct-",
+                options: ["Person should have completed age of 30 years\nto elect as a member of Rajya Sabha", "Person should have completed age of 25 years\nto elect as a member of Lok Sabha", "Person should have completed age of 21 years\nto elect as member of Legislative Council", "Person eligible to vote in panchayat election\nshould have completed age of 18 years"],
+                answer: 2
+            },
+            {
+                question: "Which of the following makes law in India-",
+                options: ["President and Council of Ministers", "High Court and Supreme Court", "President and both houses of Parliament", "Lok Sabha and Rajya Sabha"],
+                answer: 2
+            },
+            {
+                question: "Who among the following is not a member of any of the two houses of our country?",
+                options: ["Prime Minister", "Finance Minister", "President", "Railway Minister"],
+                answer: 2
+            },
+            {
+                question: "Who among the following issues a notification for prorogation of legislative session?",
+                options: ["Speaker", "Chairman", "President", "Prime Minister"],
+                answer: 2
+            },
+            {
+                question: "Which Parliamentary Committee in India is normally chaired by a prominent member of the opposition?",
+                options: ["Committee on Government Assurances", "Estimates Committee", "Privileges Committee", "Public Accounts Committee"],
+                answer: 3
+            },
+            {
+                question: "Which of the following procession has not been adopted from the world's Parliamentary system-",
+                options: ["Question hour", "Zero hour", "Oath", "Motion of thanks"],
+                answer: 1
+            },
+            {
+                question: "There are total parliamentary seats (LokSabha constituency) in West Bengal-",
+                options: ["42", "2", "14", "40"],
+                answer: 0
+            },
+            {
+                question: "The declaration that Democracy is a Government of the people, by the people for the people was made by-",
+                options: ["Abrahm Lincoln", "George Washington", "Theodre Roosevelt", "Winston Churchill"],
+                answer: 0
+            },
+            {
+                question: "A federal structure for India was first put forward by the-",
+                options: ["Act of 1909", "Act of 1919", "Act of 1935", "Act of 1947"],
+                answer: 2
+            },
+            {
+                question: "The Advantage of unitary system of governance is-",
+                options: ["More adaptability", "Strong state", "More participation by the people", "Less chance of authoritarianism"],
+                answer: 1
+            },
+            {
+                question: "Which is the highest law of the land?",
+                options: ["Indian Penal Code", "Indian Constitution", "Civil Procedure Code", "Criminal Procedure Code"],
+                answer: 1
+            },
+            {
+                question: "When did India become a Complete Sovereign Democratic Republic-",
+                options: ["26 January, 1949", "26 November 1951", "26 November 1950", "26 November 1949"],
+                answer: 2
+            },
+            {
+                question: "Which type of democracy do we follow in India?",
+                options: ["Direct", "Presidential", "Representative", "Dictatorship"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is not considered a Democracy?",
+                options: ["USA", "Norway", "India", "China"],
+                answer: 3
+            },
+            {
+                question: "Local governance is the foundation of-",
+                options: ["Elite system", "Secular state", "Democracy", "Reservation"],
+                answer: 2
+            },
+            {
+                question: "Democratic Socialism aims at-",
+                options: ["bringing about Socialism through peaceful\nmeans", "bringing about Socialism through violent and\npeaceful means", "bringing about Socialismthrough violent means", "bringing about Socialism through democratic"],
+                answer: 3
+            },
+            {
+                question: "Which of the following elements are necessary for a democratic system-",
+                options: ["Free and unbiased election", "Equality of opportunity", "Protection of rights", "All of these"],
+                answer: 3
+            },
+            {
+                question: "The division of power and Independence of judiciary are two important features of-",
+                options: ["Democratic character of government", "Federal character of government", "Socialist character of government", "Unitary character of government"],
+                answer: 1
+            },
+            {
+                question: "The serious fault in federal form of govemment is-",
+                options: ["The Threat of separatism", "Authoritarian Governance", "Ignorance to Local Issues", "Inefficient Administration"],
+                answer: 0
+            },
+            {
+                question: "\"Persons may change but rules should not change\" is the principle of-",
+                options: ["Absolute Monarchy", "Constitutional Government", "Unwritten Constitution", "Republic"],
+                answer: 1
+            },
+            {
+                question: "In a federal Government the states enjoy-",
+                options: ["Original powers", "Powers delegated by the Centre", "Powers given by the Constitution", "Powers given by the people"],
+                answer: 2
+            },
+            {
+                question: "Members of the Executive under Presidential System of Government-",
+                options: ["Are drawn from both the Houses of Legislature", "Are only form the popular House", "Are not members of either House of Legislalure", "Become members of Legislature after their\nappointment"],
+                answer: 2
+            },
+            {
+                question: "From where did India adopted the federal system with a strong centre?",
+                options: ["United States of America", "Canada", "United Kingdom", "France"],
+                answer: 1
+            },
+            {
+                question: "Indian federalism is closer to-",
+                options: ["Nigeria", "Australia", "Canada", "USA"],
+                answer: 2
+            },
+            {
+                question: "The \"Rule of law\" is the speciality of which of the following-",
+                options: ["Britain", "USA", "France", "Switzerland"],
+                answer: 0
+            },
+            {
+                question: "What does the wheel in the National Flag represent?",
+                options: ["Speed", "Truth", "Growth", "Future"],
+                answer: 1
+            },
+            {
+                question: "In the National Flag of India, Ashoka Chakra is a ____ spoked wheel.",
+                options: ["8", "12", "16", "24"],
+                answer: 3
+            },
+            {
+                question: "What is the basis of classification of governments as unitary and federal?",
+                options: ["Relationship between legislature and\nexecutive", "Relationship between executive and judiciary", "Relationship between the centre and states", "Relationship between the legislature,\nexecutive and judicial wings of government"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is the inalienable attribute of the parliamentary system of government?",
+                options: ["Flexibility of the Constitution", "Fusion of Executive and Legislature", "Judicial Supremacy", "Parliamentary Sovereignty"],
+                answer: 1
+            },
+            {
+                question: "From where have we borrowed the parliamentary form of government?",
+                options: ["Russia", "Ireland", "Britain", "America"],
+                answer: 2
+            },
+            {
+                question: "Which of the following was a popular slogan of French revolution?",
+                options: ["Sovereign Democratic Republic", "Liberty, Equality, Fraternity", "Freedom, Equality and Justice", "Freedom, Equality and Accountability"],
+                answer: 1
+            },
+            {
+                question: "The Presidential Government operates on the principles of-",
+                options: ["Division of powers between centre and states", "Centralisation of Powers", "Balance of Powers", "Separation of powers"],
+                answer: 3
+            },
+            {
+                question: "Who among the following was the first 'Minister of Finance' in independent India?",
+                options: ["R.K. Shanmukham Chetty", "Liaquat Ali Khan", "John Mathai", "Satya Narayan Sinha"],
+                answer: 0
+            },
+            {
+                question: "Which of the following act suggested the post of Comptroller and Auditor General?",
+                options: ["Act of 1909", "Act of 1919", "Act of 1935", "Act of 1947"],
+                answer: 1
+            },
+            {
+                question: "The Westminster parliamentary system was developed in-",
+                options: ["Spain", "Australia", "UK", "USA"],
+                answer: 2
+            },
+            {
+                question: "A big difference is there in between principle and behavior-",
+                options: ["Presidential Form of Government", "Fascist Form of Government", "Parliamentary Form of Government", "Socialist Form of Government"],
+                answer: 2
+            },
+            {
+                question: "Which of the fullowing countries enjoys a federal form of government?",
+                options: ["China", "USA", "Cuba", "Belgium"],
+                answer: 1
+            },
+            {
+                question: "A unitary form of government is that in which all the powers are concentrated in the hands of-",
+                options: ["Local government", "Central government", "Provincial government", "Panchayats"],
+                answer: 1
+            },
+            {
+                question: "Universal adult franchise shows that India is a country which is-",
+                options: ["Secular", "Socialist", "Democratic", "Sovereign"],
+                answer: 2
+            },
+            {
+                question: "Why did one of the High Courts inIndian decree that \"bandhs are unconstitutional and punitive\"?",
+                options: ["It infringes on the fundamental rights of\nsome groups of people", "It is not in exercise of a fundamental freedom", "It adversely affectsproduction", "It is not part of a right to protest"],
+                answer: 1
+            },
+            {
+                question: "Evaluate the following statements-I. The legal interpretation of equality is chiefly influenced by equality before law and equal\nprotection of lawII. Equality before law means rule of law",
+                options: ["I is correct but II is incorrect", "II is correct but I is incorrect", "Both are correct", "Both are incorrect"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is opposite to the principle of \"Rule of Law\"?",
+                options: ["Equality before Law", "Privileges and Immunity", "Equal Opportunity", "None of these"],
+                answer: 1
+            },
+            {
+                question: "Preventive detention means-",
+                options: ["Detention for interrogation", "Detention after interrogation", "Detention without interrogation", "Detention for cognizable offence"],
+                answer: 2
+            },
+            {
+                question: "What is the category in which the negotiating strategy of a strike by the Government employees falls?",
+                options: ["Fundamental Rights of freedom of association\nand expression", "Legal Right", "Trade Union right as common law", "There is no right"],
+                answer: 3
+            },
+            {
+                question: "No person can be employed in factories or mines unless he is above the age of -",
+                options: ["12 years", "14 years", "18 years", "20 years"],
+                answer: 1
+            },
+            {
+                question: "In which of the following articles the interests of minorities are covered?",
+                options: ["14", "19", "29", "32"],
+                answer: 2
+            },
+            {
+                question: "Who is the custodian of the implementation of the fundamental rights?",
+                options: ["High courts", "Supreme court", "All courts", "Both A and B"],
+                answer: 3
+            },
+            {
+                question: "What is the literal meaning of 'Certiorari'?",
+                options: ["We command", "To have the body of", "To forbid", "To be certified (or) to be informed"],
+                answer: 3
+            },
+            {
+                question: "In which of the following Articles there is provision of \"Right to Equality\"?",
+                options: ["Article-14", "Article-19", "Article-20", "Article-21"],
+                answer: 0
+            },
+            {
+                question: "Fundamental rights can be suspended by-",
+                options: ["Governor", "President", "Law Minister", "Prime Minister"],
+                answer: 1
+            },
+            {
+                question: "The fundamental rights ofIndian citizens can be suspended-",
+                options: ["During National Emergency", "During Financial Emergency", "Anytime", "In any situation"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is Justiciable in nature?",
+                options: ["Fundamental Duties", "Directive Principles of State Policy", "Fundamental Rights", "None of these"],
+                answer: 2
+            },
+            {
+                question: "From which of the following are the Fundamental duties adopted?",
+                options: ["French Constitution", "Indian Constitution", "Spanish Constitution", "USSR Constitution"],
+                answer: 3
+            },
+            {
+                question: "Which of the folloWingwrits is called Bulwark of personal freedom?",
+                options: ["Mandamus", "Habeas corpus", "Quo warranto", "Certiorari"],
+                answer: 1
+            },
+            {
+                question: "Which of the following right has been removed from fundamental rights and converted to a simple legal right?",
+                options: ["Right to life and personal liberty", "Right to property", "Right to education", "Right to freedom of religion"],
+                answer: 1
+            },
+            {
+                question: "___ is issued when the court finds that a particular office holder is not doing legal duty and thereby is infringing on the right of an individual.",
+                options: ["Habeas Corpus", "Mandamus", "Prohibition", "Quo-Warranto"],
+                answer: 1
+            },
+            {
+                question: "Which of the following writs can be issued only gainst a overnment offlcial?",
+                options: ["Habeas corpus", "Mandamus", "Prohibition", "Certiorari"],
+                answer: 1
+            },
+            {
+                question: "Who can restrict the fundamental rights of the citizens?",
+                options: ["Council of Ministers", "Parliament", "Public", "Cabinet"],
+                answer: 1
+            },
+            {
+                question: "In which year was the Prevention of terrorism Act (POTA)enacted?",
+                options: ["2000", "2001", "2002", "2003"],
+                answer: 2
+            },
+            {
+                question: "The Preventive Detention Act curtailed-",
+                options: ["Right to Freedom", "Right to Equality", "Right to Property", "Educational Right"],
+                answer: 0
+            },
+            {
+                question: "Under which of the following writs, a person is restricted to perform any duties for which he does not have the authority?",
+                options: ["Mandamus", "Quo warranto", "Certiorari", "Habeas corpus"],
+                answer: 1
+            },
+            {
+                question: "Under which one of the following writs anofficial can be prevented from taking an action which he is offlcially not entitled?",
+                options: ["Mandamus", "Quo Warranto", "Certiorari", "Habeas Corpus"],
+                answer: 1
+            },
+            {
+                question: "Which of the followings is a Political right-",
+                options: ["Right to freedom", "Right to contest election", "Right to equality before law", "Right to life"],
+                answer: 1
+            },
+            {
+                question: "Right to Education Act came into force on-",
+                options: ["March 15,2010", "01-Apr-10", "July 17,2010", "October 10,2010"],
+                answer: 1
+            },
+            {
+                question: "Right to education in our country is a  _____ right.",
+                options: ["Political", "Fundamental", "Social", "Legal"],
+                answer: 1
+            },
+            {
+                question: "When was the 'Right to Information' enacted in India?",
+                options: ["15 August 2005", "15 March 2005", "15 June 2005", "15 July 2005"],
+                answer: 2
+            },
+            {
+                question: "Right to Privacy comes under-",
+                options: ["Article-19", "Article-20", "Article-21", "Article-18"],
+                answer: 2
+            },
+            {
+                question: "Right to property was deleted from the list fundamental rights in the regime of which of the followings-",
+                options: ["Indira Gandhi government", "Morarji Desai government", "Narsimha Rao government", "Vajpayee government"],
+                answer: 1
+            },
+            {
+                question: "Which among the following is not a preventive detention act?",
+                options: ["Terrorism and Disruptive Activities\n(Prevention) act (TADA)", "Prevention of Terrorism Act (POTA)", "Conservation of Foreign Exchange and\nPrevention of Smuggling Activities Act\n(COFEPOSA)", "Foreign Exchange Regulation Act (FERA)"],
+                answer: 3
+            },
+            {
+                question: "What is the literal meaning of the term \"Quo-Warranto\"?",
+                options: ["We command", "To forbid", "By what authority (or) warrant", "None of these"],
+                answer: 2
+            },
+            {
+                question: "The Certain fundamental rights are not given to-",
+                options: ["Insolvent persons", "Foreigner", "Deceased person", "Political victims"],
+                answer: 1
+            },
+            {
+                question: "Fundamental Rights are not given to-",
+                options: ["Bankrupt persons", "Aliens", "Persons suffering from incurable diseases", "Political sufferers"],
+                answer: 1
+            },
+            {
+                question: "The chapter on Fundamental Duties includes-",
+                options: ["Duty to cherish and follow the noble ideals\nwhich inspired our freedom movement", "Duty to vote in General Election", "Duty to promote the sense of fraternity among the people", "Duty to stick to the political party on whose ticket one contested election"],
+                answer: 0
+            },
+            {
+                question: "The \"Freedom of Press\" is mentioned in which of the following rights?",
+                options: ["Equality before law", "Right to expression", "Union freedom", "Work security"],
+                answer: 1
+            },
+            {
+                question: "How many fundamental rights were there in the beginning?",
+                options: ["Six", "Seven", "Four", "Five"],
+                answer: 1
+            },
+            {
+                question: "What Constitutional provision enables the Central Government to provide reservations in jobs and educational institutions for the weaker sections of the society?",
+                options: ["Article-14", "Article-16", "Article-46", "Article-19"],
+                answer: 1
+            },
+            {
+                question: "Fill in the blank-\"Rights ___ duties\"-",
+                options: ["Disrupt", "Direct", "Contain", "Oppose"],
+                answer: 1
+            },
+            {
+                question: "Republic means ultimate power is held by-",
+                options: ["the monarch", "the people", "the winning party", "Ministers"],
+                answer: 1
+            },
+            {
+                question: "India is a republic because-",
+                options: ["It is democratic country", "It is a parliamentary democracy", "The head of the state is elected for a definite\nperiod", "All of these"],
+                answer: 2
+            },
+            {
+                question: "Which of the following subject is in state list-",
+                options: ["Agriculture", "Criminal law", "Education", "defence"],
+                answer: 0
+            },
+            {
+                question: "All legislative subject are mentioned in three lists union list, concurrent list and state list. Any subject is not mentioned in all three list, the law on that particular subject can be framed by-",
+                options: ["Parliament only", "State Legislature only", "1 and 2", "Neither 1 nor 2"],
+                answer: 0
+            },
+            {
+                question: "How many subjects are there in union list-",
+                options: ["52", "66", "97", "99"],
+                answer: 2
+            },
+            {
+                question: "The item 'Education' belongs to the-",
+                options: ["Union List", "State List", "Concurrent List", "Residuary Subjects"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following schedules of the Indian Cotitution lists the names of states and specifies their territories?",
+                options: ["First", "Second", "Third", "Fourth"],
+                answer: 0
+            },
+            {
+                question: "How many states are there in the Indian Union?",
+                options: ["27", "28", "30", "29"],
+                answer: 1
+            },
+            {
+                question: "The number of Union Territories in India is-",
+                options: ["5", "8", "9", "6"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is not a Union Territory?",
+                options: ["Pondicherry", "Nagaland", "Daman and Diu", "Lakahadweep"],
+                answer: 1
+            },
+            {
+                question: "Which of the following subject is not in Union list-",
+                options: ["Census", "Banking", "Labor Union", "Foreign Debt"],
+                answer: 2
+            },
+            {
+                question: "Which of the following item is in \"concurrent list\"-",
+                options: ["Inter-state rivers", "Labor Union", "Citizenship", "Local Govenance"],
+                answer: 1
+            },
+            {
+                question: "Liberalism is a symbol of-",
+                options: ["Liberalization", "Nature and Behaviour", "Freedom of Social,Political and Economic aspects", "Religious conservationism"],
+                answer: 2
+            },
+            {
+                question: "_______ makes laws on matters included in Union List and Concurrent List.",
+                options: ["Lok Sabha", "Ministry of Defence", "Prime Minister's Office", "Securities and Exchange Board of India"],
+                answer: 0
+            },
+            {
+                question: "What is Popular Sovereignty-",
+                options: ["Domination of people", "Domination of representative of people", "Domination of Judiciary", "Domination of Legislative"],
+                answer: 1
+            },
+            {
+                question: "According to our Constifution, India is-",
+                options: ["A Religious State", "A Secillar State", "A Capitalist State", "A plutocratic State"],
+                answer: 1
+            },
+            {
+                question: "Which of these is not a language in India?",
+                options: ["Sindhi", "Sikh", "Kannada", "Konkani"],
+                answer: 1
+            },
+            {
+                question: "Which of the following schedules contains special provisions for the administration of tribal areas in the four north-eastern states of Assam, Meghalaya, Tripura and Mizoram-",
+                options: ["First schedule", "Second schedule", "Third schedule", "Sixth schedule"],
+                answer: 3
+            },
+            {
+                question: "A Secular State is one which-",
+                options: ["Has no religion of its own", "Is irreligious", "Is anti-religion", "Takes into consideration the religious\nsentiments of the people"],
+                answer: 0
+            },
+            {
+                question: "Which item out of the following is contained in the concurrent list?",
+                options: ["Trade Unions", "Agriculture", "Tolls", "Markets and Fairs"],
+                answer: 0
+            },
+            {
+                question: "Who is the Supreme Commander in Chief of Defence Forces of the country?",
+                options: ["Defence Minister", "Prime Minister", "Senior of all three forces", "President"],
+                answer: 3
+            },
+            {
+                question: "What is the term of the appointment of Comptroller and Auditor General of India?",
+                options: ["6 years", "Upto the age of 65 years", "6 years or upto the age of 65 years whichever\nis earlier", "Upto the age of 64 years"],
+                answer: 2
+            },
+            {
+                question: "Which of the following statement is not correct?",
+                options: ["Vice-President is the chairman of Rajya Sabha", "Vice-President of India acts as President at\nthe time of a vacancy is occurred suddenly", "While acting as President, Vice-president\ndoes not perform the duties of the office of", "When Vice-President acts as the President,\nthe duties of President are performed by a\nperson nominated by President in\nconsultation with Prime Minister"],
+                answer: 3
+            },
+            {
+                question: "Who is the first law officer of the country?",
+                options: ["Chief Justice of India", "Attorney General", "Law Minister", "Solicitor General"],
+                answer: 1
+            },
+            {
+                question: "Who is the Supreme Civil Officer of Central Government-",
+                options: ["Attorney General", "Cabinet Secretary", "Home Secretary", "Principle Secretary of Prime Minister"],
+                answer: 1
+            },
+            {
+                question: "For whom, the Comptroller and Auditor General of India works as a friend, philosopher and guide?",
+                options: ["Public Accounts Committee", "Estimates Committee", "Finance Ministry", "Committee on Public Undertakings"],
+                answer: 0
+            },
+            {
+                question: "The Comptroller and Auditor General of India acts as the chief accountant and auditor for the-",
+                options: ["Union Government", "State Government", "Union and State Governments", "Neither Union nor State Governments"],
+                answer: 2
+            },
+            {
+                question: "In single transferable voting system, each member can Express its verdict by-",
+                options: ["Two options", "Only one option", "One less than the filled members", "Voting for all"],
+                answer: 3
+            },
+            {
+                question: "Implementing laws is the function of-",
+                options: ["Executive", "Legislature", "Judiciary", "Local list"],
+                answer: 0
+            },
+            {
+                question: "The second most senior office in the country is of-",
+                options: ["Office of the President of India", "Office of the Prime Minister of India", "Office of the Vice President of India", "Office of the Chief Justice of India"],
+                answer: 2
+            },
+            {
+                question: "Who among the following is the executive head of state in India?",
+                options: ["Prime Minister", "President", "Cabinet Secretary", "Finance Secretary"],
+                answer: 1
+            },
+            {
+                question: "Who appoints and dismisses the gazetted officials of the Union Government?",
+                options: ["The President of India", "The Prime Minister of India", "The Home Minister of India", "The Finance Minister of India"],
+                answer: 0
+            },
+            {
+                question: "In parliamentary democracy \"he is the first among all\". Who is he-",
+                options: ["President", "Prime Minister", "Leader of opposition", "Chairman of lower house"],
+                answer: 1
+            },
+            {
+                question: "Rashtrapati Bhavan was built in-",
+                options: ["1852", "1910", "1947", "1986"],
+                answer: 0
+            },
+            {
+                question: "Who is the constitutional head of the Indian government?",
+                options: ["President", "Prime Minister", "Chief justice of India", "Attorney general"],
+                answer: 0
+            },
+            {
+                question: "A Presidential Ordinance can remain in force-",
+                options: ["For three months", "For six months", "For nine months", "Indefinitely"],
+                answer: 1
+            },
+            {
+                question: "The power to grant pardon or suspend or remit the sentence of any convicted person is vested in the-",
+                options: ["President", "Vice President", "Supreme Court Judge", "Defence Minister"],
+                answer: 0
+            },
+            {
+                question: "Who has the power to decide on an election petition for any state-",
+                options: ["Parliament", "Suprime Court", "High Court", "Election Commission"],
+                answer: 2
+            },
+            {
+                question: "Who appoints the judges of district courts-",
+                options: ["Governor", "Chief Minister", "Law Minister", "President"],
+                answer: 0
+            },
+            {
+                question: "The Indian'Judiciary headed' by-",
+                options: ["The President", "The Prime Minister", "The Supreme Court", "The Parliament"],
+                answer: 2
+            },
+            {
+                question: "Where the High Courts in India first set up?",
+                options: ["Delhi and Calcutta", "Bombay Madras Calcutta", "Bombay Delhi Calcutta", "Madras and Bombay"],
+                answer: 1
+            },
+            {
+                question: "_____ means cases that can be directly considered by the Supreme Cour't without going to the lower courts before that.",
+                options: ["Original Jurisdiction", "Writ Jurisdiction", "Appellate Jurisdiction", "Advisory Jurisdiction"],
+                answer: 0
+            },
+            {
+                question: "The law framed by Judiciary is called-",
+                options: ["Ordinary law", "Case law", "Rule of law", "Administrative law"],
+                answer: 1
+            },
+            {
+                question: "What is the main function of judiciary-",
+                options: ["To make law", "Execution of law", "Adjudication of law", "To apply law"],
+                answer: 2
+            },
+            {
+                question: "The Superme Court at Calcutta was established by-",
+                options: ["Regulating Act of 1773", "Pitts India Act of 1784", "Charter Act of 1793", "Charter Act of 1813"],
+                answer: 0
+            },
+            {
+                question: "What is the meaning of \"Public Interest Litigation\"?",
+                options: ["Anything of public interest", "A case brought by victim to court, involving\npublic interest", "A case brought by anyone to court involving\npublic interest", "A directive issued by Supreme Court\ninvolving public interest"],
+                answer: 2
+            },
+            {
+                question: "Which is the last appellate court-",
+                options: ["High court", "District court", "Civil court", "Supreme court"],
+                answer: 3
+            },
+            {
+                question: "Which among the following can be amended only by special majority in India?",
+                options: ["Admission of New State", "Salaries and allowances of Member of\nParliament", "Allowances of the President", "Amendment of the Constitution via article"],
+                answer: 3
+            },
+            {
+                question: "Which of the sets of Articles deal with 'Emergency Provision'?",
+                options: ["Articles 32 and 226", "Articles 350 and 351", "Articles 352, 356 and 360", "Articles 335, 336 and 337"],
+                answer: 2
+            },
+            {
+                question: "Which of the following can be amended by special majority?",
+                options: ["Directive Principles of State Policy", "Rules of Procedure in Parliament", "Admission of new state", "Use of English language in Parliament"],
+                answer: 0
+            },
+            {
+                question: "During an emergency all of the fol.owing fundamental rights are suspended, except-",
+                options: ["Freedom of association", "Freedom of speech and Expression", "Personal liberty", "Freedom of assembly without arms"],
+                answer: 2
+            },
+            {
+                question: "For how much time Financial Emergency can be proclaimed?",
+                options: ["6 months", "24 months", "12 months", "No maximum period"],
+                answer: 3
+            },
+            {
+                question: "Which type of emergency has not been declared so far in India?",
+                options: ["Internal emergency caused due to internal\ndisturbances", "External emergency caused due to external\nthreat", "State emergency caused due to failure of\nconstitutional machinery in the state", "Financial Emergency"],
+                answer: 3
+            },
+            {
+                question: "Which of the following pair is correctly matched-",
+                options: ["Indra Sawhney case - rights ofwomen at work\nplace", "ADM Jabalpur - rights ofcitizens in emergency", "Kartar singh case - rights of minorities", "Vishakha case - centre state relation"],
+                answer: 1
+            },
+            {
+                question: "Financial Emergency can be declared by applying-",
+                options: ["Article-360", "Article-361", "Artilce-370", "Article-371"],
+                answer: 0
+            },
+            {
+                question: "In case State emergency is declared, it needs Parliamentary approval after every-",
+                options: ["6 months", "1 year", "2 years", "5 years"],
+                answer: 0
+            },
+            {
+                question: "In India, which kind of emergency has been imposed only once-",
+                options: ["Internal disturbance emergency", "President's rule", "External situation emergency", "Financial emergency"],
+                answer: 0
+            },
+            {
+                question: "Which State enjoys the distinction of being the first linguistic state of India?",
+                options: ["West Bangal", "Andhra Pradesh", "Tamil Nadu", "Kerala"],
+                answer: 1
+            },
+            {
+                question: "Which of the following categories of citizens of the prescribed age may be registered as a voter?",
+                options: ["Bankrupt", "Convicted for certain crimes or corruption", "Non-resident citizens", "Mentally unsound"],
+                answer: 2
+            },
+            {
+                question: "In which year were the Indian states reorganised on the linguistic basis?",
+                options: ["1947", "1951", "1956", "1966"],
+                answer: 2
+            },
+            {
+                question: "The States reorganization in 1956 created-",
+                options: ["17 States and 6 Union Territories", "17 States and 9 Union Territories", "14 States and 6 Union Territories", "15 States and 9 Union Territories"],
+                answer: 2
+            },
+            {
+                question: "When was the comprehensive reorganisation of Indian States completed in accordance with the recommendations of States Reorganisation Commission?",
+                options: ["1953", "1956", "1960", "1966"],
+                answer: 1
+            },
+            {
+                question: "Who admits a new State to the Union of India?",
+                options: ["President", "Supreme Court", "Prime Minister", "Parliament"],
+                answer: 3
+            },
+            {
+                question: "Which of the following has the power to form new states or to change the borders of the states?",
+                options: ["President", "Parliament", "Election Commission", "None of these"],
+                answer: 1
+            },
+            {
+                question: "Who permits the formation of new state in Union of India?",
+                options: ["President", "Supreme Court", "Prime Minister", "Parliament"],
+                answer: 3
+            },
+            {
+                question: "Which type of federalism is seen in India?",
+                options: ["Coming together federation", "Holding together federation", "Coming together federation and Holding\ntogether federation both", "None of these"],
+                answer: 1
+            },
+            {
+                question: "No person shall be a citizen of India if he has-",
+                options: ["Lived in a foreign country for more than five\nyears", "Been convicted by a foreign court of law", "Voluntarily acquired citizenship of another\ncountry", "Accepted employment in another country"],
+                answer: 2
+            },
+            {
+                question: "Sikkim was granted statehood in the year-",
+                options: ["1973", "1974", "1975", "1976"],
+                answer: 2
+            },
+            {
+                question: "In which year, the name of Laccadive, Minicoy and Aminidivi Islands was changed in Lakshadweep by parliamentary act?",
+                options: ["1973", "1971", "1970", "1972"],
+                answer: 0
+            },
+            {
+                question: "Which commission made the recommendations which formed the basis for the Punjab Reorganisation Act which created the states Punjab and Haryana?",
+                options: ["Dhar Commission", "Dass Commission", "Shah Commission", "Mahajan Commission"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is under the state?",
+                options: ["Only external sovereignty", "Only internal sovereignty", "Internal and external sovereignty", "Neither external nor internal sovereignty"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following is not a element of the State?",
+                options: ["Population", "Land", "Army", "Government"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is an essential element of the State?",
+                options: ["Sovereignty", "Government", "Territory", "All these"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is not an essential element of the state?",
+                options: ["Population", "Administration", "Sovereignty", "Territory"],
+                answer: 1
+            },
+            {
+                question: "The state operates through-",
+                options: ["Political Party", "Party President", "Government", "President"],
+                answer: 2
+            },
+            {
+                question: "The unification of Karnataka was achieved in the year-",
+                options: ["1956", "1957", "1958", "1560"],
+                answer: 0
+            },
+            {
+                question: "What is maximum determined numbers for the members of the State  Legislative Assemblies-",
+                options: ["350", "600", "500", "750"],
+                answer: 2
+            },
+            {
+                question: "Who uses the real Executionary Powers of State-",
+                options: ["Chief Minister", "Council of Ministers", "Governor", "Chief Justice of High Court"],
+                answer: 0
+            },
+            {
+                question: "State Highways are maintained by-",
+                options: ["Centre and state governments jointly", "Private companies preferred by state government", "Individual state", "Central government"],
+                answer: 2
+            },
+            {
+                question: "Three Tier Panchayati Raj System includes-",
+                options: ["Village Level Panchayat, Zone Level\nPanchayat and Panchayat committee", "District Panchayat, SubDistrict Panchayat\nand Zone Level Panchayat", "Village Level Panchayat, Block Level\nPanchayat and District Level Panchayat", "Village Level Panchayat, Panchayat\nCommittee and District Council"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is related with the Panchayati Raj-",
+                options: ["Shah Commission", "Nanavati Commission", "Balwant Rai Mehta Committee", "Librahan Commission"],
+                answer: 2
+            },
+            {
+                question: "The Balwant Rai Mehta Committee was associated with-",
+                options: ["Industrial Policy", "Banking Reforms", "Panchayati Raj", "Centre-State relations"],
+                answer: 2
+            },
+            {
+                question: "Who had proposed the idea of three Tier Panchayati Raj system-",
+                options: ["Balwant Rai Mehta Committee", "Ashok Mehta Committee", "Royal Commission", "None of these"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is exercised by Local Government in relation with state government?",
+                options: ["Delegated Authority", "Higher Authority", "Independent Authority", "Equivalent Authority"],
+                answer: 0
+            },
+            {
+                question: "Which is an example of direct democracy in India?",
+                options: ["Zila Panchayat", "Nagar Panchayat", "Gram Sabha", "Kshetra Panchayat"],
+                answer: 2
+            },
+            {
+                question: "By which of the following articles, the Panchayati Raj system was started in India-",
+                options: ["32", "40", "45", "51"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is not a Panchayati Raj Institution?",
+                options: ["Gram Sabha", "Gram Panchayat", "Gram Cooperative society", "Nyaya Panchayat"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is not a Panchayati raj institution-",
+                options: ["Village Council", "Village Panchayat", "Village Co-Operative Society", "Judicial Panchayat"],
+                answer: 2
+            },
+            {
+                question: "The Committee appointed in 1977 to review working of the Panchayati Raj was chaired by-",
+                options: ["Balwant Rai Mehta", "Ashok Mehta", "K.N. Katju", "Jagjivan Ram"],
+                answer: 1
+            },
+            {
+                question: "The 3-tier of the Panchayati Raj System consists of-",
+                options: ["Gram Sabha, Anchal Panchayat, Panchayat\nSamiti", "Janapad Panchayat, Taluka Panchayat,\nAnchal Panchayat", "Gram Panchayat,Block and Panchayat\nSamiti, Zilla Parishad", "Gram Sabha, Panchayat Samiti, Zilla Parishad"],
+                answer: 2
+            },
+            {
+                question: "Panchayati Raj system has an Intermediate tier known as-",
+                options: ["Gram Panchayat", "Zila Parishad", "Sarpanch Panchayat", "Panchayat Samiti"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is not a matter of Local Government?",
+                options: ["Public health", "Cleanliness", "Law and order", "Public utility services"],
+                answer: 2
+            },
+            {
+                question: "Panchayati Raj system is based on the principle of-",
+                options: ["Centralisation", "Decentralisation", "Both of these", "None of these"],
+                answer: 1
+            },
+            {
+                question: "Which of the two states had firstly implemented Panchayati Raj System-",
+                options: ["Andhra Pradesh and Rajasthan", "Assam and Bihar", "Arunachal Pradesh and Uttar Pradesh", "Punjab and Chandigarh"],
+                answer: 0
+            },
+            {
+                question: "Rajasthan is the first state which-",
+                options: ["Implemented Local Self Governance", "Started Mandal System", "Started direct election of chairperson", "Started indirect election of chairperson"],
+                answer: 0
+            },
+            {
+                question: "Which of the following Indian States first adopted the 3-tier Panchayati Raj system?",
+                options: ["Bihar", "Uttar Pradesh", "Rajasthan", "Madhya Pradesh"],
+                answer: 2
+            },
+            {
+                question: "The Panchayati Raj was first adopted by which of the following states?",
+                options: ["Haryana", "Rajasthan", "Madhya Pradesh", "Karnataka"],
+                answer: 1
+            },
+            {
+                question: "Programme for capacity building of Elected Women Representatives (EWRs)of panchayats has been launched at_____ .",
+                options: ["Nagaur, Rajasthan", "Ranchi, Jharkhand", "Patna, Bihar", "Lucknow, Uttar Pradesh"],
+                answer: 1
+            },
+            {
+                question: "Democratic Decentralization means-",
+                options: ["Union Government", "Parliamentary Government", "Democratic Government", "Local Government"],
+                answer: 3
+            },
+            {
+                question: "Which of the following ensures grassroot democracy in India-",
+                options: ["Panchayati raj", "Interstate council", "President", "CAG"],
+                answer: 0
+            },
+            {
+                question: "What is the structure of panchayati Raj?",
+                options: ["Zilla Panchayat t Block Panchayat + Gram\nPanchayat  Gram Sabha", "Khap Panchayat + Zilla Panchayat t Block\nPanchayat + Gram Panchayat + Gram Sabha", "Khap Panchayat + Zilla Panchayat + Block\nPanchayat t Gram Panchayat", "Nagar Panchayat + Zilla Panchayat t Block\nPanchayat + Gram Panchayat + Gram Sabha"],
+                answer: 0
+            },
+            {
+                question: "Under the Directive Principles of State Policy up to what age of the children they are expected to be provided free and compulsory education?",
+                options: ["14 years", "15 years", "16 years", "18 years"],
+                answer: 0
+            },
+            {
+                question: "Where is the Constitutional power located enabling the Central Government to legislate on cow slaughter?",
+                options: ["Entry 17, List III in Schedule VII Prevention\nof Cruelty to Animals", "Residuary Powers under Article 248", "Emergency Powers", "Article-48 in the Directive Principles"],
+                answer: 3
+            },
+            {
+                question: "Who made this statement that \"the Directive Principles of State Policy are like Bank Cheque whose payment is done by bank at his own will\"?",
+                options: ["K.T.Shah", "K.M.Munshi", "B.R.Ambedkar", "Austin"],
+                answer: 0
+            },
+            {
+                question: "If the Directive principles of state policy would have not been enforced by government where can the citizens go?",
+                options: ["High court", "Supreme court", "National human rights commission", "None of these"],
+                answer: 3
+            },
+            {
+                question: "In which state of India is there a uniform civil code?",
+                options: ["Meghalaya", "Kerala", "Haryana", "Goa"],
+                answer: 3
+            },
+            {
+                question: "Who said about \"Ram rule through village rule\"?",
+                options: ["Mahatma Gandhi", "Vinobha bhave", "Jayaprakash Narayan", "Jawaharlal Nehru"],
+                answer: 0
+            },
+            {
+                question: "Ideas of welfare state are contained in-",
+                options: ["Fundamental Rights", "Directive Principles of State Policy", "Preamble of the constitution", "Part-VIII"],
+                answer: 1
+            },
+            {
+                question: "Which of the following ensures economic justice to Indian citizens?",
+                options: ["Fundamental rights", "Fundamental duties", "Preamble", "Directive principles of state policy"],
+                answer: 3
+            }
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.textContent = `${index + 1}) ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) {
+                        return;
+                    }
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            wrapper.appendChild(questionBlock);
+        });
+    </script>
+</body>
+</html>

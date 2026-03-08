@@ -1,0 +1,1995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocabulary Quiz - Test Your Word Power</title>
+    <style>
+        :root {
+            --primary-color: #1a5276;
+            --secondary-color: #2980b9;
+            --correct-color: #27ae60;
+            --incorrect-color: #e74c3c;
+            --light-gray: #f8f9f9;
+            --dark-gray: #7f8c8d;
+            --gold-color: #f1c40f;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gold-color);
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-top: 10px;
+            font-weight: 400;
+        }
+        
+        .quiz-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .question {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: var(--primary-color);
+            line-height: 1.4;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .option {
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            background-color: white;
+            position: relative;
+            padding-left: 45px;
+        }
+        
+        .option:hover {
+            background-color: var(--light-gray);
+            border-color: var(--secondary-color);
+        }
+        
+        .option::before {
+            content: "";
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .option.selected {
+            background-color: #e1f0fa;
+            border-color: var(--secondary-color);
+            font-weight: 500;
+        }
+        
+        .option.selected::before {
+            border-color: var(--secondary-color);
+            background-color: var(--secondary-color);
+        }
+        
+        .option.correct {
+            background-color: #e8f8f0;
+            border-color: var(--correct-color);
+            color: var(--correct-color);
+        }
+        
+        .option.correct::before {
+            border-color: var(--correct-color);
+            background-color: var(--correct-color);
+        }
+        
+        .option.incorrect {
+            background-color: #fdedec;
+            border-color: var(--incorrect-color);
+            color: var(--incorrect-color);
+        }
+        
+        .option.incorrect::before {
+            border-color: var(--incorrect-color);
+        }
+        
+        .feedback {
+            margin-top: 25px;
+            padding: 18px;
+            border-radius: 8px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .correct-feedback {
+            background-color: #e8f8f0;
+            color: var(--correct-color);
+            border-left: 5px solid var(--correct-color);
+        }
+        
+        .incorrect-feedback {
+            background-color: #fdedec;
+            color: var(--incorrect-color);
+            border-left: 5px solid var(--incorrect-color);
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        button:hover {
+            background-color: #154360;
+            transform: translateY(-2px);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+        
+        .progress-container {
+            margin-bottom: 25px;
+            background-color: var(--light-gray);
+            border-radius: 20px;
+            height: 10px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+            transition: width 0.4s ease;
+        }
+        
+        .progress-text {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: var(--dark-gray);
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .result-container {
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.8s ease;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .score {
+            font-size: 72px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 30px 0;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .score::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--gold-color);
+            border-radius: 2px;
+        }
+        
+        .score-text {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .restart-btn {
+            margin-top: 30px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .restart-btn:hover {
+            background: linear-gradient(135deg, #3498db, #1a5276);
+            transform: translateY(-2px);
+        }
+        
+        .explanation {
+            margin-top: 15px;
+            font-style: italic;
+            color: var(--dark-gray);
+            line-height: 1.5;
+        }
+        
+        .performance-text {
+            font-size: 18px;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f8f9f9;
+        }
+        
+        .week-indicator {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--gold-color);
+            color: var(--primary-color);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            
+            header {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .quiz-container {
+                padding: 20px;
+            }
+
+            /* MODIFICATION START for .week-indicator on mobile */
+            .week-indicator {
+                position: relative; /* Take it out of absolute flow */
+                display: block;     /* Make it a block-level element */
+                width: fit-content; /* Make the block only as wide as its content */
+                margin: 0 auto 20px auto; /* Center the block and add 20px margin at the bottom */
+                top: auto;          /* Nullify inherited 'top' from desktop */
+                right: auto;        /* Nullify inherited 'right' from desktop */
+                font-size: 13px;    /* Optional: adjust font size */
+                padding: 6px 12px;  /* Optional: adjust padding */
+            }
+            /* MODIFICATION END for .week-indicator on mobile */
+            
+            .question {
+                font-size: 18px;
+                /* margin-top cleared as week-indicator will provide top spacing if it's first */
+            }
+            
+            .option {
+                padding: 12px 12px 12px 40px;
+                font-size: 15px;
+            }
+            
+            .score {
+                font-size: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Vocabulary Quiz</h1>
+            <div class="subtitle">Test Your Word Power</div>
+        </header>
+        
+        <div class="progress-text">
+            <span>Question <span id="current-question">1</span> of <span id="total-questions">0</span></span>
+            <span>Score: <span id="current-score">0</span></span>
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        
+        <div class="quiz-container">
+            <div class="week-indicator" id="week-indicator">Page 1</div>
+            <div class="question" id="question-text"></div>
+            <div class="options" id="options-container"></div>
+            <div class="feedback" id="feedback"></div>
+            
+            <div class="navigation">
+                <button id="prev-btn" disabled>Previous</button>
+                <button id="next-btn">Next</button>
+            </div>
+        </div>
+        
+        <div class="result-container" id="result-container">
+            <h2>Quiz Completed!</h2>
+            <div class="score-text">Your Final Score</div>
+            <div class="score"><span id="final-score">0</span>/<span id="total-questions-final">0</span></div>
+            <div class="performance-text" id="performance-text"></div>
+            <button class="restart-btn" id="restart-btn">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        // Quiz data from vocab1.txt
+        const quizData = [
+    {
+        question: "Abase",
+        options: ["To embarrass", "Give up", "Degrade", "Place where animals are killed"],
+        answer: 2,
+        explanation: "Solution: C) Degrade",
+        week: "Page 1"
+    },
+    {
+        question: "Abash",
+        options: ["Degrade", "To embarrass", "Abnormal", "Give up"],
+        answer: 1,
+        explanation: "Solution: B) To embarrass",
+        week: "Page 1"
+    },
+    {
+        question: "Abattoir",
+        options: ["The act of helping someone in wrongdoing", "Give up", "Place where animals are killed", "To embarrass"],
+        answer: 2,
+        explanation: "Solution: C) Place where animals are killed",
+        week: "Page 1"
+    },
+    {
+        question: "Abdicate",
+        options: ["Abnormal", "Give up", "Suspended action", "Detest, dislike, hate"],
+        answer: 1,
+        explanation: "Solution: B) Give up",
+        week: "Page 1"
+    },
+    {
+        question: "Aberrant",
+        options: ["The act of helping someone in wrongdoing", "Abnormal", "Give up", "Suspended action"],
+        answer: 1,
+        explanation: "Solution: B) Abnormal",
+        week: "Page 1"
+    },
+    {
+        question: "Abetment",
+        options: ["Detest, dislike, hate", "The act of washing oneself", "The act of helping someone in wrongdoing", "Extremely poor or unhappy"],
+        answer: 2,
+        explanation: "Solution: C) The act of helping someone in wrongdoing",
+        week: "Page 1"
+    },
+    {
+        question: "Abeyance",
+        options: ["Renounce upon oath", "Suspended action", "To give up a right or a claim", "The place where someone lives"],
+        answer: 1,
+        explanation: "Solution: B) Suspended action",
+        week: "Page 1"
+    },
+    {
+        question: "Abhor",
+        options: ["Detest, dislike, hate", "To put an end to", "Very bad or unpleasant", "Native"],
+        answer: 0,
+        explanation: "Solution: A) Detest, dislike, hate",
+        week: "Page 1"
+    },
+    {
+        question: "Abject",
+        options: ["Fruitless, futile", "Extremely poor or unhappy", "Substance used for rubbing", "Shorten"],
+        answer: 1,
+        explanation: "Solution: B) Extremely poor or unhappy",
+        week: "Page 1"
+    },
+    {
+        question: "Abjure",
+        options: ["Renounce upon oath", "The act of washing oneself", "To give up a right or a claim", "The place where someone lives"],
+        answer: 0,
+        explanation: "Solution: A) Renounce upon oath",
+        week: "Page 1"
+    },
+    {
+        question: "Ablution",
+        options: ["To put an end to", "The act of washing oneself", "Very bad or unpleasant", "Native"],
+        answer: 1,
+        explanation: "Solution: B) The act of washing oneself",
+        week: "Page 1"
+    },
+    {
+        question: "Abnegation",
+        options: ["Fruitless, futile", "To give up a right or a claim", "Substance used for rubbing", "Shorten"],
+        answer: 1,
+        explanation: "Solution: B) To give up a right or a claim",
+        week: "Page 1"
+    },
+    {
+        question: "Abode",
+        options: ["Abolish some custom etc.", "The place where someone lives", "Cutting off", "Depart secretly"],
+        answer: 1,
+        explanation: "Solution: B) The place where someone lives",
+        week: "Page 1"
+    },
+    {
+        question: "Abolish",
+        options: ["Complete", "To put an end to", "Pardon", "Refrain from"],
+        answer: 1,
+        explanation: "Solution: B) To put an end to",
+        week: "Page 1"
+    },
+    {
+        question: "Abominable",
+        options: ["A shortened form of speech/existing as an idea or feeling only", "Very bad or unpleasant", "Difficult to understand", "Native"],
+        answer: 1,
+        explanation: "Solution: B) Very bad or unpleasant",
+        week: "Page 1"
+    },
+    {
+        question: "Aboriginal",
+        options: ["Fruitless, futile", "Native", "Substance used for rubbing", "Shorten"],
+        answer: 1,
+        explanation: "Solution: B) Native",
+        week: "Page 1"
+    },
+    {
+        question: "Abortive",
+        options: ["Abolish some custom etc.", "Fruitless, futile", "Cutting off", "Depart secretly"],
+        answer: 1,
+        explanation: "Solution: B) Fruitless, futile",
+        week: "Page 1"
+    },
+    {
+        question: "Abrasive",
+        options: ["Complete", "Substance used for rubbing", "Pardon", "Refrain from"],
+        answer: 1,
+        explanation: "Solution: B) Substance used for rubbing",
+        week: "Page 1"
+    },
+    {
+        question: "Abridge",
+        options: ["A shortened form of speech/existing as an idea or feeling only", "Shorten", "Difficult to understand", "Complete"],
+        answer: 1,
+        explanation: "Solution: B) Shorten",
+        week: "Page 1"
+    },
+    {
+        question: "Abrogate",
+        options: ["Pardon", "Abolish some custom etc.", "Refrain from", "Cutting off"],
+        answer: 1,
+        explanation: "Solution: B) Abolish some custom etc.",
+        week: "Page 1"
+    },
+    {
+        question: "Abscission",
+        options: ["Depart secretly", "Cutting off", "Complete", "Pardon"],
+        answer: 1,
+        explanation: "Solution: B) Cutting off",
+        week: "Page 1"
+    },
+    {
+        question: "Abscond",
+        options: ["Refrain from", "Depart secretly", "A shortened form of speech/existing as an idea or feeling only", "Difficult to understand"],
+        answer: 1,
+        explanation: "Solution: B) Depart secretly",
+        week: "Page 1"
+    },
+    {
+        question: "Absolute",
+        options: ["Complete", "Pardon", "Refrain from", "A shortened form of speech/existing as an idea or feeling only"],
+        answer: 0,
+        explanation: "Solution: A) Complete",
+        week: "Page 1"
+    },
+    {
+        question: "Absolve",
+        options: ["Difficult to understand", "Pardon", "Complete", "Refrain from"],
+        answer: 1,
+        explanation: "Solution: B) Pardon",
+        week: "Page 1"
+    },
+    {
+        question: "Abstain",
+        options: ["Refrain from", "A shortened form of speech/existing as an idea or feeling only", "Difficult to understand", "Complete"],
+        answer: 0,
+        explanation: "Solution: A) Refrain from",
+        week: "Page 1"
+    },
+    {
+        question: "Abstract",
+        options: ["Pardon", "A shortened form of speech/existing as an idea or feeling only", "Refrain from", "Difficult to understand"],
+        answer: 1,
+        explanation: "Solution: B) A shortened form of speech/existing as an idea or feeling only",
+        week: "Page 1"
+    },
+    {
+        question: "Abstruse",
+        options: ["Complete", "Difficult to understand", "A shortened form of speech/existing as an idea or feeling only", "Refrain from"],
+        answer: 1,
+        explanation: "Solution: B) Difficult to understand",
+        week: "Page 1"
+    },
+    {
+        question: "Abysmal",
+        options: ["Agree to do", "Not measurable, very bad", "Applaud", "Award of merit"],
+        answer: 1,
+        explanation: "Solution: B) Not measurable, very bad",
+        week: "Page 2"
+    },
+    {
+        question: "Accede",
+        options: ["Partner in crime", "Agree to do", "Do something in complete agreement", "One who is under trial in a court"],
+        answer: 1,
+        explanation: "Solution: B) Agree to do",
+        week: "Page 2"
+    },
+    {
+        question: "Acclaim",
+        options: ["Peak", "Applaud", "Declare to be not guilty", "To change to suit different environment"],
+        answer: 1,
+        explanation: "Solution: B) Applaud",
+        week: "Page 2"
+    },
+    {
+        question: "Accolade",
+        options: ["Proficient", "Award of merit", "One who is growing into an adult", "Mixing some undesired commodity"],
+        answer: 1,
+        explanation: "Solution: B) Award of merit",
+        week: "Page 2"
+    },
+    {
+        question: "Accomplice",
+        options: ["To have sex outside marriage", "Partner in crime", "Unfavourable", "The period which follows an undesired event"],
+        answer: 1,
+        explanation: "Solution: B) Partner in crime",
+        week: "Page 2"
+    },
+    {
+        question: "Accord",
+        options: ["Sudden feeling of shock and worry", "Do something in complete agreement", "Able to move your body quickly", "Extreme sufferings"],
+        answer: 1,
+        explanation: "Solution: B) Do something in complete agreement",
+        week: "Page 2"
+    },
+    {
+        question: "Accused",
+        options: ["Narrow, long space between the two rows of seats", "One who is under trial in a court", "One who tries to turn other base metal into gold", "Money paid usually to a wife after break-down of marriage"],
+        answer: 1,
+        explanation: "Solution: B) One who is under trial in a court",
+        week: "Page 2"
+    },
+    {
+        question: "Acme",
+        options: ["Table/place where offerings are put in a religious place", "Peak", "A loud argument", "Having more than one possible meaning"],
+        answer: 1,
+        explanation: "Solution: B) Peak",
+        week: "Page 2"
+    },
+    {
+        question: "Acquit",
+        options: ["Willing to accept a suggestion", "Declare to be not guilty", "Pleasant and friendly behaviour", "Great anxiety"],
+        answer: 1,
+        explanation: "Solution: B) Declare to be not guilty",
+        week: "Page 2"
+    },
+    {
+        question: "Adapt",
+        options: ["Extreme unhappiness", "To change to suit different environment", "To add a brief explanation", "Proficient"],
+        answer: 1,
+        explanation: "Solution: B) To change to suit different environment",
+        week: "Page 2"
+    },
+    {
+        question: "Adept",
+        options: ["One who is growing into an adult", "Proficient", "Mixing some undesired commodity", "To have sex outside marriage"],
+        answer: 1,
+        explanation: "Solution: B) Proficient",
+        week: "Page 2"
+    },
+    {
+        question: "Adolescent",
+        options: ["Unfavourable", "One who is growing into an adult", "The period which follows an undesired event", "Sudden feeling of shock and worry"],
+        answer: 1,
+        explanation: "Solution: B) One who is growing into an adult",
+        week: "Page 2"
+    },
+    {
+        question: "Adulteration",
+        options: ["Able to move your body quickly", "Mixing some undesired commodity", "Extreme sufferings", "Narrow, long space between the two rows of seats"],
+        answer: 1,
+        explanation: "Solution: B) Mixing some undesired commodity",
+        week: "Page 2"
+    },
+    {
+        question: "Adultery",
+        options: ["One who tries to turn other base metal into gold", "To have sex outside marriage", "Money paid usually to a wife after break-down of marriage", "Table/place where offerings are put in a religious place"],
+        answer: 1,
+        explanation: "Solution: B) To have sex outside marriage",
+        week: "Page 2"
+    },
+    {
+        question: "Adverse",
+        options: ["A loud argument", "Unfavourable", "Having more than one possible meaning", "Willing to accept a suggestion"],
+        answer: 1,
+        explanation: "Solution: B) Unfavourable",
+        week: "Page 2"
+    },
+    {
+        question: "Aftermath",
+        options: ["Pleasant and friendly behaviour", "The period which follows an undesired event", "Great anxiety", "Extreme unhappiness"],
+        answer: 1,
+        explanation: "Solution: B) The period which follows an undesired event",
+        week: "Page 2"
+    },
+    {
+        question: "Aghast",
+        options: ["To add a brief explanation", "Sudden feeling of shock and worry", "Agree to do", "Applaud"],
+        answer: 1,
+        explanation: "Solution: B) Sudden feeling of shock and worry",
+        week: "Page 2"
+    },
+    {
+        question: "Agile",
+        options: ["Award of merit", "Able to move your body quickly", "Partner in crime", "Do something in complete agreement"],
+        answer: 1,
+        explanation: "Solution: B) Able to move your body quickly",
+        week: "Page 2"
+    },
+    {
+        question: "Agony",
+        options: ["One who is under trial in a court", "Extreme sufferings", "Peak", "Declare to be not guilty"],
+        answer: 1,
+        explanation: "Solution: B) Extreme sufferings",
+        week: "Page 2"
+    },
+    {
+        question: "Aisle",
+        options: ["To change to suit different environment", "Narrow, long space between the two rows of seats", "Proficient", "One who is growing into an adult"],
+        answer: 1,
+        explanation: "Solution: B) Narrow, long space between the two rows of seats",
+        week: "Page 2"
+    },
+    {
+        question: "Alchemist",
+        options: ["Mixing some undesired commodity", "One who tries to turn other base metal into gold", "To have sex outside marriage", "Unfavourable"],
+        answer: 1,
+        explanation: "Solution: B) One who tries to turn other base metal into gold",
+        week: "Page 2"
+    },
+    {
+        question: "Alimony",
+        options: ["The period which follows an undesired event", "Money paid usually to a wife after break-down of marriage", "Sudden feeling of shock and worry", "Able to move your body quickly"],
+        answer: 1,
+        explanation: "Solution: B) Money paid usually to a wife after break-down of marriage",
+        week: "Page 2"
+    },
+    {
+        question: "Altar",
+        options: ["Extreme sufferings", "Table/place where offerings are put in a religious place", "Narrow, long space between the two rows of seats", "One who tries to turn other base metal into gold"],
+        answer: 1,
+        explanation: "Solution: B) Table/place where offerings are put in a religious place",
+        week: "Page 2"
+    },
+    {
+        question: "Altercation",
+        options: ["Money paid usually to a wife after break-down of marriage", "A loud argument", "Table/place where offerings are put in a religious place", "Having more than one possible meaning"],
+        answer: 1,
+        explanation: "Solution: B) A loud argument",
+        week: "Page 2"
+    },
+    {
+        question: "Ambiguous",
+        options: ["Willing to accept a suggestion", "Having more than one possible meaning", "Pleasant and friendly behaviour", "Great anxiety"],
+        answer: 1,
+        explanation: "Solution: B) Having more than one possible meaning",
+        week: "Page 2"
+    },
+    {
+        question: "Amenable",
+        options: ["Extreme unhappiness", "Willing to accept a suggestion", "To add a brief explanation", "Agree to do"],
+        answer: 1,
+        explanation: "Solution: B) Willing to accept a suggestion",
+        week: "Page 2"
+    },
+    {
+        question: "Amiable",
+        options: ["Applaud", "Pleasant and friendly behaviour", "Award of merit", "Partner in crime"],
+        answer: 1,
+        explanation: "Solution: B) Pleasant and friendly behaviour",
+        week: "Page 2"
+    },
+    {
+        question: "Angst",
+        options: ["Do something in complete agreement", "Great anxiety", "One who is under trial in a court", "Peak"],
+        answer: 1,
+        explanation: "Solution: B) Great anxiety",
+        week: "Page 2"
+    },
+    {
+        question: "Anguish",
+        options: ["Declare to be not guilty", "Extreme unhappiness", "To change to suit different environment", "Proficient"],
+        answer: 1,
+        explanation: "Solution: B) Extreme unhappiness",
+        week: "Page 2"
+    },
+    {
+        question: "Annotate",
+        options: ["One who is growing into an adult", "To add a brief explanation", "Mixing some undesired commodity", "To have sex outside marriage"],
+        answer: 1,
+        explanation: "Solution: B) To add a brief explanation",
+        week: "Page 2"
+    },
+    {
+        question: "Anonymous",
+        options: ["Something/someone existing before", "Made/done by someone unknown", "Lack of interest/enthusiasm/emotion", "Very bad and shocking"],
+        answer: 1,
+        explanation: "Solution: B) Made/done by someone unknown",
+        week: "Page 3"
+    },
+    {
+        question: "Antecedent",
+        options: ["The act of giving advantage to one party", "Something/someone existing before", "Place where historical records are kept", "Often arguing or ready to argue"],
+        answer: 1,
+        explanation: "Solution: B) Something/someone existing before",
+        week: "Page 3"
+    },
+    {
+        question: "Apathy",
+        options: ["A good orator", "Lack of interest/enthusiasm/emotion", "Religious beliefs and avoidance of life of pleasure", "A violent attack"],
+        answer: 1,
+        explanation: "Solution: B) Lack of interest/enthusiasm/emotion",
+        week: "Page 3"
+    },
+    {
+        question: "Appalling",
+        options: ["Valuables", "Very bad and shocking", "Violent and cruel act", "To calm or soothe"],
+        answer: 1,
+        explanation: "Solution: B) Very bad and shocking",
+        week: "Page 3"
+    },
+    {
+        question: "Appeasement",
+        options: ["The gradual weakening of something", "The act of giving advantage to one party", "Add to/increase", "Important/Majestic"],
+        answer: 1,
+        explanation: "Solution: B) The act of giving advantage to one party",
+        week: "Page 3"
+    },
+    {
+        question: "Archives",
+        options: ["A feeling or character a person/place seems to have", "Place where historical records are kept", "Strong disliking", "Hateful"],
+        answer: 1,
+        explanation: "Solution: B) Place where historical records are kept",
+        week: "Page 3"
+    },
+    {
+        question: "Argumentative",
+        options: ["Talk in a way which is difficult to understand", "Often arguing or ready to argue", "Drunken", "To speak something at the back of someone"],
+        answer: 1,
+        explanation: "Solution: B) Often arguing or ready to argue",
+        week: "Page 3"
+    },
+    {
+        question: "Articulate",
+        options: ["Annoy", "A good orator", "playful teasing/banter", "Confuse"],
+        answer: 1,
+        explanation: "Solution: B) A good orator",
+        week: "Page 3"
+    },
+    {
+        question: "Asceticism",
+        options: ["Snare, Trap, Decoy", "Religious beliefs and avoidance of life of pleasure", "Deadly", "To be unwilling to do something"],
+        answer: 1,
+        explanation: "Solution: B) Religious beliefs and avoidance of life of pleasure",
+        week: "Page 3"
+    },
+    {
+        question: "Assault",
+        options: ["Pleasantly warm", "A violent attack", "Curse", "Made/done by someone unknown"],
+        answer: 1,
+        explanation: "Solution: B) A violent attack",
+        week: "Page 3"
+    },
+    {
+        question: "Asset",
+        options: ["Something/someone existing before", "Valuables", "Lack of interest/enthusiasm/emotion", "Very bad and shocking"],
+        answer: 1,
+        explanation: "Solution: B) Valuables",
+        week: "Page 3"
+    },
+    {
+        question: "Atrocities",
+        options: ["The act of giving advantage to one party", "Violent and cruel act", "Place where historical records are kept", "Often arguing or ready to argue"],
+        answer: 1,
+        explanation: "Solution: B) Violent and cruel act",
+        week: "Page 3"
+    },
+    {
+        question: "Attenuate",
+        options: ["A good orator", "To calm or soothe", "Religious beliefs and avoidance of life of pleasure", "A violent attack"],
+        answer: 1,
+        explanation: "Solution: B) To calm or soothe",
+        week: "Page 3"
+    },
+    {
+        question: "Attrition",
+        options: ["Valuables", "The gradual weakening of something", "Violent and cruel act", "To calm or soothe"],
+        answer: 1,
+        explanation: "Solution: B) The gradual weakening of something",
+        week: "Page 3"
+    },
+    {
+        question: "Augment",
+        options: ["Add to/increase", "The act of giving advantage to one party", "Important/Majestic", "A feeling or character a person/place seems to have"],
+        answer: 0,
+        explanation: "Solution: A) Add to/increase",
+        week: "Page 3"
+    },
+    {
+        question: "August",
+        options: ["Strong disliking", "Important/Majestic", "Hateful", "Talk in a way which is difficult to understand"],
+        answer: 1,
+        explanation: "Solution: B) Important/Majestic",
+        week: "Page 3"
+    },
+    {
+        question: "Aura",
+        options: ["Drunken", "A feeling or character a person/place seems to have", "To speak something at the back of someone", "Annoy"],
+        answer: 1,
+        explanation: "Solution: B) A feeling or character a person/place seems to have",
+        week: "Page 3"
+    },
+    {
+        question: "Averse",
+        options: ["playful teasing/banter", "Strong disliking", "Confuse", "Snare, Trap, Decoy"],
+        answer: 1,
+        explanation: "Solution: B) Strong disliking",
+        week: "Page 3"
+    },
+    {
+        question: "Awful",
+        options: ["Deadly", "Hateful", "To be unwilling to do something", "Pleasantly warm"],
+        answer: 1,
+        explanation: "Solution: B) Hateful",
+        week: "Page 3"
+    },
+    {
+        question: "Babble",
+        options: ["Curse", "Talk in a way which is difficult to understand", "Made/done by someone unknown", "Something/someone existing before"],
+        answer: 1,
+        explanation: "Solution: B) Talk in a way which is difficult to understand",
+        week: "Page 3"
+    },
+    {
+        question: "Bacchanalian",
+        options: ["Lack of interest/enthusiasm/emotion", "Drunken", "Very bad and shocking", "The act of giving advantage to one party"],
+        answer: 1,
+        explanation: "Solution: B) Drunken",
+        week: "Page 3"
+    },
+    {
+        question: "Backbite",
+        options: ["Place where historical records are kept", "To speak something at the back of someone", "Often arguing or ready to argue", "A good orator"],
+        answer: 1,
+        explanation: "Solution: B) To speak something at the back of someone",
+        week: "Page 3"
+    },
+    {
+        question: "Badger",
+        options: ["Religious beliefs and avoidance of life of pleasure", "Annoy", "A violent attack", "Valuables"],
+        answer: 1,
+        explanation: "Solution: B) Annoy",
+        week: "Page 3"
+    },
+    {
+        question: "Badinage",
+        options: ["Violent and cruel act", "playful teasing/banter", "To calm or soothe", "The gradual weakening of something"],
+        answer: 1,
+        explanation: "Solution: B) playful teasing/banter",
+        week: "Page 3"
+    },
+    {
+        question: "Baffle",
+        options: ["Add to/increase", "Confuse", "Important/Majestic", "A feeling or character a person/place seems to have"],
+        answer: 1,
+        explanation: "Solution: B) Confuse",
+        week: "Page 3"
+    },
+    {
+        question: "Bait",
+        options: ["Strong disliking", "Snare, Trap, Decoy", "Hateful", "Talk in a way which is difficult to understand"],
+        answer: 1,
+        explanation: "Solution: B) Snare, Trap, Decoy",
+        week: "Page 3"
+    },
+    {
+        question: "Baleful",
+        options: ["Drunken", "Deadly", "To speak something at the back of someone", "Annoy"],
+        answer: 1,
+        explanation: "Solution: B) Deadly",
+        week: "Page 3"
+    },
+    {
+        question: "Balk",
+        options: ["playful teasing/banter", "To be unwilling to do something", "Confuse", "Snare, Trap, Decoy"],
+        answer: 1,
+        explanation: "Solution: B) To be unwilling to do something",
+        week: "Page 3"
+    },
+    {
+        question: "Balmy",
+        options: ["Deadly", "Pleasantly warm", "To be unwilling to do something", "Curse"],
+        answer: 1,
+        explanation: "Solution: B) Pleasantly warm",
+        week: "Page 3"
+    },
+    {
+        question: "Bane",
+        options: ["Pleasantly warm", "Curse", "Talk in a way which is difficult to understand", "Made/done by someone unknown"],
+        answer: 1,
+        explanation: "Solution: B) Curse",
+        week: "Page 3"
+    },
+    {
+        question: "Banter",
+        options: ["Sharp projection from fish hook", "Conversation which is funny and not serious", "Savagely cruel", "Poet"],
+        answer: 1,
+        explanation: "Solution: B) Conversation which is funny and not serious",
+        week: "Page 4"
+    },
+    {
+        question: "Barb (Correcting S.N. from 80 to 89 as per image sequence)",
+        options: ["Shameless", "Sharp projection from fish hook", "Highly ornate", "Structure built across a river"],
+        answer: 1,
+        explanation: "Solution: B) Sharp projection from fish hook",
+        week: "Page 4"
+    },
+    {
+        question: "Barbaric (Correcting S.N. from 90 to 90 as per image, word corrected from OCR \"Barbarile\")",
+        options: ["Direct or quick route", "Savagely cruel", "To father or produce", "To give unwillingly"],
+        answer: 1,
+        explanation: "Solution: B) Savagely cruel",
+        week: "Page 4"
+    },
+    {
+        question: "Bard (Correcting S.N. from 01 to 91)",
+        options: ["Cheat or mislead", "Poet", "Huge creature", "At the request or order of"],
+        answer: 1,
+        explanation: "Solution: B) Poet",
+        week: "Page 4"
+    },
+    {
+        question: "Barefaced (Correcting S.N. from 02 to 92)",
+        options: ["Kindness", "Shameless", "To be disloyal/ to deceive", "A man who has no moral principles"],
+        answer: 1,
+        explanation: "Solution: B) Shameless",
+        week: "Page 4"
+    },
+    {
+        question: "Baroque (Correcting S.N. from 93 to 93)",
+        options: ["Open and unashamed", "Highly ornate", "Swellings on skin", "Stormy weather"],
+        answer: 1,
+        explanation: "Solution: B) Highly ornate",
+        week: "Page 4"
+    },
+    {
+        question: "Barrage (Correcting S.N. from 94 to 94)",
+        options: ["A big mistake", "Structure built across a river", "To become pink in the face due to shyness", "Noisy and full of energy"],
+        answer: 1,
+        explanation: "Solution: B) Structure built across a river",
+        week: "Page 4"
+    },
+    {
+        question: "Beeline (Correcting S.N. from 95 to 95)",
+        options: ["Pompous language with little meaning", "Direct or quick route", "To improve/increase", "To take alcoholic drink"],
+        answer: 1,
+        explanation: "Solution: B) Direct or quick route",
+        week: "Page 4"
+    },
+    {
+        question: "Beget (Correcting S.N. from 06 to 96)",
+        options: ["An insult, spoken attack", "To father or produce", "Savagely violent", "Crumble under pressure"],
+        answer: 1,
+        explanation: "Solution: B) To father or produce",
+        week: "Page 4"
+    },
+    {
+        question: "Begrudge (Correcting S.N. from 97 to 97)",
+        options: ["To hurt/frighten someone", "To give unwillingly", "To leave without permission", "To kill/murder someone"],
+        answer: 1,
+        explanation: "Solution: B) To give unwillingly",
+        week: "Page 4"
+    },
+    {
+        question: "Beguile (Correcting S.N. from 98 to 98)",
+        options: ["Group of people who plan secretly", "Cheat or mislead", "Hiding place", "Harsh mixture of sound"],
+        answer: 1,
+        explanation: "Solution: B) Cheat or mislead",
+        week: "Page 4"
+    },
+    {
+        question: "Behemoth (Correcting S.N. from 09 to 99)",
+        options: ["A dead human body", "Huge creature", "Regular rise and fall of voice", "Acting together generally for a dishonest purpose"],
+        answer: 1,
+        explanation: "Solution: B) Huge creature",
+        week: "Page 4"
+    },
+    {
+        question: "Behest",
+        options: ["Conversation which is funny and not serious", "At the request or order of", "Savagely cruel", "Poet"],
+        answer: 1,
+        explanation: "Solution: B) At the request or order of",
+        week: "Page 4"
+    },
+    {
+        question: "Benevolence",
+        options: ["Shameless", "Kindness", "Highly ornate", "Structure built across a river"],
+        answer: 1,
+        explanation: "Solution: B) Kindness",
+        week: "Page 4"
+    },
+    {
+        question: "Betray",
+        options: ["Direct or quick route", "To be disloyal/ to deceive", "To father or produce", "To give unwillingly"],
+        answer: 1,
+        explanation: "Solution: B) To be disloyal/ to deceive",
+        week: "Page 4"
+    },
+    {
+        question: "Blackguard",
+        options: ["Cheat or mislead", "A man who has no moral principles", "Huge creature", "At the request or order of"],
+        answer: 1,
+        explanation: "Solution: B) A man who has no moral principles",
+        week: "Page 4"
+    },
+    {
+        question: "Blatant",
+        options: ["Kindness", "Open and unashamed", "To be disloyal/ to deceive", "A man who has no moral principles"],
+        answer: 1,
+        explanation: "Solution: B) Open and unashamed",
+        week: "Page 4"
+    },
+    {
+        question: "Blister",
+        options: ["Swellings on skin", "Highly ornate", "Stormy weather", "A big mistake"],
+        answer: 0,
+        explanation: "Solution: A) Swellings on skin",
+        week: "Page 4"
+    },
+    {
+        question: "Blizzard",
+        options: ["To become pink in the face due to shyness", "Stormy weather", "Noisy and full of energy", "Pompous language with little meaning"],
+        answer: 1,
+        explanation: "Solution: B) Stormy weather",
+        week: "Page 4"
+    },
+    {
+        question: "Blunder",
+        options: ["To improve/increase", "A big mistake", "To take alcoholic drink", "An insult, spoken attack"],
+        answer: 1,
+        explanation: "Solution: B) A big mistake",
+        week: "Page 4"
+    },
+    {
+        question: "Blush",
+        options: ["Savagely violent", "To become pink in the face due to shyness", "Crumble under pressure", "To hurt/frighten someone"],
+        answer: 1,
+        explanation: "Solution: B) To become pink in the face due to shyness",
+        week: "Page 4"
+    },
+    {
+        question: "Boisterous",
+        options: ["To leave without permission", "Noisy and full of energy", "To kill/murder someone", "Group of people who plan secretly"],
+        answer: 1,
+        explanation: "Solution: B) Noisy and full of energy",
+        week: "Page 4"
+    },
+    {
+        question: "Bombast",
+        options: ["Hiding place", "Pompous language with little meaning", "Harsh mixture of sound", "A dead human body"],
+        answer: 1,
+        explanation: "Solution: B) Pompous language with little meaning",
+        week: "Page 4"
+    },
+    {
+        question: "Boost",
+        options: ["Regular rise and fall of voice", "To improve/increase", "Acting together generally for a dishonest purpose", "Sharp projection from fish hook"],
+        answer: 1,
+        explanation: "Solution: B) To improve/increase",
+        week: "Page 4"
+    },
+    {
+        question: "Booze",
+        options: ["Savagely cruel", "To take alcoholic drink", "Poet", "Shameless"],
+        answer: 1,
+        explanation: "Solution: B) To take alcoholic drink",
+        week: "Page 4"
+    },
+    {
+        question: "Brickbat",
+        options: ["Highly ornate", "An insult, spoken attack", "Structure built across a river", "Direct or quick route"],
+        answer: 1,
+        explanation: "Solution: B) An insult, spoken attack",
+        week: "Page 4"
+    },
+    {
+        question: "Brutal",
+        options: ["To father or produce", "Savagely violent", "To give unwillingly", "Cheat or mislead"],
+        answer: 1,
+        explanation: "Solution: B) Savagely violent",
+        week: "Page 4"
+    },
+    {
+        question: "Buckle",
+        options: ["Huge creature", "Crumble under pressure", "At the request or order of", "Kindness"],
+        answer: 1,
+        explanation: "Solution: B) Crumble under pressure",
+        week: "Page 4"
+    },
+    {
+        question: "Bully",
+        options: ["To be disloyal/ to deceive", "To hurt/frighten someone", "A man who has no moral principles", "Open and unashamed"],
+        answer: 1,
+        explanation: "Solution: B) To hurt/frighten someone",
+        week: "Page 4"
+    },
+    {
+        question: "Bunk",
+        options: ["Swellings on skin", "To leave without permission", "Stormy weather", "A big mistake"],
+        answer: 1,
+        explanation: "Solution: B) To leave without permission",
+        week: "Page 4"
+    },
+    {
+        question: "Butcher",
+        options: ["To become pink in the face due to shyness", "To kill/murder someone", "Noisy and full of energy", "Pompous language with little meaning"],
+        answer: 1,
+        explanation: "Solution: B) To kill/murder someone",
+        week: "Page 4"
+    },
+    {
+        question: "Cabal",
+        options: ["To improve/increase", "Group of people who plan secretly", "To take alcoholic drink", "An insult, spoken attack"],
+        answer: 1,
+        explanation: "Solution: B) Group of people who plan secretly",
+        week: "Page 4"
+    },
+    {
+        question: "Cache",
+        options: ["Savagely violent", "Hiding place", "Crumble under pressure", "To hurt/frighten someone"],
+        answer: 1,
+        explanation: "Solution: B) Hiding place",
+        week: "Page 4"
+    },
+    {
+        question: "Cacophony",
+        options: ["To leave without permission", "Harsh mixture of sound", "To kill/murder someone", "Group of people who plan secretly"],
+        answer: 1,
+        explanation: "Solution: B) Harsh mixture of sound",
+        week: "Page 4"
+    },
+    {
+        question: "Cadaver",
+        options: ["Hiding place", "A dead human body", "Harsh mixture of sound", "Regular rise and fall of voice"],
+        answer: 1,
+        explanation: "Solution: B) A dead human body",
+        week: "Page 4"
+    },
+    {
+        question: "Cadence",
+        options: ["Acting together generally for a dishonest purpose", "Regular rise and fall of voice", "To improve/increase", "To take alcoholic drink"],
+        answer: 1,
+        explanation: "Solution: B) Regular rise and fall of voice",
+        week: "Page 4"
+    },
+    {
+        question: "Cahoots",
+        options: ["An insult, spoken attack", "Acting together generally for a dishonest purpose", "Savagely violent", "Crumble under pressure"],
+        answer: 1,
+        explanation: "Solution: B) Acting together generally for a dishonest purpose",
+        week: "Page 4"
+    },
+    {
+        question: "Calamity",
+        options: ["Large kettle", "Disaster", "Ability", "Art of writing beautifully"],
+        answer: 1,
+        explanation: "Solution: B) Disaster",
+        week: "Page 5"
+    },
+    {
+        question: "Caldron",
+        options: ["Cruel", "Large kettle", "One with little experience or knowledge", "Seek votes"],
+        answer: 1,
+        explanation: "Solution: B) Large kettle",
+        week: "Page 5"
+    },
+    {
+        question: "Calibre",
+        options: ["To supply money to a business", "Ability", "Surrender", "Fickle-minded"],
+        answer: 1,
+        explanation: "Solution: B) Ability",
+        week: "Page 5"
+    },
+    {
+        question: "Calligraphy",
+        options: ["A dead body of a large animal", "Art of writing beautifully", "most important", "Sway from side to side while moving forward quickly"],
+        answer: 1,
+        explanation: "Solution: B) Art of writing beautifully",
+        week: "Page 5"
+    },
+    {
+        question: "Callous",
+        options: ["Slaughter/massacre", "Cruel", "One who has lots of sexual relationships", "A sudden destructive event/unpleasant and disastrous"],
+        answer: 1,
+        explanation: "Solution: B) Cruel",
+        week: "Page 5"
+    },
+    {
+        question: "Callow",
+        options: ["Collapse/give in to demands", "One with little experience or knowledge", "A large hole on the side of a hill", "To ban unacceptable parts"],
+        answer: 1,
+        explanation: "Solution: B) One with little experience or knowledge",
+        week: "Page 5"
+    },
+    {
+        question: "Canvass",
+        options: ["Strongly criticise", "Seek votes", "Complete disorder", "Attractive"],
+        answer: 1,
+        explanation: "Solution: B) Seek votes",
+        week: "Page 5"
+    },
+    {
+        question: "Capitalize",
+        options: ["Pure", "To supply money to a business", "Feeling of superiority due to race or gender", "One who cheats or deceives/the act of deceiving"],
+        answer: 1,
+        explanation: "Solution: B) To supply money to a business",
+        week: "Page 5"
+    },
+    {
+        question: "Capitulate",
+        options: ["To reprimand and to speak severely to someone", "Surrender", "To make a loud complaint or demand", "Planned/done in secret"],
+        answer: 1,
+        explanation: "Solution: B) Surrender",
+        week: "Page 5"
+    },
+    {
+        question: "Capricious",
+        options: ["To hold something firmly", "Fickle-minded", "Long gown/ to hide", "Disaster"],
+        answer: 1,
+        explanation: "Solution: B) Fickle-minded",
+        week: "Page 5"
+    },
+    {
+        question: "Carcass",
+        options: ["Large kettle", "A dead body of a large animal", "Ability", "Art of writing beautifully"],
+        answer: 1,
+        explanation: "Solution: B) A dead body of a large animal",
+        week: "Page 5"
+    },
+    {
+        question: "Cardinal",
+        options: ["Cruel", "most important", "One with little experience or knowledge", "Seek votes"],
+        answer: 1,
+        explanation: "Solution: B) most important",
+        week: "Page 5"
+    },
+    {
+        question: "Careen",
+        options: ["To supply money to a business", "Sway from side to side while moving forward quickly", "Surrender", "Fickle-minded"],
+        answer: 1,
+        explanation: "Solution: B) Sway from side to side while moving forward quickly",
+        week: "Page 5"
+    },
+    {
+        question: "Carnage",
+        options: ["A dead body of a large animal", "Slaughter/massacre", "most important", "Sway from side to side while moving forward quickly"],
+        answer: 1,
+        explanation: "Solution: B) Slaughter/massacre",
+        week: "Page 5"
+    },
+    {
+        question: "Casanova",
+        options: ["One who has lots of sexual relationships", "Cruel", "A sudden destructive event/unpleasant and disastrous", "Collapse/give in to demands"],
+        answer: 0,
+        explanation: "Solution: A) One who has lots of sexual relationships",
+        week: "Page 5"
+    },
+    {
+        question: "Catastrophe",
+        options: ["A large hole on the side of a hill", "A sudden destructive event/unpleasant and disastrous", "To ban unacceptable parts", "Strongly criticise"],
+        answer: 1,
+        explanation: "Solution: B) A sudden destructive event/unpleasant and disastrous",
+        week: "Page 5"
+    },
+    {
+        question: "Cave (V)",
+        options: ["Complete disorder", "Collapse/give in to demands", "Attractive", "Pure"],
+        answer: 1,
+        explanation: "Solution: B) Collapse/give in to demands",
+        week: "Page 5"
+    },
+    {
+        question: "Censor",
+        options: ["Feeling of superiority due to race or gender", "To ban unacceptable parts", "One who cheats or deceives/the act of deceiving", "To reprimand and to speak severely to someone"],
+        answer: 1,
+        explanation: "Solution: B) To ban unacceptable parts",
+        week: "Page 5"
+    },
+    {
+        question: "Censure",
+        options: ["To make a loud complaint or demand", "Strongly criticise", "Planned/done in secret", "To hold something firmly"],
+        answer: 1,
+        explanation: "Solution: B) Strongly criticise",
+        week: "Page 5"
+    },
+    {
+        question: "Chaos",
+        options: ["Long gown/ to hide", "Complete disorder", "Disaster", "Large kettle"],
+        answer: 1,
+        explanation: "Solution: B) Complete disorder",
+        week: "Page 5"
+    },
+    {
+        question: "Charismatic",
+        options: ["Ability", "Attractive", "Art of writing beautifully", "Cruel"],
+        answer: 1,
+        explanation: "Solution: B) Attractive",
+        week: "Page 5"
+    },
+    {
+        question: "Chaste",
+        options: ["One with little experience or knowledge", "Pure", "Seek votes", "To supply money to a business"],
+        answer: 1,
+        explanation: "Solution: B) Pure",
+        week: "Page 5"
+    },
+    {
+        question: "Chauvinism",
+        options: ["Surrender", "Feeling of superiority due to race or gender", "Fickle-minded", "A dead body of a large animal"],
+        answer: 1,
+        explanation: "Solution: B) Feeling of superiority due to race or gender",
+        week: "Page 5"
+    },
+    {
+        question: "Cheat",
+        options: ["most important", "One who cheats or deceives/the act of deceiving", "Sway from side to side while moving forward quickly", "Slaughter/massacre"],
+        answer: 1,
+        explanation: "Solution: B) One who cheats or deceives/the act of deceiving",
+        week: "Page 5"
+    },
+    {
+        question: "Chide",
+        options: ["One who has lots of sexual relationships", "To reprimand and to speak severely to someone", "A sudden destructive event/unpleasant and disastrous", "Collapse/give in to demands"],
+        answer: 1,
+        explanation: "Solution: B) To reprimand and to speak severely to someone",
+        week: "Page 5"
+    },
+    {
+        question: "Clamour",
+        options: ["A large hole on the side of a hill", "To make a loud complaint or demand", "To ban unacceptable parts", "Strongly criticise"],
+        answer: 1,
+        explanation: "Solution: B) To make a loud complaint or demand",
+        week: "Page 5"
+    },
+    {
+        question: "Clandestine",
+        options: ["Complete disorder", "Planned/done in secret", "Attractive", "Pure"],
+        answer: 1,
+        explanation: "Solution: B) Planned/done in secret",
+        week: "Page 5"
+    },
+    {
+        question: "Clasp",
+        options: ["Feeling of superiority due to race or gender", "To hold something firmly", "One who cheats or deceives/the act of deceiving", "To reprimand and to speak severely to someone"],
+        answer: 1,
+        explanation: "Solution: B) To hold something firmly",
+        week: "Page 5"
+    },
+    {
+        question: "Cloak",
+        options: ["To make a loud complaint or demand", "Long gown/ to hide", "Planned/done in secret", "To hold something firmly"],
+        answer: 1,
+        explanation: "Solution: B) Long gown/ to hide",
+        week: "Page 5"
+    },
+    {
+        question: "Coalition",
+        options: ["To protect something/someone too much", "A temporary alliance", "To put in proper order", "The act of hitting something with another thing"],
+        answer: 1,
+        explanation: "Solution: B) A temporary alliance",
+        week: "Page 6"
+    },
+    {
+        question: "Coddle",
+        options: ["A fight especially during a war", "To protect something/someone too much", "Praiseworthy", "To make the same journey regularly/ to change"],
+        answer: 1,
+        explanation: "Solution: B) To protect something/someone too much",
+        week: "Page 6"
+    },
+    {
+        question: "Collate",
+        options: ["A thing that improves", "To put in proper order", "To hide", "Admit to be true"],
+        answer: 1,
+        explanation: "Solution: B) To put in proper order",
+        week: "Page 6"
+    },
+    {
+        question: "Collision",
+        options: ["To agree with someone", "The act of hitting something with another thing", "Sympathy for the family of a person who has recently died", "Fight/argument"],
+        answer: 1,
+        explanation: "Solution: B) The act of hitting something with another thing",
+        week: "Page 6"
+    },
+    {
+        question: "Combat",
+        options: ["Make or declare sacred", "A fight especially during a war", "Clarity", "One who plans something illegal"],
+        answer: 1,
+        explanation: "Solution: B) A fight especially during a war",
+        week: "Page 6"
+    },
+    {
+        question: "Commendable",
+        options: ["Think of a particular thing for a long time", "Praiseworthy", "Regain health after illness", "Having knowledge of"],
+        answer: 1,
+        explanation: "Solution: B) Praiseworthy",
+        week: "Page 6"
+    },
+    {
+        question: "Commute",
+        options: ["One proved guilty/to be proved guilty", "To make the same journey regularly/ to change", "Friendly", "Bodily"],
+        answer: 1,
+        explanation: "Solution: B) To make the same journey regularly/ to change",
+        week: "Page 6"
+    },
+    {
+        question: "Complement",
+        options: ["A dead body of a person", "A thing that improves", "Confirm or support", "The expression of the face"],
+        answer: 1,
+        explanation: "Solution: B) A thing that improves",
+        week: "Page 6"
+    },
+    {
+        question: "Conceal",
+        options: ["Two successive rhyming lines of verse", "To hide", "Hamper or restraint/painful involuntary tightening of a muscle", "Qualities/documents proving ability and experience"],
+        answer: 1,
+        explanation: "Solution: B) To hide",
+        week: "Page 6"
+    },
+    {
+        question: "Concede",
+        options: ["Dishonest/not forming a straight line", "Admit to be true", "A temporary alliance", "To protect something/someone too much"],
+        answer: 1,
+        explanation: "Solution: B) Admit to be true",
+        week: "Page 6"
+    },
+    {
+        question: "Concurring",
+        options: ["To put in proper order", "To agree with someone", "The act of hitting something with another thing", "A fight especially during a war"],
+        answer: 1,
+        explanation: "Solution: B) To agree with someone",
+        week: "Page 6"
+    },
+    {
+        question: "Condolence",
+        options: ["Praiseworthy", "Sympathy for the family of a person who has recently died", "To make the same journey regularly/ to change", "A thing that improves"],
+        answer: 1,
+        explanation: "Solution: B) Sympathy for the family of a person who has recently died",
+        week: "Page 6"
+    },
+    {
+        question: "Confrontation",
+        options: ["To hide", "Fight/argument", "Admit to be true", "To agree with someone"],
+        answer: 1,
+        explanation: "Solution: B) Fight/argument",
+        week: "Page 6"
+    },
+    {
+        question: "Consecrate",
+        options: ["Sympathy for the family of a person who has recently died", "Make or declare sacred", "Fight/argument", "Clarity"],
+        answer: 1,
+        explanation: "Solution: B) Make or declare sacred",
+        week: "Page 6"
+    },
+    {
+        question: "Conspicuity",
+        options: ["One who plans something illegal", "Clarity", "Think of a particular thing for a long time", "Regain health after illness"],
+        answer: 1,
+        explanation: "Solution: B) Clarity",
+        week: "Page 6"
+    },
+    {
+        question: "Conspirator",
+        options: ["Having knowledge of", "One who plans something illegal", "One proved guilty/to be proved guilty", "Friendly"],
+        answer: 1,
+        explanation: "Solution: B) One who plans something illegal",
+        week: "Page 6"
+    },
+    {
+        question: "Contemplate",
+        options: ["Bodily", "Think of a particular thing for a long time", "A dead body of a person", "Confirm or support"],
+        answer: 1,
+        explanation: "Solution: B) Think of a particular thing for a long time",
+        week: "Page 6"
+    },
+    {
+        question: "Convalesce",
+        options: ["The expression of the face", "Regain health after illness", "Two successive rhyming lines of verse", "Hamper or restraint/painful involuntary tightening of a muscle"],
+        answer: 1,
+        explanation: "Solution: B) Regain health after illness",
+        week: "Page 6"
+    },
+    {
+        question: "Conversant",
+        options: ["Qualities/documents proving ability and experience", "Having knowledge of", "Dishonest/not forming a straight line", "A temporary alliance"],
+        answer: 1,
+        explanation: "Solution: B) Having knowledge of",
+        week: "Page 6"
+    },
+    {
+        question: "Convict",
+        options: ["To protect something/someone too much", "One proved guilty/to be proved guilty", "To put in proper order", "The act of hitting something with another thing"],
+        answer: 1,
+        explanation: "Solution: B) One proved guilty/to be proved guilty",
+        week: "Page 6"
+    },
+    {
+        question: "Conviviality",
+        options: ["A fight especially during a war", "Friendly", "Praiseworthy", "To make the same journey regularly/ to change"],
+        answer: 1,
+        explanation: "Solution: B) Friendly",
+        week: "Page 6"
+    },
+    {
+        question: "Corporal",
+        options: ["A thing that improves", "Bodily", "To hide", "Admit to be true"],
+        answer: 1,
+        explanation: "Solution: B) Bodily",
+        week: "Page 6"
+    },
+    {
+        question: "Corpse",
+        options: ["To agree with someone", "A dead body of a person", "Sympathy for the family of a person who has recently died", "Fight/argument"],
+        answer: 1,
+        explanation: "Solution: B) A dead body of a person",
+        week: "Page 6"
+    },
+    {
+        question: "Corroborate",
+        options: ["Make or declare sacred", "Confirm or support", "Clarity", "One who plans something illegal"],
+        answer: 1,
+        explanation: "Solution: B) Confirm or support",
+        week: "Page 6"
+    },
+    {
+        question: "Countenance",
+        options: ["Think of a particular thing for a long time", "The expression of the face", "Regain health after illness", "Having knowledge of"],
+        answer: 1,
+        explanation: "Solution: B) The expression of the face",
+        week: "Page 6"
+    },
+    {
+        question: "Couplet",
+        options: ["One proved guilty/to be proved guilty", "Two successive rhyming lines of verse", "Friendly", "Bodily"],
+        answer: 1,
+        explanation: "Solution: B) Two successive rhyming lines of verse",
+        week: "Page 6"
+    },
+    {
+        question: "Cramp",
+        options: ["A dead body of a person", "Hamper or restraint/painful involuntary tightening of a muscle", "Confirm or support", "The expression of the face"],
+        answer: 1,
+        explanation: "Solution: B) Hamper or restraint/painful involuntary tightening of a muscle",
+        week: "Page 6"
+    },
+    {
+        question: "Credentials",
+        options: ["Two successive rhyming lines of verse", "Qualities/documents proving ability and experience", "Hamper or restraint/painful involuntary tightening of a muscle", "Dishonest/not forming a straight line"],
+        answer: 1,
+        explanation: "Solution: B) Qualities/documents proving ability and experience",
+        week: "Page 6"
+    },
+    {
+        question: "Crooked",
+        options: ["A temporary alliance", "Dishonest/not forming a straight line", "To protect something/someone too much", "To put in proper order"],
+        answer: 1,
+        explanation: "Solution: B) Dishonest/not forming a straight line",
+        week: "Page 6"
+    },
+    {
+        question: "Culminate",
+        options: ["Someone who has done something wrong", "To reach a point and then finish", "To check/restrain", "An expert in something"],
+        answer: 1,
+        explanation: "Solution: B) To reach a point and then finish",
+        week: "Page 7"
+    },
+    {
+        question: "Culprit",
+        options: ["Work in non-serious way", "Someone who has done something wrong", "Silly or stupid", "Small and graceful"],
+        answer: 1,
+        explanation: "Solution: B) Someone who has done something wrong",
+        week: "Page 7"
+    },
+    {
+        question: "Curb",
+        options: ["Procrastinate/to waste time or do something slowly", "To check/restrain", "A young unmarried girl", "Damp/wet"],
+        answer: 1,
+        explanation: "Solution: B) To check/restrain",
+        week: "Page 7"
+    },
+    {
+        question: "Dab hand",
+        options: ["Neat and tidy", "An expert in something", "Spotted", "Smear"],
+        answer: 1,
+        explanation: "Solution: B) An expert in something",
+        week: "Page 7"
+    },
+    {
+        question: "Dabble",
+        options: ["Intimidate, frighten", "Work in non-serious way", "Bold", "Lack of"],
+        answer: 1,
+        explanation: "Solution: B) Work in non-serious way",
+        week: "Page 7"
+    },
+    {
+        question: "Daft",
+        options: ["One who is given to sex, alcohol etc.", "Silly or stupid", "Weaken", "Fashionable/Attractive"],
+        answer: 1,
+        explanation: "Solution: B) Silly or stupid",
+        week: "Page 7"
+    },
+    {
+        question: "Dainty",
+        options: ["To show that some thing is less important", "Small and graceful", "Something performed for the first time", "good and moral behavior"],
+        answer: 1,
+        explanation: "Solution: B) Small and graceful",
+        week: "Page 7"
+    },
+    {
+        question: "Dally",
+        options: ["Kill/destroy", "Procrastinate/to waste time or do something slowly", "Decode", "Downward slope"],
+        answer: 1,
+        explanation: "Solution: B) Procrastinate/to waste time or do something slowly",
+        week: "Page 7"
+    },
+    {
+        question: "Damsel",
+        options: ["Disfigure", "A young unmarried girl", "Existing in fact", "One who accepts defeat easily"],
+        answer: 1,
+        explanation: "Solution: B) A young unmarried girl",
+        week: "Page 7"
+    },
+    {
+        question: "Dank",
+        options: ["Respect", "Damp/wet", "Disobedient", "Cutting down of trees in a large area"],
+        answer: 1,
+        explanation: "Solution: B) Damp/wet",
+        week: "Page 7"
+    },
+    {
+        question: "Dapper",
+        options: ["Reduce tension", "Neat and tidy", "A large amount of rain/water", "To reach a point and then finish"],
+        answer: 1,
+        explanation: "Solution: B) Neat and tidy",
+        week: "Page 7"
+    },
+    {
+        question: "Dappled",
+        options: ["Someone who has done something wrong", "Spotted", "To check/restrain", "An expert in something"],
+        answer: 1,
+        explanation: "Solution: B) Spotted",
+        week: "Page 7"
+    },
+    {
+        question: "Daub",
+        options: ["Work in non-serious way", "Smear", "Silly or stupid", "Small and graceful"],
+        answer: 1,
+        explanation: "Solution: B) Smear",
+        week: "Page 7"
+    },
+    {
+        question: "Daunt",
+        options: ["Procrastinate/to waste time or do something slowly", "Intimidate, frighten", "A young unmarried girl", "Damp/wet"],
+        answer: 1,
+        explanation: "Solution: B) Intimidate, frighten",
+        week: "Page 7"
+    },
+    {
+        question: "Dauntless",
+        options: ["Neat and tidy", "Bold", "Spotted", "Smear"],
+        answer: 1,
+        explanation: "Solution: B) Bold",
+        week: "Page 7"
+    },
+    {
+        question: "Dearth",
+        options: ["Intimidate, frighten", "Lack of", "Bold", "One who is given to sex, alcohol etc."],
+        answer: 1,
+        explanation: "Solution: B) Lack of",
+        week: "Page 7"
+    },
+    {
+        question: "Debauched",
+        options: ["Weaken", "One who is given to sex, alcohol etc.", "Fashionable/Attractive", "To show that some thing is less important"],
+        answer: 1,
+        explanation: "Solution: B) One who is given to sex, alcohol etc.",
+        week: "Page 7"
+    },
+    {
+        question: "Debilitate",
+        options: ["Something performed for the first time", "Weaken", "good and moral behavior", "Kill/destroy"],
+        answer: 1,
+        explanation: "Solution: B) Weaken",
+        week: "Page 7"
+    }
+];
+
+        // DOM elements
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const feedbackDiv = document.getElementById('feedback');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const currentQuestionSpan = document.getElementById('current-question');
+        const totalQuestionsSpan = document.getElementById('total-questions');
+        const currentScoreSpan = document.getElementById('current-score');
+        const progressBar = document.getElementById('progress-bar');
+        const resultContainer = document.getElementById('result-container');
+        const finalScoreSpan = document.getElementById('final-score');
+        const totalQuestionsFinalSpan = document.getElementById('total-questions-final');
+        const performanceText = document.getElementById('performance-text');
+        const restartBtn = document.getElementById('restart-btn');
+        const weekIndicator = document.getElementById('week-indicator');
+
+        // Quiz state
+        let currentQuestionIndex = 0;
+        let userAnswers = Array(quizData.length).fill(null);
+        let score = 0;
+
+        // Initialize quiz
+        function initQuiz() {
+            totalQuestionsSpan.textContent = quizData.length;
+            totalQuestionsFinalSpan.textContent = quizData.length; // Also set for result screen
+            updateProgressBar();
+            showQuestion();
+        }
+
+        // Show current question
+        function showQuestion() {
+            const question = quizData[currentQuestionIndex];
+            questionText.textContent = question.question;
+            weekIndicator.textContent = question.week;
+            
+            optionsContainer.innerHTML = '';
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.textContent = option;
+                optionDiv.addEventListener('click', () => selectOption(index));
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            prevBtn.disabled = currentQuestionIndex === 0;
+            nextBtn.textContent = currentQuestionIndex === quizData.length - 1 ? 'Finish' : 'Next';
+            
+            currentQuestionSpan.textContent = currentQuestionIndex + 1;
+            currentScoreSpan.textContent = score;
+            updateProgressBar();
+            
+            feedbackDiv.style.display = 'none';
+            
+            if (userAnswers[currentQuestionIndex] !== null) {
+                const selectedOptIndex = userAnswers[currentQuestionIndex];
+                const options = optionsContainer.querySelectorAll('.option');
+                if (options[selectedOptIndex]) { 
+                    options[selectedOptIndex].classList.add('selected');
+                }
+                checkAnswer(selectedOptIndex, false); 
+            } else {
+                optionsContainer.querySelectorAll('.option').forEach(opt => {
+                    opt.style.pointerEvents = 'auto';
+                });
+            }
+        }
+
+        function updateProgressBar() {
+            const progress = ((currentQuestionIndex + 1) / quizData.length) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        function selectOption(optionIndex) {
+            if (feedbackDiv.style.display === 'block' && questionText.textContent === quizData[currentQuestionIndex].question) {
+                return; 
+            }
+
+            const isFirstAttemptForThisQuestionIndex = userAnswers[currentQuestionIndex] === null;
+            
+            if (isFirstAttemptForThisQuestionIndex) {
+                userAnswers[currentQuestionIndex] = optionIndex;
+            }
+            
+            const options = document.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            if (options[optionIndex]) {
+                options[optionIndex].classList.add('selected');
+            }
+            
+            checkAnswer(optionIndex, isFirstAttemptForThisQuestionIndex);
+        }
+
+        function checkAnswer(selectedIndex, isFirstScoringAttempt) {
+            const question = quizData[currentQuestionIndex];
+            const options = document.querySelectorAll('.option');
+            
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none'; 
+            });
+
+            if (options[question.answer]) {
+                 options[question.answer].classList.add('correct');
+            }
+            if (selectedIndex !== question.answer && options[selectedIndex]) {
+                options[selectedIndex].classList.add('incorrect');
+            }
+            
+            feedbackDiv.innerHTML = ''; 
+            if (selectedIndex === question.answer) {
+                feedbackDiv.className = 'feedback correct-feedback';
+                feedbackDiv.textContent = 'Correct!';
+                if (isFirstScoringAttempt) { 
+                    score++;
+                }
+            } else {
+                feedbackDiv.className = 'feedback incorrect-feedback';
+                const correctAnswerText = question.options[question.answer] || "N/A";
+                feedbackDiv.textContent = `Incorrect. The correct answer is: ${question.options[question.answer]}`;
+            }
+            currentScoreSpan.textContent = score;
+            
+            if (question.explanation) {
+                const explanation = document.createElement('div');
+                explanation.className = 'explanation';
+                explanation.textContent = question.explanation;
+                feedbackDiv.appendChild(explanation);
+            }
+            
+            feedbackDiv.style.display = 'block';
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < quizData.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+            }
+        }
+
+        function showResult() {
+            document.querySelector('.quiz-container').style.display = 'none';
+            document.querySelector('.progress-text').style.display = 'none';
+            document.querySelector('.progress-container').style.display = 'none';
+            resultContainer.style.display = 'block';
+            finalScoreSpan.textContent = score;
+            
+            const percentage = (score / quizData.length) * 100;
+            let performance = '';
+            if (percentage >= 90) {
+                performance = 'Outstanding! You have an excellent vocabulary.';
+            } else if (percentage >= 75) {
+                performance = 'Excellent! You are very well-versed.';
+            } else if (percentage >= 50) {
+                performance = 'Good effort! You know quite a few words.';
+            } else if (percentage >= 30) {
+                performance = 'Keep learning! Expand your vocabulary to improve.';
+            } else {
+                performance = 'A good start! Read more to enhance your word knowledge.';
+            }
+            performanceText.textContent = performance;
+        }
+
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            userAnswers = Array(quizData.length).fill(null);
+            score = 0;
+            document.querySelector('.quiz-container').style.display = 'block';
+            document.querySelector('.progress-text').style.display = 'flex'; 
+            document.querySelector('.progress-container').style.display = 'block'; 
+            resultContainer.style.display = 'none';
+            feedbackDiv.style.display = 'none';
+            currentScoreSpan.textContent = score; 
+            showQuestion();
+        }
+
+        nextBtn.addEventListener('click', nextQuestion);
+        prevBtn.addEventListener('click', prevQuestion);
+        restartBtn.addEventListener('click', restartQuiz);
+
+        initQuiz();
+    </script>
+</body>
+</html>

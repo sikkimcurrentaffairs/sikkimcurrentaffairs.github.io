@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>State Government | Sikkim PSC Hub</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+            border-color: #bbb;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .options-list.answered .option:not(.correct):not(.incorrect) {
+            opacity: 0.7;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none;
+        }
+        .quiz-stats {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <a href="indian_polity.html" class="back-link">&larr; Back to Indian Polity</a>
+        <h1>State Government</h1>
+        <p class="quiz-stats">40 Questions</p>
+        <div id="questions-wrapper"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "The Inter State Council was established in 1990 in pursuance of the recommendation made by :",
+                options: ["Mukherjee Commission (1999)", "Sarkaria Commission (1983-87).", "Mandal Commission (1980).", "Khosla Commission (1990)"],
+                answer: 1
+            },
+            {
+                question: "The duties of chief minister of a state with regard to furnishing of information to the Governor is enshrined in:",
+                options: ["Article 167.", "Article 170.", "Article 180.", "Article 190."],
+                answer: 0
+            },
+            {
+                question: "The governor of a state is empowered to grant pardons etc. and to suspend, remit or commute sentences in certain cases under:",
+                options: ["Article 167.", "Article 161.", "Article 151.", "Article 163."],
+                answer: 1
+            },
+            {
+                question: "The duties of a chief minister with regard to the furnishing of information to governor are provided in :",
+                options: ["Article 166", "Article 165", "Article 167", "Article 168"],
+                answer: 2
+            },
+            {
+                question: "The position of a chief minister is",
+                options: ["similar to that of the prime minister", "identical to that of the president", "a combination of the position of the prime minister and president", "not constitutional"],
+                answer: 0
+            },
+            {
+                question: "The oath of office is administered to the members of state council of ministers by",
+                options: ["the governor", "the chief minister", "chief justice of the state high court", "speaker of legislative assembly"],
+                answer: 0
+            },
+            {
+                question: "The oath of office is administered to the Governor by the",
+                options: ["The Chief justice of India", "The President", "The Chief justice of high court", "The Speaker of legislative assembly"],
+                answer: 2
+            },
+            {
+                question: "The members of the state legislature exercise control over the council of the ministers through",
+                options: ["questions and supplementary questions", "criticism of its policies", "adjournment motion", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "Who is the former body builder, who became a film star and a Governor?",
+                options: ["Sylvester Stallone", "Dwayne Johnson", "Arnold Schwarzenegger", "Steve Austin"],
+                answer: 2
+            },
+            {
+                question: "Who are included in National Development Council-",
+                options: ["All members of Central Cabinet", "Chief Minister of all States", "All members of Cabinet of States and Centre", "Members of Estimates Committee"],
+                answer: 0
+            },
+            {
+                question: "In which state, the Bodoland territorial council,an autonomous governing body was established-",
+                options: ["Assam", "Mizoram", "Nagaland", "Meghalaya"],
+                answer: 0
+            },
+            {
+                question: "The five permanent members of United Nations Security Council are-",
+                options: ["China, Germany, Russia, UK, USA", "China, Germany, USA, UK, Canada", "China, France, Russia, UK, USA", "China, Canada, France, USA, Germany"],
+                answer: 2
+            },
+            {
+                question: "What is the term of nonpermanent members of United Nations Security Council-",
+                options: ["1 year", "2 year", "3 year", "6 year"],
+                answer: 1
+            },
+            {
+                question: "Who chairs the meeting of Council of Ministers?",
+                options: ["Prime Minister", "President", "Cabinet Secretary", "Speaker of Lok Sabha"],
+                answer: 0
+            },
+            {
+                question: "The Council of Ministers does not include-",
+                options: ["Cabinet Minister", "State Minister", "Cabinet Secretary", "Minister without ministry"],
+                answer: 2
+            },
+            {
+                question: "During Financial Emergency all money bills passed by the state legislature are to be reserved for the consideration of the-",
+                options: ["Governor", "Prime Minister", "Parliament", "President"],
+                answer: 3
+            },
+            {
+                question: "The maximum time a person can continue to be the minister of the State Government without being a member the state legislature-",
+                options: ["One year", "Three months", "Six months", "No time limit"],
+                answer: 2
+            },
+            {
+                question: "Governor is sworn by-",
+                options: ["Chief Justice of High Court", "President", "Speaker of assembly", "Chief Justice of India"],
+                answer: 0
+            },
+            {
+                question: "Which of the following  tatement is not correct about Governor-",
+                options: ["A person can be appointed as Governor for\ntwo or more states", "Governor can be tranferred from one state to\nanother during their tenure", "President appoints Governor by warrant,\nunder his hand and seal", "Minimum age required for a person to become\nGovernor of a state is 30 years"],
+                answer: 3
+            },
+            {
+                question: "The Chief Minister is appointed by-",
+                options: ["Governor", "President", "Chief Justice of Supreme Court", "Chief Justice of High Court"],
+                answer: 0
+            },
+            {
+                question: "What can be the maximum strength of state legislative council?",
+                options: ["Half of concerned legislative assembly", "1/3rd of concemed legislative assembly", "4th of concerned legislative assembly", "500"],
+                answer: 1
+            },
+            {
+                question: "How many members of the State Legislative Council are elected. by the Assembly?",
+                options: ["1/6 of the members", "1/3 of the members", "1/12 of the membets", "5/6 of the members"],
+                answer: 1
+            },
+            {
+                question: "The ordinance by the Governor are subject to approval of-",
+                options: ["President", "State Legislature", "Council of Ministers of State", "Parliament"],
+                answer: 1
+            },
+            {
+                question: "The ordinance by Governor will be valid in case of non-approval in State Legislature for a period of-",
+                options: ["Six months", "Six weeks", "One year", "One weeks"],
+                answer: 1
+            },
+            {
+                question: "How many member of Anglo-Indian Community can be nominated by Governor in State Assembly-",
+                options: ["1", "2", "12", "6"],
+                answer: 0
+            },
+            {
+                question: "In which of the following matters, Governor can make recommendations to President-1.Dismissal of Council of Ministers2.Suspension of Judges of High Court3.Dissolution of State Assembly4.Declaration of failure of Constitutional Machinery in State",
+                options: ["2,3 and 4", "1,2 and 3", "1,2 and 4", "1,3 and 4"],
+                answer: 3
+            },
+            {
+                question: "In which State does the Governor nominate woman to the Assembly?",
+                options: ["Jammu & Kashmir", "Sikkim", "Manipur", "Nagaland"],
+                answer: 0
+            },
+            {
+                question: "How many members are nominated by Governor in legislative council?",
+                options: ["12", "6", "1/6th of total strength of house", "1/12th of total strength of house"],
+                answer: 2
+            },
+            {
+                question: "In case no party enjoys absolute majority in the Legislative Assembly of a state, the Governor will go by-",
+                options: ["The advice of former Chief Minister", "The advice of the Prime Minister", "The advice of the President of India", "His own discretion"],
+                answer: 3
+            },
+            {
+                question: "Who served for the longest period of time as the Chief Minister of a state-",
+                options: ["Naveen Patnaik", "Pawan Kumar Chamling", "Jyoti Basu", "Nitish Kumar"],
+                answer: 1
+            },
+            {
+                question: "Which of the following state had never a Lady Chief Minister-",
+                options: ["Tamilnadu", "Rajasthan", "Uttar Pradesh", "Maharashtra"],
+                answer: 3
+            },
+            {
+                question: "The minimum age limit for the membership of the Vidhan Parishad is-",
+                options: ["21 years", "25 years", "30 years", "35 years"],
+                answer: 2
+            },
+            {
+                question: "What is the minimum age for becoming a Governor of state in India?",
+                options: ["30 years", "25 years", "35 years", "45 years"],
+                answer: 2
+            },
+            {
+                question: "Who appoints Governor of a State in India?",
+                options: ["Prime Minister of India", "Council of Minister", "Judge of Supreme Court", "President of India"],
+                answer: 3
+            },
+            {
+                question: "The Legislative Council in a State in India may be created or abolished by the-",
+                options: ["President on the recommendation of the\nGovemor", "Parliament", "Parliament after the State Legislative\nAssembly passes a resolution to that effect", "Governor on a recommendation by the State\nCabinet"],
+                answer: 2
+            },
+            {
+                question: "Who among the following is the first woman Chief minister of Punjab?",
+                options: ["Sucheta Kriplani", "Mehbooba Mufti", "Draupadi Murmu", "Rajinder Kaur Bhattal"],
+                answer: 3
+            },
+            {
+                question: "Name the first woman Chief Minister of Jammu and Kashmir?",
+                options: ["Sakina Itoo", "Mehbooba Mufti", "Asiya Naqash", "Hina Shafi Bhat"],
+                answer: 1
+            },
+            {
+                question: "Who was the first woman governor in Independent India-",
+                options: ["Sarojini Naidu", "Sucheta Kriplani", "Indira Gandhi", "Vijaya Lakshmi Pandit"],
+                answer: 0
+            },
+            {
+                question: "Which of the following state has 4 legislative council-",
+                options: ["Madhya Pradesh", "Tamilnadu", "Kerala", "Andhra Pradesh"],
+                answer: 3
+            },
+            {
+                question: "The discretionary powers of a Governor is limited in-",
+                options: ["Appointment of Chief Minister", "Dismissal of the Ministry", "Dissolution of the Legislative Assembly", "Assent to Bills"],
+                answer: 3
+            }
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.textContent = `${index + 1}) ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) {
+                        return;
+                    }
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            wrapper.appendChild(questionBlock);
+        });
+    </script>
+</body>
+</html>

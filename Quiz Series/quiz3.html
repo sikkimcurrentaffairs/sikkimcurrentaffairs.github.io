@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sikkim Chronicle Quiz</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+            border-color: #bbb;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .options-list.answered .option:not(.correct):not(.incorrect) {
+            opacity: 0.7;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none; /* Disables further clicks */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <h1>Sikkim Chronicle Quiz</h1>
+        <!-- Questions will be dynamically inserted here by JavaScript -->
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "When did Sikkim become the 22nd state of the Indian Republic?",
+                options: ["1947", "1975", "1998", "2001"],
+                answer: 1
+            },
+            {
+                question: "What is the approximate total area of Sikkim?",
+                options: ["5,408 sq. km.", "7,096 sq. km.", "8,500 sq. km.", "10,200 sq. km."],
+                answer: 1
+            },
+            {
+                question: "Which of the following does NOT share an international boundary with Sikkim?",
+                options: ["Nepal", "Bhutan", "Tibet (China)", "Myanmar"],
+                answer: 3
+            },
+            {
+                question: "What are the two major rivers in Sikkim?",
+                options: ["Ganga and Yamuna", "Brahmaputra and Lohit", "Tista and Rangit", "Manas and Sankosh"],
+                answer: 2
+            },
+            {
+                question: "The river Tista originates from which lake?",
+                options: ["Gurudongmar Lake", "Tsomgo Lake", "Khecheopalri Lake", "Cholamu Lake"],
+                answer: 3
+            },
+            {
+                question: "What is the estimated potential for generating hydroelectric power in Sikkim?",
+                options: ["1,000 MW", "5,000 MW", "8,000 MW", "12,000 MW"],
+                answer: 2
+            },
+            {
+                question: "According to the book, what is the population density of Sikkim?",
+                options: ["54 persons per sq. km.", "76 persons per sq. km.", "98 persons per sq. km.", "112 persons per sq. km."],
+                answer: 1
+            },
+            {
+                question: "Which district in Sikkim is the largest in size but the most sparsely populated?",
+                options: ["East District", "West District", "South District", "North District"],
+                answer: 3
+            },
+            {
+                question: "According to Table 1 (Average Annual Rainfall), which district receives the most rainfall?",
+                options: ["South", "West", "East", "North"],
+                answer: 2
+            },
+            {
+                question: "As per Table 2 (Classification of Vegetation), what species is characteristic of Tropical Moist Deciduous forests (300-900m)?",
+                options: ["Rhododendron", "Sal", "Juniperous", "Oak (Quercus)"],
+                answer: 1
+            },
+            {
+                question: "The traditional system of governance prevalent in the villages of Lachen and Lachung is known as:",
+                options: ["Panchayat Raj", "Dzumsa system", "Chogyal system", "Mandal system"],
+                answer: 1
+            },
+            {
+                question: "According to Table 3, what is Sikkim's teacher-pupil ratio?",
+                options: ["1:18", "1:34", "1:25", "1:40"],
+                answer: 0
+            },
+            {
+                question: "What is the meaning of the Lepcha name for Sikkim, 'Nye-mal-el'?",
+                options: ["Valley of Rice", "New House or Palace", "Heaven", "Land of Mountains"],
+                answer: 2
+            },
+            {
+                question: "Who was consecrated as the first Chogyal (ruler) of Sikkim in 1642?",
+                options: ["Guru Tashi", "Khye Bumsa", "Tensung Namgyal", "Phuntsog Namgyal"],
+                answer: 3
+            },
+            {
+                question: "The historic 'Treaty of Brotherhood' was signed at Kabi Lungtsok between Khye Bumsa and which Lepcha chief?",
+                options: ["Thekong Tek", "Guru Tenzing", "Mipon Rap", "Minop Rab"],
+                answer: 0
+            },
+            {
+                question: "What does the term 'Lo-Men-Tsong-Sum' refer to?",
+                options: ["A council of 12 ministers", "A tripartite agreement between the Bhutia, Lepcha, and Limboo communities", "A religious text", "The twelve districts (Dzongs) created by the first Chogyal"],
+                answer: 1
+            },
+            {
+                question: "Which ruler shifted the capital of Sikkim from Yoksum to Rabdentse?",
+                options: ["Phuntsog Namgyal", "Tensung Namgyal", "Chagdor Namgyal", "Gyurmed Namgyal"],
+                answer: 1
+            },
+            {
+                question: "During the reign of Chagdor Namgyal, which territories were permanently lost to Bhutan?",
+                options: ["Darjeeling", "The Terai region", "Kalimpong and parts of Rhenock", "West Sikkim"],
+                answer: 2
+            },
+            {
+                question: "Which Chogyal ruled for the longest period, an unbroken seventy years?",
+                options: ["Tenzing Namgyal", "Tsugphud Namgyal", "Sidkeong Namgyal", "Thutob Namgyal"],
+                answer: 1
+            },
+            {
+                question: "The Treaty of Titalia was signed in 1817 between Sikkim and which power?",
+                options: ["Nepal", "Bhutan", "The British East India Company", "Tibet"],
+                answer: 2
+            },
+            {
+                question: "The cession of Darjeeling to the British East India Company occurred in 1835 during the reign of which Chogyal?",
+                options: ["Tenzing Namgyal", "Tsugphud Namgyal", "Sidkeong Namgyal", "Thutob Namgyal"],
+                answer: 1
+            },
+            {
+                question: "The Treaty of 1861, which made Sikkim a de facto protectorate of British India, was signed at:",
+                options: ["Gangtok", "Rabdentse", "Tumlong", "Darjeeling"],
+                answer: 2
+            },
+            {
+                question: "Who was appointed as the first Political Officer in Sikkim in June 1889, invested with de facto authority?",
+                options: ["J.W. Edgar", "Dr. J.D. Hooker", "Dr. Campbell", "Claude White"],
+                answer: 3
+            },
+            {
+                question: "Which ruler abolished imprisonment as a penalty for non-payment of debts?",
+                options: ["Thutob Namgyal", "Sidkeong Tulku", "Tashi Namgyal", "Palden Thondup Namgyal"],
+                answer: 1
+            },
+            {
+                question: "During the reign of Tashi Namgyal, which of the following major reforms took place in 1955?",
+                options: ["Start of Sikkim Nationalised Transport", "Launch of the first Seven Year Development Plan", "Establishment of the High Court at Gangtok", "Abolition of the jharlangi system"],
+                answer: 2
+            },
+            {
+                question: "Who was the last Chogyal of Sikkim?",
+                options: ["Tashi Namgyal", "Sidkeong Tulku", "Palden Thondup Namgyal", "Wangchuk Namgyal"],
+                answer: 2
+            },
+            {
+                question: "The Tripartite Agreement of 8th April 1973 was signed between the Government of India, the Chogyal, and who else?",
+                options: ["The British Government", "Leaders of political parties in Sikkim", "The Government of Nepal", "The United Nations"],
+                answer: 1
+            },
+            {
+                question: "Following its merger with India, Sikkim has what type of legislature?",
+                options: ["Unicameral", "Bicameral", "Tricameral", "No legislature"],
+                answer: 0
+            },
+            {
+                question: "Which article of the Indian Constitution grants the Governor of Sikkim special responsibilities for peace and social advancement?",
+                options: ["Article 370", "Article 371F (g)", "Article 356", "Article 244"],
+                answer: 1
+            },
+            {
+                question: "How many total members does the Sikkim Legislative Assembly have?",
+                options: ["24", "32", "40", "60"],
+                answer: 1
+            },
+            {
+                question: "The High Court of Sikkim was first established in which year?",
+                options: ["1916", "1955", "1975", "1990"],
+                answer: 1
+            },
+            {
+                question: "What is the name of the state Secretariat building in Gangtok?",
+                options: ["Samman Bhawan", "Chintan Bhawan", "Tashiling Secretariat", "Manan Kendra"],
+                answer: 2
+            },
+            {
+                question: "Who was appointed as the first Chief Secretary of Sikkim in 1954?",
+                options: ["B.B. Lal", "T.D. Densapa", "Nari K Rustomji", "Kazi Lhendup Dorji"],
+                answer: 1
+            },
+            {
+                question: "Sikkim is unique in India for having which exclusive government department?",
+                options: ["Department of Tourism", "Department of Information Technology", "Ecclesiastical Department", "Department of Skill Development"],
+                answer: 2
+            },
+            {
+                question: "Into how many districts and sub-divisions is Sikkim divided?",
+                options: ["Four districts and nine sub-divisions", "Five districts and ten sub-divisions", "Three districts and six sub-divisions", "Six districts and twelve sub-divisions"],
+                answer: 0
+            },
+            {
+                question: "For the effective administration of rural areas, what type of panchayati raj system has been established in Sikkim?",
+                options: ["One-tier system", "Two-tier system", "Three-tier system", "Four-tier system"],
+                answer: 1
+            },
+            {
+                question: "According to the Sikkim Municipality Act 2007, which town is designated to have a Municipal Corporation?",
+                options: ["Namchi", "Mangan", "Geyzing", "Gangtok"],
+                answer: 3
+            },
+            {
+                question: "What does the abbreviation SDF stand for in the context of Sikkim?",
+                options: ["State Development Fund", "Sikkim Democratic Front", "Special Duty Force", "Sarva Development Foundation"],
+                answer: 1
+            },
+            {
+                question: "In the context of development in the North-East, what does NLCPR stand for?",
+                options: ["National Livelihood Common Program Resource", "Non-lapsable Central Pool of Resources", "North-East Land and Crop Reformation", "New Land Commission for Poverty Reduction"],
+                answer: 1
+            },
+            {
+                question: "What is the full form of STDC as per the abbreviations list?",
+                options: ["State Transport Development Corporation", "Sikkim Tourism Development Corporation", "Scheduled Tribe Development Council", "State Telecommunication Department Centre"],
+                answer: 1
+            },
+            
+            {
+                question: "Who is credited as the compiler and editor of the 'Sikkim Chronicle'?",
+                options: ["Yasin & Chhetri", "M. Choudhury", "Durga P Chhetri", "S. Sudhakar"],
+                answer: 2
+            },
+            
+            {
+                question: "Which mountain, the third highest in the world, is situated on Sikkim's western border with Nepal?",
+                options: ["Mount Everest", "Lhotse", "Kanchenjunga", "Makalu"],
+                answer: 2
+            },
+            {
+                question: "The Chola range, which forms the boundary between Sikkim and Tibet, contains which two important passes?",
+                options: ["Goecha La and Dzongri La", "Nathu La and Jelep La", "Chiabhanjang Pass and Sela Pass", "Bomdi La and Bum La"],
+                answer: 1
+            },
+            {
+                question: "What is the name of the scheme created by the Government of India in 1998 to ensure speedy infrastructure development in the north-eastern region?",
+                options: ["Pradhan Mantri Gram Sadak Yojana (PMGSY)", "North-Eastern Council (NEC)", "Border Area Development Programme (BADP)", "Non-lapsable Central Pool of Resources (NLCPR)"],
+                answer: 3
+            },
+            {
+                question: "What is the funding pattern for 'Special Category' states like Sikkim under the NLCPR scheme?",
+                options: ["50% grant and 50% loan", "75% grant and 25% loan", "90% grant and 10% loan", "100% grant"],
+                answer: 2
+            },
+            {
+                question: "Gangtok, the headquarters of the East district, is situated at an altitude of about:",
+                options: ["2,000 ft.", "4,000 ft.", "6,000 ft.", "8,000 ft."],
+                answer: 2
+            },
+            {
+                question: "According to M. Choudhury's classification, a climate zone between 3000 to 4000m amsl is categorized as:",
+                options: ["Temperate", "Alpine Snow-Forest", "Alpine Meadow or Tundra", "Arctic"],
+                answer: 1
+            },
+            {
+                question: "As per Table 2, Suaga (Hemlock), Acer, and Quercus (oak) are species found in which type of forest?",
+                options: ["Sub-Tropical Broad Leave Hill Forest", "Temperate Forest", "Sub-Alpine Forest", "Alpine Forest"],
+                answer: 1
+            },
+            {
+                question: "How many government educational institutions in total were there in Sikkim at the time of the book's writing?",
+                options: ["540", "780", "920", "1,150"],
+                answer: 1
+            },
+            {
+                question: "According to Table 3, what is the per capita forest cover in Sikkim?",
+                options: ["0.08 hectares", "0.61 hectares", "1.25 hectares", "2.50 hectares"],
+                answer: 1
+            },
+            {
+                question: "What is Sikkim's Green Protection Index as listed in Table 3?",
+                options: ["0.425", "0.750", "0.903", "1.000"],
+                answer: 2
+            },
+            {
+                question: "The Government of Sikkim has reserved what percentage of seats in panchayats for women?",
+                options: ["25%", "33%", "40%", "50%"],
+                answer: 2
+            },
+            {
+                question: "When was Sikkim made a full-fledged member of the North-Eastern Council (NEC)?",
+                options: ["1975", "1988", "1998", "2002"],
+                answer: 2
+            },
+            {
+                question: "What is the Tibetan name for Sikkim, meaning 'the valley of rice'?",
+                options: ["Sukhim", "Nye-mal-el", "Denzong", "Chumbi"],
+                answer: 2
+            },
+            {
+                question: "Guru Tashi, the ancestor of Sikkim's royal family, belonged to which dynasty from Tibet?",
+                options: ["Sakya dynasty", "Minyak dynasty", "Yarlung dynasty", "Phagmodrupa dynasty"],
+                answer: 1
+            },
+            {
+                question: "The first Chogyal, Phuntsog Namgyal, divided the country into 12 districts known as:",
+                options: ["Panchayats", "Dzongs", "Vilayets", "Parganas"],
+                answer: 1
+            },
+            {
+                question: "Which important monastery's construction was completed during the reign of Tensung Namgyal?",
+                options: ["Rumtek Monastery", "Pemiongchi Monastery", "Sanga Choeling Monastery", "Tashiding Monastery"],
+                answer: 2
+            },
+            {
+                question: "Who was Pendi Ongmoo, the woman who invited Bhutanese forces to attack Sikkim?",
+                options: ["The wife of Tensung Namgyal", "The half-sister of Chagdor Namgyal", "A Lepcha queen", "A rival councilor"],
+                answer: 1
+            },
+            {
+                question: "Chagdor Namgyal was a noted scholar and became the official astrologer to:",
+                options: ["The Emperor of China", "The King of Nepal", "The sixth Dalai Lama", "The ninth Karmapa"],
+                answer: 2
+            },
+            {
+                question: "During his reign, Gyurmed Namgyal lost which territory permanently to Nepal?",
+                options: ["Kalimpong", "Darjeeling", "Limbuana", "The Terai"],
+                answer: 2
+            },
+            {
+                question: "The infant ruler Namgyal Phuntshog's legitimacy was challenged by a faction of kazis led by whom?",
+                options: ["Chandzod Karwang", "Rabden Serpa", "Tamding", "Deba Takarpa"],
+                answer: 2
+            },
+            {
+                question: "The Gorkha forces called the Sikkimese military leader Chandzod Chothup 'Satrajit', meaning:",
+                options: ["The invincible warrior", "The mountain lion", "The victor of seventeen combats", "The guardian of the pass"],
+                answer: 2
+            },
+            {
+                question: "During the Gorkha invasion of 1788-89, the capital Rabdentse was raided, forcing ruler Tenzing Namgyal to flee to:",
+                options: ["Bhutan", "Nepal", "Tibet", "Darjeeling"],
+                answer: 2
+            },
+            {
+                question: "The Anglo-Gorkha War of 1814-1815 altered the fortunes of Sikkim, culminating in which treaty?",
+                options: ["Treaty of Yandabo", "Treaty of Titalia", "Treaty of Sagauli", "Treaty of Gandamak"],
+                answer: 2
+            },
+            {
+                question: "Why did Tsugphud Namgyal shift his capital from Rabdentse to Tumlung?",
+                options: ["A major earthquake destroyed Rabdentse.", "Rabdentse was insecure due to its proximity to Nepal, and Tumlung was closer to Tibet.", "The British advised him to move for administrative convenience.", "A prophecy declared Tumlung as the new sacred capital."],
+                answer: 1
+            },
+            {
+                question: "The assassination of which Lepcha Chief Minister in 1826 led to a mass exodus of Lepchas to Nepal?",
+                options: ["Chandzod Karwang", "Thekong Tek", "Chandzod Bolek", "Yugthing Teshi"],
+                answer: 2
+            },
+            {
+                question: "Dr. Campbell and Dr. J.D. Hooker were arrested in 1849 on the orders of which influential Dewan?",
+                options: ["Tung-yik Menchoo", "Dewan Namguay (Pagla Dewan)", "Chandzod Bolek", "T.D. Densapa"],
+                answer: 1
+            },
+            {
+                question: "As a retaliatory measure for the arrest of the two British subjects, the British annexed which territory previously gifted to Sikkim?",
+                options: ["Kalimpong", "The Morung (Terai)", "The Chumbi Valley", "Western Bhutan"],
+                answer: 1
+            },
+            {
+                question: "Which British officer led the successful expeditionary force into Sikkim in 1861, leading to the signing of a new treaty?",
+                options: ["Captain G.W.K. Lloyd", "Lt. Colonel J.C. Gawler", "Dr. Campbell", "Claude White"],
+                answer: 1
+            },
+            {
+                question: "In what year did the Anglo-Chinese Convention officially acknowledge Sikkim as a protectorate of British India?",
+                options: ["1861", "1888", "1890", "1906"],
+                answer: 2
+            },
+            {
+                question: "Where did the ruler Sidkeong Tulku receive his higher education for two years starting in 1906?",
+                options: ["Cambridge University", "Oxford University", "St. Paul's, Darjeeling", "Mayo College, Ajmer"],
+                answer: 1
+            },
+            {
+                question: "The Sikkim Nationalised Transport was started in which year during Tashi Namgyal's reign?",
+                options: ["1921", "1944", "1954", "1961"],
+                answer: 1
+            },
+            {
+                question: "The Sikkim Subject Regulation, which defined the status of Sikkim subjects, was promulgated in:",
+                options: ["1947", "1953", "1961", "1973"],
+                answer: 2
+            },
+            {
+                question: "Palden Thondup Namgyal's first wife, Sangey Deki, was the daughter of a noble from:",
+                options: ["Bhutan", "Nepal", "Tibet", "Darjeeling"],
+                answer: 2
+            },
+            {
+                question: "In the historic April 1974 election, the Sikkim Congress party, led by Kazi Lhendup Dorji, won how many seats?",
+                options: ["16 out of 32", "25 out of 32", "31 out of 32", "32 out of 32"],
+                answer: 2
+            },
+            {
+                question: "The state-wide referendum that endorsed the abolition of the monarchy and merger with India was held on:",
+                options: ["8th April 1973", "10th April 1975", "14th April 1975", "16th May 1975"],
+                answer: 2
+            },
+            {
+                question: "Sikkim's merger with India was formalized by which constitutional amendment?",
+                options: ["Thirty-fourth Amendment", "Thirty-fifth Amendment", "Thirty-sixth Amendment", "Thirty-seventh Amendment"],
+                answer: 2
+            },
+            {
+                question: "Who assumed office as the first Governor of Sikkim on 16th May 1975?",
+                options: ["K.N. Sahani", "B.B. Lal", "Kazi Lhendup Dorji", "Palden Thondup Namgyal"],
+                answer: 1
+            },
+            {
+                question: "What are the two languages mentioned as being used in the Sikkim Legislative Assembly?",
+                options: ["Hindi and English", "Nepali and Bhutia", "Lepcha and Limboo", "Nepali and English"],
+                answer: 3
+            },
+            {
+                question: "The present High Court of Sikkim consists of a chief justice and how many other judges?",
+                options: ["One", "Two", "Three", "Five"],
+                answer: 1
+            },
+            {
+                question: "A judge of the High Court in Sikkim can hold office until what age?",
+                options: ["60", "62", "65", "70"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is NOT one of the special courts constituted in Sikkim to simplify the justice system?",
+                options: ["Atrocity Court", "Human Rights Court", "Environmental Tribunal Court", "Consumers' Court"],
+                answer: 2
+            },
+            {
+                question: "The hierarchical structure of the Sikkim Secretariat places which position directly below the Chief Secretary?",
+                options: ["Joint Secretary", "Special Secretary", "Secretary", "Deputy Secretary"],
+                answer: 2
+            },
+            {
+                question: "The State Public Service Commission, which conducts examinations for state civil servants, was established in:",
+                options: ["1954", "1975", "1978", "1982"],
+                answer: 2
+            },
+            {
+                question: "The head of the district administration, recently changed from District Collector, is now known as:",
+                options: ["District Commissioner", "District Magistrate", "District Officer", "Chief Revenue Officer"],
+                answer: 1
+            },
+            {
+                question: "How many sub-divisions does the East district of Sikkim have?",
+                options: ["One", "Two", "Three", "Four"],
+                answer: 2
+            },
+            {
+                question: "A Gram Panchayat in Sikkim is comprised of how many members?",
+                options: ["Exactly three", "Three to seven members", "Exactly five", "Five to nine members"],
+                answer: 3
+            },
+            {
+                question: "The Zilla Panchayat in Sikkim at the time of publication had how many members in total?",
+                options: ["50", "75", "93", "163"],
+                answer: 2
+            },
+            {
+                question: "Urban local bodies in India are constitutionally recognized through which amendment?",
+                options: ["42nd Amendment", "44th Amendment", "73rd Amendment", "74th Amendment"],
+                answer: 3
+            },
+            {
+                question: "The Sikkim Municipality Act, for the creation of urban local bodies, was enacted in which year?",
+                options: ["1993", "2001", "2007", "2010"],
+                answer: 2
+            },
+            {
+                question: "Besides Gangtok (Municipal Corporation) and Namchi (Municipal Council), how many towns were designated to have a Nagar Panchayat?",
+                options: ["Two", "Three", "Four", "Five"],
+                answer: 3
+            },
+            {
+                question: "According to Table 4, which Nagar Panchayat had the highest number of voters?",
+                options: ["Singtam", "Rango", "Jorethang", "Mangan"],
+                answer: 1
+            },
+            {
+                question: "In the 2010 municipal elections, what was the total number of elected members for all Nagar Panchayats combined?",
+                options: ["15", "20", "25", "30"],
+                answer: 2
+            },
+            {
+                question: "In the 2010 municipal elections, out of 47 total wards, how many members were elected unopposed?",
+                options: ["10", "25", "38", "44"],
+                answer: 3
+            },
+            {
+                question: "What does the abbreviation PMGSY stand for?",
+                options: ["Pradhan Mantri Gram Sinchai Yojana", "Pradhan Mantri Gram Sadak Yojana", "Prime Minister's Gold Standard Yojana", "Panchayati Mantri Gram Swaraj Yojana"],
+                answer: 1
+            },
+            {
+                question: "As per the list, what is the full form of IRDP?",
+                options: ["Indian Rural Development Programme", "Integrated Rural Development Programme", "Industrial Region Development Project", "International Rural Development Plan"],
+                answer: 1
+            },
+            {
+                question: "The abbreviation SREDA stands for:",
+                options: ["State Rural Employment Development Agency", "Sikkim Regional Education Development Authority", "State Renewable Energy Department Agency", "Sikkim Rural Energy Development Agency"],
+                answer: 3
+            },
+            {
+                question: "What does TRYSEM, a scheme for self-employment, stand for?",
+                options: ["Technical Rural Youth Scheme for Employment", "Training of Rural Youth for Self Employment", "Tribal Region Youth Self Employment Mission", "Tertiary Rural Youth Sector Employment Model"],
+                answer: 1
+            },
+            {
+                question: "What is the full form of the abbreviation NABARD?",
+                options: ["National Association for Banking and Rural Development", "National Bank for Agriculture and Rural Development", "National Bank for Agro-Rural Development", "New Agricultural Bank for Allied Rural Development"],
+                answer: 1
+            },
+            {
+                question: "What does the abbreviation SIMFED stand for?",
+                options: ["Sikkim Industrial Management Federation", "Sikkim State Cooperative Supply & Marketing Federation", "State Institute for Management and Financial Education", "Sikkim Integrated Milk Federation"],
+                answer: 1
+            },
+            {
+                question: "The abbreviation ECOSS is related to what field in Sikkim?",
+                options: ["Economic and Social Survey", "Eco-Tourism and Conservation Society of Sikkim", "Electronic Common Service Society", "Ecological Coordination of Sikkim State"],
+                answer: 1
+            },
+            {
+                question: "What does RMDD stand for in the context of Sikkim's government?",
+                options: ["Regional Management & Development Department", "Rural Management & Development Department", "Road Maintenance & Development Department", "Revenue Management & District Department"],
+                answer: 1
+            },
+            {
+                question: "According to the list, what does HADP stand for?",
+                options: ["Hill Area Development Programme", "Human and Asset Development Programme", "Horticulture and Agriculture Development Project", "High Altitude Defence Project"],
+                answer: 0
+            },
+            {
+                question: "The abbreviation SITCO stands for:",
+                options: ["Sikkim Industrial and Trade Corporation", "State Information Technology Company", "Sikkim Time Corporation", "State Investment and Trade Company"],
+                answer: 2
+            },
+            {
+                question: "What is the full form of ATTC?",
+                options: ["Advanced Technical Training Centre", "Agriculture and Technology Training College", "All-Tribe Technical Committee", "Association of Travel and Tourism Companies"],
+                answer: 0
+            },
+            {
+                question: "As per the list, what does SSA stand for?",
+                options: ["State Security Act", "Sikkim Services Association", "Sarva Siksha Abhiyan", "Social Security Act"],
+                answer: 2
+            },
+            {
+                question: "The abbreviation FICCI stands for:",
+                options: ["Financial Investment Corporation of India", "Federation of Indian Chambers of Commerce & Industries", "Foreign Investment and Commerce Council of India", "Federation of Industrial and Commercial Commissions of India"],
+                answer: 1
+            },
+            {
+                question: "What does the abbreviation ZP stand for in the context of local governance?",
+                options: ["Zonal Police", "Zilla Parishad", "Zilla Panchayat", "Zone President"],
+                answer: 2
+            },
+            {
+                question: "Who is credited with writing about the six broad climate types of Sikkim in 1998?",
+                options: ["S. Sudhakar", "M. Choudhury", "Grover", "Yasin & Chhetri"],
+                answer: 1
+            },
+            {
+                question: "The book mentions a source 'HDRS 2001' in Table 3. While not defined, HDRS likely stands for:",
+                options: ["Human Development Report, Sikkim", "Hill District Revenue Survey", "Hydro Dam Report, Sikkim", "High Density Road Survey"],
+                answer: 0
+            }
+            
+           
+        ];
+
+        const quizContainer = document.getElementById('quiz-container');
+
+        quizData.forEach((item, index) => {
+            // Create the main container for the question
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            // Create and add the question text
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.textContent = `${index + 1}) ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            // Create the options list
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+            
+            // Create and add each option
+            item.options.forEach((option, optionIndex) => {
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    // Prevent re-answering
+                    if (optionsList.classList.contains('answered')) {
+                        return;
+                    }
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+                    
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        // Highlight the correct answer
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+                
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            quizContainer.appendChild(questionBlock);
+        });
+
+    </script>
+</body>
+</html>

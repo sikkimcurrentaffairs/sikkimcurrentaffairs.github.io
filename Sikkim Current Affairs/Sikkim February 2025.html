@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sikkim Current Affairs Quiz - Feb 2025</title>
+    <style>
+        :root {
+            --primary-color: #1a5276;
+            --secondary-color: #2980b9;
+            --correct-color: #27ae60;
+            --incorrect-color: #e74c3c;
+            --light-gray: #f8f9f9;
+            --dark-gray: #7f8c8d;
+            --gold-color: #f1c40f;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gold-color);
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-top: 10px;
+            font-weight: 400;
+        }
+        
+        .quiz-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .question {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: var(--primary-color);
+            line-height: 1.4;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .option {
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            background-color: white;
+            position: relative;
+            padding-left: 45px;
+        }
+        
+        .option:hover {
+            background-color: var(--light-gray);
+            border-color: var(--secondary-color);
+        }
+        
+        .option::before {
+            content: "";
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .option.selected {
+            background-color: #e1f0fa;
+            border-color: var(--secondary-color);
+            font-weight: 500;
+        }
+        
+        .option.selected::before {
+            border-color: var(--secondary-color);
+            background-color: var(--secondary-color);
+        }
+        
+        .option.correct {
+            background-color: #e8f8f0;
+            border-color: var(--correct-color);
+            color: var(--correct-color);
+        }
+        
+        .option.correct::before {
+            border-color: var(--correct-color);
+            background-color: var(--correct-color);
+        }
+        
+        .option.incorrect {
+            background-color: #fdedec;
+            border-color: var(--incorrect-color);
+            color: var(--incorrect-color);
+        }
+        
+        .option.incorrect::before {
+            border-color: var(--incorrect-color);
+        }
+        
+        .feedback {
+            margin-top: 25px;
+            padding: 18px;
+            border-radius: 8px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .correct-feedback {
+            background-color: #e8f8f0;
+            color: var(--correct-color);
+            border-left: 5px solid var(--correct-color);
+        }
+        
+        .incorrect-feedback {
+            background-color: #fdedec;
+            color: var(--incorrect-color);
+            border-left: 5px solid var(--incorrect-color);
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        button:hover {
+            background-color: #154360;
+            transform: translateY(-2px);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+        
+        .progress-container {
+            margin-bottom: 25px;
+            background-color: var(--light-gray);
+            border-radius: 20px;
+            height: 10px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+            transition: width 0.4s ease;
+        }
+        
+        .progress-text {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: var(--dark-gray);
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .result-container {
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.8s ease;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .score {
+            font-size: 72px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 30px 0;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .score::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--gold-color);
+            border-radius: 2px;
+        }
+        
+        .score-text {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .restart-btn {
+            margin-top: 30px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .restart-btn:hover {
+            background: linear-gradient(135deg, #3498db, #1a5276);
+            transform: translateY(-2px);
+        }
+        
+        .explanation {
+            margin-top: 15px;
+            font-style: italic;
+            color: var(--dark-gray);
+            line-height: 1.5;
+        }
+        
+        .performance-text {
+            font-size: 18px;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f8f9f9;
+        }
+        
+        .week-indicator {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--gold-color);
+            color: var(--primary-color);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            
+            header {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .quiz-container {
+                padding: 20px;
+            }
+            
+            .question {
+                font-size: 18px;
+            }
+            
+            .option {
+                padding: 12px 12px 12px 40px;
+                font-size: 15px;
+            }
+            
+            .score {
+                font-size: 60px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="../auth.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Sikkim Current Affairs Quiz</h1>
+            <div class="subtitle">February 2025 Edition | Test Your Knowledge</div>
+        </header>
+        
+        <div class="progress-text">
+            <span>Question <span id="current-question">1</span> of <span id="total-questions">60</span></span>
+            <span>Score: <span id="current-score">0</span></span>
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        
+        <div class="quiz-container">
+            <div class="week-indicator" id="week-indicator">Week 1</div>
+            <div class="question" id="question-text"></div>
+            <div class="options" id="options-container"></div>
+            <div class="feedback" id="feedback"></div>
+            
+            <div class="navigation">
+                <button id="prev-btn" disabled>Previous</button>
+                <button id="next-btn">Next</button>
+            </div>
+        </div>
+        
+        <div class="result-container" id="result-container">
+            <h2>Quiz Completed!</h2>
+            <div class="score-text">Your Final Score</div>
+            <div class="score"><span id="final-score">0</span>/60</div>
+            <div class="performance-text" id="performance-text"></div>
+            <button class="restart-btn" id="restart-btn">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        // Quiz data organized by weeks
+        const quizData = [
+            // Week 1 Questions (1-20)
+            {
+                question: "Who won the bronze medal for Sikkim in the National Games?",
+                options: [
+                    "a) Puran Tamang",
+                    "b) Tarundeep Rai",
+                    "c) Anish Sharma",
+                    "d) Amar Subba"
+                ],
+                answer: 1,
+                explanation: "Tarundeep Rai secured a bronze medal for Sikkim in the National Games.",
+                week: "Week 1"
+            },
+            {
+                question: "Which lake in Sikkim was declared the state's first Ramsar site?",
+                options: [
+                    "a) Gurudongmar Lake",
+                    "b) Khecheopalri Lake",
+                    "c) Tsomgo Lake",
+                    "d) Menmecho Lake"
+                ],
+                answer: 1,
+                explanation: "Khecheopalri Lake received global recognition as Sikkim's first Ramsar site.",
+                week: "Week 1"
+            },
+            {
+                question: "Who was appointed as the Sikkim State President in the All India OBC SC ST Editors Association?",
+                options: [
+                    "a) Tshering Thendup Bhutia",
+                    "b) Puran Tamang",
+                    "c) Sherpa Pinasa",
+                    "d) Jhongmu Bhutia"
+                ],
+                answer: 1,
+                explanation: "Puran Tamang was appointed to this prestigious position.",
+                week: "Week 1"
+            },
+            {
+                question: "Who won the Mega Miss Sikkim 2025 title?",
+                options: [
+                    "a) Radhika Ghataney",
+                    "b) Karma Dem Bhutia",
+                    "c) Jeejibisha Gurung",
+                    "d) Sandhya Singzangmo Subba"
+                ],
+                answer: 1,
+                explanation: "Karma Dem Bhutia was crowned Mega Miss Sikkim 2025.",
+                week: "Week 1"
+            },
+            {
+                question: "What award was Tshering Uden Bhutia honored with?",
+                options: [
+                    "a) Bharat Ratna",
+                    "b) Bharat Gaurav Award",
+                    "c) Padma Shri",
+                    "d) Badri Narayan Memorial Award"
+                ],
+                answer: 1,
+                explanation: "Tshering Uden Bhutia received the Bharat Gaurav Award for her work with the Kanchenjunga preservation community.",
+                week: "Week 1"
+            },
+            {
+                question: "Which Sikkimese marathon runner won the Kolkata Full Marathon?",
+                options: [
+                    "a) Amar Subba",
+                    "b) Phurba Tamang",
+                    "c) Anish Sharma",
+                    "d) Satyam Chettri"
+                ],
+                answer: 1,
+                explanation: "Phurba Tamang, known as the 'marathon girl' of Sikkim, won the Kolkata Full Marathon.",
+                week: "Week 1"
+            },
+            {
+                question: "Which school in Sikkim received the Green School rating for the entire Northeast Region?",
+                options: [
+                    "a) Namchi School PM Shri",
+                    "b) Timberbong School",
+                    "c) Dzongu School",
+                    "d) Saramsa School"
+                ],
+                answer: 0,
+                explanation: "Namchi School PM Shri was recognized with the Green School rating.",
+                week: "Week 1"
+            },
+            {
+                question: "Who represented Sikkim in the 38th National Games?",
+                options: [
+                    "a) Asim Sharma and Ganesh Parsai",
+                    "b) Anish Sharma and Satyam Chettri",
+                    "c) Sherpa Pinasa and Jhongmu Bhutia",
+                    "d) Phurba Tamang and Amar Subba"
+                ],
+                answer: 0,
+                explanation: "Asim Sharma and Ganesh Parsai represented Sikkim in the 38th National Games.",
+                week: "Week 1"
+            },
+            {
+                question: "What is the name of Sikkim's state butterfly?",
+                options: [
+                    "a) Monarch",
+                    "b) Blue Duke",
+                    "c) Swallowtail",
+                    "d) Painted Lady"
+                ],
+                answer: 1,
+                explanation: "The Blue Duke was declared Sikkim's state butterfly on June 5, 2022.",
+                week: "Week 1"
+            },
+            {
+                question: "Which language was included by the National Council for teaching in ICSE schools?",
+                options: [
+                    "a) Nepali",
+                    "b) Bhutia",
+                    "c) Lepcha",
+                    "d) Hindi"
+                ],
+                answer: 1,
+                explanation: "The Bhutia language was approved for teaching in ICSE schools.",
+                week: "Week 1"
+            },
+            {
+                question: "What is the enhanced maternity leave duration for female employees in Sikkim?",
+                options: [
+                    "a) 90 days",
+                    "b) 120 days",
+                    "c) 180 days",
+                    "d) 240 days"
+                ],
+                answer: 2,
+                explanation: "Sikkim increased maternity leave to 180 days, with up to 60 days available before childbirth.",
+                week: "Week 1"
+            },
+            {
+                question: "Who was appointed as the Director of Sikkim Vigilance Police?",
+                options: [
+                    "a) N Sridhar Rao",
+                    "b) Jacob Khaling",
+                    "c) Kuldip Chettri",
+                    "d) Murlidhar Mohal"
+                ],
+                answer: 0,
+                explanation: "IPS officer N Sridhar Rao took charge as the Director of Sikkim Vigilance Police.",
+                week: "Week 1"
+            },
+            {
+                question: "What is the fertility rate of Sikkim as reported in February 2025?",
+                options: [
+                    "a) 1.1",
+                    "b) 1.5",
+                    "c) 2.0",
+                    "d) 2.5"
+                ],
+                answer: 0,
+                explanation: "Sikkim's fertility rate dropped to 1.1, one of the lowest in the world.",
+                week: "Week 1"
+            },
+            {
+                question: "Who received the Lifetime Achievement Award in Sports from Assam Sports Association?",
+                options: [
+                    "a) Kishor Dungmali Rai",
+                    "b) Hom Nath Dhungyal",
+                    "c) Amar Subba",
+                    "d) Vinod Pradhan"
+                ],
+                answer: 0,
+                explanation: "Kishor Dungmali Rai of Majhitar was honored with this award.",
+                week: "Week 1"
+            },
+            {
+                question: "Which Sikkimese startup was selected for DigiSapne?",
+                options: [
+                    "a) SpaceRevision",
+                    "b) Dibi Sapne",
+                    "c) Sambhita",
+                    "d) Limboo Bhawan"
+                ],
+                answer: 0,
+                explanation: "SpaceRevision, founded by Aswin and Priyadarshini Nirola, was selected for DigiSapne.",
+                week: "Week 1"
+            },
+            {
+                question: "Who won the Pratibha Puraskar 2025 in Nepal?",
+                options: [
+                    "a) Sandhya Singzangmo Subba",
+                    "b) Son Kumari Rai",
+                    "c) Sushma Gurung",
+                    "d) Binita Shanker"
+                ],
+                answer: 0,
+                explanation: "Sandhya Singzangmo Subba was honored with this award.",
+                week: "Week 1"
+            },
+            {
+                question: "What is the theme of the Menstrual Health Awareness Day initiative at Timberbong School?",
+                options: [
+                    "a) 'Women for Women'",
+                    "b) 'Men for Menstruation'",
+                    "c) 'Health for All'",
+                    "d) 'Break the Taboo'"
+                ],
+                answer: 1,
+                explanation: "The initiative aimed to involve men in menstrual health awareness.",
+                week: "Week 1"
+            },
+            {
+                question: "Who was appointed as the Chairman of SPSC (Sikkim Public Service Commission)?",
+                options: [
+                    "a) Kuldip Chettri",
+                    "b) SB Subba",
+                    "c) Jacob Khaling",
+                    "d) N Sridhar Rao"
+                ],
+                answer: 0,
+                explanation: "Kuldip Chettri was appointed as the new Chairman of SPSC.",
+                week: "Week 1"
+            },
+            {
+                question: "Which Sikkimese film was selected for the Hong Kong Film Event?",
+                options: [
+                    "a) 'Shape of Momo'",
+                    "b) 'Sambhita'",
+                    "c) 'Dibi Sapne'",
+                    "d) 'Himalayan Roadies'"
+                ],
+                answer: 0,
+                explanation: "Tribeny Rai's 'Shape of Momo' was selected for the Hong Kong Film Event.",
+                week: "Week 1"
+            },
+            {
+                question: "What event was celebrated on February 26 in Sikkim?",
+                options: [
+                    "a) Khas Foundation Day",
+                    "b) Gyalpo Losar",
+                    "c) Blue Duke Festival",
+                    "d) Republic Day"
+                ],
+                answer: 0,
+                explanation: "February 26 was marked as Khas Foundation Day in Sikkim.",
+                week: "Week 1"
+            },
+            // Week 2 Questions (21-38)
+            {
+                question: "When did the Blue Duke Festival start in Saramsa?",
+                options: [
+                    "a) February 5",
+                    "b) February 14",
+                    "c) February 26",
+                    "d) March 1"
+                ],
+                answer: 1,
+                explanation: "The Blue Duke Festival began on February 14 in Saramsa.",
+                week: "Week 2"
+            },
+            {
+                question: "Which Sikkim-based film was selected for the Hong Kong Film Event?",
+                options: [
+                    "a) Sambhita",
+                    "b) Shape of Momo",
+                    "c) Dibi Sapne",
+                    "d) Himalayan Roadies"
+                ],
+                answer: 1,
+                explanation: "'Shape of Momo' was selected for the Hong Kong Film Event.",
+                week: "Week 2"
+            },
+            {
+                question: "What exemption did Sikkim Police announce for locals?",
+                options: [
+                    "a) Traffic fines",
+                    "b) Mandatory tenant verification",
+                    "c) Passport verification",
+                    "d) Vaccination requirements"
+                ],
+                answer: 1,
+                explanation: "Sikkim Police exempted locals from mandatory tenant verification.",
+                week: "Week 2"
+            },
+            {
+                question: "Which board included Bhutia language in its curriculum?",
+                options: [
+                    "a) CBSE",
+                    "b) ICSE",
+                    "c) State Board",
+                    "d) NIOS"
+                ],
+                answer: 1,
+                explanation: "ICSE board included Bhutia language in its curriculum.",
+                week: "Week 2"
+            },
+            {
+                question: "According to India Today's MOTN poll, who was the most popular leader in Sikkim?",
+                options: [
+                    "a) CM Prem Singh Tamang",
+                    "b) MP Indrahang Subba",
+                    "c) Minister Arun Upreti",
+                    "d) IPS N Sridhar Rao"
+                ],
+                answer: 0,
+                explanation: "CM Prem Singh Tamang was voted most popular leader in Sikkim.",
+                week: "Week 2"
+            },
+            {
+                question: "How many days of paid leave can Sikkim women take for childcare (children below 18 years)?",
+                options: [
+                    "a) 60 days",
+                    "b) 90 days",
+                    "c) 180 days",
+                    "d) 365 days"
+                ],
+                answer: 2,
+                explanation: "Sikkim women can take 180 days of paid leave for childcare.",
+                week: "Week 2"
+            },
+            {
+                question: "Which Bollywood celebrity attended the Blue Duke Festival?",
+                options: [
+                    "a) Rajpal Yadav",
+                    "b) Kiren Rijiju",
+                    "c) Nachiket Mor",
+                    "d) Murlidhar Mohal"
+                ],
+                answer: 0,
+                explanation: "Bollywood actor Rajpal Yadav attended the Blue Duke Festival.",
+                week: "Week 2"
+            },
+            {
+                question: "What is the name of Sikkim's only startup selected for DigiSapne?",
+                options: [
+                    "a) SpaceRevision",
+                    "b) Dibi Sapne",
+                    "c) Limboo Bhawan",
+                    "d) Sambhita"
+                ],
+                answer: 0,
+                explanation: "SpaceRevision was Sikkim's only startup selected for DigiSapne.",
+                week: "Week 2"
+            },
+            {
+                question: "Which team won the SFA 'A' Division S-League 2024?",
+                options: [
+                    "a) Sikkim Police",
+                    "b) Alpine Sporting Club",
+                    "c) Himalayan Roadies",
+                    "d) Khangchendzonga University"
+                ],
+                answer: 0,
+                explanation: "Sikkim Police team won the SFA 'A' Division S-League 2024.",
+                week: "Week 2"
+            },
+            {
+                question: "Where was the 3rd State Veteran and Master Badminton Championship held?",
+                options: [
+                    "a) Namchi",
+                    "b) Paljor Stadium",
+                    "c) Saramsa",
+                    "d) Dzongu"
+                ],
+                answer: 1,
+                explanation: "The championship was held at Paljor Stadium.",
+                week: "Week 2"
+            },
+            // Week 3 Questions (39-50)
+            {
+                question: "What was Sikkim's fertility rate in February 2025?",
+                options: [
+                    "a) 1.1",
+                    "b) 1.5",
+                    "c) 2.0",
+                    "d) 2.4"
+                ],
+                answer: 0,
+                explanation: "Sikkim's fertility rate was 1.1 in February 2025.",
+                week: "Week 3"
+            },
+            {
+                question: "Padma Shri Tularam Upreti was known for his contributions to:",
+                options: [
+                    "a) Organic farming",
+                    "b) Sports",
+                    "c) Fashion",
+                    "d) Filmmaking"
+                ],
+                answer: 0,
+                explanation: "Padma Shri Tularam Upreti was known for organic farming contributions.",
+                week: "Week 3"
+            },
+            {
+                question: "Who received a Lifetime Achievement Award from the Assam Sports Association?",
+                options: [
+                    "a) Kishor Dungmali Rai",
+                    "b) Vinod Pradhan",
+                    "c) Amar Subba",
+                    "d) Jacob Khaling"
+                ],
+                answer: 0,
+                explanation: "Kishor Dungmali Rai received the Lifetime Achievement Award.",
+                week: "Week 3"
+            },
+            {
+                question: "Which state's startup showcased autonomous robots at the Blue Duke Festival?",
+                options: [
+                    "a) Nagaland",
+                    "b) Agartala",
+                    "c) Sikkim",
+                    "d) Assam"
+                ],
+                answer: 1,
+                explanation: "A startup from Agartala showcased autonomous robots.",
+                week: "Week 3"
+            },
+            {
+                question: "What did the Nagaland startup present at the festival?",
+                options: [
+                    "a) Eco-friendly plastic waste solutions",
+                    "b) Organic farming tools",
+                    "c) Autonomous robots",
+                    "d) Fashion designs"
+                ],
+                answer: 0,
+                explanation: "Nagaland startup presented eco-friendly plastic waste solutions.",
+                week: "Week 3"
+            },
+            {
+                question: "Which club won the Vinod Pradhan Trophy?",
+                options: [
+                    "a) Alpine Sporting Club",
+                    "b) Sikkim Police",
+                    "c) Himalayan Roadies",
+                    "d) Khangchendzonga University"
+                ],
+                answer: 0,
+                explanation: "Alpine Sporting Club won the Vinod Pradhan Trophy.",
+                week: "Week 3"
+            },
+            {
+                question: "What did CM inaugurate at Darap?",
+                options: [
+                    "a) Limboo Bhawan",
+                    "b) Timberbong School",
+                    "c) Kanchenjunga Museum",
+                    "d) Blue Duke Park"
+                ],
+                answer: 0,
+                explanation: "CM inaugurated Limboo Bhawan at Darap.",
+                week: "Week 3"
+            },
+            {
+                question: "Who launched the Dibi Sapne startup acceleration program?",
+                options: [
+                    "a) MP Indrahang Subba",
+                    "b) CM Prem Singh Tamang",
+                    "c) Minister Arun Upreti",
+                    "d) Kuldip Chettri"
+                ],
+                answer: 0,
+                explanation: "MP Indrahang Subba launched the Dibi Sapne program.",
+                week: "Week 3"
+            },
+            {
+                question: "Who won Himalayan Roadies Season 6?",
+                options: [
+                    "a) Joseph Sharma",
+                    "b) Vinod Pradhan",
+                    "c) Kishor Dungmali Rai",
+                    "d) Amar Subba"
+                ],
+                answer: 0,
+                explanation: "Joseph Sharma won Himalayan Roadies Season 6.",
+                week: "Week 3"
+            },
+            {
+                question: "How many members were in the record-setting team from Srinagar to Khardungla?",
+                options: [
+                    "a) 2",
+                    "b) 4",
+                    "c) 6",
+                    "d) 8"
+                ],
+                answer: 1,
+                explanation: "A team of 4 members set the record from Srinagar to Khardungla.",
+                week: "Week 3"
+            },
+            {
+                question: "Which Sikkim organization launched a talk show with Minister Arun Upreti?",
+                options: [
+                    "a) SICUN",
+                    "b) SPSC",
+                    "c) SFA",
+                    "d) DigiSapne"
+                ],
+                answer: 0,
+                explanation: "SICUN (Sikkim State Cooperative Union) launched the talk show.",
+                week: "Week 3"
+            },
+            {
+                question: "How many bird species were spotted in Dzongu's backyard bird count?",
+                options: [
+                    "a) 50",
+                    "b) 100",
+                    "c) 150",
+                    "d) 200"
+                ],
+                answer: 2,
+                explanation: "150 bird species were spotted in Dzongu's backyard bird count.",
+                week: "Week 3"
+            },
+            // Week 4 Questions (51-60)
+            {
+                question: "Who won the ICAR IARI Innovative Farmer Award?",
+                options: [
+                    "a) Pemkit Lepcha",
+                    "b) Son Kumari Rai",
+                    "c) Sushma Gurung",
+                    "d) Chimib Bhutia"
+                ],
+                answer: 0,
+                explanation: "Pemkit Lepcha won the ICAR IARI Innovative Farmer Award.",
+                week: "Week 4"
+            },
+            {
+                question: "Which school initiated 'Men for Menstruation' awareness?",
+                options: [
+                    "a) Namchi School PM Shri",
+                    "b) Timberbong School",
+                    "c) Dzongu School",
+                    "d) Saramsa School"
+                ],
+                answer: 1,
+                explanation: "Timberbong School initiated 'Men for Menstruation' awareness.",
+                week: "Week 4"
+            },
+            {
+                question: "Where did the Sikkim Media Team visit for IPR discussions?",
+                options: [
+                    "a) Kerala",
+                    "b) Delhi",
+                    "c) Mumbai",
+                    "d) Kolkata"
+                ],
+                answer: 0,
+                explanation: "Sikkim Media Team visited Kerala for IPR discussions.",
+                week: "Week 4"
+            },
+            {
+                question: "Who won a gold medal in Nepali at Khangchendzonga State University?",
+                options: [
+                    "a) Son Kumari Rai",
+                    "b) Sandhya Singzangmo Subba",
+                    "c) Binita Shanker",
+                    "d) Radhika Ghataney"
+                ],
+                answer: 0,
+                explanation: "Son Kumari Rai won gold in Nepali at Khangchendzonga State University.",
+                week: "Week 4"
+            },
+            {
+                question: "Who will lead the Badminton Association of Sikkim (2025-2029)?",
+                options: [
+                    "a) Jacob Khaling",
+                    "b) Vinod Pradhan",
+                    "c) Kishor Dungmali Rai",
+                    "d) Amar Subba"
+                ],
+                answer: 0,
+                explanation: "Jacob Khaling will lead the Badminton Association of Sikkim.",
+                week: "Week 4"
+            },
+            {
+                question: "Which police station created the short film 'Sambhita'?",
+                options: [
+                    "a) Kaluk Police Station",
+                    "b) Gangtok Police Station",
+                    "c) Namchi Police Station",
+                    "d) Mangan Police Station"
+                ],
+                answer: 0,
+                explanation: "Kaluk Police Station created the short film 'Sambhita'.",
+                week: "Week 4"
+            },
+            {
+                question: "Which Union Minister visited Sikkim for Union Budget discussions?",
+                options: [
+                    "a) Kiren Rijiju",
+                    "b) Murlidhar Mohal",
+                    "c) N Sridhar Rao",
+                    "d) Nachiket Mor"
+                ],
+                answer: 1,
+                explanation: "Union Minister Murlidhar Mohal visited Sikkim for budget discussions.",
+                week: "Week 4"
+            },
+            {
+                question: "What was exhibited at Kanchenjungapex-2025?",
+                options: [
+                    "a) Philatelic stamps",
+                    "b) Organic produce",
+                    "c) Fashion designs",
+                    "d) Autonomous robots"
+                ],
+                answer: 0,
+                explanation: "Philatelic stamps were exhibited at Kanchenjungapex-2025.",
+                week: "Week 4"
+            },
+            {
+                question: "Where was the Gyalpo Losar ceremony held?",
+                options: [
+                    "a) Ravangla",
+                    "b) Gangtok",
+                    "c) Namchi",
+                    "d) Pelling"
+                ],
+                answer: 0,
+                explanation: "Gyalpo Losar ceremony was held in Ravangla.",
+                week: "Week 4"
+            },
+            {
+                question: "Who was honored with the Lokmata Ahilyabai Holkar Award?",
+                options: [
+                    "a) Chimib Bhutia",
+                    "b) Sushma Gurung",
+                    "c) Binita Shanker",
+                    "d) Son Kumari Rai"
+                ],
+                answer: 0,
+                explanation: "Chimib Bhutia was honored with the Lokmata Ahilyabai Holkar Award.",
+                week: "Week 4"
+            }
+        ];
+
+        // DOM elements
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const feedbackDiv = document.getElementById('feedback');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const currentQuestionSpan = document.getElementById('current-question');
+        const totalQuestionsSpan = document.getElementById('total-questions');
+        const currentScoreSpan = document.getElementById('current-score');
+        const progressBar = document.getElementById('progress-bar');
+        const resultContainer = document.getElementById('result-container');
+        const finalScoreSpan = document.getElementById('final-score');
+        const performanceText = document.getElementById('performance-text');
+        const restartBtn = document.getElementById('restart-btn');
+        const weekIndicator = document.getElementById('week-indicator');
+
+        // Quiz state
+        let currentQuestionIndex = 0;
+        let userAnswers = Array(quizData.length).fill(null);
+        let score = 0;
+
+        // Initialize quiz
+        function initQuiz() {
+            totalQuestionsSpan.textContent = quizData.length;
+            updateProgressBar();
+            showQuestion();
+        }
+
+        // Show current question
+        function showQuestion() {
+            const question = quizData[currentQuestionIndex];
+            questionText.textContent = question.question;
+            weekIndicator.textContent = question.week;
+            
+            optionsContainer.innerHTML = '';
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                if (userAnswers[currentQuestionIndex] === index) {
+                    optionDiv.classList.add('selected');
+                }
+                optionDiv.textContent = option;
+                optionDiv.addEventListener('click', () => selectOption(index));
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            // Update navigation buttons
+            prevBtn.dis
+            prevBtn.disabled = currentQuestionIndex === 0;
+            nextBtn.textContent = currentQuestionIndex === quizData.length - 1 ? 'Finish' : 'Next';
+            
+            // Update progress
+            currentQuestionSpan.textContent = currentQuestionIndex + 1;
+            currentScoreSpan.textContent = score;
+            updateProgressBar();
+            
+            // Hide feedback when showing new question
+            feedbackDiv.style.display = 'none';
+        }
+
+        // Update progress bar
+        function updateProgressBar() {
+            const progress = ((currentQuestionIndex + 1) / quizData.length) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        // Handle option selection
+        function selectOption(optionIndex) {
+            // Only allow selection if not already answered
+            if (userAnswers[currentQuestionIndex] === null) {
+                userAnswers[currentQuestionIndex] = optionIndex;
+                
+                // Highlight selected option
+                const options = document.querySelectorAll('.option');
+                options.forEach(opt => opt.classList.remove('selected'));
+                options[optionIndex].classList.add('selected');
+                
+                // Check answer and show feedback
+                checkAnswer(optionIndex);
+            }
+        }
+
+        // Check answer and show feedback
+        function checkAnswer(selectedIndex) {
+            const question = quizData[currentQuestionIndex];
+            const options = document.querySelectorAll('.option');
+            
+            // Mark correct and incorrect answers
+            options[question.answer].classList.add('correct');
+            if (selectedIndex !== question.answer) {
+                options[selectedIndex].classList.add('incorrect');
+            }
+            
+            // Show feedback
+            feedbackDiv.innerHTML = '';
+            if (selectedIndex === question.answer) {
+                feedbackDiv.className = 'feedback correct-feedback';
+                feedbackDiv.textContent = 'Correct!';
+                score++;
+                currentScoreSpan.textContent = score;
+            } else {
+                feedbackDiv.className = 'feedback incorrect-feedback';
+                feedbackDiv.textContent = `Incorrect. The correct answer is: ${question.options[question.answer]}`;
+            }
+            
+            // Add explanation if available
+            if (question.explanation) {
+                const explanation = document.createElement('div');
+                explanation.className = 'explanation';
+                explanation.textContent = question.explanation;
+                feedbackDiv.appendChild(explanation);
+            }
+            
+            feedbackDiv.style.display = 'block';
+        }
+
+        // Navigate to next question
+        function nextQuestion() {
+            if (currentQuestionIndex < quizData.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        // Navigate to previous question
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+            }
+        }
+
+        // Show final result
+        function showResult() {
+            document.querySelector('.quiz-container').style.display = 'none';
+            resultContainer.style.display = 'block';
+            finalScoreSpan.textContent = score;
+            
+            // Add performance text based on score
+            const percentage = (score / quizData.length) * 100;
+            let performance = '';
+            if (percentage >= 90) {
+                performance = 'Outstanding! You have an excellent knowledge of Sikkim current affairs.';
+            } else if (percentage >= 75) {
+                performance = 'Excellent! You are very well-informed about Sikkim.';
+            } else if (percentage >= 50) {
+                performance = 'Good effort! You know quite a bit about Sikkim current affairs.';
+            } else if (percentage >= 30) {
+                performance = 'Keep learning! Stay updated with Sikkim news to improve.';
+            } else {
+                performance = 'A good start! Follow Sikkim news regularly to enhance your knowledge.';
+            }
+            performanceText.textContent = performance;
+            // --- Firebase Progress Tracking ---
+            (function() {
+                var quizTitle = document.title || 'Unknown Quiz';
+                var category = 'General';
+                var path = window.location.pathname;
+                if (path.indexOf('Sikkim Current Affairs') !== -1 || quizTitle.indexOf('Sikkim') !== -1) category = 'Sikkim Current Affairs';
+                else if (path.indexOf('National International') !== -1 || quizTitle.indexOf('National') !== -1) category = 'National/International CA';
+                else if (path.indexOf('Physics') !== -1 || quizTitle.indexOf('Physics') !== -1) category = 'Physics';
+                else if (path.indexOf('Polity') !== -1) category = 'Polity';
+                else if (path.indexOf('History') !== -1) category = 'History';
+                else if (path.indexOf('Economics') !== -1) category = 'Economics';
+                else if (path.indexOf('Geography') !== -1) category = 'Geography';
+                if (typeof saveQuizResult === 'function' && typeof isLoggedIn === 'function' && isLoggedIn()) {
+                    saveQuizResult(quizTitle, score, quizData.length, category);
+                }
+            })();
+        }
+
+        // Restart quiz
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            userAnswers = Array(quizData.length).fill(null);
+            score = 0;
+            document.querySelector('.quiz-container').style.display = 'block';
+            resultContainer.style.display = 'none';
+            showQuestion();
+        }
+
+        // Event listeners
+        nextBtn.addEventListener('click', nextQuestion);
+        prevBtn.addEventListener('click', prevQuestion);
+        restartBtn.addEventListener('click', restartQuiz);
+
+        // Initialize the quiz
+        initQuiz();
+    </script>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="../auth.js"></script>
+</body>
+</html>

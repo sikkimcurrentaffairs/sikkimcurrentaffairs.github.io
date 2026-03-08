@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecology & Ecosystems | Sikkim PSC Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        .quiz-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        html.dark .quiz-container {
+            background: #24272c;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #0284c7;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        html.dark .question-block {
+            border-bottom: 1px solid #334155;
+        }
+        .question-text {
+            font-size: 1.15em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+        html.dark .question-text {
+            color: #f1f5f9;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option {
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            padding: 16px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            color: #475569;
+        }
+        html.dark .option {
+            background-color: #1e293b;
+            border: 2px solid #334155;
+            color: #cbd5e1;
+        }
+        .option:hover {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
+            transform: translateX(4px);
+        }
+        html.dark .option:hover {
+            background-color: #334155;
+            border-color: #475569;
+        }
+        .option.correct {
+            background-color: #dcfce7 !important;
+            border-color: #4ade80 !important;
+            color: #166534 !important;
+        }
+        html.dark .option.correct {
+            background-color: #064e3b !important;
+            border-color: #10b981 !important;
+            color: #ecfdf5 !important;
+        }
+        .option.incorrect {
+            background-color: #fee2e2 !important;
+            border-color: #f87171 !important;
+            color: #991b1b !important;
+        }
+        html.dark .option.incorrect {
+            background-color: #7f1d1d !important;
+            border-color: #ef4444 !important;
+            color: #fef2f2 !important;
+        }
+        .options-list.answered {
+            pointer-events: none;
+        }
+        .quiz-stats-badge {
+            background: #f1f5f9;
+            color: #64748b;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        html.dark .quiz-stats-badge {
+            background: #334155;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 min-h-screen p-4 sm:p-8">
+
+    <div class="quiz-container">
+        <a href="ecology.html" class="back-link">&larr; Back to Ecology Topics</a>
+        <h1 class="text-3xl font-bold text-green-800 dark:text-green-400 mb-2">Ecology & Ecosystems</h1>
+        <div class="quiz-stats-badge">56 MCQ Questions</div>
+        
+        <div id="questions-wrapper"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "The pyramid of energy in any ecosystem is",
+                options: ["Always upright", "May be upright or invented", "Always inverted", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "An example of an abiotic component",
+                options: ["Plants", "Soil", "Animals", "Bacteria"],
+                answer: 1
+            },
+            {
+                question: "The term Ecosystem was coined by",
+                options: ["Odum", "Clements", "Arthur G Tansley", "Elton"],
+                answer: 2
+            },
+            {
+                question: "What is symbiosis?",
+                options: ["Study of distribution of related species", "Association between members of same species", "Association between members of two species", "None"],
+                answer: 2
+            },
+            {
+                question: "The abiotic and biotic components constitute the structure of an",
+                options: ["energy flow", "environment", "atmosphere", "Ecosystem"],
+                answer: 3
+            },
+            {
+                question: "In a food chain of grassland ecosystem the top consumers are",
+                options: ["Herbivorous", "Carnivorous", "Bacteria", "Either carnivorous or herbivorous"],
+                answer: 1
+            },
+            {
+                question: "Total amount of living material at the various trophic levels of a food chain is depicted by pyramids of",
+                options: ["numbers", "energy", "biomass", "all of these"],
+                answer: 2
+            },
+            {
+                question: "The outermost zone of a biosphere reserve is",
+                options: ["manipulation zone", "core zone", "buffer zone", "all the above"],
+                answer: 0
+            },
+            {
+                question: "The first trophic level in a food chain",
+                options: ["Green Plants", "Herbivores", "Carnivores", "Bacteria"],
+                answer: 0
+            },
+            {
+                question: "Which of the following has the least similarity when comparing two examples of the same biome located in different parts of the world?",
+                options: ["Climate", "Latitude", "Continent", "Elevation"],
+                answer: 2
+            },
+            {
+                question: "The source of energy in an ecosystem is",
+                options: ["ATP", "Sunlight", "D.N.A", "R.N.A"],
+                answer: 1
+            },
+            {
+                question: "In grazer food chain the living plants are directly",
+                options: ["destroyed", "consumed", "decayed", "grown"],
+                answer: 1
+            },
+            {
+                question: "As it travels along the food chain, the concentration of DDT",
+                options: ["increases", "remains constant", "decreases", "fluctuates randomly"],
+                answer: 0
+            },
+            {
+                question: "Which one of the following is the most stable ecosystem?",
+                options: ["Forest", "Mountain", "Desert", "Ocean"],
+                answer: 3
+            },
+            {
+                question: "The type of ecosystem with the highest mean plant productivity is",
+                options: ["tropical rain forest", "temperate grassland", "desert", "tundra"],
+                answer: 0
+            },
+            {
+                question: "Lotic ecosystem refers to",
+                options: ["Static water system", "Ecosystem of flowing water", "Ecosystem of estuaries", "Deep marine water system"],
+                answer: 1
+            },
+            {
+                question: "An ecosystem gradually merges with an adjoining one through a transitional zone is called the ______________",
+                options: ["Ecological niche", "ecological footprint", "ecotone", "shore effect"],
+                answer: 2
+            },
+            {
+                question: "First Biosphere reserve in India",
+                options: ["Nilgiri", "Agastyamala", "Eravikulam", "Chinnar"],
+                answer: 0
+            },
+            {
+                question: "In an aquatic ecosystem, the depth to which light penetrates is called",
+                options: ["aphotic", "photic", "euphotic", "nonphotic"],
+                answer: 1
+            },
+            {
+                question: "An ecosystem must have continuous external source of",
+                options: ["minerals", "energy", "food", "All of the above"],
+                answer: 1
+            },
+            {
+                question: "Which of the following would be considered to be a biotic component of an environment?",
+                options: ["Fire", "Water", "Fungi", "Soil"],
+                answer: 2
+            },
+            {
+                question: "The destruction of habitat of plants and animals is called",
+                options: ["endemism", "endangered species", "habitat loss", "flood"],
+                answer: 2
+            },
+            {
+                question: "Agastyamalai Biosphere reserve is in",
+                options: ["Pathanamthitta", "Thiruvananthapuram", "Idukki", "Wayanad"],
+                answer: 1
+            },
+            {
+                question: "Conservation within the natural habitat is",
+                options: ["insitu conservation", "exsitu conservation", "invivo conservation", "exvivo conservation"],
+                answer: 0
+            },
+            {
+                question: "Which one of the following statements for pyramid of energy is incorrect, whereas the remaining three are correct?",
+                options: ["It is upright in shape", "Its base is broad", "It shows energy content of different trophic level organisms", "It is inverted in shape"],
+                answer: 3
+            },
+            {
+                question: "Biotic potential is counteracted by",
+                options: ["Competition with other organisms", "Producer is the largest", "Limitation of food supply", "None of the above"],
+                answer: 3
+            },
+            {
+                question: "Plants that grow in saline water-logged habitat are called",
+                options: ["xerophytes", "halophytes", "mangroves", "mesophytes"],
+                answer: 1
+            },
+            {
+                question: "A pond, serves as a good example for a  __________ water ecosystem.",
+                options: ["fresh", "brackish", "marine", "sea"],
+                answer: 0
+            },
+            {
+                question: "What is lentic habitat ?",
+                options: ["Running water habitat", "Standing or still water habitat", "Marine habitat", "None"],
+                answer: 1
+            },
+            {
+                question: "Habitat loss and fragmentation, over exploitation, alien species invasion and co extinction are causes for",
+                options: ["Population exploitation", "Pollution", "Migration", "Ecological succession"],
+                answer: 0
+            },
+            {
+                question: "The pyramid of number of a parasitic food chain in forest ecosystem is",
+                options: ["always inverted", "always upright", "mixture of inverted and upright", "sometimes inverted and sometimes upright"],
+                answer: 0
+            },
+            {
+                question: "Energy flow in ecosystem is",
+                options: ["Unidirectional", "Bidirectional", "Multidirectional", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "The biosphere encompasses the total  __________ of living material in a region or the globe.",
+                options: ["Diversity of species", "Animal population", "Photosynthesis", "Weight"],
+                answer: 3
+            },
+            {
+                question: "In an aquatic ecosystem, the tropic level equivalent to cows in grasslands is",
+                options: ["Nekton", "Zooplankton", "Phytoplankton", "Benthos"],
+                answer: 1
+            },
+            {
+                question: "The simplest aquatic ecosystem can be seen in a",
+                options: ["River", "Lake", "Pond", "Water Tank"],
+                answer: 2
+            },
+            {
+                question: "The most endangered ecosystem in India",
+                options: ["Shola forest ecosystem", "Evergreen forest ecosystem", "Pond ecosystem", "Tundra Ecosystem"],
+                answer: 1
+            },
+            {
+                question: "In recycling of mineral elements within an ecosystem, the responsible direct acing organism are called",
+                options: ["Decomposers", "Producers", "Primary consumers", "Secondary consumers"],
+                answer: 0
+            },
+            {
+                question: "Which of the following groups is absolutely essential functional component of the ecosystem?",
+                options: ["Producers", "Producers and herbivores", "Producers and detritivores", "Detritivores"],
+                answer: 2
+            },
+            {
+                question: "Energy transformation through the food chain is",
+                options: ["Regular", "Comfortable", "Proposed", "Inefficient"],
+                answer: 3
+            },
+            {
+                question: "A graphic representation of number of individuals of different species belonging to each trophic level in a an ecosystem is known as",
+                options: ["Ecological pyramid", "Pyramid of biomass", "Pyramid of number", "Pyramid of energy"],
+                answer: 2
+            },
+            {
+                question: "Symbiosis is shown by",
+                options: ["E.coli", "Cuscuta", "Rafflesia", "Monotropa"],
+                answer: 0
+            },
+            {
+                question: "What is lotic habitat?",
+                options: ["Standing or still water habitat", "Marine habitat", "Running water habitat", "Stagnant water"],
+                answer: 2
+            },
+            {
+                question: "In a pyramid of numbers, in a grassland ecosystem, the largest population is that of",
+                options: ["Producers", "Tertiary Consumers", "Secondary consumers", "Herbivores"],
+                answer: 0
+            },
+            {
+                question: "The pyramid of energy in terrestrial ecosystem is",
+                options: ["Upright", "Inverted", "Spindle shaped", "Irregular"],
+                answer: 0
+            },
+            {
+                question: "In pond ecosystem, the pyramid of biomass is",
+                options: ["upright", "inverted", "spindle shaped", "none of these"],
+                answer: 1
+            },
+            {
+                question: "In grassland ecosystem, the pyramid of biomass is",
+                options: ["upright", "inverted", "spindle shaped", "none of these"],
+                answer: 0
+            },
+            {
+                question: "Which one of the following cycle is not a gaseous biogeochemical cycle in ecosystem?",
+                options: ["Nitrogen", "Carbon", "Sulphur", "Phosphorus"],
+                answer: 3
+            },
+            {
+                question: "Green Land biome",
+                options: ["Tundra", "Pampas", "Taiga", "Thaar"],
+                answer: 1
+            },
+            {
+                question: "Which one of the following ecosystem type has the highest annual net primary productivity?",
+                options: ["Tropical deciduous forest", "Tropical rain forest", "Temperate deciduous forest", "Temperate evergreen forest"],
+                answer: 1
+            },
+            {
+                question: "Valuable, practical services that help to preserve ecosystem performed by nature are called",
+                options: ["Ecosystem service", "Biological control", "The green house effect", "Biosphere balancing"],
+                answer: 0
+            },
+            {
+                question: "Definition of ecosystem is",
+                options: ["The community of organisms together with the environment in which they live", "The abiotic component of a habitat", "The part of the earth and its atmosphere which inhibits living organisms", "A community of organisms interacting with one another"],
+                answer: 0
+            },
+            {
+                question: "Ecological niche of an organism represents",
+                options: ["The resource it utilizes", "Functional role in the ecological system", "The range of conditions that it can tolerate", "All of these"],
+                answer: 3
+            },
+            {
+                question: "A food web is",
+                options: ["Like a food chain", "A set of interconnected food chains, illustrating the tropic relationships among species", "The set of prey species that are consumed by animals in an ecosystem", "The tropic (feeding) levels that can be observed in an ecosystem"],
+                answer: 1
+            },
+            {
+                question: "Man and biosphere programme is affiliated with",
+                options: ["UNESCO", "IUCN", "WWF", "WIPO"],
+                answer: 0
+            },
+            {
+                question: "How many types of habitats are there in a biosphere?",
+                options: ["4", "2", "3", "6"],
+                answer: 0
+            },
+            {
+                question: "Which of the following statements regarding species interdependence are true?A. An association of two species where one is benefitted and other remains unaffected called mutualismB. An interspecific association where both partners derive benefit from each other is called commensalismC. A direct food relation between two species of animals in which one animals kills and feed on another is referred as predationD. A relationship between two species of organism where both the partners are benefitted from each other is called symbiosis",
+                options: ["A and B only", "C and D only", "A and C only", "B and C only"],
+                answer: 1
+            }
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.innerHTML = `<span class="text-green-600 dark:text-green-500 mr-2">Q${index + 1}.</span> ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                if (!option || option.trim() === '') return;
+                
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) return;
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            wrapper.appendChild(questionBlock);
+        });
+
+        // Theme sync
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sikkim Quiz Series | Sikkim PSC preparation hub</title>
+
+    <script>
+        if (typeof window.tailwind === 'undefined') { window.tailwind = {}; }
+        window.tailwind.config = { darkMode: 'class' };
+    </script>
+    <script>
+        (function () {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        })();
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        html body {
+            background-color: #eef1f5;
+        }
+
+        html.dark body {
+            background-color: #1a1c20 !important;
+            color: #e5e7eb !important;
+        }
+
+        html.dark h1,
+        html.dark h2 {
+            color: #f3f4f6 !important;
+        }
+
+        html.dark p {
+            color: #9ca3af !important;
+        }
+
+        html.dark .navbar-brand-title {
+            color: #f3f4f6 !important;
+        }
+
+        html.dark .dark\:text-sky-300 {
+            color: #7dd3fc !important;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        .dark ::-webkit-scrollbar-thumb {
+            background: #475569;
+        }
+
+        .glassmorphic-header,
+        .quiz-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .quiz-card {
+            background: #eef1f5;
+            border-radius: 24px;
+            box-shadow: 10px 10px 20px #d1d9e6, -10px -10px 20px #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .quiz-card:hover {
+            box-shadow: 5px 5px 10px #d1d9e6, -5px -5px 10px #ffffff,
+                inset 2px 2px 5px #d1d9e6, inset -2px -2px 5px #ffffff;
+            transform: translateY(-2px);
+        }
+
+        html.dark .quiz-card {
+            background: #24272c;
+            box-shadow: 10px 10px 20px #16181b, -10px -10px 20px #32363d;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        html.dark .quiz-card:hover {
+            box-shadow: 5px 5px 10px #16181b, -5px -5px 10px #32363d,
+                inset 2px 2px 5px #16181b, inset -2px -2px 5px #32363d;
+        }
+
+        .glassmorphic-header {
+            background: rgba(238, 241, 245, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(209, 217, 230, 0.5);
+        }
+
+        html.dark .glassmorphic-header {
+            background: rgba(26, 28, 32, 0.85);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(25px);
+            animation: fadeInUpAnimation 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        @keyframes fadeInUpAnimation {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .sun-icon-animator,
+        .moon-icon-animator {
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+
+        .sun-icon-animator {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+        }
+
+        html.dark .sun-icon-animator {
+            opacity: 0;
+            transform: scale(0.5) rotate(-90deg);
+        }
+
+        .moon-icon-animator {
+            opacity: 0;
+            transform: scale(0.5) rotate(90deg);
+        }
+
+        html.dark .moon-icon-animator {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+        }
+
+        .knob-at-start {
+            transform: translateX(0px);
+        }
+
+        .knob-at-end {
+            transform: translateX(1.25rem);
+        }
+
+        .delay-100 {
+            animation-delay: 0.1s;
+        }
+
+        .delay-200 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-300 {
+            animation-delay: 0.3s;
+        }
+
+        .pro-tip-box {
+            background: #ecfdf5;
+            border: 2px solid #10b981;
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            color: #065f46;
+        }
+
+        html.dark .pro-tip-box {
+            background: rgba(6, 95, 70, 0.25);
+            border-color: #059669;
+            color: #a7f3d0;
+        }
+    </style>
+</head>
+
+<body class="font-sans text-gray-900 dark:text-white antialiased">
+
+    <div class="min-h-screen flex flex-col">
+        <nav class="sticky top-0 z-50 glassmorphic-header">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <div class="flex items-center">
+                        <a href="index.html" class="text-xl sm:text-2xl font-bold text-sky-600 navbar-brand-title">
+                            Sikkim PSC preparation hub
+                        </a>
+                    </div>
+                    <div class="flex items-center space-x-2 sm:space-x-4">
+                        <button id="darkModeToggle" type="button" aria-label="Toggle Dark Mode"
+                            class="relative inline-flex items-center h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 dark:focus:ring-offset-black bg-gray-300 dark:bg-sky-600"
+                            role="switch" aria-checked="false">
+                            <span class="sr-only">Toggle Dark Mode</span>
+                            <span
+                                class="toggle-knob pointer-events-none relative inline-block h-5 w-5 rounded-full bg-white shadow ring-0 transition-transform duration-300 ease-in-out">
+                                <span
+                                    class="sun-icon-animator absolute inset-0 flex h-full w-full items-center justify-center">
+                                    <svg class="h-3 w-3 text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-6.364-.386l1.591-1.591M3 12h2.25m.386-6.364l1.591 1.591" />
+                                    </svg>
+                                </span>
+                                <span
+                                    class="moon-icon-animator absolute inset-0 flex h-full w-full items-center justify-center">
+                                    <svg class="h-3 w-3 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21c1.33 0 2.597-.266 3.752-.748A9.753 9.753 0 0021.752 15.002z" />
+                                    </svg>
+                                </span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-24">
+            <a href="index.html"
+                class="inline-flex items-center text-sm font-medium text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300 mb-8">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                    stroke="currentColor" class="w-4 h-4 mr-2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                </svg>
+                Back to hub
+            </a>
+
+            <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-2">
+                Sikkim <span class="text-green-600 dark:text-green-400">Quiz</span> Series
+            </h1>
+            <p class="text-gray-600 dark:text-gray-400 mb-10">
+                Quick &amp; easy practice quizzes for Sikkim PSC preparation.<br>
+                Short quizzes for quick revision and practice.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12">
+                <!-- Sikkim Quiz I -->
+                <a href="Quiz Series/quiz0.html"
+                    class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up transition-shadow duration-300">
+                    <div class="flex flex-col items-center">
+                        <h2 class="text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-200">Sikkim Quiz I</h2>
+                        <span class="text-green-600 dark:text-green-400 font-medium">Start Quiz &rarr;</span>
+                    </div>
+                </a>
+                <!-- Sikkim Quiz II -->
+                <a href="Quiz Series/quiz1.html"
+                    class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up transition-shadow duration-300">
+                    <div class="flex flex-col items-center">
+                        <h2 class="text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-200">Sikkim Quiz II</h2>
+                        <span class="text-green-600 dark:text-green-400 font-medium">Start Quiz &rarr;</span>
+                    </div>
+                </a>
+                <!-- Sikkim Quiz III -->
+                <a href="Quiz Series/quiz2.html"
+                    class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up transition-shadow duration-300">
+                    <div class="flex flex-col items-center">
+                        <h2 class="text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-200">Sikkim Quiz III</h2>
+                        <span class="text-green-600 dark:text-green-400 font-medium">Start Quiz &rarr;</span>
+                    </div>
+                </a>
+                <!-- Sikkim Quiz IV -->
+                <a href="Quiz Series/quiz3.html"
+                    class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up transition-shadow duration-300">
+                    <div class="flex flex-col items-center">
+                        <h2 class="text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-200">Sikkim Quiz IV</h2>
+                        <span class="text-green-600 dark:text-green-400 font-medium">Start Quiz &rarr;</span>
+                    </div>
+                </a>
+                <!-- Sikkim Quiz V -->
+                <a href="Quiz Series/quiz4.html"
+                    class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up transition-shadow duration-300">
+                    <div class="flex flex-col items-center">
+                        <h2 class="text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-200">Sikkim Quiz V</h2>
+                        <span class="text-green-600 dark:text-green-400 font-medium">Start Quiz &rarr;</span>
+                    </div>
+                </a>
+                <!-- Sikkim Quiz VI -->
+                <a href="Quiz Series/quiz5.html"
+                    class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up transition-shadow duration-300">
+                    <div class="flex flex-col items-center">
+                        <h2 class="text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-200">Sikkim Quiz VI</h2>
+                        <span class="text-green-600 dark:text-green-400 font-medium">Start Quiz &rarr;</span>
+                    </div>
+                </a>
+                <!-- Sikkim Quiz VII -->
+                <a href="Quiz Series/quiz6.html"
+                    class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up transition-shadow duration-300">
+                    <div class="flex flex-col items-center">
+                        <h2 class="text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-200">Sikkim Quiz VII</h2>
+                        <span class="text-green-600 dark:text-green-400 font-medium">Start Quiz &rarr;</span>
+                    </div>
+                </a>
+                <!-- Sikkim Quiz VIII -->
+                <a href="Quiz Series/quiz7.html"
+                    class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up transition-shadow duration-300">
+                    <div class="flex flex-col items-center">
+                        <h2 class="text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-200">Sikkim Quiz VIII</h2>
+                        <span class="text-green-600 dark:text-green-400 font-medium">Start Quiz &rarr;</span>
+                    </div>
+                </a>
+                <!-- Sikkim Quiz IX -->
+                <a href="Quiz Series/quiz8.html"
+                    class="quiz-card group block p-6 sm:p-8 md:p-10 fade-in-up transition-shadow duration-300">
+                    <div class="flex flex-col items-center">
+                        <h2 class="text-2xl font-semibold mb-3 text-gray-800 dark:text-gray-200">Sikkim Quiz IX</h2>
+                        <span class="text-green-600 dark:text-green-400 font-medium">Start Quiz &rarr;</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="pro-tip-box mt-12 flex items-center">
+                <p class="font-medium m-0"><strong>Pro tip:</strong> Solve it as many times as you can to retain the
+                    information!</p>
+            </div>
+        </main>
+
+        <footer class="py-8 text-center mt-16 sm:mt-24 border-t border-gray-200 dark:border-gray-700/50">
+            <p class="text-sm text-gray-500 dark:text-gray-300">
+                © <span id="currentYear"></span> Sikkim PSC preparation hub.
+                Designed by <a href="https://www.instagram.com/nothisisdk/" target="_blank" rel="noopener noreferrer"
+                    class="font-semibold text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-500">nothisisdk</a>.
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Set Current Year
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Dark Mode Logic
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const knob = darkModeToggle.querySelector('.toggle-knob');
+
+        const updateThemeUI = (isDark) => {
+            const html = document.documentElement;
+            if (isDark) {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                darkModeToggle.setAttribute('aria-checked', 'true');
+                if (knob) knob.style.transform = 'translateX(1.25rem)';
+            } else {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                darkModeToggle.setAttribute('aria-checked', 'false');
+                if (knob) knob.style.transform = 'translateX(0)';
+            }
+        };
+
+        darkModeToggle.addEventListener('click', () => {
+            const isDark = !document.documentElement.classList.contains('dark');
+            updateThemeUI(isDark);
+        });
+
+        // Initialize UI on load
+        updateThemeUI(document.documentElement.classList.contains('dark'));
+    </script>
+</body>
+
+</html>

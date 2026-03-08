@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biology - Botany and Branches | Sikkim PSC Hub</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+            border-color: #bbb;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .options-list.answered .option:not(.correct):not(.incorrect) {
+            opacity: 0.7;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none;
+        }
+        .quiz-stats {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <a href="biology.html" class="back-link">&larr; Back to Biology</a>
+        <h1>Botany and Branches</h1>
+        <p class="quiz-stats">20 Questions</p>
+        <!-- Questions will be dynamically inserted here by JavaScript -->
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Scientist who is known as father of Botany",
+                options: ["Aristotle", "Darwin ,", "Theophrastus", "Linneus"],
+                answer: 2
+            },
+            {
+                question: "The term biology was first coined by",
+                options: ["Aristotle \'", "Darwin", "Lamark", "· Lamark and Treviranus"],
+                answer: 3
+            },
+            {
+                question: "Who is !<Jlown as fathet:..Qi Zo",
+                options: ["Darwin", "Lamark ·", "Aristotle", "Theophrastus."],
+                answer: 2
+            },
+            {
+                question: "The bookHistoria£lantrum is written by",
+                options: ["Aristotle", "\"\' Theophrastus", "Hipporates", "Darwin"],
+                answer: 1
+            },
+            {
+                question: "_ Aristotle iLnot kno~ as",
+                options: ["Father of Biology", "Father of Zoology", "Founder of Embryology.kd) Father of Botany", "Plantophyta"],
+                answer: 3
+            },
+            {
+                question: "The book Historia arlil!!._alium is written by",
+                options: ["Aristotle", "Darwin", "Lamark", "Theophrastus"],
+                answer: 0
+            },
+            {
+                question: "Branch of_biology in which we study about relationship J:>etween living and their environment. (~Physiology",
+                options: ["", "Genetics", "Ecology", "Geology"],
+                answer: 2
+            },
+            {
+                question: "Palaeobotany is the branch of botany is which we study about",
+                options: ["Animal fosills", "Plantfossils", "Seed of plant", "Flower"],
+                answer: 1
+            },
+            {
+                question: "is the branch of botany in which we study out",
+                options: ["Alga", "Fungi", "Bacteria", "Virus"],
+                answer: 1
+            },
+            {
+                question: "Silviculture is the br~ch of bot~y in which we study about",
+                options: ["Culture of algae \'", "Development of forest", "Culture of fungi", "Silciphida plant"],
+                answer: 1
+            },
+            {
+                question: "Branch of agriculture concerned with the production of crops",
+                options: ["Agrotology ·.", "Agronomy", "Agrostology", "Anthropology"],
+                answer: 1
+            },
+            {
+                question: "ABrostolo.gy is th~ study of- W Seed of oil",
+                options: ["", "Crop", "\' Grass", "Fruits"],
+                answer: 2
+            },
+            {
+                question: "In Pedology we study about",
+                options: ["Disease", "Pollution", "Soil", "Rockes"],
+                answer: 2
+            },
+            {
+                question: "Study of pollen grain is called- a) Pomology ·",
+                options: ["", "Palynology", "Phycology", "Mycology"],
+                answer: 1
+            },
+            {
+                question: "Study of internal structure oLplant",
+                options: ["Morphology", "Anatomy", "Ecology", "Taxonomy"],
+                answer: 1
+            },
+            {
+                question: "Study of external structure and their form is called",
+                options: ["Morphology", "Anatomy", "Ecotogy", "Phycology"],
+                answer: 0
+            },
+            {
+                question: "Branch of biology which deals with the study of identification, nomenculture and classification of organism is",
+                options: ["Exobiology", "Ecology", "Taxonomy", "Toxicology"],
+                answer: 2
+            },
+            {
+                question: "Physical basis ofJife is",
+                options: ["Cytoplasm", "Neucleoplasm", "Protoplasm", "Haloplasm"],
+                answer: 2
+            },
+            {
+                question: "Cultivation of ornamental & shurbs plant",
+                options: ["Agronomy", "Olariculture _", "Arboriculture", "Silviculture"],
+                answer: 2
+            },
+            {
+                question: "Branch of biology which deals with study .2f.heredity ansi variation.",
+                options: ["Histology", "Cytology", "Genetics", "Evolution"],
+                answer: 2
+            }
+        ];
+
+        const quizContainer = document.getElementById('quiz-container');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.textContent = `${index + 1}) ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) {
+                        return;
+                    }
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            quizContainer.appendChild(questionBlock);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chemical Bonding & Molecular Structure | Sikkim PSC Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        .quiz-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        html.dark .quiz-container {
+            background: #24272c;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #0284c7;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        html.dark .question-block {
+            border-bottom: 1px solid #334155;
+        }
+        .question-text {
+            font-size: 1.15em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+        html.dark .question-text {
+            color: #f1f5f9;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option {
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            padding: 16px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            color: #475569;
+        }
+        html.dark .option {
+            background-color: #1e293b;
+            border: 2px solid #334155;
+            color: #cbd5e1;
+        }
+        .option:hover {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
+            transform: translateX(4px);
+        }
+        html.dark .option:hover {
+            background-color: #334155;
+            border-color: #475569;
+        }
+        .option.correct {
+            background-color: #dcfce7 !important;
+            border-color: #4ade80 !important;
+            color: #166534 !important;
+        }
+        html.dark .option.correct {
+            background-color: #064e3b !important;
+            border-color: #10b981 !important;
+            color: #ecfdf5 !important;
+        }
+        .option.incorrect {
+            background-color: #fee2e2 !important;
+            border-color: #f87171 !important;
+            color: #991b1b !important;
+        }
+        html.dark .option.incorrect {
+            background-color: #7f1d1d !important;
+            border-color: #ef4444 !important;
+            color: #fef2f2 !important;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none;
+        }
+        .quiz-stats-badge {
+            background: #f1f5f9;
+            color: #64748b;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        html.dark .quiz-stats-badge {
+            background: #334155;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 min-h-screen p-4 sm:p-8">
+
+    <div class="quiz-container">
+        <a href="chemistry.html" class="back-link">&larr; Back to Chemistry Topics</a>
+        <h1 class="text-3xl font-bold text-sky-800 dark:text-sky-400 mb-2">Chemical Bonding & Molecular Structure</h1>
+        <div class="quiz-stats-badge">20 MCQ Questions</div>
+        
+        <div id="questions-wrapper"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "The molecules of which gas have highest speed?",
+                options: ["H2at -73oC", "CH4at 300 K", "N2at 1,027oC", "O2at 0oC"],
+                answer: 0
+            },
+            {
+                question: "The number of water molecules present in a drop of water (volume 0.0018 ml) at room temperature is",
+                options: ["1.568 x 103", "6.023 x 1019", "4.84 x 1017", "6.023 x 1023"],
+                answer: 1
+            },
+            {
+                question: "The ionic radii of N3-, O2-, F-and Na+follows the order",
+                options: ["N3-> O2-> F-> Na+", "N3-> Na+> O2-> F-", "Na+> O2-> N3-> F-", "O2-> F-> Na+> N3-"],
+                answer: 0
+            },
+            {
+                question: "The molecule which has the highest percentage of ionic character among the following is",
+                options: ["HI", "HF", "HCI", "HBr"],
+                answer: 1
+            },
+            {
+                question: "The number of g-molecule of oxygen in 6.02 x 1024CO molecules is",
+                options: ["1 gram of molecule", "0.5 gram of molecule", "5 gram of molecule", "10 gram of molecule"],
+                answer: 2
+            },
+            {
+                question: "The maximum number of covalent formed by nitrogen is",
+                options: ["1", "2", "3", "4"],
+                answer: 3
+            },
+            {
+                question: "Which among the following is a covalent compound ?",
+                options: ["Calcium chloride", "Magnesium fluoride", "Sodium chloride", "Carbon tetrachloride"],
+                answer: 3
+            },
+            {
+                question: "The metallic constituents of hard water are :",
+                options: ["Magnesium, calcium and tin", "Iron, tin and calcium", "Calcium, magnesium and iron", "Magnesium, tin and iron"],
+                answer: 2
+            },
+            {
+                question: "Ethylene is a ________ molecule.",
+                options: ["Polar", "Ionic", "Covalent", "Nonpolar"],
+                answer: 3
+            },
+            {
+                question: "What happens when a chemical bond is formed ?",
+                options: ["Energy is always absorbed", "Energy in always released", "More energy is released than is absorbed", "Energy is neither released nor absorbed"],
+                answer: 1
+            },
+            {
+                question: "Mark the compound which possess ionic, covalent and coordinate bonds.",
+                options: ["NH4Cl", "SO3", "SO2", "H2O"],
+                answer: 0
+            },
+            {
+                question: "In ice, the number of hydrogen bonds per water molecule is",
+                options: ["1", "2", "4", "8"],
+                answer: 2
+            },
+            {
+                question: "Of the following compounds of calcium, the one having highest covalent character is",
+                options: ["CaF2", "CaCl2", "CaBr2", "Cal3"],
+                answer: 3
+            },
+            {
+                question: "Which one of the following species has the highest bond order, shortest bond length and maximum bond strength?",
+                options: ["O2", "O+2", "O-2", "O-22"],
+                answer: 1
+            },
+            {
+                question: "The number of hydrogen bonds between guanine and cytosine in DNA is",
+                options: ["2", "3", "4", "1"],
+                answer: 1
+            },
+            {
+                question: "Match the List-I with List-II and select the correct answer using the codes given below the listsList-I (Green house gas)List-II(Major source)F.Carbondioxide1.Enteric fermentation in cattleG.Methane2.Burning of fossilH.Chloroflro carbons3.Mercury compounds in waste waterJ.Nitrous oxide4.Nylon production5.Air conditioner and refrigeration unitsCodes :FGHJA.2154B.3421C.3241D.1234",
+                options: ["A", "B", "C", "D"],
+                answer: 0
+            },
+            {
+                question: "The length of double bond is _______ than single bond.",
+                options: ["Shorter", "Longer", "Of same lenght", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "Which of the following molecules has a bond order of 2.5?",
+                options: ["HCL", "CO", "F2", "NO"],
+                answer: 3
+            },
+            {
+                question: "The unit of ionic product of water (Kw) is :",
+                options: ["Mol2let-1", "Mol2let-2", "Mol-1let-2", "Mol-1let-1"],
+                answer: 1
+            },
+            {
+                question: "Which of the following methods is used in determining the number average molar mass of a macromolecule?",
+                options: ["Viscosity", "Osmotic pressure", "Sedimentation equilibrium", "Light scattering"],
+                answer: 1
+            }
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.innerHTML = `<span class="text-sky-600 dark:text-sky-500 mr-2">Q${index + 1}.</span> ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                if (!option || option.trim() === '') return;
+                
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) return;
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            wrapper.appendChild(questionBlock);
+        });
+
+        // Theme sync
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>

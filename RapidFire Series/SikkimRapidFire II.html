@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sikkim GK Quiz</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+            border-color: #bbb;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .options-list.answered .option:not(.correct):not(.incorrect) {
+            opacity: 0.7;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none; /* Disables further clicks */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <h1>Sikkim General Knowledge Quiz</h1>
+        <!-- Questions will be dynamically inserted here by JavaScript -->
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "In which year was the Jharlangi System abolished in Sikkim?",
+                options: ["1920", "1924", "1930", "1947"],
+                answer: 1
+            },
+            {
+                question: "Name the chogyal who abolished the Kurwa and Jharlangi system?",
+                options: ["Palden Thondup Namgyal", "Sidkeong Tulku Namgyal", "Tashi Namgyal", "Thutob Namgyal"],
+                answer: 2
+            },
+            {
+                question: "When the High Court of Sikkim was established?",
+                options: ["April 1950", "April 1955", "April 1960", "April 1975"],
+                answer: 1
+            },
+            {
+                question: "Name the chogyal who established the High Court in Sikkim?",
+                options: ["Tashi Namgyal", "Palden Thondup Namgyal", "Sidkeong Tulku Namgyal", "Thutob Namgyal"],
+                answer: 0
+            },
+            {
+                question: "The Indo-Sikkim Treaty was signed during the reign of which chogyal?",
+                options: ["Palden Thondup Namgyal", "Sidkeong Tulku Namgyal", "Tashi Namgyal", "Thutob Namgyal"],
+                answer: 2
+            },
+            {
+                question: "In which year the Indo-Sikkim Treaty was signed?",
+                options: ["5th December 1947", "5th December 1950", "5th December 1962", "5th December 1975"],
+                answer: 1
+            },
+            {
+                question: "Name the chogyal who had promulgated the Sikkim Subject Regulation.",
+                options: ["Palden Thondup Namgyal", "Tashi Namgyal", "Sidkeong Tulku Namgyal", "Thutob Namgyal"],
+                answer: 1
+            },
+            {
+                question: "In which year the Sikkim Subject Regulation was issued?",
+                options: ["3rd July 1951", "3rd July 1961", "3rd July 1971", "3rd July 1975"],
+                answer: 1
+            },
+            {
+                question: "Who was the first Chief Minister of Sikkim?",
+                options: ["Nar Bahadur Bhandari", "Pawan Kumar Chamling", "Kazi Lhendup Dorji Khangsarpa", "B.B. Gurung"],
+                answer: 2
+            },
+            {
+                question: "Who was the second Chief Minister of Sikkim?",
+                options: ["Sanchaman Limboo", "Bhim Bahadur Gurung", "Kazi Lhendup Dorji Khangsarpa", "Nar Bahadur Bhandari"],
+                answer: 3
+            },
+            {
+                question: "Who was the third Chief Minister of Sikkim?",
+                options: ["Nar Bahadur Bhandari", "Pawan Kumar Chamling", "Bhim Bahadur Goroong", "Sanchaman Limboo"],
+                answer: 2
+            },
+            {
+                question: "Who was the fourth Chief Minister of Sikkim?",
+                options: ["Pawan Kumar Chamling", "Sanchaman Limboo", "Nar Bahadur Bhandari", "Prem Singh Tamang"],
+                answer: 1
+            },
+            {
+                question: "Who is the fifth Chief Minister of Sikkim?",
+                options: ["Prem Singh Tamang", "Sanchaman Limboo", "Pawan Kumar Chamling", "Nar Bahadur Bhandari"],
+                answer: 2
+            },
+            {
+                question: "Who was the first Governor of Sikkim?",
+                options: ["Homi J.H. Talyarkhan", "B.B. Lal", "Kona Prabhakar Rao", "T.V. Rajeshwar"],
+                answer: 1
+            },
+            {
+                question: "Who is the present Governor of Sikkim?",
+                options: ["Shriniwas Patil", "Om Prakash Mathur", "Lakshman Acharya", "V. Rama Rao"],
+                answer: 1
+            },
+            {
+                question: "Who was the first Speaker of Sikkim Legislative Assembly?",
+                options: ["B.B. Gooroong", "Sonam Tshering", "C.S. Rai", "K.N. Rai"],
+                answer: 2
+            },
+            {
+                question: "Who was the first Lok Sabha member from Sikkim?",
+                options: ["Chatra Bahadur Katwal", "Pahalman Subba", "Santosh Kumar Rai", "Nar Bahadur Bhandari"],
+                answer: 2
+            },
+            {
+                question: "Who was the first Rajya Sabha Member from Sikkim?",
+                options: ["Leonard Soloman Saring", "Kesang Namgyal Paljor", "Karma Tenzing Tobden", "Hissey Lachungpa"],
+                answer: 0
+            },
+            {
+                question: "Who is the first Chief Justice of Sikkim?",
+                options: ["Justice Man Mohan Singh Gujral", "Justice Mohan Lall Shrimal", "Justice Jugal Kishore Mohanty", "Justice S.K. Agnihotri"],
+                answer: 0
+            },
+            {
+                question: "Who is the present Chief Justice of Sikkim?",
+                options: ["Justice S.K. Agnihotri", "Justice Biswanath Somadder", "Justice N.K. Jain", "Justice Sunil Kumar Sinha"],
+                answer: 1
+            },
+            {
+                question: "Who was the first Chief Secretary of Sikkim?",
+                options: ["T.S. Gyaltshen", "M.P. Pradhan", "Rai Bahadur T.D. Densapa", "K.M.L. Chabra"],
+                answer: 2
+            },
+            {
+                question: "When was the post of Chief Secretary in Sikkim created?",
+                options: ["1947", "1950", "1954", "1975"],
+                answer: 2
+            },
+            {
+                question: "Name the chogyal who had created the office of Chief Secretary in Sikkim?",
+                options: ["Palden Thondup Namgyal", "Sidkeong Tulku Namgyal", "Thutob Namgyal", "Tashi Namgyal"],
+                answer: 3
+            },
+            {
+                question: "Who was the first Chief Secretary of post-merger Sikkim?",
+                options: ["T.S. Gyaltshen", "M.P. Pradhan", "K.M.L. Chabra", "Har Mohinder Singh"],
+                answer: 0
+            },
+            {
+                question: "As per the Census of 2011, what was the total population of Sikkim?",
+                options: ["540,851", "610,577", "690,251", "710,123"],
+                answer: 1
+            },
+            {
+                question: "What was total male population of Sikkim as per Census 2011?",
+                options: ["287,507", "305,422", "323,070", "350,125"],
+                answer: 2
+            },
+            {
+                question: "What was total female population of Sikkim as per Census 2011?",
+                options: ["242,797", "253,344", "265,980", "287,507"],
+                answer: 0
+            },
+            {
+                question: "What is the percentage of rural population of Sikkim?",
+                options: ["65.55%", "70.12%", "74.85%", "80.25%"],
+                answer: 2
+            },
+            {
+                question: "What is the percentage of urban population of Sikkim?",
+                options: ["19.75%", "25.15%", "29.88%", "34.45%"],
+                answer: 1
+            },
+            {
+                question: "When the first Population Census of Sikkim was undertaken?",
+                options: ["1881", "1891", "1901", "1911"],
+                answer: 1
+            },
+            {
+                question: "What was the total population of Sikkim in first Census of 1891?",
+                options: ["25,489", "30,358", "35,678", "40,123"],
+                answer: 1
+            },
+            {
+                question: "In which year the highest growth rate of population was recorded?",
+                options: ["1891", "1901", "1951", "1971"],
+                answer: 1
+            },
+            {
+                question: "What was the sex ratio of Sikkim in 2011?",
+                options: ["875/1000", "890/1000", "909/1000", "920/1000"],
+                answer: 1
+            },
+            {
+                question: "What is the density of population of Sikkim?",
+                options: ["76 persons per sq.km", "86 persons per sq.km", "96 persons per sq.km", "106 persons per sq.km"],
+                answer: 1
+            },
+            {
+                question: "What is the percentage of Scheduled Castes population in Sikkim?",
+                options: ["4.6%", "5.2%", "6.8%", "7.1%"],
+                answer: 0
+            },
+            {
+                question: "What is the percentage of Scheduled Tribes population in Sikkim?",
+                options: ["20.6%", "25.4%", "30.2%", "33.8%"],
+                answer: 3
+            },
+            {
+                question: "The per capita income as on 2013-14 in Sikkim stands at:",
+                options: ["Rs. 156,234", "Rs. 166,890", "Rs. 176,491", "Rs. 186,571"],
+                answer: 2
+            },
+            {
+                question: "The Gross Domestic Product for 2014-15 in Sikkim has been estimated at:",
+                options: ["Rs. 210,123 (current price)", "Rs. 220,543 (current price)", "Rs. 230,876 (current price)", "Rs. 240,274 (current price)"],
+                answer: 3
+            },
+            {
+                question: "What percentage of people is living below poverty line in Sikkim?",
+                options: ["8.19 per cent (2013-14)", "9.85 per cent (2013-14)", "10.2 per cent (2013-14)", "12.4 per cent (2013-14)"],
+                answer: 0
+            },
+            {
+                question: "What per cent of people in Sikkim have agriculture as their main occupation?",
+                options: ["55 per cent", "60 per cent", "65 per cent", "70 per cent"],
+                answer: 2
+            },
+            {
+                question: "What is the staple food of Sikkim?",
+                options: ["Wheat", "Maize", "Rice", "Barley"],
+                answer: 2
+            },
+            {
+                question: "What is the scientific name of Rice?",
+                options: ["Triticum aestivum", "Zea mays", "Hordeum vulgare", "Oryza sativa"],
+                answer: 3
+            },
+            {
+                question: "Beside rice, what are the other cereals grown in Sikkim?",
+                options: ["Millets, Sorghum, Oats, Rye", "Wheat, Maize, Barley, Buckwheat", "Quinoa, Amaranth, Spelt, Kamut", "Rye, Oats, Triticale, Sorghum"],
+                answer: 1
+            },
+            {
+                question: "What is the scientific name of Wheat?",
+                options: ["Triticum aestivum", "Zea mays", "Oryza sativa", "Hordeum vulgare"],
+                answer: 0
+            },
+            {
+                question: "What is the scientific name of Maize?",
+                options: ["Oryza sativa", "Triticum aestivum", "Zea mays", "Hordeum vulgare"],
+                answer: 2
+            },
+            {
+                question: "Name the two important cash crops of Sikkim.",
+                options: ["Tea and Coffee", "Cardamom and Ginger", "Sugarcane and Cotton", "Jute and Tobacco"],
+                answer: 1
+            },
+            {
+                question: "What is the scientific name of Large Cardamom?",
+                options: ["Amomum subulatum", "Zingiber officinale", "Camellia sinensis", "Elettaria cardamomum"],
+                answer: 0
+            },
+            {
+                question: "What is the scientific name of Ginger?",
+                options: ["Curcuma longa", "Zingiber officinale", "Amomum subulatum", "Piper nigrum"],
+                answer: 1
+            },
+            {
+                question: "Name four important fruits grown in Sikkim?",
+                options: ["Mango, Litchi, Papaya, Pineapple", "Orange, Apple, Guava and Banana", "Grapes, Pomegranate, Fig, Date", "Watermelon, Muskmelon, Strawberry, Cherry"],
+                answer: 1
+            },
+            {
+                question: "Name the only Tea Garden of Sikkim.",
+                options: ["Darjeeling Tea Garden", "Temi Tea Garden", "Munnar Tea Garden", "Kangra Tea Garden"],
+                answer: 1
+            },
+            {
+                question: "What is the total area of Temi Tea Garden?",
+                options: ["153 Hectares", "163 Hectares", "173 Hectares", "183 Hectares"],
+                answer: 2
+            },
+            {
+                question: "When the first Government School was established in Sikkim?",
+                options: ["1896", "1906", "1916", "1926"],
+                answer: 1
+            },
+            {
+                question: "Name the first Public School of Sikkim?",
+                options: ["Tashi Namgyal Academy", "Paljor Namgyal Girls' School", "Sir Tashi Namgyal High School", "Bhutia Boarding School"],
+                answer: 3
+            },
+            {
+                question: "What is the literacy rate of Sikkim?",
+                options: ["78.50 per cent (Census 2011)", "82.20 per cent (Census 2011)", "85.60 per cent (Census 2011)", "88.90 per cent (Census 2011)"],
+                answer: 1
+            },
+            {
+                question: "What is the male literacy rate of Sikkim?",
+                options: ["83.29 per cent", "85.29 per cent", "87.29 per cent", "89.29 per cent"],
+                answer: 2
+            },
+            {
+                question: "What is the female literacy rate of Sikkim?",
+                options: ["72.43 per cent", "74.43 per cent", "76.43 per cent", "78.43 per cent"],
+                answer: 2
+            }
+        ];
+
+        const quizContainer = document.getElementById('quiz-container');
+
+        quizData.forEach((item, index) => {
+            // Create the main container for the question
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            // Create and add the question text
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.textContent = `${index + 1}) ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            // Create the options list
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+            
+            // Create and add each option
+            item.options.forEach((option, optionIndex) => {
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    // Prevent re-answering
+                    if (optionsList.classList.contains('answered')) {
+                        return;
+                    }
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+                    
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        // Highlight the correct answer
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+                
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            quizContainer.appendChild(questionBlock);
+        });
+
+    </script>
+</body>
+</html>
+  

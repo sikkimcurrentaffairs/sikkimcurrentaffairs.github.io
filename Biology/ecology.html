@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biology - Ecology | Sikkim PSC Hub</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+            border-color: #bbb;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .options-list.answered .option:not(.correct):not(.incorrect) {
+            opacity: 0.7;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none;
+        }
+        .quiz-stats {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <a href="biology.html" class="back-link">&larr; Back to Biology</a>
+        <h1>Ecology</h1>
+        <p class="quiz-stats">59 Questions</p>
+        <!-- Questions will be dynamically inserted here by JavaScript -->
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "The term ecology is first given by",
+                options: ["Robbert brown", "Aristotal", "Khurana", "Reiter"],
+                answer: 0
+            },
+            {
+                question: "Study of inter relationship between living organism and their environment is called",
+                options: ["Plant Geography", "Ecology", "Plant social science", "Ecosystem"],
+                answer: 1
+            },
+            {
+                question: "Autecology mean",
+                options: ["Effect of soil on plant", "Effect of temperature on plant", "Effect of transpiration on plant", "Relationship of species with their environment"],
+                answer: 3
+            },
+            {
+                question: "The term ecosystem is first given by",
+                options: ["Reiter", "Aristotal", "Tansley", "Haeckel"],
+                answer: 2
+            },
+            {
+                question: "Ecosystem may be defined as",
+                options: ["A species \'along with environment", "Plant found in water", "Plants found on land", "All plant and animal species along with environment"],
+                answer: 3
+            },
+            {
+                question: "Two components of ecosystem are",
+                options: ["Producer - Carnivorous - Herbivorous - Decomposer", "Producer- Herbivorous- Carnivorous- Decomposer", "Herbivorous- Carnivorous- Producer - Decomposer", "Herbivorous- Producer- Carnivorous- Decomposer I r"],
+                answer: 1
+            },
+            {
+                question: "Primary consumer of a ecosystem is",
+                options: ["Producer", "Herbivorous", "Carnivorous", "Decomposer"],
+                answer: 1
+            },
+            {
+                question: "Producer of an ecosystem",
+                options: ["Convert organic compound into inorganic compound", "convert solar energy into chemical energy", "Use chemical energy", "Release energy"],
+                answer: 1
+            },
+            {
+                question: "Main source of energy in a ecosystem is",
+                options: ["Sun light", "Stored sugar in a plant", "Heat released during fermentation", "Heat released during respiration"],
+                answer: 0
+            },
+            {
+                question: "Soil erosion can be controled by",
+                options: ["By grazing more and more", "By removal of plant", "By afforestation", "By increased population"],
+                answer: 2
+            },
+            {
+                question: "Flood cc>..n be cheaked out",
+                options: ["By making slope", "By cutting forest", "By making dam and planting the tree", "None of these"],
+                answer: 2
+            },
+            {
+                question: "Mangroove are found in",
+                options: ["Dehradun", "Kulu", "Sundervan", "Western Ghat"],
+                answer: 2
+            },
+            {
+                question: "Main component of Mangroove plants is",
+                options: ["Rhizophora", "Ficus", "Mangifera", "Procepus"],
+                answer: 0
+            },
+            {
+                question: "The Millennium Ecosystem Assessment describes the following major categories of ecosystem services- provisioning, supporting, regulating, preserving and cultural. Which one of the following is supporting service ?",
+                options: ["Production of food and water", "Control of climate and disease", "Nutrient cycling and crop pollination", "Maintenance of diversity [lAS 2012}"],
+                answer: 3
+            },
+            {
+                question: "Vultures which used to be very common in Indian cot:<ntry-side some years ago are rarely seen nowadays. This is attributed to",
+                options: ["The destruction of their nesting sites by new invasive species", "A drug used by cattle owners for treating their diseased cattle", "Scarcity of food available to them", "A widespread, persistent and fatal disease among them [lAS 2012}"],
+                answer: 0
+            },
+            {
+                question: "Reduced leaves and sunken stomata are the main feature of",
+                options: ["Epiphytes", "Hydrophytes", "Xerophytes", "Mesophytes"],
+                answer: 2
+            },
+            {
+                question: "Long roots system are found in xerophytes, because",
+                options: ["It give mechanical support to plant", "To absorb water situated deep inside earth", "High temperature of soil cause growth in root", "How temperature during night cause growth on root"],
+                answer: 1
+            },
+            {
+                question: "If all plant of the world die than all animal ultimately will die due to",
+                options: ["Lack of oxygen", "Lack of cold air", "Lack of food", "Animal will not die"],
+                answer: 0
+            },
+            {
+                question: "Epiphytes are found in those places where",
+                options: ["Temperature is very low", "Concen.tl\"ation of oxygen is high", "Rain fall occur all over year", "Rain fall occur according to season"],
+                answer: 2
+            },
+            {
+                question: "Largest ecosystem of world is",
+                options: ["Grass land", "Lake", "Sea", "Forest"],
+                answer: 2
+            },
+            {
+                question: "When we eat the flesh of goat we are",
+                options: ["Primary consumer", "Secondary consumer", "Tertiary consumer", "None"],
+                answer: 1
+            },
+            {
+                question: "We get solar energy from",
+                options: ["Moon", "Sea", "Sun", "Air [44 BPSC (Pre) 2001}"],
+                answer: 2
+            },
+            {
+                question: "In a food chain energy transfer",
+                options: ["From river to earth", "Lower !attitude to higher !attitude", "From one organism to other organism", "None of these [SSC Grad 2000}"],
+                answer: 2
+            },
+            {
+                question: "Hydrophytes are",
+                options: ["Animal found in sea", "Aquatic plant", "A plant disease", "A root less plant [UPSC (Pre) 1994}"],
+                answer: 1
+            },
+            {
+                question: "Which one of following is a xerophytic plant",
+                options: ["Musturd", "Amerbel", "Karil", "Neem [RRB 2004}"],
+                answer: 2
+            },
+            {
+                question: "Abiotic component of our environment",
+                options: ["Plants", "Animal", "Both a and b", "Air [RRB 2004}"],
+                answer: 3
+            },
+            {
+                question: "Hydrophonics is related to",
+                options: ["Growth of plant without soil", "Growth of plant without water", "Conservation of water", "Relation of sound with water [RRB Calcutta GG 2002}"],
+                answer: 0
+            },
+            {
+                question: "Epiphytes are plant which depend \"on other plants for",
+                options: ["Food", "Mechanical support", "Shade", "Water [lAS (Pre) 2001}"],
+                answer: 1
+            },
+            {
+                question: "Phytron is a facility to",
+                options: ["Grow plants under disease free condition", "Conserve endangered species of plant", "Grow plant under controlled condition", "Induced mutations [lAS (Pre) 2000}"],
+                answer: 2
+            },
+            {
+                question: "Most of the desert plant bloom during night because",
+                options: ["Their blooming is controlled by low templerature", "They are sensitive to the phase of moon", "The desert insects eat away flower during day time", "The desert insects are active during night time [lAS (Pre) 1995}"],
+                answer: 3
+            },
+            {
+                question: "India",
+                options: ["Forest", "Grass land", "Desert", "Sea [RAS/RTS(Pre)2008}"],
+                answer: 3
+            },
+            {
+                question: "The driving force of an ecosystem is",
+                options: ["Biomass", "Producer", "Carbohydrate in producers", "Solar energy"],
+                answer: 3
+            },
+            {
+                question: "Ecosystem is",
+                options: ["Always open", "Always closed", "Both open and closed depending upon community", "Bolth open and closed depending upon biomass"],
+                answer: 2
+            },
+            {
+                question: "Path of energy flow in an ecosystem is",
+                options: ["Herbivores - Producers - Carnivores - Decomposer", "Herbivores - Carnivores - Producers - Decomposer", "Producer - Carnivores - Herbivores - Decomposer", "Producer - Herbivores - Carnivores - Decomposer"],
+                answer: 3
+            },
+            {
+                question: "Which one lacks both root and stomata",
+                options: ["Hydrophytes", "Mesophytes", "Hygrophytes", "Halophytes"],
+                answer: 0
+            },
+            {
+                question: "10% law of energy transfer in food chain was given by",
+                options: ["Lindemann", "Stanley", "Tansley", "Weismann"],
+                answer: 0
+            },
+            {
+                question: "Amount of energy transfered from one trophic level to next is",
+                options: ["1.5%", "10%", "15%", "20%"],
+                answer: 1
+            },
+            {
+                question: "Plant and animal living in a particular area constitute",
+                options: ["Flora and Fauna", "Community", "Ecosystem", "Ecology"],
+                answer: 1
+            },
+            {
+                question: "Studyofinter-relationshipsbetweenanentirecommunity and its environment is",
+                options: ["Autecology", "Resource ecology", "Species ecology", "Synecology"],
+                answer: 3
+            },
+            {
+                question: "An. association of individuals of different species living in the same habitat and having functional interactions is",
+                options: ["Population", "Ecological niche", "Biotic community", "Ecosystem"],
+                answer: 2
+            },
+            {
+                question: "The importance of ecosystem lies is",
+                options: ["Cycling of material", "Flow of energy", "Both A & B", "Its biomass"],
+                answer: 2
+            },
+            {
+                question: "Energy transfer from organism to organism in a natural community develops",
+                options: ["Biological control", "Food chain", "Food web", "Pyramid of energy"],
+                answer: 2
+            },
+            {
+                question: "Flow of energy declines as it is passes from lower to higher trophic level. This is explained by",
+                options: ["First law of thermodynamics", "Second law of thermodynamics", "Newton\'s second law", "Newton\'s third law"],
+                answer: 1
+            },
+            {
+                question: "Pyramid of energy in a ecosystem is",
+                options: ["Always inverted", "Always upright", "Spindle shape", "Both upright and inverted depending upon ecosystem"],
+                answer: 3
+            },
+            {
+                question: "In an ecosystem which one show one-way passage",
+                options: ["Free energy", "Carbon", "Nitrogen", "Potassium"],
+                answer: 0
+            },
+            {
+                question: "Which one of the following organisms is likely to show the heighest concentration of DDT, one it has been introduce into the ecosystem",
+                options: ["Grasshopper", "Toad", "Snake", "Cattle {lAS (Pre) 1997]"],
+                answer: 2
+            },
+            {
+                question: "Bottom dwelling organisms to the surface Which of the statements given below are correct ?",
+                options: ["1 & 2", "2 only", "2 and 3", "3 only [CSAT2011}"],
+                answer: 3
+            },
+            {
+                question: "If a tropical rain forest is removed, it does not regenerate quickly as compared to a tropical deciduous forest. This is because",
+                options: ["The soil of rain forest is deficient in nutrients", "Propagules of the trees in a rain forest have poor viability", "Exotic species invade the fertile soil of rain forest", "The rain forest species are slowgrowing"],
+                answer: 0
+            },
+            {
+                question: "The Himalayan Range is very rich in species diversity. Which one among the following is the most appropriate reason for this phenomenon ?",
+                options: ["Ithasahighrainfallthatsupportsluxuriantvegetative growth", "It is a confluence of different biogeographical bones", "Exotic and invasive sp ecies h ave been introduced in this region", "It has less human interference"],
+                answer: 1
+            },
+            {
+                question: "In dry regions, the leaf size of a tree becomes smaller. It is so to",
+                options: ["Reduce metabolism", "Reduce transpiration", "Maintain natural growth", "Protect plant from animals"],
+                answer: 1
+            },
+            {
+                question: "Eco-mark is given to an Indian product which is",
+                options: ["Rich in protein", "Environment friendly", "Economically viable", "Pure and unadulterated [CDS/2011}"],
+                answer: 1
+            },
+            {
+                question: "No trees are found in Tundra biome near polar region of northern hemisphere. This is due to",
+                options: ["Snowfall inhibits plant respiration", "Frozen ice beneath the surface soil restricts root growth", "Less wind movement and inadequate sun light", "Low temperature which restricts developmen t of reproductive organs."],
+                answer: 1
+            },
+            {
+                question: "An artificial ecosystem is represented by",
+                options: ["Pisciculture tank", "Agricultural land", "Zoo", "Aquarium"],
+                answer: 3
+            },
+            {
+                question: "Van Mahotsav is associated with",
+                options: ["Protection of plant", "Planting tree", "Increase in crop", "Cutting trees {SSC 2011]"],
+                answer: 1
+            },
+            {
+                question: "Crop sown soon after the onset of south-west monsoon in India is called",
+                options: ["Rabi", "Kharif", "Rainfed", "Dry farming [SSC 2011}"],
+                answer: 1
+            },
+            {
+                question: "Gujarat",
+                options: ["1 - 2, 2 - 4, 3- 1, 4-3", "1-2, 3 - 3, 3 - 4, 4-1", "1-3, 2 - 2, 3- 1, 4 -4", "1-4, 2-3, 3 - 1, 4-2 t"],
+                answer: 2
+            },
+            {
+                question: "An example of false fruit is",
+                options: ["Apple", "Guava", "Mango", "Tomato"],
+                answer: 0
+            },
+            {
+                question: "The density of ocean water would drastically decrease. Select the correct answer using the codes given below : ·",
+                options: ["1 and 2 only", "2 only", "3 only", "1, 2 and 3"],
+                answer: 3
+            },
+            {
+                question: "The combustible gases generated from biomass gasification can be used for direct heat generation but not in internal combustion engines. Select the correct answer using the codes given below",
+                options: ["1 only", "2 and 3 only", "1 and 3 only", "1, 2 and 3"],
+                answer: 3
+            }
+        ];
+
+        const quizContainer = document.getElementById('quiz-container');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.textContent = `${index + 1}) ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) {
+                        return;
+                    }
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            quizContainer.appendChild(questionBlock);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waves, Sound & Light - Physics Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .neomorphism {
+            background: #f0f0f0;
+            box-shadow: 8px 8px 16px #d1d1d1, -8px -8px 16px #ffffff;
+        }
+        .dark .neomorphism {
+            background: #1f2937;
+            box-shadow: 8px 8px 16px #111827, -8px -8px 16px #2d3748;
+        }
+        .option-btn {
+            transition: all 0.2s ease;
+        }
+        .option-btn:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+    <link rel="stylesheet" href="../auth.css">
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 min-h-screen py-8 px-4">
+    <div class="max-w-4xl mx-auto">
+        <div class="mb-6 flex justify-between items-center">
+            <a href="physics.html" class="text-amber-600 dark:text-amber-400 font-medium">&larr; Back to Physics</a>
+            <div id="progress" class="text-gray-500 font-medium">Question 1/0</div>
+        </div>
+
+        <div class="neomorphism rounded-2xl p-8 mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-6">Waves, Sound & Light</h1>
+            <div id="quiz-container">
+                <div id="question-text" class="text-xl text-gray-700 dark:text-gray-300 mb-8 font-medium"></div>
+                <div id="options-container" class="grid grid-cols-1 gap-4"></div>
+            </div>
+            <div id="result-container" class="hidden text-center py-10">
+                <h2 class="text-4xl font-bold text-gray-800 dark:text-white mb-4">Quiz Completed!</h2>
+                <p id="score-text" class="text-2xl text-gray-600 dark:text-gray-400 mb-8"></p>
+                <button onclick="location.reload()" class="bg-amber-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-amber-700 transition-colors">Restart Quiz</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Light year is a unit of",
+                options: ["Time", "Distance", "Light", "Intensity of light"],
+                answer: 1
+            },
+            {
+                question: "Light from the Sun reaches us in nearly",
+                options: ["2 minutes", "4 minutes", "8 minutes", "16 minutes"],
+                answer: 2
+            },
+            {
+                question: "Sound waves in air are",
+                options: ["transverse", "longitudinal", "electromagnetic", "polarised"],
+                answer: 1
+            },
+            {
+                question: "Of the following properties of a wave, the one that is independent of the other is its",
+                options: ["amplitude", "velocity", "wavelength", "frequency"],
+                answer: 0
+            },
+            {
+                question: "Sound of frequency below 20 Hz is called",
+                options: ["audio sounds", "infrasonic", "ultrasonic", "supersonics"],
+                answer: 1
+            },
+            {
+                question: "Sound travels at the fastest speed in",
+                options: ["steel", "water", "air", "vacuum"],
+                answer: 0
+            },
+            {
+                question: "Light travels at the fastest speed in:",
+                options: ["glass", "water", "hydrogen", "vacuum"],
+                answer: 3
+            },
+            {
+                question: "Sound produced at a point is heard by a person after 5 second, while the same sound is heard by another person after 6 seconds. If the speed of sound is 300 m/s, what could be the maximum and minimum distances between the two persons?",
+                options: ["1.8 km, 0.15 km", "2.2 km, 0.20 km", "2.8 km, 0.25 km", "3.3 km, 0.30 km"],
+                answer: 3
+            },
+            {
+                question: "Intensity of sound at a point is ____ its distance from the source.",
+                options: ["directly proportional to", "inversely proportional to", "directly proportional to square of", "inversely proportional to square of"],
+                answer: 3
+            },
+            {
+                question: "Light Emitting Diodes (LED) is used in fancy electronic devices such as toys emit",
+                options: ["X-rays", "ultraviolet light", "visible light", "radio waves"],
+                answer: 2
+            },
+            {
+                question: "Light from the star, Alpha Centauri, which is nearest to the earth after the sun, reaches the earth in",
+                options: ["4.2 seconds", "42 seconds", "4.2 years", "42 years"],
+                answer: 2
+            },
+            {
+                question: "Rainbow is produced when sunlight fall on drops of rain. Which of the following physical phenomena are responsible for this?I.DiffusionII.RefractionIII.Internal reflection",
+                options: ["I, II and III", "I and II", "II and III", "I and III"],
+                answer: 2
+            },
+            {
+                question: "Intensity of sound has",
+                options: ["an object existence", "a subject existence", "no existence", "both subjective and objective existence"],
+                answer: 0
+            },
+            {
+                question: "Light beam which is highly directional is called:",
+                options: ["Eraser", "Grazer", "Maser", "Laser"],
+                answer: 3
+            },
+            {
+                question: "Speed of light is maximum in ________",
+                options: ["Vacuum", "Solids", "Liquids", "Gases"],
+                answer: 0
+            },
+            {
+                question: "Light travels in a straight line (rectilinear propagation of light). This statement does hold if the medium of travel for light is",
+                options: ["Of variable refractive index", "Made up of slabs of different refractive indices", "Homogeneous and transparent", "Inhomogeneous and transparent"],
+                answer: 2
+            },
+            {
+                question: "The speed of light will be minimum while passing through",
+                options: ["Water", "Vaccum", "Air", "Glass"],
+                answer: 3
+            },
+            {
+                question: "Light houses are places with powerful lights to :",
+                options: ["Guide and resolve traffic jams in crowded metro-cities during nights", "Guide and help large crowds at religious gathering during nights", "Indicate to the incoming warships, the location of a harbour during night", "Guide and warn the ships coming from different directions in the ocean"],
+                answer: 3
+            },
+            {
+                question: "The locomotion of insects to the source of light is called :",
+                options: ["Phototropic", "Hydrotropic", "Phototactic", "Thermotactic"],
+                answer: 0
+            },
+            {
+                question: "Light travels fastest in",
+                options: ["Air", "Water", "Glass", "Diamond"],
+                answer: 0
+            },
+            {
+                question: "Light travels slowest in",
+                options: ["Glass", "Water", "Air", "Vacuum"],
+                answer: 0
+            },
+            {
+                question: "Light from the sun reaches us in nearly",
+                options: ["5 min", "4.30 hrs", "8 min", "5.30 hrs"],
+                answer: 2
+            },
+            {
+                question: "An image formed by a plane mirror, that cannot be obtained on a screen is called ________",
+                options: ["Virtual image", "Real image", "Inverted image", "Erect image"],
+                answer: 0
+            },
+            {
+                question: "Light from Sun reaches Earth in approximately",
+                options: ["3 minutes", "8 minutes", "10 minutes", "12 minutes"],
+                answer: 1
+            },
+            {
+                question: "Through which light cannot pass?",
+                options: ["Notebook paper", "Water", "Book", "Sun glasses"],
+                answer: 2
+            },
+            {
+                question: "The speed of light in air is",
+                options: ["3 \u00d7 108m/s", "3 \u00d7 10\u20138m/s", "8 \u00d7 103m/s", "Infinity"],
+                answer: 0
+            },
+            {
+                question: "The number of waves per second in a sound is called ________ of that sound.",
+                options: ["Velocity", "Frequency", "Displacement", "Acceleration"],
+                answer: 1
+            },
+            {
+                question: "Sound waves do not show the phenomenon of",
+                options: ["Refraction", "Interference", "Diffraction", "Polarisation"],
+                answer: 3
+            },
+            {
+                question: "Speed of sound is maximum in which among the following?",
+                options: ["Gases", "Vaccum", "Liquids", "Solids"],
+                answer: 3
+            },
+            {
+                question: "Which is best used as a sound absorbing material in partition walls ?",
+                options: ["Stone chips", "Steel", "Glass - wool", "Glass pieces"],
+                answer: 2
+            },
+            {
+                question: "Speed of sound is the greatest in :",
+                options: ["Water", "Air", "Glass", "Glycerine"],
+                answer: 2
+            },
+            {
+                question: "The pitch of sound depends on its",
+                options: ["Frequency", "Intensity", "Velocity", "Amplitude"],
+                answer: 0
+            },
+            {
+                question: "Sound following a flash of lightning is called",
+                options: ["Stoning", "Bolting", "Thunder", "Cloud clash"],
+                answer: 2
+            },
+            {
+                question: "The speed of sound in air depends on",
+                options: ["Frequency", "Temperature", "Wavelength", "None of the Above"],
+                answer: 1
+            },
+            {
+                question: "The speed of sound travel fastest through",
+                options: ["Liquid", "Solid", "Gas", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "Least audible sound for most of the human ear is :",
+                options: ["10.0 \u00b5 bar", "0.0002 \u00b5 bar", "0.005 \u00b5 bar", "5.0 \u00b5 bar"],
+                answer: 1
+            },
+            {
+                question: "The ordinary and maximum tolerance limit of sound by human being is",
+                options: ["50 db to 70 db (decibel)", "60 db to 80 db (decibel)", "65 db to 75 db (decibel)", "70 db to 85 db (decibel)"],
+                answer: 1
+            },
+            {
+                question: "In SONAR which kind of wave is used?",
+                options: ["Infrasonic", "Ultrasonic", "Radio", "Audible sound"],
+                answer: 1
+            },
+            {
+                question: "Sound waves cannot travel through",
+                options: ["Gas", "Liquid", "Vacuum", "Solid"],
+                answer: 2
+            },
+            {
+                question: "Man perceives sound vibrations in the frequency ranges of",
+                options: ["0 \u2013 5 Hz", "6 \u2013 10 Hz", "11 \u2013 20 Hz", "20 \u2013 20000 Hz"],
+                answer: 3
+            },
+            {
+                question: "Among the following materials sound travels fastest in",
+                options: ["Steel", "Air", "Vacuum", "Water"],
+                answer: 0
+            },
+            {
+                question: "Sound becomes hazardous noise pollution at decibels?",
+                options: ["Above 120 db", "Above 80 db", "Above 50 db", "Above 30 db"],
+                answer: 1
+            },
+            {
+                question: "What is the SI unit of intensity of sound?",
+                options: ["Decibel", "Newton", "Heartz", "Tesla"],
+                answer: 0
+            },
+            {
+                question: "Sound cannot pass through",
+                options: ["Water", "Steel", "Air", "Vacuum"],
+                answer: 3
+            },
+            {
+                question: "Sound waves cannot travel in",
+                options: ["Vacuum", "Water", "Glass", "Hydrogen gas"],
+                answer: 0
+            },
+            {
+                question: "The quality or tone of a musical sound produced by a stringed instrument depends on",
+                options: ["Frequency of vibration", "Length of the strings in the instrument", "Amplitude of vibration", "Wave form of the sound"],
+                answer: 3
+            },
+            {
+                question: "Which determines the frequency of a sound wave?",
+                options: ["Amplitude", "Speed", "Source", "Medium"],
+                answer: 0
+            },
+            {
+                question: "Infrasonic sound has a frequency lower than",
+                options: ["5 Hz", "15 Hz", "20 Hz", "32 Hz"],
+                answer: 2
+            },
+            {
+                question: "When a vibrating tuning fork is placed on a table, a loud sound is heard. This is due to :",
+                options: ["Reflection", "Refraction", "Forced vibrations", "Damped vibrations"],
+                answer: 2
+            },
+            {
+                question: "If a band is played on the moon the sound will",
+                options: ["Reverberate", "Be heard by us faintly", "Be heard upto 10km from it", "Not be heard at any distance at all from it"],
+                answer: 3
+            },
+            {
+                question: "A light year is a measure of :",
+                options: ["Speed", "Velocity", "Distance", "Time"],
+                answer: 2
+            },
+            {
+                question: "One light year is equal to",
+                options: ["2 trillion miles", "6 trillion miles", "8 trillion miles", "9 trillion miles"],
+                answer: 1
+            },
+            {
+                question: "The propagation of sound waves in a gas involves",
+                options: ["Adiabatic compression and rarefaction", "Isothermal compression and rarefaction", "Isochoric compression and rarefaction", "Isobaric compression and rarefaction"],
+                answer: 0
+            },
+            {
+                question: "Propagation of sound can be visualised as propagation of ________ variations in the medium",
+                options: ["Elasticity", "Viscosity", "Density", "Porosity"],
+                answer: 2
+            },
+            {
+                question: "Calculate the time period (in seconds) of a sound wave of wavelength 4m traveling with a speed of 500m/s",
+                options: ["2000", "0.016", "1000", "0.008"],
+                answer: 3
+            },
+            {
+                question: "The sound produced by a bat is\u2013",
+                options: ["Audible", "Subsonic", "Infrasonic", "Ultrasonic"],
+                answer: 3
+            },
+            {
+                question: "Sound is heard over longer distances on rainy days because",
+                options: ["Sound travels slowly in moist air", "Sound travels faster in moist air", "Moist air does not absorb sound", "Moist air absorbs sound"],
+                answer: 1
+            },
+            {
+                question: "Which phenomenon is responsible for the echo of sound wave?",
+                options: ["Reflection", "Refraction", "Interference", "Polarisation"],
+                answer: 0
+            },
+            {
+                question: "Loudness of sound depends on",
+                options: ["Frequency", "Wavelength", "Amplitude", "Pitch"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following animals can hear ultrasonic sound ?",
+                options: ["Rat", "Squirrel", "Cat", "Bat"],
+                answer: 3
+            },
+            {
+                question: "The instrument which uses sound waves to measure the depth of oceans is",
+                options: ["Radar", "Sonar", "Altimeter", "Venturimeter"],
+                answer: 1
+            },
+            {
+                question: "A wavelength of 0.3 m is produced in air and it travels at a speed of 300 m/s. Then it will be an",
+                options: ["Audible wave", "Infrasonic wave", "Ultrasonic wave", "Microwave"],
+                answer: 0
+            },
+            {
+                question: "Which term is not associated with sound wave?",
+                options: ["Hertz", "Decibel", "Candela", "Mach"],
+                answer: 2
+            },
+            {
+                question: "Speed of sound in air is unaffected by change in",
+                options: ["Pressure", "Humidity", "Temperature", "Volume"],
+                answer: 0
+            },
+            {
+                question: "Sound travels fastest in",
+                options: ["Vacuum", "Air", "Glass", "Water"],
+                answer: 2
+            },
+            {
+                question: "Which among the following determines the pitch of a sound?",
+                options: ["Amplitude", "Frequency", "Loudness", "Wavelength"],
+                answer: 1
+            },
+            {
+                question: "The sounds having a frequency of 20 Hertz to 20,000 Hertz are known as",
+                options: ["Audible sounds", "Ultrasonics", "Infrasonics", "Megasonics"],
+                answer: 0
+            },
+            {
+                question: "A light ray travelling from denser to rarer medium at an angle of incidence more than critical angle of concerned media pair suffers.",
+                options: ["Reflection", "Refraction", "Diffraction", "Total internal reflection"],
+                answer: 3
+            },
+            {
+                question: "In which one of the following the phenomenon of total internal reflection of light is used ?",
+                options: ["Formation of mirage", "Working of binoculars", "Formation of rainbow", "Twinkling of stars"],
+                answer: 0
+            },
+            {
+                question: "Which type of mirror is used in the head lights of vehicles ?",
+                options: ["Plane mirror", "Concave mirror", "Convex mirror", "Parabolic mirror"],
+                answer: 1
+            },
+            {
+                question: "If objects appear enlarged and inverted in a rear view mirror, then which type of mirror is used?",
+                options: ["Concave", "Convex", "Cylindrical", "Plane"],
+                answer: 0
+            },
+            {
+                question: "Total internal reflection can not take place when light goes from :",
+                options: ["Glass to water", "Water to glass", "Water to air", "Glass to air"],
+                answer: 1
+            },
+            {
+                question: "A rear-view mirror for driving is",
+                options: ["Plain", "Concave", "Convex", "Inverted"],
+                answer: 2
+            },
+            {
+                question: "The reflector of a search light is a :",
+                options: ["Convex mirror", "Concave mirror", "Plane mirror", "Cylindrical mirror"],
+                answer: 1
+            },
+            {
+                question: "The type of mirror used in automobiles to see the traffic on the rear side is",
+                options: ["Concave", "Plano-Convex", "Plane", "Convex"],
+                answer: 3
+            },
+            {
+                question: "If you look into a mirror and find that the image (your reflection) is smaller than you, then the type of the mirror is:",
+                options: ["Concave mirror", "Convex mirror", "Plano-concave mirror", "Plane mirror"],
+                answer: 1
+            },
+            {
+                question: "After reflection from a plane mirror the word will look like.",
+                options: ["AMBULANCE", "ECNALUBMA", "AMBULA CE", "AWBULANCE"],
+                answer: 1
+            },
+            {
+                question: "Convex mirror is generally used in ________",
+                options: ["Solar cookers", "Opthalmoscope", "Reflector for head light", "Rear view mirror"],
+                answer: 3
+            },
+            {
+                question: "In total internal reflection, the light travel from",
+                options: ["Rarer to denser medium and it occurs with no loss of intensity", "Denser to rarer medium and it occurs with no loss of intensity", "Rarer to denser medium and it occurs with loss of intensity", "Denser to rarer medium and it occurs with loss of intensity"],
+                answer: 1
+            },
+            {
+                question: "Convex mirrors are used as a rear view mirror in motor cycles because",
+                options: ["It forms real image", "It forms erect (upright) image", "It forms smaller image as compared with object", "All of the above"],
+                answer: 2
+            },
+            {
+                question: "A convex mirror of focal length f (in air) is immersed in a liquid (u=4/3). The focal length of the mirror in the liquid will be :",
+                options: ["F", "(4/3)f", "(3/4)f", "(7/3)f"],
+                answer: 0
+            },
+            {
+                question: "Rear view mirror of car is convex or concave?",
+                options: ["Convex", "Concave", "Both A & B", "Can't be determined"],
+                answer: 0
+            },
+            {
+                question: "An optically plane surface reflects a beam of light",
+                options: ["As a parallel beam in one direction", "As diffused beams in all directions", "As parallel beams in all directions", "As a diffused beam in one direction"],
+                answer: 0
+            },
+            {
+                question: "The focal length of a concave mirror with a radius of curvature of 20.0 cm is :",
+                options: ["20 cm", "5 cm", "10 cm", "15 cm"],
+                answer: 2
+            },
+            {
+                question: "Shaving mirror is",
+                options: ["Convex", "Concave", "Plane", "Parabolic"],
+                answer: 1
+            },
+            {
+                question: "The electrical domestic tube light gives white fluorescent light because of",
+                options: ["Colision between molecules of filled gas under electric current", "Heavy current", "Vacuum inside the tube", "Falling of ultra violet rays on the white inner coating of the tube"],
+                answer: 3
+            },
+            {
+                question: "The purpose of choke in tube light is",
+                options: ["Induce high voltage", "Induce low resistance", "Induce high resistance", "Induce low voltage"],
+                answer: 0
+            },
+            {
+                question: "When an electric bulb breaks, there is an explosive sound. That is due to",
+                options: ["The chemical reaction between the gases inside the bulb", "The compressed gases inside rushing out suddenly", "The air outside rushing in to fill the vacuum inside the bulb", "None of these"],
+                answer: 2
+            },
+            {
+                question: "When light passes from one medium to another, this phenomenon of change in its direction is called ________",
+                options: ["Refraction", "Diffraction", "Propagation", "No option is correct"],
+                answer: 0
+            },
+            {
+                question: "Optical fibre works on which of the following principle of light?",
+                options: ["Reflection", "Refraction", "Diffraction", "Total internal reflection"],
+                answer: 3
+            },
+            {
+                question: "Which colour of light shows maximum deviation when passed through a prism ?",
+                options: ["White", "Red", "Violet", "Green"],
+                answer: 2
+            },
+            {
+                question: "Stars appear twinkling because of ......... of light.",
+                options: ["Reflection", "Scattering", "Emission", "Absorption"],
+                answer: 1
+            },
+            {
+                question: "Which of the following colour of light deviates least through the prism?",
+                options: ["Yellow", "Green", "Violet", "Red"],
+                answer: 3
+            },
+            {
+                question: "Bending of light rays in denser medium is termed as:",
+                options: ["Reflection", "Dispersion", "Refraction", "Deflection"],
+                answer: 2
+            },
+            {
+                question: "Lens is made up of",
+                options: ["Pyrex glass", "Flint glass", "Ordinary glass", "Cobalt glass"],
+                answer: 1
+            },
+            {
+                question: "The phenomenon of change in direction of light when it passes from one medium to another is called",
+                options: ["Propagation", "Reflection", "Refraction", "Dispersion"],
+                answer: 2
+            },
+            {
+                question: "What type of lens is a magnifying glass?",
+                options: ["Diverging", "Spherical", "Converging", "Achromatic"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is not caused by atmospheric refraction of light ?",
+                options: ["Sun appearing red at sunset", "Twinkling of stars at night", "Sun appearing higher in the sky than it actually is", "Sun becoming visible two or three minutes before actual sunrise"],
+                answer: 2
+            },
+            {
+                question: "What type of lens is used in a magnifying glass",
+                options: ["Concave", "Plano-concave", "Convex", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "A concave lens always forms",
+                options: ["A real image", "A virtual image", "An image type which depends on object characteristics", "An image type which depends on lens curvature"],
+                answer: 1
+            },
+            {
+                question: "A concave lens always forms an image which is",
+                options: ["Real and erect", "Virtual and erect", "Real and inverted", "Virtual and inverted"],
+                answer: 1
+            },
+            {
+                question: "The bending of light when it passes around a corner or a slit is due to ________",
+                options: ["Reflection", "Refraction", "Diffraction", "Total internal reflection"],
+                answer: 2
+            },
+            {
+                question: "Danger signals are generally red as red light",
+                options: ["Is least bright", "Undergoes least deviation", "Has lowest velocity", "Gives comfort to eye"],
+                answer: 1
+            },
+            {
+                question: "The phenomenon of light associated with the appearance of blue colour of the sky is",
+                options: ["Interference", "Reflection", "Refraction", "Scattering"],
+                answer: 3
+            },
+            {
+                question: "Light scattering takes place in",
+                options: ["Colloidal solutions", "Acidic solutions", "Electrolyte solutions", "Basic solutions"],
+                answer: 0
+            },
+            {
+                question: "The splitting of white light into its components is due to:",
+                options: ["Reflection", "Refraction", "Transmission", "Dispersion"],
+                answer: 3
+            },
+            {
+                question: "Which of the following is used to split white light into different colours ?",
+                options: ["Glass slab", "Convex lens", "Concave lens", "Prism"],
+                answer: 3
+            },
+            {
+                question: "Which colour has the highest frequency?",
+                options: ["Violet", "Red", "Indigo", "Green"],
+                answer: 0
+            },
+            {
+                question: "The splitting of different colours of light in a prism is :",
+                options: ["Reflection of light", "Disperson of light", "Diffraction of light", "Refraction of light"],
+                answer: 1
+            },
+            {
+                question: "In sunlight a rose appears red. In green light, the same rose appears",
+                options: ["Red", "Black", "Green", "Yellow"],
+                answer: 1
+            },
+            {
+                question: "Which Color has the Longest Wavelength?",
+                options: ["Violet", "Yellow", "Red", "White"],
+                answer: 2
+            },
+            {
+                question: "When white light passes through a glass prism we get a spectrum on the other side of the prism. In the emergent beam the ray which is deviated least is",
+                options: ["The violet ray", "The red ray", "The green ray", "The blue ray"],
+                answer: 1
+            },
+            {
+                question: "Red light is used for signals because it has",
+                options: ["Long wavelength", "High intensity", "High frequency", "Low refraction in the medium"],
+                answer: 0
+            },
+            {
+                question: "Which one of the following instruments is used to study dispersion of light ?",
+                options: ["Microscope", "Telescope", "Spectrometer", "Photometer"],
+                answer: 2
+            },
+            {
+                question: "If an electron and a photon have the same wavelength, then they will have the same",
+                options: ["Velocity", "Linear momentum", "Angular momentum", "Energy"],
+                answer: 1
+            },
+            {
+                question: "A bomb explodes on the moon. You will hear its sound on earth after ________",
+                options: ["20 minutes", "2 hours 20 minutes", "3.7 hours", "You cannot hear the sound of explosion"],
+                answer: 3
+            },
+            {
+                question: "When a person sitting on a swing stands up on the swing, the frequency of oscillation",
+                options: ["Decreases", "Increases", "Becomes infinite", "Does not change"],
+                answer: 1
+            },
+            {
+                question: "Who among the following is credited for the Corpuscular theory of light?",
+                options: ["Isaac Newton", "Christiaan Hyugens", "Albert Einstein", "James Clerk Maxwell"],
+                answer: 0
+            },
+            {
+                question: "Red light has a wavelength of 70 A\u00b0. In \"nm\" it is",
+                options: ["7 nm", "0.07 nm", "70 nm", "700 nm"],
+                answer: 0
+            },
+            {
+                question: "Which of the following pair is Incorrect?I. Parsec - DistanceII. Barrel - LiquidIII. Light year - Time",
+                options: ["Only III", "Only I and III", "Only II", "All are correct"],
+                answer: 0
+            },
+            {
+                question: "In a ________ the wave particles of the medium vibrate in a direction perpendicular to the direction of wave propagation",
+                options: ["Longitudinal", "Rolling", "Transverse", "Field"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is the unit of perceived loudness of sound ?",
+                options: ["Decibel", "Sone", "Hertz", "Phon"],
+                answer: 1
+            },
+            {
+                question: "A wave with high amplitude have",
+                options: ["High pitch", "Low energy", "High energy", "Low pitch"],
+                answer: 2
+            },
+            {
+                question: "A standing wave occurs when",
+                options: ["A wave reflects upon itself", "The amplitude of a wave exceeds its wavelength", "Two waves overlap", "The speed of the wave is zero or near zero"],
+                answer: 0
+            },
+            {
+                question: "The wavelength of a wave is the distance between",
+                options: ["Crest and Trough", "Crest and Crest", "Trough and Trough", "Both B & C"],
+                answer: 3
+            },
+            {
+                question: "Which is a correct way to measure wavelength?",
+                options: ["Nearest peak to peak", "Nearest peak to nearest trough", "Nearest trough to peak", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "Why are we able to hear short wave broadcasts better than long wave broadcasts ?",
+                options: ["Short waves are more energetic than long waves.", "Short waves are unaffected by atmospheric disturbances.", "Short wave broadcasts are made by nearby radio stations.", "By convention, short waves are meant for long distances, whereas long waves are reserved for short distances."],
+                answer: 0
+            },
+            {
+                question: "The frequency of ultrasound wave is typically",
+                options: ["Above 20 kHz", "Above 20,000 kHz", "Below 20 kHz", "Below 02 kHz"],
+                answer: 0
+            },
+            {
+                question: "Which of the following has the highest frequency?",
+                options: ["Cosmic rays", "X-rays", "Radio waves", "Microwaves"],
+                answer: 0
+            },
+            {
+                question: "Two waves, each of amplitude 1.5 mm and frequency 10 Hz, are travelling in opposite direction with a speed of 20 mm/s. The distance in mm between adjacent nodes is :",
+                options: ["1.0", "1.2", "1.5", "2.0"],
+                answer: 0
+            },
+            {
+                question: "Intensity of any wave is proportional to which of the following?",
+                options: ["Amplitude", "Square of amplitude", "Square root of amplitude", "Cube of amplitude"],
+                answer: 1
+            },
+            {
+                question: "Which one of the following statements with regard to Jet stream, an upper level tropospheric wave, is not correct?",
+                options: ["It is narrow band of high-velocity wind.", "It follows the wave path near the tropopause at elevations of 8 km to 15 km.", "Jet streams are typically continuous over long distances.", "In summer, the polar front jet achieves its maximum force."],
+                answer: 1
+            },
+            {
+                question: "When a light wave is reflected from a mirror, there is a change in its",
+                options: ["Frequency", "Amplitude", "Wavelength", "Velocity"],
+                answer: 1
+            },
+            {
+                question: "A doppler effect occurs when a source of sound moves",
+                options: ["Away from you", "Towards you", "Both A & B", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "Stationary wave is formed by",
+                options: ["A transverse wave superposing a longitudinal wave", "Two waves of the same speed superposing", "Two waves of same frequency travelling in the same direction", "Two waves of same frequency travelling in the opposite direction"],
+                answer: 3
+            },
+            {
+                question: "Ultrasound devices operate with minimum frequency from",
+                options: ["20kHz", "35 kHz", "45 kHz", "60 kHz"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is not a transverse wave?",
+                options: ["Light waves", "Radio waves", "Sound waves", "All the above"],
+                answer: 2
+            },
+            {
+                question: "The wave like properties of electrons are useful in",
+                options: ["Magnifying objects", "Lasers", "Weather reports", "All of the above"],
+                answer: 0
+            },
+            {
+                question: "The layer of atmosphere used for radio-wave transmission is",
+                options: ["Chromosphere", "Troposphere", "Ionosphere", "Stratosphere"],
+                answer: 2
+            },
+            {
+                question: "What frequency range is the high frequency band?",
+                options: ["3 kHz", "3 to 30 MHz", "30 to 300 MHz", "10 GHz"],
+                answer: 1
+            },
+            {
+                question: "The frequency used in TV and radar system lies in",
+                options: ["VHF", "HF", "SHF", "UHF"],
+                answer: 3
+            },
+            {
+                question: "If a carrier wave of 1000 kHz is used to carry the signal, the length of transmitting antenna will be equal to ________.",
+                options: ["300 m", "30 m", "3 m", "0.3 m"],
+                answer: 0
+            },
+            {
+                question: "What is found in frequency modulation ?",
+                options: ["Fixed frequency", "Fixed dimension", "Change in frequency and dimension", "Change in dimension only"],
+                answer: 0
+            },
+            {
+                question: "Which of the following experiments analyzed the Fraunhofer lines of the solar spectrum?",
+                options: ["Barkla's experiment on scattering of X-rays", "Lamb-Rutherford experiment", "Geiger and Marsdens experiment on scattering of alpha particles", "Bunsen and Kirchhoff's experiment"],
+                answer: 3
+            },
+            {
+                question: "The frequency of direct current is ________",
+                options: ["Zero", "50 HZ", "60 HZ", "100 HZ"],
+                answer: 0
+            },
+            {
+                question: "The ''Choke' used with a tube light is basically",
+                options: ["An inductor", "A capacitor", "A transformer", "A resistor"],
+                answer: 0
+            },
+            {
+                question: "Which phenomena shows the particle nature of light?",
+                options: ["Diffraction", "Interference", "Photoelectric effect", "Polarisation"],
+                answer: 2
+            },
+            {
+                question: "The threshold frequency is the frequency below which :",
+                options: ["Photo current increases with voltage", "Photo current decreases with voltage", "Photo electric emission is not possible", "Photo current is constant"],
+                answer: 2
+            },
+            {
+                question: "In which region of electromagnetic spectrum does the Lyman series of hydrogen atom lie ?",
+                options: ["Visible", "Infrared", "Ultraviolet", "X-ray"],
+                answer: 2
+            },
+            {
+                question: "Which one of the waves have the longest wavelength",
+                options: ["Violet", "Red", "Blue", "Green"],
+                answer: 1
+            },
+            {
+                question: "Which of the following has the shortest wavelength?",
+                options: ["Gamma rays", "Radio waves", "Microwaves", "Infrared rays"],
+                answer: 0
+            },
+            {
+                question: "Visible light has a higher frequency than",
+                options: ["Radio waves", "X rays", "Ultra violet", "All the above"],
+                answer: 0
+            },
+            {
+                question: "Which of the following has the longest wavelength?",
+                options: ["Infrared radiation", "X-ray radiation", "Ultraviolet radiation", "Visible radiation"],
+                answer: 0
+            },
+            {
+                question: "The device used for measuring the wavelength of X-rays is",
+                options: ["G.M. Counter", "Cyclotron", "Bragg Spectrometer", "Mass Spectrometer"],
+                answer: 2
+            },
+            {
+                question: "Transition ions absorb light in :",
+                options: ["Infrared region", "Ultraviolet region", "Microwave region", "Visible region"],
+                answer: 3
+            },
+            {
+                question: "Which one among the following is not an electromagnetic wave?",
+                options: ["X-Ray", "R-Ray", "Cathode Ray", "Infrared Ray"],
+                answer: 2
+            },
+            {
+                question: "What is the wavelength of visible spectrum ?",
+                options: ["1300 A\u00b0\u20133000 A\u00b0", "3900 A\u00b0 \u2013 7600 A\u00b0", "7800 A\u00b0 \u2013 8000 A\u00b0", "8500 A\u00b0 \u2013 9800 A\u00b0"],
+                answer: 1
+            },
+            {
+                question: "Which of the following has the lowest frequency?",
+                options: ["Visible light", "Gamma rays", "Xrays", "Ultra violet rays"],
+                answer: 0
+            },
+            {
+                question: "The mercury and sodium street lamps light up because of :",
+                options: ["Atomic emission", "Atomic absorption", "Electron emission", "Electron absorption"],
+                answer: 0
+            },
+            {
+                question: "Which one of the following ray has minimum wavelength?",
+                options: ["Gamma ray", "Cosmic ray", "Utraviolet ray", "X-rays"],
+                answer: 0
+            },
+            {
+                question: "Which, of the following radiations has the least wavelength ?",
+                options: ["X-rays", "A-rays", "G-rays", "B-rays"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following wavelengths of light is most effective in photosynthesis ?",
+                options: ["Blue", "Green", "Orange", "Yellow"],
+                answer: 0
+            },
+            {
+                question: "The light rays used for eliminating bacteria is",
+                options: ["X-rays", "Infrared rays", "Microwave radiation", "Ultra-violet radiation"],
+                answer: 3
+            },
+            {
+                question: "Which of the following characteristics of light remains unchanged when light travels from vaccum enters water?",
+                options: ["Speed", "Amplitude", "Frequency", "Wavelength"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is an example of continous emission spectrum?",
+                options: ["Spectrum of an oil frame", "Spectrum of a water", "Both", "None"],
+                answer: 0
+            },
+            {
+                question: "For a ray of light to suffer total internal reflection it has to pass from :",
+                options: ["Glass to water", "Water to glass", "Air to water", "Air to glass"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following is the correct sequence of passage of light in a compound microscope?",
+                options: ["Condenser -Objective lens -Eye -piece -Body tube", "Objective lens -Condenser -Body tube -Eye piece", "Condenser -Objective lens -Body tube -Eyepiece", "Eyepiece -Objective lens -Body tube -Mirror"],
+                answer: 2
+            },
+            {
+                question: "Lens is made up of which glass",
+                options: ["Ordinary glass", "Pyrex glass", "Flint glass", "Cobalt glass"],
+                answer: 2
+            },
+            {
+                question: "Optic fibres are used in :",
+                options: ["CAT scans", "X-ray photos", "Ultrasound scans", "Endoscopy"],
+                answer: 3
+            },
+            {
+                question: "What is colour of light related to ?",
+                options: ["Amplitude", "Frequency", "Quality", "Velocity"],
+                answer: 0
+            },
+            {
+                question: "The distance between node and adjacent antinode is 30 cm. The wavelength is",
+                options: ["30 cm.", "90 cm.", "120 cm.", "60 cm."],
+                answer: 3
+            },
+            {
+                question: "In a Laser (say neon laser) all the atoms emit the light waves of",
+                options: ["Same frequency", "Same amplitude", "Same phase", "All of the above"],
+                answer: 3
+            },
+            {
+                question: "The Laser is a beam of radiations which are",
+                options: ["Non-coherent and monochromatic", "Coherent and monochromatic", "Non-coherent and non-monochromatic", "Coherent and non-monochromatic"],
+                answer: 1
+            },
+            {
+                question: "The p wave of a normal Electrocardiogram indicates",
+                options: ["Atrial depolarization", "Ventricular repolarization", "Atrial repolarization", "Ventricular depolarization"],
+                answer: 0
+            },
+            {
+                question: "Which of the following phenomenon helps to conclude that light is a transverse wave?",
+                options: ["Interference", "Diffraction", "Polarisation", "Refraction"],
+                answer: 2
+            },
+            {
+                question: "What is the phenomenon which established the transverse nature of light ?",
+                options: ["Reflection", "Interference", "Diffraction", "Polarisation"],
+                answer: 3
+            },
+            {
+                question: "The light of distant stars is affected by",
+                options: ["Interstellar Dust", "The Earth's Atmosphere", "Both A & B", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "A soap bubble shows colours when illuminated with white light. This is due to",
+                options: ["Diffraction", "Polarisation", "Interference", "Reflection"],
+                answer: 2
+            },
+            {
+                question: "The wave of theory of light is based on",
+                options: ["The laws of reflection", "The laws of refraction", "The inverse square law", "Huyghens' principle"],
+                answer: 3
+            },
+            {
+                question: "When a strong beam of light is passed through a colloidal solution, the light will",
+                options: ["Be scattered", "Pass unchanged", "Be absorbed", "Be reflected"],
+                answer: 0
+            },
+            {
+                question: "The wave theory of light can explain",
+                options: ["Comptom effect", "Photoelectric effect", "Black body spectrum", "Interference of light"],
+                answer: 3
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const progressText = document.getElementById('progress');
+        const quizContainer = document.getElementById('quiz-container');
+        const resultContainer = document.getElementById('result-container');
+        const scoreText = document.getElementById('score-text');
+
+        function loadQuestion() {
+            const q = quizData[currentQuestion];
+            questionText.textContent = (currentQuestion + 1) + ". " + q.question;
+            progressText.textContent = `Question ${currentQuestion + 1}/${quizData.length}`;
+            
+            optionsContainer.innerHTML = '';
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn neomorphism w-full text-left p-4 rounded-xl border-2 border-transparent hover:border-amber-500 dark:text-gray-300';
+                btn.innerHTML = `<span class="font-bold mr-3">${String.fromCharCode(65 + idx)}.</span> ${opt}`;
+                btn.onclick = () => selectOption(idx);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function selectOption(idx) {
+            const correct = quizData[currentQuestion].answer;
+            const buttons = optionsContainer.getElementsByTagName('button');
+            
+            for(let i=0; i<buttons.length; i++) {
+                buttons[i].disabled = true;
+                if(i === correct) {
+                    buttons[i].classList.add('bg-green-100', 'dark:bg-green-900/30', 'border-green-500');
+                } else if(i === idx) {
+                    buttons[i].classList.add('bg-red-100', 'dark:bg-red-900/30', 'border-red-500');
+                }
+            }
+
+            if(idx === correct) score++;
+
+            setTimeout(() => {
+                currentQuestion++;
+                if(currentQuestion < quizData.length) {
+                    loadQuestion();
+                } else {
+                    showResults();
+                }
+            }, 1500);
+        }
+
+        function showResults() {
+            quizContainer.classList.add('hidden');
+            resultContainer.classList.remove('hidden');
+            scoreText.textContent = `You scored ${score} out of ${quizData.length}`;
+            // --- Firebase Progress Tracking ---
+            (function() {
+                var quizTitle = document.title || 'Unknown Quiz';
+                var category = 'General';
+                var path = window.location.pathname;
+                if (path.indexOf('Sikkim Current Affairs') !== -1 || quizTitle.indexOf('Sikkim') !== -1) category = 'Sikkim Current Affairs';
+                else if (path.indexOf('National International') !== -1 || quizTitle.indexOf('National') !== -1) category = 'National/International CA';
+                else if (path.indexOf('Physics') !== -1 || quizTitle.indexOf('Physics') !== -1) category = 'Physics';
+                else if (path.indexOf('Polity') !== -1) category = 'Polity';
+                else if (path.indexOf('History') !== -1) category = 'History';
+                else if (path.indexOf('Economics') !== -1) category = 'Economics';
+                else if (path.indexOf('Geography') !== -1) category = 'Geography';
+                if (typeof saveQuizResult === 'function' && typeof isLoggedIn === 'function' && isLoggedIn()) {
+                    saveQuizResult(quizTitle, score, quizData.length, category);
+                }
+            })();
+        }
+
+        if(quizData.length > 0) loadQuestion();
+    </script>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="../auth.js"></script>
+</body>
+</html>

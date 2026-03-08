@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chemistry in Everyday Life | Sikkim PSC Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        .quiz-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        html.dark .quiz-container {
+            background: #24272c;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #0284c7;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        html.dark .question-block {
+            border-bottom: 1px solid #334155;
+        }
+        .question-text {
+            font-size: 1.15em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+        html.dark .question-text {
+            color: #f1f5f9;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option {
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            padding: 16px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            color: #475569;
+        }
+        html.dark .option {
+            background-color: #1e293b;
+            border: 2px solid #334155;
+            color: #cbd5e1;
+        }
+        .option:hover {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
+            transform: translateX(4px);
+        }
+        html.dark .option:hover {
+            background-color: #334155;
+            border-color: #475569;
+        }
+        .option.correct {
+            background-color: #dcfce7 !important;
+            border-color: #4ade80 !important;
+            color: #166534 !important;
+        }
+        html.dark .option.correct {
+            background-color: #064e3b !important;
+            border-color: #10b981 !important;
+            color: #ecfdf5 !important;
+        }
+        .option.incorrect {
+            background-color: #fee2e2 !important;
+            border-color: #f87171 !important;
+            color: #991b1b !important;
+        }
+        html.dark .option.incorrect {
+            background-color: #7f1d1d !important;
+            border-color: #ef4444 !important;
+            color: #fef2f2 !important;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none;
+        }
+        .quiz-stats-badge {
+            background: #f1f5f9;
+            color: #64748b;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        html.dark .quiz-stats-badge {
+            background: #334155;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 min-h-screen p-4 sm:p-8">
+
+    <div class="quiz-container">
+        <a href="chemistry.html" class="back-link">&larr; Back to Chemistry Topics</a>
+        <h1 class="text-3xl font-bold text-sky-800 dark:text-sky-400 mb-2">Chemistry in Everyday Life</h1>
+        <div class="quiz-stats-badge">40 MCQ Questions</div>
+        
+        <div id="questions-wrapper"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "The inexpensive and commonly used variety of glass is called soda glass. It is called so because",
+                options: ["was used initially for making bottles of soda(carbonated drink)", "is made using soda(sodium carbonate)", "was initially used for storing sodium carbonate", "is made using soda lime"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is used to make light weight, but strong plastic ?",
+                options: ["Nylon", "Polythene", "Polyvinyl Chloride", "Methyl Methacrylate"],
+                answer: 2
+            },
+            {
+                question: "Plastic is a type of",
+                options: ["Polyester", "Polymer", "Acrylic", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "Biofertilizers convert nitrogen to ________ .",
+                options: ["Nitrates", "Ammonia", "Nitrogenase", "Amino acids"],
+                answer: 1
+            },
+            {
+                question: "Assertion (A) : Synthetic detergents can lather when in hard water.Reason (R) : Synthetic detergents form soluble calcium and magnesium salts with hard water.",
+                options: ["Both A and R is true and R is the correct explanation of A", "Both A and R is true but R is not a correct explanation of A", "A is true but R is false", "A is false but R is true"],
+                answer: 0
+            },
+            {
+                question: "Antacids are found in drugs that give relief to",
+                options: ["Eye sight", "Stomach ache", "Acne", "Headache"],
+                answer: 1
+            },
+            {
+                question: "Which of the following is not a nitrogenous fertilizer ?",
+                options: ["Ca(CN)2", "CaCN2", "NH4NO3", "Urea"],
+                answer: 0
+            },
+            {
+                question: "The pair of compounds used as anaesthetic in medicines :",
+                options: ["Ether, Ammonia", "Nitrous oxide, Chloroform", "Chloroform, Nitrogen dioxide", "Nitrogen dioxide, ether"],
+                answer: 1
+            },
+            {
+                question: "A detergent is a",
+                options: ["Cleansing agent", "Drug", "Catalyst", "Soap"],
+                answer: 0
+            },
+            {
+                question: "By-product obtained by soap industry is",
+                options: ["Caustic soda", "Glycerol", "Naphthalene", "Caustic potash"],
+                answer: 1
+            },
+            {
+                question: "Soap helps in better cleaning of clothes because",
+                options: ["Soap acts like catalyst", "It reduces the surface tension of solution", "It gives strength to solution", "It absorbs the dirt"],
+                answer: 1
+            },
+            {
+                question: "Detergents are",
+                options: ["Sodium salts of fatty acids", "Sodium salts of sulphonic acids", "Sodium salt of benzoic acid", "None of the above"],
+                answer: 1
+            },
+            {
+                question: "Synthetic detergents are prepared from",
+                options: ["Potassium salts of higher fatty-acids", "Sodium salts of higher fattyacids", "Hydrocarbons of petroleum", "Glycerides"],
+                answer: 2
+            },
+            {
+                question: "Synthetic detergents are made from",
+                options: ["Sodium stearate", "Sodium salt of benzene sulphonic acid", "Sodium salt of benzene carboxylic acid", "Sodium palmitate"],
+                answer: 1
+            },
+            {
+                question: "Detergents used for cleaning clothes and utensils contain",
+                options: ["Nitrates", "Bicarbonates", "Sulphonates", "Bismuthates"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is an antidiabatic drug?",
+                options: ["Insulin", "Penicillin", "Chloroquine", "Aspirin"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is also used as a Bio fertilizer?",
+                options: ["Urea", "Ammonia", "Uric Acid", "None of these"],
+                answer: 3
+            },
+            {
+                question: "The advantage of detergents over soaps is",
+                options: ["Detergents are soluble in water", "Detergents could not give much lather", "Detergents give lather even with hard water", "Soaps give lather with only soft water"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is a natural dye ?",
+                options: ["Crystal violet", "Aniline blue", "Alizarin", "Phenolphthalein"],
+                answer: 2
+            },
+            {
+                question: "A thick paste of cement, sand and water is called",
+                options: ["Concrete", "R.C.C.", "Mortar", "Kiln"],
+                answer: 2
+            },
+            {
+                question: "The drug \u2018Marijuana\u2019 is a",
+                options: ["Sedative", "Mental stimulant", "Hallucinating substance", "Tranquillizer"],
+                answer: 0
+            },
+            {
+                question: "The chief source for the production of nitrogeneous fertilizers is :",
+                options: ["Ammonia", "Nitric acid", "Nitrogen", "Nitrogen dioxide"],
+                answer: 0
+            },
+            {
+                question: "Detergents clean surfaces on the principle of",
+                options: ["Viscosity", "Surface tension", "Elasticity", "Floatation"],
+                answer: 1
+            },
+            {
+                question: "Soap is prepared by boiling caustic soda with",
+                options: ["Alcohol", "Kerosene oil", "Glycerine", "Fats"],
+                answer: 3
+            },
+            {
+                question: "Which one of the following is not present in cement ?",
+                options: ["Clay", "Alumina", "Alum", "Gypsum"],
+                answer: 2
+            },
+            {
+                question: "The addition of gypsum to portland cement helps in :",
+                options: ["Increasing the strength of cement", "Rapid setting of cement", "Preventing rapid setting of cement", "Reduction in the cost of cement"],
+                answer: 2
+            },
+            {
+                question: "Chemical composition of cement is",
+                options: ["Limestone and Clay", "Limestone, Clay and Gypsum", "Limestone and Gypsum", "Clay and Gypsum"],
+                answer: 1
+            },
+            {
+                question: "Which one of the following elements is used in the manufacture of fertilizers ?",
+                options: ["Fluorine", "Potassium", "Lead", "Aluminium"],
+                answer: 1
+            },
+            {
+                question: "Cement is made hard with",
+                options: ["Dehydration", "Hydration and dissociation of water", "Dissociation of water", "Polymerisation"],
+                answer: 1
+            },
+            {
+                question: "Which substance is used to retard the setting action of cement?",
+                options: ["CaO", "Al2O3", "CaSO4.2H2O", "Na2O + K2O"],
+                answer: 2
+            },
+            {
+                question: "Cement containing excess amount of lime",
+                options: ["Cracks during setting", "Becomes more strong", "Is slow setting", "Is quick setting"],
+                answer: 1
+            },
+            {
+                question: "Calcium salts used as fertilizer is :",
+                options: ["Calcium Carbide", "Calcium Carbonate", "Calcium Cyanide", "Calcium Sulphate"],
+                answer: 3
+            },
+            {
+                question: "Cement is formed by strongly heating a mixture of",
+                options: ["Limestone and graphite", "Limestone and clay", "Chalk and graphite", "Clay and graphite"],
+                answer: 1
+            },
+            {
+                question: "Persons working in cement plants and lime stone quarries are prone to disease like",
+                options: ["Cancer", "Asthma", "Silicosis", "Pneumoconiosis"],
+                answer: 2
+            },
+            {
+                question: "Cement is usually a mixture of :",
+                options: ["Calcium silicate and calcium aluminate", "Calcium silicate and calcium ferrate", "Calcium aluminate and calcium ferrate", "Lime stone and silicon dioxide"],
+                answer: 0
+            },
+            {
+                question: "Extensively used nitrogenous fertilizer is",
+                options: ["Ammonium nitrate", "Urea", "Ammonium sulphate", "Nitro-lime"],
+                answer: 1
+            },
+            {
+                question: "Which one of the following is not a fertilizer?",
+                options: ["Ammonium sulphate", "Calcium sulphate", "Calcium ammonium nitrate", "Potassium nitrate"],
+                answer: 1
+            },
+            {
+                question: "The polymer used in making plastic crockery is",
+                options: ["Decron", "Nylon", "Bakelite", "Melamine"],
+                answer: 3
+            },
+            {
+                question: "The name of plastic polymer from which combs, toys, bowls etc., can be made, is",
+                options: ["Polyurethane", "Polystyrene", "Metallic polysulphides", "Teflon"],
+                answer: 1
+            },
+            {
+                question: "Which of the following substance is highly plastic ?",
+                options: ["Quartz", "Mica", "Granite", "Clay"],
+                answer: 3
+            }
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.innerHTML = `<span class="text-sky-600 dark:text-sky-500 mr-2">Q${index + 1}.</span> ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                if (!option || option.trim() === '') return;
+                
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) return;
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            wrapper.appendChild(questionBlock);
+        });
+
+        // Theme sync
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>

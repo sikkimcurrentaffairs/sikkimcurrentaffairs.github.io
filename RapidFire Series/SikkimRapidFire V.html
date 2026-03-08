@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sikkim GK Quiz</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+            border-color: #bbb;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .options-list.answered .option:not(.correct):not(.incorrect) {
+            opacity: 0.7;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none; /* Disables further clicks */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <h1>Sikkim General Knowledge Quiz</h1>
+        <!-- Questions will be dynamically inserted here by JavaScript -->
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Who was the founder of the Gorkha League?",
+                options: ["D.B. Gurung", "P.S. Golay", "N.B. Khatiwada", "Man Bahadur Rai"],
+                answer: 2
+            },
+            {
+                question: "Who was the President of Sikkim Sangram Parishad?",
+                options: ["Pawan K Chamling", "N.B. Bhandari", "A.D. Subba", "G.M. Rai"],
+                answer: 1
+            },
+            {
+                question: "When was Sikkim Democratic Front formed?",
+                options: ["1984", "2002", "1998", "1992"],
+                answer: 3
+            },
+            {
+                question: "Who is the President of Sikkim Democratic Front?",
+                options: ["Pawan K Chamling", "N.B. Bhandari", "A.D. Subba", "G.M. Rai"],
+                answer: 0
+            },
+            {
+                question: "When was Sikkim Himali Rajya Parishad formed?",
+                options: ["1992", "2008", "2002", "1984"],
+                answer: 2
+            },
+            {
+                question: "Who is the President of Sikkim Himali Rajya Parishad?",
+                options: ["Basant Rai", "Biraj Adhikari", "G.M. Rai", "A.D. Subba"],
+                answer: 3
+            },
+            {
+                question: "Who is the President of Sikkim National Peoples' Party?",
+                options: ["Basant Rai", "Biraj Adhikari", "G.M. Rai", "A.D. Subba"],
+                answer: 1
+            },
+            {
+                question: "Name the Chogyal who has launched Development Plan in Sikkim?",
+                options: ["Thutob Namgyal", "Tashi Namgyal", "Palden Thondup Namgyal", "Sidkeong Tulku Namgyal"],
+                answer: 1
+            },
+            {
+                question: "When the first Seven Year Development Plan (1954-61) was launched in Sikkim?",
+                options: ["1955", "1961", "1954", "1966"],
+                answer: 2
+            },
+            {
+                question: "From which year the implementation of Seven Year Plan actually commenced?",
+                options: ["15th March 1955", "1st April 1954", "1st January 1956", "31st March 1955"],
+                answer: 0
+            },
+            {
+                question: "When was the State Planning Commission set up in Sikkim?",
+                options: ["8th May 2001", "26th August 1977", "5th December 1992", "9th March 1987"],
+                answer: 0
+            },
+            {
+                question: "Who was the first Deputy Chairman of State Planning Commission?",
+                options: ["Sanchaman Limboo", "Sonam Gyatso", "Pawan K Chamling", "Muchkund Dubey"],
+                answer: 3
+            },
+            {
+                question: "In which year the Forest Department in Sikkim was established?",
+                options: ["1902", "1911", "1893", "1954"],
+                answer: 2
+            },
+            {
+                question: "Name the chogyal who created the Forest Department in Sikkim?",
+                options: ["Tashi Namgyal", "Thutob Namgyal", "Palden Thondup Namgyal", "Sidkeong Tulku Namgyal"],
+                answer: 3
+            },
+            {
+                question: "What per cent of geographical area in Sikkim is cover with forest?",
+                options: ["35 per cent", "47 per cent", "55 per cent", "62 per cent"],
+                answer: 1
+            },
+            {
+                question: "The whole of forest area is demarcated into three categories. Name them.",
+                options: ["National Park, Wildlife Sanctuary, Biosphere Reserve", "Alpine, Temperate, Tropical", "Reserved Forest, (ii) khasmal Forest and (iii) Gaucharan Forest", "Core Zone, Buffer Zone, Transition Zone"],
+                answer: 2
+            },
+            {
+                question: "When was the reserved and khasmal forest in Sikkim demarcated?",
+                options: ["1893", "1911", "1902 and 1905", "1955"],
+                answer: 2
+            },
+            {
+                question: "When was the Gaucharan Forest in Sikkim demarcated?",
+                options: ["1905", "1911", "1921", "1899"],
+                answer: 1
+            },
+            {
+                question: "What is the per capita forest cover in Sikkim?",
+                options: ["0.16 hectare", "0.5 hectare", "1.2 hectare", "0.08 hectare"],
+                answer: 0
+            },
+            {
+                question: "How many species of Orchids are found in Sikkim?",
+                options: ["350", "425", "515", "600"],
+                answer: 2
+            },
+            {
+                question: "How many species of Rhododendron are found in Sikkim?",
+                options: ["25", "36", "48", "55"],
+                answer: 1
+            },
+            {
+                question: "How many species of Primulas are found in Sikkim?",
+                options: ["40", "50", "60", "70"],
+                answer: 2
+            },
+            {
+                question: "How many varieties of Medicinal Plants are found in Sikkim?",
+                options: ["300", "450", "550", "600"],
+                answer: 1
+            },
+            {
+                question: "How many varieties of Conifers are found in Sikkim?",
+                options: ["10", "16", "25", "32"],
+                answer: 1
+            },
+            {
+                question: "How many species of Bamboo are found in Sikkim?",
+                options: ["15", "23", "30", "45"],
+                answer: 1
+            },
+            {
+                question: "How many species of Flowering Plants are found in Sikkim?",
+                options: ["3000", "4000", "5000", "6000"],
+                answer: 2
+            },
+            {
+                question: "How many species of Ferns and fern Allies are found in Sikkim?",
+                options: ["250", "362", "412", "500"],
+                answer: 1
+            },
+            {
+                question: "Give the name of some important varieties of Orchids found in Sikkim.",
+                options: ["Blue Vanda, Lady Slipper, Foxtail Orchid", "(i) Nobile Orchids; (ii) Dendrobium Ambenum; (iii) Cymbidiums", "Cattleya, Phalaenopsis, Oncidium", "Moth Orchid, Boat Orchid, Dancing Lady Orchid"],
+                answer: 1
+            },
+            {
+                question: "What is the botanical name of Nobile Orchids?",
+                options: ["Cymbidium iridioides", "Dendrobium nobile", "Vanda coerulea", "Paphiopedilum fairrieanum"],
+                answer: 1
+            },
+            {
+                question: "Name four important mammals found in Sikkim?",
+                options: ["Tiger, Elephant, Lion, Rhino", "(i) Red Panda; (ii) Barking Deer; (iii) Himalayan Black Bear; (iv) Leopard Cat", "Snow Leopard, Blue Sheep, Musk Deer, Tibetan Wolf", "Gaur, Sambar, Sloth Bear, Wild Dog"],
+                answer: 1
+            },
+            {
+                question: "What is the scientific name of Red Panda?",
+                options: ["Panthera uncia", "Ursus thibetanus", "Ailurus fulgens cuvier", "Moschus chrysogaster"],
+                answer: 2
+            },
+            {
+                question: "What is the scientific name of Blood Pheasant?",
+                options: ["Lophophorus impejanus", "Ithaginis cruentus", "Aquila chrysaetos", "Tetraogallus himalayensis"],
+                answer: 1
+            },
+            {
+                question: "Name the largest cat found in Sikkim.",
+                options: ["Snow Leopard", "Clouded Leopard", "Leopard", "Leopard Cat"],
+                answer: 2
+            },
+            {
+                question: "Name the biggest bird found in Sikkim.",
+                options: ["Himalayan Golden Eagle", "Griffon Vulture", "Monal Pheasant", "Snow Patridge"],
+                answer: 1
+            },
+            {
+                question: "Name biggest lizard found in Sikkim.",
+                options: ["Monitor Lizard", "Garden Lizard", "Gecko", "Skink"],
+                answer: 0
+            },
+            {
+                question: "Name the biggest moth found in Sikkim.",
+                options: ["Atlas Moth", "Luna Moth", "Emperor Moth", "Silk Moth"],
+                answer: 0
+            },
+            {
+                question: "Name the largest snake found in Sikkim.",
+                options: ["King Cobra", "Python Molurus", "Russell's Viper", "Common Krait"],
+                answer: 1
+            },
+            {
+                question: "What is the name of only Rhododendron Sanctuary of North Sikkim?",
+                options: ["Barsey Rhododendron Sanctuary", "Fambongla Wildlife Sanctuary", "Shingba Rhododendron Sanctuary", "Maenam Wildlife Sanctuary"],
+                answer: 2
+            },
+            {
+                question: "When was Shingba declared as Rhododendron Sanctuary?",
+                options: ["2nd April 1984", "9th March 1987", "On 5th December 1992", "8th May 1996"],
+                answer: 2
+            },
+            {
+                question: "What is the total area of Shingba Rhododendron Sanctuary?",
+                options: ["35.34 sq.km.", "43 sq.km.", "51.76 sq.km.", "104 sq.km."],
+                answer: 1
+            },
+            {
+                question: "What is the name of Rhododendron Sanctuary of west Sikkim?",
+                options: ["Shingba Rhododendron Sanctuary", "Kyongnosla Alpine Sanctuary", "Barsey Rhododendron Sanctuary", "Pangolakha Wildlife Sanctuary"],
+                answer: 2
+            },
+            {
+                question: "In which year the Barsey Rhododendron Sanctuary was established?",
+                options: ["5th December 1992", "2nd April 1984", "26th August 1977", "On 8th May 1996"],
+                answer: 3
+            },
+            {
+                question: "What is the total area of Barsey Rhododendron Sanctuary?",
+                options: ["43 sq.km.", "51.76 sq.km.", "104 sq.km.", "128 sq.km."],
+                answer: 2
+            },
+            {
+                question: "Give the name of two important Bird Sanctuaries of Sikkim.",
+                options: ["Fambongla and Maenam", "Rabdantse Bird Sanctuary and Kitam Bird Sanctuary", "Pangolakha and Kyongnosla", "Shingba and Barsey"],
+                answer: 1
+            },
+            {
+                question: "Name three important Wildlife Sanctuaries of Sikkim.",
+                options: ["Shingba, Barsey, Kitam", "(i) Fambongla Wildlife Sanctuary (ii) Maenam Wildlife Santuary (iii) Pangolakha Wildlife Sanctuary", "Kyongnosla, Khangchendzonga, Rabdantse", "Himalayan Zoological Park, Kitam, Maenam"],
+                answer: 1
+            },
+            {
+                question: "When was Fambongla declared as Wildlife Sanctuary?",
+                options: ["9th March 1987", "7th November 2000", "On 2nd April 1984", "5th December 1992"],
+                answer: 2
+            },
+            {
+                question: "What is the total area of Fambongla Wildlife Sanctuary?",
+                options: ["35.34 sq.km.", "51.76 sq.km.", "104 sq.km.", "128 sq.km."],
+                answer: 1
+            },
+            {
+                question: "When was Maenam declared as Wildlife Sanctuary?",
+                options: ["2nd April 1984", "On 9th March 1987", "7th November 2000", "5th December 1992"],
+                answer: 1
+            },
+            {
+                question: "What is the total area of Maenam Wildlife Sanctuary?",
+                options: ["35.34 sq.km.", "51.76 sq.km.", "104 sq.km.", "128 sq.km."],
+                answer: 0
+            },
+            {
+                question: "When was Pangolakha declared as Wildlife Sanctuary?",
+                options: ["9th March 1987", "2nd April 1984", "5th December 1992", "On 7th November 2000"],
+                answer: 3
+            },
+            {
+                question: "What is the total area of Pangolakha Wildlife Sanctuary?",
+                options: ["51.76 sq.km.", "104 sq.km.", "128 sq.km.", "1784 sq.km."],
+                answer: 2
+            },
+            {
+                question: "In which year the Kyongnosla Alpine Sanctuary was created?",
+                options: ["26th August 1977", "2nd April 1984", "On 5th December 1992", "8th May 1996"],
+                answer: 2
+            },
+            {
+                question: "In which year the Khangchendzonga National Park was created?",
+                options: ["1992", "1987", "On 26th August 1977", "2000"],
+                answer: 2
+            },
+            {
+                question: "What is the total area of Khangchendzonga National Park?",
+                options: ["128 sq.km.", "104 sq.km.", "205 Hectares", "1784 sq.km."],
+                answer: 3
+            },
+            {
+                question: "What is the name of Park located at Bulbuley?",
+                options: ["Himalayan Zoological Park", "Nehru Botanical Garden", "Saramsa Garden", "Ridge Park"],
+                answer: 0
+            },
+            {
+                question: "What is the total area of Himalayan Zoological Park?",
+                options: ["104 Hectares", "205 Hectares", "51 Hectares", "35 Hectares"],
+                answer: 1
+            },
+            {
+                question: "Name the highest mountain of Sikkim?",
+                options: ["Mount Everest", "K2", "Khangchendzonga", "Nanda Devi"],
+                answer: 2
+            },
+            {
+                question: "What is the height of Khangchendzonga?",
+                options: ["8848m", "8611m", "28,156 ft (8585m)", "7816m"],
+                answer: 2
+            },
+            {
+                question: "The meaning of Khangchendzonga is...",
+                options: ["The Goddess Mother of the World", "The Great Snowy Mountain of Five Treasures", "The Abode of God", "The White Mountain"],
+                answer: 1
+            },
+            {
+                question: "How many mountains are found in Sikkim?",
+                options: ["15", "28", "42", "50"],
+                answer: 1
+            },
+            {
+                question: "How many lakes are found in Sikkim?",
+                options: ["50", "100", "150", "200"],
+                answer: 2
+            },
+            {
+                question: "Give the name of three sacred lakes of west Sikkim?",
+                options: ["Gurudongmar, Cholamu, Green Lake", "Tsomgo, Menmecho, Khecheopalri", "(i) Khacheodpalri Lake (ii) Omechho (iii) Lamchho", "Samiti, Tso Lhamo, Gurudongmar"],
+                answer: 2
+            },
+            {
+                question: "Give the three sacred lakes of North Sikkim?",
+                options: ["Khacheodpalri, Omechho, Lamchho", "(i) Gurudongmar Lake (ii) Cholamu Lake (iii) Green Lake", "Tsomgo, Menmecho, Lampokhari", "Khecheopalri, Tso Lhamo, Samiti"],
+                answer: 1
+            }
+        ];
+
+        const quizContainer = document.getElementById('quiz-container');
+
+        quizData.forEach((item, index) => {
+            // Create the main container for the question
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            // Create and add the question text
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.textContent = `${index + 1}) ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            // Create the options list
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+            
+            // Create and add each option
+            item.options.forEach((option, optionIndex) => {
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    // Prevent re-answering
+                    if (optionsList.classList.contains('answered')) {
+                        return;
+                    }
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+                    
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        // Highlight the correct answer
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+                
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            quizContainer.appendChild(questionBlock);
+        });
+
+    </script>
+</body>
+</html>
+  

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biology - Human Body Systems | Sikkim PSC Hub</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+            border-color: #bbb;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .options-list.answered .option:not(.correct):not(.incorrect) {
+            opacity: 0.7;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none;
+        }
+        .quiz-stats {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <a href="biology.html" class="back-link">&larr; Back to Biology</a>
+        <h1>Human Body Systems</h1>
+        <p class="quiz-stats">17 Questions</p>
+        <!-- Questions will be dynamically inserted here by JavaScript -->
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: ",2trongest bone of body is ~in",
+                options: ["Thigh", "Jaw", "Shoulder", "Neck"],
+                answer: 1
+            },
+            {
+                question: "Which of the followingJ22!te l_s not found ~ human leg",
+                options: ["Tibia", "Humerus", "Ferner", "Fibula"],
+                answer: 1
+            },
+            {
+                question: "Digestion started in man from",
+                options: ["Rectum", "Stomach .", "\' Mouth", "Intestine"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is not the part of digestive ystem?",
+                options: ["Liver", "Gall bladder", "Cornea", "Intestine"],
+                answer: 2
+            },
+            {
+                question: "Saliva secreted from mouth ~est",
+                options: ["Protein", "Starch", "Fat", "Vitamin {SSC Mat 2002]"],
+                answer: 1
+            },
+            {
+                question: "Which of the following acid is found in the stomach of man ?",
+                options: ["Sulphuric acid ,.", "Hydrochloric acid", "Nitric acid", "Picric acid"],
+                answer: 1
+            },
+            {
+                question: "Enzyme secreted by stomach digest the food but stomach is not digested by this digestive juice because",
+                options: ["Wall of stomach is lined with mucus", "This is made up of hard cells", "It is made up of steel", "None of these"],
+                answer: 0
+            },
+            {
+                question: "r digestion protein is converted into",
+                options: ["Fat Glucose _", "", "Amino acid", "Glucose"],
+                answer: 2
+            },
+            {
+                question: "_ MaiJl ~n<;,!!_on~f Bije-- .",
+                options: ["To convert fat into fatty acid and glycerol", "To convert fatty acid into fat and glycerol", "Emulsification of fat", "All of them"],
+                answer: 0
+            },
+            {
+                question: "During sle_ep blood E!essure- \"",
+                options: ["Inc;ease", "Decrease", "First decrease and then increase", "Remain same"],
+                answer: 1
+            },
+            {
+                question: "Puis rate w~et from",
+                options: ["Vein", "Artery", "Skin", "Nerve"],
+                answer: 1
+            },
+            {
+                question: "bfmgest artery found in the ~dy of ht~an",
+                options: ["Venacava", "Arata", "Capillaries", "Ventricle"],
+                answer: 1
+            },
+            {
+                question: "Percentage of \'Yater fo.,llnd in blood pl~ma 2f humaiJ- w 60 to 64% (15) 70 to 75%",
+                options: ["", "Heart", "Kidney", "Liver"],
+                answer: 3
+            },
+            {
+                question: "!faemoglobin is an import~t ~o~onent of- ·",
+                options: ["RBC", "WBC", "Platletes", "Cytoplasm {SSC Mat 2002]"],
+                answer: 0
+            },
+            {
+                question: "Which. one__oU.gJlG.w:.mg-paii 4s not_ fit for marriage ;,_ccording to Rh factor..- \' [a) Rh + male and Rh- female",
+                options: ["", "Rh- male and Rh+ female", "Rh- male and Rh- female", "Rh + male and Rh- female"],
+                answer: 3
+            },
+            {
+                question: "With reference to the blood in a normal person, which one of the following statements is correct ?",
+                options: ["Compared to arteries, veins are less numerous and holdless of the body\'s blood at any given time", "Blood cells constitute about 70% of the total volume of the blood", "White blood cells (WBC) are made by lymphnodes only", "The blood has more plateletes than WBC [lAS (Pre) 2002}"],
+                answer: 3
+            },
+            {
+                question: "In which organ of the human body are the lymphocytes cells formed",
+                options: ["Liver ,.", "Long bone", "Pancreas", "Spleen [lAS (Pre)2004}"],
+                answer: 1
+            }
+        ];
+
+        const quizContainer = document.getElementById('quiz-container');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.textContent = `${index + 1}) ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) {
+                        return;
+                    }
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            quizContainer.appendChild(questionBlock);
+        });
+    </script>
+</body>
+</html>

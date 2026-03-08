@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sikkim GK Quiz</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+            border-color: #bbb;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .options-list.answered .option:not(.correct):not(.incorrect) {
+            opacity: 0.7;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none; /* Disables further clicks */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <h1>Sikkim General Knowledge Quiz</h1>
+        <!-- Questions will be dynamically inserted here by JavaScript -->
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Name the district which has recorded the lowest percentage of literacy rate.",
+                options: ["East District", "West District", "North District", "South District"],
+                answer: 1
+            },
+            {
+                question: "When was Sikkim University established?",
+                options: ["On 2nd July 2005", "On 15th August 2007", "On 2nd July 2007", "On 26th January 2008"],
+                answer: 2
+            },
+            {
+                question: "Who is the first Chancellor of Sikkim University?",
+                options: ["Dr. Manmohan Singh", "Professor M.S. Swaminathan", "Dr. A.P.J. Abdul Kalam", "Professor Mahendra P Lama"],
+                answer: 1
+            },
+            {
+                question: "Who is the first Vice-Chancellor of Sikkim University?",
+                options: ["Professor M.S. Swaminathan", "Dr. T.B. Subba", "Professor Mahendra P Lama", "Dr. Karma Sonam"],
+                answer: 2
+            },
+            {
+                question: "STNM stand for...",
+                options: ["Sikkim Tashi Namgyal Memorial Hospital", "Sir Thutob Namgyal Memorial Hospital", "State Technical and Medical Hospital", "Sir Tenzing Norgay Memorial Hospital"],
+                answer: 1
+            },
+            {
+                question: "When was STNM established?",
+                options: ["1905", "1917", "1921", "1947"],
+                answer: 1
+            },
+            {
+                question: "Name the chogyal who establishes STNM hospital at Gangtok.",
+                options: ["Thutob Namgyal", "Sidkeong Tulku Namgyal", "Tashi Namgyal", "Palden Thondup Namgyal"],
+                answer: 2
+            },
+            {
+                question: "In which year the Sikkim State Council was constituted?",
+                options: ["1949", "1951", "1953", "1958"],
+                answer: 2
+            },
+            {
+                question: "In which year the Sangha seats in Sikkim was created?",
+                options: ["1953", "1955", "1958", "1962"],
+                answer: 2
+            },
+            {
+                question: "Name the Proclamation that created a Sangha seat in Sikkim?",
+                options: ["The Royal Proclamation of 1953", "The Sikkim Subjects Regulation of 1961", "The Royal Proclamation of 1958", "The Representation of Sikkim Subjects Act, 1966"],
+                answer: 2
+            },
+            {
+                question: "In which year the Universal Adult Franchise in Sikkim was introduced?",
+                options: ["1953", "1958", "1970", "1974"],
+                answer: 3
+            },
+            {
+                question: "Which election in Sikkim was held for the first time on the basis of universal adult franchise?",
+                options: ["Sikkim State Council Election of 1973", "Assembly Election of 1974", "Panchayat Election of 1975", "Assembly Election of 1979"],
+                answer: 1
+            },
+            {
+                question: "In which year Sikkim was for the first time divided into 32 constituencies?",
+                options: ["1970", "1972", "1974", "1975"],
+                answer: 2
+            },
+            {
+                question: "Name the political party that had won the election of 1974.",
+                options: ["Sikkim National Party", "Sikkim State Congress Party", "Sikkim Janta Parishad", "Sikkim National Congress"],
+                answer: 1
+            },
+            {
+                question: "Who was the first Election Commissioner of Sikkim?",
+                options: ["R.N. Haldipur", "B.B. Lal", "R.N. Sengupta", "T.S. Gyaltsen"],
+                answer: 2
+            },
+            {
+                question: "Who was the first Chief Minister of post-merger Sikkim?",
+                options: ["Nar Bahadur Bhandari", "B.B. Gurung", "Kazi Lhendup Dorji Khangsarpa", "Pawan Kumar Chamling"],
+                answer: 2
+            },
+            {
+                question: "In which year the first election to SLA was held under the Constitution of India?",
+                options: ["1974", "1975", "1977", "1979"],
+                answer: 3
+            },
+            {
+                question: "Name the Political Party that formed the government in 1979.",
+                options: ["Sikkim Congress (Revolutionary)", "Sikkim Prajatantra Congress", "Sikkim Janta Parishad", "Indian National Congress"],
+                answer: 2
+            },
+            {
+                question: "Name the Political Party that won the Assembly election of 1985.",
+                options: ["Sikkim Democratic Front", "Sikkim Sangram Parishad", "Sikkim Janta Parishad", "Indian National Congress"],
+                answer: 1
+            },
+            {
+                question: "Name the only plainsman who got elected in the Assembly election of 1985.",
+                options: ["Dil Kumari Bhandari", "Balchand Sarda", "Pawan Kumar Chamling", "Sanchaman Limboo"],
+                answer: 1
+            },
+            {
+                question: "Name the constituency that was represented by Balchand Sarda.",
+                options: ["Rhenock", "Namchi", "Gangtok Territorial Constituency", "Melli"],
+                answer: 2
+            },
+            {
+                question: "Name the Political Party which won the 4th Assembly election.",
+                options: ["Sikkim Democratic Front", "Indian National Congress", "Sikkim Sangram Parishad", "Rising Sun Party"],
+                answer: 2
+            },
+            {
+                question: "Name the Political Party that won the Assembly election of 1994.",
+                options: ["Sikkim Sangram Parishad", "Sikkim Democratic Front (SDF)", "Indian National Congress", "Sikkim Himali Rajya Parishad"],
+                answer: 1
+            },
+            {
+                question: "How many seats were won by SDF in 1994?",
+                options: ["15 seats", "19 seats", "24 seats", "30 seats"],
+                answer: 1
+            },
+            {
+                question: "Which district of Sikkim has a highest number of seats in SLA?",
+                options: ["North District", "South District", "West District", "East District"],
+                answer: 3
+            },
+            {
+                question: "Which district of Sikkim has a lowest number of seats in SLA?",
+                options: ["North District", "South District", "West District", "East District"],
+                answer: 0
+            },
+            {
+                question: "How many seats are reserved for ST/BL in SLA?",
+                options: ["10", "12", "15", "17"],
+                answer: 1
+            },
+            {
+                question: "How many seats are reserved for SC in SLA?",
+                options: ["01", "02", "03", "04"],
+                answer: 1
+            },
+            {
+                question: "How many members in SLA constitute Simple Majority?",
+                options: ["16 members", "17 members", "18 members", "21 members"],
+                answer: 1
+            },
+            {
+                question: "How many members in SLA constitute Two-Third Majority?",
+                options: ["21 members", "22 members", "23 members", "24 members"],
+                answer: 2
+            },
+            {
+                question: "The quorum of members in the SLA is...",
+                options: ["1/3", "1/10", "1/5", "1/12"],
+                answer: 1
+            },
+            {
+                question: "Name the only district of Sikkim which has more female voters than male.",
+                options: ["East District", "West District", "South District", "North District"],
+                answer: 3
+            },
+            {
+                question: "Name the Polling Station in Sikkim located at high altitude.",
+                options: ["Lachen Monastery School", "Thangu Primary School", "Gnathang of Gnathang Machong (BL) Constituency", "Yumthang Valley Polling Station"],
+                answer: 2
+            },
+            {
+                question: "Name the first woman elected member of Sikkim Legislative Assembly.",
+                options: ["Dil Kumari Bhandari", "Kalawati Subba", "Hemlata Chhetri", "Rupa Rai"],
+                answer: 2
+            },
+            {
+                question: "Who was the first woman Speaker of SLA?",
+                options: ["Hemlata Chhetri", "Kalawati Subba", "Tilmaya Limboo", "Manita Manger"],
+                answer: 1
+            },
+            {
+                question: "In which year the Indian Panchayat was formed in sikkim?",
+                options: ["1905", "1910", "1920", "1935"],
+                answer: 1
+            },
+            {
+                question: "In which year the first formal Panchayat Act was enacted?",
+                options: ["1951", "1958", "1962", "1965"],
+                answer: 3
+            },
+            {
+                question: "Name the Chogyal who enacted the Sikkim Panchayat Act of 1965.",
+                options: ["Tashi Namgyal", "Palden Thondup Namgyal", "Thutob Namgyal", "Sidkeong Tulku Namgyal"],
+                answer: 1
+            },
+            {
+                question: "What was the name of Panchayat created by Act of 1965?",
+                options: ["Village Panchayat", "Gram Panchayat", "Block Panchayat", "Zilla Panchayat"],
+                answer: 2
+            },
+            {
+                question: "How many tier of panchayat was created by Sikkim Panchayat Act 1965?",
+                options: ["Single Tier", "Two-Tier", "Three-Tier", "Four-Tier"],
+                answer: 0
+            },
+            {
+                question: "Which was the first Panchayat Act passed after merger to India?",
+                options: ["Sikkim Panchayat Act 1975", "Sikkim Panchayat Act 1982", "Sikkim Panchayat Act 1993", "Sikkim Zilla Panchayat Act 1985"],
+                answer: 1
+            },
+            {
+                question: "How many tier of panchayat was created by Act of 1982?",
+                options: ["Single-tier", "Two-tier (Gram Panchayat and Zilla Panchayat)", "Three-tier", "Four-tier"],
+                answer: 1
+            },
+            {
+                question: "What was the name of informal/traditional Lepcha panchayat?",
+                options: ["Dzumsa", "Gyalpo System", "Chhodu System", "Mandal System"],
+                answer: 2
+            },
+            {
+                question: "In which part of Sikkim, the Chhodu system was operational?",
+                options: ["Yuksom", "Rinchenpong", "Dzongu", "Lachen"],
+                answer: 2
+            }
+        ];
+
+        const quizContainer = document.getElementById('quiz-container');
+
+        quizData.forEach((item, index) => {
+            // Create the main container for the question
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            // Create and add the question text
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.textContent = `${index + 201}) ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            // Create the options list
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+            
+            // Create and add each option
+            item.options.forEach((option, optionIndex) => {
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    // Prevent re-answering
+                    if (optionsList.classList.contains('answered')) {
+                        return;
+                    }
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+                    
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        // Highlight the correct answer
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+                
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            quizContainer.appendChild(questionBlock);
+        });
+
+    </script>
+</body>
+</html>
+  

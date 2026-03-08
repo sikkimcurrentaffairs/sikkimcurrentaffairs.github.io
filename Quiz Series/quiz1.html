@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sikkim GK Quiz</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+            border-color: #bbb;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .options-list.answered .option:not(.correct):not(.incorrect) {
+            opacity: 0.7;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none; /* Disables further clicks */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <h1>Sikkim General Knowledge Quiz</h1>
+        <!-- Questions will be dynamically inserted here by JavaScript -->
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "What marks the western boundary of Kanchendzonga National Park?",
+                options: ["Mount Lamaongden", "Tent peak and Zemu Glacier", "Mighty Kanchendzonga and the Nepal peak", "Mount Narsing and Mount Pandim"],
+                answer: 2
+            },
+            {
+                question: "When was Kanchendzonga National Park declared a UNESCO World Heritage Site?",
+                options: ["July 2015", "July 2016", "August 2016", "June 2017"],
+                answer: 1
+            },
+            {
+                question: "How many National Parks are there in Sikkim?",
+                options: ["One", "Two", "Three", "Four"],
+                answer: 0
+            },
+            {
+                question: "When was the Sikkim Biodiversity Board established?",
+                options: ["October 2005", "November 2006", "October 2006", "September 2007"],
+                answer: 2
+            },
+            {
+                question: "In which year was the Kanchendzonga National Park established?",
+                options: ["1975", "1977", "1984", "1996"],
+                answer: 1
+            },
+            {
+                question: "When was the Barsey Rhododendron Sanctuary of West Sikkim established?",
+                options: ["1992", "1994", "1996", "1998"],
+                answer: 2
+            },
+            {
+                question: "The Fambong Lho Wildlife Sanctuary of East Sikkim was established in which year?",
+                options: ["1980", "1984", "1987", "1992"],
+                answer: 1
+            },
+            {
+                question: "In which year was the Kyongnoslas Alpine Sanctuary of East Sikkim established?",
+                options: ["1984", "1987", "1977", "1996"],
+                answer: 2
+            },
+            {
+                question: "The Maenam Wildlife Sanctuary of South Sikkim was established in what year?",
+                options: ["1984", "1987", "1992", "2000"],
+                answer: 1
+            },
+            {
+                question: "When was the Pangolakha Wildlife Sanctuary of East Sikkim established?",
+                options: ["1992", "1996", "2002", "2000"],
+                answer: 2
+            },
+            {
+                question: "The Singba Rhododendron Sanctuary was established in which year?",
+                options: ["1987", "1984", "1996", "2000"],
+                answer: 1
+            },
+            {
+                question: "In which year was the Kitam Bird Sanctuary of South Sikkim established?",
+                options: ["1984", "2005", "1996", "2000"],
+                answer: 1
+            },
+            {
+                question: "What is the approximate length of the Zemu Glacier?",
+                options: ["20 Km", "26 Km", "30 Km", "35 Km"],
+                answer: 1
+            },
+            {
+                question: "The Bird Sanctuary of Rabdentse West Sikkim is known by what name?",
+                options: ["Kitam Bird Sanctuary", "Sidkeong Tulku Bird Sanctuary", "Fambong Lho Bird Sanctuary", "Pangolakha Bird Sanctuary"],
+                answer: 1
+            },
+            {
+                question: "What type of Assembly is The Sikkim Legislative Assembly (SLA)?",
+                options: ["Bicameral", "Unicameral", "Tricameral", "Multicameral"],
+                answer: 1
+            },
+            {
+                question: "By which amendment in the Indian Constitution was the state of Sikkim made a full-fledged state of India?",
+                options: ["35th Amendment", "36th Amendment", "42nd Amendment", "44th Amendment"],
+                answer: 1
+            },
+            {
+                question: "When was the first electricity generating unit installed in Sikkim?",
+                options: ["27th May 1925", "27th May 1927", "15th August 1930", "1st January 1935"],
+                answer: 1
+            },
+            {
+                question: "When was the Sikkim Subjects Regulation Act introduced?",
+                options: ["1951", "1961", "1971", "1975"],
+                answer: 1
+            },
+            {
+                question: "Which article of the Indian Constitution gives special provisions to the state of Sikkim?",
+                options: ["Art 370", "Art 371-A", "Art 371-F", "Art 372"],
+                answer: 2
+            },
+            {
+                question: "How many Chogyals of the Namgyal Dynasty ruled the Kingdom of Sikkim?",
+                options: ["10 (Ten)", "11 (Eleven)", "12 (Twelve)", "13 (Thirteen)"],
+                answer: 2
+            },
+            {
+                question: "When was Sikkim declared as the 'Organic State'?",
+                options: ["19 Jan 2015", "19 Jan 2016", "15 May 2016", "1 July 2016"],
+                answer: 1
+            },
+            {
+                question: "Where is the festival of 'Bhumchu' celebrated in Sikkim?",
+                options: ["Gangtok", "Pelling", "Tashiding", "Yuksom"],
+                answer: 2
+            },
+            {
+                question: "According to the 2011 census, which district of Sikkim is positioned the second highest in terms of population and literacy rate?",
+                options: ["East District", "West District", "North District", "South District"],
+                answer: 3
+            },
+            {
+                question: "On 16th May 1975, Sikkim was inducted as which state of the Indian Union?",
+                options: ["20th State", "21st State", "22nd State", "23rd State"],
+                answer: 2
+            },
+            {
+                question: "What does the Colorful 'Pangdin' donned by a Bhutia Woman symbolize?",
+                options: ["She is unmarried", "She is a widow", "She is a married woman", "She is a royal descendant"],
+                answer: 2
+            },
+            {
+                question: "What is the State Bird of Sikkim?",
+                options: ["Red Panda", "Snow Leopard", "Blood Pheasant", "Himalayan Monal"],
+                answer: 2
+            },
+            {
+                question: "Which animal is the State animal of Sikkim?",
+                options: ["Yak", "Red Panda", "Musk Deer", "Blue Sheep"],
+                answer: 1
+            },
+            {
+                question: "What is the scientific name of Blood Pheasant?",
+                options: ["Ailurus fulgens", "Uncia uncia", "Ithaginis Cruentus", "Moschus chrysogaster"],
+                answer: 2
+            },
+            {
+                question: "According to the 2011 Census, which district of Sikkim is positioned the highest in terms of Population and Literacy rate?",
+                options: ["East District", "West District", "North District", "South District"],
+                answer: 0
+            },
+            {
+                question: "By which amendment in the Indian Constitution was the State of Sikkim made the 'associate state of India'?",
+                options: ["34th Amendment", "35th Amendment", "36th Amendment", "37th Amendment"],
+                answer: 1
+            },
+            {
+                question: "Who was the last and the 12th Chogyal of Sikkim?",
+                options: ["Tashi Namgyal", "Phuntsog Namgyal", "Chogyal Palden Thondup Namgyal", "Tensung Namgyal"],
+                answer: 2
+            },
+            {
+                question: "How many different species of Rhododendron are found in Sikkim?",
+                options: ["26", "30", "36", "40"],
+                answer: 2
+            },
+            {
+                question: "The meaning of 'Gangtok' is said to be a 'Hill Top'. What is known about the actual meaning of the word?",
+                options: ["It definitively means 'High Peak'", "It is a combination of 'Mountain' and 'Valley'", "The actual meaning is still a mystery", "It means 'Sacred Place'"],
+                answer: 2
+            },
+            {
+                question: "What is the traditional system of administration or self-governance still in existence in two villages of North Sikkim known as?",
+                options: ["Panchayat", "Lhomon", "Dzumsa", "Gyalmo"],
+                answer: 2
+            },
+            {
+                question: "Which historically important place in Sikkim is known for the signing of the blood relationship between the Lepcha Chief and the Bhutia Chief?",
+                options: ["Yuksom", "Rabdentse", "Kabi Lungchok", "Tashiding"],
+                answer: 2
+            },
+            {
+                question: "Who was the first Governor of Sikkim?",
+                options: ["Shri B. B. Lal (Bipin Bihari Lal)", "Homi J. H. Taleyarkhan", "Kona Prabhakara Rao", "T. V. Rajeswar"],
+                answer: 0
+            },
+            {
+                question: "The Kings of Sikkim were referred to as 'Chogyal'. What were the Queens referred to as?",
+                options: ["Rani", "Maharani", "Gyalmo", "Lhacham"],
+                answer: 2
+            },
+            {
+                question: "Who was the first British political officer to Sikkim?",
+                options: ["Sir A. J. Hopkinson", "John Claude White", "Charles Alfred Bell", "Frederick Marshman Bailey"],
+                answer: 1
+            },
+            {
+                question: "Who built Rabdentse, the second capital of Sikkim?",
+                options: ["Phuntsog Namgyal", "Tensung Namgyal", "Chador Namgyal", "Gyurmed Namgyal"],
+                answer: 1
+            },
+            {
+                question: "Who was the last British Political Officer to Sikkim?",
+                options: ["John Claude White", "Sir A. J. Hopkinson", "Basil Gould", "Hugh Richardson"],
+                answer: 1
+            },
+            {
+                question: "Where is the coronation throne of the first Chogyal of Sikkim located?",
+                options: ["Rabdentse, West District", "Tashiding, West District", "Norbugang, Yuksom, West District", "Pemayangtse, West District"],
+                answer: 2
+            },
+            {
+                question: "Pang Lhabsol is the thanksgiving festival of Sikkim celebrated in honor of what?",
+                options: ["The Lepcha Chief", "Guru Padmasambhava", "Mt. Kanchenjunga", "The Bhutia Chief"],
+                answer: 2
+            },
+            {
+                question: "Which district of Sikkim is the largest by area but has the least population?",
+                options: ["East Sikkim", "West Sikkim", "North Sikkim", "South Sikkim"],
+                answer: 2
+            },
+            {
+                question: "In which year was the capital of Sikkim shifted from Tumlong to Gangtok?",
+                options: ["1888", "1894", "1905", "1914"],
+                answer: 1
+            },
+            {
+                question: "What are the approximate dimensions of Sikkim's stretch from North to South and East to West?",
+                options: ["100 kms (N-S) and 60 kms (E-W)", "112 kms (N-S) and 64 kms (E-W)", "120 kms (N-S) and 70 kms (E-W)", "105 kms (N-S) and 55 kms (E-W)"],
+                answer: 1
+            },
+            {
+                question: "Between which two places was the first helicopter service inaugurated in Sikkim?",
+                options: ["Gangtok and Pelling", "Bagdogra and Gangtok", "Gangtok and Yuksom", "Bagdogra and Namchi"],
+                answer: 1
+            },
+            {
+                question: "Mt Kanchenjunga is worshipped as a Guardian Deity of Sikkim. What is its approximate elevation above sea level?",
+                options: ["27,815 feet (8478 mtrs)", "28,169 feet (8586 mtrs)", "29,029 feet (8848 mtrs)", "25,771 feet (7855 mtrs)"],
+                answer: 1
+            },
+            {
+                question: "Who was the second speaker of the Sikkim Legislative Assembly?",
+                options: ["L.D. Kazi", "B.B. Gooroong", "Shri B. B. Gurung", "N.B. Bhandari"],
+                answer: 2
+            },
+            {
+                question: "With Sikkim producing 90% of its production, India is the second largest producer of which spice in the World?",
+                options: ["Small Cardamom", "Ginger", "Turmeric", "Big Cardamom"],
+                answer: 3
+            },
+            {
+                question: "Who was the first woman member of the Sikkim Legislative Assembly (SLA)?",
+                options: ["Smt. R.K. Pradhan", "Smt. Dil Kumari Bhandari", "Smt. Hemlata Chettri", "Smt. Kalawati Subba"],
+                answer: 2
+            },
+            {
+                question: "Which Chief Minister of Sikkim is known as the 'Architect of Modern Sikkim'?",
+                options: ["L.D. Kazi", "Shri N. B. Bhandari", "Pawan Kumar Chamling", "S.M. Limboo"],
+                answer: 1
+            },
+            {
+                question: "Which is the largest lake in Sikkim?",
+                options: ["Tsomgo Lake", "Khecheopalri Lake", "Gurudongmar Lake", "Menmecho Lake"],
+                answer: 2
+            },
+            {
+                question: "Which is the largest holy cave of Sikkim, situated at Sangmoo Village?",
+                options: ["Lhari Nyingphug", "Kahdosangphug", "Sharchog Beyphug", "Dechenphug"],
+                answer: 2
+            },
+            {
+                question: "Which is the first monastery established in Sikkim soon after the consecration of the first Chogyal (King)?",
+                options: ["Pemayangtse Monastery", "Rumtek Monastery", "Dubdi Monastery", "Tashiding Monastery"],
+                answer: 2
+            },
+            {
+                question: "Who is believed to have brought Buddhism to Sikkim?",
+                options: ["The Dalai Lama", "Lhatsun Chempo", "Guru Padmasambhava", "Chogyal Phuntsog Namgyal"],
+                answer: 2
+            },
+            {
+                question: "Barahimizong is the festival celebrated by which community of Sikkim?",
+                options: ["Lepcha community", "Bhutia community", "Mangar community", "Gurung community"],
+                answer: 2
+            },
+            {
+                question: "What is the highest civilian award of Sikkim?",
+                options: ["Sikkim Sewa Samman", "Sikkim Ratna", "Sikkim Gaurav", "Kanchenjunga Award"],
+                answer: 1
+            },
+            {
+                question: "Which is the only monastery of the Sakya order of Tibetan Buddhism in Sikkim?",
+                options: ["Rumtek Monastery", "Enchey Monastery", "Sa-Ngor-Chotshog Center", "Phodong Monastery"],
+                answer: 2
+            },
+            {
+                question: "The Pemayangtse Monastery, located 110 km west of Gangtok, was planned, designed and founded by whom in 1647?",
+                options: ["Chogyal Phuntsog Namgyal", "Guru Padmasambhava", "Lama Lhatsun Chempo", "Chogyal Tensung Namgyal"],
+                answer: 2
+            },
+            {
+                question: "Who is the author of the book \"Sikkim: A Short Political History\"?",
+                options: ["P.N. Chopra", "Lal Bahadur Basnet", "Andrew Duff", "J.R. Subba"],
+                answer: 1
+            },
+            {
+                question: "In terms of area, what is Sikkim's position among the states of India?",
+                options: ["Smallest", "Second-smallest (after Goa)", "Third-smallest", "27th"],
+                answer: 1
+            },
+            {
+                question: "What is the approximate area of Sikkim?",
+                options: ["6,096 km²", "7,096 km²", "8,096 km²", "5,096 km²"],
+                answer: 1
+            },
+            {
+                question: "Sikkim is recognized as the first state in the world to become what?",
+                options: ["Carbon Neutral", "100% Literate", "100% Organic", "Fully Electrified"],
+                answer: 2
+            },
+            {
+                question: "Approximately how many hectares of agricultural land in Sikkim are dedicated to organic farming?",
+                options: ["50,000 hectares", "65,000 hectares", "75,000 hectares", "100,000 hectares"],
+                answer: 2
+            },
+            {
+                question: "Approximately how many monasteries are there in Sikkim?",
+                options: ["More than 100", "More than 200", "More than 300", "More than 400"],
+                answer: 1
+            },
+            {
+                question: "In how many languages is the Sikkim Herald published?",
+                options: ["Ten", "Eleven", "Twelve", "Thirteen"],
+                answer: 3
+            },
+            {
+                question: "Which department of Sikkim publishes the Sikkim Herald?",
+                options: ["Department of Culture and Heritage", "Department of Information and Public Relations (IPR)", "Department of Education", "Chief Minister's Office"],
+                answer: 1
+            },
+            {
+                question: "Who started 'Kanchenjunga', one of the most prominent monthly news magazines during the erstwhile monarchy in Sikkim?",
+                options: ["L.D. Kazi", "N.B. Bhandari", "Mr. Kashiraj Pradhan", "C.D. Rai"],
+                answer: 2
+            },
+            {
+                question: "Who is the author of the book 'Sikkim in My Love Story: Collection of Nine Short Stories'?",
+                options: ["Andrew Duff", "Narsing Nirzat", "Lal Bahadur Basnet", "J.R. Subba"],
+                answer: 1
+            },
+            {
+                question: "Who is the author of the book 'Sikkim Requiem for a Himalayan Kingdom'?",
+                options: ["Narsing Nirzat", "V. H. Coelho", "Andrew Duff", "K.S. Gulia"],
+                answer: 2
+            },
+            {
+                question: "In what year was the Handloom and Handcrafts center established in Gangtok?",
+                options: ["1952", "1957", "1961", "1965"],
+                answer: 1
+            },
+            {
+                question: "Which Patron Saint of Sikkim is believed to have touched the Gurudongmar lake whilst he visited Tibet from this area?",
+                options: ["Lhatsun Chempo", "Guru Rimpoche (Padmasambhava)", "Mipham Rinpoche", "Sakya Pandita"],
+                answer: 1
+            },
+            {
+                question: "What is the height of the tallest statue of Guru Padmasambhava in the world, built above Namchi?",
+                options: ["108 ft", "125 ft", "135 ft", "150 ft"],
+                answer: 2
+            },
+            {
+                question: "Which place in Sikkim is believed to have been blessed by Guru Padmasambhava?",
+                options: ["Yuksom", "Pelling", "Chungthang", "Ravangla"],
+                answer: 2
+            },
+            {
+                question: "Who was the president of Sikkim State Congress before Shri L.D. Kazi became president in 1953?",
+                options: ["Tashi Namgyal", "Sonam Tshering", "Shri Tashi Tshering", "Kashi Raj Pradhan"],
+                answer: 2
+            },
+            {
+                question: "In which year was the Namgyal Institute of Tibetology established?",
+                options: ["1953", "1957", "1958", "1961"],
+                answer: 2
+            },
+            {
+                question: "Who is the author of the book 'History, Culture and Customs of Sikkim'?",
+                options: ["K.S. Gulia", "V.H. Coelho", "J. R. Subba", "Andrew Duff"],
+                answer: 2
+            },
+            {
+                question: "Khecheopalri Lake is also known by what other names?",
+                options: ["Sacred Lake or Divine Lake", "\"Wishing lake\" or \"Wish Fulfilling Lake\"", "Dragon Lake or Serene Lake", "Holy Water Lake or Mountain Lake"],
+                answer: 1
+            },
+            {
+                question: "In which year was the treaty of Titaliya signed?",
+                options: ["1815", "1817", "1835", "1861"],
+                answer: 1
+            },
+            {
+                question: "During the time of monarchy in Sikkim, in the 1960s, what was the Department of Information and Public Relations known as?",
+                options: ["Royal Information Bureau", "State Communication Office", "Publicity Department", "Sikkim News Agency"],
+                answer: 2
+            },
+            {
+                question: "Who sang the song \"Ramailo Namchi\"?",
+                options: ["Danny Denzongpa", "Udit Narayan Jha", "Mr. C.B. Gurung", "Bipul Chettri"],
+                answer: 2
+            },
+            {
+                question: "Who wrote the book 'Sikkim and Bhutan'?",
+                options: ["J.R. Subba", "V. H. Coelho", "Andrew Duff", "K.S. Gulia"],
+                answer: 1
+            },
+            {
+                question: "Shri N. B. Bhandari was the founder of which political party of Sikkim?",
+                options: ["Sikkim Democratic Front", "Sikkim Krantikari Morcha", "Sikkim Sangram Parishad", "Sikkim National Congress"],
+                answer: 2
+            },
+            {
+                question: "What was the first monthly news magazine of Sikkim?",
+                options: ["Sikkim Herald", "Kanchenjunga", "Sikkim Express", "Himalayan Mirror"],
+                answer: 1
+            },
+            {
+                question: "Who was the editor of Kanchenjunga, the first monthly news magazine, in 1957?",
+                options: ["Kashiraj Pradhan", "Mr. Nakul Pradhan", "L.D. Kazi", "C.D. Rai"],
+                answer: 1
+            },
+            {
+                question: "Who built the present-day Raj Bhavan at Gangtok?",
+                options: ["Chogyal Tashi Namgyal", "John Claude White (British Political Officer)", "Sir A. J. Hopkinson", "The first Governor of Sikkim"],
+                answer: 1
+            },
+            {
+                question: "Tamu Lochhar is the festival celebrated by which community of Sikkim?",
+                options: ["Lepcha Community", "Bhutia Community", "Gurung Community", "Tamang Community"],
+                answer: 2
+            },
+            {
+                question: "Who was the first recipient of Sikkim Ratna?",
+                options: ["N.B. Bhandari", "Pawan Kumar Chamling", "Shri L. D. Kazi", "B.B. Gurung"],
+                answer: 2
+            },
+            {
+                question: "Sonam Lochhar is the festival celebrated by which community of Sikkim?",
+                options: ["Gurung Community", "Sherpa Community", "Tamang Community", "Rai Community"],
+                answer: 2
+            },
+            {
+                question: "Which is the second largest district of Sikkim by area?",
+                options: ["East district", "West district", "North district", "South district"],
+                answer: 1
+            },
+            {
+                question: "What is the elevation of Mt. Kanchenjunga in feet?",
+                options: ["27,169 ft", "28,169 ft", "29,169 ft", "26,169 ft"],
+                answer: 1
+            },
+            {
+                question: "Who is credited with the establishment of the Forest Department of Sikkim?",
+                options: ["Chogyal Phuntsog Namgyal", "Chogyal Sidkeong Tulku", "Chogyal Tashi Namgyal", "John Claude White"],
+                answer: 1
+            },
+            {
+                question: "Who built Rabdentse, the second capital of Sikkim?",
+                options: ["Phuntsog Namgyal", "Chogyal Tensung Namgyal", "Chador Namgyal", "Gyurmed Namgyal"],
+                answer: 1
+            },
+            {
+                question: "How many monuments of national importance in West District, Sikkim, are under the administrative control of the Archaeological Survey of India, Kolkata Circle?",
+                options: ["One", "Two", "Three", "Four"],
+                answer: 2
+            },
+            {
+                question: "What is the traditional house of the Lepcha people known as?",
+                options: ["Chaam", "Gumpa", "Doo-Kye-Moo / Rong Lee", "Dzumsa"],
+                answer: 2
+            },
+            {
+                question: "Under whose reign was the Dubdi monastery of Sikkim established?",
+                options: ["Chogyal Phuntsog Namgyal", "Chogyal Tensung Namgyal", "Chogyal Chador Namgyal", "Chogyal Gyurmed Namgyal"],
+                answer: 2
+            },
+            {
+                question: "How many Wildlife Sanctuaries are there in Sikkim?",
+                options: ["Five", "Six", "Seven", "Eight"],
+                answer: 2
+            },
+            {
+                question: "Who is the author of the book 'Human Ecology of Sikkim', published in 2005?",
+                options: ["J.R. Subba", "K.S Gulia", "Andrew Duff", "V.H. Coelho"],
+                answer: 1
+            },
+            {
+                question: "The Kanchenjunga National Park covers an area of 1,784 Sq.Km. What percentage of the total geographical area of Sikkim does this represent?",
+                options: ["15%", "20%", "25%", "30%"],
+                answer: 2
+            },
+            {
+                question: "What geographical features mark the northern boundary of Kanchendzonga National Park?",
+                options: ["Mighty Kanchendzonga and Nepal peak", "Tent peak and the ridge of Zemu Glacier", "Ridge of Mount Lamaongden", "Mount Narsing and Mount Pandim"],
+                answer: 1
+            },
+            {
+                question: "What marks the Eastern boundary of Kanchendzonga National Park?",
+                options: ["Tent peak and Zemu Glacier", "Mighty Kanchendzonga", "Ridge of Mount Lamaongden", "Mount Narsing and Mount Pandim"],
+                answer: 2
+            },
+            {
+                question: "What geographical features mark the southern boundary of Kanchendzonga National Park?",
+                options: ["Tent peak and Zemu Glacier", "Ridge of Mount Lamaongden", "Mighty Kanchendzonga", "Mount Narsing and Mount Pandim"],
+                answer: 3
+            }
+        ];
+
+        const quizContainer = document.getElementById('quiz-container');
+
+        quizData.forEach((item, index) => {
+            // Create the main container for the question
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            // Create and add the question text
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.textContent = `${index + 1}) ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            // Create the options list
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+            
+            // Create and add each option
+            item.options.forEach((option, optionIndex) => {
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    // Prevent re-answering
+                    if (optionsList.classList.contains('answered')) {
+                        return;
+                    }
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+                    
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        // Highlight the correct answer
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+                
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            quizContainer.appendChild(questionBlock);
+        });
+
+    </script>
+</body>
+</html>

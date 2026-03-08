@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sikkim GK Quiz</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+            border-color: #bbb;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .options-list.answered .option:not(.correct):not(.incorrect) {
+            opacity: 0.7;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none; /* Disables further clicks */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <h1>Sikkim General Knowledge Quiz</h1>
+        <!-- Questions will be dynamically inserted here by JavaScript -->
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "For how many consecutive years did the Sikkim Tourism Department win the national award for the best performing state in the North East?",
+                options: ["5", "6", "7", "8"],
+                answer: 2
+            },
+            {
+                question: "In which year was the Tourism Department of Sikkim awarded the National Tourism Award for the best State/UTs Tourism related program?",
+                options: ["2006-07", "2007-08", "2008", "1998-99"],
+                answer: 2
+            },
+            {
+                question: "The Nepali language was included in the Eighth Schedule of the Indian Constitution by which amendment?",
+                options: ["70th Amendment Act", "71st Amendment Act", "72nd Amendment Act", "73rd Amendment Act"],
+                answer: 1
+            },
+            {
+                question: "How many official state languages are recognized in Sikkim?",
+                options: ["3", "8", "10", "11"],
+                answer: 3
+            },
+            {
+                question: "Which three languages were the first to be recognized as state languages by the Sikkim Official Language Act of 1977?",
+                options: ["Nepali, Limboo, Rai", "Nepali, Bhutia, Lepcha", "Bhutia, Lepcha, Gurung", "Limboo, Newari, Tamang"],
+                answer: 1
+            },
+            {
+                question: "In what year was the Limboo language included in the list of Sikkim's state languages?",
+                options: ["1977", "1981", "1995", "1992"],
+                answer: 1
+            },
+            {
+                question: "In 1995, how many additional languages were declared as state languages of Sikkim?",
+                options: ["Three", "Five", "Seven", "Eleven"],
+                answer: 2
+            },
+            {
+                question: "The Losoong festival symbolizes the New Year for which community and also marks the end of what?",
+                options: ["Tibetans, Sowing Season", "Sikkimese Bhutias, Harvest Season", "Lepchas, Winter Season", "Nepalis, Monsoon Season"],
+                answer: 1
+            },
+            {
+                question: "What does the Losar festival, which falls on the first day of the first month of the Tibetan Calendar, symbolize?",
+                options: ["The Sikkimese New Year", "The end of the harvest", "The Tibetan New Year", "The birth of Lord Buddha"],
+                answer: 2
+            },
+            {
+                question: "The festival of Saga Dawa, falling on the 15th day of the 4th month of the Tibetan calendar, is also known as what?",
+                options: ["Losar", "Drukpa Tsechi", "Buddha Poornima", "Pang Lhabsol"],
+                answer: 2
+            },
+            {
+                question: "The Saga Dawa festival commemorates which three events in Lord Buddha's life?",
+                options: ["Birth, First Sermon, and Death", "Birth, Enlightenment, and Achievement of Nirvana", "Enlightenment, First Sermon, and Descent from Heaven", "Birth, Marriage, and Renunciation"],
+                answer: 1
+            },
+            {
+                question: "Which mountain is worshipped as the guardian deity of Sikkim during the Pang Lhabsol festival?",
+                options: ["Mount Everest", "Nanda Devi", "Mt. Khangchendzonga", "K2"],
+                answer: 2
+            },
+            {
+                question: "The Pang Lhabsol festival was popularized by which Chogyal?",
+                options: ["The first Chogyal, Phuntsog Namgyal", "The second Chogyal, Tensung Namgyal", "The third Chogyal, Chagdor Namgyal", "The last Chogyal, Palden Thondup Namgyal"],
+                answer: 2
+            },
+            {
+                question: "What event is symbolized by the Lhabab Dhuchen festival?",
+                options: ["Lord Buddha's first preaching", "The birth of Lord Buddha", "The descent of Lord Buddha from heaven", "The attainment of Nirvana by Lord Buddha"],
+                answer: 2
+            },
+            {
+                question: "The Drukpa Tsechi festival symbolizes which major event in Lord Buddha's life?",
+                options: ["His first preaching at Sarnath", "His birth in Lumbini", "His descent from heaven", "His achievement of Nirvana"],
+                answer: 0
+            },
+            {
+                question: "The Bhum Chu festival is held at which monastery?",
+                options: ["Rumtek Monastery", "Pemayangtse Monastery", "Enchey Monastery", "Tashiding Monastery"],
+                answer: 3
+            },
+            {
+                question: "According to the text, how many monasteries does Sikkim currently have?",
+                options: ["Around 50", "Around 100", "More than 200", "Exactly 108"],
+                answer: 2
+            },
+            {
+                question: "What is unique about Sikkim's government structure in India?",
+                options: ["It is the only state with a Department of Happiness.", "It is the only state with an exclusive ecclesiastical affairs department.", "It is the only state that has no local government bodies.", "It is the only state with a separate department for monasteries."],
+                answer: 1
+            },
+            {
+                question: "To which Buddhist sect do the Pemayangtse, Enchey, and Tashiding monasteries belong?",
+                options: ["Kargyupa", "Sakya", "Nyingmapa", "Gelug"],
+                answer: 2
+            },
+            {
+                question: "Which monastery is the oldest in Sikkim, built in 1700 A.D. near Yoksum?",
+                options: ["Rumtek Monastery", "Pemayangtse Monastery", "Dubdi Monastery", "Tashiding Monastery"],
+                answer: 2
+            },
+            {
+                question: "Pemayangtse Monastery was built in 1705 during the reign of which ruler?",
+                options: ["Gyalwa Karmapa", "Chogyal Sidkeong Tulku", "Chogyal Chagdor Namgyal", "Chogyal Gyurmed Namgyal"],
+                answer: 2
+            },
+            {
+                question: "When was the Karma Shri Nalanda Institute (KSNI) for higher Buddhist studies started at Rumtek Monastery?",
+                options: ["1730", "1960s", "1981", "1901"],
+                answer: 2
+            },
+            {
+                question: "The Enchey Monastery was built in 1901 during the reign of which Chogyal?",
+                options: ["Chogyal Chagdor Namgyal", "Chogyal Gyurmed Namgyal", "Chogyal Sidkeong Tulku", "The ninth Karmapa"],
+                answer: 2
+            },
+            {
+                question: "In what year was the Tashiding Monastery built by Chogyal Chakdor Namgyal?",
+                options: ["1700", "1705", "1717", "1740"],
+                answer: 2
+            },
+            {
+                question: "Who built the Phodong Monastery in the year 1740?",
+                options: ["Chogyal Chakdor Namgyal", "Chogyal Gyurmed Namgyal", "Chogyal Sidkeong Tulku", "The Gyalwa Karmapa"],
+                answer: 1
+            },
+            {
+                question: "How many helipads are there in the state of Sikkim?",
+                options: ["12", "15", "17", "21"],
+                answer: 2
+            },
+            {
+                question: "The National Highway that serves as the only lifeline for Sikkim, previously known as NH 31A, is now numbered as?",
+                options: ["NH 10", "NH 17", "NH 31", "NH 55"],
+                answer: 0
+            },
+            {
+                question: "Which company is developing the Teesta Stage III hydro power project?",
+                options: ["Him Urja Pvt Ltd", "NHPC", "Teesta Urja Limited", "Lanco Energy Pvt. Ltd."],
+                answer: 2
+            },
+            {
+                question: "The Chujachen HEP is a project of which company?",
+                options: ["Madhya Bharat Power Corporation", "Sikkim Hydro Ventures Ltd", "Gati Infrastructure Ltd", "Jal Power Corporation Ltd"],
+                answer: 2
+            },
+            {
+                question: "Which hydro power project is being managed by Dans Energy Pvt. Ltd?",
+                options: ["Rongnichu HEP", "Dikchu HEP", "Jorethang Loop HEP", "Lachung HEP"],
+                answer: 2
+            }
+        ];
+
+        const quizContainer = document.getElementById('quiz-container');
+
+        quizData.forEach((item, index) => {
+            // Create the main container for the question
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            // Create and add the question text
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.textContent = `${index + 1}) ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            // Create the options list
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+            
+            // Create and add each option
+            item.options.forEach((option, optionIndex) => {
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    // Prevent re-answering
+                    if (optionsList.classList.contains('answered')) {
+                        return;
+                    }
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+                    
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        // Highlight the correct answer
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+                
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            quizContainer.appendChild(questionBlock);
+        });
+
+    </script>
+</body>
+</html>

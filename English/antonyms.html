@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antonym Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .quiz-container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .question-word {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options div {
+            margin-bottom: 10px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .options div:hover {
+            background-color: #e9e9e9;
+        }
+        .options input[type="radio"] {
+            margin-right: 10px;
+        }
+        .feedback {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .feedback.correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .feedback.incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #next-btn {
+            background-color: #28a745;
+            margin-top: 10px;
+        }
+        #next-btn:hover {
+            background-color: #1e7e34;
+        }
+        .progress {
+            margin-bottom: 15px;
+            font-size: 0.9em;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h1>Antonym Quiz</h1>
+        <div class="progress" id="progress-text"></div>
+        <div id="question-area">
+            <div class="question-word" id="question-word-display"></div>
+            <div class="options" id="options-display">
+                <!-- Options will be dynamically inserted here -->
+            </div>
+            <button id="submit-btn">Check Answer</button>
+            <div class="feedback" id="feedback-display" style="display:none;"></div>
+            <button id="next-btn" style="display:none;">Next Question</button>
+        </div>
+        <div id="results-area" style="display:none;">
+            <h2>Quiz Finished!</h2>
+            <p id="score-display"></p>
+            <button id="restart-btn">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        // This is the master list of all questions for the quiz.
+        // It's declared as 'const' so its original content won't be accidentally modified.
+        const masterQuestionBank = [
+            { id: 1, word: "Fastidious", options: ["Fussy", "Cooperative", "Promising", "Adjustable"], answer: "d" },
+            { id: 6, word: "Veneration", options: ["Fear", "Reverence", "Remorse", "Disrespect"], answer: "d" },
+            { id: 8, word: "Urban", options: ["Rustic", "Rural", "Civil", "Foreign"], answer: "b" },
+            { id: 12, word: "Vague", options: ["Clear", "Dull", "Unknown", "Shady"], answer: "a" },
+            { id: 25, word: "Flair", options: ["Spreading outward", "Inability", "Spotlight", "Taste"], answer: "b" },
+            { id: 26, word: "Collapse", options: ["Rise", "Handicap", "Crush", "Crumble"], answer: "a" },
+            { id: 43, word: "Duplicity", options: ["Complexity", "Honesty", "Serenity", "Originality"], answer: "b" },
+            { id: 45, word: "Jocular", options: ["Merry", "Morose", "Jugular", "Juggler"], answer: "b" },
+            { id: 48, word: "Zeal", options: ["Disinterest", "Apathy", "Carelessness", "Hatred"], answer: "b" },
+            { id: 49, word: "Desecration", options: ["Consecration", "Discouragement", "Despondency", "Expectation"], answer: "a" },
+            { id: 52, word: "Takes off", options: ["Travels", "Falls", "Explodes", "Lands"], answer: "d" },
+            { id: 60, word: "Diffidence", options: ["Boldness", "Outspokenness", "Fluency", "Obstinacy"], answer: "a" },
+            { id: 63, word: "Scorn", options: ["Contempt", "Joy", "Admiration", "Pity"], answer: "c" },
+            { id: 66, word: "Lurid", options: ["Dismal", "Mild", "Murky", "Mysterious"], answer: "b" },
+            { id: 73, word: "Eminent", options: ["Illustrious", "Notorious", "Intelligent", "Known"], answer: "b" },
+            { id: 79, word: "Paucity", options: ["Overflow", "Inflow", "Plenty", "Grim"], answer: "c" },
+            { id: 81, word: "Triggered", options: ["Choked", "Tapered off", "Diluted", "Ignited"], answer: "a" },
+            { id: 85, word: "Vindictive", options: ["Careless", "Forgiving", "Heedless", "Refined"], answer: "b" },
+            { id: 88, word: "Embellish", options: ["Dishonour", "Demolish", "Spoil", "Suffice"], answer: "c" },
+            { id: 96, word: "Perilous", options: ["Pitiable", "Difficult", "Safe", "Comfortable"], answer: "c" },
+            { id: 98, word: "Audacious", options: ["Cautious", "Timid", "Rude", "Proud"], answer: "b" },
+            { id: 103, word: "Ham-fisted", options: ["Simple", "Adroit", "Difficult", "Vague"], answer: "b" },
+            { id: 109, word: "Anarchy", options: ["Curfew", "Permanence", "Wholesome", "Order"], answer: "d" },
+            { id: 116, word: "Philistine", options: ["Cultured", "Libertine", "Sober", "Educated"], answer: "a" },
+            { id: 119, word: "Implicate", options: ["Exonerate", "Impersonate", "Complicate", "Impose"], answer: "a" },
+            { id: 127, word: "Famous", options: ["Obscure", "Eminent", "Lenient", "Fabulous"], answer: "a" },
+            { id: 132, word: "Antique", options: ["Common", "Recent", "Innovative", "Youthful"], answer: "b" },
+            { id: 137, word: "Consensus", options: ["Accept", "Opinion", "Disagreement", "Permission"], answer: "c" },
+            { id: 144, word: "Evanescent", options: ["Clean", "Tight", "Eternal", "Cheap"], answer: "c" },
+            { id: 150, word: "Adamant", options: ["Yielding", "Permissive", "Liberal", "Tolerant"], answer: "a" },
+            { id: 156, word: "Probity", options: ["Dishonesty", "Timidity", "Treachery", "Insincerity"], answer: "a" },
+            { id: 157, word: "Gregarious", options: ["Recluse", "Social", "Laudatory", "Rustic"], answer: "a" },
+            { id: 158, word: "Sporadic", options: ["Surviving", "Sweeping", "Restrained", "Continual"], answer: "d" },
+            { id: 164, word: "Sanguine temper", options: ["Despairing nature", "Peaceful temperament", "Rude behaviour", "Selfish nature"], answer: "a" },
+            { id: 170, word: "Vituperative", options: ["Joyous", "Laudatory", "Critical", "Virtuous"], answer: "b" },
+            { id: 176, word: "Enervate", options: ["Decelerate", "Strengthen", "Push forward", "Aggravate"], answer: "b" },
+            { id: 190, word: "Affluence", options: ["Not being fluent", "Poverty", "Difficult", "Unhealthy"], answer: "b" },
+            { id: 197, word: "Fickle", options: ["Constant", "Convenient", "Questionable", "Faithful"], answer: "a" },
+            { id: 201, word: "Humble", options: ["Rich", "Powerful", "Haughty", "Strong"], answer: "c" },
+            { id: 209, word: "Steadfast", options: ["Staunch", "Feeble", "Faint", "Wavering"], answer: "d" },
+            { id: 212, word: "Spurious", options: ["Truthful", "Authentic", "Credible", "Original"], answer: "b" },
+            { id: 216, word: "Adulation", options: ["Flattery", "Encomium", "Confession", "Condemnation"], answer: "d" },
+            { id: 218, word: "Affluent", options: ["Poor", "Ordinary", "Infamous", "Backward"], answer: "a" },
+            { id: 219, word: "Agony", options: ["Ecstasy", "Laughter", "Humdrum", "Ecstasy"], answer: "a" },
+            { id: 222, word: "Camaraderie", options: ["Curiosity", "Ferocity", "Impetuosity", "Animosity"], answer: "d" },
+            { id: 231, word: "Exotic", options: ["Wonderful", "Cosmopolitan", "Irrelevant", "Common"], answer: "b" },
+            { id: 235, word: "Garrulous", options: ["Vociferous", "Eloquent", "Taciturn", "Vocal"], answer: "c" },
+            { id: 237, word: "In toto", options: ["Bluntly", "Partially", "Entirely", "Strongly"], answer: "b" },
+            { id: 250, word: "Ostracise", options: ["Amuse", "Welcome", "Entertain", "Host"], answer: "b" },
+            { id: 255, word: "Quiescent", options: ["Restless", "Exempt", "Malignant", "Mendicant"], answer: "a" }
+        ];
+
+        let activeQuizQuestions = []; // The dynamic list for the current quiz session, includes re-queued items.
+        let currentQuestionIdx = 0;
+        let userScore = 0; // Number of unique questions answered correctly.
+        let totalUniqueQuestions = 0; // Total number of unique questions from the master bank.
+        let correctlyAnsweredUniqueIds = new Set(); // Stores IDs of unique questions answered correctly.
+
+        const questionWordDisplay = document.getElementById('question-word-display');
+        const optionsDisplay = document.getElementById('options-display');
+        const feedbackDisplay = document.getElementById('feedback-display');
+        const submitBtn = document.getElementById('submit-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const progressText = document.getElementById('progress-text');
+        
+        const questionArea = document.getElementById('question-area');
+        const resultsArea = document.getElementById('results-area');
+        const scoreDisplay = document.getElementById('score-display');
+        const restartBtn = document.getElementById('restart-btn');
+
+        function initializeQuiz() {
+            // Create a deep copy of the master question bank for the active session
+            // This ensures 'masterQuestionBank' remains unchanged for future restarts.
+            activeQuizQuestions = JSON.parse(JSON.stringify(masterQuestionBank));
+            totalUniqueQuestions = activeQuizQuestions.length; // At the start, this is the count of unique questions
+            currentQuestionIdx = 0;
+            userScore = 0;
+            correctlyAnsweredUniqueIds.clear();
+
+            questionArea.style.display = 'block';
+            resultsArea.style.display = 'none';
+            submitBtn.style.display = 'block'; // Ensure submit button is visible
+            nextBtn.style.display = 'none';   // And next button is hidden
+            feedbackDisplay.style.display = 'none'; // Hide any previous feedback
+
+            loadCurrentQuestion();
+        }
+
+        function loadCurrentQuestion() {
+            if (currentQuestionIdx < activeQuizQuestions.length) {
+                const questionData = activeQuizQuestions[currentQuestionIdx];
+                questionWordDisplay.textContent = `${questionData.id}. ${questionData.word}`;
+                // Update progress: current attempt out of total in queue, and unique solved so far.
+                progressText.textContent = `Question ${currentQuestionIdx + 1} of ${activeQuizQuestions.length}. (Unique Solved: ${userScore}/${totalUniqueQuestions})`;
+
+                optionsDisplay.innerHTML = ''; // Clear previous options
+                questionData.options.forEach((option, index) => {
+                    const optionLetter = String.fromCharCode(97 + index); // a, b, c, d
+                    const div = document.createElement('div');
+                    div.innerHTML = `
+                        <input type="radio" name="option" value="${optionLetter}" id="opt-${optionLetter}">
+                        <label for="opt-${optionLetter}">${optionLetter}) ${option}</label>
+                    `;
+                    optionsDisplay.appendChild(div);
+                });
+
+                feedbackDisplay.style.display = 'none';
+                submitBtn.style.display = 'block';
+                nextBtn.style.display = 'none';
+                // Ensure radio buttons are enabled for the new question
+                document.querySelectorAll('input[name="option"]').forEach(rb => rb.disabled = false);
+            } else {
+                // All questions in the (potentially extended) queue have been processed
+                displayResults();
+            }
+        }
+
+        function handleSubmitAnswer() {
+            const selectedOptionInput = document.querySelector('input[name="option"]:checked');
+            if (!selectedOptionInput) {
+                alert('Please select an answer.');
+                return;
+            }
+
+            const currentQuestionData = activeQuizQuestions[currentQuestionIdx];
+            const userAnswer = selectedOptionInput.value;
+            const correctAnswerLetter = currentQuestionData.answer;
+            // Get the text of the correct option for user-friendly feedback
+            const correctAnswerText = currentQuestionData.options[correctAnswerLetter.charCodeAt(0) - 97];
+
+
+            if (userAnswer === correctAnswerLetter) {
+                feedbackDisplay.textContent = 'Correct!';
+                feedbackDisplay.className = 'feedback correct';
+                // Increment score only if this unique question (by ID) is answered correctly for the first time
+                if (!correctlyAnsweredUniqueIds.has(currentQuestionData.id)) {
+                    userScore++;
+                    correctlyAnsweredUniqueIds.add(currentQuestionData.id);
+                }
+            } else {
+                feedbackDisplay.textContent = `Incorrect. The correct answer (antonym) was: ${correctAnswerLetter.toUpperCase()}) ${correctAnswerText}. This question will appear again later.`;
+                feedbackDisplay.className = 'feedback incorrect';
+                // Add a deep copy of the current question to the end of the array to be re-asked
+                activeQuizQuestions.push(JSON.parse(JSON.stringify(currentQuestionData)));
+            }
+
+            feedbackDisplay.style.display = 'block';
+            submitBtn.style.display = 'none';
+            nextBtn.style.display = 'block';
+            
+            // Disable radio buttons after answering to prevent re-submission for the current view
+            document.querySelectorAll('input[name="option"]').forEach(rb => rb.disabled = true);
+
+            // Update progress text as score or total questions in queue might have changed
+            progressText.textContent = `Question ${currentQuestionIdx + 1} of ${activeQuizQuestions.length}. (Unique Solved: ${userScore}/${totalUniqueQuestions})`;
+        }
+
+        function handleNextQuestion() {
+            currentQuestionIdx++;
+            loadCurrentQuestion();
+        }
+        
+        function displayResults() {
+            questionArea.style.display = 'none';
+            resultsArea.style.display = 'block';
+            
+            let mainMessage = `Quiz Finished! You correctly answered ${userScore} out of ${totalUniqueQuestions} unique questions.`;
+            
+            if (userScore === totalUniqueQuestions) {
+                // activeQuizQuestions.length will be equal to currentQuestionIdx at this point
+                if (activeQuizQuestions.length === totalUniqueQuestions) { 
+                    // This implies no questions were added to the queue, so all were correct on first try
+                    mainMessage += " Perfect score, all correct on the first try!";
+                } else {
+                    // All unique questions were solved, but some required re-attempts
+                    mainMessage += " Congratulations, you eventually mastered all unique questions!";
+                }
+            }
+            
+            scoreDisplay.innerHTML = mainMessage;
+            // Add info about total attempts if there were any repeats
+            if (activeQuizQuestions.length > totalUniqueQuestions) {
+                 scoreDisplay.innerHTML += `<br>Total questions presented (including repeats): ${activeQuizQuestions.length}.`;
+            }
+        }
+
+        submitBtn.addEventListener('click', handleSubmitAnswer);
+        nextBtn.addEventListener('click', handleNextQuestion);
+        restartBtn.addEventListener('click', initializeQuiz);
+
+        // Load the first question when the page loads
+        initializeQuiz();
+    </script>
+
+</body>
+</html>

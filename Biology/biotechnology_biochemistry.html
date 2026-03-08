@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biotechnology & Biochemistry | Sikkim PSC Hub</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+            border-color: #bbb;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            font-weight: bold;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+        }
+        .options-list.answered .option:not(.correct):not(.incorrect) {
+            opacity: 0.7;
+        }
+        .options-list.answered .option {
+            cursor: default;
+            pointer-events: none;
+        }
+        .quiz-stats {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <a href="biology.html" class="back-link">&larr; Back to Biology</a>
+        <h1>Biotechnology & Biochemistry</h1>
+        <p class="quiz-stats">21 Questions</p>
+        <div id="questions-wrapper"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Plants synthesis protein from",
+                options: ["starch", "sugar", "amino acids", "fatty acids"],
+                answer: 2
+            },
+            {
+                question: "Out of proteins, lipids and carbohydrates present in a cell membrane, what is true?",
+                options: ["Lipids are maximum", "Carbohydrates are minimum", "Carbohydrates are maximum", "All three are in equal proportion"],
+                answer: 1
+            },
+            {
+                question: "Ptyalin is an enzyme produced in the",
+                options: ["salivary glands", "pituitary glands", "thyroid glands", "pancreas"],
+                answer: 0
+            },
+            {
+                question: "Lymph carries digested and absorbed fat from ________ .",
+                options: ["Lungs", "Intestine", "Stomach", "Kidney"],
+                answer: 1
+            },
+            {
+                question: "Which are called the factory of protein synthesis?",
+                options: ["Ribosomes", "Lysosmes", "Golgi Bodies", "Mitochondria"],
+                answer: 0
+            },
+            {
+                question: "The enzyme which take part in digestion of milk protein is",
+                options: ["Pepsin", "Trypsin", "Rennin", "Eripsin"],
+                answer: 2
+            },
+            {
+                question: "Which one of the following is an enzyme ?",
+                options: ["Gastrin", "Keratin", "Trypsin", "Vasopressin"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is not an enzyme?",
+                options: ["Oxytocin", "Trypsin", "Pepsin", "Ptyalin"],
+                answer: 0
+            },
+            {
+                question: "Fat is completely digested in the",
+                options: ["Small intestine", "Mouth", "Large intestine", "Stomach"],
+                answer: 0
+            },
+            {
+                question: "Where does digestion of protein begins?",
+                options: ["Mouth", "Pharynx", "Stomach", "Liver"],
+                answer: 2
+            },
+            {
+                question: "After digestion protein is converted into",
+                options: ["Fat", "Glucose", "Amino acid", "Fractose"],
+                answer: 2
+            },
+            {
+                question: "Pepsin is an enzyme that digests ________ .",
+                options: ["Proteins", "Starch", "Carbohydrate", "Fats"],
+                answer: 0
+            },
+            {
+                question: "The enzyme found in saliva",
+                options: ["Renine", "Ptylin", "Tenin", "Resin"],
+                answer: 1
+            },
+            {
+                question: "The trypsinogen is an enzyme secreted by the",
+                options: ["Liver", "Illeum", "Duodenum", "Pancreas"],
+                answer: 3
+            },
+            {
+                question: "All of the following are fat-soluble vitamins except",
+                options: ["Vitamin C", "Vitamin A", "Vitamin D", "Vitamin K"],
+                answer: 0
+            },
+            {
+                question: "Which of the following is a good source of protein?",
+                options: ["Pea", "Pigeon Pea", "Black Gram", "Soyabean"],
+                answer: 3
+            },
+            {
+                question: "The main protein found in milk is ________",
+                options: ["Albumin", "Globulin", "Globin", "Casein"],
+                answer: 3
+            },
+            {
+                question: "Which of the following statements is not true about metabolism?",
+                options: ["Younger people generally have a slower metabolism than adults", "Basal metabolism is the amount of energy needed for sustaining life", "Basal metabolism is measured by the amount of calories burned when your body is inactive", "Metabolism is influenced by numerous factors, such as heredity and age"],
+                answer: 0
+            },
+            {
+                question: "Which vitamin also act as coenzymes?",
+                options: ["K", "E", "B12", "None of the Above"],
+                answer: 2
+            },
+            {
+                question: "Where does protein synthesis take place?",
+                options: ["Nucleus", "Ribosomes", "On the cell wall", "All of the above"],
+                answer: 1
+            },
+            {
+                question: "The thyroid hormone that regulates carbohydrate metabolism is",
+                options: ["Parathyroid", "Thyroxin", "Parathormone", "Estrogen"],
+                answer: 1
+            }
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.textContent = `${index + 1}) ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) {
+                        return;
+                    }
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            wrapper.appendChild(questionBlock);
+        });
+    </script>
+</body>
+</html>

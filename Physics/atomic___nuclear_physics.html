@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atomic & Nuclear Physics | Sikkim PSC Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        .quiz-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        html.dark .quiz-container {
+            background: #24272c;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #0284c7;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .question-block {
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        html.dark .question-block {
+            border-bottom: 1px solid #334155;
+        }
+        .question-text {
+            font-size: 1.15em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+        html.dark .question-text {
+            color: #f1f5f9;
+        }
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option {
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            padding: 16px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            color: #475569;
+        }
+        html.dark .option {
+            background-color: #1e293b;
+            border: 2px solid #334155;
+            color: #cbd5e1;
+        }
+        .option:hover {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
+            transform: translateX(4px);
+        }
+        html.dark .option:hover {
+            background-color: #334155;
+            border-color: #475569;
+        }
+        .option.correct {
+            background-color: #dcfce7 !important;
+            border-color: #4ade80 !important;
+            color: #166534 !important;
+        }
+        html.dark .option.correct {
+            background-color: #064e3b !important;
+            border-color: #10b981 !important;
+            color: #ecfdf5 !important;
+        }
+        .option.incorrect {
+            background-color: #fee2e2 !important;
+            border-color: #f87171 !important;
+            color: #991b1b !important;
+        }
+        html.dark .option.incorrect {
+            background-color: #7f1d1d !important;
+            border-color: #ef4444 !important;
+            color: #fef2f2 !important;
+        }
+        .options-list.answered {
+            pointer-events: none;
+        }
+        .quiz-stats-badge {
+            background: #f1f5f9;
+            color: #64748b;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        html.dark .quiz-stats-badge {
+            background: #334155;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 min-h-screen p-4 sm:p-8">
+
+    <div class="quiz-container">
+        <a href="physics.html" class="back-link">&larr; Back to Physics Topics</a>
+        <h1 class="text-3xl font-bold text-blue-800 dark:text-blue-400 mb-2">Atomic & Nuclear Physics</h1>
+        <div class="quiz-stats-badge">42 MCQ Questions</div>
+        
+        <div id="questions-wrapper"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Nuclear sizes are expressed in a unit named",
+                options: ["Fermi", "Angstrom", "Newton", "Tesla"],
+                answer: 0
+            },
+            {
+                question: "Out of the following, which is not emitted by  radioactive substance?",
+                options: ["Electrons", "Electromagnetic radiations", "Alpha particles", "Neutrons"],
+                answer: 3
+            },
+            {
+                question: "Point A is at a lower electrical potential  than point B. An electron between them on the line joining them will",
+                options: ["Move towards A", "Move towards B", "Move at right angles to the line joining A and B", "Remain at rest"],
+                answer: 1
+            },
+            {
+                question: "Which tube used to produce X-ray?",
+                options: ["Coolidge tube", "X-ray tube", "Roentgen", "None of these"],
+                answer: 0
+            },
+            {
+                question: "According to the theory of relativity, which of the following always remains constant ?",
+                options: ["Length of an object", "Time", "Space", "Velocity of light"],
+                answer: 3
+            },
+            {
+                question: "Who gave the Theory of Relativity?",
+                options: ["Isaac Newton", "Archimedes", "Albert Einstein", "Galileo Galilei"],
+                answer: 2
+            },
+            {
+                question: "According to special theory of relativity the mass of a particle",
+                options: ["Increases with increase in velocity with respect to an observer.", "Decreases with increase in velocity.", "Decreases with decrease in velocity.", "Is independent of its velocity."],
+                answer: 0
+            },
+            {
+                question: "The theory of relativity is presented by which scientist",
+                options: ["Albert Einstein", "Isaac Newton", "Stephen Hawking", "Marie Curie"],
+                answer: 0
+            },
+            {
+                question: "Who is known as the 'father of quantum theory'?",
+                options: ["Albert Einstein", "Max Planck", "Werner Heisenberg", "Ernest Rutherford"],
+                answer: 1
+            },
+            {
+                question: "Atomic hydrogen has a life period of",
+                options: ["One hour", "One day", "One minute", "A fraction of a second"],
+                answer: 3
+            },
+            {
+                question: "According to Rutherford's atomic model, the electrons inside an atom are",
+                options: ["Centralized", "Not Stationary", "Stationary", "None of these"],
+                answer: 1
+            },
+            {
+                question: "When an atom loses an electron it becomes",
+                options: ["Neutron", "Negative ion", "Positive ion", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "What is the size of Electron as comapared to Proton and Neutron?",
+                options: ["1/355", "1/1236", "1/1836", "1/1923"],
+                answer: 2
+            },
+            {
+                question: "Proton carry a",
+                options: ["Positive Charge", "Negative Charge", "Variable Charge", "Neutral Charge"],
+                answer: 0
+            },
+            {
+                question: "An electron and a proton starting from rest get accelerated through potential difference of 100 kV. The final speed of the electron and the proton are Ve and Vp respectively. Which of the following relations is correct?",
+                options: ["Ve > Vp", "Ve < Vp", "Ve = Vp", "Cannot be determined"],
+                answer: 0
+            },
+            {
+                question: "For photoelectric effect to take place, the metal used as the cathode should have ________",
+                options: ["High melting point", "Low melting point", "Low work function", "Low resistance"],
+                answer: 2
+            },
+            {
+                question: "Photon is the fundamental unit/quantum of",
+                options: ["Gravitation", "Electricity", "Magnetism", "Light"],
+                answer: 3
+            },
+            {
+                question: "Gamma rays can cause",
+                options: ["Gene mutation", "Sneezing", "Burning", "Fever"],
+                answer: 0
+            },
+            {
+                question: "Who discovered X-ray?",
+                options: ["Marie Curie", "Pierre Curie", "Wilhelm Roentgen", "Ernest Rutherford"],
+                answer: 2
+            },
+            {
+                question: "Beta rays emitted by a radioactive material are",
+                options: ["The electrons orbiting around the nucleus", "Charged particles emitted by nucleus", "Neutral particles", "Electromagnetic radiations"],
+                answer: 1
+            },
+            {
+                question: "At the center of the sun, fusion converts hydrogen into",
+                options: ["Helium", "Plutonium", "Water", "Carbon"],
+                answer: 0
+            },
+            {
+                question: "Gamma rays have greatest similarity with",
+                options: ["A-rays", "B-rays", "X-rays", "U.V.-rays"],
+                answer: 2
+            },
+            {
+                question: "Heavy water is used in nuclear reactor to",
+                options: ["Slow down neutron", "Absorb neutron", "Increase temperature", "Increase speed of neutron"],
+                answer: 0
+            },
+            {
+                question: "What are the particles emitted by radioactive element after 3 consecutive disintegration?",
+                options: ["2 alpha 1 beta", "1 alpha 1 beta", "2 beta 1 alpha", "2 beta 2 alpha"],
+                answer: 2
+            },
+            {
+                question: "In a nuclear reactor, one of the following is used as a fuel.",
+                options: ["Coal", "Uranium", "Radium", "Diesel"],
+                answer: 1
+            },
+            {
+                question: "Alpha particle is the nucleus of an atom of",
+                options: ["Lithium", "Hydrogen", "Helium", "Oxygen"],
+                answer: 2
+            },
+            {
+                question: "In nuclear reactor, heavy water is used as",
+                options: ["Coolant", "Fuel", "Moderator", "Atomic smasher"],
+                answer: 2
+            },
+            {
+                question: "Radioactive elements can be traced out in living cell through a technique called",
+                options: ["Centrifugation", "Chromatography", "Auto radiography", "All the above"],
+                answer: 2
+            },
+            {
+                question: "Nuclear Reactors are based on which of the following phenomenon?",
+                options: ["Magnetic confinement of Plasma", "Nuclear Fusion", "Controlled Nuclear Fission", "None of the above"],
+                answer: 2
+            },
+            {
+                question: "In beta decay what is emitted?",
+                options: ["Electron", "Proton", "Neutron", "All of the above"],
+                answer: 0
+            },
+            {
+                question: "Nuclear Fission is caused by the impact of",
+                options: ["Electron", "Neutron", "Proton", "Deutron"],
+                answer: 1
+            },
+            {
+                question: "Which of the following branch of Physics deal with study of Atomic Nuclei?",
+                options: ["Nuclear Physics", "Bio Physics", "Atomic Physics", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "Gamma rays are emissions that have",
+                options: ["Charge but no mass", "Neither mass nor charge", "Both mass and charge", "Mass but no charge"],
+                answer: 1
+            },
+            {
+                question: "In the gamma decay of a nucleus",
+                options: ["The mass number of the nucleus changes whereas its atomic number does not change", "The mass number of the nucleus does not change whereas its atomic number changes", "Both the mass number and the atomic number of the nucleus change", "Neither the mass number nor the atomic number of the nucleus changes"],
+                answer: 3
+            },
+            {
+                question: "Who among the following developed the technology of underground nuclear explosion ?",
+                options: ["Dr. Homi J. Bhabha", "Dr. Vikram Sarabhai", "Dr. Raja Ramanna", "Dr. P. K. Iyengar"],
+                answer: 0
+            },
+            {
+                question: "Atomic packing factor of body centred cubic structure (bcc) is",
+                options: ["0.63", "0.68", "0.69", "0.73"],
+                answer: 1
+            },
+            {
+                question: "A nuclear reactor is said to have become 'critical' when",
+                options: ["It stops due to malfunctioning", "It starts emitting dangerous radioactive radiations", "It is shut down to avoid explosion", "It is ready to produce controlled energy"],
+                answer: 3
+            },
+            {
+                question: "Nuclear reactors used to produce electricity are based on",
+                options: ["Nuclear fission", "Nuclear fusion", "Cold fusion", "Superconductivity"],
+                answer: 0
+            },
+            {
+                question: "An electron microscope gives higher magnification than an optical microscope, because :",
+                options: ["It uses more powerful lenses", "The velocity of electron is smaller than that of visible light", "The electrons have more energy than the light particles", "The wavelength of electrons is smaller as compared to the wavelength of visible light"],
+                answer: 3
+            },
+            {
+                question: "To resolve an object in an electron microscope,",
+                options: ["The wavelength of the electrons must be close to the diameter of the object", "The wavelength of the electrons must be greater than the diameter of the object.", "Both A & B", "None of the above"],
+                answer: 0
+            },
+            {
+                question: "Electron microscope works on which of the following principles?",
+                options: ["Optical interference", "Wave Nature of electrons", "Motion of charged particle in electromagnetic fields", "Faraday's law of Electromagnetic induction"],
+                answer: 1
+            },
+            {
+                question: "In quantum mechanics a particle is represented by a",
+                options: ["Wave", "Wave packet", "Particle", "None of the above"],
+                answer: 1
+            }
+        ];
+
+        const wrapper = document.getElementById('questions-wrapper');
+
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.className = 'question-text';
+            questionText.innerHTML = `<span class="text-blue-600 dark:text-blue-500 mr-2">Q${index + 1}.</span> ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((option, optionIndex) => {
+                if (!option || option.trim() === '') return;
+                
+                const optionItem = document.createElement('li');
+                optionItem.className = 'option';
+                optionItem.textContent = option;
+                optionItem.dataset.index = optionIndex;
+
+                optionItem.addEventListener('click', () => {
+                    if (optionsList.classList.contains('answered')) return;
+                    optionsList.classList.add('answered');
+
+                    const selectedAnswer = parseInt(optionItem.dataset.index);
+                    const correctAnswer = item.answer;
+
+                    if (selectedAnswer === correctAnswer) {
+                        optionItem.classList.add('correct');
+                    } else {
+                        optionItem.classList.add('incorrect');
+                        optionsList.children[correctAnswer].classList.add('correct');
+                    }
+                });
+
+                optionsList.appendChild(optionItem);
+            });
+
+            questionBlock.appendChild(optionsList);
+            wrapper.appendChild(questionBlock);
+        });
+
+        // Theme sync
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>
