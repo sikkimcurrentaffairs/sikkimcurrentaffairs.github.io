@@ -323,7 +323,7 @@ function renderLoggedInDesktop(container, user) {
 
 function renderLoggedOutMobile(container) {
     container.innerHTML = `
-        <button class="auth-signin-btn-mobile" onclick="signInWithGoogle()">
+        <button class="auth-signin-btn-mobile" onclick="signInWithGoogle()" id="mobile-signin">
             Login / Signup with Google
         </button>
     `;
