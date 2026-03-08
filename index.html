@@ -24,6 +24,10 @@
 
     <style>
         /* --- SOFT DARK MODE --- */
+        html, body {
+            overflow-x: hidden;
+            max-width: 100%;
+        }
         html body {
             background-color: #eef1f5;
             /* Slightly lighter/cleaner base */
@@ -372,8 +376,8 @@
         .year-content {
             transition: max-height 0.4s ease-out, opacity 0.3s ease;
             overflow: hidden;
-            padding: 16px;
-            margin: -16px;
+            padding-top: 16px;
+            padding-bottom: 16px;
         }
 
         .year-collapsed .year-content {
@@ -567,9 +571,9 @@
     </style>
 </head>
 
-<body class="font-sans text-gray-900 dark:text-white antialiased">
+<body class="font-sans text-gray-900 dark:text-white antialiased overflow-x-hidden">
 
-    <div class="min-h-screen flex flex-col">
+    <div class="min-h-screen flex flex-col w-full overflow-hidden">
         <nav class="sticky top-0 z-50 glassmorphic-header">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between h-16">
@@ -702,10 +706,10 @@
             </div>
         </nav>
 
-        <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-24">
-            <div class="text-center">
-                <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight fade-in-up">
-                    <span class="hero-title-word">Sikkim</span> <span class="text-sky-600">PSC preparation <span
+        <main class="flex-grow min-w-0 w-full max-w-[100vw] mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-24 overflow-x-hidden">
+            <div class="text-center w-full min-w-0">
+                <h1 class="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight fade-in-up break-words whitespace-normal">
+                    <span class="hero-title-word">Sikkim</span> <span class="text-sky-600 break-words whitespace-normal">PSC preparation <span
                             class="hero-title-word">hub</span></span>
                 </h1>
                 <p
@@ -716,7 +720,7 @@
                 </p>
 
                 <!-- Search Bar Section -->
-                <div class="mt-10 sm:mt-12 max-w-5xl mx-auto fade-in-up delay-200">
+                <div class="mt-10 sm:mt-12 max-w-5xl mx-auto w-full fade-in-up delay-200">
                     <div class="search-bar-container flex items-center">
                         <svg class="h-5 w-5 text-gray-400 dark:text-gray-300" xmlns="http://www.w3.org/2000/svg"
                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -724,32 +728,32 @@
                                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                         <input type="text" id="quizSearch" placeholder="Search Sikkim CA & Static GK..."
-                            class="w-full bg-transparent border-none outline-none focus:ring-0 focus:outline-none px-4 py-3 text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-300"
+                            class="min-w-0 w-full bg-transparent border-none outline-none focus:ring-0 focus:outline-none px-4 py-3 text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-300"
                             onkeyup="filterQuizzes()">
                     </div>
                 </div>
 
                 <!-- Tab Switcher Section -->
-                <div class="mt-8 max-w-5xl mx-auto fade-in-up delay-300">
-                    <div class="tab-container flex p-2 space-x-4 sm:space-x-6 overflow-x-auto no-scrollbar">
+                <div class="mt-8 w-full max-w-5xl mx-auto fade-in-up delay-300">
+                    <div class="tab-container flex p-2 space-x-3 sm:space-x-6 overflow-x-auto no-scrollbar">
                         <button onclick="switchSection('ca')" id="tab-ca"
-                            class="tab-button active flex-1 py-2 px-5 text-xs sm:text-sm font-semibold transition-all sm:whitespace-nowrap">
+                            class="tab-button active flex-1 whitespace-nowrap flex-shrink-0 py-2 px-4 text-xs sm:text-sm font-semibold transition-all">
                             Sikkim CA & Static GK
                         </button>
                         <button onclick="switchSection('nia')" id="tab-nia"
-                            class="tab-button flex-1 py-2 px-5 text-xs sm:text-sm font-semibold transition-all sm:whitespace-nowrap">
+                            class="tab-button flex-1 whitespace-nowrap flex-shrink-0 py-2 px-4 text-xs sm:text-sm font-semibold transition-all">
                             National/International CA
                         </button>
                         <button onclick="switchSection('gs')" id="tab-gs"
-                            class="tab-button flex-1 py-2 px-5 text-xs sm:text-sm font-semibold transition-all sm:whitespace-nowrap">
+                            class="tab-button flex-1 whitespace-nowrap flex-shrink-0 py-2 px-4 text-xs sm:text-sm font-semibold transition-all">
                             General Studies
                         </button>
                         <button onclick="switchSection('en')" id="tab-en"
-                            class="tab-button flex-1 py-2 px-5 text-xs sm:text-sm font-semibold transition-all sm:whitespace-nowrap">
+                            class="tab-button flex-1 whitespace-nowrap flex-shrink-0 py-2 px-4 text-xs sm:text-sm font-semibold transition-all">
                             English &amp; Vocabulary
                         </button>
                         <button onclick="switchSection('pyq')" id="tab-pyq"
-                            class="tab-button flex-1 py-2 px-5 text-xs sm:text-sm font-semibold transition-all sm:whitespace-nowrap">
+                            class="tab-button flex-1 whitespace-nowrap flex-shrink-0 py-2 px-4 text-xs sm:text-sm font-semibold transition-all">
                             SPSC PYQs
                         </button>
                     </div>
@@ -758,7 +762,7 @@
 
             <!-- Sikkim Current Affairs & Static GK Section -->
             <section id="section-ca" class="mt-16 sm:mt-20">
-                <h2 class="text-3xl font-bold text-sky-600 dark:text-sky-400 mb-8 border-l-4 border-sky-600 pl-4">
+                <h2 class="text-2xl sm:text-3xl font-bold text-sky-600 dark:text-sky-400 mb-8 border-l-4 border-sky-600 pl-4 pr-2">
                     Sikkim Current Affairs & Static GK (Updated Every Month)</h2>
 
                 <!-- Latest (current year) -->
@@ -929,7 +933,7 @@
 
                 <!-- Sikkim Static GK Sub-section -->
                 <div class="mt-16 sm:mt-20">
-                    <h2 class="text-3xl font-bold text-sky-600 dark:text-sky-400 mb-8 border-l-4 border-sky-600 pl-4">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-sky-600 dark:text-sky-400 mb-8 border-l-4 border-sky-600 pl-4 pr-2">
                         Sikkim Static GK</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
                         <!-- Sikkim Rapid Fire Series -->
@@ -1027,7 +1031,7 @@
 
             <!-- National & International Current Affairs Section -->
             <section id="section-nia" class="mt-20 mb-12 section-hidden">
-                <h2 class="text-3xl font-bold text-sky-600 dark:text-sky-400 mb-8 border-l-4 border-sky-600 pl-4">
+                <h2 class="text-2xl sm:text-3xl font-bold text-sky-600 dark:text-sky-400 mb-8 border-l-4 border-sky-600 pl-4 pr-2">
                     National & International Current Affairs (Updated Every Month)</h2>
 
                 <!-- Latest NIA (2026) -->
@@ -1200,7 +1204,7 @@
 
             <!-- General Studies Section -->
             <section id="section-gs" class="mt-20 mb-12 section-hidden">
-                <h2 class="text-3xl font-bold text-sky-600 dark:text-sky-400 mb-8 border-l-4 border-sky-600 pl-4">
+                <h2 class="text-2xl sm:text-3xl font-bold text-sky-600 dark:text-sky-400 mb-8 border-l-4 border-sky-600 pl-4 pr-2">
                     General Studies (Subject and Topicwise MCQ)</h2>
                 <div id="gsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12">
                     <!-- Indian History -->
@@ -1462,7 +1466,7 @@
 
             <!-- English Section -->
             <section id="section-en" class="mt-20 mb-12 section-hidden">
-                <h2 class="text-3xl font-bold text-sky-600 dark:text-sky-400 mb-8 border-l-4 border-sky-600 pl-4">
+                <h2 class="text-2xl sm:text-3xl font-bold text-sky-600 dark:text-sky-400 mb-8 border-l-4 border-sky-600 pl-4 pr-2">
                     English — Grammar &amp; Vocabulary (MCQ)</h2>
                 <div id="enContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12">
                     <!-- Vocabulary -->
@@ -1497,7 +1501,7 @@
 
             <!-- SPSC PYQs Section -->
             <section id="section-pyq" class="mt-20 mb-12 section-hidden">
-                <h2 class="text-3xl font-bold text-sky-600 dark:text-sky-400 mb-4 border-l-4 border-sky-600 pl-4">
+                <h2 class="text-2xl sm:text-3xl font-bold text-sky-600 dark:text-sky-400 mb-4 border-l-4 border-sky-600 pl-4 pr-2">
                     SPSC PYQs (Previous Year Questions)</h2>
                 <p class="text-gray-600 dark:text-white mb-8 max-w-3xl">
                     Subject-Wise PYQs of Sikkim Public Service Commission exam.
