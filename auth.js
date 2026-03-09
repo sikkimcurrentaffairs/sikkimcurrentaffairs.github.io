@@ -62,11 +62,25 @@ const ICONS = {
 async function signInWithGoogle() {
     if (!auth) return;
     try {
-        showAuthToast('Signing in...');
-        await auth.signInWithRedirect(provider);
+        showAuthToast('Opening Google Sign-In...');
+        const result = await auth.signInWithPopup(provider);
+        if (result && result.user) {
+            await createOrUpdateUserProfile(result.user);
+            showAuthToast('Signed in successfully ✓');
+        }
     } catch (error) {
-        console.error('Sign-in error:', error);
-        showAuthToast('Sign-in failed. Please try again.');
+        console.error('Sign-in popup error:', error);
+        
+        // Handle specific popup errors
+        if (error.code === 'auth/popup-closed-by-user') {
+            showAuthToast('Sign-in cancelled.');
+        } else if (error.code === 'auth/popup-blocked') {
+            showAuthToast('Popup blocked by browser. Please allow popups.');
+            // Fallback to redirect if popup is strictly blocked
+            auth.signInWithRedirect(provider);
+        } else {
+            showAuthToast('Sign-in failed. Please try again.');
+        }
     }
 }
 
