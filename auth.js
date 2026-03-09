@@ -391,21 +391,31 @@ document.addEventListener('click', function (e) {
 document.addEventListener('DOMContentLoaded', function () {
     if (!initFirebase()) return;
 
-    // Handle the redirect sign-in result
-    auth.getRedirectResult().then(async (result) => {
-        if (result && result.user) {
-            await createOrUpdateUserProfile(result.user);
-        }
-    }).catch(error => {
-        console.error("Redirect sign-in error:", error);
+    // Set persistence to LOCAL so auth state survives page reloads
+    auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).catch(err => {
+        console.warn('Persistence error:', err);
     });
 
-    // Listen for auth state changes
+    // Listen for auth state changes FIRST — this is the most reliable method
     auth.onAuthStateChanged(function (user) {
         updateAuthUI(user);
         // Dispatch custom event so other scripts can react
         window.dispatchEvent(new CustomEvent('authStateChanged', { detail: { user: user } }));
     });
+
+    // Handle the redirect sign-in result (non-blocking)
+    try {
+        auth.getRedirectResult().then(async (result) => {
+            if (result && result.user) {
+                await createOrUpdateUserProfile(result.user);
+            }
+        }).catch(error => {
+            // This commonly fails on GitHub Pages due to COOP headers — that's OK
+            console.warn("Redirect result error (non-fatal):", error.code || error.message);
+        });
+    } catch (e) {
+        console.warn("getRedirectResult threw:", e);
+    }
 });
 
 // ─── Helper: Check if user is logged in ──────────────
