@@ -472,7 +472,8 @@
             align-items: center;
             justify-content: center;
             padding: 32px;
-            text-align: center
+            text-align: center;
+            overflow: hidden;
         }
 
         .fc-front {
@@ -575,11 +576,21 @@
         .anim-got .fc-feedback-overlay.got {
             opacity: 1;
             color: #4ade80;
+            background: rgba(255, 255, 255, 0.92);
+        }
+
+        html.dark .anim-got .fc-feedback-overlay.got {
+            background: rgba(42, 45, 58, 0.92);
         }
 
         .anim-missed .fc-feedback-overlay.missed {
             opacity: 1;
             color: #f87171;
+            background: rgba(255, 255, 255, 0.92);
+        }
+
+        html.dark .anim-missed .fc-feedback-overlay.missed {
+            background: rgba(42, 45, 58, 0.92);
         }
 
         /* Hide main content during feedback animation */
