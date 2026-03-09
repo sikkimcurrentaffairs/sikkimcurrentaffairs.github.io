@@ -48,16 +48,11 @@ const ICONS = {
 async function signInWithGoogle() {
     if (!auth) return;
     try {
-        const result = await auth.signInWithPopup(provider);
-        const user = result.user;
-        // Create/update user profile in Firestore
-        await createOrUpdateUserProfile(user);
-        return user;
+        // Use signInWithRedirect for better compatibility with GitHub Pages and mobile
+        await auth.signInWithRedirect(provider);
     } catch (error) {
-        if (error.code === 'auth/popup-closed-by-user') return null;
         console.error('Sign-in error:', error);
-        alert('Sign-in failed. Please try again.');
-        return null;
+        alert('Sign-in failed to start. Please try again.');
     }
 }
 
@@ -393,6 +388,15 @@ document.addEventListener('click', function (e) {
 // ─── Initialize Auth on Page Load ────────────────────
 document.addEventListener('DOMContentLoaded', function () {
     if (!initFirebase()) return;
+
+    // Handle the redirect sign-in result
+    auth.getRedirectResult().then(async (result) => {
+        if (result && result.user) {
+            await createOrUpdateUserProfile(result.user);
+        }
+    }).catch(error => {
+        console.error("Redirect sign-in error:", error);
+    });
 
     // Listen for auth state changes
     auth.onAuthStateChanged(function (user) {
