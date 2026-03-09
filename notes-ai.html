@@ -410,13 +410,18 @@
             transform: translateY(-100%);
             opacity: 0;
             transition: all .4s cubic-bezier(.4, 0, .2, 1);
-            pointer-events: none
+            pointer-events: none;
         }
 
         #mobile-menu.active {
             transform: translateY(0);
             opacity: 1;
-            pointer-events: auto
+            pointer-events: auto;
+        }
+
+        html.dark #mobile-menu {
+            background: #1a1c20 !important;
+            border-bottom-color: rgba(255, 255, 255, 0.05) !important;
         }
 
         .hamburger-line {
