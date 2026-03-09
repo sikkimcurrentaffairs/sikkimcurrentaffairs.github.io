@@ -60,8 +60,10 @@ async function signOutUser() {
     if (!auth) return;
     try {
         await auth.signOut();
+        showAuthToast('Signed out successfully ✓');
     } catch (error) {
         console.error('Sign-out error:', error);
+        showAuthToast('Sign out failed. Please try again.');
     }
 }
 
