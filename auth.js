@@ -48,29 +48,11 @@ const ICONS = {
 async function signInWithGoogle() {
     if (!auth) return;
     try {
-        // Try popup first — works on most browsers including mobile
-        const result = await auth.signInWithPopup(provider);
-        if (result && result.user) {
-            await createOrUpdateUserProfile(result.user);
-        }
+        showAuthToast('Signing in...');
+        await auth.signInWithRedirect(provider);
     } catch (error) {
-        // If popup is blocked (COOP/popup blocker), fall back to redirect
-        if (error.code === 'auth/popup-blocked' || 
-            error.code === 'auth/popup-closed-by-user' ||
-            error.code === 'auth/cancelled-popup-request' ||
-            error.message?.includes('cross-origin') ||
-            error.message?.includes('COOP')) {
-            console.warn('Popup blocked, falling back to redirect...');
-            try {
-                await auth.signInWithRedirect(provider);
-            } catch (redirectError) {
-                console.error('Redirect also failed:', redirectError);
-                showAuthToast('Sign-in failed. Please try again.');
-            }
-        } else {
-            console.error('Sign-in error:', error);
-            showAuthToast('Sign-in failed. Please try again.');
-        }
+        console.error('Sign-in error:', error);
+        showAuthToast('Sign-in failed. Please try again.');
     }
 }
 
