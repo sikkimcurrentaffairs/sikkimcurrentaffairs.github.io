@@ -4,6 +4,20 @@
 // =====================================================
 
 // ─── Firebase Config ─────────────────────────────────
+// Bypass TrustedHTML enforcement if it exists
+let authPolicy = { createHTML: string => string };
+if (window.trustedTypes && window.trustedTypes.createPolicy) {
+    try {
+        if (!trustedTypes.getAttributeType(document.createElement('div'), 'innerHTML')) {
+             authPolicy = window.trustedTypes.createPolicy('authPolicy', { createHTML: string => string });
+        } else {
+             authPolicy = window.trustedTypes.createPolicy('authPolicy', { createHTML: string => string });
+        }
+    } catch (e) {
+        console.warn("TrustedTypes auth policy creation failed:", e);
+    }
+}
+
 const firebaseConfig = {
     apiKey: "AIzaSyBXJMsE-bjj8jQSQV2qHrzF31PbAu7Ti-U",
     authDomain: "sikkim-psc-prep-hub-e66b2.firebaseapp.com",
@@ -264,19 +278,19 @@ function showAuthToast(message) {
         toast.className = 'auth-toast';
         document.body.appendChild(toast);
     }
-    toast.innerHTML = `${ICONS.check}<span>${message}</span>`;
+    toast.innerHTML = authPolicy.createHTML(`${ICONS.check}<span>${message}</span>`);
     toast.classList.add('show');
     setTimeout(() => toast.classList.remove('show'), 3000);
 }
 
 // ─── Nav UI Management ───────────────────────────────
 function renderLoggedOutDesktop(container) {
-    container.innerHTML = `
+    container.innerHTML = authPolicy.createHTML(`
         <button class="auth-signin-btn" onclick="signInWithGoogle()" id="desktop-signin">
             ${ICONS.google}
             <span>Login / Signup</span>
         </button>
-    `;
+    `);
 }
 
 function renderLoggedInDesktop(container, user) {
@@ -286,7 +300,7 @@ function renderLoggedInDesktop(container, user) {
         : `<div class="auth-avatar-placeholder">${initial}</div>`;
     const firstName = (user.displayName || 'User').split(' ')[0];
 
-    container.innerHTML = `
+    container.innerHTML = authPolicy.createHTML(`
         <div class="auth-user-container">
             <button class="auth-user-btn" id="auth-user-toggle" aria-expanded="false" onclick="toggleAuthDropdown()">
                 ${avatarHTML}
@@ -315,15 +329,15 @@ function renderLoggedInDesktop(container, user) {
                 </button>
             </div>
         </div>
-    `;
+    `);
 }
 
 function renderLoggedOutMobile(container) {
-    container.innerHTML = `
+    container.innerHTML = authPolicy.createHTML(`
         <button class="auth-signin-btn-mobile" onclick="signInWithGoogle()" id="mobile-signin">
             Login / Signup with Google
         </button>
-    `;
+    `);
 }
 
 function renderLoggedInMobile(container, user) {
@@ -332,7 +346,7 @@ function renderLoggedInMobile(container, user) {
         ? `<img src="${user.photoURL}" alt="Avatar" class="auth-mobile-avatar" referrerpolicy="no-referrer">`
         : `<div class="auth-avatar-placeholder auth-mobile-avatar" style="width:40px;height:40px">${initial}</div>`;
 
-    container.innerHTML = `
+    container.innerHTML = authPolicy.createHTML(`
         <div class="auth-mobile-user">
             ${avatarHTML}
             <div class="auth-mobile-info">
@@ -350,7 +364,7 @@ function renderLoggedInMobile(container, user) {
                 <span>Sign Out</span>
             </button>
         </div>
-    `;
+    `);
 }
 
 function updateAuthUI(user) {
