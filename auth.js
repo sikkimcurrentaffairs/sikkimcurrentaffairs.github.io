@@ -48,11 +48,26 @@ const ICONS = {
 async function signInWithGoogle() {
     if (!auth) return;
     try {
-        // Use signInWithRedirect for better compatibility with GitHub Pages and mobile
-        await auth.signInWithRedirect(provider);
+        // Try popup first (works on most browsers)
+        const result = await auth.signInWithPopup(provider);
+        if (result && result.user) {
+            await createOrUpdateUserProfile(result.user);
+        }
     } catch (error) {
-        console.error('Sign-in error:', error);
-        alert('Sign-in failed to start. Please try again.');
+        // If popup is blocked or fails, fall back to redirect
+        if (error.code === 'auth/popup-blocked' ||
+            error.code === 'auth/popup-closed-by-user' ||
+            error.code === 'auth/cancelled-popup-request') {
+            try {
+                await auth.signInWithRedirect(provider);
+            } catch (redirectError) {
+                console.error('Redirect sign-in error:', redirectError);
+                alert('Sign-in failed. Please try again.');
+            }
+        } else {
+            console.error('Sign-in error:', error);
+            alert('Sign-in failed: ' + error.message);
+        }
     }
 }
 
