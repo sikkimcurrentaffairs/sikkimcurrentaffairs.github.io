@@ -8,11 +8,9 @@
 let authPolicy = { createHTML: string => string };
 if (window.trustedTypes && window.trustedTypes.createPolicy) {
     try {
-        if (!trustedTypes.getAttributeType(document.createElement('div'), 'innerHTML')) {
-             authPolicy = window.trustedTypes.createPolicy('authPolicy', { createHTML: string => string });
-        } else {
-             authPolicy = window.trustedTypes.createPolicy('authPolicy', { createHTML: string => string });
-        }
+        authPolicy = window.trustedTypes.createPolicy('authPolicy', { 
+            createHTML: string => string 
+        });
     } catch (e) {
         console.warn("TrustedTypes auth policy creation failed:", e);
     }
