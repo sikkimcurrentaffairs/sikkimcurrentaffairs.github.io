@@ -359,7 +359,18 @@
         html.dark .footer-line {
             border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
         }
-    </style>
+    
+        /* Force mobile menu links to be bright white in dark mode */
+        html.dark #mobile-menu a {
+            color: #e5e7eb !important;
+        }
+        html.dark #mobile-menu a:hover {
+            color: #38bdf8 !important;
+        }
+        html.dark #mobile-menu span.uppercase {
+            color: #9ca3af !important;
+        }
+</style>
 </head>
 
 <body class="font-sans text-gray-900 dark:text-white antialiased">

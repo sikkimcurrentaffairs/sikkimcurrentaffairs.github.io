@@ -444,7 +444,18 @@
             opacity: 1;
             transform: scale(1) rotate(0deg);
         }
-    </style>
+    
+        /* Force mobile menu links to be bright white in dark mode */
+        html.dark #mobile-menu a {
+            color: #e5e7eb !important;
+        }
+        html.dark #mobile-menu a:hover {
+            color: #38bdf8 !important;
+        }
+        html.dark #mobile-menu span.uppercase {
+            color: #9ca3af !important;
+        }
+</style>
 </head>
 
 <body class="font-sans text-gray-900 dark:text-white antialiased">
