@@ -287,6 +287,31 @@
         html.dark .footer-line {
             border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
         }
+        /* Dark mode toggle */
+        .sun-icon-animator,
+        .moon-icon-animator {
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+
+        .sun-icon-animator {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+        }
+
+        html.dark .sun-icon-animator {
+            opacity: 0;
+            transform: scale(0.5) rotate(-90deg);
+        }
+
+        .moon-icon-animator {
+            opacity: 0;
+            transform: scale(0.5) rotate(90deg);
+        }
+
+        html.dark .moon-icon-animator {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+        }
     </style>
 </head>
 
