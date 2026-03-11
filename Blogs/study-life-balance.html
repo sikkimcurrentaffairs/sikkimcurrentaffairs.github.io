@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blogs - Sikkim PSC preparation hub</title>
+    <title>Maintaining Study-Life Balance During Peak Prep - Sikkim PSC preparation hub</title>
 
     <script>
         (function () {
@@ -22,7 +22,7 @@
         window.tailwind.config = { darkMode: 'class' };
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="auth.css">
+    <link rel="stylesheet" href="../auth.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet">
 
@@ -266,124 +266,6 @@
             transform: translateY(-8px) rotate(-45deg);
         }
 
-        /* Neomorphic Blog Cards */
-        .blog-card {
-            background: #eef1f5;
-            border-radius: 24px;
-            box-shadow: 12px 12px 24px #d1d9e6, -12px -12px 24px #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        html.dark .blog-card {
-            background: #24272c;
-            box-shadow: 8px 8px 16px #16181b, -8px -8px 16px #32363d;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-        }
-
-        .blog-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 15px 15px 30px #d1d9e6, -15px -15px 30px #ffffff;
-        }
-
-        html.dark .blog-card:hover {
-            box-shadow: 10px 10px 20px #16181b, -10px -10px 20px #32363d;
-        }
-
-        .blog-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-bottom: 1px solid rgba(209, 217, 230, 0.5);
-        }
-
-        html.dark .blog-image {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            opacity: 0.9;
-        }
-
-        .blog-content {
-            padding: 1.5rem;
-            flex-grow: 1;
-        }
-
-        .blog-tag {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            background: rgba(2, 132, 199, 0.1);
-            color: #0284c7;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-        }
-
-        html.dark .blog-tag {
-            background: rgba(56, 189, 248, 0.1);
-            color: #38bdf8;
-        }
-
-        .blog-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #1f2937;
-            margin-bottom: 0.5rem;
-            line-height: 1.4;
-        }
-
-        html.dark .blog-title {
-            color: #f3f4f6;
-        }
-
-        .blog-excerpt {
-            font-size: 0.9375rem;
-            color: #4b5563;
-            line-height: 1.6;
-            margin-bottom: 1.25rem;
-        }
-
-        html.dark .blog-excerpt {
-            color: #9ca3af;
-        }
-
-        .blog-footer {
-            padding: 1.25rem 1.5rem;
-            border-top: 1px solid rgba(209, 217, 230, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 0.8125rem;
-            color: #6b7280;
-        }
-
-        html.dark .blog-footer {
-            border-top: 1px solid rgba(255, 255, 255, 0.03);
-            color: #6b7280;
-        }
-
-        .read-more-btn {
-            font-weight: 600;
-            color: #0284c7;
-            display: flex;
-            align-items: center;
-            transition: color 0.2s;
-        }
-
-        html.dark .read-more-btn {
-            color: #38bdf8;
-        }
-
-        .read-more-btn:hover {
-            color: #0369a1;
-        }
-
-        html.dark .read-more-btn:hover {
-            color: #7dd3fc;
-        }
-
         html.dark h1 {
             color: #ffffff !important;
         }
@@ -423,6 +305,91 @@
         html.dark #mobile-menu span.uppercase {
             color: #9ca3af !important;
         }
+        
+        /* Article Styles */
+        .article-container {
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 12px 12px 24px #d1d9e6, -12px -12px 24px #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            padding: 2.5rem;
+            margin-top: -3rem;
+            position: relative;
+            z-index: 10;
+        }
+        
+        html.dark .article-container {
+            background: #24272c;
+            box-shadow: 8px 8px 16px #16181b, -8px -8px 16px #32363d;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+        
+        .article-content h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            color: #1f2937;
+        }
+        
+        html.dark .article-content h2 {
+            color: #f3f4f6;
+        }
+        
+        .article-content p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            font-size: 1.125rem;
+            color: #4b5563;
+        }
+        
+        html.dark .article-content p {
+            color: #cbd5e1;
+        }
+        
+        .article-content ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #4b5563;
+            font-size: 1.125rem;
+        }
+        
+        html.dark .article-content ul {
+            color: #cbd5e1;
+        }
+        
+        .article-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .author-card {
+            display: flex;
+            align-items: center;
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 16px;
+            margin-top: 3rem;
+            border: 1px solid #e2e8f0;
+        }
+        
+        html.dark .author-card {
+            background: #1e2126;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .author-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1.5rem;
+            border: 3px solid #0284c7;
+        }
+        
+        html.dark .author-image {
+            border-color: #38bdf8;
+        }
 </style>
 </head>
 
@@ -433,15 +400,15 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between h-16">
                     <div class="flex items-center mr-10 lg:mr-16">
-                        <a href="index.html" class="logo-container" aria-label="Sikkim PSC Preparation Hub Home">
-                            <img src="logo/light theme.png" alt="Sikkim PSC Logo" class="logo-img logo-light">
-                            <img src="logo/dark theme logo.png" alt="Sikkim PSC Logo" class="logo-img logo-dark">
+                        <a href="../index.html" class="logo-container" aria-label="Sikkim PSC Preparation Hub Home">
+                            <img src="../logo/light theme.png" alt="Sikkim PSC Logo" class="logo-img logo-light">
+                            <img src="../logo/dark theme logo.png" alt="Sikkim PSC Logo" class="logo-img logo-dark">
                         </a>
                     </div>
                     <div class="hidden md:flex items-center space-x-10 lg:space-x-14">
-                        <a href="index.html" class="nav-link">Home</a>
-                        <a href="about.html" class="nav-link">About</a>
-                        <a href="notes-ai.html" class="nav-link flex items-center">
+                        <a href="../index.html" class="nav-link">Home</a>
+                        <a href="../about.html" class="nav-link">About</a>
+                        <a href="../notes-ai.html" class="nav-link flex items-center">
                             <span class="text-sky-600">Notes</span>
                             <span class="text-sky-600 dark:text-sky-400">(AI)</span>
                             <span class="ml-1.5 flex h-2 w-2">
@@ -450,8 +417,8 @@
                                 <span class="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
                             </span>
                         </a>
-                        <a href="mocktests.html" class="nav-link">Mocktests</a>
-                        <a href="question-bank.html" class="nav-link">Question Bank</a>
+                        <a href="../mocktests.html" class="nav-link">Mocktests</a>
+                        <a href="../question-bank.html" class="nav-link">Question Bank</a>
                         <div class="dropdown">
                             <button class="nav-link flex items-center space-x-1">
                                 <span>More</span>
@@ -463,10 +430,10 @@
                                 </svg>
                             </button>
                             <div class="dropdown-content">
-                                <a href="exam-calendar.html" class="dropdown-item">Exam Calendar</a>
-                                <a href="faqs.html" class="dropdown-item">FAQs</a>
-                                <a href="blogs.html" class="dropdown-item">Blogs</a>
-                                <a href="contact.html" class="dropdown-item">Contact me</a>
+                                <a href="../exam-calendar.html" class="dropdown-item">Exam Calendar</a>
+                                <a href="../faqs.html" class="dropdown-item">FAQs</a>
+                                <a href="../blogs.html" class="dropdown-item">Blogs</a>
+                                <a href="../contact.html" class="dropdown-item">Contact me</a>
                             </div>
                         </div>
                     </div>
@@ -521,11 +488,11 @@
             <div id="mobile-menu"
                 class="md:hidden absolute w-full left-0 bg-slate-50 dark:bg-[#1a1c20] border-b border-gray-200 dark:border-gray-800 shadow-xl">
                 <div class="px-4 pt-3 pb-6 space-y-4">
-                    <a href="index.html"
+                    <a href="../index.html"
                         class="block px-4 py-3 rounded-xl text-base font-medium text-gray-700 dark:text-gray-100 hover:bg-sky-50 dark:hover:bg-sky-900/30 hover:text-sky-600 dark:hover:text-sky-400 transition-all">Home</a>
-                    <a href="about.html"
+                    <a href="../about.html"
                         class="block px-4 py-3 rounded-xl text-base font-medium text-gray-700 dark:text-gray-100 hover:bg-sky-50 dark:hover:bg-sky-900/30 hover:text-sky-600 dark:hover:text-sky-400 transition-all">About</a>
-                    <a href="notes-ai.html"
+                    <a href="../notes-ai.html"
                         class="block px-4 py-3 rounded-xl text-base font-medium text-gray-700 dark:text-gray-100 hover:bg-sky-50 dark:hover:bg-sky-900/30 hover:text-sky-600 dark:hover:text-sky-400 transition-all flex items-center justify-between">
                         <span>
                             <span class="text-sky-600">Notes</span>
@@ -534,9 +501,9 @@
                         <span
                             class="bg-sky-100 text-sky-600 dark:bg-sky-900/50 dark:text-sky-400 text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">New</span>
                     </a>
-                    <a href="mocktests.html"
+                    <a href="../mocktests.html"
                         class="block px-4 py-3 rounded-xl text-base font-medium text-gray-700 dark:text-gray-100 hover:bg-sky-50 dark:hover:bg-sky-900/30 hover:text-sky-600 dark:hover:text-sky-400 transition-all">Mocktests</a>
-                    <a href="question-bank.html"
+                    <a href="../question-bank.html"
                         class="block px-4 py-3 rounded-xl text-base font-medium text-gray-700 dark:text-gray-100 hover:bg-sky-50 dark:hover:bg-sky-900/30 hover:text-sky-600 dark:hover:text-sky-400 transition-all">Question
                         Bank</a>
 
@@ -544,14 +511,14 @@
                         <span
                             class="px-4 text-xs font-bold text-gray-400 dark:text-gray-200 uppercase tracking-widest">More</span>
                         <div class="mt-2 space-y-1">
-                            <a href="exam-calendar.html"
+                            <a href="../exam-calendar.html"
                                 class="block px-4 py-2 text-base font-medium text-gray-600 dark:text-gray-100 hover:text-sky-600 dark:hover:text-sky-400 transition-all">Exam
                                 Calendar</a>
-                            <a href="faqs.html"
+                            <a href="../faqs.html"
                                 class="block px-4 py-2 text-base font-medium text-gray-600 dark:text-gray-100 hover:text-sky-600 dark:hover:text-sky-400 transition-all">FAQs</a>
-                            <a href="blogs.html"
+                            <a href="../blogs.html"
                                 class="block px-4 py-2 text-base font-medium text-gray-600 dark:text-gray-100 hover:text-sky-600 dark:hover:text-sky-400 transition-all">Blogs</a>
-                            <a href="contact.html"
+                            <a href="../contact.html"
                                 class="block px-4 py-2 text-base font-medium text-gray-600 dark:text-gray-100 hover:text-sky-600 dark:hover:text-sky-400 transition-all">Contact
                                 me</a>
                         </div>
@@ -563,86 +530,54 @@
             </div>
         </nav>
 
-        <main class="flex-grow py-12 md:py-20 overflow-x-hidden">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 fade-in-up">
-                <div class="text-center mb-16">
-                    <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-4 tracking-tight">
-                        Insights & Resources
+        <main class="flex-grow pb-12 overflow-x-hidden">
+            <!-- Hero Image Header -->
+            <div class="w-full h-[40vh] md:h-[50vh] relative z-0">
+                <img src="https://images.unsplash.com/photo-1512314889357-e157c22f938d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80" 
+                    alt="Study Life Balance Header" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+                <div class="absolute inset-0 flex flex-col justify-center items-center text-center px-4">
+                    <span class="bg-sky-500 text-white px-4 py-1 rounded-full text-sm font-bold uppercase tracking-wider mb-4">Mental Health</span>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white max-w-4xl drop-shadow-lg">
+                        Maintaining Study-Life Balance During Peak Prep
                     </h1>
-                    <p class="text-gray-600 dark:text-gray-400 text-lg max-w-2xl mx-auto">
-                        Deep dives into SPSC exam patterns, current affairs analysis, and effective study strategies.
-                    </p>
+                    <p class="text-gray-200 mt-4 text-lg md:text-xl font-medium">Published on Feb 08, 2026</p>
                 </div>
+            </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                    <!-- Blog Card 1 -->
-                    <article class="blog-card">
-                        <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-                            alt="Effective Study Strategies" class="blog-image">
-                        <div class="blog-content">
-                            <span class="blog-tag">Study Tips</span>
-                            <h2 class="blog-title">Cracking SPSC: 5 Strategies That Actually Work</h2>
-                            <p class="blog-excerpt">From active recall techniques to structured revision schedules,
-                                learn how to optimize your study hours for maximum retention...</p>
-                        </div>
-                        <div class="blog-footer">
-                            <span>Feb 22, 2026</span>
-                            <a href="Blogs/spsc-strategies.html" class="read-more-btn">
-                                Read More
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 5l7 7-7 7" />
-                                </svg>
-                            </a>
-                        </div>
-                    </article>
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 fade-in-up">
+                <div class="article-container">
+                    <div class="article-content">
+                        <p>Preparing for the SPSC exams is often described as a marathon rather than a sprint. When the exam dates start drawing near, the urge to study for 14 hours a day can be overwhelming. However, sacrificing your mental and physical health is a recipe for burnout, not success.</p>
+                        
+                        <h2>1. Set Hard Boundaries for Study Time</h2>
+                        <p>Just like a regular job, your studies should have a "clock-in" and "clock-out" time. If you decide to stop studying at 9 PM, close your books at 9 PM. Your brain needs time to process information and recover. Studying right up until you fall asleep severely impacts your sleep quality.</p>
+                        
+                        <h2>2. The Non-Negotiable Workout</h2>
+                        <p>Exercise isn't just for building muscles; it's essential for cognitive function. Physical activity increases blood flow to the brain and reduces stress hormones. Whether it's a brisk 30-minute walk around your neighborhood or an intensive gym session, make it a non-negotiable part of your daily routine.</p>
 
-                    <!-- Blog Card 2 -->
-                    <article class="blog-card">
-                        <img src="https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-                            alt="Current Affairs Analysis" class="blog-image">
-                        <div class="blog-content">
-                            <span class="blog-tag">Current Affairs</span>
-                            <h2 class="blog-title">Sikkim Current Affairs: Monthly Roundup (Jan 2026)</h2>
-                            <p class="blog-excerpt">A comprehensive analysis of the major policy changes, environmental
-                                initiatives, and state awards that took place in Sikkim last month...</p>
-                        </div>
-                        <div class="blog-footer">
-                            <span>Feb 15, 2026</span>
-                            <a href="Blogs/jan-2026-roundup.html" class="read-more-btn">
-                                Read More
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 5l7 7-7 7" />
-                                </svg>
-                            </a>
-                        </div>
-                    </article>
+                        <h2>3. Quality Over Quantity</h2>
+                        <p>A focused, distraction-free 4-hour study session is vastly superior to an 8-hour session where you're constantly checking your phone. Use techniques like the Pomodoro method (25 minutes of intense focus followed by a 5-minute break) to maintain high concentration without exhausting yourself.</p>
 
-                    <!-- Blog Card 3 -->
-                    <article class="blog-card">
-                        <img src="https://images.unsplash.com/photo-1512314889357-e157c22f938d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-                            alt="Exam Mindset" class="blog-image">
-                        <div class="blog-content">
-                            <span class="blog-tag">Mental Health</span>
-                            <h2 class="blog-title">Maintaining Study-Life Balance During Peak Prep</h2>
-                            <p class="blog-excerpt">Exam preparation can be stressful. Discover how to stay productive
-                                while ensuring your mental well-being doesn't take a backseat...</p>
+                        <h2>4. Maintain Social Connections</h2>
+                        <p>Isolation can quickly lead to depression and anxiety. While you shouldn't be partying every weekend during peak prep, taking a couple of hours off on a Sunday to have coffee with a friend or spend time with family provides a much-needed emotional reset.</p>
+
+                        <h2>5. Practice Self-Compassion</h2>
+                        <p>There will be days when you don't meet your study goals. You might score poorly on a mock test. When this happens, avoid harsh self-criticism. Understand that bad days are part of the process. Forgive yourself, adjust your plan if necessary, and try again the next day.</p>
+                        
+                        <p>Remember, the goal is to pass the SPSC exam as a healthy, balanced individual ready to take on administrative responsibilities, not as someone who has completely sacrificed their well-being to clear a cutoff.</p>
+                    </div>
+                    
+                    <div class="author-card">
+                        <img src="642628654.jpg" alt="Devashish Kaushik" class="author-image">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white">Devashish Kaushik</h3>
+                            <p class="text-sky-600 dark:text-sky-400 font-medium">
+                                <a href="https://www.instagram.com/nothisisdk/" target="_blank" rel="noopener noreferrer">@nothisisdk</a>
+                            </p>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm mt-1">Creator of Sikkim PSC Preparation Hub. Believer in smart work, balanced lifestyles, and sustainable preparation methods.</p>
                         </div>
-                        <div class="blog-footer">
-                            <span>Feb 08, 2026</span>
-                            <a href="Blogs/study-life-balance.html" class="read-more-btn">
-                                Read More
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 5l7 7-7 7" />
-                                </svg>
-                            </a>
-                        </div>
-                    </article>
+                    </div>
                 </div>
             </div>
         </main>
@@ -715,7 +650,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
-    <script src="auth.js"></script>
+    <script src="../auth.js"></script>
 </body>
 
 </html>
