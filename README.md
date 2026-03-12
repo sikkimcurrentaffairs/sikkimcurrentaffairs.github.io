@@ -15,7 +15,7 @@ This is a comprehensive, free, and open-source platform tailored for aspirants p
 - **Interactive UI**: A beautiful, neomorphic design with seamless light/dark mode support.
 - **User Dashboard**: Track your quiz progress, review weak areas, and maintain study streaks with Firebase integration.
 
-## ⏱ Pomodoro Timer
+##  Pomodoro Timer
 A lightweight floating productivity timer available on every page — designed to help students maintain focused study sessions.
 
 - **Timer Modes**: 25-min Focus → 5-min Short Break → 15-min Long Break (after 4 focus sessions)
