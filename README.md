@@ -74,4 +74,5 @@ If you use, fork, or redistribute any part of this project, you **must** include
 
 ---
 
-*Designed and maintained by [Devashish Kaushik](https://www.instagram.com/nothisisdk/) · [Instagram](https://www.instagram.com/nothisisdk/) · [GitHub](https://github.com/sikkimcurrentaffairs)*
+*Designed and maintained by [nothisisdk](https://www.instagram.com/nothisisdk/) 
+· [Instagram](https://www.instagram.com/nothisisdk/) · [GitHub](https://github.com/luminiferousBOT)*
