@@ -48,7 +48,7 @@ Have a question or just want to say hi? Drop a message via the [Contact Me](http
 
 ---
 
-## 📄 License
+##  License
 
 This project is licensed under the **[Creative Commons Attribution 4.0 International License (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/)**.
 
@@ -56,7 +56,7 @@ This project is licensed under the **[Creative Commons Attribution 4.0 Internati
 
 You are free to **share** and **adapt** this material for any purpose, even commercially, as long as you give **appropriate credit**.
 
-### ✅ How to Give Proper Attribution
+###  How to Give Proper Attribution
 
 If you use, fork, or redistribute any part of this project, you **must** include the following:
 
@@ -73,7 +73,5 @@ If you use, fork, or redistribute any part of this project, you **must** include
 > **Plagiarism is not tolerated.** Simply copying this project without proper attribution violates the license terms and is unethical. Respect the effort that went into building this resource.
 
 ---
-
-**© 2026 Devashish Kaushik. All rights reserved under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).**
 
 *Designed and maintained by [Devashish Kaushik](https://www.instagram.com/nothisisdk/) · [Instagram](https://www.instagram.com/nothisisdk/) · [GitHub](https://github.com/sikkimcurrentaffairs)*
