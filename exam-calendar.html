@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" class="">
 
 <head>
@@ -958,6 +958,8 @@
         // EXAM DATA — Add new exams here (newest first)
         // =====================================================
         const EXAMS = [
+            { date: '2026-05-01', title: 'Under Secretary under Sikkim State Civil Services Examination, 2026', monthOnly: true, status: 'upcoming' },
+
             { date: '2026-02-22', title: 'Assistant Engineer (Electrical) Examination, 2026' },
             { date: '2026-02-15', title: 'Block Officer under Forest and Environment Department Examination, 2026' },
             { date: '2026-02-14', title: 'Forest Guard under Forest and Environment Department Examination, 2026' },
@@ -979,23 +981,32 @@
             return new Date(now.getFullYear(), now.getMonth(), now.getDate());
         }
 
-        function getStatus(dateStr) {
+        function getStatus(dateStr, monthOnly, overrideStatus) {
+            if (overrideStatus) return overrideStatus;
             const examDate = new Date(dateStr + 'T00:00:00');
             const today = getToday();
+            if (monthOnly) {
+                const monthEnd = new Date(examDate.getFullYear(), examDate.getMonth() + 1, 0);
+                if (today.getFullYear() === examDate.getFullYear() && today.getMonth() === examDate.getMonth()) return 'upcoming';
+                if (monthEnd >= today) return 'upcoming';
+                return 'completed';
+            }
             if (examDate.getTime() === today.getTime()) return 'today';
             if (examDate > today) return 'upcoming';
             return 'completed';
         }
 
-        function getDaysUntil(dateStr) {
+        function getDaysUntil(dateStr, monthOnly) {
+            if (monthOnly) return null;
             const examDate = new Date(dateStr + 'T00:00:00');
             const today = getToday();
             const diff = examDate - today;
             return Math.ceil(diff / (1000 * 60 * 60 * 24));
         }
 
-        function formatDateLong(dateStr) {
+        function formatDateLong(dateStr, monthOnly) {
             const d = new Date(dateStr + 'T00:00:00');
+            if (monthOnly) return `${MONTHS_FULL[d.getMonth()]} ${d.getFullYear()}`;
             return `${d.getDate()} ${MONTHS_FULL[d.getMonth()]} ${d.getFullYear()}`;
         }
 
@@ -1006,6 +1017,11 @@
             const today = getToday();
             // Find the closest upcoming exam
             const upcoming = EXAMS.filter(e => {
+                if (e.monthOnly) {
+                    const d = new Date(e.date + 'T00:00:00');
+                    const monthEnd = new Date(d.getFullYear(), d.getMonth() + 1, 0);
+                    return monthEnd >= today;
+                }
                 const d = new Date(e.date + 'T00:00:00');
                 return d >= today;
             }).sort((a, b) => new Date(a.date) - new Date(b.date));
@@ -1019,11 +1035,13 @@
             const next = upcoming[0];
             card.style.display = 'block';
             document.getElementById('nextExamTitle').textContent = next.title;
-            document.getElementById('nextExamDate').textContent = formatDateLong(next.date);
+            document.getElementById('nextExamDate').textContent = formatDateLong(next.date, next.monthOnly);
 
-            const days = getDaysUntil(next.date);
+            const days = getDaysUntil(next.date, next.monthOnly);
             const container = document.getElementById('countdownContainer');
-            if (days === 0) {
+            if (days === null) {
+                container.innerHTML = '<span class="text-sm font-bold bg-white/20 px-3 py-1 rounded-full">Upcoming</span>';
+            } else if (days === 0) {
                 container.innerHTML = '<span class="text-sm font-bold bg-white/20 px-3 py-1 rounded-full">🎯 Today!</span>';
             } else if (days > 0) {
                 container.innerHTML = `<span class="text-sm font-bold bg-white/20 px-3 py-1 rounded-full">${days} day${days !== 1 ? 's' : ''} away</span>`;
@@ -1040,7 +1058,7 @@
 
             // Filter exams
             let filtered = EXAMS.filter(e => {
-                const status = getStatus(e.date);
+                const status = getStatus(e.date, e.monthOnly, e.status);
                 if (currentFilter === 'upcoming' && status === 'completed') return false;
                 if (currentFilter === 'completed' && (status === 'upcoming' || status === 'today')) return false;
                 if (query && !e.title.toLowerCase().includes(query)) return false;
@@ -1063,7 +1081,7 @@
             filtered.forEach((exam, idx) => {
                 const d = new Date(exam.date + 'T00:00:00');
                 const year = d.getFullYear();
-                const status = getStatus(exam.date);
+                const status = getStatus(exam.date, exam.monthOnly, exam.status);
 
                 // Year divider
                 if (year !== lastYear) {
@@ -1088,16 +1106,23 @@
                 if (status === 'today') {
                     statusBadge = '<span class="status-badge status-today"><span class="pulse-dot" style="background:#d97706;"></span>Today</span>';
                 } else if (status === 'upcoming') {
-                    const days = getDaysUntil(exam.date);
-                    statusBadge = `<span class="status-badge status-upcoming"><span class="pulse-dot"></span>In ${days} day${days !== 1 ? 's' : ''}</span>`;
+                    const days = getDaysUntil(exam.date, exam.monthOnly);
+                    if (days === null) {
+                        statusBadge = '<span class="status-badge status-upcoming"><span class="pulse-dot"></span>Upcoming</span>';
+                    } else {
+                        statusBadge = `<span class="status-badge status-upcoming"><span class="pulse-dot"></span>In ${days} day${days !== 1 ? 's' : ''}</span>`;
+                    }
                 } else {
                     statusBadge = '<span class="status-badge status-completed">Completed</span>';
                 }
 
+                const dateBoxContent = exam.monthOnly
+                    ? `<span class="date-day" style="font-size:1rem;">${MONTHS[d.getMonth()]}</span><span class="date-month">${year}</span>`
+                    : `<span class="date-day">${String(d.getDate()).padStart(2, '0')}</span><span class="date-month">${MONTHS[d.getMonth()]}</span>`;
+
                 item.innerHTML = `
                     <div class="date-box ${isUpcoming ? '' : 'past'}">
-                        <span class="date-day">${String(d.getDate()).padStart(2, '0')}</span>
-                        <span class="date-month">${MONTHS[d.getMonth()]}</span>
+                        ${dateBoxContent}
                     </div>
                     <div class="exam-card">
                         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
