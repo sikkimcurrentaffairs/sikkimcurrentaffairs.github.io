@@ -47,4 +47,33 @@ Contributions are welcome! If you find any bugs, have suggestions for new conten
 Have a question or just want to say hi? Drop a message via the [Contact Me](https://sikkimcurrentaffairs.github.io/contact.html) page on the website.
 
 ---
-*Designed and maintained by [nothisisdk](https://www.instagram.com/nothisisdk/).*
+
+## 📄 License
+
+This project is licensed under the **[Creative Commons Attribution 4.0 International License (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/)**.
+
+[![CC BY 4.0](https://licensebuttons.net/l/by/4.0/88x31.png)](https://creativecommons.org/licenses/by/4.0/)
+
+You are free to **share** and **adapt** this material for any purpose, even commercially, as long as you give **appropriate credit**.
+
+### ✅ How to Give Proper Attribution
+
+If you use, fork, or redistribute any part of this project, you **must** include the following:
+
+1. **Credit the author** — Devashish Kaushik ([@nothisisdk](https://www.instagram.com/nothisisdk/))
+2. **Link to the original repository** — [github.com/sikkimcurrentaffairs/sikkimcurrentaffairs.github.io](https://github.com/sikkimcurrentaffairs/sikkimcurrentaffairs.github.io)
+3. **Link to the license** — [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+4. **Indicate if changes were made**
+
+**Example attribution (in your README, footer, or about page):**
+
+> *Based on [Sikkim PSC Preparation Hub](https://github.com/sikkimcurrentaffairs/sikkimcurrentaffairs.github.io) by [Devashish Kaushik](https://www.instagram.com/nothisisdk/), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).*
+
+> [!CAUTION]
+> **Plagiarism is not tolerated.** Simply copying this project without proper attribution violates the license terms and is unethical. Respect the effort that went into building this resource.
+
+---
+
+**© 2026 Devashish Kaushik. All rights reserved under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).**
+
+*Designed and maintained by [Devashish Kaushik](https://www.instagram.com/nothisisdk/) · [Instagram](https://www.instagram.com/nothisisdk/) · [GitHub](https://github.com/sikkimcurrentaffairs)*
