@@ -33,7 +33,7 @@ A lightweight floating productivity timer available on every page — designed t
 - **Hosting**: GitHub Pages
 
 ##  Live Demo
-Visit the live website here: [https://sikkimcurrentaffairs.github.io](https://sikkimcurrentaffairs.github.io)
+Visit the live website here: [https://sikkimprephub.github.io](https://sikkimprephub.github.io)
 
 ##  Contributing
 Contributions are welcome! If you find any bugs, have suggestions for new content, or want to improve the codebase:
