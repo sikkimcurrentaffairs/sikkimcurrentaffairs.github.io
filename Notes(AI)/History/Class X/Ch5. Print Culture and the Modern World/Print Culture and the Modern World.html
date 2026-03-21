@@ -1,0 +1,780 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Print Culture · History Quiz</title>
+    <style>
+        :root {
+            --primary-color: #1a5276;
+            --secondary-color: #2980b9;
+            --correct-color: #27ae60;
+            --incorrect-color: #e74c3c;
+            --light-gray: #f8f9f9;
+            --dark-gray: #7f8c8d;
+            --gold-color: #f1c40f;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gold-color);
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-top: 10px;
+            font-weight: 400;
+        }
+        
+        .quiz-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .question {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: var(--primary-color);
+            line-height: 1.4;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .option {
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            background-color: white;
+            position: relative;
+            padding-left: 45px;
+        }
+        
+        .option:hover {
+            background-color: var(--light-gray);
+            border-color: var(--secondary-color);
+        }
+        
+        .option::before {
+            content: "";
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .option.selected {
+            background-color: #e1f0fa;
+            border-color: var(--secondary-color);
+            font-weight: 500;
+        }
+        
+        .option.selected::before {
+            border-color: var(--secondary-color);
+            background-color: var(--secondary-color);
+        }
+        
+        .option.correct {
+            background-color: #e8f8f0;
+            border-color: var(--correct-color);
+            color: var(--correct-color);
+        }
+        
+        .option.correct::before {
+            border-color: var(--correct-color);
+            background-color: var(--correct-color);
+        }
+        
+        .option.incorrect {
+            background-color: #fdedec;
+            border-color: var(--incorrect-color);
+            color: var(--incorrect-color);
+        }
+        
+        .option.incorrect::before {
+            border-color: var(--incorrect-color);
+        }
+        
+        .feedback {
+            margin-top: 25px;
+            padding: 18px;
+            border-radius: 8px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .correct-feedback {
+            background-color: #e8f8f0;
+            color: var(--correct-color);
+            border-left: 5px solid var(--correct-color);
+        }
+        
+        .incorrect-feedback {
+            background-color: #fdedec;
+            color: var(--incorrect-color);
+            border-left: 5px solid var(--incorrect-color);
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        button:hover {
+            background-color: #154360;
+            transform: translateY(-2px);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+        
+        .progress-container {
+            margin-bottom: 25px;
+            background-color: var(--light-gray);
+            border-radius: 20px;
+            height: 10px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+            transition: width 0.4s ease;
+        }
+        
+        .progress-text {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: var(--dark-gray);
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .result-container {
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.8s ease;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .score {
+            font-size: 72px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 30px 0;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .score::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--gold-color);
+            border-radius: 2px;
+        }
+        
+        .score-text {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .restart-btn {
+            margin-top: 30px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .restart-btn:hover {
+            background: linear-gradient(135deg, #3498db, #1a5276);
+            transform: translateY(-2px);
+        }
+        
+        .explanation {
+            margin-top: 15px;
+            font-style: italic;
+            color: var(--dark-gray);
+            line-height: 1.5;
+        }
+        
+        .performance-text {
+            font-size: 18px;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f8f9f9;
+        }
+        
+        .week-indicator {
+            background-color: var(--gold-color);
+            color: var(--primary-color);
+            padding: 6px 15px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+            word-break: break-word;
+            max-width: 100%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            
+            header {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .quiz-container {
+                padding: 20px;
+            }
+            
+            .question {
+                font-size: 18px;
+            }
+            
+            .option {
+                padding: 12px 12px 12px 40px;
+                font-size: 15px;
+            }
+            
+            .score {
+                font-size: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Print Culture & The Modern World · History Quiz</h1>
+            <div class="subtitle">From hand‑printing to the printing press and its global impact</div>
+        </header>
+        
+        <div class="progress-text">
+            <span>Question <span id="current-question">1</span> of <span id="total-questions">46</span></span>
+            <span>Score: <span id="current-score">0</span></span>
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        
+        <div class="quiz-container">
+            <div class="week-indicator" id="week-indicator">Section 1: The First Printed Books</div>
+            <div class="question" id="question-text"></div>
+            <div class="options" id="options-container"></div>
+            <div class="feedback" id="feedback"></div>
+            
+            <div class="navigation">
+                <button id="prev-btn" disabled>Previous</button>
+                <button id="next-btn">Next</button>
+            </div>
+        </div>
+        
+        <div class="result-container" id="result-container">
+            <h2>Quiz Completed!</h2>
+            <div class="score-text">Your Final Score</div>
+            <div class="score"><span id="final-score">0</span>/<span id="total-questions-final">46</span></div>
+            <div class="performance-text" id="performance-text"></div>
+            <button class="restart-btn" id="restart-btn">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        // --------------------------------------------------------------
+        // Quiz data built from mcq.txt – 46 questions on print history
+        // --------------------------------------------------------------
+        const quizData = [
+            // Section 1: The First Printed Books (China, Japan, Korea) – Q1–6
+            { question: "The earliest kind of print technology involving hand printing was first developed in which regions?",
+              options: ["Europe and Africa", "North and South America", "China, Japan, and Korea", "West Asia and Persia"],
+              answer: 2, explanation: "Page 4 states, 'The earliest kind of print technology was developed in China, Japan and Korea. This was a system of hand printing.'",
+              week: "Section 1: The First Printed Books" },
+            { question: "From which year onwards were books in China printed by rubbing paper against the inked surface of woodblocks?",
+              options: ["AD 768", "AD 594", "AD 868", "AD 1295"],
+              answer: 1, explanation: "Page 4 mentions, 'From AD 594 onwards, books in China were printed by rubbing paper - also invented there - against the inked surface of woodblocks.'",
+              week: "Section 1: The First Printed Books" },
+            { question: "Who was the major producer of printed material in China for a very long time?",
+              options: ["Private merchants", "Buddhist missionaries", "The imperial state", "University scholars"],
+              answer: 2, explanation: "Page 4 clearly states, 'The imperial state in China was, for a very long time, the major producer of printed material.'",
+              week: "Section 1: The First Printed Books" },
+            { question: "The oldest printed Japanese book, the Buddhist Diamond Sutra, was printed in which year?",
+              options: ["AD 594", "AD 768", "AD 868", "AD 1450"],
+              answer: 2, explanation: "Page 4 mentions, 'The oldest Japanese book, printed in AD 868, is the Buddhist Diamond Sutra...'",
+              week: "Section 1: The First Printed Books" },
+            { question: "Who introduced hand-printing technology into Japan?",
+              options: ["Portuguese explorers", "Chinese merchants", "Korean diplomats", "Buddhist missionaries from China"],
+              answer: 3, explanation: "Page 4 states, 'Buddhist missionaries from China introduced hand-printing technology into Japan around AD 768-770.'",
+              week: "Section 1: The First Printed Books" },
+            { question: "The Korean collection of Buddhist scriptures, the Tripitaka Koreana, was inscribed on the UNESCO Memory of the World Register. On how many woodblocks were they engraved?",
+              options: ["About 8,000", "About 18,000", "About 80,000", "About 8,00,000"],
+              answer: 2, explanation: "The box on page 5 states, 'Belonging to the mid-13th century, printing woodblocks of the Tripitaka Koreana are a Korean collection of Buddhist scriptures. They were engraved on about 80,000 woodblocks.'",
+              week: "Section 1: The First Printed Books" },
+
+            // Section 2: Print Comes to Europe – Q7–10
+            { question: "Which material, invented in China, made the production of manuscripts possible in Europe?",
+              options: ["Silk", "Spices", "Paper", "Vellum"],
+              answer: 2, explanation: "Page 6 states, 'In the eleventh century, Chinese paper reached Europe via the same route. Paper made possible the production of manuscripts, carefully written by scribes.'",
+              week: "Section 2: Print Comes to Europe" },
+            { question: "Who is credited with bringing the knowledge of woodblock printing from China to Italy in 1295?",
+              options: ["Johann Gutenberg", "Marco Polo", "Martin Luther", "James Augustus Hickey"],
+              answer: 1, explanation: "Page 6 mentions, 'Marco Polo... returned to Italy after many years of exploration in China. As you read above, China already had the technology of woodblock printing. Marco Polo brought this knowledge back with him.'",
+              week: "Section 2: Print Comes to Europe" },
+            { question: "What was 'vellum'?",
+              options: ["A type of printing press", "A cheap variety of paper", "A parchment made from the skin of animals", "A popular folk tale book"],
+              answer: 2, explanation: "The 'New words' section on page 6 defines vellum as 'A parchment made from the skin of animals.'",
+              week: "Section 2: Print Comes to Europe" },
+            { question: "The Jikji, printed in Korea in the late 14th century, is significant because it is among the world's oldest existing books printed with:",
+              options: ["Woodblocks", "Movable metal type", "Hand-painted illustrations", "A power-driven cylindrical press"],
+              answer: 1, explanation: "Page 6 states, 'The Jikji of Korea is among the world's oldest existing books printed with movable metal type.'",
+              week: "Section 2: Print Comes to Europe" },
+
+            // Section 3: Gutenberg and the Printing Press – Q11–16
+            { question: "Johann Gutenberg developed the first-known printing press in which city and decade?",
+              options: ["Mainz, 1420s", "Strasbourg, 1430s", "Paris, 1440s", "London, 1450s"],
+              answer: 1, explanation: "Page 6 mentions, 'The breakthrough occurred at Strasbourg, Germany, where Johann Gutenberg developed the first- known printing press in the 1430s.'",
+              week: "Section 3: Gutenberg and the Printing Press" },
+            { question: "What provided the model for Gutenberg's printing press?",
+              options: ["A wine and olive press", "A paper mill", "A cloth loom", "A potter's wheel"],
+              answer: 0, explanation: "Page 7 states, 'The olive press provided the model for the printing press...'",
+              week: "Section 3: Gutenberg and the Printing Press" },
+            { question: "What was the first book printed by Gutenberg?",
+              options: ["The Diamond Sutra", "The Jikji", "The Bible", "Ninety Five Theses"],
+              answer: 2, explanation: "Page 7 clearly states, 'The first book he printed was the Bible.'",
+              week: "Section 3: Gutenberg and the Printing Press" },
+            { question: "Approximately how many copies of the Gutenberg Bible were printed, and how many years did it take to produce them?",
+              options: ["50 copies, 1 year", "180 copies, 3 years", "500 copies, 5 years", "1000 copies, 10 years"],
+              answer: 1, explanation: "Page 7 mentions, 'About 180 copies were printed and it took three years to produce them.'",
+              week: "Section 3: Gutenberg and the Printing Press" },
+            { question: "Gutenberg's invention, which allowed for the composition of different words by rearranging letters, was known as:",
+              options: ["The platen press", "The offset press", "Moveable type printing machine", "The lithographic press"],
+              answer: 2, explanation: "The caption on page 7 describes, 'Gutenberg developed metal types for each of the 26 characters of the Roman alphabet and devised a way of moving them around... This came to be known as the moveable type printing machine...'",
+              week: "Section 3: Gutenberg and the Printing Press" },
+            { question: "How many sheets could the Gutenberg press print on one side per hour?",
+              options: ["25 sheets", "250 sheets", "2,500 sheets", "8,000 sheets"],
+              answer: 1, explanation: "The caption on page 7 states, 'The Gutenberg press could print 250 sheets on one side per hour.'",
+              week: "Section 3: Gutenberg and the Printing Press" },
+
+            // Section 4: The Print Revolution and Its Impact – Q17–22
+            { question: "What was one of the most significant impacts of the print revolution?",
+              options: ["It made books more expensive and exclusive.", "It eliminated the need for handwritten manuscripts entirely.", "It transformed people's relationships with information, knowledge, and institutions.", "It led to a decline in literacy rates."],
+              answer: 2, explanation: "Page 9 states, 'it transformed the lives of people, changing their relationship to information and knowledge, and with institutions and authorities.'",
+              week: "Section 4: The Print Revolution and Its Impact" },
+            { question: "Before the age of print, how was knowledge primarily transferred among common people?",
+              options: ["Through silent reading of expensive books", "Through oral culture, like hearing sacred texts read out or ballads recited", "Through university lectures", "Through official government circulars"],
+              answer: 1, explanation: "Page 9 explains, 'Common people lived in a world of oral culture. They heard sacred texts read out, ballads recited, and folk tales narrated. Knowledge was transferred orally.'",
+              week: "Section 4: The Print Revolution and Its Impact" },
+            { question: "Who wrote the Ninety Five Theses, criticizing the practices of the Roman Catholic Church, in 1517?",
+              options: ["Erasmus", "Menocchio", "Martin Luther", "Johann Gutenberg"],
+              answer: 2, explanation: "Page 10 states, 'In 1517, the religious reformer Martin Luther wrote Ninety Five Theses criticising many of the practices and rituals of the Roman Catholic Church.'",
+              week: "Section 4: The Print Revolution and Its Impact" },
+            { question: "How did Martin Luther view the printing press?",
+              options: ["As a tool of the devil", "As a threat to religious authority", "As the ultimate gift of God", "As a vulgar and cheap technology"],
+              answer: 2, explanation: "Page 10 quotes Luther as saying, 'Printing is the ultimate gift of God and the greatest one.'",
+              week: "Section 4: The Print Revolution and Its Impact" },
+            { question: "The Roman Catholic Church began maintaining an 'Index of Prohibited Books' from 1558 to:",
+              options: ["Promote the sale of religious books.", "Encourage the work of Protestant reformers.", "Impose controls over publishers and suppress heretical ideas.", "Help authors get their books published."],
+              answer: 2, explanation: "Page 11 states, 'The Roman Church, troubled by such effects of popular readings and questionings of faith, imposed severe controls over publishers and booksellers and began to maintain an Index of Prohibited Books from 1558.'",
+              week: "Section 4: The Print Revolution and Its Impact" },
+            { question: "What happened to Menocchio, a miller in Italy, for reinterpreting the message of the Bible?",
+              options: ["He was praised by the Church.", "He became a famous publisher.", "He was executed by the Roman Catholic Church.", "He was asked to write more books."],
+              answer: 2, explanation: "Page 11 mentions, 'Menocchio was hauled up twice and ultimately executed' by the Roman Catholic Church for his heretical views.",
+              week: "Section 4: The Print Revolution and Its Impact" },
+
+            // Section 5: The Reading Mania and Its Effects – Q23–26
+            { question: "What were 'penny chapbooks' in England?",
+              options: ["Expensive books for the rich", "Low-priced small books sold by pedlars, affordable by the poor", "Official government documents", "Religious scriptures used in churches"],
+              answer: 1, explanation: "Page 12 describes, 'In England, penny chapbooks were carried by petty pedlars known as chapmen, and sold for a penny, so that even the poor could buy them.'",
+              week: "Section 5: The Reading Mania and Its Effects" },
+            { question: "The French equivalent of cheap, low-priced books printed on poor quality paper was known as:",
+              options: ["Penny Magazine", "Bibliotheque Bleue", "Shilling Series", "The Gutenberg Bible"],
+              answer: 1, explanation: "Page 12 mentions, 'In France, were the 'Biliotheque Bleue', which were low- priced small books printed on poor quality paper...'",
+              week: "Section 5: The Reading Mania and Its Effects" },
+            { question: "According to some historians, print culture did NOT contribute to the French Revolution by:",
+              options: ["Popularising the ideas of Enlightenment thinkers like Voltaire and Rousseau.", "Creating a new culture of dialogue and debate.", "Outpouring of literature that mocked the royalty.", "Directly shaping the minds of every reader in the same way."],
+              answer: 3, explanation: "Page 14 argues that people interpreted things in their own way and were not influenced directly by everything they read, thus print did not directly shape their minds but opened up the possibility of thinking differently.",
+              week: "Section 5: The Reading Mania and Its Effects" },
+            { question: "Louise-Sebastien Mercier, a novelist in 18th-century France, declared that the printing press is:",
+              options: ["A threat to the monarchy", "The most powerful engine of progress", "A source of cheap entertainment", "The ultimate gift of God"],
+              answer: 1, explanation: "Page 13 quotes Mercier: 'The printing press is the most powerful engine of progress and public opinion is the force that will sweep despotism away.'",
+              week: "Section 5: The Reading Mania and Its Effects" },
+
+            // Section 6: The Nineteenth Century (Children, Women, Workers) – Q27–30
+            { question: "Which press, devoted to literature for children alone, was set up in France in 1857?",
+              options: ["The Gutenberg Press", "The Naval Kishore Press", "A children's press", "The Shri Venkateshwar Press"],
+              answer: 2, explanation: "Page 15 states, 'A children's press, devoted to literature for children alone, was set up in France in 1857.'",
+              week: "Section 6: The Nineteenth Century (Children, Women, Workers)" },
+            { question: "Who compiled and edited traditional folk tales gathered from peasants in Germany, publishing a collection in 1812?",
+              options: ["The Bronte Sisters", "Jane Austen", "The Grimm Brothers", "George Eliot"],
+              answer: 2, explanation: "Page 15 mentions, 'The Grimm Brothers in Germany spent years compiling traditional folk tales gathered from peasants.'",
+              week: "Section 6: The Nineteenth Century (Children, Women, Workers)" },
+            { question: "Which of the following was NOT a famous woman novelist mentioned in the chapter?",
+              options: ["Jane Austen", "The Bronte Sisters", "George Eliot", "Louisa May Alcott"],
+              answer: 3, explanation: "Page 15 lists Jane Austen, the Bronte sisters, and George Eliot as some of the best-known novelists.",
+              week: "Section 6: The Nineteenth Century (Children, Women, Workers)" },
+            { question: "By the mid-19th century, Richard M. Hoe of New York perfected the power-driven cylindrical press, which was capable of printing how many sheets per hour?",
+              options: ["250 sheets", "1,000 sheets", "8,000 sheets", "20,000 sheets"],
+              answer: 2, explanation: "Page 16 states, 'By the mid- nineteenth century, Richard M. Hoe of New York had perfected the power- driven cylindrical press. This was capable of printing 8,000 sheets per hour.'",
+              week: "Section 6: The Nineteenth Century (Children, Women, Workers)" },
+
+            // Section 7: India and the World of Print – Q31–35
+            { question: "Before the age of print in India, manuscripts were often copied on:",
+              options: ["Cotton cloth and silk", "Palm leaves or handmade paper", "Vellum and parchment", "Bamboo strips"],
+              answer: 1, explanation: "Page 17 states, 'Manuscripts were copied on palm leaves or on handmade paper.'",
+              week: "Section 7: India and the World of Print" },
+            { question: "The printing press first came to which part of India with Portuguese missionaries in the mid-sixteenth century?",
+              options: ["Calicut", "Bombay", "Goa", "Cochin"],
+              answer: 2, explanation: "Page 18 states, 'The printing press first came to Goa with Portuguese missionaries in the mid-sixteenth century.'",
+              week: "Section 7: India and the World of Print" },
+            { question: "The first Tamil book was printed in 1579 at:",
+              options: ["Madras", "Goa", "Cochin", "Calcutta"],
+              answer: 2, explanation: "Page 18 states, 'Catholic priests printed the first Tamil book in 1579 at Cochin...'",
+              week: "Section 7: India and the World of Print" },
+            { question: "Who began to edit the Bengal Gazette, a weekly magazine, in 1780?",
+              options: ["Gangadhar Bhattacharya", "Raja Rammohun Roy", "Warren Hastings", "James Augustus Hickey"],
+              answer: 3, explanation: "Page 18 states, 'From 1780, James Augustus Hickey began to edit the Bengal Gazette...'",
+              week: "Section 7: India and the World of Print" },
+            { question: "The first Indian to publish a weekly newspaper, the Bengal Gazette, was:",
+              options: ["Rammohun Roy", "Gangadhar Bhattacharya", "James Augustus Hickey", "Warren Hastings"],
+              answer: 1, explanation: "Page 18 mentions, 'The first to appear was the weekly Bengal Gazette, brought out by Gangadhar Bhattacharya, who was close to Rammohun Roy.'",
+              week: "Section 7: India and the World of Print" },
+
+            // Section 8: Religious Reform and New Forms of Publication in India – Q36–42
+            { question: "Rammohun Roy published the Sambad Kaumudi from 1821. Which newspaper was commissioned by the Hindu orthodoxy to oppose his opinions?",
+              options: ["Bombay Samachar", "Samachar Chandrika", "Jam-i-Jahan Nama", "Shamsul Akhbar"],
+              answer: 1, explanation: "Page 19 states, 'Rammohun Roy published the Sambad Kaumudi from 1821 and the Hindu orthodoxy commissioned the Samachar Chandrika to oppose his opinions.'",
+              week: "Section 8: Religious Reform and New Forms of Publication in India" },
+            { question: "The Deoband Seminary, founded in 1867, published thousands of fatwas to instruct Muslim readers. What is a 'fatwa'?",
+              options: ["A type of Urdu poetry", "A legal pronouncement on Islamic law", "A Persian newspaper", "A school for Hindu learning"],
+              answer: 1, explanation: "The 'New words' section on page 19 defines a fatwa as 'A legal pronouncement on Islamic law...'",
+              week: "Section 8: Religious Reform and New Forms of Publication in India" },
+            { question: "The first printed edition of the Ramcharitmanas of Tulsidas came out from which city in 1810?",
+              options: ["Lucknow", "Bombay", "Calcutta", "Delhi"],
+              answer: 2, explanation: "Page 20 mentions, 'The first printed edition of the Ramcharitmanas of Tulsidas... came out from Calcutta in 1810.'",
+              week: "Section 8: Religious Reform and New Forms of Publication in India" },
+            { question: "Which famous painter produced images for mass circulation by the end of the nineteenth century?",
+              options: ["Raja Ravi Varma", "Utamaro Kitagawa", "Nandalal Bose", "Abanindranath Tagore"],
+              answer: 0, explanation: "Page 21 states, 'Painters like Raja Ravi Varma produced images for mass circulation.'",
+              week: "Section 8: Religious Reform and New Forms of Publication in India" },
+            { question: "Who wrote the first full-length autobiography published in the Bengali language, Amar Jiban, in 1876?",
+              options: ["Kailashbashini Debi", "Pandita Ramabai", "Tarabai Shinde", "Rashsundari Debi"],
+              answer: 3, explanation: "Page 22 states, '...Rashsundari Debi... wrote her autobiography Amar Jiban which was published in 1876. It was the first full- length autobiography published in the Bengali language.'",
+              week: "Section 8: Religious Reform and New Forms of Publication in India" },
+            { question: "Jyotiba Phule, a pioneer of low-caste protest movements, wrote about the injustices of the caste system in which book?",
+              options: ["Sacchi Kavitayan", "Istri Dharm Vichar", "Gulamgiri (1871)", "Chhote Aur Bade Ka Sawal"],
+              answer: 2, explanation: "Page 24 mentions, 'Jyotiba Phule, the Maratha pioneer of low caste' protest movements, wrote about the injustices of the caste system in his Gulamgiri (1871).'",
+              week: "Section 8: Religious Reform and New Forms of Publication in India" },
+            { question: "Kashibaba, a Kanpur millworker, wrote and published which book in 1938 to show the links between caste and class exploitation?",
+              options: ["Sacchi Kavitayan", "Burhi Aair Sadhu", "Chhote Aur Bade Ka Sawal", "Gulamgiri"],
+              answer: 2, explanation: "Page 24 states, 'Kashibaba, a Kanpur millworker, wrote and published Chbote Aur Bade Ka Saval in 1938 to show the links between caste and class exploitation.'",
+              week: "Section 8: Religious Reform and New Forms of Publication in India" },
+
+            // Section 9: Print and Censorship – Q43–46
+            { question: "In which year was the Vernacular Press Act passed, providing the colonial government with extensive rights to censor reports in the vernacular press?",
+              options: ["1835", "1857", "1878", "1908"],
+              answer: 2, explanation: "Page 25 states, 'In 1878, the Vernacular Press Act was passed...'",
+              week: "Section 9: Print and Censorship" },
+            { question: "The Vernacular Press Act was modelled on which press laws?",
+              options: ["The French Press Laws", "The Irish Press Laws", "The American Press Laws", "The German Press Laws"],
+              answer: 1, explanation: "Page 25 mentions it was 'modelled on the Irish Press Laws.'",
+              week: "Section 9: Print and Censorship" },
+            { question: "Balgangadhar Tilak was imprisoned in 1908 for writing with great sympathy about Punjab revolutionaries in his newspaper:",
+              options: ["The Bengal Gazette", "The Native Opinion", "Kesari", "The Statesman"],
+              answer: 2, explanation: "Page 25 states, '...Balgangadhar Tilak wrote with great sympathy about them in his Kesari. This led to his imprisonment in 1908...'",
+              week: "Section 9: Print and Censorship" },
+            { question: "According to Gandhi in 1922, the fight for Swaraj meant a fight for what before all else?",
+              options: ["Economic independence", "Religious freedom", "Threatened freedom like liberty of speech and the press", "Better working conditions"],
+              answer: 2, explanation: "Page 25 quotes Gandhi: 'The fight for Swaraj... means a fight for this threatened freedom before all else...'",
+              week: "Section 9: Print and Censorship" }
+        ];
+
+        // DOM elements
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const feedbackDiv = document.getElementById('feedback');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const currentQuestionSpan = document.getElementById('current-question');
+        const totalQuestionsSpan = document.getElementById('total-questions');
+        const currentScoreSpan = document.getElementById('current-score');
+        const progressBar = document.getElementById('progress-bar');
+        const resultContainer = document.getElementById('result-container');
+        const finalScoreSpan = document.getElementById('final-score');
+        const totalQuestionsFinalSpan = document.getElementById('total-questions-final');
+        const performanceText = document.getElementById('performance-text');
+        const restartBtn = document.getElementById('restart-btn');
+        const weekIndicator = document.getElementById('week-indicator');
+
+        // Quiz state
+        let currentQuestionIndex = 0;
+        let userAnswers = Array(quizData.length).fill(null);
+        let score = 0;
+
+        function initQuiz() {
+            totalQuestionsSpan.textContent = quizData.length;
+            totalQuestionsFinalSpan.textContent = quizData.length;
+            updateProgressBar();
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const question = quizData[currentQuestionIndex];
+            questionText.innerHTML = question.question;
+            weekIndicator.textContent = question.week;
+            
+            optionsContainer.innerHTML = '';
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.textContent = option;
+                optionDiv.addEventListener('click', () => selectOption(index));
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            prevBtn.disabled = currentQuestionIndex === 0;
+            nextBtn.textContent = currentQuestionIndex === quizData.length - 1 ? 'Finish' : 'Next';
+            
+            currentQuestionSpan.textContent = currentQuestionIndex + 1;
+            currentScoreSpan.textContent = score;
+            updateProgressBar();
+            
+            feedbackDiv.style.display = 'none';
+            
+            if (userAnswers[currentQuestionIndex] !== null) {
+                const selectedOptIndex = userAnswers[currentQuestionIndex];
+                const options = optionsContainer.querySelectorAll('.option');
+                if (options[selectedOptIndex]) { 
+                    options[selectedOptIndex].classList.add('selected');
+                }
+                checkAnswer(selectedOptIndex, false); 
+            } else {
+                optionsContainer.querySelectorAll('.option').forEach(opt => {
+                    opt.style.pointerEvents = 'auto';
+                });
+            }
+        }
+
+        function updateProgressBar() {
+            const progress = ((currentQuestionIndex + 1) / quizData.length) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        function selectOption(optionIndex) {
+            if (feedbackDiv.style.display === 'block' && questionText.innerHTML === quizData[currentQuestionIndex].question) {
+                return; 
+            }
+
+            const isFirstAttempt = userAnswers[currentQuestionIndex] === null;
+            
+            if (isFirstAttempt) {
+                userAnswers[currentQuestionIndex] = optionIndex;
+            }
+            
+            const options = document.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            if (options[optionIndex]) {
+                options[optionIndex].classList.add('selected');
+            }
+            
+            checkAnswer(optionIndex, isFirstAttempt);
+        }
+
+        function checkAnswer(selectedIndex, isFirstScoringAttempt) {
+            const question = quizData[currentQuestionIndex];
+            const options = document.querySelectorAll('.option');
+            
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none'; 
+            });
+
+            if (options[question.answer]) {
+                 options[question.answer].classList.add('correct');
+            }
+            if (selectedIndex !== question.answer && options[selectedIndex]) {
+                options[selectedIndex].classList.add('incorrect');
+            }
+            
+            feedbackDiv.innerHTML = ''; 
+            if (selectedIndex === question.answer) {
+                feedbackDiv.className = 'feedback correct-feedback';
+                feedbackDiv.textContent = 'Correct!';
+                if (isFirstScoringAttempt) { 
+                    score++;
+                }
+            } else {
+                feedbackDiv.className = 'feedback incorrect-feedback';
+                const correctAnswerText = question.options[question.answer] || "N/A";
+                feedbackDiv.textContent = `Incorrect. The correct answer is: ${correctAnswerText}`;
+            }
+            currentScoreSpan.textContent = score;
+            
+            if (question.explanation) {
+                const explanation = document.createElement('div');
+                explanation.className = 'explanation';
+                explanation.textContent = question.explanation;
+                feedbackDiv.appendChild(explanation);
+            }
+            
+            feedbackDiv.style.display = 'block';
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < quizData.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+            }
+        }
+
+        function showResult() {
+            document.querySelector('.quiz-container').style.display = 'none';
+            document.querySelector('.progress-text').style.display = 'none';
+            document.querySelector('.progress-container').style.display = 'none';
+            resultContainer.style.display = 'block';
+            finalScoreSpan.textContent = score;
+            
+            const percentage = (score / quizData.length) * 100;
+            let performance = '';
+            if (percentage >= 90) performance = 'Outstanding! You have an excellent knowledge of print history.';
+            else if (percentage >= 75) performance = 'Excellent! Very well-informed about the print revolution.';
+            else if (percentage >= 50) performance = 'Good effort! You know quite a bit.';
+            else if (percentage >= 30) performance = 'Keep learning! Review the topics to improve.';
+            else performance = 'A good start! Study more to enhance your knowledge.';
+            performanceText.textContent = performance;
+        }
+
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            userAnswers = Array(quizData.length).fill(null);
+            score = 0;
+            document.querySelector('.quiz-container').style.display = 'block';
+            document.querySelector('.progress-text').style.display = 'flex'; 
+            document.querySelector('.progress-container').style.display = 'block'; 
+            resultContainer.style.display = 'none';
+            feedbackDiv.style.display = 'none';
+            currentScoreSpan.textContent = score; 
+            showQuestion();
+        }
+
+        nextBtn.addEventListener('click', nextQuestion);
+        prevBtn.addEventListener('click', prevQuestion);
+        restartBtn.addEventListener('click', restartQuiz);
+
+        initQuiz();
+    </script>
+</body>
+</html>
+```

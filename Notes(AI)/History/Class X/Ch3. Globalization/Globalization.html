@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Making of a Global World · MCQ Quiz</title>
+    <style>
+        :root {
+            --primary-color: #1a5276;
+            --secondary-color: #2980b9;
+            --correct-color: #27ae60;
+            --incorrect-color: #e74c3c;
+            --light-gray: #f8f9f9;
+            --dark-gray: #7f8c8d;
+            --gold-color: #f1c40f;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gold-color);
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-top: 10px;
+            font-weight: 400;
+        }
+        
+        .quiz-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .question {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: var(--primary-color);
+            line-height: 1.4;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .option {
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            background-color: white;
+            position: relative;
+            padding-left: 45px;
+        }
+        
+        .option:hover {
+            background-color: var(--light-gray);
+            border-color: var(--secondary-color);
+        }
+        
+        .option::before {
+            content: "";
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .option.selected {
+            background-color: #e1f0fa;
+            border-color: var(--secondary-color);
+            font-weight: 500;
+        }
+        
+        .option.selected::before {
+            border-color: var(--secondary-color);
+            background-color: var(--secondary-color);
+        }
+        
+        .option.correct {
+            background-color: #e8f8f0;
+            border-color: var(--correct-color);
+            color: var(--correct-color);
+        }
+        
+        .option.correct::before {
+            border-color: var(--correct-color);
+            background-color: var(--correct-color);
+        }
+        
+        .option.incorrect {
+            background-color: #fdedec;
+            border-color: var(--incorrect-color);
+            color: var(--incorrect-color);
+        }
+        
+        .option.incorrect::before {
+            border-color: var(--incorrect-color);
+        }
+        
+        .feedback {
+            margin-top: 25px;
+            padding: 18px;
+            border-radius: 8px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .correct-feedback {
+            background-color: #e8f8f0;
+            color: var(--correct-color);
+            border-left: 5px solid var(--correct-color);
+        }
+        
+        .incorrect-feedback {
+            background-color: #fdedec;
+            color: var(--incorrect-color);
+            border-left: 5px solid var(--incorrect-color);
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        button:hover {
+            background-color: #154360;
+            transform: translateY(-2px);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+        
+        .progress-container {
+            margin-bottom: 25px;
+            background-color: var(--light-gray);
+            border-radius: 20px;
+            height: 10px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+            transition: width 0.4s ease;
+        }
+        
+        .progress-text {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: var(--dark-gray);
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .result-container {
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.8s ease;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .score {
+            font-size: 72px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 30px 0;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .score::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--gold-color);
+            border-radius: 2px;
+        }
+        
+        .score-text {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .restart-btn {
+            margin-top: 30px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .restart-btn:hover {
+            background: linear-gradient(135deg, #3498db, #1a5276);
+            transform: translateY(-2px);
+        }
+        
+        .explanation {
+            margin-top: 15px;
+            font-style: italic;
+            color: var(--dark-gray);
+            line-height: 1.5;
+        }
+        
+        .performance-text {
+            font-size: 18px;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f8f9f9;
+        }
+        
+        .week-indicator {
+            background-color: var(--gold-color);
+            color: var(--primary-color);
+            padding: 6px 15px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+            word-break: break-word;
+            max-width: 100%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            
+            header {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .quiz-container {
+                padding: 20px;
+            }
+            
+            .question {
+                font-size: 18px;
+            }
+            
+            .option {
+                padding: 12px 12px 12px 40px;
+                font-size: 15px;
+            }
+            
+            .score {
+                font-size: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>The Making of a Global World · MCQ Quiz</h1>
+            <div class="subtitle">Trade, colonisation, and global connections</div>
+        </header>
+        
+        <div class="progress-text">
+            <span>Question <span id="current-question">1</span> of <span id="total-questions">20</span></span>
+            <span>Score: <span id="current-score">0</span></span>
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        
+        <div class="quiz-container">
+            <div class="week-indicator" id="week-indicator">Topic 1: Pre-Modern World</div>
+            <div class="question" id="question-text"></div>
+            <div class="options" id="options-container"></div>
+            <div class="feedback" id="feedback"></div>
+            
+            <div class="navigation">
+                <button id="prev-btn" disabled>Previous</button>
+                <button id="next-btn">Next</button>
+            </div>
+        </div>
+        
+        <div class="result-container" id="result-container">
+            <h2>Quiz Completed!</h2>
+            <div class="score-text">Your Final Score</div>
+            <div class="score"><span id="final-score">0</span>/<span id="total-questions-final">20</span></div>
+            <div class="performance-text" id="performance-text"></div>
+            <button class="restart-btn" id="restart-btn">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        // --------------------------------------------------------------
+        // quizData built from mcq.txt – 20 questions, topics preserved
+        // --------------------------------------------------------------
+        const quizData = [
+            // Section 1: The Pre-Modern World  (Q1–5)
+            { question: "According to the chapter, what evidence from the ninth century onwards indicates the significance of oceanic trade on India's western coast?",
+              options: ["Written accounts by Arab traders", "The construction of large ports", "Images of ships on memorial stones", "The discovery of foreign coins"],
+              answer: 2,
+              explanation: "Page 3 mentions that from the ninth century, images of ships appear regularly in memorial stones found on the western coast, indicating the significance of oceanic trade.",
+              week: "Topic 1: Pre-Modern World" },
+            { question: "The 'Silk Routes' are a good example of pre-modern trade because they:",
+              options: ["Were only used for the trade of Chinese silk.", "Connected distant parts of the world through land and sea routes, facilitating the exchange of goods, culture, and religion.", "Were exclusively used by Christian missionaries.", "Only existed for a short period during the Christian Era."],
+              answer: 1,
+              explanation: "Page 4 explains that the silk routes knitted together vast regions of Asia and linked them with Europe and Africa, facilitating the trade of goods like silk, pottery, and spices, as well as the spread of religions like Buddhism and Islam.",
+              week: "Topic 1: Pre-Modern World" },
+            { question: "Which of the following foods were NOT known to our ancestors until about five centuries ago, having been introduced from the Americas?",
+              options: ["Wheat and Rice", "Potatoes and Tomatoes", "Barley and Gram", "Sugarcane and Pepper"],
+              answer: 1,
+              explanation: "Page 4 states that common foods such as potatoes, soya, groundnuts, maize, tomatoes, chillies, and sweet potatoes were not known to our ancestors until about five centuries ago, after the discovery of the Americas.",
+              week: "Topic 1: Pre-Modern World" },
+            { question: "What was the most powerful weapon of the Spanish conquerors in their conquest of America?",
+              options: ["Guns and swords", "Horses and cavalry", "Germs like those of smallpox", "Superior military strategies"],
+              answer: 2,
+              explanation: "Page 5 explicitly states that the most powerful weapon of the Spanish conquerors was not a conventional military weapon, but the germs like smallpox they carried. The native population had no immunity to these diseases.",
+              week: "Topic 1: Pre-Modern World" },
+            { question: "The Irish Potato Famine (1845-1849) led to:",
+              options: ["A decrease in emigration from Ireland.", "Around 1,000,000 deaths and double that number emigrating.", "Increased self-sufficiency in food in Ireland.", "A rise in the variety of crops grown in Ireland."],
+              answer: 1,
+              explanation: "The caption for Fig. 4 on page 5 states that during the Great Irish Potato Famine, around 1,000,000 people died and double the number emigrated in search of work.",
+              week: "Topic 1: Pre-Modern World" },
+
+            // Section 2: The Nineteenth Century (1815-1914)  (Q6–11)
+            { question: "After the abolition of the 'Corn Laws' in Britain, what was the immediate effect on British agriculture?",
+              options: ["It became more profitable due to increased exports.", "It was unable to compete with cheaper food imports, leading to land being left uncultivated.", "The government provided subsidies to help it compete.", "There was a massive shift towards industrial crops."],
+              answer: 1,
+              explanation: "Page 7 states that after the Corn Laws were scrapped, food could be imported more cheaply than it could be produced in Britain. British agriculture was unable to compete, leading to vast areas of land being left uncultivated.",
+              week: "Topic 2: Nineteenth Century (1815–1914)" },
+            { question: "Which of the following was a key technological invention that enabled the long-distance transport of perishable foods like meat?",
+              options: ["The railway", "The telegraph", "Refrigerated ships", "The steam engine"],
+              answer: 2,
+              explanation: "Page 10 explains that the development of refrigerated ships enabled the transport of perishable foods like frozen meat over long distances, which reduced shipping costs and lowered meat prices in Europe.",
+              week: "Topic 2: Nineteenth Century (1815–1914)" },
+            { question: "The Scramble for Africa, where European powers drew borders with a ruler, was formalized at which conference?",
+              options: ["The Congress of Vienna", "The Treaty of Versailles", "The Berlin Conference of 1885", "The Bretton Woods Conference"],
+              answer: 2,
+              explanation: "Page 11 mentions that in 1885, the big European powers met in Berlin to complete the carving up of Africa between them.",
+              week: "Topic 2: Nineteenth Century (1815–1914)" },
+            { question: "What was the impact of the cattle plague, or Rinderpest, on African societies in the 1890s?",
+              options: ["It strengthened African livelihoods as cattle became more valuable.", "It had little impact as Africans were immune to the disease.", "It destroyed African livelihoods by killing 90% of the cattle, forcing them into the labour market.", "It led to a massive increase in wages for African workers."],
+              answer: 2,
+              explanation: "Pages 12-13 detail how rinderpest killed 90% of the cattle, destroying African livelihoods. This allowed colonial powers to monopolize the remaining cattle and force Africans into the labour market.",
+              week: "Topic 2: Nineteenth Century (1815–1914)" },
+            { question: "What was the main destination for Indian indentured labourers in the 19th century?",
+              options: ["Europe and North America", "The Caribbean islands (Trinidad, Guyana, Surinam), Mauritius, and Fiji", "The Middle East", "Australia and New Zealand"],
+              answer: 1,
+              explanation: "Page 14 lists the main destinations of Indian indentured migrants as the Caribbean islands (Trinidad, Guyana, and Surinam), Mauritius, and Fiji.",
+              week: "Topic 2: Nineteenth Century (1815–1914)" },
+            { question: "By the 1870s, what was the share of cotton textiles in India's exports?",
+              options: ["Around 30 per cent", "Around 15 per cent", "Below 3 per cent", "Above 50 per cent"],
+              answer: 2,
+              explanation: "Page 16 shows that the share of cotton textiles in India's exports dropped from about 30% around 1800 to below 3% by the 1870s.",
+              week: "Topic 2: Nineteenth Century (1815–1914)" },
+
+            // Section 3: The Inter-war Economy  (Q12–16)
+            { question: "The First World War is described as the 'first modern industrial war' because:",
+              options: ["It was the first war to be fought entirely in Europe.", "It saw the use of industrial products like machine guns, tanks, and chemical weapons on a massive scale.", "It was the first war to use aircraft for surveillance only.", "It primarily involved cavalry and traditional infantry."],
+              answer: 1,
+              explanation: "Page 18 states that the First World War was the first modern industrial war, seeing the use of machine guns, tanks, aircraft, and chemical weapons on a massive scale, all products of modern large-scale industry.",
+              week: "Topic 3: Inter-war Economy" },
+            { question: "Who was the pioneer of mass production, known for adapting the assembly line to car manufacturing?",
+              options: ["Karl Benz", "Henry Ford", "Adam Smith", "John Maynard Keynes"],
+              answer: 1,
+              explanation: "Page 20 identifies Henry Ford as a well-known pioneer of mass production who adapted the assembly line method to his car plant in Detroit.",
+              week: "Topic 3: Inter-war Economy" },
+            { question: "What was the 'Great Depression'?",
+              options: ["A period of rapid economic growth and prosperity in the 1920s.", "A period of catastrophic declines in production, employment, incomes, and trade that began around 1929.", "A political movement in the United States.", "A war between European nations."],
+              answer: 1,
+              explanation: "Page 21 defines the Great Depression as a period beginning around 1929 and lasting till the mid-1930s, during which most parts of the world experienced catastrophic declines in production, employment, incomes, and trade.",
+              week: "Topic 3: Inter-war Economy" },
+            { question: "During the Great Depression, how did the colonial government's reaction affect Indian peasants?",
+              options: ["The government reduced revenue demands to help peasants.", "The government provided financial assistance to all farmers.", "The government refused to reduce revenue demands even though agricultural prices fell sharply.", "The government banned all agricultural exports."],
+              answer: 2,
+              explanation: "Page 23 states that though agricultural prices fell sharply during the depression, the colonial government refused to reduce revenue demands, which hit the peasants hard.",
+              week: "Topic 3: Inter-war Economy" },
+            { question: "Who profited from jute cultivation according to the jute growers' lament in Bengal during the Depression?",
+              options: ["The peasants who grew the jute", "The government", "The traders, who would pay very low prices", "The foreign buyers"],
+              answer: 2,
+              explanation: "The jute growers' lament on page 23 says, '...traders, sitting at home, will pay only Rs 5 a maund,' indicating that the traders profited by paying very low prices while the peasants bore the costs and debts.",
+              week: "Topic 3: Inter-war Economy" },
+
+            // Section 4: Rebuilding a World Economy: The Post-war Era  (Q17–20)
+            { question: "The Bretton Woods Conference in 1944 led to the establishment of which two institutions?",
+              options: ["The United Nations and UNICEF", "The International Monetary Fund (IMF) and the World Bank", "The Group of 77 and the WTO", "The European Union and the Red Cross"],
+              answer: 1,
+              explanation: "Page 25 explains that the Bretton Woods Conference established the International Monetary Fund (IMF) and the International Bank for Reconstruction and Development (World Bank).",
+              week: "Topic 4: Post-war Era & Bretton Woods" },
+            { question: "The Bretton Woods system was based on:",
+              options: ["A system of floating exchange rates determined by the market.", "Fixed exchange rates, where national currencies were pegged to the US dollar, which was anchored to gold.", "A single global currency.", "The gold standard only, with no role for the dollar."],
+              answer: 1,
+              explanation: "Page 25 states that the Bretton Woods system was based on fixed exchange rates, with national currencies pegged to the dollar, and the dollar itself was anchored to gold at a fixed price.",
+              week: "Topic 4: Post-war Era & Bretton Woods" },
+            { question: "The 'Group of 77' (G-77) was organized by developing countries to demand:",
+              options: ["More military aid from superpowers.", "A new international economic order (NIEO) that would give them real control over their natural resources and fairer prices for raw materials.", "The dissolution of the IMF and World Bank.", "Greater political representation in the United Nations."],
+              answer: 1,
+              explanation: "Page 26 explains that the G-77 demanded a New International Economic Order (NIEO) for real control over their natural resources, more development assistance, and fairer prices for raw materials.",
+              week: "Topic 4: Post-war Era & Bretton Woods" },
+            { question: "What led to the collapse of the Bretton Woods system of fixed exchange rates in the 1970s?",
+              options: ["The rapid growth of the Soviet Union's economy.", "The rising costs of US overseas involvements, which weakened its finances and the confidence in the US dollar.", "The discovery of gold in large quantities.", "A global agreement to move to floating exchange rates."],
+              answer: 1,
+              explanation: "Page 27 states that from the 1960s, the rising costs of its overseas involvements weakened the US's finances and the competitive strength of the dollar, leading to a loss of confidence and the eventual collapse of the fixed exchange rate system.",
+              week: "Topic 4: Post-war Era & Bretton Woods" }
+        ];
+
+        // DOM elements
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const feedbackDiv = document.getElementById('feedback');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const currentQuestionSpan = document.getElementById('current-question');
+        const totalQuestionsSpan = document.getElementById('total-questions');
+        const currentScoreSpan = document.getElementById('current-score');
+        const progressBar = document.getElementById('progress-bar');
+        const resultContainer = document.getElementById('result-container');
+        const finalScoreSpan = document.getElementById('final-score');
+        const totalQuestionsFinalSpan = document.getElementById('total-questions-final');
+        const performanceText = document.getElementById('performance-text');
+        const restartBtn = document.getElementById('restart-btn');
+        const weekIndicator = document.getElementById('week-indicator');
+
+        // Quiz state
+        let currentQuestionIndex = 0;
+        let userAnswers = Array(quizData.length).fill(null);
+        let score = 0;
+
+        function initQuiz() {
+            totalQuestionsSpan.textContent = quizData.length;
+            totalQuestionsFinalSpan.textContent = quizData.length;
+            updateProgressBar();
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const question = quizData[currentQuestionIndex];
+            questionText.innerHTML = question.question;
+            weekIndicator.textContent = question.week;
+            
+            optionsContainer.innerHTML = '';
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.textContent = option;
+                optionDiv.addEventListener('click', () => selectOption(index));
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            prevBtn.disabled = currentQuestionIndex === 0;
+            nextBtn.textContent = currentQuestionIndex === quizData.length - 1 ? 'Finish' : 'Next';
+            
+            currentQuestionSpan.textContent = currentQuestionIndex + 1;
+            currentScoreSpan.textContent = score;
+            updateProgressBar();
+            
+            feedbackDiv.style.display = 'none';
+            
+            if (userAnswers[currentQuestionIndex] !== null) {
+                const selectedOptIndex = userAnswers[currentQuestionIndex];
+                const options = optionsContainer.querySelectorAll('.option');
+                if (options[selectedOptIndex]) { 
+                    options[selectedOptIndex].classList.add('selected');
+                }
+                checkAnswer(selectedOptIndex, false); 
+            } else {
+                optionsContainer.querySelectorAll('.option').forEach(opt => {
+                    opt.style.pointerEvents = 'auto';
+                });
+            }
+        }
+
+        function updateProgressBar() {
+            const progress = ((currentQuestionIndex + 1) / quizData.length) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        function selectOption(optionIndex) {
+            if (feedbackDiv.style.display === 'block' && questionText.innerHTML === quizData[currentQuestionIndex].question) {
+                return; 
+            }
+
+            const isFirstAttempt = userAnswers[currentQuestionIndex] === null;
+            
+            if (isFirstAttempt) {
+                userAnswers[currentQuestionIndex] = optionIndex;
+            }
+            
+            const options = document.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            if (options[optionIndex]) {
+                options[optionIndex].classList.add('selected');
+            }
+            
+            checkAnswer(optionIndex, isFirstAttempt);
+        }
+
+        function checkAnswer(selectedIndex, isFirstScoringAttempt) {
+            const question = quizData[currentQuestionIndex];
+            const options = document.querySelectorAll('.option');
+            
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none'; 
+            });
+
+            if (options[question.answer]) {
+                 options[question.answer].classList.add('correct');
+            }
+            if (selectedIndex !== question.answer && options[selectedIndex]) {
+                options[selectedIndex].classList.add('incorrect');
+            }
+            
+            feedbackDiv.innerHTML = ''; 
+            if (selectedIndex === question.answer) {
+                feedbackDiv.className = 'feedback correct-feedback';
+                feedbackDiv.textContent = 'Correct!';
+                if (isFirstScoringAttempt) { 
+                    score++;
+                }
+            } else {
+                feedbackDiv.className = 'feedback incorrect-feedback';
+                const correctAnswerText = question.options[question.answer] || "N/A";
+                feedbackDiv.textContent = `Incorrect. The correct answer is: ${correctAnswerText}`;
+            }
+            currentScoreSpan.textContent = score;
+            
+            if (question.explanation) {
+                const explanation = document.createElement('div');
+                explanation.className = 'explanation';
+                explanation.textContent = question.explanation;
+                feedbackDiv.appendChild(explanation);
+            }
+            
+            feedbackDiv.style.display = 'block';
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < quizData.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+            }
+        }
+
+        function showResult() {
+            document.querySelector('.quiz-container').style.display = 'none';
+            document.querySelector('.progress-text').style.display = 'none';
+            document.querySelector('.progress-container').style.display = 'none';
+            resultContainer.style.display = 'block';
+            finalScoreSpan.textContent = score;
+            
+            const percentage = (score / quizData.length) * 100;
+            let performance = '';
+            if (percentage >= 90) performance = 'Outstanding! You have an excellent knowledge of global history.';
+            else if (percentage >= 75) performance = 'Excellent! Very well-informed about the making of the global world.';
+            else if (percentage >= 50) performance = 'Good effort! You know quite a bit.';
+            else if (percentage >= 30) performance = 'Keep learning! Review the topics to improve.';
+            else performance = 'A good start! Study more to enhance your knowledge.';
+            performanceText.textContent = performance;
+        }
+
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            userAnswers = Array(quizData.length).fill(null);
+            score = 0;
+            document.querySelector('.quiz-container').style.display = 'block';
+            document.querySelector('.progress-text').style.display = 'flex'; 
+            document.querySelector('.progress-container').style.display = 'block'; 
+            resultContainer.style.display = 'none';
+            feedbackDiv.style.display = 'none';
+            currentScoreSpan.textContent = score; 
+            showQuestion();
+        }
+
+        nextBtn.addEventListener('click', nextQuestion);
+        prevBtn.addEventListener('click', prevQuestion);
+        restartBtn.addEventListener('click', restartQuiz);
+
+        initQuiz();
+    </script>
+</body>
+</html>
