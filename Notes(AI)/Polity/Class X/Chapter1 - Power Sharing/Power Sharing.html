@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power Sharing · Belgium & Sri Lanka Quiz</title>
+    <style>
+        :root {
+            --primary-color: #1a5276;
+            --secondary-color: #2980b9;
+            --correct-color: #27ae60;
+            --incorrect-color: #e74c3c;
+            --light-gray: #f8f9f9;
+            --dark-gray: #7f8c8d;
+            --gold-color: #f1c40f;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gold-color);
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-top: 10px;
+            font-weight: 400;
+        }
+        
+        .quiz-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .question {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: var(--primary-color);
+            line-height: 1.4;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .option {
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            background-color: white;
+            position: relative;
+            padding-left: 45px;
+        }
+        
+        .option:hover {
+            background-color: var(--light-gray);
+            border-color: var(--secondary-color);
+        }
+        
+        .option::before {
+            content: "";
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .option.selected {
+            background-color: #e1f0fa;
+            border-color: var(--secondary-color);
+            font-weight: 500;
+        }
+        
+        .option.selected::before {
+            border-color: var(--secondary-color);
+            background-color: var(--secondary-color);
+        }
+        
+        .option.correct {
+            background-color: #e8f8f0;
+            border-color: var(--correct-color);
+            color: var(--correct-color);
+        }
+        
+        .option.correct::before {
+            border-color: var(--correct-color);
+            background-color: var(--correct-color);
+        }
+        
+        .option.incorrect {
+            background-color: #fdedec;
+            border-color: var(--incorrect-color);
+            color: var(--incorrect-color);
+        }
+        
+        .option.incorrect::before {
+            border-color: var(--incorrect-color);
+        }
+        
+        .feedback {
+            margin-top: 25px;
+            padding: 18px;
+            border-radius: 8px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .correct-feedback {
+            background-color: #e8f8f0;
+            color: var(--correct-color);
+            border-left: 5px solid var(--correct-color);
+        }
+        
+        .incorrect-feedback {
+            background-color: #fdedec;
+            color: var(--incorrect-color);
+            border-left: 5px solid var(--incorrect-color);
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        button:hover {
+            background-color: #154360;
+            transform: translateY(-2px);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+        
+        .progress-container {
+            margin-bottom: 25px;
+            background-color: var(--light-gray);
+            border-radius: 20px;
+            height: 10px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+            transition: width 0.4s ease;
+        }
+        
+        .progress-text {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: var(--dark-gray);
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .result-container {
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.8s ease;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .score {
+            font-size: 72px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 30px 0;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .score::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--gold-color);
+            border-radius: 2px;
+        }
+        
+        .score-text {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .restart-btn {
+            margin-top: 30px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .restart-btn:hover {
+            background: linear-gradient(135deg, #3498db, #1a5276);
+            transform: translateY(-2px);
+        }
+        
+        .explanation {
+            margin-top: 15px;
+            font-style: italic;
+            color: var(--dark-gray);
+            line-height: 1.5;
+        }
+        
+        .performance-text {
+            font-size: 18px;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f8f9f9;
+        }
+        
+        .week-indicator {
+            background-color: var(--gold-color);
+            color: var(--primary-color);
+            padding: 6px 15px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+            word-break: break-word;
+            max-width: 100%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            
+            header {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .quiz-container {
+                padding: 20px;
+            }
+            
+            .question {
+                font-size: 18px;
+            }
+            
+            .option {
+                padding: 12px 12px 12px 40px;
+                font-size: 15px;
+            }
+            
+            .score {
+                font-size: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Power Sharing · Belgium & Sri Lanka Quiz</h1>
+            <div class="subtitle">Majoritarianism, accommodation, and ethnic diversity</div>
+        </header>
+        
+        <div class="progress-text">
+            <span>Question <span id="current-question">1</span> of <span id="total-questions">15</span></span>
+            <span>Score: <span id="current-score">0</span></span>
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        
+        <div class="quiz-container">
+            <div class="week-indicator" id="week-indicator">Topic 1: Belgium & Power Sharing</div>
+            <div class="question" id="question-text"></div>
+            <div class="options" id="options-container"></div>
+            <div class="feedback" id="feedback"></div>
+            
+            <div class="navigation">
+                <button id="prev-btn" disabled>Previous</button>
+                <button id="next-btn">Next</button>
+            </div>
+        </div>
+        
+        <div class="result-container" id="result-container">
+            <h2>Quiz Completed!</h2>
+            <div class="score-text">Your Final Score</div>
+            <div class="score"><span id="final-score">0</span>/<span id="total-questions-final">15</span></div>
+            <div class="performance-text" id="performance-text"></div>
+            <button class="restart-btn" id="restart-btn">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        // --------------------------------------------------------------
+        // quizData built from mcq.txt – 15 questions on power sharing
+        // --------------------------------------------------------------
+        const quizData = [
+            // Topic 1: Belgium & Power Sharing (Q1, Q5, Q6, Q8, Q9, Q12, Q13, Q15)
+            { question: "Based on the text, what was the ethnic composition of Belgium?",
+              options: [
+                "A simple majority of French-speakers and a minority of Dutch-speakers.",
+                "74% Sinhala-speakers, 18% Tamil-speakers, and 8% others.",
+                "59% Dutch-speaking, 40% French-speaking, and 1% German-speaking.",
+                "An equal division between Dutch-speaking and French-speaking communities."
+              ], answer: 2,
+              explanation: "Page 2 of the PDF clearly states: 'Of the country's total population, 59 per cent lives in the Flemish region and speaks Dutch language. Another 40 per cent people live in the Wallonia region and speak French. Remaining one per cent of the Belgians speak German.'",
+              week: "Topic 1: Belgium & Power Sharing" },
+              
+            { question: "Which of the following is an element of the Belgian model of power sharing?",
+              options: [
+                "The Sinhala language was made the only official language.",
+                "The constitution prescribes that the number of Dutch and French-speaking ministers shall be equal in the central government.",
+                "The state shall protect and foster Buddhism.",
+                "The country's President must belong to the Maronite sect of Catholic Christians."
+              ], answer: 1,
+              explanation: "Page 4 lists the elements of the Belgian model. The first point states: 'Constitution prescribes that the number of Dutch and French-speaking ministers shall be equal in the central government.'",
+              week: "Topic 1: Belgium & Power Sharing" },
+              
+            { question: "What kind of government, unique to the Belgian model, is elected by people belonging to one language community, no matter where they live?",
+              options: ["Federal Government", "Coalition Government", "Community Government", "State Government"],
+              answer: 2,
+              explanation: "Page 5 describes this: 'This ‘community government’ is elected by people belonging to one language community – Dutch, French and German-speaking – no matter where they live.'",
+              week: "Topic 1: Belgium & Power Sharing" },
+              
+            { question: "The system where different organs of government like the legislature, executive, and judiciary exercise different powers at the same level is called:",
+              options: ["Vertical distribution of power", "Horizontal distribution of power", "Community government", "Federal government"],
+              answer: 1,
+              explanation: "Page 8 begins with: 'Power is shared among different organs of government, such as the legislature, executive and judiciary. Let us call this horizontal distribution of power...'",
+              week: "Topic 1: Belgium & Power Sharing" },
+              
+            { question: "Which of the following is an example of power sharing among governments at different levels (vertical distribution)?",
+              options: [
+                "The system of checks and balances in a democracy.",
+                "Community government in Belgium.",
+                "A coalition government formed by two or more parties.",
+                "A federal government for the entire country and governments at the provincial or regional level."
+              ], answer: 3,
+              explanation: "Page 8 explains: 'Power can be shared among governments at different levels - a general government for the entire country and governments at the provincial or regional level. Such a general government for the entire country is usually called federal government.'",
+              week: "Topic 1: Belgium & Power Sharing" },
+              
+            { question: "The story of Khalil in the chapter is used to illustrate a power-sharing arrangement in which country?",
+              options: ["India", "Syria", "Belgium", "Lebanon"],
+              answer: 3,
+              explanation: "Page 7 begins the story: 'In the city of Beirut, there lived a man called Khalil.' Beirut is the capital of Lebanon, and the story describes Lebanon's post-civil war power-sharing pact.",
+              week: "Topic 1: Belgium & Power Sharing" },
+              
+            { question: "According to the story, what was the primary reason for Lebanon's leaders to agree on a specific power-sharing arrangement?",
+              options: [
+                "To follow the model of other successful democracies.",
+                "To ensure the most popular candidate becomes the President.",
+                "To end the bitter civil war and guarantee peace.",
+                "To allow for the unification with Syria."
+              ], answer: 2,
+              explanation: "Page 7 states: 'At the end of this civil war, Lebanon's leaders came together and agreed to some basic rules for power sharing among different communities.' It also mentions that elders believe 'the present system is the best guarantee for peace...'",
+              week: "Topic 1: Belgium & Power Sharing" },
+              
+            { question: "The chapter mentions that in Brussels, 80% of the people speak French while 20% are Dutch-speaking. This situation was special because:",
+              options: [
+                "It was the capital of a country where the majority of people were Dutch-speaking.",
+                "It had a very simple ethnic composition.",
+                "It was the headquarters of the European Union.",
+                "It had a majority of German speakers."
+              ], answer: 0,
+              explanation: "Page 2 highlights this as a 'special problem: the Dutch-speaking people constituted a majority in the country, but a minority in the capital.' This made the power-sharing arrangement for Brussels particularly important.",
+              week: "Topic 1: Belgium & Power Sharing" },
+              
+            // Topic 2: Sri Lanka & Majoritarianism (Q2, Q3, Q10, Q11, Q14)
+            { question: "In which year did Sri Lanka emerge as an independent country?",
+              options: ["1947", "1948", "1950", "1956"],
+              answer: 1,
+              explanation: "Page 3 of the PDF begins the section on Majoritarianism in Sri Lanka with the sentence: 'Sri Lanka emerged as an independent country in 1948.'",
+              week: "Topic 2: Sri Lanka & Majoritarianism" },
+              
+            { question: "What was the main demand of the Sri Lankan Tamils that was repeatedly denied, leading to a civil war?",
+              options: [
+                "To make Tamil the only official language of Sri Lanka.",
+                "To form a coalition government with the Sinhalese.",
+                "For more autonomy to provinces populated by the Tamils.",
+                "To merge with India."
+              ], answer: 2,
+              explanation: "Page 4 mentions, 'But their demand for more autonomy to provinces populated by the Tamils was repeatedly denied.' The text later connects this denial to the formation of organisations demanding an independent Tamil Eelam, which led to the civil war.",
+              week: "Topic 2: Sri Lanka & Majoritarianism" },
+              
+            { question: "What is the meaning of 'Majoritarianism' as defined in the text?",
+              options: [
+                "A belief that all communities should have equal power.",
+                "A belief that the minority community should be able to rule.",
+                "A belief that the majority community should be able to rule a country by disregarding the wishes and needs of the minority.",
+                "A system of power-sharing between different political parties."
+              ], answer: 2,
+              explanation: "Page 3 provides a clear definition in the margin: 'Majoritarianism: A belief that the majority community should be able to rule a country in whichever way it wants, by disregarding the wishes and needs of the minority.'",
+              week: "Topic 2: Sri Lanka & Majoritarianism" },
+              
+            { question: "What was the outcome of the majoritarian policies adopted by the Sri Lankan government?",
+              options: [
+                "It led to the accommodation of the Tamil community.",
+                "It led to a civil war, causing a terrible setback to the country.",
+                "It resulted in a power-sharing agreement similar to Belgium's.",
+                "It strengthened the unity of the country."
+              ], answer: 1,
+              explanation: "Page 4 describes the outcome: 'The distrust between the two communities turned into widespread conflict. It soon turned into a CIVIL WAR. As a result thousands of people of both the communities have been killed... The civil war has caused a terrible setback to the social, cultural and economic life of the country.'",
+              week: "Topic 2: Sri Lanka & Majoritarianism" },
+              
+            { question: "Which of the following statements correctly distinguishes between the paths chosen by Belgium and Sri Lanka?",
+              options: [
+                "Both countries chose majoritarianism to manage diversity.",
+                "Sri Lanka chose to accommodate diversity, while Belgium chose majoritarianism.",
+                "Belgium chose to accommodate regional differences and cultural diversities, while Sri Lanka chose majoritarianism.",
+                "Both countries chose to accommodate diversity by forming community governments."
+              ], answer: 2,
+              explanation: "The core of the chapter contrasts the two. Page 4 states, 'The Belgian leaders took a different path. They recognised the existence of regional differences and cultural diversities.' In contrast, page 3 describes how Sri Lanka 'adopted a series of MAJORITARIAN measures.'",
+              week: "Topic 2: Sri Lanka & Majoritarianism" },
+              
+            // Topic 3: Key Concepts (Q4, Q7)
+            { question: "According to the text, what does the term 'Ethnic' mean?",
+              options: [
+                "A division based on shared culture and common descent.",
+                "A division based solely on religious differences.",
+                "A group of people who speak the same language.",
+                "A community that lives in a specific geographical region."
+              ], answer: 0,
+              explanation: "Page 2 provides a margin definition: 'Ethnic: A social division based on shared culture. People belonging to the same ethnic group believe in their common descent because of similarities of physical type or of culture or both.'",
+              week: "Topic 3: Key Concepts" },
+              
+            { question: "Which type of power-sharing reason is based on the careful calculation of gains and losses, emphasizing better outcomes?",
+              options: ["Moral reasons", "Ethical reasons", "Prudential reasons", "Majoritarian reasons"],
+              answer: 2,
+              explanation: "Page 6 defines the two sets of reasons. 'Let us call the first set of reasons PRUDENTIAL and the second moral. While prudential reasons stress that power sharing will bring out better outcomes, moral reasons emphasise the very act of power sharing as valuable.'",
+              week: "Topic 3: Key Concepts" }
+        ];
+
+        // DOM elements
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const feedbackDiv = document.getElementById('feedback');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const currentQuestionSpan = document.getElementById('current-question');
+        const totalQuestionsSpan = document.getElementById('total-questions');
+        const currentScoreSpan = document.getElementById('current-score');
+        const progressBar = document.getElementById('progress-bar');
+        const resultContainer = document.getElementById('result-container');
+        const finalScoreSpan = document.getElementById('final-score');
+        const totalQuestionsFinalSpan = document.getElementById('total-questions-final');
+        const performanceText = document.getElementById('performance-text');
+        const restartBtn = document.getElementById('restart-btn');
+        const weekIndicator = document.getElementById('week-indicator');
+
+        // Quiz state
+        let currentQuestionIndex = 0;
+        let userAnswers = Array(quizData.length).fill(null);
+        let score = 0;
+
+        function initQuiz() {
+            totalQuestionsSpan.textContent = quizData.length;
+            totalQuestionsFinalSpan.textContent = quizData.length;
+            updateProgressBar();
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const question = quizData[currentQuestionIndex];
+            questionText.innerHTML = question.question;
+            weekIndicator.textContent = question.week;
+            
+            optionsContainer.innerHTML = '';
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.textContent = option;
+                optionDiv.addEventListener('click', () => selectOption(index));
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            prevBtn.disabled = currentQuestionIndex === 0;
+            nextBtn.textContent = currentQuestionIndex === quizData.length - 1 ? 'Finish' : 'Next';
+            
+            currentQuestionSpan.textContent = currentQuestionIndex + 1;
+            currentScoreSpan.textContent = score;
+            updateProgressBar();
+            
+            feedbackDiv.style.display = 'none';
+            
+            if (userAnswers[currentQuestionIndex] !== null) {
+                const selectedOptIndex = userAnswers[currentQuestionIndex];
+                const options = optionsContainer.querySelectorAll('.option');
+                if (options[selectedOptIndex]) { 
+                    options[selectedOptIndex].classList.add('selected');
+                }
+                checkAnswer(selectedOptIndex, false); 
+            } else {
+                optionsContainer.querySelectorAll('.option').forEach(opt => {
+                    opt.style.pointerEvents = 'auto';
+                });
+            }
+        }
+
+        function updateProgressBar() {
+            const progress = ((currentQuestionIndex + 1) / quizData.length) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        function selectOption(optionIndex) {
+            if (feedbackDiv.style.display === 'block' && questionText.innerHTML === quizData[currentQuestionIndex].question) {
+                return; 
+            }
+
+            const isFirstAttempt = userAnswers[currentQuestionIndex] === null;
+            
+            if (isFirstAttempt) {
+                userAnswers[currentQuestionIndex] = optionIndex;
+            }
+            
+            const options = document.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            if (options[optionIndex]) {
+                options[optionIndex].classList.add('selected');
+            }
+            
+            checkAnswer(optionIndex, isFirstAttempt);
+        }
+
+        function checkAnswer(selectedIndex, isFirstScoringAttempt) {
+            const question = quizData[currentQuestionIndex];
+            const options = document.querySelectorAll('.option');
+            
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none'; 
+            });
+
+            if (options[question.answer]) {
+                 options[question.answer].classList.add('correct');
+            }
+            if (selectedIndex !== question.answer && options[selectedIndex]) {
+                options[selectedIndex].classList.add('incorrect');
+            }
+            
+            feedbackDiv.innerHTML = ''; 
+            if (selectedIndex === question.answer) {
+                feedbackDiv.className = 'feedback correct-feedback';
+                feedbackDiv.textContent = 'Correct!';
+                if (isFirstScoringAttempt) { 
+                    score++;
+                }
+            } else {
+                feedbackDiv.className = 'feedback incorrect-feedback';
+                const correctAnswerText = question.options[question.answer] || "N/A";
+                feedbackDiv.textContent = `Incorrect. The correct answer is: ${correctAnswerText}`;
+            }
+            currentScoreSpan.textContent = score;
+            
+            if (question.explanation) {
+                const explanation = document.createElement('div');
+                explanation.className = 'explanation';
+                explanation.textContent = question.explanation;
+                feedbackDiv.appendChild(explanation);
+            }
+            
+            feedbackDiv.style.display = 'block';
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < quizData.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+            }
+        }
+
+        function showResult() {
+            document.querySelector('.quiz-container').style.display = 'none';
+            document.querySelector('.progress-text').style.display = 'none';
+            document.querySelector('.progress-container').style.display = 'none';
+            resultContainer.style.display = 'block';
+            finalScoreSpan.textContent = score;
+            
+            const percentage = (score / quizData.length) * 100;
+            let performance = '';
+            if (percentage >= 90) performance = 'Outstanding! You have an excellent knowledge of power sharing.';
+            else if (percentage >= 75) performance = 'Excellent! Very well-informed about Belgium and Sri Lanka.';
+            else if (percentage >= 50) performance = 'Good effort! You know quite a bit.';
+            else if (percentage >= 30) performance = 'Keep learning! Review the topics to improve.';
+            else performance = 'A good start! Study more to enhance your knowledge.';
+            performanceText.textContent = performance;
+        }
+
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            userAnswers = Array(quizData.length).fill(null);
+            score = 0;
+            document.querySelector('.quiz-container').style.display = 'block';
+            document.querySelector('.progress-text').style.display = 'flex'; 
+            document.querySelector('.progress-container').style.display = 'block'; 
+            resultContainer.style.display = 'none';
+            feedbackDiv.style.display = 'none';
+            currentScoreSpan.textContent = score; 
+            showQuestion();
+        }
+
+        nextBtn.addEventListener('click', nextQuestion);
+        prevBtn.addEventListener('click', prevQuestion);
+        restartBtn.addEventListener('click', restartQuiz);
+
+        initQuiz();
+    </script>
+</body>
+</html>
