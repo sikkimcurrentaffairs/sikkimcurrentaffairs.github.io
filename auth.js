@@ -77,7 +77,7 @@ async function signInWithGoogle() {
             // Fallback to redirect if popup is strictly blocked
             auth.signInWithRedirect(provider);
         } else {
-            showAuthToast('Sign-in failed. Please try again.');
+            showAuthToast('Sign-in failed: ' + error.message);
         }
     }
 }
