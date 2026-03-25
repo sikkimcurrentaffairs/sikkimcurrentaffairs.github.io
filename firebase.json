@@ -6,6 +6,13 @@
     "indexes": "firestore.indexes.json"
   },
   "auth": {
+    "authorizedDomains": [
+      "localhost",
+      "sikkimprephub.github.io",
+      "sikkimcurrentaffairs.github.io",
+      "sikkim-psc-prep-hub-e66b2.firebaseapp.com",
+      "sikkim-psc-prep-hub-e66b2.web.app"
+    ],
     "providers": {
       "googleSignIn": {
         "oAuthBrandDisplayName": "Sikkim PSC Preparation Hub",
