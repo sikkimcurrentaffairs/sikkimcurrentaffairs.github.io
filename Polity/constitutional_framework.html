@@ -1,5 +1,6 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,18 +14,21 @@
             margin: 0;
             padding: 20px;
         }
+
         #quiz-container {
             max-width: 800px;
             margin: 0 auto;
             background: #fff;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
+
         h1 {
             text-align: center;
             color: #0056b3;
         }
+
         .back-link {
             display: inline-block;
             margin-bottom: 15px;
@@ -32,24 +36,29 @@
             text-decoration: none;
             font-weight: 500;
         }
+
         .back-link:hover {
             text-decoration: underline;
         }
+
         .question-block {
             margin-bottom: 25px;
             padding-bottom: 15px;
             border-bottom: 1px solid #eee;
         }
+
         .question-text {
             font-size: 1.1em;
             font-weight: bold;
             margin-bottom: 15px;
         }
+
         .options-list {
             list-style: none;
             padding: 0;
             margin: 0;
         }
+
         .option {
             background-color: #f8f9fa;
             border: 1px solid #ddd;
@@ -59,29 +68,35 @@
             cursor: pointer;
             transition: background-color 0.3s, border-color 0.3s;
         }
+
         .option:hover {
             background-color: #e9ecef;
             border-color: #bbb;
         }
+
         .option.correct {
             background-color: #d4edda;
             border-color: #c3e6cb;
             color: #155724;
             font-weight: bold;
         }
+
         .option.incorrect {
             background-color: #f8d7da;
             border-color: #f5c6cb;
             color: #721c24;
             font-weight: bold;
         }
+
         .options-list.answered .option:not(.correct):not(.incorrect) {
             opacity: 0.7;
         }
+
         .options-list.answered .option {
             cursor: default;
             pointer-events: none;
         }
+
         .quiz-stats {
             text-align: center;
             margin-bottom: 20px;
@@ -90,6 +105,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <div id="quiz-container">
@@ -1911,4 +1927,5 @@
     <link rel="stylesheet" href="../pomodoro.css?v=3">
     <script src="../pomodoro.js?v=3"></script>
 </body>
+
 </html>

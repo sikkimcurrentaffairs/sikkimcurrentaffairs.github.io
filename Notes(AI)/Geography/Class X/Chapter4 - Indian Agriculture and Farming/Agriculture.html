@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agriculture in India · MCQ Quiz</title>
+    <style>
+        :root {
+            --primary-color: #1a5276;
+            --secondary-color: #2980b9;
+            --correct-color: #27ae60;
+            --incorrect-color: #e74c3c;
+            --light-gray: #f8f9f9;
+            --dark-gray: #7f8c8d;
+            --gold-color: #f1c40f;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gold-color);
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-top: 10px;
+            font-weight: 400;
+        }
+        
+        .quiz-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .question {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: var(--primary-color);
+            line-height: 1.4;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .option {
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            background-color: white;
+            position: relative;
+            padding-left: 45px;
+        }
+        
+        .option:hover {
+            background-color: var(--light-gray);
+            border-color: var(--secondary-color);
+        }
+        
+        .option::before {
+            content: "";
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .option.selected {
+            background-color: #e1f0fa;
+            border-color: var(--secondary-color);
+            font-weight: 500;
+        }
+        
+        .option.selected::before {
+            border-color: var(--secondary-color);
+            background-color: var(--secondary-color);
+        }
+        
+        .option.correct {
+            background-color: #e8f8f0;
+            border-color: var(--correct-color);
+            color: var(--correct-color);
+        }
+        
+        .option.correct::before {
+            border-color: var(--correct-color);
+            background-color: var(--correct-color);
+        }
+        
+        .option.incorrect {
+            background-color: #fdedec;
+            border-color: var(--incorrect-color);
+            color: var(--incorrect-color);
+        }
+        
+        .option.incorrect::before {
+            border-color: var(--incorrect-color);
+        }
+        
+        .feedback {
+            margin-top: 25px;
+            padding: 18px;
+            border-radius: 8px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .correct-feedback {
+            background-color: #e8f8f0;
+            color: var(--correct-color);
+            border-left: 5px solid var(--correct-color);
+        }
+        
+        .incorrect-feedback {
+            background-color: #fdedec;
+            color: var(--incorrect-color);
+            border-left: 5px solid var(--incorrect-color);
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        button:hover {
+            background-color: #154360;
+            transform: translateY(-2px);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+        
+        .progress-container {
+            margin-bottom: 25px;
+            background-color: var(--light-gray);
+            border-radius: 20px;
+            height: 10px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+            transition: width 0.4s ease;
+        }
+        
+        .progress-text {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: var(--dark-gray);
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .result-container {
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.8s ease;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .score {
+            font-size: 72px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 30px 0;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .score::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--gold-color);
+            border-radius: 2px;
+        }
+        
+        .score-text {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .restart-btn {
+            margin-top: 30px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .restart-btn:hover {
+            background: linear-gradient(135deg, #3498db, #1a5276);
+            transform: translateY(-2px);
+        }
+        
+        .explanation {
+            margin-top: 15px;
+            font-style: italic;
+            color: var(--dark-gray);
+            line-height: 1.5;
+        }
+        
+        .performance-text {
+            font-size: 18px;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f8f9f9;
+        }
+        
+        .week-indicator {
+            background-color: var(--gold-color);
+            color: var(--primary-color);
+            padding: 6px 15px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+            word-break: break-word;
+            max-width: 100%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            
+            header {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .quiz-container {
+                padding: 20px;
+            }
+            
+            .question {
+                font-size: 18px;
+            }
+            
+            .option {
+                padding: 12px 12px 12px 40px;
+                font-size: 15px;
+            }
+            
+            .score {
+                font-size: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Agriculture in India · MCQ Quiz</h1>
+            <div class="subtitle">Types of Farming, Cropping Seasons, Major Crops & Reforms</div>
+        </header>
+        
+        <div class="progress-text">
+            <span>Question <span id="current-question">1</span> of <span id="total-questions">30</span></span>
+            <span>Score: <span id="current-score">0</span></span>
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        
+        <div class="quiz-container">
+            <div class="week-indicator" id="week-indicator">Section 1: Types of Farming</div>
+            <div class="question" id="question-text"></div>
+            <div class="options" id="options-container"></div>
+            <div class="feedback" id="feedback"></div>
+            
+            <div class="navigation">
+                <button id="prev-btn" disabled>Previous</button>
+                <button id="next-btn">Next</button>
+            </div>
+        </div>
+        
+        <div class="result-container" id="result-container">
+            <h2>Quiz Completed!</h2>
+            <div class="score-text">Your Final Score</div>
+            <div class="score"><span id="final-score">0</span>/<span id="total-questions-final">30</span></div>
+            <div class="performance-text" id="performance-text"></div>
+            <button class="restart-btn" id="restart-btn">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        // --------------------------------------------------------------
+        // quizData – 30 Agriculture MCQs
+        // --------------------------------------------------------------
+        const quizData = [
+            // Section 1: Types of Farming
+            { question: "What percentage of India's population is engaged in agricultural activities?",
+              options: ["One-third", "Two-thirds", "Half", "One-fourth"], answer: 1,
+              explanation: "Two-thirds of India's population is engaged in agricultural activities.",
+              week: "Section 1: Types of Farming" },
+            { question: "Which type of farming is known as 'slash and burn' agriculture?",
+              options: ["Intensive Subsistence Farming", "Commercial Farming", "Primitive Subsistence Farming", "Plantation Farming"], answer: 2,
+              explanation: "Primitive Subsistence Farming is also known as 'slash and burn' agriculture.",
+              week: "Section 1: Types of Farming" },
+            { question: "In which part of India is 'Humming' a local name for slash-and-burn agriculture?",
+              options: ["Western Ghats", "South-eastern Rajasthan", "North-eastern states like Assam, Meghalaya, Mizoram, and Nagaland", "The Himalayan belt"], answer: 2,
+              explanation: "It is called 'Humming' in north-eastern states like Assam, Meghalaya, Mizoram and Nagaland.",
+              week: "Section 1: Types of Farming" },
+            { question: "What is the primary characteristic of Intensive Subsistence Farming?",
+              options: ["Use of primitive tools", "Growing a single crop on a large area", "It is labour-intensive with high doses of biochemical inputs", "It is completely dependent on monsoon"], answer: 2,
+              explanation: "It is labour-intensive farming, where high doses of biochemical inputs and irrigation are used.",
+              week: "Section 1: Types of Farming" },
+            { question: "Why is there enormous pressure on agricultural land in areas of Intensive Subsistence Farming?",
+              options: ["Due to the 'right of inheritance' leading to land division and lack of alternative livelihood.", "Due to the high fertility of the soil.", "Because farmers prefer to grow cash crops.", "Due to the large land-holding sizes."], answer: 0,
+              explanation: "The 'right of inheritance' has led to division of land among generations, making holdings uneconomical.",
+              week: "Section 1: Types of Farming" },
+            { question: "Which of the following is an example of how the degree of commercialisation of agriculture varies from one region to another?",
+              options: ["Rice is a commercial crop in Haryana and Punjab, but a subsistence crop in Odisha.", "Wheat is grown only in Punjab.", "Tea is a subsistence crop in Assam.", "Cotton requires a frost-free period."], answer: 0,
+              explanation: "Rice is commercial in Punjab/Haryana but subsistence in Odisha.",
+              week: "Section 1: Types of Farming" },
+            { question: "Which type of farming has an interface of agriculture and industry, where a single crop is grown on a large area?",
+              options: ["Primitive Subsistence Farming", "Intensive Subsistence Farming", "Shifting Agriculture", "Plantation"], answer: 3,
+              explanation: "Plantation farming grows a single crop on a large area with an agriculture-industry interface.",
+              week: "Section 1: Types of Farming" },
+            { question: "Which of the following is NOT typically considered a plantation crop in India?",
+              options: ["Tea", "Rubber", "Wheat", "Coffee"], answer: 2,
+              explanation: "Wheat is not a plantation crop; tea, coffee, rubber, sugarcane, banana etc. are.",
+              week: "Section 1: Types of Farming" },
+            { question: "Based on the story of Rinjha, what type of farming is her family engaged in?",
+              options: ["Commercial Farming", "Plantation Agriculture", "Primitive Subsistence Farming", "Intensive Subsistence Farming"], answer: 2,
+              explanation: "Rinjha’s family practices slash-and-burn (Primitive Subsistence Farming).",
+              week: "Section 1: Types of Farming" },
+
+            // Section 2: Cropping Seasons and Major Crops
+            { question: "Which of the following is a Rabi crop?",
+              options: ["Paddy (Rice)", "Cotton", "Gram", "Soybean"], answer: 2,
+              explanation: "Gram is a rabi crop along with wheat, barley, peas, mustard.",
+              week: "Section 2: Cropping Seasons & Major Crops" },
+            { question: "When are Rabi crops typically harvested?",
+              options: ["September-October", "April to June", "March-April", "December-January"], answer: 1,
+              explanation: "Rabi crops are harvested in summer from April to June.",
+              week: "Section 2: Cropping Seasons & Major Crops" },
+            { question: "Which cropping season is associated with the onset of the monsoon?",
+              options: ["Rabi", "Zaid", "Kharif", "Summer"], answer: 2,
+              explanation: "Kharif crops are grown with the onset of the monsoon.",
+              week: "Section 2: Cropping Seasons & Major Crops" },
+            { question: "Watermelon, muskmelon, and cucumber are typically grown in which cropping season?",
+              options: ["Rabi", "Kharif", "Zaid", "Monsoon"], answer: 2,
+              explanation: "These crops are grown in the short Zaid season during summer.",
+              week: "Section 2: Cropping Seasons & Major Crops" },
+            { question: "Which crop takes almost a year to grow?",
+              options: ["Rice", "Wheat", "Maize", "Sugarcane"], answer: 3,
+              explanation: "Sugarcane takes almost a year to grow.",
+              week: "Section 2: Cropping Seasons & Major Crops" },
+            { question: "India is the largest producer of which crop in the world?",
+              options: ["Rice", "Wheat", "Pulses", "Tea"], answer: 2,
+              explanation: "India is the largest producer as well as consumer of pulses.",
+              week: "Section 2: Cropping Seasons & Major Crops" },
+            { question: "Which of the following is a leguminous crop that helps in restoring soil fertility by fixing nitrogen?",
+              options: ["Jowar", "Bajra", "Arhar (Tur)", "Ragi"], answer: 2,
+              explanation: "Arhar (Tur) is a leguminous crop; most pulses help fix nitrogen.",
+              week: "Section 2: Cropping Seasons & Major Crops" },
+            { question: "Which of the following is NOT a Kharif crop?",
+              options: ["Paddy", "Jowar", "Mustard", "Maize"], answer: 2,
+              explanation: "Mustard is a rabi crop; paddy, jowar, maize are kharif.",
+              week: "Section 2: Cropping Seasons & Major Crops" },
+            { question: "Which state was the largest producer of groundnut in India in 2019-20?",
+              options: ["Tamil Nadu", "Rajasthan", "Gujarat", "Andhra Pradesh"], answer: 2,
+              explanation: "Gujarat was the largest producer of groundnut in 2019-20.",
+              week: "Section 2: Cropping Seasons & Major Crops" },
+            { question: "What geographical conditions are required for the growth of rice?",
+              options: ["Cool growing season and bright sunshine at ripening.", "High temperature (above 25°C) and high humidity with annual rainfall above 100 cm.", "Dry conditions with less moisture.", "Warm and moist frost-free climate all year."], answer: 1,
+              explanation: "Rice requires high temperature (>25°C), high humidity, and rainfall >100 cm.",
+              week: "Section 2: Cropping Seasons & Major Crops" },
+            { question: "Which soil is best suited for the cultivation of cotton?",
+              options: ["Alluvial soil", "Red soil", "Black cotton soil", "Sandy soil"], answer: 2,
+              explanation: "Cotton grows well in black cotton soil of the Deccan plateau.",
+              week: "Section 2: Cropping Seasons & Major Crops" },
+
+            // Section 3 & 4: Non-Food Crops, Reforms & Miscellaneous
+            { question: "Which fibre crop is known as the 'golden fibre'?",
+              options: ["Cotton", "Jute", "Silk", "Hemp"], answer: 1,
+              explanation: "Jute is known as the golden fibre.",
+              week: "Section 3: Non-Food Crops & Reforms" },
+            { question: "The rearing of silk worms for the production of silk fibre is known as:",
+              options: ["Pisciculture", "Horticulture", "Sericulture", "Agriculture"], answer: 2,
+              explanation: "Rearing of silkworms for silk is called sericulture.",
+              week: "Section 3: Non-Food Crops & Reforms" },
+            { question: "Rubber is an equatorial crop that also grows in tropical areas. What is the minimum annual rainfall it requires?",
+              options: ["75 cm", "100 cm", "150 cm", "More than 200 cm"], answer: 3,
+              explanation: "Rubber requires rainfall of more than 200 cm.",
+              week: "Section 3: Non-Food Crops & Reforms" },
+            { question: "The Bhoodan-Gramdan movement, initiated by Vinoba Bhave, is also known as:",
+              options: ["The Green Revolution", "The White Revolution", "The Blood-less Revolution", "Operation Flood"], answer: 2,
+              explanation: "Bhoodan-Gramdan is known as the Blood-less Revolution.",
+              week: "Section 3: Non-Food Crops & Reforms" },
+            { question: "Which of the following is NOT an institutional reform program introduced by the government for the benefit of farmers?",
+              options: ["Kisan Credit Card (KCC)", "Personal Accident Insurance Scheme (PAIS)", "Minimum Support Price (MSP)", "The Right to Education Act"], answer: 3,
+              explanation: "Right to Education Act is not an agricultural reform scheme.",
+              week: "Section 3: Non-Food Crops & Reforms" },
+            { question: "What was the main focus of India's First Five Year Plan regarding agriculture?",
+              options: ["Green Revolution", "Land reform", "White Revolution", "Providing Kisan Credit Cards"], answer: 1,
+              explanation: "Land reform was the main focus of the First Five Year Plan.",
+              week: "Section 3: Non-Food Crops & Reforms" },
+            { question: "Which revolution was based on the use of package technology, including HYV seeds and fertilizers, to improve Indian agriculture?",
+              options: ["The Blood-less Revolution", "The White Revolution (Operation Flood)", "The Green Revolution", "The Industrial Revolution"], answer: 2,
+              explanation: "The Green Revolution used package technology including HYV seeds.",
+              week: "Section 3: Non-Food Crops & Reforms" },
+            { question: "The two staple food crops of India are:",
+              options: ["Rice and Jute", "Wheat and Cotton", "Rice and Wheat", "Tea and Coffee"], answer: 2,
+              explanation: "Rice and Wheat are the two staple food crops of India.",
+              week: "Section 4: Crossword & Key Facts" },
+            { question: "Which coarse grain is very rich in iron, calcium, and other micro-nutrients?",
+              options: ["Jowar", "Bajra", "Ragi", "Maize"], answer: 2,
+              explanation: "Ragi is very rich in iron, calcium, micro-nutrients and roughage.",
+              week: "Section 4: Crossword & Key Facts" },
+            { question: "One of the four major fibers grown on black soils is:",
+              options: ["Jute", "Silk", "Cotton", "Wool"], answer: 2,
+              explanation: "Cotton is one of the major fibre crops grown on black soils.",
+              week: "Section 4: Crossword & Key Facts" }
+        ];
+
+        // DOM elements
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const feedbackDiv = document.getElementById('feedback');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const currentQuestionSpan = document.getElementById('current-question');
+        const totalQuestionsSpan = document.getElementById('total-questions');
+        const currentScoreSpan = document.getElementById('current-score');
+        const progressBar = document.getElementById('progress-bar');
+        const resultContainer = document.getElementById('result-container');
+        const finalScoreSpan = document.getElementById('final-score');
+        const totalQuestionsFinalSpan = document.getElementById('total-questions-final');
+        const performanceText = document.getElementById('performance-text');
+        const restartBtn = document.getElementById('restart-btn');
+        const weekIndicator = document.getElementById('week-indicator');
+
+        // Quiz state
+        let currentQuestionIndex = 0;
+        let userAnswers = Array(quizData.length).fill(null);
+        let score = 0;
+
+        function initQuiz() {
+            totalQuestionsSpan.textContent = quizData.length;
+            totalQuestionsFinalSpan.textContent = quizData.length;
+            updateProgressBar();
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const question = quizData[currentQuestionIndex];
+            questionText.innerHTML = question.question;
+            weekIndicator.textContent = question.week;
+            
+            optionsContainer.innerHTML = '';
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.textContent = option;
+                optionDiv.addEventListener('click', () => selectOption(index));
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            prevBtn.disabled = currentQuestionIndex === 0;
+            nextBtn.textContent = currentQuestionIndex === quizData.length - 1 ? 'Finish' : 'Next';
+            
+            currentQuestionSpan.textContent = currentQuestionIndex + 1;
+            currentScoreSpan.textContent = score;
+            updateProgressBar();
+            
+            feedbackDiv.style.display = 'none';
+            
+            if (userAnswers[currentQuestionIndex] !== null) {
+                const selectedOptIndex = userAnswers[currentQuestionIndex];
+                const options = optionsContainer.querySelectorAll('.option');
+                if (options[selectedOptIndex]) { 
+                    options[selectedOptIndex].classList.add('selected');
+                }
+                checkAnswer(selectedOptIndex, false); 
+            } else {
+                optionsContainer.querySelectorAll('.option').forEach(opt => {
+                    opt.style.pointerEvents = 'auto';
+                });
+            }
+        }
+
+        function updateProgressBar() {
+            const progress = ((currentQuestionIndex + 1) / quizData.length) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        function selectOption(optionIndex) {
+            if (feedbackDiv.style.display === 'block') return;
+
+            const isFirstAttempt = userAnswers[currentQuestionIndex] === null;
+            
+            if (isFirstAttempt) {
+                userAnswers[currentQuestionIndex] = optionIndex;
+            }
+            
+            const options = document.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            if (options[optionIndex]) {
+                options[optionIndex].classList.add('selected');
+            }
+            
+            checkAnswer(optionIndex, isFirstAttempt);
+        }
+
+        function checkAnswer(selectedIndex, isFirstScoringAttempt) {
+            const question = quizData[currentQuestionIndex];
+            const options = document.querySelectorAll('.option');
+            
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none'; 
+            });
+
+            if (options[question.answer]) {
+                 options[question.answer].classList.add('correct');
+            }
+            if (selectedIndex !== question.answer && options[selectedIndex]) {
+                options[selectedIndex].classList.add('incorrect');
+            }
+            
+            feedbackDiv.innerHTML = ''; 
+            if (selectedIndex === question.answer) {
+                feedbackDiv.className = 'feedback correct-feedback';
+                feedbackDiv.textContent = 'Correct!';
+                if (isFirstScoringAttempt) { 
+                    score++;
+                }
+            } else {
+                feedbackDiv.className = 'feedback incorrect-feedback';
+                const correctAnswerText = question.options[question.answer] || "N/A";
+                feedbackDiv.textContent = `Incorrect. The correct answer is: ${correctAnswerText}`;
+            }
+            currentScoreSpan.textContent = score;
+            
+            if (question.explanation) {
+                const explanation = document.createElement('div');
+                explanation.className = 'explanation';
+                explanation.textContent = question.explanation;
+                feedbackDiv.appendChild(explanation);
+            }
+            
+            feedbackDiv.style.display = 'block';
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < quizData.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+            }
+        }
+
+        function showResult() {
+            document.querySelector('.quiz-container').style.display = 'none';
+            document.querySelector('.progress-text').style.display = 'none';
+            document.querySelector('.progress-container').style.display = 'none';
+            resultContainer.style.display = 'block';
+            finalScoreSpan.textContent = score;
+            
+            const percentage = (score / quizData.length) * 100;
+            let performance = '';
+            if (percentage >= 90) performance = 'Outstanding! Excellent grasp of Indian agriculture.';
+            else if (percentage >= 75) performance = 'Very good! You know your agriculture well.';
+            else if (percentage >= 60) performance = 'Good effort! Solid understanding.';
+            else if (percentage >= 40) performance = 'Fair. Review key concepts to improve.';
+            else performance = 'Keep studying! Agriculture is vast — you’ll get there.';
+            performanceText.textContent = performance;
+        }
+
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            userAnswers = Array(quizData.length).fill(null);
+            score = 0;
+            document.querySelector('.quiz-container').style.display = 'block';
+            document.querySelector('.progress-text').style.display = 'flex'; 
+            document.querySelector('.progress-container').style.display = 'block'; 
+            resultContainer.style.display = 'none';
+            feedbackDiv.style.display = 'none';
+            currentScoreSpan.textContent = score; 
+            showQuestion();
+        }
+
+        nextBtn.addEventListener('click', nextQuestion);
+        prevBtn.addEventListener('click', prevQuestion);
+        restartBtn.addEventListener('click', restartQuiz);
+
+        initQuiz();
+    </script>
+</body>
+</html>
